@@ -12,7 +12,7 @@
 */
 
 
-Route::get('/', '\Revlv\Controllers\ParserController@index')->name('dashboard.index');
+Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard.index');
 
 /*
 |--------------------------------------------------------------------------
