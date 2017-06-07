@@ -1,0 +1,24 @@
+{
+    "Settings": [
+        {
+            "name"      : "Settings",
+            "icon"      : "nc-icon-outline lg ui-1_settings-gear-64",
+            "subname"   : "settings*",
+            "navigation": [
+                {
+                    "route" :   "settings.users.index",
+                    "name"  :   "Users"
+                },
+                {
+                    "route" :   "settings.roles.index",
+                    "name"  :   "Roles"
+                },
+                {
+                    "route" :   "settings.permissions.index",
+                    "name"  :   "Permissions"
+                }
+            ]
+        }
+    ]
+
+}
