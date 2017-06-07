@@ -71,28 +71,27 @@ class SidebarGenerator
         $accessibleRoute = [];
         foreach($routes as $group => $route)
         {
-            foreach($route as $subRoute)
-            {
-                $navigation = $subRoute->navigation;
-                $subRoute->navigation   =   [];
+            for ($i=0; $i < count($route); $i++) {
+                # code...
+                $navigation = $route[$i]->navigation;
+                $route[$i]->navigation   =   [];
                 foreach($navigation as $key => $nav)
                 {
-                    $subRoute->navigation[]         =   $nav;
+                    $route[$i]->navigation[]         =   $nav;
                     if ($this->user->permissions != null )
                     {
-                        $accessibleRoute[$group]        = $subRoute;
+                        $accessibleRoute[$group]        = $route[$i];
                     }
                     else
                     {
                         if ($this->checkPermissions($nav->route))
                         {
-                            $accessibleRoute[$group]        = $subRoute;
+                            $accessibleRoute[$group]        = $route[$i];
                         }
                     }
                 }
             }
         }
-
         $this->sidebar = $accessibleRoute;
 
     }

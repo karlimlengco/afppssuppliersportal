@@ -20,6 +20,8 @@ Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard
 |--------------------------------------------------------------------------
 |
 */
+
+Route::get('settings', '\Revlv\Controllers\DashboardController@settings')->name('settings.index');
 Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
 
     /*

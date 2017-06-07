@@ -10,28 +10,31 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
     <div class="menu_section">
         <h3>&nbsp;</h3>
         <ul class="nav side-menu">
+            <li>
+                <a href="{{route('dashboard.index')}}">
+                    <i class="nc-icon-glyph ui-1_home-52 lg"></i>
+                    Main Menu&nbsp;&nbsp;
+                </a>
+            </li>
             @foreach($sidebar->getSidebar() as $group => $route)
-                <li>
-                    @if(count($route->navigation) > 1)
-                        <a>
-                        <i class="{{$route->icon}}"></i>
-                            {{$route->name}} &nbsp;&nbsp;
-                        <span class="nc-icon-glyph arrows-3_small-down lg"></span>
-                        </a>
-                        <ul class="nav child_menu">
-                            @foreach($route->navigation as $nav)
-                                <li><a href="{{route($nav->route)}}">{{$nav->name}}</a></li>
-                            @endforeach
-                        </ul>
-                    @else
-                        @foreach($route->navigation as $nav)
-                        <a href="{{route($nav->route)}}">
+                @if($currentRoute == $route->route)
+                    @foreach($route->navigation as $nav)
+
+                        <li>
+                            <a href="{{route($nav->route)}}">
+                                <i class="{{$nav->icon}}"></i>
+                                {{$nav->name}}
+                            </a>
+                        </li>
+                    @endforeach
+                @else
+                    <li>
+                        <a href="{{route($route->route)}}">
                             <i class="{{$route->icon}}"></i>
-                            {{$route->name}}
+                            {{$route->name}} &nbsp;&nbsp;
                         </a>
-                        @endforeach
-                    @endif
-                </li>
+                    </li>
+                @endif
             @endforeach
 
         </ul>

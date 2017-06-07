@@ -2,19 +2,23 @@
     "Settings": [
         {
             "name"      : "Settings",
-            "icon"      : "nc-icon-outline lg ui-1_settings-gear-64",
+            "icon"      : "nc-icon-glyph lg ui-1_settings-gear-64",
             "subname"   : "settings*",
+            "route"     :   "settings.index",
             "navigation": [
                 {
                     "route" :   "settings.users.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Users"
                 },
                 {
                     "route" :   "settings.roles.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "Roles"
                 },
                 {
                     "route" :   "settings.permissions.index",
+                    "icon"      :"nc-icon-glyph lg ui-3_security",
                     "name"  :   "Permissions"
                 }
             ]

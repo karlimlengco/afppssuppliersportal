@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>DOCU PARSER</title>
+        <title>Title</title>
 
         @include('layouts.styles')
         @yield('styles')
@@ -20,7 +20,7 @@
                         <div class="navbar nav_title" style="border: 0;">
                             <a href="#" class="site_title">
                                 <i class="nc-icon-outline files_replace" ></i>
-                                <span>DOCU PARSER</span>
+                                <span>Title</span>
                             </a>
                         </div>
 
