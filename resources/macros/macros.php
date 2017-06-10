@@ -59,7 +59,9 @@ Form::macro('taggingField', function($name, $label = null, $value = null, $attri
 
 Form::macro('tagField', function($name, $label = null, $options, $value = null, $attributes = array())
 {
-    $attributes = $attributes + ['class' => 'selectize-tagging selectize', 'multiple', 'data-selectize' => 'taggingField'];
+
+    // selectize-tagging selectize , 'data-selectize' => 'taggingField'
+    $attributes = $attributes + ['class' => 'select', 'multiple'];
 
     $element = Form::select($name.'[]', [null => 'Select One'] + $options, $value, fieldAttributes($name, $attributes));
 
@@ -77,7 +79,7 @@ Form::macro('contactField', function($name, $label = null, $options, $value = nu
 
 Form::macro('dateRangeField', function($name, $label = null, $value = null, $attributes = [])
 {
-    $attributes = ['class'=>'daterangepicker form-control has-feedback-left active'];
+    $attributes = ['class'=>'daterangepicker input has-feedback-left active'];
     $element = Form::text($name, $value, fieldAttributes($name, $attributes));
 
     $out = '<div class="form-group has-feedback';
@@ -85,7 +87,7 @@ Form::macro('dateRangeField', function($name, $label = null, $value = null, $att
     $out .= fieldLabel($name, $label);
     $out .= '<div class="col-md-12 col-sm-12 col-xs-12">';
     $out .= $element;
-    $out .= '<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>';
+    $out .= '<span class="fa fa-calendar-o input-feedback left" aria-hidden="true"></span>';
     $out .= '</div>';
     $out .= fieldMsg($name);
     $out .= "</div>";
@@ -95,7 +97,7 @@ Form::macro('dateRangeField', function($name, $label = null, $value = null, $att
 
 Form::macro('dateRangeNoIconField', function($name, $label = null, $value = null, $attributes = [])
 {
-    $attributes = ['class'=>'daterangepicker form-control '];
+    $attributes = ['class'=>'daterangepicker input '];
     $element = Form::text($name, $value, fieldAttributes($name, $attributes));
 
     $out = '<div class="form-group';
@@ -188,7 +190,8 @@ Form::macro('ajaxField', function($name, $label = null, $options, $value = null,
 
 Form::macro('selectField', function($name, $label = null, $options, $value = null, $attributes = array())
 {
-    $attributes = $attributes + ['class' => 'selectize form-control', 'data-selectize' => 'selectField'];
+    // selectize
+    $attributes = $attributes + ['class' => 'select', 'data-selectize' => 'selectField'];
 
     $element = Form::select($name, [null => 'Select One'] + $options, $value, fieldAttributes($name, $attributes));
 
@@ -250,9 +253,7 @@ function fieldRegisterWrapper($name, $label, $element)
 {
     $out = '<div class="form-group';
     $out .= fieldError($name) . '">';
-    $out .= '<div class="col-md-12 col-sm-12 col-xs-12">';
     $out .= $element;
-    $out .= '</div>';
     $out .= fieldMsg($name);
     $out .= '</div>';
 
@@ -264,9 +265,7 @@ function fieldWrapper($name, $label, $element)
     $out = '<div class="form-group';
     $out .= fieldError($name) . '">';
     $out .= fieldLabel($name, $label);
-    $out .= '<div class="col-md-12 col-sm-12 col-xs-12">';
     $out .= $element;
-    $out .= '</div>';
     $out .= fieldMsg($name);
     $out .= '</div>';
 
@@ -283,7 +282,7 @@ function fieldMsg($field)
 
         if ($error)
         {
-            $error = "<p class=\"help-block  col-md-12 col-sm-12 col-xs-12\">$error.</p>";
+            $error = "<p class=\"help-text  col-md-12 col-sm-12 col-xs-12\">$error.</p>";
         }
     }
 
@@ -296,7 +295,7 @@ function fieldError($field)
 
     if ($errors = Session::get('errors'))
     {
-        $error = $errors->first($field) ? ' has-error' : '';
+        $error = $errors->first($field) ? ' form-group--error' : '';
     }
 
     return $error;
@@ -308,7 +307,7 @@ function fieldLabel($name, $label)
 
     $name = str_replace('[]', '', $name);
 
-    $out = '<label for="id-field-' . $name . '" class="control-label col-md-12 col-sm-12 col-xs-12" style="text-align:left!important">';
+    $out = '<label for="id-field-' . $name . '" class="label">';
     $out .= $label . '</label>';
 
     return $out;
@@ -318,14 +317,14 @@ function fieldAttributes($name, $attributes = array())
 {
     $name = str_replace('[]', '', $name);
 
-    return array_merge(['class' => 'form-control', 'id' => 'id-field-' . $name], $attributes);
+    return array_merge(['class' => 'input', 'id' => 'id-field-' . $name], $attributes);
 }
 
 function fieldAttributesNoId($name, $attributes = array())
 {
     $name = str_replace('[]', '', $name);
 
-    return array_merge(['class' => 'form-control', 'id' =>  $name], $attributes);
+    return array_merge(['class' => 'input', 'id' =>  $name], $attributes);
 }
 
 

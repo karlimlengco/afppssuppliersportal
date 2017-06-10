@@ -1,0 +1,784 @@
+0,0-00-00-00-0-00,Combat Expense,0,0,0,0,0,0
+,1-00-00-00-0-00,Assets,1,0,0,0,0,0
+,1-01-00-00-0-00,Cash and Cash Equivalents,1,1,0,0,0,0
+,1-01-01-00-0-00,Cash on Hand,1,1,1,0,0,0
+,1-01-02-00-0-00,Cash in Bank-Local Currency,1,1,2,0,0,0
+,1-01-02-02-0-00,Cash in Bank-LCCA,1,1,2,2,0,0
+,1-01-02-02-0-39,Cash in Bank-LCCA-UCPB,1,1,2,2,0,39
+,1-01-04-00-0-00,Treasury/Agency Cash Accounts,1,1,4,0,0,0
+,1-01-04-02-0-00,"Cash-Treasury/Agency Deposit, Special Account",1,1,4,2,0,0
+,1-01-04-03-0-00,"Cash-Treasury/Agency Deposit, Trust",1,1,4,3,0,0
+,1-01-04-05-0-00,"Cash-MDS, Special Account",1,1,4,5,0,0
+,1-01-04-06-0-00,"Cash-MDS, Trust",1,1,4,6,0,0
+102,1-01-01-01-0-00,Cash-Collecting Officer,1,1,1,1,0,0
+,1-03-00-00-0-00,Receivables,1,3,0,0,0,0
+,1-03-01-00-0-00,Loans and Receivable Accounts,1,3,1,0,0,0
+,1-03-01-01-1-00,Allow for Imp-Accounts Receivable,1,3,1,1,1,0
+,1-03-03-00-0-00,Inter-Agency Receivables,1,3,3,0,0,0
+,1-03-04-00-0-00,Intra-Agency Receivables,1,3,4,0,0,0
+,1-03-04-03-0-00,Due from Regional Offices,1,3,4,3,0,0
+,1-03-05-00-0-00,Other Receivables,1,3,5,0,0,0
+,1-03-05-03-0-00,Due from NGOs/People's Org.,1,3,5,3,0,0
+,1-03-05-09-1-00,Allow for Imp-Other Receivables,1,3,5,9,1,0
+103,1-99-01-03-0-00,Advances to Special Disbursing Officer,1,99,1,3,0,0
+,1-04-00-00-0-00,Inventories,1,4,0,0,0,0
+,1-04-04-00-0-00,Inventory Held for Consumption,1,4,4,0,0,0
+,1-04-04-03-0-00,Non-Accountable Forms Inventory,1,4,4,3,0,0
+,1-04-04-09-0-00,Agricultural and Marine Supplies Inventory,1,4,4,9,0,0
+,1-04-04-12-0-00,Chemical and Filtering Supplies Inventory,1,4,4,12,0,0
+,1-04-05-00-0-00,Semi-Expendable Machinery and Equipment,1,4,5,0,0,0
+,1-04-05-01-0-00,Semi-Expendable Machinery,1,4,5,1,0,0
+,1-04-05-02-0-00,Semi-Expendable Office Equipment,1,4,5,2,0,0
+,1-04-05-03-0-00,Semi-Expendable Information and Communications Technology Equipment,1,4,5,3,0,0
+,1-04-05-04-0-00,Semi-ExpendableAgricultural and Forestry Equipment,1,4,5,4,0,0
+,1-04-05-05-0-00,Semi-Expendable Marine and Fishery Equipment,1,4,5,5,0,0
+,1-04-05-06-0-00,Semi-Expendable Airport Equipment,1,4,5,6,0,0
+,1-04-05-07-0-00,Semi-Expendable Communications Equipment,1,4,5,7,0,0
+,1-04-05-08-0-00,Semi-Expendable Disaster Response and Rescue Equipment,1,4,5,8,0,0
+,1-04-05-09-0-00,"Semi-Expendable Military, Police and Security Equipment",1,4,5,9,0,0
+,1-04-05-10-0-00,Semi-Expendable Medical Equipment,1,4,5,10,0,0
+,1-04-05-11-0-00,Semi-Expendable Printing Equipment,1,4,5,11,0,0
+,1-04-05-12-0-00,Semi-Expendable Sports Equipment,1,4,5,12,0,0
+,1-04-05-13-0-00,Semi-Expendable Technical and Scientific Equipment,1,4,5,13,0,0
+,1-04-05-19-0-00,Semi-Expendable Other Machinery and Equipment,1,4,5,19,0,0
+,1-04-06-00-0-00,"Semi-Expendable Furniture, Fixtures and Books",1,4,6,0,0,0
+,1-04-06-01-0-00,Semi-Expendable Furniture and Fixtures,1,4,6,1,0,0
+,1-04-06-02-0-00,Semi-Expendable Books,1,4,6,2,0,0
+,1-05-00-00-0-00,Investment Property,1,5,0,0,0,0
+,1-06-00-00-0-00,"Property, Plant and Equipment",1,6,0,0,0,0
+,1-06-01-00-0-00,Land,1,6,1,0,0,0
+,1-06-02-00-0-00,Land Improvements,1,6,2,0,0,0
+,1-06-02-01-0-00,Land Improvements-Aquaculture Structures,1,6,2,1,0,0
+,1-06-02-01-1-00,Accumulated Depreciation-Land Improvements-Aquaculture Structures,1,6,2,1,1,0
+,1-06-02-01-2-00,Accumulated Impairement Losses-Land Improvements-Aquaculture Structures,1,6,2,1,2,0
+,1-06-02-02-0-00,Land Improvements-Reforestation Projects,1,6,2,2,0,0
+,1-06-02-02-1-00,Accumulated Depreciation-Land Improvements-Reforestation Projects,1,6,2,2,1,0
+,1-06-02-02-2-00,Accumulated Impairement Losses-Land Improvements-Reforestation Projects,1,6,2,2,2,0
+,1-06-02-09-2-00,Accumulated Impairement Losses-Other Land Improvements,1,6,2,9,2,0
+,1-06-03-00-0-00,Infrastructure Assets,1,6,3,0,0,0
+,1-06-03-01-1-00,Accumulated Depreciation-Road Networks,1,6,3,1,1,0
+,1-06-03-01-2-00,Accumulated Impairement Losses-Road Networks,1,6,3,1,2,0
+,1-06-03-02-0-00,Flood Control Systems,1,6,3,2,0,0
+,1-06-03-02-1-00,Accumulated Depreciation-Flood Control Systems,1,6,3,2,1,0
+,1-06-03-02-2-00,Accumulated Impairement Losses-Flood Control Systems,1,6,3,2,2,0
+,1-06-03-03-0-00,Sewer Systems,1,6,3,3,0,0
+,1-06-03-03-1-00,Accumulated Depreciation-Sewer Systems,1,6,3,3,1,0
+,1-06-03-03-2-00,Accumulated Impairement Losses-Sewer Systems,1,6,3,3,2,0
+,1-06-03-04-2-00,Accumulated Impairement Losses-Water Supply Systems,1,6,3,4,2,0
+,1-06-03-05-2-00,Accumulated Impairement Losses-Power Supply Systems,1,6,3,5,2,0
+,1-06-03-06-0-00,Communication Networks,1,6,3,6,0,0
+,1-06-03-06-1-00,Accumulated Depreciation-Communication Networks,1,6,3,6,1,0
+,1-06-03-06-2-00,Accumulated Impairement Losses-Communication Networks,1,6,3,6,2,0
+,1-06-03-07-1-00,Accumulated Depreciation-Seaport Systems,1,6,3,7,1,0
+,1-06-03-07-2-00,Accumulated Impairement Losses-Seaport Systems,1,6,3,7,2,0
+,1-06-03-08-0-00,Airport Systems,1,6,3,8,0,0
+,1-06-03-08-1-00,Accumulated Depreciation-Airport Systems,1,6,3,8,1,0
+,1-06-03-08-2-00,Accumulated Impairement Losses-Airport Systems,1,6,3,8,2,0
+,1-06-03-09-1-00,"Accumulated Depreciation-Parks, Plazas and Monuments",1,6,3,9,1,0
+,1-06-03-09-2-00,"Accumulated Impairement Losses-Parks, Plazas and Monuments",1,6,3,9,2,0
+,1-06-03-99-1-00,Accumulated Depreciation-Other Infrastructure Assets,1,6,3,99,1,0
+,1-06-03-99-2-00,Accumulated Impairement Losses-Other Infrastructure Assets,1,6,3,99,2,0
+,1-06-04-00-0-00,Buildings and Other Structures,1,6,4,0,0,0
+,1-06-04-01-2-00,Accumulated Impairement Losses-Buildings,1,6,4,1,2,0
+,1-06-04-02-2-00,Accumulated Impairement Losses-School Buildings,1,6,4,2,2,0
+,1-06-04-03-2-00,Accumulated Impairement Losses-Hospitals and Health Centers,1,6,4,3,2,0
+,1-06-04-04-1-00,Accumulated Depreciation-Markets,1,6,4,4,1,0
+,1-06-04-04-2-00,Accumulated Impairement Losses-Markets,1,6,4,4,2,0
+,1-06-04-05-0-00,Slaughterhouses,1,6,4,5,0,0
+,1-06-04-05-1-00,Accumulated Depreciation-Slaughterhouses,1,6,4,5,1,0
+,1-06-04-05-2-00,Accumulated Impairement Losses-Slaughterhouses,1,6,4,5,2,0
+,1-06-04-06-0-00,Hostels and Dormitories,1,6,4,6,0,0
+,1-06-04-06-1-00,Accumulated Depreciation-Hostels and Dormitories,1,6,4,6,1,0
+,1-06-04-06-2-00,Accumulated Impairement Losses-Hostels and Dormitories,1,6,4,6,2,0
+,1-06-04-99-2-00,Accumulated Impairement Losses-Other Structures,1,6,4,99,2,0
+,1-06-05-00-0-00,Machinery and Equipment,1,6,5,0,0,0
+,1-06-05-01-2-00,Accumulated Impairement Losses-Machinery,1,6,5,1,2,0
+,1-06-05-02-2-00,Accumulated Impairement Losses-Office Equipment,1,6,5,2,2,0
+,1-06-05-03-2-00,Accumulated Impairement Losses-Information and Communication Technology Equipment,1,6,5,3,2,0
+,1-06-05-04-1-00,Accumulated Depreciation-Agricultural and Forestry Equipment,1,6,5,4,1,0
+,1-06-05-04-2-00,Accumulated Impairement Losses-Agricultureal and Forestry Equipment,1,6,5,4,2,0
+,1-06-05-05-0-00,Marine and Fishery Equipment,1,6,5,5,0,0
+,1-06-05-05-1-00,Accumulated Depreciation-Marine and Fishery Equipment,1,6,5,5,1,0
+,1-06-05-05-2-00,Accumulated Impairement Losses-Marine and Fishery Equipment,1,6,5,5,2,0
+,1-06-05-06-0-00,Airport Equipment,1,6,5,6,0,0
+,1-06-05-06-1-00,Accumulated Depreciation-Airport Equipment,1,6,5,6,1,0
+,1-06-05-06-2-00,Accumulated Impairement Losses-Airport Equipment,1,6,5,6,2,0
+,1-06-05-07-2-00,Accumulated Impairement Losses-Communication Equipment,1,6,5,7,2,0
+,1-06-05-08-2-00,Accumulated Impairement Losses-Construction and Heavy Equipment,1,6,5,8,2,0
+,1-06-05-09-0-00,Disaster Response and Rescue Equipment,1,6,5,9,0,0
+,1-06-05-09-0-02,Flood and Rescue Equipment,1,6,5,9,0,2
+,1-06-05-09-0-03,Earthquake Rescue Equipment,1,6,5,9,0,3
+,1-06-05-09-0-04,Volcanic Eruption Rescue Equipment,1,6,5,9,0,4
+,1-06-05-09-0-05,Landslide Rescue Equipment,1,6,5,9,0,5
+,1-06-05-09-2-00,Accumulated Impairement Losses-Disaster Response and Rescue Equipment,1,6,5,9,2,0
+,1-06-05-10-2-00,"Accumulated Impairement Losses-Military, Police and Security Equipment",1,6,5,10,2,0
+,1-06-05-11-2-00,Accumulated Impairement Losses-Medical Equipment,1,6,5,11,2,0
+,1-06-05-12-0-00,Printing Equipment,1,6,5,12,0,0
+,1-06-05-12-1-00,Accumulated Depreciation-Printing Equipment,1,6,5,12,1,0
+,1-06-05-12-2-00,Accumulated Impairement Losses-Printing Equipment,1,6,5,12,2,0
+,1-06-05-13-2-00,Accumulated Impairement Losses-Sports Equipment,1,6,5,13,2,0
+,1-06-05-14-2-00,Accumulated Impairement Losses-Technical and Scientific Equipment,1,6,5,14,2,0
+,1-06-05-99-2-00,Accumulated Impairement Losses-Other Machinery and Equipment,1,6,5,99,2,0
+,1-06-06-00-0-00,Transportation Equipment,1,6,6,0,0,0
+,1-06-06-01-2-00,Accumulated Impairement Losses-Motor Vehicles,1,6,6,1,2,0
+,1-06-06-03-2-00,Accumulated Impairement Losses-Aircrafts and Aircrafts Ground Equipment,1,6,6,3,2,0
+,1-06-06-04-2-00,Accumulated Impairement Losses-Watercrafts,1,6,6,4,2,0
+,1-06-06-99-2-00,Accumulated Impairement Losses-Other Transportation Equipment,1,6,6,99,2,0
+,1-06-07-00-0-00,"Furniture, Fixtures and Books",1,6,7,0,0,0
+,1-06-07-01-2-00,Accumulated Impairement Losses-Furniture and Fixtures,1,6,7,1,2,0
+,1-06-07-02-2-00,Accumulated Impairement Losses-Books,1,6,7,2,2,0
+,1-06-08-00-0-00,Leased Assets,1,6,8,0,0,0
+,1-06-09-00-0-00,Leased Assets Improvements,1,6,9,0,0,0
+,1-06-10-00-0-00,Construction in Progress,1,6,10,0,0,0
+,1-06-10-01-0-00,Construction in Progress-Land Improvements,1,6,10,1,0,0
+,1-06-10-04-0-00,Construction in Progress-Leased Assets,1,6,10,4,0,0
+,1-06-10-05-0-00,Construction in Progress-Leased Assets Improvements,1,6,10,5,0,0
+,1-06-11-00-0-00,Heritage Assets,1,6,11,0,0,0
+,1-06-11-01-0-00,Historical Buildings,1,6,11,1,0,0
+,1-06-11-01-1-00,Accumulated Depreciation-Historical Buildings,1,6,11,1,1,0
+,1-06-11-01-2-00,Accumulated Impairement Losses-Historical Buildings,1,6,11,1,2,0
+,1-06-11-02-1-00,Accumulated Depreciation-Works of Art and Archeological Specimens,1,6,11,2,1,0
+,1-06-11-02-2-00,Accumulated Impairement Losses-Works of Art and Archeological Specimens,1,6,11,2,2,0
+,1-06-11-99-0-00,Other Heritage Assets,1,6,11,99,0,0
+,1-06-11-99-1-00,Accumulated Depreciation-Other Heritage Assets,1,6,11,99,1,0
+,1-06-11-99-2-00,Accumulated Impairement Losses-Other Heritage Assets,1,6,11,99,2,0
+106,1-99-01-02-0-00,Advances for Payroll,1,99,1,2,0,0
+,1-06-99-00-0-00,"Other Property, Plant and Equipment",1,6,99,0,0,0
+,1-06-99-01-1-00,Accumulated Depreciation-Work/Zoo Animals,1,6,99,1,1,0
+,1-06-99-01-2-00,Accumulated Impairement Losses-Work/Zoo Animals,1,6,99,1,2,0
+,1-06-99-99-2-00,"Accumulated Impairement Losses-Other Property, Plant and Equipment",1,6,99,99,2,0
+,1-07-00-00-0-00,Biological Assets,1,7,0,0,0,0
+,1-08-00-00-0-00,Intangible Assets,1,8,0,0,0,0
+,1-08-01-00-0-00,Intangible Assets,1,8,1,0,0,0
+,1-08-01-01-0-00,Patents/Copyrights,1,8,1,1,0,0
+,1-08-01-01-1-00,Accumulated Amortization-Patents/Copyrights,1,8,1,1,1,0
+,1-08-01-02-0-00,Computer Software,1,8,1,2,0,0
+,1-08-01-02-1-00,Accumulated Amortization-Computer Software,1,8,1,2,1,0
+,1-08-01-99-0-00,Other Intangible Assets,1,8,1,99,0,0
+,1-08-01-99-1-00,Accumulated Amortization-Other Intangible Assets,1,8,1,99,1,0
+108,1-01-04-04-0-00,"Cash-MDS, Regular",1,1,4,4,0,0
+111,1-01-02-02-0-24,Cash in Bank-LCCA-LBP,1,1,2,2,0,24
+121,1-03-01-01-0-00,Accounts Receivable,1,3,1,1,0,0
+123,1-03-05-02-0-00,Due from Officers and Employees,1,3,5,2,0,0
+131,1-01-04-01-0-00,"Cash-Treasury/Agency Deposit, Regular",1,1,4,1,0,0
+136,1-03-03-01-0-00,Due from NGAs,1,3,3,1,0,0
+137,1-03-03-02-0-00,Due from GOCCs,1,3,3,2,0,0
+138,1-03-03-03-0-00,Due from LGUs,1,3,3,3,0,0
+143,1-03-04-04-0-00,Due from Operating Units,1,3,4,4,0,0
+144,1-03-04-01-0-00,Due from Central Office,1,3,4,1,0,0
+146,1-03-05-01-0-00,Receivables-Disallowances/Charges,1,3,5,1,0,0
+148,1-99-01-04-0-00,Advances to Officers and Employees,1,99,1,4,0,0
+149,1-03-05-09-0-00,Other Receivables,1,3,5,9,0,0
+155,1-04-04-01-0-00,Office Supplies Inventory,1,4,4,1,0,0
+156,1-04-04-02-0-00,"Accountable Forms, Plates and Stickers Inventory",1,4,4,2,0,0
+157,1-04-04-04-0-00,Animal/Zoological Supplies Inventory,1,4,4,4,0,0
+158,1-04-04-05-0-00,Food Supplies Inventory,1,4,4,5,0,0
+159,1-04-04-06-0-00,Drugs and Medicines Inventory,1,4,4,6,0,0
+160,1-04-04-07-0-00,"Medical, Dental and Laboratory Supplies Inventory",1,4,4,7,0,0
+161,1-04-04-08-0-00,"Fuel, Oil and Lubricants Inventory",1,4,4,8,0,0
+163,1-04-04-10-0-00,Textbooks and Instructional Materials Inventory,1,4,4,10,0,0
+164,1-04-04-11-0-00,"Military, Police and Traffic Supplies Inventory",1,4,4,11,0,0
+165,1-04-04-99-0-00,Other Supplies and Materials Inventory,1,4,4,99,0,0
+167,1-04-04-99-0-00,Other Supplies and Materials Inventory,1,4,4,99,0,0
+168,1-04-04-13-0-00,Construction Materials Inventory,1,4,4,13,0,0
+178,1-99-02-05-0-00,Prepaid Insurance,1,99,2,5,0,0
+180,1-99-03-01-0-00,Deposits on Letters of Credit,1,99,3,1,0,0
+181,1-99-02-01-0-00,Advances to Contractors,1,99,2,1,0,0
+185,1-99-02-99-0-00,Other Prepayments,1,99,2,99,0,0
+186,1-99-03-02-0-00,Guaranty Deposits,1,99,3,2,0,0
+,1-99-00-00-0-00,Other Assets,1,99,0,0,0,0
+,1-99-01-00-0-00,Advances,1,99,1,0,0,0
+,1-99-01-01-0-00,Advances for Operating Expenses,1,99,1,1,0,0
+,1-99-02-00-0-00,Prepayments,1,99,2,0,0,0
+,1-99-02-02-0-00,Prepaid Rent,1,99,2,2,0,0
+,1-99-02-03-0-00,Prepaid Registration,1,99,2,3,0,0
+,1-99-02-04-0-00,Prepaid Interest,1,99,2,4,0,0
+,1-99-03-00-0-00,Deposits,1,99,3,0,0,0
+,1-99-03-99-0-00,Other Deposits,1,99,3,99,0,0
+,1-99-99-00-0-00,Other Assets,1,99,99,0,0,0
+,1-99-99-01-0-00,Acquired Assets,1,99,99,1,0,0
+,1-99-99-01-1-00,Accum. Imp. Losses-Acquired Assets,1,99,99,1,1,0
+,1-99-99-02-0-00,Foreclosed Property/Assets,1,99,99,2,0,0
+,1-99-99-02-1-00,Accum. Imp. Losses-Foreclosed Property/Assets,1,99,99,2,1,0
+,1-99-99-99-1-00,Accum. Imp. Losses-Other Assets,1,99,99,99,1,0
+,2-00-00-00-0-00,Liabilities,2,0,0,0,0,0
+,2-01-00-00-0-00,Financial Liabilities,2,1,0,0,0,0
+,2-01-01-00-0-00,Payables,2,1,1,0,0,0
+,2-01-02-00-0-00,Bills/Bonds/Loans Payable,2,1,2,0,0,0
+,2-01-02-04-0-00,Loans Payable-Domestic,2,1,2,4,0,0
+201,1-06-01-01-0-00,Land,1,6,1,1,0,0
+,2-02-00-00-0-00,Inter-Agency Payables,2,2,0,0,0,0
+,2-02-01-00-0-00,Inter-Agency Payables,2,2,1,0,0,0
+,2-02-01-02-0-01,Life and Retirement Premium,2,2,1,2,0,1
+,2-02-01-02-0-02,ECC,2,2,1,2,0,2
+,2-02-01-02-0-03,Salary Loan,2,2,1,2,0,3
+,2-02-01-02-0-04,Policy Loan,2,2,1,2,0,4
+,2-02-01-03-0-01,PAG-IBIG Premium,2,2,1,3,0,1
+,2-02-01-03-0-02,PAG-IBIG Multi-Purpose Loan,2,2,1,3,0,2
+,2-02-01-03-0-03,PAG-IBIG Housing Loan,2,2,1,3,0,3
+,2-02-01-08-0-00,Due to Joint Venture,2,2,1,8,0,0
+202,1-06-02-09-0-00,Other Land Improvements,1,6,2,9,0,0
+,2-03-00-00-0-00,Intra-Agency Payables,2,3,0,0,0,0
+,2-03-01-00-0-00,Intra-Agency Payables,2,3,1,0,0,0
+,2-03-01-02-0-00,Due to Bureaus,2,3,1,2,0,0
+,2-03-01-03-0-00,Due to Regional Offices,2,3,1,3,0,0
+,2-03-01-04-0-00,Due to Operating Units,2,3,1,4,0,0
+203,1-06-04-99-0-00,Other Structures,1,6,4,99,0,0
+,2-04-00-00-0-00,Trust Liabilities,2,4,0,0,0,0
+,2-04-01-00-0-00,Trust Liabilities,2,4,1,0,0,0
+,2-04-01-01-0-00,Trust Liabilities,2,4,1,1,0,0
+,2-04-01-02-0-00,Trust Liabilities-Disaster Risk Reduction and Management Fund,2,4,1,2,0,0
+,2-04-01-05-0-00,Customers' Deposits Payable,2,4,1,5,0,0
+,2-05-00-00-0-00,Deferred Credits/Unearned Income,2,5,0,0,0,0
+,2-05-01-00-0-00,Deferred Credits,2,5,1,0,0,0
+,2-05-02-00-0-00,Unearned Income,2,5,2,0,0,0
+,2-05-02-99-0-00,Other Unearned Income,2,5,2,99,0,0
+205,1-06-03-05-0-00,Power Supply Systems,1,6,3,5,0,0
+,2-06-00-00-0-00,Provisions,2,6,0,0,0,0
+,2-06-01-00-0-00,Provisions,2,6,1,0,0,0
+,2-06-01-01-0-00,Pension Benefits Payable,2,6,1,1,0,0
+,2-06-01-02-0-00,Leave Benefits Payable,2,6,1,2,0,0
+,2-06-01-03-0-00,Retirement Gratuity Payable,2,6,1,3,0,0
+,2-06-01-99-0-00,Other Provisions,2,6,1,99,0,0
+211,1-06-04-01-0-00,Buildings,1,6,4,1,0,0
+212,1-06-04-02-0-00,School Buildings,1,6,4,2,0,0
+213,1-06-04-03-0-00,Hospitals and Health Centers,1,6,4,3,0,0
+214,1-06-04-04-0-00,Markets,1,6,4,4,0,0
+215,1-06-04-99-0-00,Other Structures,1,6,4,99,0,0
+221,1-06-05-02-0-00,Office Equipment,1,6,5,2,0,0
+222,1-06-07-01-0-00,Furniture and Fixtures,1,6,7,1,0,0
+223,1-06-05-03-0-00,Information and Communication Technology Equipment,1,6,5,3,0,0
+224,1-06-07-02-0-00,Books,1,6,7,2,0,0
+226,1-06-05-01-0-00,Machinery,1,6,5,1,0,0
+227,1-06-05-04-0-00,Agricultural and Forestry Equipment,1,6,5,4,0,0
+229,1-06-05-07-0-00,Communication Equipment,1,6,5,7,0,0
+230,1-06-05-08-0-00,Construction and Heavy Equipment,1,6,5,8,0,0
+231,1-06-05-09-0-01,Firefighting Equipment and Accessories,1,6,5,9,0,1
+232,1-06-05-11-0-00,Medical Equipment,1,6,5,11,0,0
+233,1-06-05-11-0-00,Medical Equipment,1,6,5,11,0,0
+234,1-06-05-10-0-00,"Military, Police and Security Equipment",1,6,5,10,0,0
+235,1-06-05-13-0-00,Sports Equipment,1,6,5,13,0,0
+236,1-06-05-14-0-00,Technical and Scientific Equipment,1,6,5,14,0,0
+240,1-06-05-99-0-00,Other Machinery and Equipment,1,6,5,99,0,0
+241,1-06-06-01-0-00,Motor Vehicles,1,6,6,1,0,0
+243,1-06-06-03-0-00,Aircrafts and Aircrafts Ground Equipment,1,6,6,3,0,0
+244,1-06-06-04-0-00,Watercrafts,1,6,6,4,0,0
+248,1-06-06-99-0-00,Other Transportation Equipment,1,6,6,99,0,0
+250,1-06-99-99-0-00,"Other Property, Plant and Equipment",1,6,99,99,0,0
+251,1-06-03-01-0-00,Road Networks,1,6,3,1,0,0
+252,1-06-03-09-0-00,"Parks, Plazas and Monuments",1,6,3,9,0,0
+253,1-06-03-07-0-00,Seaport Systems,1,6,3,7,0,0
+254,1-06-03-04-0-00,Water Supply Systems,1,6,3,4,0,0
+260,1-06-03-99-0-00,Other Infrastructure Assets,1,6,3,99,0,0
+264,1-06-10-03-0-00,Construction in Progress-Buildings and Other Structures,1,6,10,3,0,0
+266,1-06-10-02-0-00,Construction in Progress-Infrastructure Assets,1,6,10,2,0,0
+269,1-06-10-03-0-00,Construction in Progress-Buildings and Other Structures,1,6,10,3,0,0
+273,1-06-10-02-0-00,Construction in Progress-Infrastructure Assets,1,6,10,2,0,0
+281,1-06-99-01-0-00,Work/Zoo Animals,1,6,99,1,0,0
+283,1-06-11-02-0-00,Works of Art and Archeological Specimens,1,6,11,2,0,0
+290,1-99-99-99-0-00,Other Assets,1,99,99,99,0,0
+,2-99-00-00-0-00,Other Payables,2,99,0,0,0,0
+,2-99-99-00-0-00,Other Payables,2,99,99,0,0,0
+,3-00-00-00-0-00,Equity,3,0,0,0,0,0
+,3-01-00-00-0-00,Government Equity,3,1,0,0,0,0
+,3-01-01-00-0-00,Government Equity,3,1,1,0,0,0
+,3-02-00-00-0-00,Revaluation Surplus,3,2,0,0,0,0
+,3-02-01-00-0-00,Revaluation Surplus,3,2,1,0,0,0
+,3-02-01-01-0-00,Revaluation Surplus,3,2,1,1,0,0
+302,1-06-02-09-1-00,Accumulated Depreciation-Other Land Improvements,1,6,2,9,1,0
+,3-03-00-00-0-00,Intermediate Accounts,3,3,0,0,0,0
+,3-03-01-00-0-00,Intermediate Accounts,3,3,1,0,0,0
+303,1-06-04-99-1-00,Accumulated Depreciation-Other Structures,1,6,4,99,1,0
+,3-04-00-00-0-00,Equity in Joint Venture,3,4,0,0,0,0
+,3-04-01-00-0-00,Equity in Joint Venture,3,4,1,0,0,0
+,3-04-01-01-0-00,Equity in Joint Venture,3,4,1,1,0,0
+305,1-06-03-05-1-00,Accumulated Depreciation-Power Supply Systems,1,6,3,5,1,0
+311,1-06-04-01-1-00,Accumulated Depreciation-Buildings,1,6,4,1,1,0
+312,1-06-04-02-1-00,Accumulated Depreciation-School Buildings,1,6,4,2,1,0
+313,1-06-04-03-1-00,Accumulated Depreciation-Hospitals and Health Centers,1,6,4,3,1,0
+315,1-06-04-99-1-00,Accumulated Depreciation-Other Structures,1,6,4,99,1,0
+321,1-06-05-02-1-00,Accumulated Depreciation-Office Equipment,1,6,5,2,1,0
+322,1-06-07-01-1-00,Accumulated Depreciation-Furniture and Fixtures,1,6,7,1,1,0
+323,1-06-05-03-1-00,Accumulated Depreciation-Information and Communication Technology Equipment,1,6,5,3,1,0
+324,1-06-07-02-1-00,Accumulated Depreciation-Books,1,6,7,2,1,0
+326,1-01-01-01-0-00,Accumulated Depreciation-Machinery,1,6,5,1,1,0
+329,1-06-05-07-1-00,Accumulated Depreciation-Communication Equipment,1,6,5,7,1,0
+330,1-06-05-08-1-00,Accumulated Depreciation-Construction and Heavy Equipment,1,6,5,8,1,0
+331,1-06-05-09-1-00,Accumulated Depreciation-Disaster Response and Rescue Equipment,1,6,5,9,1,0
+332,1-06-05-11-1-00,Accumulated Depreciation-Medical Equipment,1,6,5,11,1,0
+333,1-06-05-11-1-00,Accumulated Depreciation-Medical Equipment,1,6,5,11,1,0
+334,1-06-05-10-1-00,"Accumulated Depreciation-Military, Police and Security Equipment",1,6,5,10,1,0
+335,1-06-05-13-1-00,Accumulated Depreciation-Sports Equipment,1,6,5,13,1,0
+336,1-06-05-14-1-00,Accumulated Depreciation-Technical and Scientific Equipment,1,6,5,14,1,0
+340,1-06-05-99-1-00,Accumulated Depreciation-Other Machinery and Equipment,1,6,5,99,1,0
+341,1-06-06-01-1-00,Accumulated Depreciation-Motor Vehicles,1,6,6,1,1,0
+343,1-06-06-03-1-00,Accumulated Depreciation-Aircrafts and Aircrafts Ground Equipment,1,6,6,3,1,0
+344,1-06-06-04-1-00,Accumulated Depreciation-Watercrafts,1,6,6,4,1,0
+348,1-06-06-99-1-00,Accumulated Depreciation-Other Transportation Equipment,1,6,6,99,1,0
+350,1-06-99-99-1-00,"Accumulated Depreciation-Other Property, Plant and Equipment",1,6,99,99,1,0
+354,1-06-03-04-1-00,Accumulated Depreciation-Water Supply Systems,1,6,3,4,1,0
+,4-00-00-00-0-00,Income,4,0,0,0,0,0
+,4-01-00-00-0-00,Tax Revenue,4,1,0,0,0,0
+401,2-01-01-01-0-00,Accounts Payable,2,1,1,1,0,0
+,4-02-00-00-0-00,Service and Business Income,4,2,0,0,0,0
+,4-02-01-00-0-00,Service Income,4,2,1,0,0,0
+,4-02-01-01-0-00,Permit Fees,4,2,1,1,0,0
+,4-02-01-01-0-99,Other Permit Fees,4,2,1,1,0,99
+,4-02-01-02-0-00,Registration Fees,4,2,1,2,0,0
+,4-02-01-03-0-00,"Registration Plates, Tags and Stickers Fee",4,2,1,3,0,0
+,4-02-01-04-0-00,Clearance and Certification Fees,4,2,1,4,0,0
+,4-02-01-13-0-00,Processing Fees,4,2,1,13,0,0
+,4-02-01-13-0-01,Analysis Fees,4,2,1,13,0,1
+,4-02-01-13-0-02,Appeal Fees,4,2,1,13,0,2
+,4-02-01-13-0-03,Application Fees,4,2,1,13,0,3
+,4-02-01-13-0-04,Assessment Fees,4,2,1,13,0,4
+,4-02-01-13-0-05,Execution Fees,4,2,1,13,0,5
+,4-02-01-13-0-06,Express Lane or Special Lane Fees,4,2,1,13,0,6
+,4-02-01-13-0-07,Filing Fees,4,2,1,13,0,7
+,4-02-01-13-0-08,Identity Card Fees,4,2,1,13,0,8
+,4-02-01-13-0-09,Import Processing Fees,4,2,1,13,0,9
+,4-02-01-13-0-10,Oathtaking Fees,4,2,1,13,0,10
+,4-02-01-13-0-11,Review Fees,4,2,1,13,0,11
+,4-02-01-13-0-12,Testing Fees,4,2,1,13,0,12
+,4-02-01-13-0-99,Other Processing Fees,4,2,1,13,0,99
+,4-02-01-99-0-00,Other Service Income,4,2,1,99,0,0
+,4-02-02-00-0-00,Business Income,4,2,2,0,0,0
+,4-02-02-02-0-00,Affiliation Fees,4,2,2,2,0,0
+,4-02-02-04-0-00,Seminar/Training Fees,4,2,2,4,0,0
+,4-02-02-21-0-01,Interest on NG Deposits,4,2,2,21,0,1
+,4-02-02-21-0-02,Interest on Advances to GOCCs,4,2,2,21,0,2
+,4-02-02-99-0-00,Other Business Income,4,2,2,99,0,0
+,4-02-02-99-0-99,Other Business Income,4,2,2,99,0,99
+,4-03-00-00-0-00,Assistance and Subsidy,4,3,0,0,0,0
+,4-03-01-00-0-00,Assistance and Subsidy,4,3,1,0,0,0
+,4-03-01-03-0-00,Assistance from Local Government Units,4,3,1,3,0,0
+403,2-01-01-02-0-00,Due to Officers and Employees,2,1,1,2,0,0
+,4-04-00-00-0-00,"Shares, Grants and Donations",4,4,0,0,0,0
+,4-04-01-00-0-00,Shares,4,4,1,0,0,0
+,4-04-02-00-0-00,Grants and Donations,4,4,2,0,0,0
+,4-04-02-01-0-00,Income from Grants and Donations in Cash,4,4,2,1,0,0
+,4-05-00-00-0-00,Gains,4,5,0,0,0,0
+,4-05-01-00-0-00,Gains,4,5,1,0,0,0
+,4-05-01-01-0-00,Gain on Foreign Exchange (FOREX),4,5,1,1,0,0
+,4-05-01-04-0-00,"Gain on Sale of Property, Plant and Equipment",4,5,1,4,0,0
+,4-06-00-00-0-00,Other Non-Operating Income,4,6,0,0,0,0
+,4-06-01-00-0-00,Sale of Assets,4,6,1,0,0,0
+,4-06-01-01-0-00,Sale of Garnished/Confiscated/Abandoned/Seized Goods and Properties,4,6,1,1,0,0
+412,2-02-01-01-0-00,Due to BIR,2,2,1,1,0,0
+413,2-02-01-02-0-00,Due to GSIS,2,2,1,2,0,0
+414,2-02-01-03-0-00,Due to PAG-IBIG,2,2,1,3,0,0
+415,2-02-01-04-0-00,Due to PHILHEALTH,2,2,1,4,0,0
+416,2-02-01-05-0-00,Due to Other NGAs,2,2,1,5,0,0
+417,2-02-01-06-0-00,Due to Other GOCCs,2,2,1,6,0,0
+418,2-02-01-07-0-00,Due to LGUs,2,2,1,7,0,0
+421,2-03-01-01-0-00,Due to Central Office,2,3,1,1,0,0
+426,2-04-01-04-0-00,Guaranty/Security Deposits Payable,2,4,1,4,0,0
+427,2-04-01-03-0-00,Bail Bonds Payable,2,4,1,3,0,0
+439,2-99-99-99-0-00,Other Payables,2,99,99,99,0,0
+455,2-05-01-99-0-00,Other Deferred Credits,2,5,1,99,0,0
+,5-00-00-00-0-00,Expenses,5,0,0,0,0,0
+,5-01-00-00-0-00,Personnel Services,5,1,0,0,0,0
+,5-01-01-00-0-00,Salaries and Wages,5,1,1,0,0,0
+,5-01-01-01-0-00,Salaries and Wages-Regular,5,1,1,1,0,0
+,5-01-02-00-0-00,Other Compensation,5,1,2,0,0,0
+,5-01-02-01-0-00,Personnel Economic Relief Allowance (PERA),5,1,2,1,0,0
+,5-01-02-03-0-00,Transportation Allowance,5,1,2,3,0,0
+,5-01-02-04-0-00,Clothing/Uniform Allowance,5,1,2,4,0,0
+,5-01-02-05-0-00,Subsistence Allowance,5,1,2,5,0,0
+,5-01-02-08-0-00,Productivity Incentive Allowance,5,1,2,8,0,0
+,5-01-02-09-0-00,Overseas Allowance,5,1,2,9,0,0
+,5-01-02-10-0-00,Honoraria,5,1,2,10,0,0
+,5-01-02-11-0-00,Hazard Pay,5,1,2,11,0,0
+,5-01-02-12-0-00,Longevity Pay,5,1,2,12,0,0
+,5-01-02-13-0-00,Overtime and Night Pay,5,1,2,13,0,0
+,5-01-02-14-0-00,Year End Bonus,5,1,2,14,0,0
+,5-01-02-15-0-00,Cash Gift,5,1,2,15,0,0
+,5-01-02-99-0-00,Other Bonuses and Allowances,5,1,2,99,0,0
+,5-01-03-00-0-00,Personnel Benefit Contributions,5,1,3,0,0,0
+,5-01-03-02-0-00,PAG-IBIG Contributions,5,1,3,2,0,0
+,5-01-03-03-0-00,PHILHEALTH Contributions,5,1,3,3,0,0
+,5-01-03-04-0-00,Employees Compensation Insurance Premiums,5,1,3,4,0,0
+,5-01-03-05-0-00,Provident/Welfare Fund Contributions,5,1,3,5,0,0
+,5-01-04-00-0-00,Other Personnel Benefits,5,1,4,0,0,0
+,5-01-04-01-0-00,Pension Benefits,5,1,4,1,0,0
+,5-01-04-01-0-01,Pension Benefits-Civilian,5,1,4,1,0,1
+,5-01-04-01-0-02,Pension Benefits-Military/Uniformed Personnel,5,1,4,1,0,2
+,5-01-04-01-0-03,Pension Benefits-Veterans,5,1,4,1,0,3
+,5-01-04-02-0-00,Retirement Gratuity,5,1,4,2,0,0
+,5-01-04-03-0-00,Terminal Leave Benefits,5,1,4,3,0,0
+,5-01-04-99-0-00,Other Personnel Benefits,5,1,4,99,0,0
+501,3-01-01-01-0-00,Government Equity,3,1,1,1,0,0
+,5-02-00-00-0-00,Maintenance and Other Operating Expenses,5,2,0,0,0,0
+,5-02-01-00-0-00,Traveling Expenses,5,2,1,0,0,0
+,5-02-02-00-0-00,Training and Scholarship Expenses,5,2,2,0,0,0
+,5-02-03-00-0-00,Supplies and Materials Expenses,5,2,3,0,0,0
+,5-02-03-03-0-00,Non-Accountable Forms Expenses,5,2,3,3,0,0
+,5-02-03-06-0-00,Welfare Goods Expenses,5,2,3,6,0,0
+,5-02-03-11-0-00,Textbooks and Instructional Materials Expenses,5,2,3,11,0,0
+,5-02-03-13-0-00,Chemical and Filtering Supplies Expenses,5,2,3,13,0,0
+,5-02-04-00-0-00,Utility Expenses,5,2,4,0,0,0
+,5-02-05-00-0-00,Communication Expenses,5,2,5,0,0,0
+,5-02-05-02-0-00,Telephone Expenses,5,2,5,2,0,0
+,5-02-06-00-0-00,Awards/Rewards and Prizes,5,2,6,0,0,0
+,5-02-06-01-0-00,Awards/Rewards Expenses,5,2,6,1,0,0
+,5-02-06-02-0-00,Prizes,5,2,6,2,0,0
+,5-02-07-00-0-00,"Survey, Research, Exploration and Development Expenses",5,2,7,0,0,0
+,5-02-07-02-0-00,"Research, Exploration and Development Expenses",5,2,7,2,0,0
+,5-02-08-00-0-00,Demolition/Relocation and Desilting/Dredging Expenses,5,2,8,0,0,0
+,5-02-08-01-0-00,Demolition and Relocation Expenses,5,2,8,1,0,0
+,5-02-08-02-0-00,Desilting and Dredging Expenses,5,2,8,2,0,0
+,5-02-09-00-0-00,"Generation, Transmission and Distribution Expenses",5,2,9,0,0,0
+,5-02-09-01-0-00,"Generation, Transmission and Distribution Expenses",5,2,9,1,0,0
+,5-02-10-00-0-00,"Confidential, Intelligence and Extraordinary Expenses",5,2,10,0,0,0
+,5-02-11-00-0-00,Professional Services,5,2,11,0,0,0
+,5-02-12-00-0-00,General Services,5,2,12,0,0,0
+,5-02-12-03-0-00,Security Services,5,2,12,3,0,0
+,5-02-13-00-0-00,Repairs and Maintenance,5,2,13,0,0,0
+,5-02-13-01-0-00,Repairs and Maintenance-Investment Property,5,2,13,1,0,0
+,5-02-13-02-0-01,Aquaculture Structures,5,2,13,2,0,1
+,5-02-13-02-0-99,Other Land Improvements,5,2,13,2,0,99
+,5-02-13-03-0-00,Repairs and Maintenance-Infrastructure Assets,5,2,13,3,0,0
+,5-02-13-03-0-02,Flood Control Systems,5,2,13,3,0,2
+,5-02-13-03-0-03,Sewer Systems,5,2,13,3,0,3
+,5-02-13-03-0-06,Communication Networks,5,2,13,3,0,6
+,5-02-13-03-0-07,Seaport Systems,5,2,13,3,0,7
+,5-02-13-03-0-08,Airport Systems,5,2,13,3,0,8
+,5-02-13-04-0-00,Repairs and Maintenance-Buildings and Other Structures,5,2,13,4,0,0
+,5-02-13-04-0-04,M & R: Markets,5,2,13,4,0,4
+,5-02-13-04-0-05,M & R: Slaughterhouses,5,2,13,4,0,5
+,5-02-13-04-0-06,M & R: Hostels and Dormitories,5,2,13,4,0,6
+,5-02-13-05-0-00,Repairs and Maintenance-Machinery and Equipment,5,2,13,5,0,0
+,5-02-13-05-0-04,M & R: Agricultural and Forestry Equipment,5,2,13,5,0,4
+,5-02-13-05-0-05,M & R: Marine and Fishery Equipment,5,2,13,5,0,5
+,5-02-13-05-0-06,M & R: Airport Equipment,5,2,13,5,0,6
+,5-02-13-05-0-12,M & R: Printing Equipment,5,2,13,5,0,12
+,5-02-13-06-0-00,Repairs and Maintenance-Transportation Equipment,5,2,13,6,0,0
+,5-02-13-06-0-02,M & R: Trains,5,2,13,6,0,2
+,5-02-13-08-0-00,Repairs and Maintenance-Leased Assets,5,2,13,8,0,0
+,5-02-13-09-0-00,Repairs and Maintenance-Leased Assets Improvements,5,2,13,9,0,0
+,5-02-13-10-0-00,Restoration and Maintenance-Heritage Assets,5,2,13,10,0,0
+,5-02-13-99-0-00,"Repairs and Maintenance-Other Property, Plant and Equipment",5,2,13,99,0,0
+,5-02-13-99-0-01,Work/Zoo Animals,5,2,13,99,0,1
+,5-02-14-00-0-00,Financial Assistance/Subsidy,5,2,14,0,0,0
+,5-02-14-04-0-00,Budgetary Support to GOCCs,5,2,14,4,0,0
+,5-02-14-05-0-00,Financial Assistance to NGOs/POs,5,2,14,5,0,0
+,5-02-14-99-0-00,Subsidies-Others,5,2,14,99,0,0
+,5-02-15-00-0-00,"Taxes, Insurance Premiums and Other Fees",5,2,15,0,0,0
+,5-02-15-01-0-00,"Taxes, Duties and Licenses",5,2,15,1,0,0
+,5-02-15-01-0-02,Tax Refund,5,2,15,1,0,2
+,5-02-16-00-0-00,Labor and Wages,5,2,16,0,0,0
+,5-02-16-01-0-00,Labor and Wages,5,2,16,1,0,0
+,5-02-99-00-0-00,Other Maintenance and Operating Expenses,5,2,99,0,0,0
+,5-02-99-05-0-00,Rent/Lease Expenses,5,2,99,5,0,0
+,5-02-99-09-0-00,Litigations/Acquired Assets Expenses,5,2,99,9,0,0
+,5-02-99-99-0-00,Other Maintenance and Operating Expenses,5,2,99,99,0,0
+,5-03-00-00-0-00,Financial Expenses,5,3,0,0,0,0
+,5-03-01-00-0-00,Financial Expenses,5,3,1,0,0,0
+,5-03-01-99-0-00,Other Financial Charges,5,3,1,99,0,0
+,5-05-00-00-0-00,Non-Cash Expenses,5,5,0,0,0,0
+,5-05-01-00-0-00,Depreciation,5,5,1,0,0,0
+,5-05-01-01-0-00,Depreciation-Investment Property,5,5,1,1,0,0
+,5-05-01-02-0-00,Depreciation-Land Improvements,5,5,1,2,0,0
+,5-05-01-03-0-00,Depreciation-Infrastructure Assets,5,5,1,3,0,0
+,5-05-01-03-0-02,Flood Control Systems,5,5,1,3,0,2
+,5-05-01-03-0-03,Sewer Systems,5,5,1,3,0,3
+,5-05-01-03-0-06,Communication Networks,5,5,1,3,0,6
+,5-05-01-03-0-07,Seaport Systems,5,5,1,3,0,7
+,5-05-01-03-0-08,Airport Systems,5,5,1,3,0,8
+,5-05-01-03-0-09,"Parks, Plazas and Monuments",5,5,1,3,0,9
+,5-05-01-03-0-99,Other Infrastructure Assets,5,5,1,3,0,99
+,5-05-01-04-0-00,Depreciation-Buildings and Other Structures,5,5,1,4,0,0
+,5-05-01-04-0-04,Markets,5,5,1,4,0,4
+,5-05-01-04-0-05,Slaughterhouses,5,5,1,4,0,5
+,5-05-01-04-0-06,Hostels and Dormitories,5,5,1,4,0,6
+,5-05-01-05-0-00,Depreciation-Machinery and Equipment,5,5,1,5,0,0
+,5-05-01-05-0-05,Marine and Fishery Equipment,5,5,1,5,0,5
+,5-05-01-05-0-06,Airport Equipment,5,5,1,5,0,6
+,5-05-01-05-0-12,Printing Equipment,5,5,1,5,0,12
+,5-05-01-06-0-00,Depreciation-Transportation Equipment,5,5,1,6,0,0
+,5-05-01-06-0-02,Trains,5,5,1,6,0,2
+,5-05-01-07-0-00,Depreciation-Furniture and Fixtures and Books,5,5,1,7,0,0
+,5-05-01-08-0-00,Depreciation-Leased Assets,5,5,1,8,0,0
+,5-05-01-09-0-00,Depreciation-Leased Assets Improvements,5,5,1,9,0,0
+,5-05-01-10-0-00,Depreciation-Heritage Assets,5,5,1,10,0,0
+,5-05-01-99-0-00,"Depreciation-Other Property, Plant and Equipment",5,5,1,99,0,0
+,5-05-02-00-0-00,Amortization,5,5,2,0,0,0
+,5-05-02-01-0-00,Amortization-Intangible Assets,5,5,2,1,0,0
+,5-05-03-00-0-00,Impairement Loss,5,5,3,0,0,0
+,5-05-03-01-0-00,Impairement Loss-Financial Assets Held to Maturity,5,5,3,1,0,0
+,5-05-03-07-0-00,Impairement Loss-Inventories,5,5,3,7,0,0
+,5-05-03-09-0-00,"Impairement Loss-Property, Plant and Equipment",5,5,3,9,0,0
+,5-05-03-99-0-00,Impairement Loss-Other Assets,5,5,3,99,0,0
+,5-05-04-00-0-00,Losses,5,5,4,0,0,0
+,5-05-04-01-0-00,Loss of Foreign Exchage,5,5,4,1,0,0
+,5-05-04-04-0-00,"Loss on Sale of Property, Plant and Equipment",5,5,4,4,0,0
+,5-05-04-08-0-00,Loss on Sale of Assets,5,5,4,8,0,0
+,5-05-04-99-0-00,Other Losses,5,5,4,99,0,0
+,5-06-00-00-0-00,Capital Outlays,5,6,0,0,0,0
+,5-06-01-00-0-00,Investment Outlays,5,6,1,0,0,0
+,5-06-01-01-0-00,Investment in GOCCs,5,6,1,1,0,0
+,5-06-04-00-0-00,"Property, Plant and Equipment Outlay",5,6,4,0,0,0
+,5-06-04-99-0-00,"Other Property, Plant and Equipment",5,6,4,99,0,0
+,5-06-04-99-0-99,"Other Property, Plant and Equipment",5,6,4,99,0,99
+,5-06-06-00-0-00,Intangible Assets Outlay,5,6,6,0,0,0
+,5-06-06-99-0-00,Other Intangible Assets,5,6,6,99,0,0
+512,3-03-01-01-0-00,Income and Expense Summary,3,3,1,1,0,0
+513,3-03-01-01-0-00,Income and Expense Summary,3,3,1,1,0,0
+628,4-02-01-99-0-99,Other Service Income,4,2,1,99,0,99
+629,4-02-01-14-0-00,Fines and Penalties-Service Income,4,2,1,14,0,0
+642,4-02-02-05-0-00,Rent/Lease Income,4,2,2,5,0,0
+651,4-03-01-01-0-00,Subsidy from National Government,4,3,1,1,0,0
+652,4-03-01-02-0-00,Subsidy from Other National Government Agencies,4,3,1,2,0,0
+653,4-03-01-04-0-00,Assistance from GOCCs,4,3,1,4,0,0
+655,4-03-01-05-0-00,Subsidy from Other Funds,4,3,1,5,0,0
+662,4-04-02-02-0-00,Income from Grants and Donations in Kind,4,4,2,2,0,0
+664,4-02-02-21-0-00,Interest Income,4,2,2,21,0,0
+664,4-02-02-21-0-99,Other Interest Income,4,2,2,21,0,99
+678,4-05-01-99-0-00,Other Gains,4,5,1,99,0,0
+679,4-02-02-23-0-00,Fines and Penalties-Business Income,4,2,2,23,0,0
+701,5-01-01-01-0-01,Basic Salary-Civilian,5,1,1,1,0,1
+702,5-01-01-01-0-02,Base Pay-Military/Uniformed Personnel,5,1,1,1,0,2
+705,5-01-01-02-0-00,Salaries and Wages-Casual/Contractual,5,1,1,2,0,0
+706,5-01-01-02-0-00,Salaries and Wages-Casual/Contractual,5,1,1,2,0,0
+711,5-01-02-01-0-01,PERA-Civilian,5,1,2,1,0,1
+711,5-01-02-01-0-02,PERA-Military/Uniformed Personnel,5,1,2,1,0,2
+713,5-01-02-02-0-00,Representation Allowance,5,1,2,2,0,0
+714,5-01-02-03-0-01,RATA of Sectoral/Alternate Sectoral Representatives,5,1,2,3,0,1
+714,5-01-02-03-0-02,Transportation Allowance,5,1,2,3,0,2
+715,5-01-02-04-0-01,Clothing/Uniform Allowance-Civilian,5,1,2,4,0,1
+715,5-01-02-04-0-02,Shoes Allowance-Civilian,5,1,2,4,0,2
+715,5-01-02-04-0-03,Clothing/Uniform Allowance-Military/Uniformed Personnel,5,1,2,4,0,3
+715,5-01-02-04-0-04,Clothing/Uniform Allowance-Initial-Military/Uniformed Personnel,5,1,2,4,0,4
+715,5-01-02-04-0-05,Clothing/Uniform Allowance-Special-Military/Uniformed Personnel,5,1,2,4,0,5
+715,5-01-02-04-0-06,Clothing/Uniform Allowance-Cold Weather-Military/Uniformed Personnel,5,1,2,4,0,6
+715,5-01-02-04-0-07,Clothing/Uniform Allowance-Reenlistment-Military/Uniformed Personnel,5,1,2,4,0,7
+715,5-01-02-04-0-08,Clothing/Uniform Allowance-Winter-Military/Uniformed Personnel,5,1,2,4,0,8
+715,5-01-02-04-0-09,Clothing/Uniform Allowance-Combat-Military/Uniformed Personnel,5,1,2,4,0,9
+715,5-01-02-04-0-10,Clothing/Uniform Allowance-Maintenance Cold Weather-Military/Uniformed Personnel,5,1,2,4,0,10
+715,5-01-02-04-0-11,Clothing/Uniform Allowance-Replacement-Military/Uniformed Personnel,5,1,2,4,0,11
+716,5-01-02-05-0-01,Subsistence Allowance-Military/Uniformed Personnel,5,1,2,5,0,1
+716,5-01-02-05-0-02,Subsistence Allowance-Magna Carta Benefits for Science and Technology under RA 8439,5,1,2,5,0,2
+716,5-01-02-05-0-03,Subsistence Allowance-Magna Carta Benefits for Public Health Workers under RA 7305,5,1,2,5,0,3
+716,5-01-02-05-0-04,Subsistence Allowance-Magna Carta Benefits for Public Social Workers under RA 9432,5,1,2,5,0,4
+716,5-01-02-06-0-00,Laundry Allowance,5,1,2,6,0,0
+716,5-01-02-06-0-01,Laundry Allowance-Civilian,5,1,2,6,0,1
+716,5-01-02-06-0-02,Laundry Allowance-Military/Uniformed Personnel,5,1,2,6,0,2
+716,5-01-02-06-0-03,Laundry Allowance-Magna Carta Benefits for Science and Technology under RA 8439,5,1,2,6,0,3
+716,5-01-02-06-0-04,Laundry Allowance-Magna Carta Benefits for Public Health Workers under RA 7305,5,1,2,6,0,4
+716,5-01-02-06-0-05,Laundry Allowance-Magna Carta Benefits for Public Social Workers under RA 9432,5,1,2,6,0,5
+716,5-01-02-07-0-00,Quarters Allowance,5,1,2,7,0,0
+716,5-01-02-07-0-01,Quarters Allowance-Civilian,5,1,2,7,0,1
+716,5-01-02-07-0-02,Quarters Allowance-Military/Uniformed Personnel,5,1,2,7,0,2
+716,5-01-02-07-0-03,Quarters Allowance-Magna Carta Benefits for Science and Technology under RA 8439,5,1,2,7,0,3
+716,5-01-02-07-0-04,Quarters Allowance-Magna Carta Benefits for Public Health Workers under RA 7305,5,1,2,7,0,4
+716,5-01-02-07-0-05,Quarters Allowance-Magna Carta Benefits for Public Social Workers under RA 9432,5,1,2,7,0,5
+717,5-01-02-08-0-01,Productivity Incentive Allowance-Civilian,5,1,2,8,0,1
+717,5-01-02-08-0-02,Productivity Incentive Allowance-Military/Uniformed Personnel,5,1,2,8,0,2
+718,5-01-02-09-0-01,Overseas Allowance-Civilian,5,1,2,9,0,1
+718,5-01-02-09-0-02,Overseas Allowance-Military/Uniformed Personnel,5,1,2,9,0,2
+719,5-01-02-99-0-01,Per Diems-Civilian,5,1,2,99,0,1
+719,5-01-02-99-0-02,Allowance of PAO Lawyers and Employees Assigned in Night Courts-Civilian,5,1,2,99,0,2
+719,5-01-02-99-0-03,Allowance of Attorny's de Officio-Civilian,5,1,2,99,0,3
+719,5-01-02-99-0-04,Special Hardship Allowance-Civilian,5,1,2,99,0,4
+719,5-01-02-99-0-05,Private Messenger Fee-Civilian,5,1,2,99,0,5
+719,5-01-02-99-0-06,Inquest Allowance-Civilian,5,1,2,99,0,6
+719,5-01-02-99-0-07,Special Duty Allowance-Civilian,5,1,2,99,0,7
+719,5-01-02-99-0-08,Special Duty Allowance-Military/Uniformed,5,1,2,99,0,8
+719,5-01-02-99-0-09,Special Allowance for Judges and Justices-Civilian,5,1,2,99,0,9
+719,5-01-02-99-0-10,Special Allowance for the Members of the Prosecution Service,5,1,2,99,0,10
+719,5-01-02-99-0-11,Collective Negotiation Agreement Incentive-Civilian,5,1,2,99,0,11
+719,5-01-02-99-0-12,Productivity Enhancement Incentive-Civilian,5,1,2,99,0,12
+719,5-01-02-99-0-13,Productivity Enhancement Incentive-Military/Uniformed Personnel,5,1,2,99,0,13
+719,5-01-02-99-0-14,Performance Based Bonus-Civilian,5,1,2,99,0,14
+719,5-01-02-99-0-15,Performance Based Bonus-Military/Uniformed Personnel,5,1,2,99,0,15
+719,5-01-02-99-0-16,Flying Pay-Duty Based Allowance,5,1,2,99,0,16
+719,5-01-02-99-0-17,Special Group Team Insurance-DBA-MUP,5,1,2,99,0,17
+719,5-01-02-99-0-18,Sea Duty Pay-DBA-MUP,5,1,2,99,0,18
+719,5-01-02-99-0-19,Combat Incentive Pay-DBA-MUP,5,1,2,99,0,19
+719,5-01-02-99-0-20,Reenlistment Pay-DBA-MUP,5,1,2,99,0,20
+719,5-01-02-99-0-21,Other Subsistence Allowance-DBA-MUP,5,1,2,99,0,21
+719,5-01-02-99-0-22,Training Subsistence Allowance-DBA-mup,5,1,2,99,0,22
+719,5-01-02-99-0-23,Civil Disturbance Control Subsistence Allowance-DBA-MUP,5,1,2,99,0,23
+719,5-01-02-99-0-24,Subsistence of Detainees-DBA-MUP,5,1,2,99,0,24
+719,5-01-02-99-0-25,Hardship Allowance-DBA-MUP,5,1,2,99,0,25
+719,5-01-02-99-0-26,Combat Duty Pay-DBA-MUP,5,1,2,99,0,26
+719,5-01-02-99-0-27,Incentive Pay-DBA-MUP,5,1,2,99,0,27
+719,5-01-02-99-0-28,Instructor's Duty Pay-DBA-MUP,5,1,2,99,0,28
+719,5-01-02-99-0-29,Reservist's Pay-DBA-MUP,5,1,2,99,0,29
+719,5-01-02-99-0-30,Medal of Valor Award-DBA-MUP,5,1,2,99,0,30
+719,5-01-02-99-0-31,Hospitalization Expense-DBA-MUP,5,1,2,99,0,31
+719,5-01-02-99-0-32,Specialist Pay -DBA-MUP,5,1,2,99,0,32
+719,5-01-02-99-0-33,Parachutist Pay-DBA-MUP,5,1,2,99,0,33
+720,5-01-02-10-0-01,Honoraria-Civilian,5,1,2,10,0,1
+720,5-01-02-10-0-02,Honoraria-Military/Uniformed Personnel,5,1,2,10,0,2
+720,5-01-02-10-0-03,Honoraria-Magna Carta Benefits for Science and Technology under RA 8439,5,1,2,10,0,3
+720,5-01-02-10-0-04,Honoraria-Magna Carta Benefits for Public Health Workers under RA 7305,5,1,2,10,0,4
+720,5-01-02-10-0-05,Honoraria-Magna Carta Benefits for Public Social Workers under RA 9432,5,1,2,10,0,5
+721,5-01-02-11-0-01,Hazard Pay,5,1,2,11,0,1
+721,5-01-02-11-0-02,Hazard Pay-Civilian,5,1,2,11,0,2
+721,5-01-02-11-0-03,Hazard Pay-Military/Uniformed Personnel,5,1,2,11,0,3
+721,5-01-02-11-0-04,Hazard Pay-Magna Carta Benefits for Science and Technology under RA 8439,5,1,2,11,0,4
+721,5-01-02-11-0-05,Hazard Pay-Magna Carta Benefits for Public Health Workers under RA 7305,5,1,2,11,0,5
+721,5-01-02-11-0-06,Hazard Pay-Magna Carta Benefits for Public Social Workers under RA 9432,5,1,2,11,0,6
+721,5-01-02-11-0-07,Radiation Hazard Pay not exceeding 15% of Basis Salary,5,1,2,11,0,7
+721,5-01-02-11-0-08,High Risk Duty Pay,5,1,2,11,0,8
+721,5-01-02-11-0-09,Hazardous Duty Pay,5,1,2,11,0,9
+722,5-01-02-12-0-01,Longevity Pay-Civilian,5,1,2,12,0,1
+722,5-01-02-12-0-02,Longevity Pay-Military/Uniformed Personnel,5,1,2,12,0,2
+722,5-01-02-12-0-03,Longevity Pay-Magna Carta Benefits for Science and Technology under RA 8439,5,1,2,12,0,3
+722,5-01-02-12-0-04,Longevity Pay-Magna Carta Benefits for Public Health Workers under RA 7305,5,1,2,12,0,4
+722,5-01-02-12-0-05,Longevity Pay-Magna Carta Benefits for Public Social Workers under RA 9432,5,1,2,12,0,5
+723,5-01-02-13-0-01,Overtime Pay,5,1,2,13,0,1
+723,5-01-02-13-0-02,Night-shift Differential Pay,5,1,2,13,0,2
+724,5-01-02-15-0-01,Cash Gift-Civilian,5,1,2,15,0,1
+724,5-01-02-15-0-02,Cash Gift-Military/Uniformed Personnel,5,1,2,15,0,2
+725,5-01-02-14-0-01,Bonus-Civilian,5,1,2,14,0,1
+725,5-01-02-14-0-02,Bonus-Military/Uniformed Personnel,5,1,2,14,0,2
+731,5-01-03-01-0-00,Retirement and Life Insurance Premiums,5,1,3,1,0,0
+732,5-01-03-02-0-01,PAG-IBIG-Civilian,5,1,3,2,0,1
+732,5-01-03-02-0-02,PAG-IBIG-Military/Uniformed Personnel,5,1,3,2,0,2
+733,5-01-03-03-0-01,PHILHEALTH-Civilian,5,1,3,3,0,1
+733,5-01-03-03-0-02,PHILHEALTH-Military/Uniformed Personnel,5,1,3,3,0,2
+734,5-01-03-04-0-01,ECIP-Civilian,5,1,3,4,0,1
+734,5-01-03-04-0-02,ECIP-Military/Uniformed Personnel,5,1,3,4,0,2
+740,5-01-04-02-0-01,Retirement Gratuity-Civilian,5,1,4,2,0,1
+741,5-01-04-02-0-02,Retirement Gratuity-Military/Uniformed Personnel,5,1,4,2,0,2
+742,5-01-04-03-0-01,Terminal Leave Benefits-Civilian,5,1,4,3,0,1
+742,5-01-04-03-0-02,Terminal Leave Benefits-Military/Uniformed Personnel,5,1,4,3,0,2
+749,5-01-04-99-0-01,Lump-sum for Creation of New Positions-Civilian,5,1,4,99,0,1
+749,5-01-04-99-0-02,Lump-sum for Creation of New Positions-Military/Uniformed Personnel,5,1,4,99,0,2
+749,5-01-04-99-0-03,Lump-sum for Reclassification of Positions,5,1,4,99,0,3
+749,5-01-04-99-0-04,Lump-sum for Equivalent-Record Form,5,1,4,99,0,4
+749,5-01-04-99-0-05,Lump-sum for Master Teachers,5,1,4,99,0,5
+749,5-01-04-99-0-06,Lump-sum for Compensation Adjustment,5,1,4,99,0,6
+749,5-01-04-99-0-07,Lump-sum for Filling of Positions,5,1,4,99,0,7
+749,5-01-04-99-0-08,Lump-sum for NBC No. 308,5,1,4,99,0,8
+749,5-01-04-99-0-09,Lump-sum for Personnel Services,5,1,4,99,0,9
+749,5-01-04-99-0-10,Lump-sum for Step Increments-Length of Service,5,1,4,99,0,10
+749,5-01-04-99-0-11,Lump-sum for Step Increments-Meritorious Performance,5,1,4,99,0,11
+749,5-01-04-99-0-12,Other Lump-sum,5,1,4,99,0,12
+749,5-01-04-99-0-13,Police Benefits (NAPOLCOM),5,1,4,99,0,13
+749,5-01-04-99-0-99,Other Personnel Benefits,5,1,4,99,0,99
+751,5-02-01-01-0-00,Traveling Expenses - Local,5,2,1,1,0,0
+752,5-02-01-02-0-00,Traveling Expenses - Foreign,5,2,1,2,0,0
+753,5-02-02-01-0-00,Training Expenses,5,2,2,1,0,0
+754,5-02-02-02-0-00,Scholarship Grants/Expenses,5,2,2,2,0,0
+755,5-02-03-01-0-00,Office Supplies Expenses,5,2,3,1,0,0
+756,5-02-03-02-0-00,Accountable Forms Expenses,5,2,3,2,0,0
+757,5-02-03-04-0-00,Animal/Zoological Supplies Expenses,5,2,3,4,0,0
+758,5-02-03-05-0-00,Food Supplies Expenses,5,2,3,5,0,0
+759,5-02-03-07-0-00,Drug and Medicines Expenses,5,2,3,7,0,0
+760,5-02-03-08-0-00,"Medical, Dental and Laboratory Supplies Expenses",5,2,3,8,0,0
+761,5-02-03-09-0-00,"Fuel, Oil and Lubricants Expenses",5,2,3,9,0,0
+762,5-02-03-10-0-00,Agricultural and Marine Supplies Expenses,5,2,3,10,0,0
+763,5-02-03-11-0-01,Textbooks and Instructional Materials Expenses,5,2,3,11,0,1
+763,5-02-03-11-0-02,Chalk Allowance,5,2,3,11,0,2
+764,5-02-03-12-0-00,"Military, Police and Traffic Supplies Expenses",5,2,3,12,0,0
+765,5-02-03-99-0-00,Other Supplies and Materials Expenses,5,2,3,99,0,0
+766,5-02-04-01-0-00,Water Expenses,5,2,4,1,0,0
+767,5-02-04-02-0-00,Electricity Expenses,5,2,4,2,0,0
+768,5-02-03-99-0-00,Other Supplies and Materials Expenses,5,2,3,99,0,0
+771,5-02-05-01-0-00,Postage and Courier Services,5,2,5,1,0,0
+772,5-02-05-02-0-02,Landline Expenses,5,2,5,2,0,2
+773,5-02-05-02-0-01,Mobile Expenses,5,2,5,2,0,1
+774,5-02-05-03-0-00,Internet Subscription Expenses,5,2,5,3,0,0
+775,5-02-05-04-0-00,"Cable, Satellite, Telegraph & Radio Expenses",5,2,5,4,0,0
+778,5-02-99-06-0-00,Membership Dues and Contributions to Organizations,5,2,99,6,0,0
+779,5-02-06-01-0-01,Awards/Rewards Expenses,5,2,6,1,0,1
+780,5-02-99-01-0-00,Advertising Expenses,5,2,99,1,0,0
+781,5-02-99-02-0-00,Printing and Publication Expenses,5,2,99,2,0,0
+782,5-02-99-05-0-01,Rents-Buildings and Structures,5,2,99,5,0,1
+782,5-02-99-05-0-02,Rents-Land,5,2,99,5,0,2
+782,5-02-99-05-0-03,Rents-Motor Vehicles,5,2,99,5,0,3
+782,5-02-99-05-0-04,Rents-Equipment,5,2,99,5,0,4
+782,5-02-99-05-0-05,Rents-Living Quarters,5,2,99,5,0,5
+782,5-02-99-05-0-06,Operating Lease,5,2,99,5,0,6
+782,5-02-99-05-0-07,Financial Lease,5,2,99,5,0,7
+783,5-02-99-03-0-00,Representation Expenses,5,2,99,3,0,0
+784,5-02-99-04-0-00,Transportation and Delivery Expenses,5,2,99,4,0,0
+786,5-02-99-07-0-00,Subscription Expenses,5,2,99,7,0,0
+787,5-02-07-01-0-00,Survey Expenses,5,2,7,1,0,0
+788,5-02-06-01-0-02,Rewards and Incentives,5,2,6,1,0,2
+791,5-02-11-01-0-00,Legal Services,5,2,11,1,0,0
+792,5-02-11-02-0-00,Auditing Services,5,2,11,2,0,0
+793,5-02-11-03-0-00,Consultancy Services,5,2,11,3,0,0
+794,5-02-12-01-0-00,Environment/Sanitary Services,5,2,12,1,0,0
+795,5-02-12-99-0-00,Other General Services,5,2,12,99,0,0
+796,5-02-12-02-0-00,Janitorial Services,5,2,12,2,0,0
+799,5-02-11-99-0-00,Other Professional Services,5,2,11,99,0,0
+802,5-02-13-02-0-00,Repairs and Maintenance-Land Improvements,5,2,13,2,0,0
+805,5-02-13-03-0-05,Power Supply Systems,5,2,13,3,0,5
+811,5-02-13-04-0-01,M & R: Buildings,5,2,13,4,0,1
+812,5-02-13-04-0-02,M & R: School Buildings,5,2,13,4,0,2
+813,5-02-13-04-0-03,M & R: Hospital and Health Centers,5,2,13,4,0,3
+815,5-02-13-04-0-99,M & R: Other Structures,5,2,13,4,0,99
+821,5-02-13-05-0-02,M & R: Office Equipment,5,2,13,5,0,2
+822,5-02-13-07-0-00,Repairs and Maintenance-Furniture and Fixtures,5,2,13,7,0,0
+823,5-02-13-05-0-03,M & R: ICT Equipment,5,2,13,5,0,3
+826,5-02-13-05-0-01,M & R: Machinery,5,2,13,5,0,1
+829,5-02-13-05-0-07,M & R: Communication Equipment,5,2,13,5,0,7
+830,5-02-13-05-0-08,M & R: Construction and Heavy Equipment,5,2,13,5,0,8
+831,5-02-13-05-0-09,M & R: Disaster Response and Rescue Equipment,5,2,13,5,0,9
+832,5-02-13-05-0-11,M & R: Medical Equipment,5,2,13,5,0,11
+833,5-02-13-05-0-11,M & R: Medical Equipment,5,2,13,5,0,11
+834,5-02-13-05-0-10,"M & R: Military, Police and Security Equipment",5,2,13,5,0,10
+835,5-02-13-05-0-13,M & R: Sports Equipment,5,2,13,5,0,13
+836,5-02-13-05-0-14,M & R: Technical and Scientific Equipment,5,2,13,5,0,14
+840,5-02-13-05-0-99,M & R: Other Machinery and Equipment,5,2,13,5,0,99
+841,5-02-13-06-0-01,M & R: Motor Vehicles,5,2,13,6,0,1
+843,5-02-13-06-0-03,M & R: Aircrafts and Aircrafts Ground Equipment,5,2,13,6,0,3
+844,5-02-13-06-0-04,M & R: Watercrafts,5,2,13,6,0,4
+848,5-02-13-06-0-99,M & R: Other Transportation Equipment,5,2,13,6,0,99
+850,5-02-13-99-0-99,"Other Property, Plant and Equipment",5,2,13,99,0,99
+851,5-02-13-03-0-01,Road Networks,5,2,13,3,0,1
+852,5-02-13-03-0-09,"Parks, Plazas and Monuments",5,2,13,3,0,9
+854,5-02-13-03-0-04,Water Supply Systems,5,2,13,3,0,4
+860,5-02-13-03-0-99,Other Infrastructure Assets,5,2,13,3,0,99
+861,5-02-13-02-0-02,Reforestation Projects,5,2,13,2,0,2
+862,5-02-13-02-0-02,Reforestation Projects,5,2,13,2,0,2
+871,5-02-14-01-0-00,Subsidy to NGAs,5,2,14,1,0,0
+873,5-02-14-02-0-00,Financial Assistance to NGAs,5,2,14,2,0,0
+874,5-02-14-03-0-00,Financial Assistance to LGUs,5,2,14,3,0,0
+878,5-02-99-08-0-00,Donations,5,2,99,8,0,0
+881,5-02-10-01-0-00,Confidential Expenses,5,2,10,1,0,0
+882,5-02-10-02-0-00,Intelligence Expenses,5,2,10,2,0,0
+883,5-02-10-03-0-00,Extraordinary and Miscellaneous Expenses,5,2,10,3,0,0
+884,5-02-10-03-0-00,Extraordinary and Miscellaneous Expenses,5,2,10,3,0,0
+891,5-02-15-01-0-01,"Taxes, Duties and Licenses",5,2,15,1,0,1
+892,5-02-15-02-0-00,Fidelity Bond Premiums,5,2,15,2,0,0
+893,5-02-15-03-0-00,Insurance Expenses,5,2,15,3,0,0
+902,5-05-01-02-0-01,Aquaculture Structures,5,5,1,2,0,1
+902,5-05-01-02-0-02,Reforestation Projects,5,5,1,2,0,2
+902,5-05-01-02-0-99,Other Land Improvements,5,5,1,2,0,99
+903,5-05-01-03-0-01,Road Networks,5,5,1,3,0,1
+905,5-05-01-03-0-05,Power Supply Systems,5,5,1,3,0,5
+911,5-05-01-04-0-01,Buildings,5,5,1,4,0,1
+912,5-05-01-04-0-02,School Buildings,5,5,1,4,0,2
+913,5-05-01-04-0-03,Hospital and Health Centers,5,5,1,4,0,3
+915,5-05-01-04-0-99,Other Structures,5,5,1,4,0,99
+921,5-05-01-05-0-02,Office Equipment,5,5,1,5,0,2
+922,5-05-01-07-0-01,Furniture and Fixtures,5,5,1,7,0,1
+923,5-05-01-05-0-03,ICT Equipment,5,5,1,5,0,3
+924,5-05-01-07-0-02,Books,5,5,1,7,0,2
+926,5-05-01-05-0-01,Machinery,5,5,1,5,0,1
+927,5-05-01-05-0-04,Agricultural and Forestry Equipment,5,5,1,5,0,4
+929,5-05-01-05-0-07,Communication Equipment,5,5,1,5,0,7
+930,5-05-01-05-0-08,Construction and Heavy Equipment,5,5,1,5,0,8
+931,5-05-01-05-0-09,Disaster Response and Rescue Equipment,5,5,1,5,0,9
+932,5-05-01-05-0-11,Medical Equipment,5,5,1,5,0,11
+933,5-05-01-05-0-11,Medical Equipment,5,5,1,5,0,11
+934,5-05-01-05-0-10,"Military, Police and Security Equipment",5,5,1,5,0,10
+935,5-05-01-05-0-13,Sports Equipment,5,5,1,5,0,13
+936,5-05-01-05-0-14,Technical and Scientific Equipment,5,5,1,5,0,14
+940,5-05-01-05-0-99,Other Machinery and Equipment,5,5,1,5,0,99
+941,5-05-01-06-0-01,Motor Vehicles,5,5,1,6,0,1
+943,5-05-01-06-0-03,Aircrafts and Aircrafts Ground Equipment,5,5,1,6,0,3
+944,5-05-01-06-0-04,Watercrafts,5,5,1,6,0,4
+948,5-05-01-06-0-99,Other Transportation Equipment,5,5,1,6,0,99
+950,5-05-01-99-0-01,Work/Zoo Animals,5,5,1,99,0,1
+950,5-05-01-99-0-99,"Other Property, Plant and Equipment",5,5,1,99,0,99
+954,5-05-01-03-0-04,Water Supply Systems,5,5,1,3,0,4
+961,5-05-04-09-0-00,Loss of Assets,5,5,4,9,0,0
+969,5-02-99-99-0-01,Website Maintenance,5,2,99,99,0,1
+969,5-02-99-99-0-99,Other Maintenance and Operating Expenses,5,2,99,99,0,99
+971,5-03-01-04-0-00,Bank Charges,5,3,1,4,0,0

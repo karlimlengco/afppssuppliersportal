@@ -1,43 +1,38 @@
 @section('contents')
+
 <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-            <div class="x_title">
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <h2>Permissions  <small>Lists</small></h2>
-                    </div>
-                    <div class="col-md-6">
-                        <a href="{{route('settings.permissions.create')}}" class="btn btn-success btn-sm pull-right">ADD NEW</a>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-
-            <div class="x_content">
-                <table id="datatable-responsive" class="table table-hover dataTable no-footer dtr-inline" >
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Permission</th>
-                            <th>Created</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
+    <div class="six columns align-left">
+        <h3>Permissions</h3>
     </div>
+    <div class="six columns align-right">
+        <button class="button">
+            <a href="{{route('settings.permissions.create')}}">ADD NEW</a>
+        </button>
+    </div>
+</div>
+
+
+<div class="row">
+   <div class="twelve columns">
+        <table id="datatable-responsive" class="table" >
+           <thead>
+               <tr>
+                   <th>Description</th>
+                   <th>Permission</th>
+                   <th>Created</th>
+               </tr>
+           </thead>
+           <tbody>
+           </tbody>
+       </table>
+   </div>
 </div>
 
 @stop
 
 @section('scripts')
 <script type="text/javascript">
-    $('#datatable-responsive').DataTable({
+    table = $('#datatable-responsive').DataTable({
         processing: true,
         "bLengthChange": false,
         serverSide: true,
@@ -48,7 +43,15 @@
             {data: 'permission', name: 'permission'},
             {data: 'description', name: 'description'},
             {data: 'created_at', name: 'created_at'},
-        ]
+        ],
+        "fnInitComplete": function (oSettings, json) {
+            $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
+            $("#datatable-responsive_next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+        }
     });
+    // overide datatable filter for custom css
+    $('#newForm').keyup(function(){
+          table.search($(this).val()).draw() ;
+    })
 </script>
 @stop

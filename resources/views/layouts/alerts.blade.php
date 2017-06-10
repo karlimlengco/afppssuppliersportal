@@ -2,23 +2,24 @@
     <div class="col-md-12">
 
         @if(Session::has('error'))
-        <div class="alert alert-danger alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <strong>Oh No!!</strong> {{Session::get('error')}}
+        <div class="message-box message-box--large message-box--error" role="alert">
+            <span class="message-box__icon"><i class="nc-icon-outline ui-2_ban"></i></span>
+            <span class="message-box__message">Oh No!! {{Session::get('error')}}</span>
         </div>
         @endif
 
         @if(Session::has('errors'))
-        <div class="alert alert-danger alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <strong>Oh No!! Something went wrong.</strong> {{Session::get('error-msg')}}
+        <div class="message-box message-box--large message-box--error" role="alert">
+            <span class="message-box__icon"><i class="nc-icon-outline ui-2_ban"></i></span>
+
+            <span class="message-box__message">Oh No!! Something went wrong. {{Session::get('error-msg')}}</span>
         </div>
         @endif
 
         @if(Session::has('success'))
-        <div class="alert alert-success alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <strong>Success!</strong> {{Session::get('success')}}
+        <div class="message-box message-box--large message-box--success" role="alert">
+            <span class="message-box__icon"><i class="nc-icon-outline ui-1_check-circle-08"></i></span>
+            <span class="message-box__message">{{Session::get('success')}}</span>
         </div>
 
         @endif

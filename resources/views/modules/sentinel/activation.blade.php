@@ -13,7 +13,7 @@
     <div class="login-box">
 
         <div class="login-form">
-        Hooray <strong>{{$user->username}}</strong> Welcome to DOCU PARSER<br>Just a few more steps to activate your account.
+        Hooray <strong>{{$user->username}}</strong> Welcome to {{env("APP_NAME")}}<br>Just a few more steps to activate your account.
         <form action="{{ route('activation.activate', $activationParameters) }}" method="POST">
             {{ csrf_field() }}
 
@@ -37,9 +37,9 @@
                         <input type="submit" value="Activate">
                     </div>
                 </div>
-                <div class="six columns">
+                {{-- <div class="six columns">
                     <a href="{{ route('activation.activate', $activationParameters) }}"> or click here</a>
-                </div>
+                </div> --}}
             </div>
         </form>
 

@@ -1,11 +1,52 @@
 {
-    "Settings": [
+
+    "Procurements": [
         {
-            "name"      : "Settings",
-            "icon"      : "nc-icon-glyph lg ui-1_settings-gear-64",
+            "name"      : "Procurements",
+            "icon"      : "nc-icon-mini business_hammer",
             "subname"   : "settings*",
             "route"     :   "settings.index",
             "navigation": [
+                {
+                    "route" :   "procurements.unit-purchase-requests.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Unit Purchase Request"
+                },
+                {
+                    "route" :   "settings.roles.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Roles"
+                }
+            ]
+        }
+    ],
+    "Settings": [
+        {
+            "name"      : "Settings",
+            "icon"      : "nc-icon-mini ui-1_preferences-circle-rotate",
+            "subname"   : "settings*",
+            "route"     :   "settings.index",
+            "navigation": [
+                {
+                    "route" :   "settings.mode-of-procurements.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Mode of Procurements"
+                },
+                {
+                    "route" :   "settings.procurement-centers.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Procurement Centers"
+                },
+                {
+                    "route" :   "settings.account-codes.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Account Codes"
+                },
+                {
+                    "route" :   "settings.chargeability.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Chargeability"
+                },
                 {
                     "route" :   "settings.users.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",

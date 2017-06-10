@@ -30,11 +30,14 @@ class ActivationMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('modules.sentinel.activation')
+        $route  =   route('activation.activate', [ "user=".$this->event['user']['id'] , "code=".$this->event['code'] ]);
+
+        return $this->markdown('modules.sentinel.email.activation')
                     ->with([
                         'user' => $this->event['user'],
                         'activation'    =>  $this->event['code'],
-                        'activationParameters'  => $this->event
+                        'activationParameters'  => $this->event,
+                        'route' => $route
                     ]);
     }
 }

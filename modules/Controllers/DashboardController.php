@@ -30,6 +30,16 @@ class DashboardController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function procurements()
+    {
+        return $this->view('modules.procurements.dashboard');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

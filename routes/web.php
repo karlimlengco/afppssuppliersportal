@@ -14,6 +14,19 @@
 
 Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard.index');
 
+
+
+/*
+|--------------------------------------------------------------------------
+| Procurements Routes
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('procurements', '\Revlv\Controllers\DashboardController@procurements')->name('procurements.index');
+Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () {
+    Route::resource('unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Settings Routes
@@ -37,6 +50,18 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
 
     /*
     |--------------------------------------------------------------------------
+    | Procurement Setting Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::resource('mode-of-procurements', '\Revlv\Controllers\Settings\ModeOfProcurementsController');
+    Route::resource('procurement-centers', '\Revlv\Controllers\Settings\ProcurementCenterController');
+    Route::resource('account-codes', '\Revlv\Controllers\Settings\AccountCodeController');
+    Route::resource('chargeability', '\Revlv\Controllers\Settings\ChargeabilityController');
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Audit Logs Routes
     |--------------------------------------------------------------------------
     |
@@ -56,7 +81,6 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
 
     Route::get('audit-logs', '\Revlv\Controllers\Settings\AuditLogController@getDatatable')->name('audit-logs');
 
-
     /*
     |--------------------------------------------------------------------------
     | Admin Routes
@@ -66,6 +90,25 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('permissions', '\Revlv\Controllers\Sentinel\PermissionController@getDatatable')->name('permissions');
     Route::get('roles', '\Revlv\Controllers\Sentinel\RoleController@getDatatable')->name('roles');
     Route::get('users', '\Revlv\Controllers\Sentinel\UserController@getDatatable')->name('users');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Settings Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::get('mode-of-procurements', '\Revlv\Controllers\Settings\ModeOfProcurementsController@getDatatable')->name('settings.mode-of-procurements');
+    Route::get('procurement-centers', '\Revlv\Controllers\Settings\ProcurementCenterController@getDatatable')->name('settings.procurement-centers');
+    Route::get('account-codes', '\Revlv\Controllers\Settings\AccountCodeController@getDatatable')->name('settings.account-codes');
+    Route::get('chargeability', '\Revlv\Controllers\Settings\ChargeabilityController@getDatatable')->name('settings.chargeability');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Procurement Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::get('procurements.unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController@getDatatable')->name('procurements.unit-purchase-request');
 });
 
 
