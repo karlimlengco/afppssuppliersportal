@@ -21,6 +21,10 @@ class CreateUnitPurchaseRequestItems extends Migration
             $table->string('unit_measurement');
             $table->string('unit_price');
             $table->string('total_amount');
+            $table->string('upr_number')->nullable();
+            $table->string('afpps_ref_number')->nullable();
+            $table->integer('prepared_by')->nullable();
+            $table->date('date_prepared')->nullable();
 
             $table->timestamps();
 

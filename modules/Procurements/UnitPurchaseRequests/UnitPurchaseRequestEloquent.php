@@ -22,7 +22,7 @@ class UnitPurchaseRequestEloquent extends Model
     protected $fillable = [
         'place_of_delivery',
         'mode_of_procurement',
-        'chargability',
+        'chargeability',
         'account_code',
         'fund_validity',
         'terms_of_payment',
@@ -34,5 +34,75 @@ class UnitPurchaseRequestEloquent extends Model
         'total_amount',
         'prepared_by',
     ];
+
+    /**
+     * [centers description]
+     *
+     * @return [type] [description]
+     */
+    public function centers()
+    {
+        return $this->belongsTo('\Revlv\Settings\ProcurementCenters\ProcurementCenterEloquent', 'place_of_delivery');
+    }
+
+    /**
+     * [modes description]
+     *
+     * @return [type] [description]
+     */
+    public function modes()
+    {
+        return $this->belongsTo('\Revlv\Settings\ModeOfProcurements\ModeOfProcurementEloquent', 'mode_of_procurement');
+    }
+
+    /**
+     * [charges description]
+     *
+     * @return [type] [description]
+     */
+    public function charges()
+    {
+        return $this->belongsTo('\Revlv\Settings\Chargeability\ChargeabilityEloquent', 'chargeability');
+    }
+
+    /**
+     * [accounts description]
+     *
+     * @return [type] [description]
+     */
+    public function accounts()
+    {
+        return $this->belongsTo('\Revlv\Settings\AccountCodes\AccountCodeEloquent', 'account_code');
+    }
+
+    /**
+     * [terms description]
+     *
+     * @return [type] [description]
+     */
+    public function terms()
+    {
+        return $this->belongsTo('\Revlv\Settings\PaymentTerms\PaymentTermEloquent', 'terms_of_payment');
+    }
+
+    /**
+     * [users description]
+     *
+     * @return [type] [description]
+     */
+    public function users()
+    {
+        return $this->belongsTo('\App\User', 'prepared_by');
+    }
+
+    /**
+     * [items description]
+     *
+     * @return [type] [description]
+     */
+    public function items()
+    {
+        return $this->hasMany('\Revlv\Procurements\Items\ItemEloquent', 'upr_id');
+    }
 
 }

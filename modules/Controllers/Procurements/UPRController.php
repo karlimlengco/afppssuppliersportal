@@ -5,8 +5,16 @@ namespace Revlv\Controllers\Procurements;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use DB;
 
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
+use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRequest;
+use \Revlv\Procurements\Items\ItemRepository;
+use \Revlv\Settings\AccountCodes\AccountCodeRepository;
+use \Revlv\Settings\Chargeability\ChargeabilityRepository;
+use \Revlv\Settings\ModeOfProcurements\ModeOfProcurementRepository;
+use \Revlv\Settings\ProcurementCenters\ProcurementCenterRepository;
+use \Revlv\Settings\PaymentTerms\PaymentTermRepository;
 
 class UPRController extends Controller
 {
@@ -17,6 +25,18 @@ class UPRController extends Controller
      * @var string
      */
     protected $baseUrl  =   "procurements.unit-purchase-requests.";
+
+    /**
+     * [$accounts description]
+     *
+     * @var [type]
+     */
+    protected $accounts;
+    protected $chargeability;
+    protected $modes;
+    protected $centers;
+    protected $terms;
+    protected $items;
 
     /**
      * [$model description]
@@ -60,9 +80,33 @@ class UPRController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(
+        AccountCodeRepository $accounts,
+        ChargeabilityRepository $chargeability,
+        ModeOfProcurementRepository $modes,
+        ProcurementCenterRepository $centers,
+        PaymentTermRepository $terms)
     {
-        //
+
+        $account_codes      =    $accounts->lists('id', 'new_account_code');
+        $charges            =    $chargeability->lists('id', 'name');
+        $procurement_modes  =    $modes->lists('id', 'name');
+        $procurement_center =    $centers->lists('id', 'name');
+        $payment_terms      =    $terms->lists('id', 'name');
+        // $this->permissions->lists('permission','description')
+        $this->view('modules.procurements.upr.create',[
+            'indexRoute'        =>  $this->baseUrl.'index',
+            'account_codes'     =>  $account_codes,
+            'payment_terms'     =>  $payment_terms,
+            'charges'           =>  $charges,
+            'procurement_modes' =>  $procurement_modes,
+            'procurement_center'=>  $procurement_center,
+            'modelConfig'   =>  [
+                'store' =>  [
+                    'route'     =>  $this->baseUrl.'store'
+                ]
+            ]
+        ]);
     }
 
     /**
@@ -71,9 +115,43 @@ class UPRController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UnitPurchaseRequestRequest $request, UnitPurchaseRequestRepository $model)
     {
-        //
+        $items  =   $request->only(['item_description', 'quantity', 'unit_measurement', 'unit_price', 'total_amount']);
+        $procs  =   $request->getData();
+
+        $total_amount   =   array_sum($items['total_amount']);
+        $prepared_by    =   \Sentinel::getUser()->id;
+        $item_datas     =   [];
+
+        $procs['total_amount']  =   $total_amount;
+        $procs['prepared_by']   =   $prepared_by;
+
+        $result = $model->save($procs);
+
+        if($result)
+        {
+            for ($i=0; $i < count($items['item_description']); $i++) {
+                $item_datas[]  =   [
+                    'item_description'      =>  $items['item_description'][$i],
+                    'quantity'              =>  $items['quantity'][$i],
+                    'unit_measurement'      =>  $items['unit_measurement'][$i],
+                    'unit_price'            =>  $items['unit_price'][$i],
+                    'total_amount'          =>  $items['total_amount'][$i],
+                    'upr_number'            =>  $request->get('upr_number'),
+                    'afpps_ref_number'      =>  $request->get('afpps_ref_number'),
+                    'prepared_by'           =>  $prepared_by,
+                    'date_prepared'         =>  $request->get('date_prepared'),
+                    'upr_id'                =>  $result->id
+                ];
+            }
+
+            DB::table('unit_purchase_request_items')->insert($item_datas);
+        }
+
+        return redirect()->route($this->baseUrl.'show', $result->id)->with([
+            'success'  => "New record has been successfully added."
+        ]);
     }
 
     /**
@@ -82,9 +160,15 @@ class UPRController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, UnitPurchaseRequestRepository $model)
     {
-        //
+        $result =   $model->findById($id);
+
+        return $this->view('modules.procurements.upr.show',[
+            'data'          =>  $result,
+            'indexRoute'    =>  $this->baseUrl.'index',
+            'editRoute'     =>  $this->baseUrl.'edit',
+        ]);
     }
 
     /**
@@ -93,9 +177,41 @@ class UPRController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,
+        AccountCodeRepository $accounts,
+        ChargeabilityRepository $chargeability,
+        ModeOfProcurementRepository $modes,
+        ProcurementCenterRepository $centers,
+        UnitPurchaseRequestRepository $model,
+        PaymentTermRepository $terms)
     {
-        //
+        $result =   $model->findById($id);
+
+        $account_codes      =    $accounts->lists('id', 'new_account_code');
+        $charges            =    $chargeability->lists('id', 'name');
+        $procurement_modes  =    $modes->lists('id', 'name');
+        $procurement_center =    $centers->lists('id', 'name');
+        $payment_terms      =    $terms->lists('id', 'name');
+
+        return $this->view('modules.procurements.upr.edit',[
+            'data'              =>  $result,
+            'indexRoute'        =>  $this->baseUrl.'show',
+            'account_codes'     =>  $account_codes,
+            'payment_terms'     =>  $payment_terms,
+            'charges'           =>  $charges,
+            'procurement_modes' =>  $procurement_modes,
+            'procurement_center'=>  $procurement_center,
+            'modelConfig'   =>  [
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update', $id],
+                    'method'    =>  'PUT'
+                ],
+                'destroy'   => [
+                    'route' => [$this->baseUrl.'destroy',$id],
+                    'method'=> 'DELETE'
+                ]
+            ]
+        ]);
     }
 
     /**
@@ -105,9 +221,13 @@ class UPRController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UnitPurchaseRequestRequest $request, $id, UnitPurchaseRequestRepository $model)
     {
-        //
+        $model->update($request->getData(), $id);
+
+        return redirect()->route($this->baseUrl.'edit', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
     }
 
     /**

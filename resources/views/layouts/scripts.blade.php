@@ -1,13 +1,14 @@
 <!-- jQuery -->
 <script src="/vendors/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap -->
-<script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+{{-- <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script> --}}
 
 
 <!-- bootstrap-daterangepicker -->
 <script src="/js/moment/moment.min.js"></script>
 <script src="/js/datepicker/daterangepicker.js"></script>
 <script src="/js/selectize.js"></script>
+<script src="/vendors/pickmeup/pickmeup.min.js"></script>
 
 
 <!-- Datatables Scripts -->

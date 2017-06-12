@@ -12,7 +12,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
     protected $whitelist = [
         'place_of_delivery',
         'mode_of_procurement',
-        'chargability',
+        'chargeability',
         'account_code',
         'fund_validity',
         'terms_of_payment',
@@ -21,7 +21,6 @@ class UnitPurchaseRequestRequest extends BaseRequest
         'purpose',
         'afpps_ref_number',
         'date_prepared',
-        'total_amount',
         'prepared_by',
     ];
 
@@ -35,7 +34,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
         return [
             'place_of_delivery'     => 'required',
             'mode_of_procurement'   => 'required',
-            'chargability'          => 'required',
+            'chargeability'         => 'required',
             'account_code'          => 'required'
         ];
     }

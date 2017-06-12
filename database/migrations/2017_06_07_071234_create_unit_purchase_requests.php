@@ -18,7 +18,7 @@ class CreateUnitPurchaseRequests extends Migration
 
             $table->string('place_of_delivery');
             $table->string('mode_of_procurement');
-            $table->string('chargability');
+            $table->string('chargeability');
             $table->string('account_code');
             $table->string('fund_validity')->nullable();
             $table->string('terms_of_payment')->nullable();
@@ -26,7 +26,7 @@ class CreateUnitPurchaseRequests extends Migration
             $table->string('upr_number');
             $table->text('purpose');
             $table->string('afpps_ref_number')->nullable();
-            $table->string('date_prepared');
+            $table->date('date_prepared');
             $table->string('total_amount');
             $table->integer('prepared_by');
 

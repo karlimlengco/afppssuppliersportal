@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ModeOfProcurement::class);
         $this->call(ProcurementCenters::class);
         $this->call(AccountCodes::class);
+        $this->call(PaymentTerm::class);
     }
 }
