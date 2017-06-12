@@ -21,6 +21,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
         'purpose',
         'afpps_ref_number',
         'date_prepared',
+        'units',
         'prepared_by',
     ];
 
@@ -35,6 +36,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
             'place_of_delivery'     => 'required',
             'mode_of_procurement'   => 'required',
             'chargeability'         => 'required',
+            'units'                 => 'required',
             'account_code'          => 'required'
         ];
     }

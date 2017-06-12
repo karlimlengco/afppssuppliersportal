@@ -15,6 +15,7 @@ use \Revlv\Settings\Chargeability\ChargeabilityRepository;
 use \Revlv\Settings\ModeOfProcurements\ModeOfProcurementRepository;
 use \Revlv\Settings\ProcurementCenters\ProcurementCenterRepository;
 use \Revlv\Settings\PaymentTerms\PaymentTermRepository;
+use \Revlv\Settings\Units\UnitRepository;
 
 class UPRController extends Controller
 {
@@ -37,6 +38,7 @@ class UPRController extends Controller
     protected $centers;
     protected $terms;
     protected $items;
+    protected $units;
 
     /**
      * [$model description]
@@ -85,6 +87,7 @@ class UPRController extends Controller
         ChargeabilityRepository $chargeability,
         ModeOfProcurementRepository $modes,
         ProcurementCenterRepository $centers,
+        UnitRepository $units,
         PaymentTermRepository $terms)
     {
 
@@ -93,11 +96,13 @@ class UPRController extends Controller
         $procurement_modes  =    $modes->lists('id', 'name');
         $procurement_center =    $centers->lists('id', 'name');
         $payment_terms      =    $terms->lists('id', 'name');
+        $unit               =    $units->lists('id', 'name');
         // $this->permissions->lists('permission','description')
         $this->view('modules.procurements.upr.create',[
             'indexRoute'        =>  $this->baseUrl.'index',
             'account_codes'     =>  $account_codes,
             'payment_terms'     =>  $payment_terms,
+            'unit'              =>  $unit,
             'charges'           =>  $charges,
             'procurement_modes' =>  $procurement_modes,
             'procurement_center'=>  $procurement_center,
@@ -183,6 +188,7 @@ class UPRController extends Controller
         ModeOfProcurementRepository $modes,
         ProcurementCenterRepository $centers,
         UnitPurchaseRequestRepository $model,
+        UnitRepository $units,
         PaymentTermRepository $terms)
     {
         $result =   $model->findById($id);
@@ -192,6 +198,7 @@ class UPRController extends Controller
         $procurement_modes  =    $modes->lists('id', 'name');
         $procurement_center =    $centers->lists('id', 'name');
         $payment_terms      =    $terms->lists('id', 'name');
+        $unit               =    $units->lists('id', 'name');
 
         return $this->view('modules.procurements.upr.edit',[
             'data'              =>  $result,
@@ -199,6 +206,7 @@ class UPRController extends Controller
             'account_codes'     =>  $account_codes,
             'payment_terms'     =>  $payment_terms,
             'charges'           =>  $charges,
+            'unit'              =>  $unit,
             'procurement_modes' =>  $procurement_modes,
             'procurement_center'=>  $procurement_center,
             'modelConfig'   =>  [

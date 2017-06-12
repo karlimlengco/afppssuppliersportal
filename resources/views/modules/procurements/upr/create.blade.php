@@ -14,14 +14,20 @@
 <div class="row">
     <div class="twelve columns">
             <div class="row">
-                <div class="four columns">
+                <div class="six columns">
                     {!! Form::textField('upr_number', 'UPR Number') !!}
                 </div>
-                <div class="four columns">
+                <div class="six columns">
                     {!! Form::textField('afpps_ref_number', 'AFPPS Number') !!}
                 </div>
-                <div class="four columns">
+            </div>
+
+            <div class="row">
+                <div class="six columns">
                     {!! Form::textField('date_prepared', 'Date Prepared') !!}
+                </div>
+                <div class="six columns">
+                    {!! Form::selectField('units', 'Units', $unit) !!}
                 </div>
             </div>
 

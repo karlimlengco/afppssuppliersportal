@@ -23,6 +23,7 @@ class CreateUnitPurchaseRequests extends Migration
             $table->string('fund_validity')->nullable();
             $table->string('terms_of_payment')->nullable();
             $table->string('other_infos')->nullable();
+            $table->string('units');
             $table->string('upr_number');
             $table->text('purpose');
             $table->string('afpps_ref_number')->nullable();

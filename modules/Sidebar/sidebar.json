@@ -53,6 +53,11 @@
                     "name"  :   "Payment Terms"
                 },
                 {
+                    "route" :   "settings.units.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Units"
+                },
+                {
                     "route" :   "settings.users.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Users"

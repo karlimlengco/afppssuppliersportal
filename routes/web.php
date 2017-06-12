@@ -59,6 +59,7 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
     Route::resource('account-codes', '\Revlv\Controllers\Settings\AccountCodeController');
     Route::resource('chargeability', '\Revlv\Controllers\Settings\ChargeabilityController');
     Route::resource('payment-terms', '\Revlv\Controllers\Settings\PaymentTermController');
+    Route::resource('units', '\Revlv\Controllers\Settings\UnitController');
 
 
     /*
@@ -103,6 +104,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('account-codes', '\Revlv\Controllers\Settings\AccountCodeController@getDatatable')->name('settings.account-codes');
     Route::get('chargeability', '\Revlv\Controllers\Settings\ChargeabilityController@getDatatable')->name('settings.chargeability');
     Route::get('payment-terms', '\Revlv\Controllers\Settings\PaymentTermController@getDatatable')->name('settings.payment-terms');
+    Route::get('units', '\Revlv\Controllers\Settings\UnitController@getDatatable')->name('settings.units');
 
     /*
     |--------------------------------------------------------------------------

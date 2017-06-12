@@ -32,6 +32,7 @@ class UnitPurchaseRequestEloquent extends Model
         'afpps_ref_number',
         'date_prepared',
         'total_amount',
+        'units',
         'prepared_by',
     ];
 
