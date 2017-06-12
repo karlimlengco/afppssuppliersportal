@@ -25,6 +25,7 @@ Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard
 Route::get('procurements', '\Revlv\Controllers\DashboardController@procurements')->name('procurements.index');
 Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () {
     Route::resource('unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController');
+    Route::resource('blank-rfq', '\Revlv\Controllers\Procurements\BlankRFQController');
 });
 
 /*
@@ -113,6 +114,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     |
     */
     Route::get('procurements.unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController@getDatatable')->name('procurements.unit-purchase-request');
+    Route::get('blank-rfq', '\Revlv\Controllers\Procurements\BlankRFQController@getDatatable')->name('procurements.blank-rfq');
 });
 
 

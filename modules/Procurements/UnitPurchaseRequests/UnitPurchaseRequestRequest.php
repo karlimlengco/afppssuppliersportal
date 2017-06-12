@@ -37,6 +37,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
             'mode_of_procurement'   => 'required',
             'chargeability'         => 'required',
             'units'                 => 'required',
+            'purpose'               => 'required',
             'account_code'          => 'required'
         ];
     }

@@ -111,3 +111,7 @@
 .button>a{
     color:white;
 }
+#hour_list_id > ol, #minute_list_id > ol{
+    padding:0 !important;
+    margin:0 !important;
+}

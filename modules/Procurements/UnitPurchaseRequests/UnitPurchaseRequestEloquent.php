@@ -67,6 +67,16 @@ class UnitPurchaseRequestEloquent extends Model
     }
 
     /**
+     * [unit description]
+     *
+     * @return [type] [description]
+     */
+    public function unit()
+    {
+        return $this->belongsTo('\Revlv\Settings\Units\UnitEloquent', 'units');
+    }
+
+    /**
      * [accounts description]
      *
      * @return [type] [description]

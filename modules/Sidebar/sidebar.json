@@ -13,9 +13,9 @@
                     "name"  :   "Unit Purchase Request"
                 },
                 {
-                    "route" :   "settings.roles.index",
+                    "route" :   "procurements.blank-rfq.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Roles"
+                    "name"  :   "Blank RFQ"
                 }
             ]
         }

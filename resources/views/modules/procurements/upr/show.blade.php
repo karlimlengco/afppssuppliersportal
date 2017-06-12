@@ -22,11 +22,12 @@
             <li> <strong>Date Prepared :</strong> {{$data->date_prepared}} </li>
             <li> <strong>Place of delivery :</strong> {{($data->centers) ? $data->centers->name :""}} </li>
             <li> <strong>Mode of Procurement :</strong> {{($data->modes) ? $data->modes->name :""}} </li>
-            <li> <strong>Total ABC :</strong> {{number_format($data->total_amount,2)}} </li>
+            <li> <strong>Units :</strong> {{($data->unit) ? $data->unit->name :""}} </li>
         </ul>
     </div>
     <div class="six columns pull-right">
         <ul>
+            <li> <strong>Total ABC :</strong> {{number_format($data->total_amount,2)}} </li>
             <li> <strong>Chargeability :</strong> {{($data->charges) ? $data->charges->name :""}} </li>
             <li> <strong>Account Code :</strong> {{($data->accounts) ? $data->accounts->new_account_code :""}} </li>
             <li> <strong>Fund Validity :</strong> {{$data->fund_validity}} </li>
