@@ -79,11 +79,13 @@
 
     // datepicker
     pickmeup('#id-field-transaction_date', {
-        format  : 'Y-m-d'
+        format  : 'Y-m-d',
+        default_date: false
     });
 
     pickmeup('#id-field-deadline', {
-        format  : 'Y-m-d'
+        format  : 'Y-m-d',
+        default_date: false
     });
     // end datepicker
 </script>

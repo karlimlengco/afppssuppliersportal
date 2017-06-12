@@ -68,3 +68,14 @@
 {!!Form::close()!!}
 
 @stop
+
+
+@section('scripts')
+<script>
+    // datepicker
+    pickmeup('#id-field-date_prepared', {
+        format  : 'Y-m-d'
+    });
+    // end datepicker
+</script>
+@stop

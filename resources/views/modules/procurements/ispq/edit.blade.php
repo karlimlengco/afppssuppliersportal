@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>PhilGeps Posting</h3>
+        <h3>Invitation to Submit Price Quotation</h3>
     </div>
 </div>
 
