@@ -16,6 +16,11 @@
                     "route" :   "procurements.blank-rfq.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "Blank RFQ"
+                },
+                {
+                    "route" :   "procurements.philgeps-posting.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "PhilGeps Posting"
                 }
             ]
         }
