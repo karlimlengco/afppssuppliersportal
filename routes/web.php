@@ -80,6 +80,7 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
 
 
     Route::resource('suppliers', '\Revlv\Controllers\Settings\SupplierController');
+    Route::resource('signatories', '\Revlv\Controllers\Settings\SignatoryController');
 
     /*
     |--------------------------------------------------------------------------
@@ -119,6 +120,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     |
     */
     Route::get('suppliers', '\Revlv\Controllers\Settings\SupplierController@getDatatable')->name('settings.suppliers');
+    Route::get('signatories', '\Revlv\Controllers\Settings\SignatoryController@getDatatable')->name('settings.signatories');
 
     /*
     |--------------------------------------------------------------------------

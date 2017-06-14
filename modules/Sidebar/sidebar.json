@@ -88,6 +88,11 @@
                     "name"  :   "Suppliers"
                 },
                 {
+                    "route" :   "settings.signatories.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Signatories"
+                },
+                {
                     "route" :   "settings.users.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Users"
