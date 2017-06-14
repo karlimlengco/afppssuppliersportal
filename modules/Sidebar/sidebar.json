@@ -83,6 +83,11 @@
             "route"     :   "settings.index",
             "navigation": [
                 {
+                    "route" :   "settings.suppliers.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Suppliers"
+                },
+                {
                     "route" :   "settings.users.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Users"

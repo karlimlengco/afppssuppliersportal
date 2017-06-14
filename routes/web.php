@@ -33,7 +33,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
 
 /*
 |--------------------------------------------------------------------------
-| Settings Routes
+| Maintenance Routes
 |--------------------------------------------------------------------------
 |
 */
@@ -78,6 +78,9 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
     Route::resource('permissions', '\Revlv\Controllers\Sentinel\PermissionController');
     Route::resource('user/groups', '\Revlv\Controllers\Sentinel\UserGroupController');
 
+
+    Route::resource('suppliers', '\Revlv\Controllers\Settings\SupplierController');
+
     /*
     |--------------------------------------------------------------------------
     | Audit Logs Routes
@@ -112,6 +115,14 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     /*
     |--------------------------------------------------------------------------
     | Settings Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::get('suppliers', '\Revlv\Controllers\Settings\SupplierController@getDatatable')->name('settings.suppliers');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Maintenance Routes
     |--------------------------------------------------------------------------
     |
     */

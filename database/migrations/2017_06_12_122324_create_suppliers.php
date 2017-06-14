@@ -19,10 +19,12 @@ class CreateSuppliers extends Migration
             $table->string('owner');
             $table->string('address');
             $table->string('tin')->nullable();
+
             $table->string('bank_id')->nullable();
             $table->string('branch')->nullable();
             $table->string('account_number')->nullable();
             $table->string('account_type')->nullable();
+
             $table->string('cell_1')->nullable();
             $table->string('cell_2')->nullable();
             $table->string('phone_1')->nullable();
