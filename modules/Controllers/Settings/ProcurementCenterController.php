@@ -17,7 +17,7 @@ class ProcurementCenterController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "settings.procurement-centers.";
+    protected $baseUrl  =   "maintenance.procurement-centers.";
 
     /**
      * [$model description]

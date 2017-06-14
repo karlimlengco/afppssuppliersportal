@@ -17,7 +17,7 @@ class ChargeabilityController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "settings.chargeability.";
+    protected $baseUrl  =   "maintenance.chargeability.";
 
     /**
      * [$model description]

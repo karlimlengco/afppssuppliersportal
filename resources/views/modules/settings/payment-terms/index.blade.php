@@ -48,7 +48,7 @@
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.settings.payment-terms')}}",
+                url: "{{route('datatables.maintenance.payment-terms')}}",
                 // data: function (d) {
                     // d.search.value = $('#search-table').val();
                 // }

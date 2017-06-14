@@ -35,7 +35,7 @@ trait DatatableTrait
     {
         return Datatables::of($model)
             ->addColumn('name', function ($data) {
-                $route  =  route( 'settings.procurement-centers.edit',[$data->id] );
+                $route  =  route( 'maintenance.procurement-centers.edit',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->name .'</a>';
             })
             ->rawColumns(['name'])

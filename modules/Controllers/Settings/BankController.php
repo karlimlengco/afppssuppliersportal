@@ -17,7 +17,7 @@ class BankController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "settings.banks.";
+    protected $baseUrl  =   "maintenance.banks.";
 
     /**
      * [$model description]

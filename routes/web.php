@@ -30,6 +30,33 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::resource('ispq', '\Revlv\Controllers\Procurements\ISPQController');
 });
 
+
+/*
+|--------------------------------------------------------------------------
+| Settings Routes
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::group(['as' => 'maintenance.', 'prefix' => 'maintenance'], function () {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Procurement Maintenance Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::resource('mode-of-procurements', '\Revlv\Controllers\Settings\ModeOfProcurementsController');
+    Route::resource('procurement-centers', '\Revlv\Controllers\Settings\ProcurementCenterController');
+    Route::resource('account-codes', '\Revlv\Controllers\Settings\AccountCodeController');
+    Route::resource('chargeability', '\Revlv\Controllers\Settings\ChargeabilityController');
+    Route::resource('payment-terms', '\Revlv\Controllers\Settings\PaymentTermController');
+    Route::resource('units', '\Revlv\Controllers\Settings\UnitController');
+    Route::resource('banks', '\Revlv\Controllers\Settings\BankController');
+
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | Settings Routes
@@ -50,21 +77,6 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
     Route::resource('roles', '\Revlv\Controllers\Sentinel\RoleController');
     Route::resource('permissions', '\Revlv\Controllers\Sentinel\PermissionController');
     Route::resource('user/groups', '\Revlv\Controllers\Sentinel\UserGroupController');
-
-    /*
-    |--------------------------------------------------------------------------
-    | Procurement Setting Routes
-    |--------------------------------------------------------------------------
-    |
-    */
-    Route::resource('mode-of-procurements', '\Revlv\Controllers\Settings\ModeOfProcurementsController');
-    Route::resource('procurement-centers', '\Revlv\Controllers\Settings\ProcurementCenterController');
-    Route::resource('account-codes', '\Revlv\Controllers\Settings\AccountCodeController');
-    Route::resource('chargeability', '\Revlv\Controllers\Settings\ChargeabilityController');
-    Route::resource('payment-terms', '\Revlv\Controllers\Settings\PaymentTermController');
-    Route::resource('units', '\Revlv\Controllers\Settings\UnitController');
-    Route::resource('banks', '\Revlv\Controllers\Settings\BankController');
-
 
     /*
     |--------------------------------------------------------------------------
@@ -103,13 +115,13 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     |--------------------------------------------------------------------------
     |
     */
-    Route::get('mode-of-procurements', '\Revlv\Controllers\Settings\ModeOfProcurementsController@getDatatable')->name('settings.mode-of-procurements');
-    Route::get('procurement-centers', '\Revlv\Controllers\Settings\ProcurementCenterController@getDatatable')->name('settings.procurement-centers');
-    Route::get('account-codes', '\Revlv\Controllers\Settings\AccountCodeController@getDatatable')->name('settings.account-codes');
-    Route::get('chargeability', '\Revlv\Controllers\Settings\ChargeabilityController@getDatatable')->name('settings.chargeability');
-    Route::get('payment-terms', '\Revlv\Controllers\Settings\PaymentTermController@getDatatable')->name('settings.payment-terms');
-    Route::get('units', '\Revlv\Controllers\Settings\UnitController@getDatatable')->name('settings.units');
-    Route::get('banks', '\Revlv\Controllers\Settings\BankController@getDatatable')->name('settings.banks');
+    Route::get('mode-of-procurements', '\Revlv\Controllers\Settings\ModeOfProcurementsController@getDatatable')->name('maintenance.mode-of-procurements');
+    Route::get('procurement-centers', '\Revlv\Controllers\Settings\ProcurementCenterController@getDatatable')->name('maintenance.procurement-centers');
+    Route::get('account-codes', '\Revlv\Controllers\Settings\AccountCodeController@getDatatable')->name('maintenance.account-codes');
+    Route::get('chargeability', '\Revlv\Controllers\Settings\ChargeabilityController@getDatatable')->name('maintenance.chargeability');
+    Route::get('payment-terms', '\Revlv\Controllers\Settings\PaymentTermController@getDatatable')->name('maintenance.payment-terms');
+    Route::get('units', '\Revlv\Controllers\Settings\UnitController@getDatatable')->name('maintenance.units');
+    Route::get('banks', '\Revlv\Controllers\Settings\BankController@getDatatable')->name('maintenance.banks');
 
     /*
     |--------------------------------------------------------------------------

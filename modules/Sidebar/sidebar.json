@@ -30,6 +30,51 @@
             ]
         }
     ],
+    "Maintenance": [
+        {
+            "name"      : "Maintenance",
+            "icon"      : "nc-icon-mini ui-1_settings-gear-65",
+            "subname"   : "maintenance*",
+            "route"     :   "maintenance.index",
+            "navigation": [
+                {
+                    "route" :   "maintenance.mode-of-procurements.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Mode of Procurements"
+                },
+                {
+                    "route" :   "maintenance.procurement-centers.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Procurement Centers"
+                },
+                {
+                    "route" :   "maintenance.account-codes.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Account Codes"
+                },
+                {
+                    "route" :   "maintenance.chargeability.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Chargeability"
+                },
+                {
+                    "route" :   "maintenance.payment-terms.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Payment Terms"
+                },
+                {
+                    "route" :   "maintenance.units.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Units"
+                },
+                {
+                    "route" :   "maintenance.banks.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Banks"
+                }
+            ]
+        }
+    ],
     "Settings": [
         {
             "name"      : "Settings",
@@ -37,41 +82,6 @@
             "subname"   : "settings*",
             "route"     :   "settings.index",
             "navigation": [
-                {
-                    "route" :   "settings.mode-of-procurements.index",
-                    "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Mode of Procurements"
-                },
-                {
-                    "route" :   "settings.procurement-centers.index",
-                    "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Procurement Centers"
-                },
-                {
-                    "route" :   "settings.account-codes.index",
-                    "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Account Codes"
-                },
-                {
-                    "route" :   "settings.chargeability.index",
-                    "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Chargeability"
-                },
-                {
-                    "route" :   "settings.payment-terms.index",
-                    "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Payment Terms"
-                },
-                {
-                    "route" :   "settings.units.index",
-                    "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Units"
-                },
-                {
-                    "route" :   "settings.banks.index",
-                    "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Banks"
-                },
                 {
                     "route" :   "settings.users.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",

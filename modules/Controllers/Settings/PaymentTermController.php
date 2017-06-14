@@ -17,7 +17,7 @@ class PaymentTermController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "settings.payment-terms.";
+    protected $baseUrl  =   "maintenance.payment-terms.";
 
     /**
      * [$model description]

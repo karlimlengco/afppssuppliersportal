@@ -48,7 +48,7 @@
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.settings.chargeability')}}",
+                url: "{{route('datatables.maintenance.chargeability')}}",
                 // data: function (d) {
                     // d.search.value = $('#search-table').val();
                 // }

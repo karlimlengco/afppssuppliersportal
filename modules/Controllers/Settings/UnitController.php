@@ -17,7 +17,7 @@ class UnitController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "settings.units.";
+    protected $baseUrl  =   "maintenance.units.";
 
     /**
      * [$model description]

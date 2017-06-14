@@ -35,7 +35,7 @@ trait DatatableTrait
     {
         return Datatables::of($model)
             ->addColumn('name', function ($data) {
-                $route  =  route( 'settings.chargeability.edit',[$data->id] );
+                $route  =  route( 'maintenance.chargeability.edit',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->name .'</a>';
             })
             ->rawColumns(['name'])

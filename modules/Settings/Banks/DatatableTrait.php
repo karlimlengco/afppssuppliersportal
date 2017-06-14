@@ -35,7 +35,7 @@ trait DatatableTrait
     {
         return Datatables::of($model)
             ->addColumn('code', function ($data) {
-                $route  =  route( 'settings.banks.edit',[$data->id] );
+                $route  =  route( 'maintenance.banks.edit',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->code .'</a>';
             })
             ->rawColumns(['code'])

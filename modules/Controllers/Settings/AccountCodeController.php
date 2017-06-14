@@ -17,7 +17,7 @@ class AccountCodeController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "settings.account-codes.";
+    protected $baseUrl  =   "maintenance.account-codes.";
 
     /**
      * [$model description]

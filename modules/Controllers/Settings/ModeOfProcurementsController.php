@@ -17,7 +17,7 @@ class ModeOfProcurementsController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "settings.mode-of-procurements.";
+    protected $baseUrl  =   "maintenance.mode-of-procurements.";
 
     /**
      * [$model description]

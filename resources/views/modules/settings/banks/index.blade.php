@@ -48,7 +48,7 @@
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.settings.banks')}}",
+                url: "{{route('datatables.maintenance.banks')}}",
                 // data: function (d) {
                     // d.search.value = $('#search-table').val();
                 // }
