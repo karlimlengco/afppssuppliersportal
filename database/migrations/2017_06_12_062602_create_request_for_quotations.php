@@ -19,6 +19,7 @@ class CreateRequestForQuotations extends Migration
             $table->string('upr_number')->nullable();
             $table->string('rfq_number')->nullable();
             $table->date('deadline');
+            $table->string('status')->default('pending');
             $table->time('opening_time');
             $table->date('transaction_date');
             $table->timestamps();

@@ -9,6 +9,7 @@ use Auth;
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRepository;
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
+use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 
 class PhilGepsPostingController extends Controller
 {
@@ -26,6 +27,13 @@ class PhilGepsPostingController extends Controller
      * @var [type]
      */
     protected $upr;
+
+    /**
+     * [$upr description]
+     *
+     * @var [type]
+     */
+    protected $rfq;
 
     /**
      * [$model description]
@@ -69,12 +77,12 @@ class PhilGepsPostingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(UnitPurchaseRequestRepository $upr)
+    public function create(BlankRFQRepository $rfq)
     {
-        $upr_list   =   $upr->lists('id', 'upr_number');
+        $rfq_list   =   $rfq->listPending('id', 'rfq_number');
         $this->view('modules.procurements.philgeps.create',[
             'indexRoute'    =>  $this->baseUrl.'index',
-            'upr_list'      =>  $upr_list,
+            'rfq_list'      =>  $rfq_list,
             'modelConfig'   =>  [
                 'store' =>  [
                     'route'     =>  $this->baseUrl.'store'
@@ -89,11 +97,15 @@ class PhilGepsPostingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PhilGepsPostingRequest $request, PhilGepsPostingRepository $model, UnitPurchaseRequestRepository $upr)
+    public function store(PhilGepsPostingRequest $request, PhilGepsPostingRepository $model, BlankRFQRepository $rfq)
     {
-        $upr_model              =   $upr->with(['unit', 'centers'])->findById($request->upr_id);
+        $rfq_model              =   $rfq->findById($request->rfq_id);
         $inputs                 =   $request->getData();
-        $inputs['upr_number']   =   $upr_model->upr_number;
+        $inputs['rfq_number']   =   $rfq_model->rfq_number;
+        $inputs['upr_number']   =   $rfq_model->upr_number;
+        $philgeps               =   $inputs['philgeps_number'];
+
+        $rfq->update(['status' => "PhilGeps ($philgeps)"], $rfq_model->id);
 
         $result = $model->save($inputs);
 
@@ -119,14 +131,14 @@ class PhilGepsPostingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, PhilGepsPostingRepository $model, UnitPurchaseRequestRepository $upr)
+    public function edit($id, PhilGepsPostingRepository $model, BlankRFQRepository $rfq)
     {
         $result     =   $model->findById($id);
-        $upr_list   =   $upr->lists('id', 'upr_number');
+        $rfq_list   =   $rfq->lists('id', 'rfq_number');
 
         return $this->view('modules.procurements.philgeps.edit',[
             'data'          =>  $result,
-            'upr_list'      =>  $upr_list,
+            'rfq_list'      =>  $rfq_list,
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [
                 'update' =>  [

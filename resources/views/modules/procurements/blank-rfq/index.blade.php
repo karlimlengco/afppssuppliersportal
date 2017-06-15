@@ -31,6 +31,8 @@
                     <th>UPR No.</th>
                     <th>Deadline</th>
                     <th>Opening Time</th>
+                    <th>Transaction Date</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
             </thead>
@@ -60,6 +62,8 @@
             {data: 'upr_number', name: 'upr_number'},
             {data: 'deadline', name: 'deadline'},
             {data: 'opening_time', name: 'opening_time'},
+            {data: 'transaction_date', name: 'transaction_date'},
+            {data: 'status', name: 'status'},
             {data: 'print_button', name: 'print_button'},
         ],
         "fnInitComplete": function (oSettings, json) {

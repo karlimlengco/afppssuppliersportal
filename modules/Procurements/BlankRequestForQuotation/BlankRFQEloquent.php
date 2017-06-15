@@ -24,6 +24,7 @@ class BlankRFQEloquent extends Model
         'upr_number',
         'rfq_number',
         'deadline',
+        'status',
         'opening_time',
         'transaction_date'
     ];

@@ -14,7 +14,7 @@
         {!! Form::open($modelConfig['store']) !!}
             <div class="row">
                 <div class="six columns">
-                    {!! Form::selectField('upr_id', 'UPR Number', $upr_list) !!}
+                    {!! Form::selectField('rfq_id', 'RFQ Number', $rfq_list) !!}
                 </div>
                 <div class="six columns">
                     {!! Form::textField('transaction_date', 'Transaction Date') !!}

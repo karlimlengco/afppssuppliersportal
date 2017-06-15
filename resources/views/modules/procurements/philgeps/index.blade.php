@@ -28,6 +28,7 @@
             <thead>
                 <tr>
                     <th>PhilGeps No.</th>
+                    <th>RFQ No.</th>
                     <th>UPR No.</th>
                     <th>PhilGeps Posting</th>
                     <th>Deadline</th>
@@ -57,6 +58,7 @@
             },
         columns: [
             {data: 'philgeps_number', name: 'philgeps_number'},
+            {data: 'rfq_number', name: 'rfq_number'},
             {data: 'upr_number', name: 'upr_number'},
             {data: 'philgeps_posting', name: 'philgeps_posting'},
             {data: 'deadline_rfq', name: 'deadline_rfq'},

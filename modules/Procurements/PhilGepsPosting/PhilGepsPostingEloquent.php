@@ -20,8 +20,9 @@ class PhilGepsPostingEloquent extends Model
      * @var array
      */
     protected $fillable = [
-        'upr_id',
+        'rfq_id',
         'philgeps_number',
+        'rfq_number',
         'upr_number',
         'transaction_date',
         'philgeps_posting',

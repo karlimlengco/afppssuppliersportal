@@ -15,9 +15,10 @@ class CreatePhilgepsPosting extends Migration
     {
         Schema::create('philgeps_posting', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('upr_id');
+            $table->integer('rfq_id');
             $table->string('philgeps_number');
             $table->string('upr_number')->nullable();
+            $table->string('rfq_number')->nullable();
             $table->date('transaction_date');
             $table->date('philgeps_posting');
             $table->date('deadline_rfq');

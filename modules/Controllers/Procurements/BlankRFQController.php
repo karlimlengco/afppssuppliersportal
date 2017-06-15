@@ -130,7 +130,7 @@ class BlankRFQController extends Controller
     public function edit($id, BlankRFQRepository $model, UnitPurchaseRequestRepository $upr)
     {
         $result     =   $model->findById($id);
-        $upr_list   =   $upr->listPending('id', 'upr_number');
+        $upr_list   =   $upr->lists('id', 'upr_number');
 
         return $this->view('modules.procurements.blank-rfq.edit',[
             'data'          =>  $result,

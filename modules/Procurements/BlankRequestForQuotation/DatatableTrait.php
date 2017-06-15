@@ -41,6 +41,9 @@ trait DatatableTrait
             ->editColumn('print_button', function ($data) {
                 return '<a href="#" tooltip="Print"> <span class="nc-icon-mini tech_print"></span>  </a>';
             })
+            ->editColumn('status', function($data){
+                return ucfirst($data->status);
+            })
             ->rawColumns(['rfq_number', 'print_button'])
             ->make(true);
     }

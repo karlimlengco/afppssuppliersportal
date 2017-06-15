@@ -12,7 +12,7 @@
         <h3>Unit Purchase Request</h3>
     </div>
     <div class="six columns align-right">
-        @if($data->status == 'draft')
+        @if($data->status == 'pending')
         <button class="button topbar__utility__button--modal">Process</button>
         @endif
         <button class="button">
