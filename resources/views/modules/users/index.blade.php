@@ -5,9 +5,7 @@
         <h3>Users</h3>
     </div>
     <div class="six columns align-right">
-        <button class="button">
-            <a href="{{route('settings.users.create')}}">ADD NEW</a>
-        </button>
+            <a class="button" href="{{route('settings.users.create')}}">ADD NEW</a>
     </div>
 </div>
 

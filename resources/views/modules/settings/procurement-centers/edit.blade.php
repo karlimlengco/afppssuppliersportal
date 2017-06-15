@@ -22,7 +22,7 @@
             <div class="row">
 
                 <div class="six columns">
-                    <button class="button"> <a href="{{route($indexRoute)}}"> Back </a></button>
+                    <a class="button" href="{{route($indexRoute)}}"> Back </a>
                     <button class="button">Save</button>
                 </div>
 

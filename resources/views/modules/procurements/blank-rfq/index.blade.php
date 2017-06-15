@@ -2,12 +2,10 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Blank Request For Quotation</h3>
+        <h3>Request For Quotation</h3>
     </div>
     <div class="six columns align-right">
-        <button class="button">
-            <a href="{{route($createRoute)}}">ADD NEW</a>
-        </button>
+            <a class="button" href="{{route($createRoute)}}">ADD NEW</a>
     </div>
 </div>
 

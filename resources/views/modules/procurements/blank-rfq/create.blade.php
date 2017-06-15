@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Blank Request For Quotation</h3>
+        <h3>Request For Quotation</h3>
     </div>
 </div>
 
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <button type="reset" class="button"> <a href="{{route($indexRoute)}}">Back</a> </button>
+             <a class="button" href="{{route($indexRoute)}}">Back</a>
             <button type="submit" class="button">Save</button>
 
         {!!Form::close()!!}

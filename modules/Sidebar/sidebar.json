@@ -15,7 +15,7 @@
                 {
                     "route" :   "procurements.blank-rfq.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Blank RFQ"
+                    "name"  :   "Request For Quotation"
                 },
                 {
                     "route" :   "procurements.philgeps-posting.index",

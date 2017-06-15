@@ -154,7 +154,7 @@ ol {
   padding: 0 0 0 18px;
 }
 ul li,
-ol li{
+ol li {
   font-family: "Nunito Sans";
   font-size: 16px;
   font-weight: 400;
@@ -540,7 +540,6 @@ sidebar.less
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px 20px;
   height: 200px;
   background: #003399;
 }
@@ -550,6 +549,14 @@ sidebar.less
   margin: 0;
   padding: 0;
   color: #FFFFFF;
+}
+.sidebar__logo__icon {
+  display: inline-block;
+  height: 150px;
+  width: 150px;
+}
+.sidebar__logo__icon img {
+  width: 100%;
 }
 .sidebar__search {
   display: flex;
@@ -961,6 +968,14 @@ login.less
   color: #2C363F;
   margin: 0;
   padding: 0;
+}
+.login__logo__icon {
+  display: inline-block;
+  height: 150px;
+  width: 150px;
+}
+.login__logo__icon img {
+  width: 100%;
 }
 .login__form {
   display: flex;
@@ -1918,9 +1933,10 @@ form-checkbox.less
 button.less
 ------------------------------------------------------------------------- */
 .button {
-  display: inline;
+  display: inline-block;
   width: auto;
   height: 46px;
+  line-height: 46px;
   margin: 0;
   padding: 0 12px;
   font-family: "Nunito Sans";
@@ -1935,6 +1951,7 @@ button.less
 .button:hover {
   background: #003cb3;
   border: solid 1px #003cb3;
+  color: #FFFFFF;
 }
 .button:focus {
   background: #002b80;

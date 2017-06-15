@@ -18,7 +18,7 @@
             {!! Form::selectField('gender', 'Gender', $genders) !!}
             {!! Form::textareaField('address', 'Address', null, ['rows'=>4]) !!}
 
-            <button type="reset" class="button"> <a href="{{route('settings.users.index')}}">Back</a> </button>
+            <a class="button" href="{{route('settings.users.index')}}">Back</a>
             <button type="submit" class="button">Save</button>
         {!! Form::close() !!}
     </div>

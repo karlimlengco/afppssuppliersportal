@@ -83,7 +83,7 @@
 
 
 
-            <button type="reset" class="button"> <a href="{{route($indexRoute)}}">Back</a> </button>
+            <a class="button" href="{{route($indexRoute)}}">Back</a>
             <button type="submit" class="button">Save</button>
 
         {!!Form::close()!!}

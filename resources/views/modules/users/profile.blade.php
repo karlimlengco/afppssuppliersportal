@@ -26,13 +26,9 @@
                 <li></i> {{$user->last_login  }}</li>
             </ul>
 
-            <button class="button">
-                <a href="{{route('reminder.reset', 'email='.$user->email)}}" >Reset Password</a>
-            </button>
+                <a class="button" href="{{route('reminder.reset', 'email='.$user->email)}}" >Reset Password</a>
             @if($user->last_login == null)
-                <button class="button">
-                    <a href="{{route('reminder.reset', 'email='.$user->email)}}">Resend Code</a>
-                </button>
+                <a class="button" href="{{route('reminder.reset', 'email='.$user->email)}}">Resend Code</a>
             @endif
             <br>
         </div>

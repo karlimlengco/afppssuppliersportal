@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Blank Request For Quotation</h3>
+        <h3>Request For Quotation</h3>
     </div>
 </div>
 

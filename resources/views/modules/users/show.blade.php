@@ -27,13 +27,9 @@
 
             </ul>
 
-            <button class="button">
-                <a href="{{route('reminder.reset', 'email='.$user->email)}}"><i class="fa fa-edit m-right-xs"></i>Reset Password</a>
-            </button>
+                <a class="button" href="{{route('reminder.reset', 'email='.$user->email)}}"><i class="fa fa-edit m-right-xs"></i>Reset Password</a>
             @if($user->last_login == null)
-                <button class="button">
-                    <a href="{{route('reminder.reset', 'email='.$user->email)}}"><i class="fa fa-paper-plane m-right-xs"></i>Resend Code</a>
-                </button>
+                    <a class="button" href="{{route('reminder.reset', 'email='.$user->email)}}"><i class="fa fa-paper-plane m-right-xs"></i>Resend Code</a>
             @endif
             <br>
         </div>

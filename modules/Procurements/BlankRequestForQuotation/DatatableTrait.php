@@ -35,7 +35,7 @@ trait DatatableTrait
     {
         return Datatables::of($model)
             ->addColumn('rfq_number', function ($data) {
-                $route  =  route( 'procurements.blank-rfq.edit',[$data->id] );
+                $route  =  route( 'procurements.blank-rfq.show',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
             })
             ->editColumn('print_button', function ($data) {

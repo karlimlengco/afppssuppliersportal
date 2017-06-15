@@ -22,28 +22,10 @@
 
             <div class="row">
                 <div class="six columns">
-                    {!! Form::selectField('upr_id', 'UPR Number', $upr_list) !!}
-                </div>
-                <div class="six columns">
                     {!! Form::textField('transaction_date', 'Transaction Date') !!}
                 </div>
-            </div>
-
-            <div class="row">
                 <div class="six columns">
-                    {!! Form::textField('philgeps_number', 'PhilGeps number') !!}
-                </div>
-                <div class="six columns">
-                    {!! Form::textField('philgeps_posting', 'PhilGeps From Posting') !!}
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="six columns">
-                    {!! Form::textField('deadline_rfq', 'Deadline To Submit RFQ') !!}
-                </div>
-                <div class="six columns">
-                    {!! Form::textField('opening_time', 'Opening Time') !!}
+                    {!! Form::textareaField('venue', 'Venue') !!}
                 </div>
             </div>
 

@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 
-use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
-use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRequest;
+use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
+use \Revlv\Procurements\RFQProponents\RFQProponentRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
+use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 
-class BlankRFQController extends Controller
+class RFQProponentController extends Controller
 {
 
     /**
@@ -18,7 +19,7 @@ class BlankRFQController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "procurements.blank-rfq.";
+    protected $baseUrl  =   "procurements.rfq-proponents.";
 
     /**
      * [$upr description]
@@ -26,6 +27,13 @@ class BlankRFQController extends Controller
      * @var [type]
      */
     protected $upr;
+
+    /**
+     * [$rfq description]
+     *
+     * @var [type]
+     */
+    protected $rfq;
 
     /**
      * [$model description]
@@ -47,7 +55,7 @@ class BlankRFQController extends Controller
      *
      * @return [type]            [description]
      */
-    public function getDatatable(BlankRFQRepository $model)
+    public function getDatatable(RFQProponentRepository $model)
     {
         return $model->getDatatable();
     }
@@ -59,7 +67,7 @@ class BlankRFQController extends Controller
      */
     public function index()
     {
-        return $this->view('modules.procurements.blank-rfq.index',[
+        return $this->view('modules.procurements.ispq.index',[
             'createRoute'   =>  $this->baseUrl."create"
         ]);
     }
@@ -69,12 +77,12 @@ class BlankRFQController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(UnitPurchaseRequestRepository $upr)
+    public function create(UnitPurchaseRequestRepository $upr, BlankRFQRepository $rfq)
     {
-        $upr_list   =   $upr->listPending('id', 'upr_number');
-        $this->view('modules.procurements.blank-rfq.create',[
+        $rfq_list   =   $rfq->lists('id', 'rfq_number');
+        $this->view('modules.procurements.ispq.create',[
             'indexRoute'    =>  $this->baseUrl.'index',
-            'upr_list'      =>  $upr_list,
+            'rfq_list'      =>  $rfq_list,
             'modelConfig'   =>  [
                 'store' =>  [
                     'route'     =>  $this->baseUrl.'store'
@@ -89,23 +97,21 @@ class BlankRFQController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BlankRFQRequest $request, BlankRFQRepository $model, UnitPurchaseRequestRepository $upr)
+    public function store(RFQProponentRequest $request, RFQProponentRepository $model, BlankRFQRepository $rfq)
     {
-        $upr_model              =   $upr->with(['unit', 'centers'])->findById($request->upr_id);
-        $inputs                 =   $request->getData();
-        $inputs['upr_number']   =   $upr_model->upr_number;
-        $result = $model->save($inputs);
+        for ($i=0; $i < count($request->get('items')); $i++) {
+            $rfq_model      =   $rfq->findById($request->get('items')[$i]);
 
-        if($upr_model->unit && $upr_model->centers)
-        {
-            $rfq_name   =   $upr_model->unit->name ."-". $upr_model->centers->name."-". $result->id;
-            $rfq_name   =   str_replace(" ", "-", $rfq_name);
+            $model->save([
+                'rfq_id'            =>  $rfq_model->id,
+                'rfq_number'        =>  $rfq_model->rfq_number,
+                'upr_number'        =>  $rfq_model->upr_number,
+                'venue'             =>  $request->get('venue'),
+                'transaction_date'  =>  $request->get('transaction_date'),
+            ]);
         }
 
-        $upr->update(['status' => 'processing', 'date_processed' => \Carbon\Carbon::now()], $upr_model->id);
-        $model->update(['rfq_number' => $rfq_name], $result->id);
-
-        return redirect()->route($this->baseUrl.'edit', $result->id)->with([
+        return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "New record has been successfully added."
         ]);
     }
@@ -116,15 +122,9 @@ class BlankRFQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, BlankRFQRepository $model)
+    public function show($id)
     {
-
-        $result     =   $model->findById($id);
-        return $this->view('modules.procurements.blank-rfq.show',[
-            'data'          =>  $result,
-            'indexRoute'    =>  $this->baseUrl.'index',
-            'editRoute'     =>  $this->baseUrl.'edit'
-        ]);
+        //
     }
 
     /**
@@ -133,14 +133,14 @@ class BlankRFQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, BlankRFQRepository $model, UnitPurchaseRequestRepository $upr)
+    public function edit($id, RFQProponentRepository $model,BlankRFQRepository $rfq)
     {
         $result     =   $model->findById($id);
-        $upr_list   =   $upr->lists('id', 'upr_number');
+        $rfq_list   =   $rfq->lists('id', 'rfq_number');
 
-        return $this->view('modules.procurements.blank-rfq.edit',[
+        return $this->view('modules.procurements.ispq.edit',[
             'data'          =>  $result,
-            'upr_list'      =>  $upr_list,
+            'rfq_list'      =>  $rfq_list,
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [
                 'update' =>  [
@@ -162,7 +162,7 @@ class BlankRFQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BlankRFQRequest $request, $id, BlankRFQRepository $model)
+    public function update(RFQProponentRequest $request, $id, RFQProponentRepository $model)
     {
         $model->update($request->getData(), $id);
 
@@ -177,7 +177,7 @@ class BlankRFQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, BlankRFQRepository $model)
+    public function destroy($id, RFQProponentRepository $model)
     {
         $model->delete($id);
 
