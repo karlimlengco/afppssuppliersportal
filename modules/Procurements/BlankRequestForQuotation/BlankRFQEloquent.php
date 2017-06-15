@@ -14,6 +14,8 @@ class BlankRFQEloquent extends Model
      */
     protected $table = 'request_for_quotations';
 
+    protected $with  = 'proponents';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -28,5 +30,15 @@ class BlankRFQEloquent extends Model
         'opening_time',
         'transaction_date'
     ];
+
+    /**
+     * [proponents description]
+     *
+     * @return [type] [description]
+     */
+    public function proponents()
+    {
+         return $this->hasMany('\Revlv\Procurements\RFQProponents\RFQProponentEloquent', 'rfq_id');
+    }
 
 }

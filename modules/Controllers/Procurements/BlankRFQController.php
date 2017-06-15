@@ -9,6 +9,7 @@ use Auth;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
+use \Revlv\Settings\Suppliers\SupplierRepository;
 
 class BlankRFQController extends Controller
 {
@@ -33,6 +34,13 @@ class BlankRFQController extends Controller
      * @var [type]
      */
     protected $model;
+
+    /**
+     * [$suppliers description]
+     *
+     * @var [type]
+     */
+    protected $suppliers;
 
     /**
      * @param model $model
@@ -116,14 +124,28 @@ class BlankRFQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, BlankRFQRepository $model)
+    public function show($id, BlankRFQRepository $model, SupplierRepository $suppliers)
     {
+        $supplier_lists =   $suppliers->lists('id', 'name');
+        $result         =   $model->with(['proponents'])->findById($id);
 
-        $result     =   $model->findById($id);
+        $exist_supplier =   $result->proponents->pluck('id')->toArray();
+        foreach($exist_supplier as $list)
+        {
+            unset($supplier_lists[$list]);
+        }
+
         return $this->view('modules.procurements.blank-rfq.show',[
+            'supplier_lists'=>  $supplier_lists,
             'data'          =>  $result,
             'indexRoute'    =>  $this->baseUrl.'index',
-            'editRoute'     =>  $this->baseUrl.'edit'
+            'editRoute'     =>  $this->baseUrl.'edit',
+            'modelConfig'   =>  [
+                'add_proponents'   => [
+                    'route' => 'procurements.rfq-proponents.store',
+                    'method'=> 'DELETE'
+                ]
+            ]
         ]);
     }
 

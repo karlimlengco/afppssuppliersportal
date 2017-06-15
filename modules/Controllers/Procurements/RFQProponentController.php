@@ -9,6 +9,7 @@ use Auth;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
+use \Revlv\Procurements\ProponentAttachments\ProponentAttachmentRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 
 class RFQProponentController extends Controller
@@ -43,6 +44,13 @@ class RFQProponentController extends Controller
     protected $model;
 
     /**
+     * [$attachments description]
+     *
+     * @var [type]
+     */
+    protected $attachments;
+
+    /**
      * @param model $model
      */
     public function __construct()
@@ -67,7 +75,7 @@ class RFQProponentController extends Controller
      */
     public function index()
     {
-        return $this->view('modules.procurements.ispq.index',[
+        return $this->view('modules.procurements.rfq-proponent.index',[
             'createRoute'   =>  $this->baseUrl."create"
         ]);
     }
@@ -80,7 +88,7 @@ class RFQProponentController extends Controller
     public function create(UnitPurchaseRequestRepository $upr, BlankRFQRepository $rfq)
     {
         $rfq_list   =   $rfq->lists('id', 'rfq_number');
-        $this->view('modules.procurements.ispq.create',[
+        $this->view('modules.procurements.rfq-proponent.create',[
             'indexRoute'    =>  $this->baseUrl.'index',
             'rfq_list'      =>  $rfq_list,
             'modelConfig'   =>  [
@@ -99,21 +107,70 @@ class RFQProponentController extends Controller
      */
     public function store(RFQProponentRequest $request, RFQProponentRepository $model, BlankRFQRepository $rfq)
     {
-        for ($i=0; $i < count($request->get('items')); $i++) {
-            $rfq_model      =   $rfq->findById($request->get('items')[$i]);
+        $inputs                 =   $request->getData();
+        $inputs['prepared_by']  =   \Sentinel::getUser()->id;
 
-            $model->save([
-                'rfq_id'            =>  $rfq_model->id,
-                'rfq_number'        =>  $rfq_model->rfq_number,
-                'upr_number'        =>  $rfq_model->upr_number,
-                'venue'             =>  $request->get('venue'),
-                'transaction_date'  =>  $request->get('transaction_date'),
-            ]);
-        }
+        $result = $model->save($inputs);
 
-        return redirect()->route($this->baseUrl.'index')->with([
+        return redirect()->back()->with([
             'success'  => "New record has been successfully added."
         ]);
+    }
+
+    /**
+     * [uploadAttachment description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function uploadAttachment(Request $request, $id, ProponentAttachmentRepository $attachments)
+    {
+
+        $file       = md5_file($request->file);
+        $file       = $file.".".$request->file->getClientOriginalExtension();
+
+        $validator = \Validator::make($request->all(), [
+            'file' => 'required',
+        ]);
+
+        $result     = $attachments->save([
+            'proponent_id'  =>  $id,
+            'name'          =>  $request->file->getClientOriginalName(),
+            'file_name'     =>  $file,
+            'user_id'       =>  \Sentinel::getUser()->id,
+            'upload_date'   =>  \Carbon\Carbon::now()
+        ]);
+
+        if($result)
+        {
+            $path       = $request->file->storeAs('attachments', $file);
+        }
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Attachment has been successfully added."
+        ]);
+    }
+
+    /**
+     * [downloadAttachment description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function downloadAttachment(Request $request, $id, ProponentAttachmentRepository $attachments)
+    {
+        $result     = $attachments->findById($id);
+
+        $directory      =   storage_path("app/attachments/".$result->file_name);
+
+        if(!file_exists($directory))
+        {
+            return 'Sorry. File does not exists.';
+        }
+
+        return response()->download($directory);
     }
 
     /**
@@ -122,9 +179,19 @@ class RFQProponentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, RFQProponentRepository $model)
     {
-        //
+        $result     =   $model->with(['attachments'])->findById($id);
+
+        return $this->view('modules.procurements.rfq-proponent.show',[
+            'data'          =>  $result,
+            'indexRoute'    =>  'procurements.blank-rfq.show',
+            'modelConfig'   =>  [
+                'add_attachment' =>  [
+                    'route'     =>  [$this->baseUrl.'attachments.store', $id],
+                ]
+            ]
+        ]);
     }
 
     /**
@@ -138,7 +205,7 @@ class RFQProponentController extends Controller
         $result     =   $model->findById($id);
         $rfq_list   =   $rfq->lists('id', 'rfq_number');
 
-        return $this->view('modules.procurements.ispq.edit',[
+        return $this->view('modules.procurements.rfq-proponent.edit',[
             'data'          =>  $result,
             'rfq_list'      =>  $rfq_list,
             'indexRoute'    =>  $this->baseUrl.'index',

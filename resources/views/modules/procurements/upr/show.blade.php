@@ -15,12 +15,8 @@
         @if($data->status == 'pending')
         <button class="button topbar__utility__button--modal">Process</button>
         @endif
-        <button class="button">
-            <a href="{{route($indexRoute)}}">Back</a>
-        </button>
-        <button class="button">
-            <a href="{{route($editRoute,$data->id)}}">Edit</a>
-        </button>
+        <a class="button" href="{{route($indexRoute)}}">Back</a>
+        <a class="button" href="{{route($editRoute,$data->id)}}">Edit</a>
     </div>
 </div>
 

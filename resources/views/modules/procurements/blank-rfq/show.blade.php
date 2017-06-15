@@ -1,3 +1,7 @@
+@section('modal')
+    @include('modules.partials.modals.proponents')
+@stop
+
 @section('contents')
 
 <div class="row">
@@ -5,8 +9,9 @@
         <h3>Request For Quotation</h3>
     </div>
     <div class="six columns align-right">
-            <a class="button" href="{{route($indexRoute)}}">Back</a>
-            <a class="button" href="{{route($editRoute,$data->id)}}">Edit</a>
+        <a class="button topbar__utility__button--modal" href="#">Add Proponents</a>
+        <a class="button" href="{{route($indexRoute)}}">Back</a>
+        <a class="button" href="{{route($editRoute,$data->id)}}">Edit</a>
     </div>
 </div>
 
@@ -32,11 +37,47 @@
         <h3>Proponents</h3>
     </div>
     <div class="six columns">
-        <a href="#"></a>
     </div>
 </div>
+
+@if(count($data->proponents) != 0)
+<div class="row">
+    <div class="twelve columns">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Processed Date</th>
+                    <th>Prepared By</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($data->proponents as $proponent)
+                <tr>
+                    <td>{{($proponent->supplier) ? $proponent->supplier->name :""}}</td>
+                    <td>{{$proponent->date_processed}}</td>
+                    <td>{{($proponent->users) ? $proponent->users->first_name ." ". $proponent->users->surname :""}} </td>
+                    <td>
+                        <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="attachments"> <span class="nc-icon-glyph ui-1_attach-87"></span> </a>
+                        <a href="#" tooltip="remove"> <span class="nc-icon-glyph ui-1_trash-simple"></span> </a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+@endif
 
 @stop
 
 @section('scripts')
+<script type="text/javascript">
+    // datepicker
+    pickmeup('#id-field-date_processed', {
+        format  : 'Y-m-d'
+    });
+
+</script>
 @stop

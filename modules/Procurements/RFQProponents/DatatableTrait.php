@@ -1,6 +1,6 @@
 <?php
 
-namespace Revlv\Procurements\UnitPurchaseRequests;
+namespace Revlv\Procurements\RFQProponents;
 
 use Illuminate\Http\Request;
 use DB;
@@ -8,7 +8,6 @@ use Datatables;
 
 trait DatatableTrait
 {
-
 
     /**
      * [getDatatable description]

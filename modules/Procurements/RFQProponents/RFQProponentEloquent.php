@@ -27,5 +27,34 @@ class RFQProponentEloquent extends Model
         'prepared_by',
     ];
 
+    /**
+     * [users description]
+     *
+     * @return [type] [description]
+     */
+    public function users()
+    {
+        return $this->belongsTo('\App\User', 'prepared_by');
+    }
 
+
+    /**
+     * [supplier description]
+     *
+     * @return [type] [description]
+     */
+    public function supplier()
+    {
+        return $this->belongsTo('\Revlv\Settings\Suppliers\SupplierEloquent', 'proponents');
+    }
+
+    /**
+     * [attachments description]
+     *
+     * @return [type] [description]
+     */
+    public function attachments()
+    {
+         return $this->hasMany('\Revlv\Procurements\ProponentAttachments\ProponentAttachmentEloquent', 'proponent_id');
+    }
 }
