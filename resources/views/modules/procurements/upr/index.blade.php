@@ -24,10 +24,13 @@
             <thead>
                 <tr>
                     <th>UPR No.</th>
-                    <th>AFPPS No.</th>
+                    <th>Items</th>
                     <th>ABC</th>
+                    <th>TYPE</th>
+                    <th>AFPPS No.</th>
                     <th>Date Prepared</th>
                     <th>Prepared By</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,10 +56,13 @@
             },
         columns: [
             {data: 'upr_number', name: 'upr_number'},
-            {data: 'afpps_ref_number', name: 'afpps_ref_number'},
+            {data: 'item_count', name: 'item_count'},
             {data: 'total_amount', name: 'total_amount'},
+            {data: 'type', name: 'type'},
+            {data: 'afpps_ref_number', name: 'afpps_ref_number'},
             {data: 'date_prepared', name: 'date_prepared'},
-            {data: 'prepared_by', name: 'prepared_by'},
+            {data: 'full_name', name: 'full_name'},
+            {data: 'status', name: 'status'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

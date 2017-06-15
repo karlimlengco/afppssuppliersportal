@@ -15,9 +15,18 @@
     <div class="twelve columns">
         {!! Form::model($data, $modelConfig['update']) !!}
 
-            {!! Form::textField('name', 'Name') !!}
+
+            <div class="row">
+                <div class="six columns">
+                    {!! Form::selectField('pcco_id', 'PCCO', $center_list) !!}
+                </div>
+                <div class="six columns">
+                    {!! Form::textField('name', 'Name') !!}
+                </div>
+            </div>
 
             {!! Form::textField('description', 'Description') !!}
+            {!! Form::textareaField('coa_address', 'COA Address') !!}
 
             <div class="row">
 

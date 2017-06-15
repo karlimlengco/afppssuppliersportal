@@ -12,6 +12,8 @@ class UnitRequest extends BaseRequest
     protected $whitelist = [
         'name',
         'description',
+        'pcco_id',
+        'coa_address',
     ];
 
     /**
@@ -22,8 +24,10 @@ class UnitRequest extends BaseRequest
     public function rules()
     {
         return [
+            'pcco_id'       => 'required',
             'name'          => 'required',
             'description'   => 'required',
+            'coa_address'   => 'required',
         ];
     }
 }

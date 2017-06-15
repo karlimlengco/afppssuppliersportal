@@ -11,18 +11,25 @@ class Units extends Seeder
      */
     public function run()
     {
+        $pcco = \Revlv\Settings\ProcurementCenters\ProcurementCenterEloquent::pluck('id')->toArray();
         \Revlv\Settings\Units\UnitEloquent::insert([
             [
                 "name"              => 'NLC',
-                "description"       => 'NLC'
+                "description"       => 'NLC',
+                'pcco_id'           =>  $pcco[array_rand($pcco)],
+                'coa_address'       =>  'lorem'
             ],
             [
                 "name"              => 'PF',
-                "description"       => 'PF'
+                "description"       => 'PF',
+                'pcco_id'           =>  $pcco[array_rand($pcco)],
+                'coa_address'       =>  'lorem'
             ],
             [
                 "name"              => 'NSSC',
-                "description"       => 'NSSC'
+                "description"       => 'NSSC',
+                'pcco_id'           =>  $pcco[array_rand($pcco)],
+                'coa_address'       =>  'lorem'
             ]
         ]);
     }

@@ -20,6 +20,13 @@ trait DatatableTrait
     {
         $model  =   $this->model;
 
+        $model  =   $model->select([
+            'units.*',
+            'procurement_centers.name as procurement_name'
+        ]);
+
+        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'units.pcco_id');
+
         $model->orderBy('created_at', 'desc');
 
         return $this->dataTable($model->get());
@@ -35,7 +42,7 @@ trait DatatableTrait
     {
         return Datatables::of($model)
             ->addColumn('name', function ($data) {
-                $route  =  route( 'settings.units.edit',[$data->id] );
+                $route  =  route( 'maintenance.units.edit',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->name .'</a>';
             })
             ->rawColumns(['name'])

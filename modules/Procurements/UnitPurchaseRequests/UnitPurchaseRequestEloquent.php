@@ -21,6 +21,7 @@ class UnitPurchaseRequestEloquent extends Model
      */
     protected $fillable = [
         'place_of_delivery',
+        'status',
         'mode_of_procurement',
         'chargeability',
         'account_code',
@@ -32,6 +33,7 @@ class UnitPurchaseRequestEloquent extends Model
         'afpps_ref_number',
         'date_prepared',
         'total_amount',
+        'date_processed',
         'units',
         'prepared_by',
     ];

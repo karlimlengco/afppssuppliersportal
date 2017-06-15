@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Units::class);
         $this->call(Banks::class);
         $this->call(Signatory::class);
+        $this->call(Chargeability::class);
+        $this->call(Supplier::class);
     }
 }

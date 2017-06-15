@@ -15,8 +15,10 @@ class CreateUnits extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('pcco_id');
             $table->string('name');
             $table->text('description');
+            $table->text('coa_address');
             $table->timestamps();
         });
     }

@@ -29,6 +29,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>PCCO</th>
                     <th>Created</th>
                 </tr>
             </thead>
@@ -56,6 +57,7 @@
         columns: [
             {data: 'name', name: 'name'},
             {data: 'description', name: 'description'},
+            {data: 'procurement_name', name: 'procurement_name'},
             {data: 'created_at', name: 'created_at'},
         ],
         "fnInitComplete": function (oSettings, json) {

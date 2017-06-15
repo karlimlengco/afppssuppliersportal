@@ -173,6 +173,11 @@ class UPRController extends Controller
             'data'          =>  $result,
             'indexRoute'    =>  $this->baseUrl.'index',
             'editRoute'     =>  $this->baseUrl.'edit',
+            'modelConfig'   =>  [
+                'request_quotation' =>  [
+                    'route'     =>  'procurements.blank-rfq.store',
+                ]
+            ]
         ]);
     }
 

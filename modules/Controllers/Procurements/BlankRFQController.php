@@ -71,7 +71,7 @@ class BlankRFQController extends Controller
      */
     public function create(UnitPurchaseRequestRepository $upr)
     {
-        $upr_list   =   $upr->lists('id', 'upr_number');
+        $upr_list   =   $upr->listPending('id', 'upr_number');
         $this->view('modules.procurements.blank-rfq.create',[
             'indexRoute'    =>  $this->baseUrl.'index',
             'upr_list'      =>  $upr_list,
@@ -102,6 +102,7 @@ class BlankRFQController extends Controller
             $rfq_name   =   str_replace(" ", "-", $rfq_name);
         }
 
+        $upr->update(['status' => 'processing', 'date_processed' => \Carbon\Carbon::now()], $upr_model->id);
         $model->update(['rfq_number' => $rfq_name], $result->id);
 
         return redirect()->route($this->baseUrl.'edit', $result->id)->with([
@@ -129,7 +130,7 @@ class BlankRFQController extends Controller
     public function edit($id, BlankRFQRepository $model, UnitPurchaseRequestRepository $upr)
     {
         $result     =   $model->findById($id);
-        $upr_list   =   $upr->lists('id', 'upr_number');
+        $upr_list   =   $upr->listPending('id', 'upr_number');
 
         return $this->view('modules.procurements.blank-rfq.edit',[
             'data'          =>  $result,

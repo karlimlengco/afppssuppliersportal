@@ -1,3 +1,10 @@
+@section('styles')
+<link rel="stylesheet" href="/vendors/timepicker/timepicker.min.css">
+@stop
+@section('modal')
+    @include('modules.partials.modals.request_quotation')
+@stop
+
 @section('contents')
 
 <div class="row">
@@ -5,6 +12,9 @@
         <h3>Unit Purchase Request</h3>
     </div>
     <div class="six columns align-right">
+        @if($data->status == 'draft')
+        <button class="button topbar__utility__button--modal">Process</button>
+        @endif
         <button class="button">
             <a href="{{route($indexRoute)}}">Back</a>
         </button>
@@ -23,16 +33,20 @@
             <li> <strong>Place of delivery :</strong> {{($data->centers) ? $data->centers->name :""}} </li>
             <li> <strong>Mode of Procurement :</strong> {{($data->modes) ? $data->modes->name :""}} </li>
             <li> <strong>Units :</strong> {{($data->unit) ? $data->unit->name :""}} </li>
+            <li> <strong>Total ABC :</strong> {{number_format($data->total_amount,2)}} </li>
         </ul>
     </div>
     <div class="six columns pull-right">
         <ul>
-            <li> <strong>Total ABC :</strong> {{number_format($data->total_amount,2)}} </li>
             <li> <strong>Chargeability :</strong> {{($data->charges) ? $data->charges->name :""}} </li>
             <li> <strong>Account Code :</strong> {{($data->accounts) ? $data->accounts->new_account_code :""}} </li>
             <li> <strong>Fund Validity :</strong> {{$data->fund_validity}} </li>
             <li> <strong>Terms of Payment :</strong> {{($data->terms) ? $data->terms->name :""}} </li>
             <li> <strong>Prepared by :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname :""}} </li>
+            <li> <strong>Status :</strong> {{ucfirst($data->status)}} </li>
+            @if($data->date_processed)
+            <li> <strong>Date Processed :</strong> {{$data->date_processed}} </li>
+            @endif
         </ul>
     </div>
 </div>
@@ -83,4 +97,28 @@
 @stop
 
 @section('scripts')
+<script src="/vendors/timepicker/timepicker.min.js"></script>
+<script type="text/javascript">
+
+    var timepicker = new TimePicker('id-field-opening_time', {
+        lang: 'en',
+        theme: 'dark'
+    });
+
+    timepicker.on('change', function(evt){
+      var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+      evt.element.value = value;
+    });
+
+    // datepicker
+    pickmeup('#id-field-transaction_date', {
+        format  : 'Y-m-d',
+        default_date: false
+    });
+
+    pickmeup('#id-field-deadline', {
+        format  : 'Y-m-d',
+        default_date: false
+    });
+</script>
 @stop

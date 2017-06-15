@@ -8,6 +8,7 @@ use Auth;
 
 use \Revlv\Settings\Units\UnitRepository;
 use \Revlv\Settings\Units\UnitRequest;
+use \Revlv\Settings\ProcurementCenters\ProcurementCenterRepository;
 
 class UnitController extends Controller
 {
@@ -25,6 +26,13 @@ class UnitController extends Controller
      * @var [type]
      */
     protected $model;
+
+    /**
+     *
+     *
+     * @var [type]
+     */
+    protected $centers;
 
     /**
      * @param model $model
@@ -61,9 +69,12 @@ class UnitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(ProcurementCenterRepository $centers)
     {
+        $center_list    =   $centers->lists("id","name");
+
         $this->view('modules.settings.units.create',[
+            'center_list'   =>  $center_list,
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [
                 'store' =>  [
@@ -105,11 +116,13 @@ class UnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, UnitRepository $model)
+    public function edit($id, UnitRepository $model, ProcurementCenterRepository $centers)
     {
         $result =   $model->findById($id);
 
+        $center_list    =   $centers->lists("id","name");
         return $this->view('modules.settings.units.edit',[
+            'center_list'   =>  $center_list,
             'data'          =>  $result,
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [

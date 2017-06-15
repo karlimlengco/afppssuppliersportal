@@ -48,7 +48,7 @@
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.settings.procurement-centers')}}",
+                url: "{{route('datatables.maintenance.procurement-centers')}}",
                 // data: function (d) {
                     // d.search.value = $('#search-table').val();
                 // }

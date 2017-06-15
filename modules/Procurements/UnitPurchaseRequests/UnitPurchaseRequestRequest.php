@@ -16,6 +16,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
         'account_code',
         'fund_validity',
         'terms_of_payment',
+        'date_processed',
         'other_infos',
         'upr_number',
         'purpose',

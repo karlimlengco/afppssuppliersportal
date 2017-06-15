@@ -21,6 +21,8 @@ class UnitEloquent extends Model
      */
     protected $fillable = [
         'name',
+        'pcco_id',
+        'coa_address',
         'description',
     ];
 

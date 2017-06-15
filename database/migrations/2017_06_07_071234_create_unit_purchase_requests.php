@@ -28,6 +28,8 @@ class CreateUnitPurchaseRequests extends Migration
             $table->text('purpose');
             $table->string('afpps_ref_number')->nullable();
             $table->date('date_prepared');
+            $table->date('date_processed')->nullable();
+            $table->string('status')->default('pending');
             $table->string('total_amount');
             $table->integer('prepared_by');
 
