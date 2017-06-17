@@ -28,6 +28,8 @@ class BlankRFQEloquent extends Model
         'deadline',
         'status',
         'opening_time',
+        'awarded_to',
+        'awarded_date',
         'transaction_date'
     ];
 

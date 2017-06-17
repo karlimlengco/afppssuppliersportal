@@ -25,6 +25,8 @@ class RFQProponentEloquent extends Model
         'note',
         'date_processed',
         'prepared_by',
+        'is_awarded',
+        'awarded_date',
     ];
 
     /**

@@ -78,14 +78,33 @@
     });
 
     // datepicker
-    pickmeup('#id-field-transaction_date', {
-        format  : 'Y-m-d',
-        default_date: false
+    // pickmeup('#id-field-transaction_date', {
+    //     format  : 'Y-m-d',
+    //     default_date: false
+    // });
+
+    // pickmeup('#id-field-deadline', {
+    //     format  : 'Y-m-d',
+    //     default_date: false
+    // });
+
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-transaction_date'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
     });
 
-    pickmeup('#id-field-deadline', {
-        format  : 'Y-m-d',
-        default_date: false
+
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-deadline'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
     });
     // end datepicker
 </script>

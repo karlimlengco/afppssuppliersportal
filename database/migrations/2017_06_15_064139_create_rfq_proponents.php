@@ -20,6 +20,8 @@ class CreateRfqProponents extends Migration
             $table->string('note')->nullable();
             $table->date('date_processed');
             $table->integer('prepared_by');
+            $table->string('is_awarded')->nullable();
+            $table->date('awarded_date')->nullable();
             $table->timestamps();
         });
     }

@@ -114,7 +114,7 @@ Form::macro('dateRangeNoIconField', function($name, $label = null, $value = null
 
 Form::macro('dateField', function($name, $label = null, $value = null, $attributes = [])
 {
-    $attributes = ['data' => 'date-picker', 'data-date-format' => "YYYY-MM-DD HH:mm:ss"];
+    $attributes = ['class'=>"datepicker", 'data' => 'date-picker', 'data-date-format' => "YYYY-MM-DD HH:mm:ss"];
     $element = Form::text($name, $value, fieldAttributes($name, $attributes));
 
     $out = '<div class="form-group';
@@ -191,7 +191,7 @@ Form::macro('ajaxField', function($name, $label = null, $options, $value = null,
 Form::macro('selectField', function($name, $label = null, $options, $value = null, $attributes = array())
 {
     // selectize
-    $attributes = $attributes + ['class' => 'select', 'data-selectize' => 'selectField'];
+    $attributes = $attributes + ['class' => 'selectize', 'data-selectize' => 'selectField'];
 
     $element = Form::select($name, [null => 'Select One'] + $options, $value, fieldAttributes($name, $attributes));
 

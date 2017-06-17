@@ -73,8 +73,18 @@
 @section('scripts')
 <script>
     // datepicker
-    pickmeup('#id-field-date_prepared', {
-        format  : 'Y-m-d'
+    // pickmeup('#id-field-date_prepared', {
+    //     format  : 'Y-m-d'
+    // });
+
+
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-date_prepared'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
     });
     // end datepicker
 </script>

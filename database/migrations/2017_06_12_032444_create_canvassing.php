@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,6 +15,13 @@ class CreateCanvassing extends Migration
     {
         Schema::create('canvassing', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('rfq_id');
+            $table->string('rfq_number')->nullable();
+            $table->string('upr_number')->nullable();
+            $table->date('canvass_date');
+            $table->time('adjourned_time')->nullable();
+            $table->time('closebox_time')->nullable();
+            $table->time('order_time')->nullable();
             $table->timestamps();
         });
     }

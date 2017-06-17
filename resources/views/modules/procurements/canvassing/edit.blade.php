@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Invitation to Submit Price Quotation</h3>
+        <h3>Canvassing</h3>
     </div>
 </div>
 
@@ -19,13 +19,12 @@
     <div class="twelve columns">
         {!! Form::model($data, $modelConfig['update']) !!}
 
-
             <div class="row">
                 <div class="six columns">
-                    {!! Form::textField('transaction_date', 'Transaction Date') !!}
+                    {!! Form::selectField('rfq_id', 'RFQ Number', $rfq_list) !!}
                 </div>
                 <div class="six columns">
-                    {!! Form::textareaField('venue', 'Venue') !!}
+                    {!! Form::textField('canvass_date', 'Canvassing Date') !!}
                 </div>
             </div>
 
@@ -53,17 +52,17 @@
 
 <script type="text/javascript">
 
+
     // datepicker
 
-     var picker = new Pikaday(
+    var picker = new Pikaday(
     {
-        field: document.getElementById('id-field-transaction_date'),
+        field: document.getElementById('id-field-canvass_date'),
         firstDay: 1,
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]
     });
-
     // end datepicker
 </script>
 @stop

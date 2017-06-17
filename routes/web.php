@@ -29,6 +29,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::resource('philgeps-posting', '\Revlv\Controllers\Procurements\PhilGepsPostingController');
     Route::resource('ispq', '\Revlv\Controllers\Procurements\ISPQController');
     Route::resource('rfq-proponents', '\Revlv\Controllers\Procurements\RFQProponentController');
+    Route::resource('canvassing', '\Revlv\Controllers\Procurements\CanvassingController');
     Route::post('rfq-proponents/attachments/{id}', '\Revlv\Controllers\Procurements\RFQProponentController@uploadAttachment')->name('rfq-proponents.attachments.store');
     Route::get('rfq-proponents/download/{id}', '\Revlv\Controllers\Procurements\RFQProponentController@downloadAttachment')->name('rfq-proponents.attachments.download');
 });
@@ -149,6 +150,8 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('blank-rfq', '\Revlv\Controllers\Procurements\BlankRFQController@getDatatable')->name('procurements.blank-rfq');
     Route::get('philgeps-posting', '\Revlv\Controllers\Procurements\PhilGepsPostingController@getDatatable')->name('procurements.philgeps-posting');
     Route::get('ispq', '\Revlv\Controllers\Procurements\ISPQController@getDatatable')->name('procurements.ispq');
+    Route::get('canvassing', '\Revlv\Controllers\Procurements\CanvassingController@getDatatable')->name('procurements.canvassing');
+
 });
 
 

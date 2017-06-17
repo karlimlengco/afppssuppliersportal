@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 
-use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
-use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRequest;
+use \Revlv\Procurements\Canvassing\CanvassingRepository;
+use \Revlv\Procurements\Canvassing\CanvassingRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
-use \Revlv\Settings\Suppliers\SupplierRepository;
+use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
+use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 
-class BlankRFQController extends Controller
+class CanvassingController extends Controller
 {
 
     /**
@@ -19,7 +20,7 @@ class BlankRFQController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "procurements.blank-rfq.";
+    protected $baseUrl  =   "procurements.canvassing.";
 
     /**
      * [$upr description]
@@ -29,18 +30,25 @@ class BlankRFQController extends Controller
     protected $upr;
 
     /**
+     * [$upr description]
+     *
+     * @var [type]
+     */
+    protected $rfq;
+
+    /**
+     *
+     *
+     * @var [type]
+     */
+    protected $proponents;
+
+    /**
      * [$model description]
      *
      * @var [type]
      */
     protected $model;
-
-    /**
-     * [$suppliers description]
-     *
-     * @var [type]
-     */
-    protected $suppliers;
 
     /**
      * @param model $model
@@ -55,7 +63,7 @@ class BlankRFQController extends Controller
      *
      * @return [type]            [description]
      */
-    public function getDatatable(BlankRFQRepository $model)
+    public function getDatatable(CanvassingRepository $model)
     {
         return $model->getDatatable();
     }
@@ -67,7 +75,7 @@ class BlankRFQController extends Controller
      */
     public function index()
     {
-        return $this->view('modules.procurements.blank-rfq.index',[
+        return $this->view('modules.procurements.canvassing.index',[
             'createRoute'   =>  $this->baseUrl."create"
         ]);
     }
@@ -77,12 +85,12 @@ class BlankRFQController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(UnitPurchaseRequestRepository $upr)
+    public function create(BlankRFQRepository $rfq)
     {
-        $upr_list   =   $upr->listPending('id', 'upr_number');
-        $this->view('modules.procurements.blank-rfq.create',[
+        $rfq_list   =   $rfq->lists('id', 'rfq_number');
+        $this->view('modules.procurements.canvassing.create',[
             'indexRoute'    =>  $this->baseUrl.'index',
-            'upr_list'      =>  $upr_list,
+            'rfq_list'      =>  $rfq_list,
             'modelConfig'   =>  [
                 'store' =>  [
                     'route'     =>  $this->baseUrl.'store'
@@ -97,21 +105,17 @@ class BlankRFQController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BlankRFQRequest $request, BlankRFQRepository $model, UnitPurchaseRequestRepository $upr)
+    public function store(CanvassingRequest $request, CanvassingRepository $model, BlankRFQRepository $rfq)
     {
-        $upr_model              =   $upr->with(['unit', 'centers'])->findById($request->upr_id);
+        $rfq_model              =   $rfq->findById($request->rfq_id);
         $inputs                 =   $request->getData();
-        $inputs['upr_number']   =   $upr_model->upr_number;
+        $inputs['rfq_number']   =   $rfq_model->rfq_number;
+        $inputs['upr_number']   =   $rfq_model->upr_number;
+        $canvass_date           =   $inputs['canvass_date'];
+
+        $rfq->update(['status' => "Canvasing ($canvass_date)"], $rfq_model->id);
+
         $result = $model->save($inputs);
-
-        if($upr_model->unit && $upr_model->centers)
-        {
-            $rfq_name   =   $upr_model->unit->name ."-". $upr_model->centers->name."-". $result->id;
-            $rfq_name   =   str_replace(" ", "-", $rfq_name);
-        }
-
-        $upr->update(['status' => 'processing', 'date_processed' => \Carbon\Carbon::now()], $upr_model->id);
-        $model->update(['rfq_number' => $rfq_name], $result->id);
 
         return redirect()->route($this->baseUrl.'edit', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -124,28 +128,16 @@ class BlankRFQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, BlankRFQRepository $model, SupplierRepository $suppliers)
+    public function show( CanvassingRepository $model, $id, RFQProponentRepository $proponents)
     {
-        $supplier_lists =   $suppliers->lists('id', 'name');
-        $result         =   $model->with(['proponents'])->findById($id);
+        $result         =   $model->findById($id);
+        $proponent_list =   $proponents->findByRFQId($result->rfq_id);
 
-        $exist_supplier =   $result->proponents->pluck('proponents')->toArray();
-        foreach($exist_supplier as $list)
-        {
-            unset($supplier_lists[$list]);
-        }
-
-        return $this->view('modules.procurements.blank-rfq.show',[
-            'supplier_lists'=>  $supplier_lists,
+        return $this->view('modules.procurements.canvassing.show',[
             'data'          =>  $result,
+            'proponent_list'=>  $proponent_list,
             'indexRoute'    =>  $this->baseUrl.'index',
             'editRoute'     =>  $this->baseUrl.'edit',
-            'modelConfig'   =>  [
-                'add_proponents'   => [
-                    'route' => 'procurements.rfq-proponents.store',
-                    'method'=> 'DELETE'
-                ]
-            ]
         ]);
     }
 
@@ -155,14 +147,14 @@ class BlankRFQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, BlankRFQRepository $model, UnitPurchaseRequestRepository $upr)
+    public function edit($id, CanvassingRepository $model, BlankRFQRepository $rfq)
     {
         $result     =   $model->findById($id);
-        $upr_list   =   $upr->lists('id', 'upr_number');
+        $rfq_list   =   $rfq->lists('id', 'rfq_number');
 
-        return $this->view('modules.procurements.blank-rfq.edit',[
+        return $this->view('modules.procurements.canvassing.edit',[
             'data'          =>  $result,
-            'upr_list'      =>  $upr_list,
+            'rfq_list'      =>  $rfq_list,
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [
                 'update' =>  [
@@ -184,7 +176,7 @@ class BlankRFQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BlankRFQRequest $request, $id, BlankRFQRepository $model)
+    public function update(CanvassingRequest $request, $id, CanvassingRepository $model)
     {
         $model->update($request->getData(), $id);
 
@@ -199,7 +191,7 @@ class BlankRFQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, BlankRFQRepository $model)
+    public function destroy($id, CanvassingRepository $model)
     {
         $model->delete($id);
 

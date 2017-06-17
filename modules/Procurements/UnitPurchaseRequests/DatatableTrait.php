@@ -1,6 +1,6 @@
 <?php
 
-namespace Revlv\Procurements\RFQProponents;
+namespace Revlv\Procurements\UnitPurchaseRequests;
 
 use Illuminate\Http\Request;
 use DB;

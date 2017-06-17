@@ -81,20 +81,29 @@
       evt.element.value = value;
     });
 
-    // datepicker
-    pickmeup('#id-field-transaction_date', {
-        format  : 'Y-m-d',
-        default_date: false
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-transaction_date'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
     });
-
-    pickmeup('#id-field-deadline_rfq', {
-        format  : 'Y-m-d',
-        default_date: false
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-deadline_rfq'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
     });
-
-    pickmeup('#id-field-philgeps_posting', {
-        format  : 'Y-m-d',
-        default_date: false
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-philgeps_posting'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
     });
     // end datepicker
 </script>

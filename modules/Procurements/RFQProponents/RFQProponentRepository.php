@@ -19,4 +19,19 @@ class RFQProponentRepository extends BaseRepository
         return RFQProponentEloquent::class;
     }
 
+    /**
+     * [findByRFQId description]
+     *
+     * @param  [type] $rfq [description]
+     * @return [type]      [description]
+     */
+    public function findByRFQId($rfq)
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->where('rfq_id', '=', $rfq);
+
+        return $model->get();
+    }
+
 }
