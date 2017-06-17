@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CanvassingRepository extends BaseRepository
 {
-    use  DatatableTrait;
+    use  DatatableTrait, NOATrait;
     /**
      * Specify Model class name
      *

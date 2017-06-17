@@ -35,4 +35,21 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         return $model->pluck($value, $id)->all();
     }
+
+    /**
+     * [findByRFQId description]
+     *
+     * @param  [type] $rfq [description]
+     * @return [type]      [description]
+     */
+    public function findByRFQId($rfq)
+    {
+        $model  =    $this->model;
+
+        $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
+
+        $model  =   $model->where('request_for_quotations.id', '=', $rfq);
+
+        return $model->first();
+    }
 }

@@ -2,10 +2,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>PhilGeps Posting</h3>
-    </div>
-    <div class="six columns align-right">
-        <a class="button" href="{{route($createRoute)}}">ADD NEW</a>
+        <h3>Notice Of Award</h3>
     </div>
 </div>
 
@@ -25,12 +22,10 @@
 
             <thead>
                 <tr>
-                    <th>PhilGeps No.</th>
                     <th>RFQ No.</th>
                     <th>UPR No.</th>
-                    <th>PhilGeps Posting</th>
-                    <th>Deadline</th>
-                    <th>Opening Time</th>
+                    <th>Proponent</th>
+                    <th>Date Awarded</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,18 +44,13 @@
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.procurements.philgeps-posting')}}",
-                // data: function (d) {
-                    // d.search.value = $('#search-table').val();
-                // }
+                url: "{{route('datatables.procurements.noa')}}",
             },
         columns: [
-            {data: 'philgeps_number', name: 'philgeps_number'},
-            {data: 'rfq_number', name: 'rfq_number'},
+            {data: 'canvass_rfq', name: 'canvass_rfq'},
             {data: 'upr_number', name: 'upr_number'},
-            {data: 'philgeps_posting', name: 'philgeps_posting'},
-            {data: 'deadline_rfq', name: 'deadline_rfq'},
-            {data: 'opening_time', name: 'opening_time'},
+            {data: 'name', name: 'name'},
+            {data: 'awarded_date', name: 'awarded_date'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

@@ -34,4 +34,20 @@ class RFQProponentRepository extends BaseRepository
         return $model->get();
     }
 
+    /**
+     * [findAwardeeByRFQId description]
+     *
+     * @param  [type] $rfq [description]
+     * @return [type]      [description]
+     */
+    public function findAwardeeByRFQId($rfq)
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->where('rfq_id', '=', $rfq);
+        $model  =   $model->whereNotNull('is_awarded');
+
+        return $model->first();
+    }
+
 }

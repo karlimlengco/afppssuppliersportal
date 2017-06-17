@@ -38,7 +38,11 @@ trait DatatableTrait
                 $route  =  route( 'procurements.canvassing.show',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->id .'</a>';
             })
-            ->rawColumns(['id'])
+            ->editColumn('canvass_rfq', function($data){
+                $route  =  route( 'procurements.noa.show',[$data->canvass_id] );
+                return ' <a  href="'.$route.'" > '. ucfirst($data->canvass_rfq) .'</a>';
+            })
+            ->rawColumns(['id', 'canvass_rfq'])
             ->make(true);
     }
 }

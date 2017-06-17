@@ -31,6 +31,11 @@
                     "route" :   "procurements.canvassing.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "Canvassing"
+                },
+                {
+                    "route" :   "procurements.noa.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Notice Of Award"
                 }
             ]
         }

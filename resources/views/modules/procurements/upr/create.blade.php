@@ -6,7 +6,7 @@
         <h3>Unit Purchase Request</h3>
     </div>
     <div class="six columns align-right">
-        <button type="reset" class="button"> <a href="{{route($indexRoute)}}">Back</a> </button>
+        <a class="button" href="{{route($indexRoute)}}">Back</a>
         <button type="submit" class="button">Save</button>
     </div>
 </div>

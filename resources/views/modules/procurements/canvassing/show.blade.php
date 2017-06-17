@@ -1,3 +1,7 @@
+@section('modal')
+    @include('modules.partials.modals.notice_of_award')
+@stop
+
 @section('contents')
 
 <div class="row">
@@ -19,6 +23,9 @@
             <li> <strong>UPR No. :</strong> {{$data->upr_number}} </li>
             <li> <strong>RFQ No. :</strong> {{$data->rfq_number}} </li>
             <li> <strong>Canvass Date :</strong> {{$data->canvass_date}} </li>
+            @if($data->adjourned_time)
+            <li> <strong>Adjourned Time :</strong> {{$data->adjourned_time}} </li>
+            @endif
         </ul>
     </div>
 </div>
@@ -43,7 +50,12 @@
                     <td>{{($proponent->users) ? $proponent->users->first_name ." ". $proponent->users->surname :""}} </td>
                     <td>
                         <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="attachments"> <span class="nc-icon-glyph ui-1_attach-87"></span> </a>
-                        <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="Award"> <span class="nc-icon-glyph business_award-48"></span> </a>
+                        @if($data->adjourned_time == null)
+                        <a href="#" class="topbar__utility__button--modal award" data-id="{{$proponent->id}}" data-name="{{$proponent->supplier->name}}" tooltip="Award"> <span class="nc-icon-glyph business_award-48"></span> </a>
+                        @endif
+                        @if($proponent->is_awarded)
+                            <a href="#" class=" award" tooltip="Winner"> <span class="nc-icon-glyph business_award-48"></span> </a>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
@@ -55,6 +67,15 @@
 
 @section('scripts')
 <script type="text/javascript">
-
+// click award
+$(document).on('click', '.award', function(e){
+    var name = $(this).data('name');
+    var id  = $(this).data('id');
+    var canvasid  = "{{$data->id}}";
+    $("#proponent").html('');
+    $("#proponent").html(name);
+    var form = document.getElementById('award-form').action;
+    document.getElementById('award-form').action = "/procurements/award-to/"+canvasid+"/"+id;
+});
 </script>
 @stop
