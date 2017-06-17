@@ -1,3 +1,7 @@
+@section('modal')
+    @include('modules.partials.modals.received')
+@stop
+
 @section('contents')
 
 <div class="row">
@@ -5,6 +9,10 @@
         <h1>Notice Of Award</h1>
     </div>
     <div class="six columns align-right">
+
+        @if(!$awardee->received_by && !$awardee->award_accepted_date)
+        <a class="button topbar__utility__button--modal" href="#">Received</a>
+        @endif
         <a class="button" href="{{route($indexRoute)}}">Back</a>
     </div>
 </div>
@@ -17,6 +25,13 @@
             <li> <strong>RFQ No. :</strong> {{$data->rfq_number}} </li>
             <li> <strong>Canvass Date :</strong> {{$data->canvass_date}} </li>
             <li> <strong>Adjourned Time :</strong> {{$data->adjourned_time}} </li>
+            @if($awardee->awarded_date  )
+            <li> <strong>Award Date :</strong> {{$awardee->awarded_date}} </li>
+            @endif
+            @if($awardee->received_by && $awardee->award_accepted_date)
+                <li> <strong>Received By :</strong> {{$awardee->received_by}} </li>
+                <li> <strong>Received Date :</strong> {{$awardee->award_accepted_date}} </li>
+            @endif
         </ul>
     </div>
     <div class="six columns pull-right">
@@ -65,4 +80,17 @@
 @stop
 
 @section('scripts')
+
+<script type="text/javascript">
+
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-award_accepted_date'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+    // end datepicker
+</script>
 @stop

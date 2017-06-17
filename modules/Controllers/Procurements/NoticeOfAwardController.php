@@ -70,13 +70,28 @@ class NoticeOfAwardController extends Controller
      *
      * @return [type] [description]
      */
-    public function awardToProponent(Request $request, CanvassingRepository $model, RFQProponentRepository $proponents, $canvasId, $proponentId, BlankRFQRepository $blank)
+    public function awardToProponent(
+        Request $request,
+        CanvassingRepository $model,
+        RFQProponentRepository $proponents,
+        BlankRFQRepository $blank,
+        UnitPurchaseRequestRepository $upr,
+        $canvasId,
+        $proponentId
+        )
     {
-        $canvasModel    =   $model->findById($canvasId);
+        $canvasModel        =   $model->findById($canvasId);
+        $proponent_model    =   $proponents->with('supplier')->findById($proponentId);
+        $supplier_name      =   $proponent_model->supplier->name;
 
+        // Update canvass adjuourned time
         $model->update(['adjourned_time' => \Carbon\Carbon::now()], $canvasId);
+        // update proponent adding awarded date
         $proponents->update(['is_awarded' => 1, 'awarded_date' => \Carbon\Carbon::now()], $proponentId);
-        $blank->update(['is_awarded' => 1, 'awarded_date' => \Carbon\Carbon::now()], $canvasModel->rfq_id);
+        // Update rfq
+        $rfq    =   $blank->update(['status' => "Awarded To $supplier_name",'is_awarded' => 1, 'awarded_date' => \Carbon\Carbon::now()], $canvasModel->rfq_id);
+        // update upr
+        $upr->update(['status' => "Awarded To $supplier_name"],  $rfq->upr_id);
 
         return redirect()->route('procurements.canvassing.show', $canvasId)->with([
             'success'  => "New record has been successfully added."
@@ -162,8 +177,13 @@ class NoticeOfAwardController extends Controller
             'data'          =>  $result,
             'upr_model'     =>  $upr_model,
             'supplier'      =>  $supplier,
+            'awardee'       =>  $proponent_awardee,
             'indexRoute'    =>  $this->baseUrl.'index',
-            'editRoute'     =>  $this->baseUrl.'edit',
+            'modelConfig'   =>  [
+                'receive_award' =>  [
+                    'route'     =>  [$this->baseUrl.'update', $result->rfq_id]
+                ]
+            ]
         ]);
     }
 
@@ -202,11 +222,32 @@ class NoticeOfAwardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CanvassingRequest $request, $id, CanvassingRepository $model)
+    public function update(
+        Request $request,
+        $id,
+        RFQProponentRepository $rfq,
+        BlankRFQRepository $blank,
+        CanvassingRepository $model
+        )
     {
-        $model->update($request->getData(), $id);
+        $this->validate($request, [
+            'received_by'   =>  'required',
+            'award_accepted_date'   =>  'required',
+        ]);
 
-        return redirect()->route($this->baseUrl.'edit', $id)->with([
+        $input  =   [
+            'received_by'           =>  $request->received_by,
+            'award_accepted_date'   =>  $request->award_accepted_date,
+        ];
+
+        $result             =   $model->findById($id);
+        $proponent_awardee  =   $rfq->with('supplier')->findAwardeeByRFQId($result->rfq_id);
+
+        $proponent          =   $rfq->update($input, $proponent_awardee->id);
+
+        $blank->update(['status' => 'NOA Accepted'], $proponent->rfq_id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
         ]);
     }
