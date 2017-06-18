@@ -24,6 +24,8 @@ class CreateRequestForQuotations extends Migration
             $table->date('transaction_date');
             $table->integer('awarded_to')->nullable();
             $table->date('awarded_date')->nullable();
+            $table->string('is_award_accepted')->nullable();
+            $table->date('award_accepted_date')->nullable();
             $table->timestamps();
         });
     }

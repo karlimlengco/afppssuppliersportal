@@ -38,6 +38,7 @@
                     <th>Name</th>
                     <th>Processed Date</th>
                     <th>Prepared By</th>
+                    <th>Bid Amount</th>
                     <th></th>
                 </tr>
             </thead>
@@ -47,6 +48,7 @@
                 <tr>
                     <td>{{($proponent->supplier) ? $proponent->supplier->name :""}}</td>
                     <td>{{$proponent->date_processed}}</td>
+                    <td>{{formatPrice($proponent->bid_amount)}}</td>
                     <td>{{($proponent->users) ? $proponent->users->first_name ." ". $proponent->users->surname :""}} </td>
                     <td>
                         <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="attachments"> <span class="nc-icon-glyph ui-1_attach-87"></span> </a>

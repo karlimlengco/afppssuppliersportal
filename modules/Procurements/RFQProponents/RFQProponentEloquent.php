@@ -29,6 +29,7 @@ class RFQProponentEloquent extends Model
         'award_accepted_date',
         'is_awarded',
         'awarded_date',
+        'bid_amount',
     ];
 
     /**

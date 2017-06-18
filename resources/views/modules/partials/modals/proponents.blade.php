@@ -20,7 +20,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="twelve columns">
+                    <div class="six columns">
+                        {!! Form::textField('bid_amount', 'Total Bid Amount') !!}
+                    </div>
+                    <div class="six columns">
                         {!! Form::textareaField('note', 'Note') !!}
                     </div>
                 </div>

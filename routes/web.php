@@ -24,6 +24,7 @@ Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard
 */
 Route::get('procurements', '\Revlv\Controllers\DashboardController@procurements')->name('procurements.index');
 Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () {
+    Route::get('rfq/get-info/{id}', '\Revlv\Controllers\Procurements\BlankRFQController@getInfo')->name('rfq.get-info');
     Route::resource('unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController');
     Route::resource('blank-rfq', '\Revlv\Controllers\Procurements\BlankRFQController');
     Route::resource('philgeps-posting', '\Revlv\Controllers\Procurements\PhilGepsPostingController');
@@ -35,6 +36,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::post('award-to/{canvas}/{proponent_id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@awardToProponent')->name('notice-of-awards.award-to');
 
     Route::resource('noa', '\Revlv\Controllers\Procurements\NoticeOfAwardController');
+    Route::resource('purchase-orders', '\Revlv\Controllers\Procurements\PurchaseOrderController');
 });
 
 
@@ -155,6 +157,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('ispq', '\Revlv\Controllers\Procurements\ISPQController@getDatatable')->name('procurements.ispq');
     Route::get('canvassing', '\Revlv\Controllers\Procurements\CanvassingController@getDatatable')->name('procurements.canvassing');
     Route::get('noa', '\Revlv\Controllers\Procurements\NoticeOfAwardController@getDatatable')->name('procurements.noa');
+    Route::get('purchase-orders', '\Revlv\Controllers\Procurements\PurchaseOrderController@getDatatable')->name('procurements.purchase-orders');
 
 });
 

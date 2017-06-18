@@ -30,7 +30,9 @@ class BlankRFQEloquent extends Model
         'opening_time',
         'awarded_to',
         'awarded_date',
-        'transaction_date'
+        'transaction_date',
+        'is_award_accepted',
+        'award_accepted_date',
     ];
 
     /**
@@ -41,6 +43,16 @@ class BlankRFQEloquent extends Model
     public function proponents()
     {
          return $this->hasMany('\Revlv\Procurements\RFQProponents\RFQProponentEloquent', 'rfq_id');
+    }
+
+    /**
+     * [upr description]
+     *
+     * @return [type] [description]
+     */
+    public function upr()
+    {
+        return $this->belongsTo('\Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestEloquent', 'upr_id');
     }
 
 }

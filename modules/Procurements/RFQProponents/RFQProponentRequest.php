@@ -15,6 +15,7 @@ class RFQProponentRequest extends BaseRequest
         'note',
         'date_processed',
         'prepared_by',
+        'bid_amount',
     ];
 
     /**
@@ -28,6 +29,7 @@ class RFQProponentRequest extends BaseRequest
             'rfq_id'                => 'required',
             'proponents'            => 'required',
             'date_processed'        => 'required',
+            'bid_amount'            => 'required',
         ];
     }
 }

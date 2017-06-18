@@ -2,10 +2,10 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Canvassing</h3>
+        <h3>Purchase Orders</h3>
     </div>
     <div class="six columns align-right">
-        <a class="button" href="{{route($createRoute)}}">ADD NEW</a>
+            <a class="button" href="{{route($createRoute)}}">ADD NEW</a>
     </div>
 </div>
 
@@ -25,9 +25,9 @@
 
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>RFQ Number</th>
-                    <th>Canvassing Date</th>
+                    <th>RFQ No.</th>
+                    <th>Purchase Date</th>
+                    <th>Bid Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,12 +46,15 @@
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.procurements.canvassing')}}",
+                url: "{{route('datatables.procurements.purchase-orders')}}",
+                // data: function (d) {
+                    // d.search.value = $('#search-table').val();
+                // }
             },
         columns: [
-            {data: 'id', name: 'id'},
             {data: 'rfq_number', name: 'rfq_number'},
-            {data: 'canvass_date', name: 'canvass_date'},
+            {data: 'purchase_date', name: 'purchase_date'},
+            {data: 'bid_amount', name: 'bid_amount'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
