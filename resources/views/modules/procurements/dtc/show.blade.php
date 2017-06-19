@@ -26,6 +26,9 @@
             <li> <strong>Delivery Date :</strong> {{$data->delivery_date}} </li>
             <li> <strong>Notes :</strong> {{$data->notes}} </li>
 
+            @if($data->inspection_status)
+            <li> <strong>Inspection Status :</strong> {{$data->inspection_status}} </li>
+            @endif
             @if($data->date_delivered_to_coa)
             <li> <strong>Date Delivery To COA. :</strong> {{$data->date_delivered_to_coa}} </li>
             <li> <strong>Delivered By. :</strong> {{($data->deliveryMan) ?  $data->deliveryMan->first_name .''. $data->deliveryMan->surname :""}} </li>

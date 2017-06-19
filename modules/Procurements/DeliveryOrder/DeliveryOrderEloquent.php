@@ -34,6 +34,7 @@ class DeliveryOrderEloquent extends Model
         'status',
         'date_completed',
         'notes',
+        'inspection_status',
         'date_delivered_to_coa',
         'delivered_to_coa_by',
     ];

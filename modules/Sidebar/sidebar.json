@@ -61,6 +61,11 @@
                     "route" :   "procurements.delivery-to-coa.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "Delivery To COA"
+                },
+                {
+                    "route" :   "procurements.delivered-inspections.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Delivered Inspection"
                 }
             ]
         }

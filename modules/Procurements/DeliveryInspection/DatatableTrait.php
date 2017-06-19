@@ -1,6 +1,6 @@
 <?php
 
-namespace Revlv\Procurements\DeliveryOrder;
+namespace Revlv\Procurements\DeliveryInspection;
 
 use Illuminate\Http\Request;
 use DB;
@@ -34,14 +34,6 @@ trait DatatableTrait
     {
         return Datatables::of($model)
             ->addColumn('rfq_number', function ($data) {
-                $route  =  route( 'procurements.delivery-orders.show',[$data->id] );
-                return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
-            })
-            ->editColumn('dtc_rfq_number', function ($data) {
-                $route  =  route( 'procurements.delivery-to-coa.show',[$data->id] );
-                return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
-            })
-            ->editColumn('inspect_rfq_number', function ($data) {
                 $route  =  route( 'procurements.delivered-inspections.show',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
             })
