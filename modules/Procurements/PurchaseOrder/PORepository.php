@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PORepository extends BaseRepository
 {
-    use  DatatableTrait;
+    use  DatatableTrait, NTPTrait;
 
     /**
      * Specify Model class name

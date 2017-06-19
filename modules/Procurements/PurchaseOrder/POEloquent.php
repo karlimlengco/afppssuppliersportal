@@ -28,6 +28,18 @@ class POEloquent extends Model
         'bid_amount',
         'payment_term',
         'prepared_by',
+        'pcco_has_issue',
+        'pcco_released_date',
+        'pcco_received_date',
+        'pcco_remarks',
+        'mfo_has_issue',
+        'mfo_received_date',
+        'mfo_released_date',
+        'mfo_remarks',
+        'status',
+        'received_by',
+        'award_accepted_date',
+
     ];
 
     /**
@@ -48,5 +60,15 @@ class POEloquent extends Model
     public function users()
     {
         return $this->belongsTo('\App\User', 'prepared_by');
+    }
+
+    /**
+     * [items description]
+     *
+     * @return [type] [description]
+     */
+    public function items()
+    {
+        return $this->hasMany('\Revlv\Procurements\PurchaseOrder\Items\ItemEloquent', 'order_id');
     }
 }

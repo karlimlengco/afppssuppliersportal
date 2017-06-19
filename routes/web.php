@@ -36,7 +36,10 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::post('award-to/{canvas}/{proponent_id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@awardToProponent')->name('notice-of-awards.award-to');
 
     Route::resource('noa', '\Revlv\Controllers\Procurements\NoticeOfAwardController');
+    Route::post('purchase-orders/mfo-approved/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@mfoApproved')->name('purchase-orders.mfo-approved');
+    Route::post('purchase-orders/pcco-approved/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@pccoApproved')->name('purchase-orders.pcco-approved');
     Route::resource('purchase-orders', '\Revlv\Controllers\Procurements\PurchaseOrderController');
+    Route::resource('ntp', '\Revlv\Controllers\Procurements\NoticeToProceedController');
 });
 
 
@@ -157,6 +160,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('ispq', '\Revlv\Controllers\Procurements\ISPQController@getDatatable')->name('procurements.ispq');
     Route::get('canvassing', '\Revlv\Controllers\Procurements\CanvassingController@getDatatable')->name('procurements.canvassing');
     Route::get('noa', '\Revlv\Controllers\Procurements\NoticeOfAwardController@getDatatable')->name('procurements.noa');
+    Route::get('ntp', '\Revlv\Controllers\Procurements\NoticeToProceedController@getDatatable')->name('procurements.ntp');
     Route::get('purchase-orders', '\Revlv\Controllers\Procurements\PurchaseOrderController@getDatatable')->name('procurements.purchase-orders');
 
 });

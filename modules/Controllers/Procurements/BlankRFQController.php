@@ -125,7 +125,7 @@ class BlankRFQController extends Controller
         $upr->update(['status' => 'processing', 'date_processed' => \Carbon\Carbon::now()], $upr_model->id);
         $model->update(['rfq_number' => $rfq_name], $result->id);
 
-        return redirect()->route($this->baseUrl.'edit', $result->id)->with([
+        return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
         ]);
     }
@@ -200,7 +200,7 @@ class BlankRFQController extends Controller
     {
         $model->update($request->getData(), $id);
 
-        return redirect()->route($this->baseUrl.'edit', $id)->with([
+        return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
         ]);
     }

@@ -117,7 +117,7 @@ class CanvassingController extends Controller
 
         $result = $model->save($inputs);
 
-        return redirect()->route($this->baseUrl.'edit', $result->id)->with([
+        return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
         ]);
     }
@@ -180,7 +180,7 @@ class CanvassingController extends Controller
     {
         $model->update($request->getData(), $id);
 
-        return redirect()->route($this->baseUrl.'edit', $id)->with([
+        return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
         ]);
     }

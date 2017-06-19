@@ -75,6 +75,78 @@ class PurchaseOrderController extends Controller
     }
 
     /**
+     * [mfoApproved description]
+     *
+     * @param  [type]       $id      [description]
+     * @param  Request      $request [description]
+     * @param  PORepository $model   [description]
+     * @return [type]                [description]
+     */
+    public function mfoApproved($id, Request $request, PORepository $model)
+    {
+        $this->validate($request, [
+            'mfo_has_issue'     =>  'required',
+            'mfo_released_date' =>  'required',
+            'mfo_received_date' =>  'required',
+        ]);
+
+        $inputs =   [
+            'mfo_has_issue'     => $request->mfo_has_issue,
+            'mfo_released_date' => $request->mfo_released_date,
+            'mfo_received_date' => $request->mfo_received_date,
+            'mfo_remarks'       => $request->mfo_remarks,
+        ];
+
+        $result =   $model->update($inputs, $id);
+
+        if($result->pcco_has_issue AND $result->pcco_has_issue != 'yes')
+        {
+            $model->update(['status' => 'Approved'], $id);
+        }
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+
+    }
+
+    /**
+     * [pccoApproved description]
+     *
+     * @param  [type]       $id      [description]
+     * @param  Request      $request [description]
+     * @param  PORepository $model   [description]
+     * @return [type]                [description]
+     */
+    public function pccoApproved($id, Request $request, PORepository $model)
+    {
+        $this->validate($request, [
+            'pcco_has_issue'     =>  'required',
+            'pcco_released_date' =>  'required',
+            'pcco_received_date' =>  'required',
+        ]);
+
+        $inputs =   [
+            'pcco_has_issue'     => $request->pcco_has_issue,
+            'pcco_released_date' => $request->pcco_released_date,
+            'pcco_received_date' => $request->pcco_received_date,
+            'pcco_remarks'       => $request->pcco_remarks,
+        ];
+
+        $result =   $model->update($inputs, $id);
+
+        if($result->mfo_has_issue AND $result->mfo_has_issue != 'yes')
+        {
+            $model->update(['status' => 'Approved'], $id);
+        }
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -117,6 +189,7 @@ class PurchaseOrderController extends Controller
         $inputs['upr_number']   =   $rfq_model->upr_number;
         $inputs['rfq_number']   =   $rfq_model->rfq_number;
         $inputs['bid_amount']   =   $rfq_model->bid_amount;
+        $inputs['status']       =   "pending";
 
         $result = $model->save($inputs);
 
@@ -138,7 +211,7 @@ class PurchaseOrderController extends Controller
 
         $rfq->update(['status' => "PO Created"], $rfq_model->id);
 
-        return redirect()->route($this->baseUrl.'edit', $result->id)->with([
+        return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
         ]);
     }
@@ -166,6 +239,16 @@ class PurchaseOrderController extends Controller
             'supplier'      =>  $supplier,
             'awardee'       =>  $proponent_awardee,
             'indexRoute'    =>  $this->baseUrl.'index',
+            'modelConfig'   =>  [
+                'mfo_approval' =>  [
+                    'route'     =>  [$this->baseUrl.'mfo-approved', $id],
+                    'method'    =>  'POST'
+                ],
+                'pcco_approval' =>  [
+                    'route'     =>  [$this->baseUrl.'pcco-approved', $id],
+                    'method'    =>  'POST'
+                ]
+            ]
         ]);
     }
 

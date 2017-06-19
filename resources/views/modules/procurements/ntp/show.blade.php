@@ -1,23 +1,18 @@
 @section('modal')
-    @include('modules.partials.modals.mfo')
-    @include('modules.partials.modals.pcco')
+    @include('modules.partials.modals.ntp_received')
 @stop
 
 @section('contents')
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Purchase Order</h3>
+        <h3>Notice To Proceed</h3>
     </div>
     <div class="six columns align-right">
-        @if(!$data->mfo_released_date)
-        <a class="button " id="mfo-button" href="#">MFO Approval</a>
-        @endif
-        @if(!$data->pcco_released_date)
-        <a class="button" id="pcco-button" href="#">PCCO Approval</a>
-        @endif
-
         @if($data->pcco_released_date and $data->mfo_released_date)
+            @if(!$data->received_by)
+            <a class="button" id="proceed-ntp-button" href="#">Received</a>
+            @endif
             <a class="button" href="#">Print</a>
         @endif
         <a class="button" href="{{route($indexRoute,$data->rfq_id)}}">Back</a>
@@ -128,15 +123,6 @@
 <script src="/js/dropzone.js"></script>
 <script type="text/javascript">
 
-// show modal
-$('#pcco-button').click(function(e){
-    e.preventDefault();
-    $('#pcco-modal').addClass('is-visible');
-})
-$('#mfo-button').click(function(e){
-    e.preventDefault();
-    $('#mfo-modal').addClass('is-visible');
-})
 
 $('#proceed-ntp-button').click(function(e){
     e.preventDefault();
@@ -144,43 +130,15 @@ $('#proceed-ntp-button').click(function(e){
 })
 
 
-var mfo_released_date = new Pikaday(
+var award_accepted_date = new Pikaday(
 {
-    field: document.getElementById('id-field-mfo_released_date'),
+    field: document.getElementById('id-field-award_accepted_date'),
     firstDay: 1,
     // minDate: new Date(),
     maxDate: new Date(2020, 12, 31),
     yearRange: [2000,2020]
 });
 
-
-var mfo_received_date = new Pikaday(
-{
-    field: document.getElementById('id-field-mfo_received_date'),
-    firstDay: 1,
-    // minDate: new Date(),
-    maxDate: new Date(2020, 12, 31),
-    yearRange: [2000,2020]
-});
-
-
-var pcco_released_date = new Pikaday(
-{
-    field: document.getElementById('id-field-pcco_released_date'),
-    firstDay: 1,
-    // minDate: new Date(),
-    maxDate: new Date(2020, 12, 31),
-    yearRange: [2000,2020]
-});
-
-var pcco_received_date = new Pikaday(
-{
-    field: document.getElementById('id-field-pcco_received_date'),
-    firstDay: 1,
-    // minDate: new Date(),
-    maxDate: new Date(2020, 12, 31),
-    yearRange: [2000,2020]
-});
 
 </script>
 @stop

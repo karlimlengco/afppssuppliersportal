@@ -23,6 +23,17 @@ class CreatePurchaseOrders extends Migration
             $table->string('bid_amount');
             $table->integer('payment_term');
             $table->integer('prepared_by');
+            $table->string('status')->nullable();
+            $table->string('pcco_has_issue')->nullable();
+            $table->date('pcco_released_date')->nullable();
+            $table->date('pcco_received_date')->nullable();
+            $table->text('pcco_remarks')->nullable();
+            $table->string('mfo_has_issue')->nullable();
+            $table->date('mfo_received_date')->nullable();
+            $table->date('mfo_released_date')->nullable();
+            $table->text('mfo_remarks')->nullable();
+            $table->string('received_by')->nullable();
+            $table->date('award_accepted_date')->nullable();
             $table->timestamps();
         });
     }

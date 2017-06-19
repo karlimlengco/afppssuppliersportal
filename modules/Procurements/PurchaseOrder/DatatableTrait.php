@@ -37,10 +37,14 @@ trait DatatableTrait
                 $route  =  route( 'procurements.purchase-orders.show',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
             })
+            ->editColumn('ntp_rfq_number', function ($data) {
+                $route  =  route( 'procurements.ntp.show',[$data->id] );
+                return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
+            })
             ->editColumn('bid_amount', function ($data) {
                 return formatPrice($data->bid_amount);
             })
-            ->rawColumns(['rfq_number'])
+            ->rawColumns(['rfq_number','ntp_rfq_number'])
             ->make(true);
     }
 }

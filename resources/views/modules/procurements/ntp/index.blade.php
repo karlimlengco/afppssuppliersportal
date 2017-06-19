@@ -2,10 +2,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Purchase Orders</h3>
-    </div>
-    <div class="six columns align-right">
-            <a class="button" href="{{route($createRoute)}}">ADD NEW</a>
+        <h3>Notice To Proceed</h3>
     </div>
 </div>
 
@@ -48,13 +45,10 @@
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.procurements.purchase-orders')}}",
-                // data: function (d) {
-                    // d.search.value = $('#search-table').val();
-                // }
+                url: "{{route('datatables.procurements.ntp')}}",
             },
         columns: [
-            {data: 'rfq_number', name: 'rfq_number'},
+            {data: 'ntp_rfq_number', name: 'ntp_rfq_number'},
             {data: 'purchase_date', name: 'purchase_date'},
             {data: 'bid_amount', name: 'bid_amount'},
             {data: 'mfo_released_date', name: 'mfo_released_date'},
