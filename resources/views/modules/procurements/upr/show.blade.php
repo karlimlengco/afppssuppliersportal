@@ -23,7 +23,7 @@
         <a target="_blank" href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
         @endif
         @if(count($data->canvassing) != 0)
-        <a target="_blank" href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button" tooltip="CANVASSING"> <span class=" nc-icon-glyph shopping_award"></span>  </a>
+        <a target="_blank" href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button" tooltip="CANVASSING"> <span class=" nc-icon-glyph business_award-49"></span>  </a>
         <a target="_blank" href="{{route('procurements.noa.show', $data->canvassing->id)}}" class="button" tooltip="AWARDEE"> <span class=" nc-icon-glyph education_award-55"></span>  </a>
         @endif
         @if(count($data->purchase_order) != 0)

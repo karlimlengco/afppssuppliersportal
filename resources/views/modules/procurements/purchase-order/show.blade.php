@@ -10,6 +10,9 @@
         <h3>Purchase Order</h3>
     </div>
     <div class="six columns align-right">
+
+        <a target="_blank" class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
+        <a target="_blank" href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
         @if(!$data->mfo_released_date)
         <a class="button " id="mfo-button" href="#">MFO Approval</a>
         @endif

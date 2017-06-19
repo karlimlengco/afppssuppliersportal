@@ -170,6 +170,14 @@ class NoticeOfAwardController extends Controller
     {
         $result             =   $model->findById($id);
         $proponent_awardee  =   $proponents->with('supplier')->findAwardeeByRFQId($result->rfq_id);
+
+        if(!$proponent_awardee)
+        {
+            return redirect()->route('procurements.blank-rfq.show', $id)->with([
+                'success'    =>  'Awardee is not yet present. Go to canvassing and select proponent.'
+            ]);
+        }
+
         $supplier           =   $proponent_awardee->supplier;
         $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findByRFQId($proponent_awardee->rfq_id);
 

@@ -139,7 +139,7 @@ class BlankRFQController extends Controller
     public function show($id, BlankRFQRepository $model, SupplierRepository $suppliers)
     {
         $supplier_lists =   $suppliers->lists('id', 'name');
-        $result         =   $model->with(['proponents','upr'])->findById($id);
+        $result         =   $model->with(['proponents','upr', 'canvassing'])->findById($id);
 
         $exist_supplier =   $result->proponents->pluck('proponents')->toArray();
         foreach($exist_supplier as $list)

@@ -29,4 +29,24 @@ class CanvassingEloquent extends Model
         'upr_number',
         'order_time',
     ];
+
+    /**
+     * [rfq description]
+     *
+     * @return [type] [description]
+     */
+    public function rfq()
+    {
+        return $this->belongsTo('\Revlv\Procurements\BlankRequestForQuotation\BlankRFQEloquent', 'rfq_id');
+    }
+
+    /**
+     * [upr description]
+     *
+     * @return [type] [description]
+     */
+    public function upr()
+    {
+        return $this->belongsTo('\Revlv\Procurements\BlankRequestForQuotation\BlankuprEloquent', 'upr_id');
+    }
 }

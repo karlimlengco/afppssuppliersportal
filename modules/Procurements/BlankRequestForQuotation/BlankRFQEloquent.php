@@ -55,4 +55,14 @@ class BlankRFQEloquent extends Model
         return $this->belongsTo('\Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestEloquent', 'upr_id');
     }
 
+    /**
+     * [canvassing description]
+     *
+     * @return [type] [description]
+     */
+    public function canvassing()
+    {
+        return $this->hasOne('\Revlv\Procurements\Canvassing\CanvassingEloquent', 'rfq_id');
+    }
+
 }
