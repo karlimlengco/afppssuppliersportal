@@ -46,6 +46,8 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
 
     Route::get('inspection-and-acceptance/accepted/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@acceptOrder')->name('inspection-and-acceptance.accepted');
     Route::resource('inspection-and-acceptance', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController');
+    Route::post('delivery-to-coa/proceed/{id}', '\Revlv\Controllers\Procurements\DeliveryToCoaController@proceedDelivery')->name('delivery-to-coa.proceed');
+    Route::resource('delivery-to-coa', '\Revlv\Controllers\Procurements\DeliveryToCoaController');
 });
 
 
@@ -170,6 +172,8 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('purchase-orders', '\Revlv\Controllers\Procurements\PurchaseOrderController@getDatatable')->name('procurements.purchase-orders');
     Route::get('delivery-orders', '\Revlv\Controllers\Procurements\DeliveryController@getDatatable')->name('procurements.delivery-orders');
     Route::get('inspection-and-acceptance', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@getDatatable')->name('procurements.inspection-and-acceptance');
+
+    Route::get('delivery-to-coa', '\Revlv\Controllers\Procurements\DeliveryToCoaController@getDatatable')->name('procurements.delivery-to-coa');
 
 });
 

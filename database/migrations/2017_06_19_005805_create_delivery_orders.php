@@ -29,6 +29,8 @@ class CreateDeliveryOrders extends Migration
             $table->integer('created_by')->nullable();
             $table->text('notes')->nullable();
             $table->date('date_completed')->nullable();
+            $table->date('date_delivered_to_coa')->nullable();
+            $table->integer('delivered_to_coa_by')->nullable();
             $table->timestamps();
         });
     }

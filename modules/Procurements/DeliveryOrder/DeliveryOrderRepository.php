@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DeliveryOrderRepository extends BaseRepository
 {
-    use  DatatableTrait;
+    use  DatatableTrait, DTCTrait;
 
     /**
      * Specify Model class name

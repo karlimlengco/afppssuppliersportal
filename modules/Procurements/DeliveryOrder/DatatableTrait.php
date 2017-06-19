@@ -37,7 +37,11 @@ trait DatatableTrait
                 $route  =  route( 'procurements.delivery-orders.show',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
             })
-            ->rawColumns(['rfq_number','ntp_rfq_number'])
+            ->editColumn('dtc_rfq_number', function ($data) {
+                $route  =  route( 'procurements.delivery-to-coa.show',[$data->id] );
+                return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
+            })
+            ->rawColumns(['rfq_number','dtc_rfq_number'])
             ->make(true);
     }
 }

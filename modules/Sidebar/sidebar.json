@@ -56,6 +56,11 @@
                     "route" :   "procurements.inspection-and-acceptance.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "Inspection And Acceptance"
+                },
+                {
+                    "route" :   "procurements.delivery-to-coa.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Delivery To COA"
                 }
             ]
         }

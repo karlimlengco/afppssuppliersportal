@@ -34,6 +34,8 @@ class DeliveryOrderEloquent extends Model
         'status',
         'date_completed',
         'notes',
+        'date_delivered_to_coa',
+        'delivered_to_coa_by',
     ];
 
     /**
@@ -44,6 +46,16 @@ class DeliveryOrderEloquent extends Model
     public function creator()
     {
         return $this->belongsTo('\App\User', 'created_by');
+    }
+
+    /**
+     * [deliveryMan description]
+     *
+     * @return [type] [description]
+     */
+    public function deliveryMan()
+    {
+        return $this->belongsTo('\App\User', 'delivered_to_coa_by');
     }
 
     /**

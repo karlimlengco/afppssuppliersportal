@@ -60,11 +60,13 @@ class InspectionAndAcceptanceController extends Controller
      *
      * @return [type] [description]
      */
-    public function acceptOrder($id, InspectionAndAcceptanceRepository $model)
+    public function acceptOrder($id, InspectionAndAcceptanceRepository $model, DeliveryOrderRepository $delivery)
     {
         $date_completed     =   \Carbon\Carbon::now();
 
-        $model->update(['accepted_date' => $date_completed, 'status' => 'Accepted', 'accepted_by' => \Sentinel::getUser()->id], $id);
+        $result =   $model->update(['accepted_date' => $date_completed, 'status' => 'Accepted', 'accepted_by' => \Sentinel::getUser()->id], $id);
+
+        $delivery->update(['status' => 'Accepted'], $result->dr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
