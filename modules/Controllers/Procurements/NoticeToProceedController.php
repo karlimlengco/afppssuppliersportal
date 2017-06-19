@@ -98,7 +98,7 @@ class NoticeToProceedController extends Controller
         RFQProponentRepository $proponents,
         UnitPurchaseRequestRepository $upr)
     {
-        $result             =   $model->findById($id);
+        $result             =   $model->with(['delivery'])->findById($id);
         $proponent_awardee  =   $proponents->with('supplier')->findAwardeeByRFQId($result->rfq_id);
         $supplier           =   $proponent_awardee->supplier;
         $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findByRFQId($proponent_awardee->rfq_id);
@@ -113,6 +113,9 @@ class NoticeToProceedController extends Controller
                 'receive_ntp' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
                     'method'    =>  'PUT'
+                ],
+                'create_nod' =>  [
+                    'route'     =>  ['procurements.delivery-orders.create-purchase', $id]
                 ]
             ]
 

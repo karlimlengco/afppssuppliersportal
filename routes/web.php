@@ -40,6 +40,8 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::post('purchase-orders/pcco-approved/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@pccoApproved')->name('purchase-orders.pcco-approved');
     Route::resource('purchase-orders', '\Revlv\Controllers\Procurements\PurchaseOrderController');
     Route::resource('ntp', '\Revlv\Controllers\Procurements\NoticeToProceedController');
+    Route::post('delivery-orders/create-purchase/{id}', '\Revlv\Controllers\Procurements\DeliveryController@createFromPurchase')->name('delivery-orders.create-purchase');
+    Route::resource('delivery-orders', '\Revlv\Controllers\Procurements\DeliveryController');
 });
 
 
@@ -162,6 +164,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('noa', '\Revlv\Controllers\Procurements\NoticeOfAwardController@getDatatable')->name('procurements.noa');
     Route::get('ntp', '\Revlv\Controllers\Procurements\NoticeToProceedController@getDatatable')->name('procurements.ntp');
     Route::get('purchase-orders', '\Revlv\Controllers\Procurements\PurchaseOrderController@getDatatable')->name('procurements.purchase-orders');
+    Route::get('delivery-orders', '\Revlv\Controllers\Procurements\DeliveryController@getDatatable')->name('procurements.delivery-orders');
 
 });
 

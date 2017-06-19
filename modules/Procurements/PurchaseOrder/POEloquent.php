@@ -71,4 +71,14 @@ class POEloquent extends Model
     {
         return $this->hasMany('\Revlv\Procurements\PurchaseOrder\Items\ItemEloquent', 'order_id');
     }
+
+    /**
+     * [delivery description]
+     *
+     * @return [type] [description]
+     */
+    public function delivery()
+    {
+        return $this->hasMany('\Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent', 'po_id');
+    }
 }

@@ -46,6 +46,11 @@
                     "route" :   "procurements.ntp.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "Notice To Proceed"
+                },
+                {
+                    "route" :   "procurements.delivery-orders.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Notice Of Delivery"
                 }
             ]
         }

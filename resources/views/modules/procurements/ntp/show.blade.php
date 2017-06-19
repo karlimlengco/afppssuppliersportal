@@ -1,5 +1,6 @@
 @section('modal')
     @include('modules.partials.modals.ntp_received')
+    @include('modules.partials.modals.create_delivery')
 @stop
 
 @section('contents')
@@ -12,6 +13,10 @@
         @if($data->pcco_released_date and $data->mfo_released_date)
             @if(!$data->received_by)
             <a class="button" id="proceed-ntp-button" href="#">Received</a>
+            @else
+                @if(count($data->delivery) == 0)
+                    <a class="button" id="create-delivery-button" href="#">Create Notice Of Delivery</a>
+                @endif
             @endif
             <a class="button" href="#">Print</a>
         @endif
@@ -120,7 +125,6 @@
 @stop
 
 @section('scripts')
-<script src="/js/dropzone.js"></script>
 <script type="text/javascript">
 
 
@@ -129,10 +133,34 @@ $('#proceed-ntp-button').click(function(e){
     $('#proceed-ntp-modal').addClass('is-visible');
 })
 
+$('#create-delivery-button').click(function(e){
+    e.preventDefault();
+    $('#create-delivery-modal').addClass('is-visible');
+})
+
 
 var award_accepted_date = new Pikaday(
 {
     field: document.getElementById('id-field-award_accepted_date'),
+    firstDay: 1,
+    // minDate: new Date(),
+    maxDate: new Date(2020, 12, 31),
+    yearRange: [2000,2020]
+});
+
+
+var transaction_date = new Pikaday(
+{
+    field: document.getElementById('id-field-transaction_date'),
+    firstDay: 1,
+    // minDate: new Date(),
+    maxDate: new Date(2020, 12, 31),
+    yearRange: [2000,2020]
+});
+
+var expected_date = new Pikaday(
+{
+    field: document.getElementById('id-field-expected_date'),
     firstDay: 1,
     // minDate: new Date(),
     maxDate: new Date(2020, 12, 31),
