@@ -20,6 +20,7 @@
 
 <!-- My scripts -->
 <script src="/js/main.js"></script>
+<script src="/js/jquery-mousewheel.min.js"></script>
 <script src="/js/jquery.mCustomScrollbar.js"></script>
 <script>
     (function($){

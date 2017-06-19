@@ -2,7 +2,10 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Notice Of Delivery</h3>
+        <h3>Inspection And Acceptance Report</h3>
+    </div>
+    <div class="six columns align-right">
+        <a class="button" href="{{route($createRoute)}}">ADD NEW</a>
     </div>
 </div>
 
@@ -22,9 +25,10 @@
 
             <thead>
                 <tr>
+                    <th>Delivery Number</th>
                     <th>RFQ Number</th>
                     <th>UPR Number</th>
-                    <th>Expected Delivery Date.</th>
+                    <th>Inspection Date</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -44,12 +48,13 @@
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.procurements.delivery-orders')}}",
+                url: "{{route('datatables.procurements.inspection-and-acceptance')}}",
             },
         columns: [
+            {data: 'delivery_number', name: 'delivery_number'},
             {data: 'rfq_number', name: 'rfq_number'},
             {data: 'upr_number', name: 'upr_number'},
-            {data: 'expected_date', name: 'expected_date'},
+            {data: 'inspection_date', name: 'inspection_date'},
             {data: 'status', name: 'status'},
         ],
         "fnInitComplete": function (oSettings, json) {

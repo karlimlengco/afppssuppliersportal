@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDeliveryOrders extends Migration
+class CreateInspectionAcceptanceReport extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,22 @@ class CreateDeliveryOrders extends Migration
      */
     public function up()
     {
-        Schema::create('delivery_orders', function (Blueprint $table) {
+        Schema::create('inspection_acceptance_report', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('rfq_id');
             $table->integer('upr_id');
+            $table->integer('dr_id');
+            $table->string('delivery_number')->nullable();
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
-            $table->integer('po_id');
-            $table->date('expected_date');
-            $table->date('delivery_date')->nullable();
-            $table->string('delivery_number')->nullable();
+            $table->date('inspection_date');
+            $table->date('accepted_date')->nullable();
+            $table->integer('accepted_by')->nullable();
+            $table->string('nature_of_delivery')->nullable();
             $table->string('status')->nullable();
-            $table->date('transaction_date')->nullable();
+            $table->text('findings')->nullable();
+            $table->text('recommendation')->nullable();
             $table->integer('prepared_by')->nullable();
-            $table->integer('created_by')->nullable();
-            $table->text('notes')->nullable();
-            $table->date('date_completed')->nullable();
             $table->timestamps();
         });
     }
@@ -40,6 +40,6 @@ class CreateDeliveryOrders extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('delivery_orders');
+        Schema::dropIfExists('inspection_acceptance_report');
     }
 }

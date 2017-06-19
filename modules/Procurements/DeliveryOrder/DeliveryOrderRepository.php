@@ -18,4 +18,19 @@ class DeliveryOrderRepository extends BaseRepository
     {
         return DeliveryOrderEloquent::class;
     }
+
+    /**
+     * Return the model by its key valued pair
+     *
+     * @param string $id
+     * @param string $value
+     * @return mixed
+     */
+    public function listCompleted($id = 'id', $value = 'name')
+    {
+        $model =    $this->model;
+        $model =    $model->whereStatus('completed');
+
+        return $model->pluck($value, $id)->all();
+    }
 }

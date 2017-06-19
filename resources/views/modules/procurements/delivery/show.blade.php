@@ -8,7 +8,9 @@
         @if(!$data->delivery_date)
         <button type="submit" class="button">Save</button>
         @else
-            <a class="button" href="{{route($indexRoute)}}">Close</a>
+            @if(!$data->date_completed)
+                <a class="button" href="{{route($completeRoute,$data->id)}}">Completed</a>
+            @endif
         @endif
         <a class="button" href="{{route($indexRoute)}}">Back</a>
     </div>
@@ -34,6 +36,7 @@
                 <li> <strong>Delivery Date :</strong> {{$data->delivery_date}} </li>
                 <li> <strong>Delivery Number :</strong> {{$data->delivery_number}} </li>
                 <li> <strong>Delivery Note :</strong> {{$data->notes}} </li>
+                <li> <strong>Status :</strong> {{ucwords($data->status)}} </li>
                 @if($data->status)
                     <li> <strong>Completed Date :</strong> {{$data->date_completed}} </li>
                 @endif

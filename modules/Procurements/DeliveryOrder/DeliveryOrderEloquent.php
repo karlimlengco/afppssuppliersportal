@@ -31,6 +31,8 @@ class DeliveryOrderEloquent extends Model
         'expected_date',
         'prepared_by',
         'created_by',
+        'status',
+        'date_completed',
         'notes',
     ];
 

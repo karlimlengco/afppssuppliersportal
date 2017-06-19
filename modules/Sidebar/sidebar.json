@@ -51,6 +51,11 @@
                     "route" :   "procurements.delivery-orders.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "Notice Of Delivery"
+                },
+                {
+                    "route" :   "procurements.inspection-and-acceptance.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Inspection And Acceptance"
                 }
             ]
         }

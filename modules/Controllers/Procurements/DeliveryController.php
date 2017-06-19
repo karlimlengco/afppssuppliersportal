@@ -116,6 +116,7 @@ class DeliveryController extends Controller
             'rfq_id'        =>  $po_model->rfq_id,
             'upr_id'        =>  $po_model->upr_id,
             'rfq_number'    =>  $po_model->rfq_number,
+            'status'        =>  'ongoing',
             'upr_number'    =>  $po_model->upr_number,
             'created_by'    =>  \Sentinel::getUser()->id
         ];
@@ -155,6 +156,7 @@ class DeliveryController extends Controller
         return $this->view('modules.procurements.delivery.show',[
             'data'          =>  $result,
             'indexRoute'    =>  $this->baseUrl.'index',
+            'completeRoute' =>  $this->baseUrl.'completed',
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
@@ -213,6 +215,24 @@ class DeliveryController extends Controller
         }
 
         $model->update($inputs, $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
+     * [completeOrder description]
+     *
+     * @param  [type]                  $id    [description]
+     * @param  DeliveryOrderRepository $model [description]
+     * @return [type]                         [description]
+     */
+    public function completeOrder($id, DeliveryOrderRepository $model)
+    {
+        $date_completed     =   \Carbon\Carbon::now();
+
+        $model->update(['date_completed' => $date_completed, 'status' => 'completed'], $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
