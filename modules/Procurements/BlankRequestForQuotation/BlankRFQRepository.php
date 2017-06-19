@@ -28,10 +28,32 @@ class BlankRFQRepository extends BaseRepository
      */
     public function listPending($id = 'id', $value = 'name')
     {
-
         $model =    $this->model;
 
         $model =    $model->whereStatus('pending');
+
+        return $model->pluck($value, $id)->all();
+    }
+
+    /**
+     * Return the model by its key valued pair
+     *
+     * @param string $id
+     * @param string $value
+     * @return mixed
+     */
+    public function listNotCanvass($id = 'id', $value = 'name')
+    {
+        $model =    $this->model;
+
+        $model  =   $model->select([
+            'request_for_quotations.*',
+            'canvassing.id as canvass_id',
+        ]);
+
+        $model  =   $model->leftJoin('canvassing', 'canvassing.rfq_id', '=', 'request_for_quotations.id');
+
+        $model  =   $model->whereNull('canvassing.id');
 
         return $model->pluck($value, $id)->all();
     }
@@ -68,6 +90,15 @@ class BlankRFQRepository extends BaseRepository
     public function listsAccepted($id = 'id', $value = 'name')
     {
         $model =    $this->model;
+
+        $model  =   $model->select([
+            'request_for_quotations.*',
+            'purchase_orders.id as purchase_id',
+        ]);
+
+        $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.rfq_id', '=', 'request_for_quotations.id');
+
+        $model  =   $model->whereNull('purchase_orders.id');
 
         $model =    $model->whereNotNull('is_award_accepted');
 

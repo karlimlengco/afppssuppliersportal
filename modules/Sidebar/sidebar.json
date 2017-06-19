@@ -40,7 +40,7 @@
                 {
                     "route" :   "procurements.purchase-orders.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Purhcase Orders"
+                    "name"  :   "Purchase Orders"
                 },
                 {
                     "route" :   "procurements.ntp.index",

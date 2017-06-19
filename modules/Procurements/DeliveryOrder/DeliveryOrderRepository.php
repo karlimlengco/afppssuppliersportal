@@ -41,6 +41,30 @@ class DeliveryOrderRepository extends BaseRepository
      * @param string $value
      * @return mixed
      */
+    public function listNotInspected($id = 'id', $value = 'name')
+    {
+        $model =    $this->model;
+
+        $model  =   $model->select([
+            'delivery_orders.*',
+            'delivery_inspection.id as inspection_id',
+        ]);
+
+        $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.dr_id', '=', 'delivery_orders.id');
+
+        $model  =   $model->whereNull('delivery_inspection.id');
+        // $model =    $model->whereStatus('completed');
+
+        return $model->pluck($value, $id)->all();
+    }
+
+    /**
+     * Return the model by its key valued pair
+     *
+     * @param string $id
+     * @param string $value
+     * @return mixed
+     */
     public function listDelivered($id = 'id', $value = 'name')
     {
         $model =    $this->model;

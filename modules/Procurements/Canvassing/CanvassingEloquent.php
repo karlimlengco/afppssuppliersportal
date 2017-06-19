@@ -24,6 +24,7 @@ class CanvassingEloquent extends Model
         'adjourned_time',
         'closebox_time',
         'rfq_id',
+        'upr_id',
         'rfq_number',
         'upr_number',
         'order_time',

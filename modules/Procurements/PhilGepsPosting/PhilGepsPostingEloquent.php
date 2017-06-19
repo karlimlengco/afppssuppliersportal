@@ -21,6 +21,7 @@ class PhilGepsPostingEloquent extends Model
      */
     protected $fillable = [
         'rfq_id',
+        'upr_id',
         'philgeps_number',
         'rfq_number',
         'upr_number',

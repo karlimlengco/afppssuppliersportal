@@ -87,7 +87,8 @@ class CanvassingController extends Controller
      */
     public function create(BlankRFQRepository $rfq)
     {
-        $rfq_list   =   $rfq->lists('id', 'rfq_number');
+        $rfq_list   =   $rfq->listNotCanvass('id', 'rfq_number');
+
         $this->view('modules.procurements.canvassing.create',[
             'indexRoute'    =>  $this->baseUrl.'index',
             'rfq_list'      =>  $rfq_list,
@@ -111,6 +112,7 @@ class CanvassingController extends Controller
         $inputs                 =   $request->getData();
         $inputs['rfq_number']   =   $rfq_model->rfq_number;
         $inputs['upr_number']   =   $rfq_model->upr_number;
+        $inputs['upr_id']       =   $rfq_model->upr_id;
         $canvass_date           =   $inputs['canvass_date'];
 
         $rfq->update(['status' => "Canvasing ($canvass_date)"], $rfq_model->id);

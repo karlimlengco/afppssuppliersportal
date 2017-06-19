@@ -13,13 +13,34 @@
     </div>
     <div class="six columns align-right">
         @if($data->status == 'pending')
-        <button class="button topbar__utility__button--modal">Process</button>
+        <button class="button topbar__utility__button--modal">PROCESS</button>
         @endif
-        <a class="button" href="{{route($indexRoute)}}">Back</a>
-        <a class="button" href="{{route($editRoute,$data->id)}}">Edit</a>
+
+        @if(count($data->philgeps) != 0)
+            <a target="_blank" href="{{route('procurements.philgeps-posting.edit', $data->philgeps->id)}}" class="button" tooltip="PhilGeps"> <span class=" nc-icon-glyph files_paper"></span> </a>
+        @endif
+        @if(count($data->rfq) != 0)
+        <a target="_blank" href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
+        @endif
+        @if(count($data->canvassing) != 0)
+        <a target="_blank" href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button" tooltip="CANVASSING"> <span class=" nc-icon-glyph shopping_award"></span>  </a>
+        <a target="_blank" href="{{route('procurements.noa.show', $data->canvassing->id)}}" class="button" tooltip="AWARDEE"> <span class=" nc-icon-glyph education_award-55"></span>  </a>
+        @endif
+        @if(count($data->purchase_order) != 0)
+        <a target="_blank" href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button" tooltip="PURCHASE ORDER"> <span class=" nc-icon-glyph shopping_cart"></span>  </a>
+        <a target="_blank" href="{{route('procurements.ntp.show', $data->purchase_order->id)}}" class="button" tooltip="NTP"> <span class=" nc-icon-glyph ui-1_notification-70"></span>  </a>
+        @endif
+        @if(count($data->delivery_order) != 0)
+        <a target="_blank" href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button" tooltip="DELIVERY"> <span class=" nc-icon-glyph transportation_truck-front"></span>  </a>
+        @endif
+        <a class="button" href="{{route($indexRoute)}}">PRINT</a>
+        <a class="button" href="{{route($indexRoute)}}">BACK</a>
+        <a class="button" href="{{route($editRoute,$data->id)}}">EDIT</a>
     </div>
 </div>
-
+<br>
+<br>
+<br>
 <div class="row">
     <div class="six columns pull-left">
         <ul>
@@ -32,7 +53,7 @@
             <li> <strong>Total ABC :</strong> {{number_format($data->total_amount,2)}} </li>
         </ul>
     </div>
-    <div class="six columns pull-right">
+    <div class="six columns">
         <ul>
             <li> <strong>Chargeability :</strong> {{($data->charges) ? $data->charges->name :""}} </li>
             <li> <strong>Account Code :</strong> {{($data->accounts) ? $data->accounts->new_account_code :""}} </li>

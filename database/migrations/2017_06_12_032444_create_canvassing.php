@@ -16,6 +16,7 @@ class CreateCanvassing extends Migration
         Schema::create('canvassing', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('rfq_id');
+            $table->integer('upr_id');
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
             $table->date('canvass_date');

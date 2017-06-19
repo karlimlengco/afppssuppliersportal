@@ -27,7 +27,9 @@
                 <tr>
                     <th>ID</th>
                     <th>RFQ Number</th>
+                    <th>UPR Number</th>
                     <th>Canvassing Date</th>
+                    <th>Adjourned Time</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,7 +53,9 @@
         columns: [
             {data: 'id', name: 'id'},
             {data: 'rfq_number', name: 'rfq_number'},
+            {data: 'upr_number', name: 'upr_number'},
             {data: 'canvass_date', name: 'canvass_date'},
+            {data: 'adjourned_time', name: 'adjourned_time'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

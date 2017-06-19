@@ -39,6 +39,56 @@ class UnitPurchaseRequestEloquent extends Model
     ];
 
     /**
+     * [philgeps description]
+     *
+     * @return [type] [description]
+     */
+    public function philgeps()
+    {
+        return $this->hasOne('\Revlv\Procurements\PhilGepsPosting\PhilGepsPostingEloquent', 'upr_id');
+    }
+
+    /**
+     * [rfq description]
+     *
+     * @return [type] [description]
+     */
+    public function rfq()
+    {
+        return $this->hasOne('\Revlv\Procurements\BlankRequestForQuotation\BlankRFQEloquent', 'upr_id');
+    }
+
+    /**
+     * [canvassing description]
+     *
+     * @return [type] [description]
+     */
+    public function canvassing()
+    {
+        return $this->hasOne('\Revlv\Procurements\Canvassing\CanvassingEloquent', 'upr_id');
+    }
+
+    /**
+     * [purchase_order description]
+     *
+     * @return [type] [description]
+     */
+    public function purchase_order()
+    {
+        return $this->hasOne('\Revlv\Procurements\PurchaseOrder\POEloquent', 'upr_id');
+    }
+
+    /**
+     * [delivery_order description]
+     *
+     * @return [type] [description]
+     */
+    public function delivery_order()
+    {
+        return $this->hasOne('\Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent', 'upr_id');
+    }
+
+    /**
      * [centers description]
      *
      * @return [type] [description]

@@ -167,7 +167,7 @@ class UPRController extends Controller
      */
     public function show($id, UnitPurchaseRequestRepository $model)
     {
-        $result =   $model->findById($id);
+        $result =   $model->with(['philgeps', 'rfq', 'canvassing', 'purchase_order', 'delivery_order'])->findById($id);
 
         return $this->view('modules.procurements.upr.show',[
             'data'          =>  $result,

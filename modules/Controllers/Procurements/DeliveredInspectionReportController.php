@@ -152,7 +152,8 @@ class DeliveredInspectionReportController extends Controller
      */
     public function create(DeliveryInspectionRepository $model, DeliveryOrderRepository $delivery)
     {
-        $delivery_list      =   $delivery->lists('id', 'rfq_number');
+        $delivery_list      =   $delivery->listNotInspected('id', 'rfq_number');
+
         $this->view('modules.procurements.delivered-inspections.create',[
             'indexRoute'    =>  $this->baseUrl.'index',
             'delivery_list' =>  $delivery_list,

@@ -103,6 +103,7 @@ class PhilGepsPostingController extends Controller
         $inputs                 =   $request->getData();
         $inputs['rfq_number']   =   $rfq_model->rfq_number;
         $inputs['upr_number']   =   $rfq_model->upr_number;
+        $inputs['upr_id']       =   $rfq_model->upr_id;
         $philgeps               =   $inputs['philgeps_number'];
 
         $rfq->update(['status' => "PhilGeps ($philgeps)"], $rfq_model->id);
