@@ -12,12 +12,12 @@
         @if($data->status == 'pending')
         <a class="button topbar__utility__button--modal" href="#">ADD PROPONENTS</a>
         @endif
-        <a target="_blank" class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
+        <a class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
         @if(count($data->canvassing))
-            <a target="_blank" href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button" tooltip="CANVASSING"> <span class=" nc-icon-glyph business_award-49"></span>  </a>
-            <a target="_blank" href="{{route('procurements.noa.show', $data->canvassing->id)}}" class="button" tooltip="AWARDEE"> <span class=" nc-icon-glyph education_award-55"></span>  </a>
+            <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button" tooltip="CANVASSING"> <span class=" nc-icon-glyph business_award-49"></span>  </a>
+            <a href="{{route('procurements.noa.show', $data->canvassing->id)}}" class="button" tooltip="AWARDEE"> <span class=" nc-icon-glyph education_award-55"></span>  </a>
         @endif
-        <a class="button" href="{{route($indexRoute)}}">PRINT</a>
+        <a class="button" href="{{route($printRoute,$data->id)}}">PRINT</a>
         <a class="button" href="{{route($indexRoute)}}">BACK</a>
         <a class="button" href="{{route($editRoute,$data->id)}}">EDIT</a>
     </div>

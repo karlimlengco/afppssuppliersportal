@@ -175,6 +175,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         'Laracasts\Utilities\JavaScript\JavaScriptServiceProvider',
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Revlv
@@ -247,6 +248,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Image' => Intervention\Image\Facades\Image::class,
+
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
         'Activation' => Cartalyst\Sentinel\Laravel\Facades\Activation::class,
         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,

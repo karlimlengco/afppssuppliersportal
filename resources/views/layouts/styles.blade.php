@@ -8,6 +8,7 @@
 
 <!-- font -->
 {{-- <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900" rel="stylesheet"> --}}
+<link rel="stylesheet" href="/fonts/Nunito_Sans/css/nunitosans.css">
 <link rel="stylesheet" href="/fonts/nucleo-webfonts/mini/css/nucleo-mini.css">
 <link rel="stylesheet" href="/fonts/nucleo-webfonts/glyph/css/nucleo-glyph.css">
 <link rel="stylesheet" href="/fonts/nucleo-webfonts/outline/css/nucleo-outline.css">

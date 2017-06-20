@@ -12,6 +12,9 @@
 */
 
 
+// Route::get('/', function(){
+//     return view('forms.rfq');
+// });
 Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard.index');
 
 
@@ -24,28 +27,47 @@ Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard
 */
 Route::get('procurements', '\Revlv\Controllers\DashboardController@procurements')->name('procurements.index');
 Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () {
+    /*
+    |--------------------------------------------------------------------------
+    | PrintOut Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::get('blank-rfq/print/{id}', '\Revlv\Controllers\Procurements\BlankRFQController@viewPrint')->name('blank-rfq.print');
+
     Route::get('rfq/get-info/{id}', '\Revlv\Controllers\Procurements\BlankRFQController@getInfo')->name('rfq.get-info');
+
     Route::resource('unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController');
+
     Route::resource('blank-rfq', '\Revlv\Controllers\Procurements\BlankRFQController');
+
     Route::resource('philgeps-posting', '\Revlv\Controllers\Procurements\PhilGepsPostingController');
+
     Route::resource('ispq', '\Revlv\Controllers\Procurements\ISPQController');
+
     Route::resource('rfq-proponents', '\Revlv\Controllers\Procurements\RFQProponentController');
+
     Route::resource('canvassing', '\Revlv\Controllers\Procurements\CanvassingController');
+
     Route::post('rfq-proponents/attachments/{id}', '\Revlv\Controllers\Procurements\RFQProponentController@uploadAttachment')->name('rfq-proponents.attachments.store');
     Route::get('rfq-proponents/download/{id}', '\Revlv\Controllers\Procurements\RFQProponentController@downloadAttachment')->name('rfq-proponents.attachments.download');
-    Route::post('award-to/{canvas}/{proponent_id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@awardToProponent')->name('notice-of-awards.award-to');
 
+    Route::post('award-to/{canvas}/{proponent_id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@awardToProponent')->name('notice-of-awards.award-to');
     Route::resource('noa', '\Revlv\Controllers\Procurements\NoticeOfAwardController');
+
     Route::post('purchase-orders/mfo-approved/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@mfoApproved')->name('purchase-orders.mfo-approved');
     Route::post('purchase-orders/pcco-approved/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@pccoApproved')->name('purchase-orders.pcco-approved');
     Route::resource('purchase-orders', '\Revlv\Controllers\Procurements\PurchaseOrderController');
+
     Route::resource('ntp', '\Revlv\Controllers\Procurements\NoticeToProceedController');
+
     Route::post('delivery-orders/create-purchase/{id}', '\Revlv\Controllers\Procurements\DeliveryController@createFromPurchase')->name('delivery-orders.create-purchase');
     Route::get('delivery-orders/completed/{id}', '\Revlv\Controllers\Procurements\DeliveryController@completeOrder')->name('delivery-orders.completed');
     Route::resource('delivery-orders', '\Revlv\Controllers\Procurements\DeliveryController');
 
     Route::get('inspection-and-acceptance/accepted/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@acceptOrder')->name('inspection-and-acceptance.accepted');
     Route::resource('inspection-and-acceptance', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController');
+
     Route::post('delivery-to-coa/proceed/{id}', '\Revlv\Controllers\Procurements\DeliveryToCoaController@proceedDelivery')->name('delivery-to-coa.proceed');
     Route::resource('delivery-to-coa', '\Revlv\Controllers\Procurements\DeliveryToCoaController');
 

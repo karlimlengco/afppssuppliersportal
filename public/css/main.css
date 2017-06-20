@@ -552,7 +552,7 @@ height:calc(100% - 268px);
   justify-content: center;
   height: 200px;
   background-color: #00a1e4;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='152' height='152' viewBox='0 0 152 152'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='temple' fill='%23ffffff' fill-opacity='0.07'%3E%3Cpath d='M152 150v2H0v-2h28v-8H8v-20H0v-2h8V80h42v20h20v42H30v8h90v-8H80v-42h20V80h42v40h8V30h-8v40h-42V50H80V8h40V0h2v8h20v20h8V0h2v150zm-2 0v-28h-8v20h-20v8h28zM82 30v18h18V30H82zm20 18h20v20h18V30h-20V10H82v18h20v20zm0 2v18h18V50h-18zm20-22h18V10h-18v18zm-54 92v-18H50v18h18zm-20-18H28V82H10v38h20v20h38v-18H48v-20zm0-2V82H30v18h18zm-20 22H10v18h18v-18zm54 0v18h38v-20h20V82h-18v20h-20v20H82zm18-20H82v18h18v-18zm2-2h18V82h-18v18zm20 40v-18h18v18h-18zM30 0h-2v8H8v20H0v2h8v40h42V50h20V8H30V0zm20 48h18V30H50v18zm18-20H48v20H28v20H10V30h20V10h38v18zM30 50h18v18H30V50zm-2-40H10v18h18V10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='152' height='152' viewBox='0 0 152 152'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='temple' fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M152 150v2H0v-2h28v-8H8v-20H0v-2h8V80h42v20h20v42H30v8h90v-8H80v-42h20V80h42v40h8V30h-8v40h-42V50H80V8h40V0h2v8h20v20h8V0h2v150zm-2 0v-28h-8v20h-20v8h28zM82 30v18h18V30H82zm20 18h20v20h18V30h-20V10H82v18h20v20zm0 2v18h18V50h-18zm20-22h18V10h-18v18zm-54 92v-18H50v18h18zm-20-18H28V82H10v38h20v20h38v-18H48v-20zm0-2V82H30v18h18zm-20 22H10v18h18v-18zm54 0v18h38v-20h20V82h-18v20h-20v20H82zm18-20H82v18h18v-18zm2-2h18V82h-18v18zm20 40v-18h18v18h-18zM30 0h-2v8H8v20H0v2h8v40h42V50h20V8H30V0zm20 48h18V30H50v18zm18-20H48v20H28v20H10V30h20V10h38v18zM30 50h18v18H30V50zm-2-40H10v18h18V10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 .sidebar__logo__type {
   font-size: 40px;
@@ -1061,14 +1061,210 @@ printable-form.less
 ------------------------------------------------------------------------- */
 .printable-form-wrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .printable-form {
-  display: block;
-  width: 8.5in;
-  height: 11in;
-  margin-bottom: 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 8.3in;
+  height: 11.7in;
+  max-height: 11.7in;
+  min-height: 11.7in;
+  padding: 30px;
+  margin: 30px 0;
   border: solid 1px #cccccc;
+}
+.printable-form * {
+  font-size: 12px;
+  font-weight: 600;
+  color: #545454;
+}
+.printable-form * strong {
+  font-weight: 800;
+}
+.printable-form__filename {
+  position: absolute;
+  bottom: 100%;
+  padding: 10px 0;
+  left: 0;
+}
+.printable-form__head {
+  display: flex;
+  align-self: flex-start;
+  flex-direction: column;
+  width: 100%;
+}
+.printable-form__head__vision {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0 0 30px 0;
+}
+.printable-form__head__letterhead {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.printable-form__head__letterhead__logo {
+  display: inline-block;
+  height: 75px;
+  width: 75px;
+  margin-bottom: 10px;
+}
+.printable-form__head__letterhead__logo img {
+  width: 100%;
+}
+.printable-form__head__letterhead__details {
+  display: block;
+}
+.printable-form__body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  padding: 0;
+  margin: 50px 0;
+}
+.printable-form__body__title {
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 20px;
+  display: block;
+  width: 100%;
+}
+.printable-form__body table,
+.printable-form__body p {
+  margin-bottom: 20px;
+}
+.printable-form__body table {
+  width: 100%;
+  table-layout: auto;
+  /* auto or fixed */
+  border-collapse: collapse;
+}
+.printable-form__body table tr td {
+  font-size: 10px;
+  border: solid 1px #adadad;
+  padding: 4px 6px;
+}
+.printable-form__foot {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  width: 100%;
+}
+.printable-form__foot__values {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+.printable-form__foot__details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.printable-form__foot__details__left {
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  width: 50%;
+  text-align: left;
+}
+.printable-form__foot__details__right {
+  width: 50%;
+  height: 20px;
+  text-align: right;
+}
+.printable-form__foot__details__right img {
+  height: 100%;
+}
+.signatory {
+  display: flex;
+  flex-direction: column;
+}
+.signatory__box {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 60px;
+  margin-top: 10px;
+}
+.signatory__box.conforme {
+  height: auto;
+}
+.signatory__box.conforme .signatory__box__left,
+.signatory__box.conforme .signatory__box__right {
+  flex-direction: column;
+}
+.signatory__box.conforme .signatory__box__left .signatory__details,
+.signatory__box.conforme .signatory__box__right .signatory__details {
+  align-self: flex-start;
+  margin-top: 30px;
+  border-top: solid 1px #adadad;
+}
+.signatory__box.custom-a {
+  margin-top: 30px;
+  height: auto;
+}
+.signatory__box.custom-a .signatory__box__left,
+.signatory__box.custom-a .signatory__box__right {
+  flex-direction: row;
+}
+.signatory__box.custom-a .signatory__box__left .signatory__details,
+.signatory__box.custom-a .signatory__box__right .signatory__details {
+  align-self: flex-start;
+  margin-top: 35px;
+  border-top: solid 1px #adadad;
+}
+.signatory__box.extend-left .signatory__box__left {
+  width: 80%;
+}
+.signatory__box.extend-left .signatory__box__right {
+  width: 20%;
+}
+.signatory__box.extend-left .signatory__top-title {
+  white-space: nowrap;
+  margin-right: 10px;
+}
+.signatory__box__left {
+  display: flex;
+  width: 50%;
+  margin-right: 50px;
+}
+.signatory__box__right {
+  display: flex;
+  width: 50%;
+  margin-left: 50px;
+}
+.signatory__top-title {
+  margin-bottom: 15px;
+  margin-top: 25px;
+}
+.signatory__details {
+  display: flex;
+  align-self: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 5px;
+  width: 100%;
+}
+.signatory__details.align-center {
+  align-items: center;
+}
+.signatory__details.align-right {
+  align-items: flex-end;
+}
+.signatory__details__name {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.signatory__details__label {
+  font-size: 10px;
 }
 /*
 form.less

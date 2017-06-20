@@ -4,6 +4,7 @@ namespace Revlv\Controllers\Procurements;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use PDF;
 use Auth;
 
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
@@ -151,6 +152,7 @@ class BlankRFQController extends Controller
             'supplier_lists'=>  $supplier_lists,
             'data'          =>  $result,
             'indexRoute'    =>  $this->baseUrl.'index',
+            'printRoute'    =>  $this->baseUrl.'print',
             'editRoute'     =>  $this->baseUrl.'edit',
             'modelConfig'   =>  [
                 'add_proponents'   => [
@@ -218,5 +220,22 @@ class BlankRFQController extends Controller
         return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "Record has been successfully deleted."
         ]);
+    }
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint($id, BlankRFQRepository $model)
+    {
+        $result     =   $model->findById($id);
+
+        $pdf = PDF::loadView('forms.rfq', $result);
+        // dd(asset('css/normalize.css'));
+        return $pdf->download('rfq.pdf');
+
+        dd($result);
     }
 }
