@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 
+use \Revlv\Procurements\PhilGepsPosting\Attachments\AttachmentRepository;
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRepository;
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
@@ -27,13 +28,8 @@ class PhilGepsPostingController extends Controller
      * @var [type]
      */
     protected $upr;
-
-    /**
-     * [$upr description]
-     *
-     * @var [type]
-     */
     protected $rfq;
+    protected $attachments;
 
     /**
      * [$model description]
@@ -110,7 +106,7 @@ class PhilGepsPostingController extends Controller
 
         $result = $model->save($inputs);
 
-        return redirect()->route($this->baseUrl.'edit', $result->id)->with([
+        return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
         ]);
     }
@@ -121,9 +117,20 @@ class PhilGepsPostingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, PhilGepsPostingRepository $model)
     {
-        //
+        $result     =   $model->findById($id);
+
+        return $this->view('modules.procurements.philgeps.show',[
+            'data'          =>  $result,
+            'indexRoute'    =>  $this->baseUrl.'index',
+            'editRoute'     =>  $this->baseUrl.'edit',
+            'modelConfig'   =>  [
+                'add_attachment' =>  [
+                    'route'     =>  [$this->baseUrl.'attachments.store', $id]
+                ]
+            ]
+        ]);
     }
 
     /**
@@ -183,5 +190,63 @@ class PhilGepsPostingController extends Controller
         return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "Record has been successfully deleted."
         ]);
+    }
+
+    /**
+     * [uploadAttachment description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function uploadAttachment(Request $request, $id, AttachmentRepository $attachments)
+    {
+
+        $file       = md5_file($request->file);
+        $file       = $file.".".$request->file->getClientOriginalExtension();
+
+        $validator = \Validator::make($request->all(), [
+            'file' => 'required',
+        ]);
+
+        $result     = $attachments->save([
+            'philgeps_id'   =>  $id,
+            'name'          =>  $request->file->getClientOriginalName(),
+            'file_name'     =>  $file,
+            'user_id'       =>  \Sentinel::getUser()->id,
+            'upload_date'   =>  \Carbon\Carbon::now()
+        ]);
+
+        if($result)
+        {
+            $path       = $request->file->storeAs('philgeps-attachments', $file);
+        }
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Attachment has been successfully added."
+        ]);
+    }
+
+
+
+    /**
+     * [downloadAttachment description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function downloadAttachment(Request $request, $id, AttachmentRepository $attachments)
+    {
+        $result     = $attachments->findById($id);
+
+        $directory      =   storage_path("app/philgeps-attachments/".$result->file_name);
+
+        if(!file_exists($directory))
+        {
+            return 'Sorry. File does not exists.';
+        }
+
+        return response()->download($directory);
     }
 }

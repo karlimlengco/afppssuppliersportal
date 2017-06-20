@@ -31,4 +31,13 @@ class PhilGepsPostingEloquent extends Model
         'opening_time',
     ];
 
+    /**
+     * [attachments description]
+     *
+     * @return [type] [description]
+     */
+    public function attachments()
+    {
+         return $this->hasMany('\Revlv\Procurements\PhilGepsPosting\Attachments\AttachmentEloquent', 'philgeps_id');
+    }
 }

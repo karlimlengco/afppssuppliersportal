@@ -36,6 +36,8 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
 
     Route::resource('blank-rfq', '\Revlv\Controllers\Procurements\BlankRFQController');
 
+    Route::post('philgeps-posting/attachments/{id}', '\Revlv\Controllers\Procurements\PhilGepsPostingController@uploadAttachment')->name('philgeps-posting.attachments.store');
+    Route::get('philgeps-posting/download/{id}', '\Revlv\Controllers\Procurements\PhilGepsPostingController@downloadAttachment')->name('philgeps-posting.attachments.download');
     Route::resource('philgeps-posting', '\Revlv\Controllers\Procurements\PhilGepsPostingController');
 
     Route::resource('ispq', '\Revlv\Controllers\Procurements\ISPQController');

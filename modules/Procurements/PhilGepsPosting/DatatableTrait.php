@@ -35,7 +35,7 @@ trait DatatableTrait
     {
         return Datatables::of($model)
             ->addColumn('philgeps_number', function ($data) {
-                $route  =  route( 'procurements.philgeps-posting.edit',[$data->id] );
+                $route  =  route( 'procurements.philgeps-posting.show',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->philgeps_number .'</a>';
             })
             ->rawColumns(['philgeps_number'])
