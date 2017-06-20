@@ -10,11 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-// Route::get('/', function(){
-//     return view('forms.rfq');
-// });
 Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard.index');
 
 

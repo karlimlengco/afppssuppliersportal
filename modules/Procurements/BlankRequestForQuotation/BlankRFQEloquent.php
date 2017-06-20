@@ -65,4 +65,14 @@ class BlankRFQEloquent extends Model
         return $this->hasOne('\Revlv\Procurements\Canvassing\CanvassingEloquent', 'rfq_id');
     }
 
+    /**
+     * [items description]
+     *
+     * @return [type] [description]
+     */
+    public function items()
+    {
+        return $this->hasMany('\Revlv\Procurements\Items\ItemEloquent', 'upr_id');
+    }
+
 }
