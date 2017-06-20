@@ -176,6 +176,44 @@ class VoucherController extends Controller
     }
 
     /**
+     * [releasePayment description]
+     *
+     * @param  [type]            $id    [description]
+     * @param  VoucherRepository $model [description]
+     * @return [type]                   [description]
+     */
+    public function releasePayment($id, VoucherRepository $model, Request $request)
+    {
+        $model->update([
+            'payment_release_date'  => $request->payment_release_date,
+            'process_releaser'      => \Sentinel::getUser()->id,
+        ], $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
+     * [receivePayment description]
+     *
+     * @param  [type]            $id    [description]
+     * @param  VoucherRepository $model [description]
+     * @return [type]                   [description]
+     */
+    public function receivePayment($id, VoucherRepository $model, Request $request)
+    {
+        $model->update([
+            'payment_received_date' => $request->payment_received_date,
+            'payment_receiver'      => \Sentinel::getUser()->id,
+        ], $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

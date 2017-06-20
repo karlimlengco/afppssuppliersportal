@@ -76,6 +76,8 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::post('delivered-inspections/close-inspection/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@closeInspection')->name('delivered-inspections.close-inspection');
     Route::resource('delivered-inspections', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController');
 
+    Route::post('vouchers/released/{id}', '\Revlv\Controllers\Procurements\VoucherController@releasePayment')->name('vouchers.released');
+    Route::post('vouchers/received/{id}', '\Revlv\Controllers\Procurements\VoucherController@receivePayment')->name('vouchers.received');
     Route::resource('vouchers', '\Revlv\Controllers\Procurements\VoucherController');
 });
 

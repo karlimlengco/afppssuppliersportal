@@ -21,6 +21,10 @@ class CreateVouchers extends Migration
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
             $table->date('transaction_date');
+            $table->date('payment_release_date')->nullable();
+            $table->date('payment_received_date')->nullable();
+            $table->integer('process_releaser')->nullable();
+            $table->integer('payment_receiver')->nullable();
             $table->string('bir_address');
             $table->string('final_tax')->nullable();
             $table->string('expanded_witholding_tax')->nullable();

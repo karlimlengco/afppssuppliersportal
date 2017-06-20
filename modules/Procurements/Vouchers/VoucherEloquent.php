@@ -28,6 +28,10 @@ class VoucherEloquent extends Model
         'transaction_date',
         'bir_address',
         'final_tax',
+        'payment_release_date',
+        'process_releaser',
+        'payment_received_date',
+        'payment_receiver',
         'expanded_witholding_tax',
     ];
 
@@ -39,6 +43,26 @@ class VoucherEloquent extends Model
     public function users()
     {
         return $this->belongsTo('\App\User', 'prepared_by');
+    }
+
+    /**
+     * [recevier description]
+     *
+     * @return [type] [description]
+     */
+    public function recevier()
+    {
+        return $this->belongsTo('\App\User', 'payment_receiver');
+    }
+
+    /**
+     * [releaser description]
+     *
+     * @return [type] [description]
+     */
+    public function releaser()
+    {
+        return $this->belongsTo('\App\User', 'process_releaser');
     }
 
 }
