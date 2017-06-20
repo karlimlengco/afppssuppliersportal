@@ -13,9 +13,9 @@
         <button class="button topbar__utility__button--modal">PROCESS</button>
         @endif
 
-        <a target="_blank" class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
-        <a target="_blank" href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
-            <a target="_blank" href="{{route('procurements.noa.show', $data->id)}}" class="button" tooltip="AWARDEE"> <span class=" nc-icon-glyph education_award-55"></span>  </a>
+        <a class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
+        <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
+            <a href="{{route('procurements.noa.show', $data->id)}}" class="button" tooltip="AWARDEE"> <span class=" nc-icon-glyph education_award-55"></span>  </a>
         <a class="button" href="{{route($indexRoute)}}">BACK</a>
         <a class="button" href="{{route($editRoute,$data->id)}}">EDIT</a>
     </div>

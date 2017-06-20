@@ -10,6 +10,7 @@
         <h3>Notice To Proceed</h3>
     </div>
     <div class="six columns align-right">
+        <a href="{{route('procurements.purchase-orders.show', $data->id)}}" class="button" tooltip="PURCHASE ORDER"> <span class=" nc-icon-glyph shopping_cart"></span>  </a>
         @if($data->pcco_released_date and $data->mfo_released_date)
             @if(!$data->received_by)
             <a class="button" id="proceed-ntp-button" href="#">Received</a>

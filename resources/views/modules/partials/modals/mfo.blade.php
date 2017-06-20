@@ -23,7 +23,7 @@
                         {!! Form::textField('mfo_received_date', 'Date Received') !!}
                     </div>
                     <div class="six columns">
-                        {!! Form::textareaField('mfo_remarks', 'Remarks') !!}
+                        {!! Form::textareaField('mfo_remarks', 'Remarks', null, ['rows' => 2]) !!}
                     </div>
                 </div>
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">

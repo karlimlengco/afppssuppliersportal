@@ -75,6 +75,8 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::post('delivered-inspections/start-inspection/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@startInspection')->name('delivered-inspections.start-inspection');
     Route::post('delivered-inspections/close-inspection/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@closeInspection')->name('delivered-inspections.close-inspection');
     Route::resource('delivered-inspections', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController');
+
+    Route::resource('vouchers', '\Revlv\Controllers\Procurements\VoucherController');
 });
 
 
@@ -202,6 +204,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
 
     Route::get('delivery-to-coa', '\Revlv\Controllers\Procurements\DeliveryToCoaController@getDatatable')->name('procurements.delivery-to-coa');
     Route::get('delivered-inspections', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@getDatatable')->name('procurements.delivered-inspections');
+    Route::get('vouchers', '\Revlv\Controllers\Procurements\VoucherController@getDatatable')->name('procurements.vouchers');
 
 });
 

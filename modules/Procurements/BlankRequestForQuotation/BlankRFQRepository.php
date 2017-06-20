@@ -106,6 +106,29 @@ class BlankRFQRepository extends BaseRepository
     }
 
     /**
+     * Return the model by its key valued pair
+     *
+     * @param string $id
+     * @param string $value
+     * @return mixed
+     */
+    public function listsDeliveryAccepted($id = 'id', $value = 'name')
+    {
+        $model =    $this->model;
+
+        $model  =   $model->select([
+            'request_for_quotations.*',
+            'delivery_inspection.id as delivery_inspection_id',
+        ]);
+
+        $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.rfq_id', '=', 'request_for_quotations.id');
+
+        $model =    $model->where('delivery_inspection.status', '=', 'closed');
+
+        return $model->pluck($value, $id)->all();
+    }
+
+    /**
      * [getInfo description]
      *
      * @param  [type] $id [description]

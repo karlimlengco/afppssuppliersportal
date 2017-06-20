@@ -5,6 +5,10 @@
         <h3>Notice Of Delivery</h3>
     </div>
     <div class="six columns align-right">
+
+        <a class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
+        <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
+        <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button" tooltip="PURCHASE ORDER"> <span class=" nc-icon-glyph shopping_cart"></span></a>
         @if(!$data->delivery_date)
         <button type="submit" class="button">Save</button>
         @else

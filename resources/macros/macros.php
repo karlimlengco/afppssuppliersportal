@@ -174,6 +174,7 @@ Form::macro('passwordField', function($name, $label = null, $attributes = array(
 
 Form::macro('textareaField', function($name, $label = null, $value = null, $attributes = array())
 {
+    $attributes = $attributes + ['class' => 'textarea'];
     $element = Form::textarea($name, $value, fieldAttributes($name, $attributes));
 
     return fieldWrapper($name, $label, $element);

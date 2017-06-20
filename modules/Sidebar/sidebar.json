@@ -66,6 +66,11 @@
                     "route" :   "procurements.delivered-inspections.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "Delivered Inspection"
+                },
+                {
+                    "route" :   "procurements.vouchers.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Vouchers"
                 }
             ]
         }

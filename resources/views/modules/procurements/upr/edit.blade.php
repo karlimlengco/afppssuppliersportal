@@ -55,10 +55,10 @@
 
         <div class="row">
             <div class="six columns">
-                {!! Form::textareaField('purpose', 'Purpose of Purchase') !!}
+                {!! Form::textareaField('purpose', 'Purpose of Purchase', null, ['rows' => 3]) !!}
             </div>
             <div class="six columns">
-                {!! Form::textareaField('other_infos', 'Other Essential Info') !!}
+                {!! Form::textareaField('other_infos', 'Other Essential Info', null, ['rows' => 3]) !!}
             </div>
         </div>
 

@@ -17,21 +17,21 @@
         @endif
 
         @if(count($data->philgeps) != 0)
-            <a target="_blank" href="{{route('procurements.philgeps-posting.edit', $data->philgeps->id)}}" class="button" tooltip="PhilGeps"> <span class=" nc-icon-glyph files_paper"></span> </a>
+            <a href="{{route('procurements.philgeps-posting.edit', $data->philgeps->id)}}" class="button" tooltip="PhilGeps"> <span class=" nc-icon-glyph files_paper"></span> </a>
         @endif
         @if(count($data->rfq) != 0)
-        <a target="_blank" href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
+        <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
         @endif
         @if(count($data->canvassing) != 0)
-        <a target="_blank" href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button" tooltip="CANVASSING"> <span class=" nc-icon-glyph business_award-49"></span>  </a>
-        <a target="_blank" href="{{route('procurements.noa.show', $data->canvassing->id)}}" class="button" tooltip="AWARDEE"> <span class=" nc-icon-glyph education_award-55"></span>  </a>
+        <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button" tooltip="CANVASSING"> <span class=" nc-icon-glyph business_award-49"></span>  </a>
+        <a href="{{route('procurements.noa.show', $data->canvassing->id)}}" class="button" tooltip="AWARDEE"> <span class=" nc-icon-glyph education_award-55"></span>  </a>
         @endif
         @if(count($data->purchase_order) != 0)
-        <a target="_blank" href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button" tooltip="PURCHASE ORDER"> <span class=" nc-icon-glyph shopping_cart"></span>  </a>
-        <a target="_blank" href="{{route('procurements.ntp.show', $data->purchase_order->id)}}" class="button" tooltip="NTP"> <span class=" nc-icon-glyph ui-1_notification-70"></span>  </a>
+        <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button" tooltip="PURCHASE ORDER"> <span class=" nc-icon-glyph shopping_cart"></span>  </a>
+        <a href="{{route('procurements.ntp.show', $data->purchase_order->id)}}" class="button" tooltip="NTP"> <span class=" nc-icon-glyph ui-1_notification-70"></span>  </a>
         @endif
         @if(count($data->delivery_order) != 0)
-        <a target="_blank" href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button" tooltip="DELIVERY"> <span class=" nc-icon-glyph transportation_truck-front"></span>  </a>
+        <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button" tooltip="DELIVERY"> <span class=" nc-icon-glyph transportation_truck-front"></span>  </a>
         @endif
         <a class="button" href="{{route($indexRoute)}}">PRINT</a>
         <a class="button" href="{{route($indexRoute)}}">BACK</a>

@@ -24,7 +24,7 @@
                         {!! Form::textField('bid_amount', 'Total Bid Amount') !!}
                     </div>
                     <div class="six columns">
-                        {!! Form::textareaField('note', 'Note') !!}
+                        {!! Form::textareaField('note', 'Note', null, ['rows' => 2]) !!}
                     </div>
                 </div>
 

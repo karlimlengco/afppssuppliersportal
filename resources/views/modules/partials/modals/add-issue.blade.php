@@ -12,7 +12,7 @@
             <div class="modal__dialogue__body">
                 <div class="row">
                     <div class="twelve columns">
-                        {!! Form::textareaField('issue', '') !!}
+                        {!! Form::textareaField('issue', '', null, ['rows' => 3]) !!}
                     </div>
                 </div>
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">

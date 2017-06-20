@@ -79,6 +79,6 @@ class POEloquent extends Model
      */
     public function delivery()
     {
-        return $this->hasMany('\Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent', 'po_id');
+        return $this->hasOne('\Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent', 'po_id');
     }
 }

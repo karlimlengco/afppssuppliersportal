@@ -11,8 +11,14 @@
     </div>
     <div class="six columns align-right">
 
-        <a target="_blank" class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
-        <a target="_blank" href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
+        <a class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
+        <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
+        <a href="{{route('procurements.ntp.show', $data->id)}}" class="button" tooltip="NTP"> NTP</a>
+
+        @if(count($data->delivery) != 0)
+        <a href="{{route('procurements.delivery-orders.show', $data->delivery   ->id)}}" class="button" tooltip="DELIVERY"> <span class=" nc-icon-glyph transportation_truck-front"></span>  </a>
+        @endif
+
         @if(!$data->mfo_released_date)
         <a class="button " id="mfo-button" href="#">MFO Approval</a>
         @endif
