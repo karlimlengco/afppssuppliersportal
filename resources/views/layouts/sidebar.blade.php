@@ -22,7 +22,7 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
     <!-- menu -->
     <ul class="sidebar__menu">
         <li class="sidebar__menu__item">
-            <a href="" class="sidebar__menu__item__link">
+            <a href="{{route('dashboard.index')}}" class="sidebar__menu__item__link">
                 <i class="nc-icon-mini business_chart-bar-32"></i>Overview
             </a>
         </li>

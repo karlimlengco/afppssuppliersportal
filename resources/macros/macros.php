@@ -530,3 +530,7 @@ function translateToWords($number)
     }
     return $string;
 }
+
+function rgbcode($id){
+    return '#'.substr(md5($id), 1, 6);
+}

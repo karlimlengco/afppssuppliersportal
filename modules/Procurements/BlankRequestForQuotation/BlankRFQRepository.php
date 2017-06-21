@@ -2,6 +2,7 @@
 
 namespace Revlv\Procurements\BlankRequestForQuotation;
 
+use DB;
 use Revlv\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 
@@ -180,6 +181,36 @@ class BlankRFQRepository extends BaseRepository
 
         $model  =   $model->where('request_for_quotations.id','=', $id);
         $model  =   $model->whereNotNull('is_award_accepted');
+
+        return $model->get();
+    }
+
+    /**
+     * [getAll description]
+     *
+     * @return [type] [description]
+     */
+    public function getAll()
+    {
+
+        $model  =    $this->model;
+
+        $model  =   $model->select([
+            // 'request_for_quotations.id',
+            DB::raw('count(request_for_quotations.id) as `data`'),
+            // 'request_for_quotations.deadline',
+            // 'request_for_quotations.transaction_date',
+            // 'request_for_quotations.rfq_number',
+            'units.name as unit_name',
+            DB::raw("DATE_FORMAT(request_for_quotations.deadline, '%m-%Y') new_date"),
+            DB::raw("MONTH(request_for_quotations.deadline) month"),
+        ]);
+
+        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id', '=', 'request_for_quotations.upr_id');
+
+        $model  =   $model->leftJoin('units', 'units.id', '=', 'unit_purchase_requests.units');
+
+        $model  =   $model->groupBy(['new_date' , 'units.name', 'month']);
 
         return $model->get();
     }
