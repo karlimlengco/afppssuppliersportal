@@ -40,6 +40,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('philgeps-posting/download/{id}', '\Revlv\Controllers\Procurements\PhilGepsPostingController@downloadAttachment')->name('philgeps-posting.attachments.download');
     Route::resource('philgeps-posting', '\Revlv\Controllers\Procurements\PhilGepsPostingController');
 
+    Route::get('ispq/print/{id}', '\Revlv\Controllers\Procurements\ISPQController@viewPrint')->name('ispq.print');
     Route::resource('ispq', '\Revlv\Controllers\Procurements\ISPQController');
 
     Route::resource('rfq-proponents', '\Revlv\Controllers\Procurements\RFQProponentController');

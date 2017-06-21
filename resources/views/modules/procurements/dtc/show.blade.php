@@ -1,3 +1,7 @@
+@section('title')
+Delivery To COA
+@stop
+
 @section('modal')
     @include('modules.partials.modals.dtc-proceed')
 @stop
@@ -6,7 +10,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h1>Delivery To COA</h1>
+        <h1></h1>
     </div>
     <div class="six columns align-right">
         @if(!$data->date_delivered_to_coa)

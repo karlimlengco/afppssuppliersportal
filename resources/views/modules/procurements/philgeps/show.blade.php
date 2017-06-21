@@ -1,3 +1,7 @@
+@section('title')
+PhilGeps Posting
+@stop
+
 @section('modal')
     @include('modules.partials.modals.dropzone')
 @stop
@@ -6,7 +10,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>PhilGeps Posting</h3>
+        <h3></h3>
     </div>
     <div class="six columns align-right">
         <a class="button topbar__utility__button--modal" href="#">Add Attachment</a>

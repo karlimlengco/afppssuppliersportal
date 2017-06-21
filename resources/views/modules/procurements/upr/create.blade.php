@@ -1,9 +1,13 @@
+@section('title')
+Unit Purchase Request
+@stop
+
 @section('contents')
 
 {!! Form::open($modelConfig['store']) !!}
 <div class="row">
     <div class="six columns align-left">
-        <h3>Unit Purchase Request</h3>
+        <h3> </h3>
     </div>
     <div class="six columns align-right">
         <a class="button" href="{{route($indexRoute)}}">Back</a>

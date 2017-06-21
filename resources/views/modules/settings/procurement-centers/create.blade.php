@@ -1,8 +1,12 @@
+@section('title')
+Procurement Centers
+@stop
+
 @section('contents')
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Procurement Centers</h3>
+        <h3> </h3>
     </div>
 </div>
 

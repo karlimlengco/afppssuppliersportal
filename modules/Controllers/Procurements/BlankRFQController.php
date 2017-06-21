@@ -239,12 +239,9 @@ class BlankRFQController extends Controller
         $data['deadline']           =  $result->deadline;
         $data['items']              =  $result->items;
         // dd();
-        $pdf = PDF::loadView('forms.rfq', ['data' => $data])->setOption('margin-bottom', 10)->setPaper('a4');
+        $pdf = PDF::loadView('forms.rfq', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->download('rfq.pdf');
         return $pdf->download('rfq.pdf');
-        // return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->download('rfq.pdf');
-
-        // return PDF::loadFile('http://www.github.com')->inline('github.pdf');
     }
 }

@@ -1,8 +1,12 @@
+@section('title')
+Canvassing
+@stop
+
 @section('contents')
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Canvassing</h3>
+        <h3> </h3>
     </div>
 </div>
 

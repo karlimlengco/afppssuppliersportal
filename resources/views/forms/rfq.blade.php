@@ -8,6 +8,11 @@
         <style type="text/css">
             body{
                 margin:0;
+                padding:0;
+            }
+            @page{
+                margin:0;
+                padding:0;
             }
         </style>
     </head>
@@ -63,7 +68,6 @@
                             <td>TOTAL PRICE</td>
                         </tr>
                         @foreach($data['items'] as $key => $item)
-                            {{$key++}}
                             <tr>
                                 <td>{{$key++}}</td>
                                 <td>{{$item->quantity}}</td>

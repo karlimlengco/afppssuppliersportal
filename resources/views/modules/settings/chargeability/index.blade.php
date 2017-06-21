@@ -1,8 +1,12 @@
+@section('title')
+Chargeability
+@stop
+
 @section('contents')
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Chargeability</h3>
+        <h3></h3>
     </div>
     <div class="six columns align-right">
         <button class="button">

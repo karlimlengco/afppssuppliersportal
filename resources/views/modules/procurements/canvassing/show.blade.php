@@ -1,3 +1,7 @@
+@section('title')
+Canvassing
+@stop
+
 @section('modal')
     @include('modules.partials.modals.notice_of_award')
 @stop
@@ -6,7 +10,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Canvassing</h3>
+        <h3></h3>
     </div>
     <div class="six columns align-right">
         @if($data->status == 'pending')
@@ -52,8 +56,8 @@
                 <tr>
                     <td>{{($proponent->supplier) ? $proponent->supplier->name :""}}</td>
                     <td>{{$proponent->date_processed}}</td>
-                    <td>{{formatPrice($proponent->bid_amount)}}</td>
                     <td>{{($proponent->users) ? $proponent->users->first_name ." ". $proponent->users->surname :""}} </td>
+                    <td>{{formatPrice($proponent->bid_amount)}}</td>
                     <td>
                         <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="attachments"> <span class="nc-icon-glyph ui-1_attach-87"></span> </a>
                         @if($data->adjourned_time == null)

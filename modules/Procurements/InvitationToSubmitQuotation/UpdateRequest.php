@@ -4,7 +4,7 @@ namespace Revlv\Procurements\InvitationToSubmitQuotation;
 
 use Revlv\BaseRequest;
 
-class ISPQRequest extends BaseRequest
+class UpdateRequest extends BaseRequest
 {
     /**
      * @var array
@@ -26,7 +26,6 @@ class ISPQRequest extends BaseRequest
     public function rules()
     {
         return [
-            'items'             => 'required',
             'signatory_id'      => 'required',
             'venue'             => 'required',
             'transaction_date'  => 'required',

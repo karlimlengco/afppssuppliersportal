@@ -1,3 +1,7 @@
+@section('title')
+Users
+@stop
+
 @section('contents')
 
 <div class="row">
@@ -5,7 +9,7 @@
         <div class="box box-primary">
             {!! Form::model($user, $modelConfig['update']) !!}
             <div class="box-header with-border">
-                <h3 class="box-title">Update User</h3>
+                {{-- <h3 class="box-title">Update User</h3> --}}
             </div>
 
             <div class="box-body">

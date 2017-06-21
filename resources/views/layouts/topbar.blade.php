@@ -7,7 +7,7 @@ $cRoute = explode('.', $currentRoute);
 <div class="topbar">
     <div class="topbar__wrapper">
         <div class="topbar__left-panel">
-            <h1 class="topbar__page-title">Dashboard</h1>
+            <h1 class="topbar__page-title">@yield('title')</h1>
             <div class="topbar__breadcrumbs">
                 @foreach($cRoute as $route)
                     @if(!in_array($route, ['index', 'edit', 'create', 'show']))
@@ -21,11 +21,11 @@ $cRoute = explode('.', $currentRoute);
             </div>
         </div>
         <div class="topbar__right-panel">
-           {{--  <div class="topbar__utility">
-                <button class="topbar__utility__button topbar__utility__button--modal"><i class="nc-icon-mini ui-1_bell-53"></i></button>
+            <div class="topbar__utility">
+                <button class="topbar__utility__button"><i class="nc-icon-mini ui-1_bell-53"></i></button>
                 <button class="topbar__utility__button"><i class="nc-icon-mini ui-2_favourite-31"></i></button>
                 <button class="topbar__utility__button topbar__utility__button--chat"><i class="nc-icon-mini ui-2_chat-round"></i></button>
-            </div> --}}
+            </div>
             <div class="topbar__user">
                 <div class="topbar__user__info">
                     <span class="topbar__user__info__name">{{$currentUser->first_name}}, {{$currentUser->surname}}</span>

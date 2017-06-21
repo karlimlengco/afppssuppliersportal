@@ -1,3 +1,7 @@
+@section('title')
+Vouchers
+@stop
+
 @section('modal')
     @include('modules.partials.modals.release-voucher')
     @include('modules.partials.modals.received-voucher')
@@ -7,7 +11,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Vouchers</h3>
+        <h3></h3>
     </div>
     <div class="six columns align-right">
         @if($data->status == 'pending')

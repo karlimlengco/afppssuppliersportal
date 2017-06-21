@@ -1,3 +1,7 @@
+@section('title')
+Permissions
+@stop
+
 @section('modal')
     @include('modules.partials.modals.delete')
 @stop
@@ -7,7 +11,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Permissions</h3>
+        <h3> </h3>
     </div>
 </div>
 
@@ -22,7 +26,7 @@
 
         <div class="row">
             <div class="six columns">
-                <button class="button"> <a href="{{route('settings.permissions.index')}}"> Back </a></button>
+                <a class="button" href="{{route('settings.permissions.index')}}"> Back </a>
                 <button class="button">Save</button>
             </div>
 

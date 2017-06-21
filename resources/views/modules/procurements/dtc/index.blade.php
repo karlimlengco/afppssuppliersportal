@@ -1,8 +1,12 @@
+@section('title')
+Delivery To COA
+@stop
+
 @section('contents')
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Delivery To COA</h3>
+        <h3> </h3>
     </div>
 </div>
 

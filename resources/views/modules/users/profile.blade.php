@@ -1,8 +1,12 @@
+@section('title')
+My Profile
+@stop
+
 @section('contents')
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>My Profile</h3>
+        <h3> </h3>
     </div>
 </div>
 

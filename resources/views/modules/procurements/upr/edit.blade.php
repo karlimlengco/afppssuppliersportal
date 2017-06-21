@@ -1,3 +1,7 @@
+@section('title')
+Unit Purchase Request
+@stop
+
 @section('modal')
     @include('modules.partials.modals.delete')
 @stop
@@ -7,7 +11,7 @@
 {!! Form::model($data, $modelConfig['update']) !!}
 <div class="row">
     <div class="six columns align-left">
-        <h3>Unit Purchase Request</h3>
+        <h3> </h3>
     </div>
     <div class="six columns align-right">
         <button type="reset" class="button"> <a href="{{route($indexRoute,$data->id)}}">Back</a> </button>

@@ -1,8 +1,12 @@
+@section('title')
+Payment Terms
+@stop
+
 @section('contents')
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Payment Terms</h3>
+        <h3> </h3>
     </div>
 </div>
 

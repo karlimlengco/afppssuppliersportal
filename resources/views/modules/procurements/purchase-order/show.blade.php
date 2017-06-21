@@ -1,3 +1,7 @@
+@section('title')
+Purchase Order
+@stop
+
 @section('modal')
     @include('modules.partials.modals.mfo')
     @include('modules.partials.modals.pcco')
@@ -7,7 +11,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Purchase Order</h3>
+        <h3> </h3>
     </div>
     <div class="six columns align-right">
 
@@ -71,38 +75,6 @@
         </ul>
     </div>
 </div>
-<hr>
-<br>
-<div class="row">
-    <div class="six columns pull-left">
-        <h3>UPR Details</h3>
-        <ul>
-            <li> <strong>UPR No. :</strong> {{$upr_model->upr_number}} </li>
-            <li> <strong>AFPPS No. :</strong> {{$upr_model->afpps_ref_number}} </li>
-            <li> <strong>Date Prepared :</strong> {{$upr_model->date_prepared}} </li>
-            <li> <strong>Place of delivery :</strong> {{($upr_model->centers) ? $upr_model->centers->name :""}} </li>
-            <li> <strong>Mode of Procurement :</strong> {{($upr_model->modes) ? $upr_model->modes->name :""}} </li>
-            <li> <strong>Units :</strong> {{($upr_model->unit) ? $upr_model->unit->name :""}} </li>
-            <li> <strong>Total ABC :</strong> {{number_format($upr_model->total_amount,2)}} </li>
-        </ul>
-    </div>
-    <div class="six columns pull-right">
-        <h3> </h3>
-        <ul>
-            <li> <strong>Chargeability :</strong> {{($upr_model->charges) ? $upr_model->charges->name :""}} </li>
-            <li> <strong>Account Code :</strong> {{($upr_model->accounts) ? $upr_model->accounts->new_account_code :""}} </li>
-            <li> <strong>Fund Validity :</strong> {{$upr_model->fund_validity}} </li>
-            <li> <strong>Terms of Payment :</strong> {{($upr_model->terms) ? $upr_model->terms->name :""}} </li>
-            <li> <strong>Prepared by :</strong> {{($upr_model->users) ? $upr_model->users->first_name ." ". $upr_model->users->surname :""}} </li>
-            <li> <strong>Status :</strong> {{ucfirst($upr_model->status)}} </li>
-            @if($upr_model->date_processed)
-            <li> <strong>Date Processed :</strong> {{$upr_model->date_processed}} </li>
-            @endif
-        </ul>
-    </div>
-</div>
-<hr>
-<br>
 <div class="row">
     <div class="twelve columns ">
         <h3>Items Details</h3>

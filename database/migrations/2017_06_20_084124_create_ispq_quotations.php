@@ -1,10 +1,10 @@
-    <?php
+<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCanvassing extends Migration
+class CreateIspqQuotations extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateCanvassing extends Migration
      */
     public function up()
     {
-        Schema::create('canvassing', function (Blueprint $table) {
+        Schema::create('ispq_quotations', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('ispq_id');
             $table->integer('rfq_id');
             $table->integer('upr_id');
-            $table->string('rfq_number')->nullable();
+            $table->string('description');
+            $table->string('total_amount')->nullable();
+            $table->date('canvassing_date')->nullable();
+            $table->time('canvassing_time')->nullable();
             $table->string('upr_number')->nullable();
-            $table->date('canvass_date');
-            $table->time('adjourned_time')->nullable();
-            $table->time('closebox_time')->nullable();
-            $table->time('order_time')->nullable();
-            $table->string('signatory_id')->nullable();
+            $table->string('rfq_number')->nullable();
             $table->timestamps();
         });
     }
@@ -35,6 +35,6 @@ class CreateCanvassing extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('canvassing');
+        Schema::dropIfExists('ispq_quotations');
     }
 }

@@ -11,18 +11,19 @@
 
             <div class="modal__dialogue__body">
                 <div class="row">
-                    <div class="six columns">
+                    <div class="four columns">
                         {!! Form::selectField('pcco_has_issue', 'Has Issue', ['yes' => 'Yes', 'no' => 'No']) !!}
                     </div>
-                    <div class="six columns">
+                    <div class="four columns">
                         {!! Form::textField('pcco_released_date', 'Date Released') !!}
                     </div>
-                </div>
-                <div class="row">
-                    <div class="six columns">
+                    <div class="four columns">
                         {!! Form::textField('pcco_received_date', 'Date Received') !!}
                     </div>
-                    <div class="six columns">
+                </div>
+
+                <div class="row">
+                    <div class="twelve columns">
                         {!! Form::textareaField('pcco_remarks', 'Remarks', null, ['rows' => 2]) !!}
                     </div>
                 </div>

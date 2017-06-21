@@ -4,7 +4,7 @@
         {
             "name"      : "Procurements",
             "icon"      : "nc-icon-mini business_hammer",
-            "subname"   : "settings*",
+            "subname"   : "procurements",
             "route"     :   "settings.index",
             "navigation": [
                 {
@@ -79,7 +79,7 @@
         {
             "name"      : "Maintenance",
             "icon"      : "nc-icon-mini ui-1_settings-gear-65",
-            "subname"   : "maintenance*",
+            "subname"   : "maintenance",
             "route"     :   "maintenance.index",
             "navigation": [
                 {
@@ -124,7 +124,7 @@
         {
             "name"      : "Settings",
             "icon"      : "nc-icon-mini ui-1_preferences-circle-rotate",
-            "subname"   : "settings*",
+            "subname"   : "settings",
             "route"     :   "settings.index",
             "navigation": [
                 {

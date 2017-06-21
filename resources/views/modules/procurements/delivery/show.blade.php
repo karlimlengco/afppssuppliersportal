@@ -1,8 +1,12 @@
+@section('title')
+Notice Of Delivery
+@stop
+
 @section('contents')
 {!! Form::model($data, $modelConfig['update']) !!}
 <div class="row">
     <div class="six columns align-left">
-        <h3>Notice Of Delivery</h3>
+        <h3></h3>
     </div>
     <div class="six columns align-right">
 

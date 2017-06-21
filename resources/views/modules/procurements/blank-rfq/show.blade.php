@@ -1,3 +1,7 @@
+@section('title')
+Request For Quotation
+@stop
+
 @section('modal')
     @include('modules.partials.modals.proponents')
 @stop
@@ -6,7 +10,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Request For Quotation</h3>
+        <h3></h3>
     </div>
     <div class="six columns align-right">
         @if($data->status == 'pending')

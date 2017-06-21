@@ -1,8 +1,12 @@
+@section('title')
+Inspection And Acceptance Report
+@stop
+
 @section('contents')
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Inspection And Acceptance Report</h3>
+        <h3> </h3>
     </div>
 </div>
 {!! Form::open($modelConfig['store']) !!}

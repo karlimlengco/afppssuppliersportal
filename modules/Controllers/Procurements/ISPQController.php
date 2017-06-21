@@ -5,11 +5,16 @@ namespace Revlv\Controllers\Procurements;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use PDF;
+use DB;
 
+use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\InvitationToSubmitQuotation\ISPQRepository;
 use \Revlv\Procurements\InvitationToSubmitQuotation\ISPQRequest;
+use \Revlv\Procurements\InvitationToSubmitQuotation\UpdateRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
+use \Revlv\Procurements\InvitationToSubmitQuotation\Quotations\QuotationRepository;
 
 class ISPQController extends Controller
 {
@@ -27,13 +32,9 @@ class ISPQController extends Controller
      * @var [type]
      */
     protected $upr;
-
-    /**
-     * [$rfq description]
-     *
-     * @var [type]
-     */
     protected $rfq;
+    protected $signatories;
+    protected $quotations;
 
     /**
      * [$model description]
@@ -77,13 +78,18 @@ class ISPQController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(UnitPurchaseRequestRepository $upr, BlankRFQRepository $rfq)
+    public function create(
+        UnitPurchaseRequestRepository $upr,
+        SignatoryRepository $signatories,
+        BlankRFQRepository $rfq)
     {
-        $rfq_list   =   $rfq->lists('id', 'rfq_number');
+        $rfq_list           =   $rfq->lists('id', 'rfq_number');
+        $signatory_lists    =   $signatories->lists('id', 'name');
         $this->view('modules.procurements.ispq.create',[
-            'indexRoute'    =>  $this->baseUrl.'index',
-            'rfq_list'      =>  $rfq_list,
-            'modelConfig'   =>  [
+            'indexRoute'        =>  $this->baseUrl.'index',
+            'rfq_list'          =>  $rfq_list,
+            'signatory_lists'   =>  $signatory_lists,
+            'modelConfig'       =>  [
                 'store' =>  [
                     'route'     =>  $this->baseUrl.'store'
                 ]
@@ -97,23 +103,60 @@ class ISPQController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ISPQRequest $request, ISPQRepository $model, BlankRFQRepository $rfq)
+    public function store(
+        QuotationRepository $quotations,
+        ISPQRequest $request,
+        ISPQRepository $model,
+        BlankRFQRepository $rfq)
     {
-        for ($i=0; $i < count($request->get('items')); $i++) {
-            $rfq_model      =   $rfq->findById($request->get('items')[$i]);
-
-            $model->save([
+        $result =   $model->save([
+            'prepared_by'       =>  \Sentinel::getUser()->id,
+            'venue'             =>  $request->get('venue'),
+            'signatory_id'      =>  $request->get('signatory_id'),
+            'transaction_date'  =>  $request->get('transaction_date'),
+        ]);
+        $items  =   $request->get('items');
+        foreach($items as $key => $item)
+        {
+            $newId          =   $items[$key];
+            $rfq_model      =   $rfq->getById($newId);
+            $data           =   [
+                'ispq_id'           =>  $result->id,
                 'rfq_id'            =>  $rfq_model->id,
-                'rfq_number'        =>  $rfq_model->rfq_number,
+                'upr_id'            =>  $rfq_model->upr_id,
+                'description'       =>  $request->get('description')[$key],
+                'total_amount'      =>  $rfq_model->upr->total_amount,
                 'upr_number'        =>  $rfq_model->upr_number,
-                'venue'             =>  $request->get('venue'),
-                'transaction_date'  =>  $request->get('transaction_date'),
-            ]);
+                'rfq_number'        =>  $rfq_model->rfq_number,
+                'canvassing_date'   =>  $rfq_model->deadline,
+                'canvassing_time'   =>  $rfq_model->opening_time,
+            ];
+
+            $quotations->save($data);
         }
 
         return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "New record has been successfully added."
         ]);
+    }
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint($id, ISPQRepository $model)
+    {
+        $result     =   $model->with(['quotations'])->findById($id);
+
+        $data['transaction_date']   =  $result->transaction_date;
+        $data['venue']              =  $result->venue;
+        $data['signatories']        =  $result->signatories;
+        $data['quotations']         =  $result->quotations;
+        $pdf = PDF::loadView('forms.ispq', ['data' => $result])->setOption('margin-bottom', 10)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->download('ispq.pdf');
     }
 
     /**
@@ -133,16 +176,20 @@ class ISPQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, ISPQRepository $model,BlankRFQRepository $rfq)
+    public function edit(
+        $id,
+        ISPQRepository $model,
+        SignatoryRepository $signatories,
+        BlankRFQRepository $rfq)
     {
-        $result     =   $model->findById($id);
-        $rfq_list   =   $rfq->lists('id', 'rfq_number');
+        $result             =   $model->findById($id);
+        $signatory_lists    =   $signatories->lists('id', 'name');
 
         return $this->view('modules.procurements.ispq.edit',[
-            'data'          =>  $result,
-            'rfq_list'      =>  $rfq_list,
-            'indexRoute'    =>  $this->baseUrl.'index',
-            'modelConfig'   =>  [
+            'data'              =>  $result,
+            'signatory_lists'   =>  $signatory_lists,
+            'indexRoute'        =>  $this->baseUrl.'index',
+            'modelConfig'       =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
                     'method'    =>  'PUT'
@@ -162,7 +209,7 @@ class ISPQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ISPQRequest $request, $id, ISPQRepository $model)
+    public function update(UpdateRequest $request, $id, ISPQRepository $model)
     {
         $model->update($request->getData(), $id);
 

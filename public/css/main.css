@@ -940,11 +940,11 @@ login.less
   justify-content: center;
   width: 100%;
   height: 100vh;
-  background: #A1FFCE;
+  background: #C9D6FF;
   /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE);
+  background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);
   /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #FAFFD1, #A1FFCE);
+  background: linear-gradient(to right, #E2E2E2, #C9D6FF);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .login__logo {
@@ -1069,13 +1069,14 @@ printable-form.less
   width: 100%;
   height: 50px;
 }
+/* default paper size a4 */
 .printable-form {
   display: block;
   position: relative;
   // width: 8.3in;
-  height: 11.7in;
-  max-height: 11.7in;
-  min-height: 11.7in;
+  height: 13in;
+  max-height: 13in;
+  min-height: 13in;
   padding: 0;
   margin: 30px 0;
   border: solid 1px transparent;
@@ -1107,7 +1108,7 @@ printable-form.less
   width: 100%;
   text-align: center;
   padding: 0;
-  margin: 0 0 30px 0;
+  margin: 0 0 50px 0;
 }
 .printable-form__head__letterhead {
   display: block;
@@ -1125,7 +1126,7 @@ printable-form.less
 .printable-form__body {
   display: block;
   width: 100%;
-  margin-top: 235px;
+  margin-top: 255px;
   margin-bottom: 108px;
 }
 .printable-form__body.no-letterhead {

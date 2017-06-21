@@ -15,11 +15,10 @@ class CreateInvitationForQuotation extends Migration
     {
         Schema::create('invitation_for_quotation', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('rfq_id');
-            $table->string('upr_number')->nullable();
-            $table->string('rfq_number')->nullable();
+            $table->integer('signatory_id');
             $table->text('venue');
             $table->date('transaction_date');
+            $table->integer('prepared_by')->nullable();
             $table->timestamps();
         });
     }

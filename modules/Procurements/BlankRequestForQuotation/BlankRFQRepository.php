@@ -36,6 +36,23 @@ class BlankRFQRepository extends BaseRepository
     }
 
     /**
+     * [getById description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function getById($id)
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->where('id', '=', $id);
+
+        $model  =   $model->first();
+
+        return $model;
+    }
+
+    /**
      * Return the model by its key valued pair
      *
      * @param string $id

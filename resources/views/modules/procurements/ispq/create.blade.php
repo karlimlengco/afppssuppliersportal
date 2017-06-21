@@ -1,3 +1,7 @@
+@section('title')
+Invitation to Submit Price Quotation
+@stop
+
 @section('styles')
 <link rel="stylesheet" href="/vendors/timepicker/timepicker.min.css">
 @stop
@@ -6,7 +10,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Invitation to Submit Price Quotation</h3>
+        <h3> </h3>
     </div>
     <div class="six columns align-right">
         <button type="reset" class="button"> <a href="{{route($indexRoute)}}">Back</a> </button>
@@ -17,15 +21,19 @@
 <div class="row">
     <div class="twelve columns">
 
-            <div class="row">
-                <div class="six columns">
-                    {!! Form::textField('transaction_date', 'Transaction Date') !!}
-                </div>
-                <div class="six columns">
-                    {!! Form::textareaField('venue', 'Venue') !!}
-                </div>
+        <div class="row">
+            <div class="six columns">
+                {!! Form::textField('transaction_date', 'Transaction Date') !!}
             </div>
-
+            <div class="six columns">
+                {!! Form::selectField('signatory_id', 'Signatories', $signatory_lists) !!}
+            </div>
+        </div>
+        <div class="row">
+            <div class="twelve columns">
+                {!! Form::textareaField('venue', 'Venue', null, ['rows'=>3]) !!}
+            </div>
+        </div>
 
     </div>
 </div>
@@ -51,11 +59,14 @@
             <thead>
                 <tr>
                     <th>RFQ Number</th>
+                    <th>Item Description</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                    <td></td>
+                    <td></td>
                     <td></td>
                 </tr>
             </tbody>
@@ -103,6 +114,9 @@
         var newRow = "<tr id='row" + table_len + "'>";
             newRow += "<td id='desciption_row"+table_len+"'>";
             newRow += "<input type='hidden' name='items[]' value='"+rfq_id+"' class='input'/>"+rfq_id_text;
+            newRow += "</td>";
+            newRow += "<td id='name_row"+table_len+"'>";
+            newRow += "<input type='text' name='description[]' value='' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
             newRow += "<input type='button' value='Delete' class='button delete' onclick='delete_row("+table_len+")'";

@@ -1,3 +1,7 @@
+@section('title')
+Purchase Order
+@stop
+
 @section('styles')
 <link rel="stylesheet" href="/vendors/timepicker/timepicker.min.css">
 @stop
@@ -11,7 +15,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Purchase Order</h3>
+        <h3> </h3>
     </div>
 </div>
 

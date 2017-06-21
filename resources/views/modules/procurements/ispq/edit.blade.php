@@ -1,3 +1,7 @@
+@section('title')
+Invitation to Submit Price Quotation
+@stop
+
 @section('styles')
 <link rel="stylesheet" href="/vendors/timepicker/timepicker.min.css">
 @stop
@@ -11,7 +15,10 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Invitation to Submit Price Quotation</h3>
+        <h3> </h3>
+    </div>
+    <div class="six columns align-right">
+        <a href="{{route('procurements.ispq.print',$data->id)}}" class="button"> Print </a>
     </div>
 </div>
 
@@ -19,13 +26,18 @@
     <div class="twelve columns">
         {!! Form::model($data, $modelConfig['update']) !!}
 
-
             <div class="row">
                 <div class="six columns">
                     {!! Form::textField('transaction_date', 'Transaction Date') !!}
                 </div>
                 <div class="six columns">
-                    {!! Form::textareaField('venue', 'Venue') !!}
+                    {!! Form::selectField('signatory_id', 'Signatories', $signatory_lists) !!}
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('venue', 'Venue', null, ['rows'=>3]) !!}
                 </div>
             </div>
 
@@ -42,6 +54,38 @@
 
             </div>
         {!! Form::close() !!}
+    </div>
+</div>
+
+<div class="row">
+    <div class="twelve columns">
+        @if(count($data->quotations) != 0 )
+            <table class="table">
+                <thead>
+
+                    <tr>
+                        <th>RFQ Number</th>
+                        <th>Description</th>
+                        <th>ABC</th>
+                        <th>Canvassing Date</th>
+                        <th>Canvassing Time</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach($data->quotations as $quotation)
+                    <tr>
+                        <td>{{$quotation->rfq_number}}</td>
+                        <td>{{$quotation->description}}</td>
+                        <td>{{$quotation->total_amount}}</td>
+                        <td>{{$quotation->canvassing_date}}</td>
+                        <td>{{$quotation->canvassing_time}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
+        @endif
     </div>
 </div>
 

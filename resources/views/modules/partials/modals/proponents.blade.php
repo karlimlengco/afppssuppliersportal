@@ -11,19 +11,22 @@
 
             <div class="modal__dialogue__body">
                 <div class="row">
-                    <div class="six columns">
+                    <div class="twelve columns">
                         {!! Form::selectField('proponents', 'Proponents', $supplier_lists) !!}
-                    </div>
-                    <div class="six columns">
-                        {!! Form::textField('date_processed', 'Date date_processed') !!}
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::textField('bid_amount', 'Total Bid Amount') !!}
+                        {!! Form::textField('date_processed', 'Date date_processed') !!}
                     </div>
                     <div class="six columns">
+                        {!! Form::textField('bid_amount', 'Total Bid Amount') !!}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="twelve columns">
                         {!! Form::textareaField('note', 'Note', null, ['rows' => 2]) !!}
                     </div>
                 </div>

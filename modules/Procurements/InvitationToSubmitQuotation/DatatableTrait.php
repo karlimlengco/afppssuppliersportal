@@ -34,11 +34,15 @@ trait DatatableTrait
     public function dataTable($model)
     {
         return Datatables::of($model)
-            ->addColumn('rfq_number', function ($data) {
+            ->addColumn('transaction_date', function ($data) {
                 $route  =  route( 'procurements.ispq.edit',[$data->id] );
-                return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
+                return ' <a  href="'.$route.'" > '. $data->transaction_date .'</a>';
             })
-            ->rawColumns(['rfq_number'])
+            ->editColumn('print_button', function ($data) {
+                $route  =  route( 'procurements.ispq.print',[$data->id] );
+                return ' <a  href="'.$route.'" tooltip="Print">  <span class="nc-icon-glyph tech_print"></span> </a>';
+            })
+            ->rawColumns(['transaction_date', 'print_button'])
             ->make(true);
     }
 }

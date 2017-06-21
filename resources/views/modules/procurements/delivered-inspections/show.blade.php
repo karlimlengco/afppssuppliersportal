@@ -1,3 +1,7 @@
+@section('title')
+Delivered Items Inspection
+@stop
+
 @section('modal')
     @include('modules.partials.modals.add-issue')
     @include('modules.partials.modals.start-inspection')
@@ -8,7 +12,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h1>Delivered Items Inspection</h1>
+        <h1></h1>
     </div>
     <div class="six columns align-right">
         @if($data->start_date and !$data->closed_date)

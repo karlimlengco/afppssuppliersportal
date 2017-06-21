@@ -1,6 +1,11 @@
+@section('title')
+Unit Purchase Request
+@stop
+
 @section('styles')
 <link rel="stylesheet" href="/vendors/timepicker/timepicker.min.css">
 @stop
+
 @section('modal')
     @include('modules.partials.modals.request_quotation')
 @stop
@@ -9,7 +14,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Unit Purchase Request</h3>
+        <h3></h3>
     </div>
     <div class="six columns align-right">
         @if($data->status == 'pending')

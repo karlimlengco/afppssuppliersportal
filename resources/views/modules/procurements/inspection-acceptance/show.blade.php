@@ -1,3 +1,7 @@
+@section('title')
+Inspection And Acceptance Report
+@stop
+
 @section('modal')
     @include('modules.partials.modals.notice_of_award')
 @stop
@@ -5,7 +9,7 @@
 @section('contents')
 <div class="row">
     <div class="six columns align-left">
-        <h3>Inspection And Acceptance Report</h3>
+        <h3></h3>
     </div>
     <div class="six columns align-right">
         @if(!$data->accepted_date)

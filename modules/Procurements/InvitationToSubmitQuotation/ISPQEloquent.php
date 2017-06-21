@@ -20,11 +20,40 @@ class ISPQEloquent extends Model
      * @var array
      */
     protected $fillable = [
-        'rfq_id',
-        'upr_number',
-        'rfq_number',
+        'signatory_id',
         'venue',
         'transaction_date',
+        'prepared_by',
     ];
 
+    /**
+     * [ispq_id description]
+     *
+     * @return [type] [description]
+     */
+    public function quotations()
+    {
+        return $this->hasMany('\Revlv\Procurements\InvitationToSubmitQuotation\Quotations\QuotationEloquent', 'ispq_id');
+    }
+
+
+    /**
+     * [items description]
+     *
+     * @return [type] [description]
+     */
+    public function items()
+    {
+        return $this->hasMany('\Revlv\Procurements\Items\ItemEloquent', 'upr_id');
+    }
+
+    /**
+     * [signatories description]
+     *
+     * @return [type] [description]
+     */
+    public function signatories()
+    {
+        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id');
+    }
 }

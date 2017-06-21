@@ -1,8 +1,12 @@
+@section('title')
+Invitation to Submit Price Quotation
+@stop
+
 @section('contents')
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Invitation to Submit Price Quotation</h3>
+        <h3></h3>
     </div>
     <div class="six columns align-right">
         <button class="button">
@@ -27,9 +31,9 @@
 
             <thead>
                 <tr>
-                    <th>RFQ No.</th>
-                    <th>Venue</th>
                     <th>Transaction Date</th>
+                    <th>Venue</th>
+                    <th> </th>
                 </tr>
             </thead>
             <tbody>
@@ -54,9 +58,9 @@
                 // }
             },
         columns: [
-            {data: 'rfq_number', name: 'rfq_number'},
-            {data: 'venue', name: 'venue'},
             {data: 'transaction_date', name: 'transaction_date'},
+            {data: 'venue', name: 'venue'},
+            {data: 'print_button', name: 'print_button'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

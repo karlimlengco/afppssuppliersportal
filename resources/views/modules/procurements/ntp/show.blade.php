@@ -1,3 +1,7 @@
+@section('title')
+Notice To Proceed
+@stop
+
 @section('modal')
     @include('modules.partials.modals.ntp_received')
     @include('modules.partials.modals.create_delivery')
@@ -7,7 +11,7 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Notice To Proceed</h3>
+        <h3></h3>
     </div>
     <div class="six columns align-right">
         <a href="{{route('procurements.purchase-orders.show', $data->id)}}" class="button" tooltip="PURCHASE ORDER"> <span class=" nc-icon-glyph shopping_cart"></span>  </a>

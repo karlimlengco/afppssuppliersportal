@@ -1,3 +1,7 @@
+@section('title')
+Notice To Proceed
+@stop
+
 @section('modal')
     @include('modules.partials.modals.received')
 @stop
@@ -6,13 +10,15 @@
 
 <div class="row">
     <div class="six columns align-left">
-        <h1>Notice Of Award</h1>
+        <h1> </h1>
     </div>
     <div class="six columns align-right">
 
         <a class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
         <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
         <a href="{{route('procurements.canvassing.show', $data->id)}}" class="button" tooltip="CANVASSING"> <span class=" nc-icon-glyph business_award-49"></span>  </a>
+
+        <a href="#" id="signatory-button" class="button" tooltip="SIGNATORIES"> <span class=" nc-icon-glyph business_signature"></span>  </a>
 
         @if(!$awardee->received_by && !$awardee->award_accepted_date)
         <a class="button topbar__utility__button--modal" href="#">Received</a>

@@ -1,8 +1,12 @@
+@section('title')
+Units
+@stop
+
 @section('contents')
 
 <div class="row">
     <div class="six columns align-left">
-        <h3>Units</h3>
+        <h3> </h3>
     </div>
     <div class="six columns align-right">
             <a class="button" href="{{route($createRoute)}}">ADD NEW</a>
