@@ -36,7 +36,9 @@ class POEloquent extends Model
         'mfo_received_date',
         'mfo_released_date',
         'mfo_remarks',
+        'signatory_id',
         'status',
+        'po_number',
         'received_by',
         'award_accepted_date',
 
@@ -80,5 +82,15 @@ class POEloquent extends Model
     public function delivery()
     {
         return $this->hasOne('\Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent', 'po_id');
+    }
+
+    /**
+     * [signatories description]
+     *
+     * @return [type] [description]
+     */
+    public function signatories()
+    {
+        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'signatory_id');
     }
 }

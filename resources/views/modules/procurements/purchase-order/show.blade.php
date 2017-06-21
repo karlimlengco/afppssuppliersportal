@@ -41,6 +41,7 @@ Purchase Order
     <div class="four columns pull-left">
         <h3>Purchase Details</h3>
         <ul>
+            <li> <strong>Purchase Number :</strong> {{$data->po_number}} </li>
             <li> <strong>Purchase Date :</strong> {{$data->purchase_date}} </li>
             <li> <strong>Bid Amount :</strong> {{$data->bid_amount}} </li>
             <li> <strong>Payment Term :</strong> {{($data->terms) ? $data->terms->name : ""}} </li>

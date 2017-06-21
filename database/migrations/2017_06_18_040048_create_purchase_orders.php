@@ -19,6 +19,7 @@ class CreatePurchaseOrders extends Migration
             $table->integer('upr_id');
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
+            $table->string('po_number')->nullable();
             $table->date('purchase_date');
             $table->string('bid_amount');
             $table->integer('payment_term');
@@ -33,6 +34,7 @@ class CreatePurchaseOrders extends Migration
             $table->date('mfo_released_date')->nullable();
             $table->text('mfo_remarks')->nullable();
             $table->string('received_by')->nullable();
+            $table->string('signatory_id')->nullable();
             $table->date('award_accepted_date')->nullable();
             $table->timestamps();
         });

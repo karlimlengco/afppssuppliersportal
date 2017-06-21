@@ -60,6 +60,8 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::post('purchase-orders/pcco-approved/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@pccoApproved')->name('purchase-orders.pcco-approved');
     Route::resource('purchase-orders', '\Revlv\Controllers\Procurements\PurchaseOrderController');
 
+    Route::put('ntp/update-signatory/{id}', '\Revlv\Controllers\Procurements\NoticeToProceedController@updateSignatory')->name('ntp.update-signatory');
+    Route::get('ntp/print/{id}', '\Revlv\Controllers\Procurements\NoticeToProceedController@viewPrint')->name('ntp.print');
     Route::resource('ntp', '\Revlv\Controllers\Procurements\NoticeToProceedController');
 
     Route::post('delivery-orders/create-purchase/{id}', '\Revlv\Controllers\Procurements\DeliveryController@createFromPurchase')->name('delivery-orders.create-purchase');

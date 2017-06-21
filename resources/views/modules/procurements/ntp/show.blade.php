@@ -3,6 +3,7 @@ Notice To Proceed
 @stop
 
 @section('modal')
+    @include('modules.partials.modals.signatory')
     @include('modules.partials.modals.ntp_received')
     @include('modules.partials.modals.create_delivery')
 @stop
@@ -15,6 +16,7 @@ Notice To Proceed
     </div>
     <div class="six columns align-right">
         <a href="{{route('procurements.purchase-orders.show', $data->id)}}" class="button" tooltip="PURCHASE ORDER"> <span class=" nc-icon-glyph shopping_cart"></span>  </a>
+        <a href="#" id="signatory-button" class="button" tooltip="SIGNATORIES"> <span class=" nc-icon-glyph business_signature"></span>  </a>
         @if($data->pcco_released_date and $data->mfo_released_date)
             @if(!$data->received_by)
             <a class="button" id="proceed-ntp-button" href="#">Received</a>
@@ -23,9 +25,11 @@ Notice To Proceed
                     <a class="button" id="create-delivery-button" href="#">Create Notice Of Delivery</a>
                 @endif
             @endif
-            <a class="button" href="#">Print</a>
+            @if($data->signatory_id)
+            <a class="button" href="{{route($printRoute,$data->id)}}">Print</a>
+            @endif
         @endif
-        <a class="button" href="{{route($indexRoute,$data->rfq_id)}}">Back</a>
+        <a class="button" href="{{route($indexRoute)}}">Back</a>
     </div>
 </div>
 
@@ -64,36 +68,6 @@ Notice To Proceed
             <li> <strong>Phone # :</strong> {{$supplier->phone_1}} </li>
             <li> <strong>FAX :</strong> {{$supplier->fax_1}} </li>
             <li> <strong>Email :</strong> {{$supplier->email_1}} </li>
-        </ul>
-    </div>
-</div>
-<hr>
-<br>
-<div class="row">
-    <div class="six columns pull-left">
-        <h3>UPR Details</h3>
-        <ul>
-            <li> <strong>UPR No. :</strong> {{$upr_model->upr_number}} </li>
-            <li> <strong>AFPPS No. :</strong> {{$upr_model->afpps_ref_number}} </li>
-            <li> <strong>Date Prepared :</strong> {{$upr_model->date_prepared}} </li>
-            <li> <strong>Place of delivery :</strong> {{($upr_model->centers) ? $upr_model->centers->name :""}} </li>
-            <li> <strong>Mode of Procurement :</strong> {{($upr_model->modes) ? $upr_model->modes->name :""}} </li>
-            <li> <strong>Units :</strong> {{($upr_model->unit) ? $upr_model->unit->name :""}} </li>
-            <li> <strong>Total ABC :</strong> {{number_format($upr_model->total_amount,2)}} </li>
-        </ul>
-    </div>
-    <div class="six columns pull-right">
-        <h3> </h3>
-        <ul>
-            <li> <strong>Chargeability :</strong> {{($upr_model->charges) ? $upr_model->charges->name :""}} </li>
-            <li> <strong>Account Code :</strong> {{($upr_model->accounts) ? $upr_model->accounts->new_account_code :""}} </li>
-            <li> <strong>Fund Validity :</strong> {{$upr_model->fund_validity}} </li>
-            <li> <strong>Terms of Payment :</strong> {{($upr_model->terms) ? $upr_model->terms->name :""}} </li>
-            <li> <strong>Prepared by :</strong> {{($upr_model->users) ? $upr_model->users->first_name ." ". $upr_model->users->surname :""}} </li>
-            <li> <strong>Status :</strong> {{ucfirst($upr_model->status)}} </li>
-            @if($upr_model->date_processed)
-            <li> <strong>Date Processed :</strong> {{$upr_model->date_processed}} </li>
-            @endif
         </ul>
     </div>
 </div>
@@ -141,6 +115,11 @@ $('#proceed-ntp-button').click(function(e){
 $('#create-delivery-button').click(function(e){
     e.preventDefault();
     $('#create-delivery-modal').addClass('is-visible');
+})
+
+$('#signatory-button').click(function(e){
+    e.preventDefault();
+    $('#signatory-modal').addClass('is-visible');
 })
 
 

@@ -182,7 +182,8 @@ class PurchaseOrderController extends Controller
         BlankRFQRepository $rfq)
     {
         $items  =   $request->only(['item_description', 'quantity', 'unit_measurement', 'unit_price', 'total_amount']);
-        $rfq_model              =   $rfq->findAwardeeById($request->rfq_id);
+        $rfq_model              =   $rfq->with('upr')->findAwardeeById($request->rfq_id);
+
         $inputs                 =   $request->getData();
         $inputs['prepared_by']  =   \Sentinel::getUser()->id;
         $inputs['upr_id']       =   $rfq_model->upr_id;
@@ -190,8 +191,12 @@ class PurchaseOrderController extends Controller
         $inputs['rfq_number']   =   $rfq_model->rfq_number;
         $inputs['bid_amount']   =   $rfq_model->bid_amount;
         $inputs['status']       =   "pending";
-
         $result = $model->save($inputs);
+
+        $po_name   =   $rfq_model->upr->unit->name ."-". $rfq_model->upr->centers->name."-". $result->id;
+        $po_name   =   str_replace(" ", "-", $po_name);
+
+        $model->update(['po_number' => $po_name], $result->id);
 
         if($result)
         {

@@ -14,6 +14,8 @@ class UnitPurchaseRequestEloquent extends Model
      */
     protected $table = 'unit_purchase_requests';
 
+    protected $with =   ['unit','centers'];
+
     /**
      * The attributes that are mass assignable.
      *
