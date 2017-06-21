@@ -28,6 +28,7 @@ class CanvassingEloquent extends Model
         'rfq_number',
         'upr_number',
         'order_time',
+        'signatory_id',
     ];
 
     /**
@@ -48,5 +49,15 @@ class CanvassingEloquent extends Model
     public function upr()
     {
         return $this->belongsTo('\Revlv\Procurements\BlankRequestForQuotation\BlankuprEloquent', 'upr_id');
+    }
+
+    /**
+     * [signatories description]
+     *
+     * @return [type] [description]
+     */
+    public function signatories()
+    {
+        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'signatory_id');
     }
 }

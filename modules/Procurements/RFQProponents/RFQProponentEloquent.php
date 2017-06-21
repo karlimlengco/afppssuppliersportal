@@ -29,6 +29,7 @@ class RFQProponentEloquent extends Model
         'award_accepted_date',
         'is_awarded',
         'awarded_date',
+        'signatory_id',
         'bid_amount',
     ];
 
@@ -41,7 +42,6 @@ class RFQProponentEloquent extends Model
     {
         return $this->belongsTo('\App\User', 'prepared_by');
     }
-
 
     /**
      * [supplier description]

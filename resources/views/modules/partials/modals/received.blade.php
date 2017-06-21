@@ -1,4 +1,4 @@
-<div class="modal">
+<div class="modal" id="received-modal">
     <div class="modal__dialogue modal__dialogue--round-corner">
         <form method="POST" id="delete-form" action="{{ route($modelConfig['receive_award']['route'][0], $modelConfig['receive_award']['route'][1]) }}" accept-charset="UTF-8">
             <button class="modal__close-button">

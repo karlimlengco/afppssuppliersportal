@@ -26,7 +26,9 @@ Request For Quotation
         <a class="button" href="{{route($editRoute,$data->id)}}">EDIT</a>
     </div>
 </div>
-
+<br>
+<br>
+<br>
 <div class="row">
     <div class="six columns pull-left">
         <ul>

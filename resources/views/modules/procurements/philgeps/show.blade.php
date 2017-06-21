@@ -18,7 +18,8 @@ PhilGeps Posting
         <a class="button" href="{{route($indexRoute)}}">BACK</a>
     </div>
 </div>
-
+<br>
+<br>
 <div class="row">
     <div class="six columns pull-left">
         <ul>

@@ -54,6 +54,6 @@ class ISPQEloquent extends Model
      */
     public function signatories()
     {
-        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id');
+        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'signatory_id');
     }
 }

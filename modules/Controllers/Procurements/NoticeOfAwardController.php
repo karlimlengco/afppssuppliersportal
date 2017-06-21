@@ -5,12 +5,14 @@ namespace Revlv\Controllers\Procurements;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use PDF;
 
 use \Revlv\Procurements\Canvassing\CanvassingRepository;
 use \Revlv\Procurements\Canvassing\CanvassingRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
+use \Revlv\Settings\Signatories\SignatoryRepository;
 
 class NoticeOfAwardController extends Controller
 {
@@ -28,26 +30,9 @@ class NoticeOfAwardController extends Controller
      * @var [type]
      */
     protected $blank;
-
-    /**
-     * [$upr description]
-     *
-     * @var [type]
-     */
     protected $upr;
-
-    /**
-     * [$upr description]
-     *
-     * @var [type]
-     */
     protected $rfq;
-
-    /**
-     *
-     *
-     * @var [type]
-     */
+    protected $signatories;
     protected $proponents;
 
     /**
@@ -166,7 +151,12 @@ class NoticeOfAwardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( CanvassingRepository $model, $id, RFQProponentRepository $proponents, UnitPurchaseRequestRepository $upr)
+    public function show(
+        CanvassingRepository $model,
+        $id,
+        RFQProponentRepository $proponents,
+        SignatoryRepository $signatories,
+        UnitPurchaseRequestRepository $upr)
     {
         $result             =   $model->findById($id);
         $proponent_awardee  =   $proponents->with('supplier')->findAwardeeByRFQId($result->rfq_id);
@@ -181,16 +171,24 @@ class NoticeOfAwardController extends Controller
         $supplier           =   $proponent_awardee->supplier;
         $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findByRFQId($proponent_awardee->rfq_id);
 
+        $signatory_list     =   $signatories->lists('id','name');
+
         return $this->view('modules.procurements.noa.show',[
             'data'          =>  $result,
             'upr_model'     =>  $upr_model,
             'supplier'      =>  $supplier,
+            'signatory_list'=>  $signatory_list,
             'awardee'       =>  $proponent_awardee,
+            'printRoute'    =>  $this->baseUrl.'print',
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [
                 'receive_award' =>  [
                     'route'     =>  [$this->baseUrl.'update', $result->rfq_id]
-                ]
+                ],
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update-signatory', $id],
+                    'method'    =>  'PUT'
+                ],
             ]
         ]);
     }
@@ -220,6 +218,26 @@ class NoticeOfAwardController extends Controller
                     'method'=> 'DELETE'
                 ]
             ]
+        ]);
+    }
+
+    /**
+     * [updateSignatory description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function updateSignatory(Request $request, $id, CanvassingRepository $model)
+    {
+        $this->validate($request, [
+            'signatory_id'   =>  'required',
+        ]);
+
+        $model->update(['signatory_id' =>$request->signatory_id], $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
         ]);
     }
 
@@ -273,5 +291,38 @@ class NoticeOfAwardController extends Controller
         return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "Record has been successfully deleted."
         ]);
+    }
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint(
+        $id,
+        CanvassingRepository $model,
+        BlankRFQRepository $blank,
+        UnitPurchaseRequestRepository $upr,
+        RFQProponentRepository $rfq)
+    {
+        $result                     =   $model->with('signatories')->findById($id);
+        $proponent_awardee          =   $rfq->with('supplier')->findAwardeeByRFQId($result->rfq_id);
+        $rfq_model                  =   $blank->findById($result->rfq_id);
+        $upr_model                  =   $upr->with(['unit'])->findById($rfq_model->upr_id);
+        $data['supplier']           =   $proponent_awardee->supplier;
+        $data['canvass_date']       =   $result->canvass_date;
+        $data['rfq_number']         =   $rfq_model->rfq_number;
+        $data['transaction_date']   =   $rfq_model->transaction_date;
+        $data['total_amount']       =   $upr_model->total_amount;
+        $data['unit']               =   $upr_model->unit->description;
+        $data['signatory']          =   $result->signatories;
+
+        // $data['transaction_date']   =  $result->transaction_date;
+        // $data['venue']              =  $result->venue;
+        // $data['quotations']         =  $result->quotations;
+        $pdf = PDF::loadView('forms.noa', ['data' => $data])->setOption('margin-left', 13)->setOption('margin-right', 13)->setOption('margin-bottom', 10)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->download('noa.pdf');
     }
 }
