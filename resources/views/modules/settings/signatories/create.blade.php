@@ -4,15 +4,18 @@ Signatories
 
 @section('contents')
 
+{!! Form::open($modelConfig['store']) !!}
+
 <div class="row">
-    <div class="six columns align-left">
-        <h3> </h3>
+    <div class="twelve columns align-left utility utility--align-right">
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+        <button type="submit" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+
     </div>
 </div>
 
 <div class="row">
     <div class="twelve columns">
-        {!! Form::open($modelConfig['store']) !!}
 
             <div class="row">
                 <div class="twelve columns">
@@ -26,11 +29,8 @@ Signatories
                 </div>
             </div>
 
-            <a class="button" href="{{route($indexRoute)}}">Back</a>
-            <button type="submit" class="button">Save</button>
-
-        {!!Form::close()!!}
     </div>
 </div>
 
+{!!Form::close()!!}
 @stop

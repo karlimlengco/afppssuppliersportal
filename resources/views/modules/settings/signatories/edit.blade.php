@@ -8,16 +8,22 @@ Signatories
 
 @section('contents')
 
+{!! Form::model($data, $modelConfig['update']) !!}
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3> </h3>
+    <div class="twelve columns align-left utility utility--align-right">
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+
+        <button type="submit" class="button topbar__utility__button--modal"  tooltip="Save">
+        <i class="nc-icon-mini ui-2_disk"></i>
+        </button>
+
+        <a href="" class="button topbar__utility__button--modal" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
     </div>
 </div>
 
 <div class="row">
     <div class="twelve columns">
-        {!! Form::model($data, $modelConfig['update']) !!}
 
             <div class="row">
                 <div class="twelve columns">
@@ -31,20 +37,8 @@ Signatories
                 </div>
             </div>
 
-            <div class="row">
-
-                <div class="six columns">
-                    <a class="button" href="{{route($indexRoute)}}"> Back </a>
-                    <button class="button">Save</button>
-                </div>
-
-                <div class="six columns align-right">
-                    <button class="button topbar__utility__button--modal" >Delete</button>
-                </div>
-
-            </div>
-        {!! Form::close() !!}
     </div>
 </div>
+{!! Form::close() !!}
 
 @stop
