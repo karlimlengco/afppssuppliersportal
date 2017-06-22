@@ -44,7 +44,7 @@ class DashboardController extends Controller
         $monthranges =   range(0, 11);
         $months =   ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-         // March
+        // March
 
         for ($i=0; $i < count($monthranges); $i++) {
             $monthranges[$i] =   0;
@@ -53,7 +53,6 @@ class DashboardController extends Controller
         foreach($rfq->toArray() as  $item)
         {
             $name   =   $item['unit_name'];
-
 
             for ($i=1; $i < count($monthranges) + 1; $i++) {
                 $monthranges[$item['month']]    =   $item['data'];

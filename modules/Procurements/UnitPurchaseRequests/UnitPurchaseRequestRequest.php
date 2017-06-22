@@ -39,7 +39,8 @@ class UnitPurchaseRequestRequest extends BaseRequest
             'chargeability'         => 'required',
             'units'                 => 'required',
             'purpose'               => 'required',
-            'account_code'          => 'required'
+            'account_code'          => 'required',
+            'afpps_ref_number'      => 'required'
         ];
     }
 }

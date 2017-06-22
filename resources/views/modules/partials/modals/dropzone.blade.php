@@ -1,7 +1,7 @@
 <div class="modal">
     <div class="modal__dialogue modal__dialogue--round-corner">
         <form method="POST" id="my-awesome-dropzone" enctype="multipart/form-data"  action="{{ route($modelConfig['add_attachment']['route'][0], $modelConfig['add_attachment']['route'][1]) }}"   accept-charset="UTF-8" >
-            <button class="modal__close-button">
+            <button type="button" class="modal__close-button">
                 <i class="nc-icon-outline ui-1_simple-remove"></i>
             </button>
 

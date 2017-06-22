@@ -39,7 +39,8 @@ trait DatatableTrait
                 return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
             })
             ->editColumn('print_button', function ($data) {
-                return '<a href="#" tooltip="Print"> <span class="nc-icon-mini tech_print"></span>  </a>';
+                $route  =   route('procurements.blank-rfq.print',$data->id);
+                return '<a target="_blank" href="'.$route.'" tooltip="Print"> <span class="nc-icon-mini tech_print"></span>  </a>';
             })
             ->editColumn('status', function($data){
                 return ucfirst($data->status);

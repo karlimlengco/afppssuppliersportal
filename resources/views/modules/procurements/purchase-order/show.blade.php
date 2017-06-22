@@ -10,32 +10,54 @@ Purchase Order
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3> </h3>
-    </div>
-    <div class="six columns align-right">
+    <div class="twelve columns utility utility--align-right" >
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
-        <a class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
-        <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
-        <a href="{{route('procurements.ntp.show', $data->id)}}" class="button" tooltip="NTP"> NTP</a>
 
-        @if(count($data->delivery) != 0)
-        <a href="{{route('procurements.delivery-orders.show', $data->delivery   ->id)}}" class="button" tooltip="DELIVERY"> <span class=" nc-icon-glyph transportation_truck-front"></span>  </a>
-        @endif
 
-        @if(!$data->mfo_released_date)
-        <a class="button " id="mfo-button" href="#">MFO Approval</a>
-        @endif
-        @if(!$data->pcco_released_date)
-        <a class="button" id="pcco-button" href="#">PCCO Approval</a>
-        @endif
 
-        @if($data->pcco_released_date and $data->mfo_released_date)
-            <a class="button" href="#">Print</a>
-        @endif
-        <a class="button" href="{{route($indexRoute,$data->rfq_id)}}">Back</a>
+        <button type="button" class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                @if(!$data->mfo_released_date)
+                <a class=" button__options__item" id="mfo-button" href="#">MFO Approval</a>
+                @endif
+                @if(!$data->pcco_released_date)
+                <a class=" button__options__item" id="pcco-button" href="#">PCCO Approval</a>
+                @endif
+
+                <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
+                <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="RFQ"> Request For Quotation</a>
+                <a href="{{route('procurements.ntp.show', $data->id)}}" class="button__options__item" tooltip="NTP"> Notice To Proceed</a>
+
+                @if(count($data->delivery) != 0)
+                <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" tooltip="Delivery"> Delivery</a>
+                @endif
+            </div>
+        </button>
+
+        <a href="#" class="button" tooltip="Print">
+            <i class="nc-icon-mini tech_print"></i>
+        </a>
+
+
     </div>
 </div>
+
+        {{-- <a class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
+        <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"> --}}
+        {{-- <a href="{{route('procurements.ntp.show', $data->id)}}" class="button" tooltip="NTP"> NTP</a> --}}
+
+   {{--      @if(count($data->delivery) != 0)
+        <a href="{{route('procurements.delivery-orders.show', $data->delivery   ->id)}}" class="button" tooltip="DELIVERY"> <span class=" nc-icon-glyph transportation_truck-front"></span>  </a>
+        @endif
+ --}}
+{{--
+        @if($data->pcco_released_date and $data->mfo_released_date)
+            <a class="button" href="#">Print</a>
+        @endif --}}
+        {{-- <a class="button" href="{{route($indexRoute,$data->rfq_id)}}">Back</a> --}}
+
 
 <div class="row">
     <div class="four columns pull-left">

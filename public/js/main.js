@@ -13,15 +13,21 @@ $('.topbar__user').click(function(){
 })
 
 
+// show item options
+$('.button--options-trigger').click(function(e){
+    // e.preventDefault();
+    // alert('betlog');
+    $(this).find('.button__options').toggleClass('is-visible');
+})
+
+
 // show modal
-$('.topbar__utility__button--modal').click(function(e){
-    e.preventDefault();
+$('.topbar__utility__button--modal').click(function(){
     $('.modal').addClass('is-visible');
 })
 
 //close modal
-$('.modal__close-button').click(function(e){
-    e.preventDefault();
+$('.modal__close-button').click(function(){
     $('.modal').removeClass('is-visible');
 })
 
@@ -35,6 +41,8 @@ $('.topbar__utility__button--chat').click(function(){
 $('.chat__close-button').click(function(){
     $('.chat').removeClass('is-visible');
 })
+
+
 
 // // avoid `console` errors in browsers that lack a console.
 // (function() {

@@ -9,17 +9,20 @@ PhilGeps Posting
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
-    </div>
-    <div class="six columns align-right">
-        <a class="button topbar__utility__button--modal" href="#">Add Attachment</a>
-        <a class="button" href="{{route($editRoute,$data->id)}}">EDIT</a>
-        <a class="button" href="{{route($indexRoute)}}">BACK</a>
+    <div class="twelve columns align-right utility utility--align-right">
+
+        <button class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                    <a href="#" class=" topbar__utility__button--modal button__options__item">Add Attachment</a>
+            </div>
+        </button>
+        <a class="button" href="{{route($editRoute,$data->id)}}">
+            <i class="nc-icon-mini design_pen-01"></i></a>
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
     </div>
 </div>
-<br>
-<br>
+
 <div class="row">
     <div class="six columns pull-left">
         <ul>

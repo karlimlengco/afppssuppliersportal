@@ -1,7 +1,7 @@
 <div class="modal" id="signatory-modal">
     <div class="modal__dialogue modal__dialogue--round-corner">
         {!! Form::model($data, $modelConfig['update']) !!}
-            <button class="modal__close-button">
+            <button type="button" class="modal__close-button">
                 <i class="nc-icon-outline ui-1_simple-remove"></i>
             </button>
 

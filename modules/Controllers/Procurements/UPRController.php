@@ -134,6 +134,14 @@ class UPRController extends Controller
 
         $result = $model->save($procs);
 
+        if($result->unit && $result->centers)
+        {
+            $upr_name   =   "UPR-".$result->unit->name ."-". $result->centers->name."-". $result->id;
+            $upr_name   =   str_replace(" ", "-", $upr_name);
+        }
+
+        $model->update(['upr_number' => $upr_name], $result->id);
+
         if($result)
         {
             for ($i=0; $i < count($items['item_description']); $i++) {

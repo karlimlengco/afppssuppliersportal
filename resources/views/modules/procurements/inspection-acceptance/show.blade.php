@@ -7,17 +7,15 @@ Inspection And Acceptance Report
 @stop
 
 @section('contents')
+
 <div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
-    </div>
-    <div class="six columns align-right">
+    <div class="twelve columns utility utility--align-right" >
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
         @if(!$data->accepted_date)
-            <a class="button" href="{{route($acceptRoute,$data->id)}}">Accept</a>
+            <a class="button" href="{{route($acceptRoute,$data->id)}}"><i class="nc-icon-mini ui-1_check-bold"></i></a>
         @else
-            <a class="button" href="{{route($indexRoute)}}">Print</a>
+            <a class="button" href="{{route($indexRoute)}}"><i class="nc-icon-mini tech_print"></i></a>
         @endif
-        <a class="button" href="{{route($indexRoute)}}">Back</a>
     </div>
 </div>
 <hr>

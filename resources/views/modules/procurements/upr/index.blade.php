@@ -9,8 +9,8 @@ Unit Purchase Request
         <h3></h3>
         {{-- <h3>Unit Purchase Request</h3> --}}
     </div>
-    <div class="six columns align-right">
-        <a class="button" href="{{route($createRoute)}}">ADD NEW</a>
+    <div class="six columns utility utility--align-right" >
+        <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
     </div>
 </div>
 

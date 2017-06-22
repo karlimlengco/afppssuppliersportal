@@ -4,23 +4,39 @@ Notice Of Delivery
 
 @section('contents')
 {!! Form::model($data, $modelConfig['update']) !!}
-<div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
-    </div>
-    <div class="six columns align-right">
 
+<div class="row">
+    <div class="twelve columns align-right utility utility--align-right">
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+
+        <button type="button" class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
+                <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="RFQ"> Request For Quotation</a>
+
+                <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="NTP"> Purchase Order</a>
+
+                @if(count($data->delivery) != 0)
+                <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" tooltip="Delivery"> Delivery</a>
+                @endif
+                @if($data->delivery_date)
+                    @if(!$data->date_completed)
+                        <a class="button__options__item" href="{{route($completeRoute,$data->id)}}">Complete</a>
+                    @endif
+                @endif
+            </div>
+        </button>
+
+{{--
         <a class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
         <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
-        <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button" tooltip="PURCHASE ORDER"> <span class=" nc-icon-glyph shopping_cart"></span></a>
+        <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button" tooltip="PURCHASE ORDER"> <span class=" nc-icon-glyph shopping_cart"></span></a> --}}
         @if(!$data->delivery_date)
-        <button type="submit" class="button">Save</button>
+        <button type="submit" class="button"><i class="nc-icon-mini ui-2_disk"></i></button>
         @else
-            @if(!$data->date_completed)
-                <a class="button" href="{{route($completeRoute,$data->id)}}">Completed</a>
-            @endif
+
         @endif
-        <a class="button" href="{{route($indexRoute)}}">Back</a>
     </div>
 </div>
 

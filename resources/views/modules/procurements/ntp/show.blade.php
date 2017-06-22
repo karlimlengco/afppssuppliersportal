@@ -11,25 +11,34 @@ Notice To Proceed
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
-    </div>
-    <div class="six columns align-right">
-        <a href="{{route('procurements.purchase-orders.show', $data->id)}}" class="button" tooltip="PURCHASE ORDER"> <span class=" nc-icon-glyph shopping_cart"></span>  </a>
-        <a href="#" id="signatory-button" class="button" tooltip="SIGNATORIES"> <span class=" nc-icon-glyph business_signature"></span>  </a>
-        @if($data->pcco_released_date and $data->mfo_released_date)
-            @if(!$data->received_by)
-            <a class="button" id="proceed-ntp-button" href="#">Received</a>
-            @else
-                @if(count($data->delivery) == 0)
-                    <a class="button" id="create-delivery-button" href="#">Create Notice Of Delivery</a>
+    <div class="twelve columns utility utility--align-right">
+        <button class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                @if($data->pcco_released_date and $data->mfo_released_date)
+                    @if(!$data->received_by)
+                    <a class="button__options__item" id="proceed-ntp-button" href="#">Received</a>
+                    @else
+                        @if(count($data->delivery) == 0)
+                            <a class="button__options__item" id="create-delivery-button" href="#">Create Notice Of Delivery</a>
+                        @endif
+                    @endif
                 @endif
-            @endif
+
+                <a href="{{route('procurements.purchase-orders.show', $data->id)}}" class="button__options__item" tooltip="UPR"> Purchase Oreder</a>
+                <a id="signatory-button" href="#" class="button__options__item" > Signatories</a>
+            </div>
+        </button>
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+
+        @if($data->pcco_released_date and $data->mfo_released_date)
             @if($data->signatory_id)
-            <a class="button" href="{{route($printRoute,$data->id)}}">Print</a>
+                <a target="_blank class="button" href="{{route($printRoute,$data->id)}}">
+                    <i class="nc-icon-mini tech_print"></i></a>
             @endif
         @endif
-        <a class="button" href="{{route($indexRoute)}}">Back</a>
+
+
     </div>
 </div>
 

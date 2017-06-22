@@ -10,29 +10,27 @@ Vouchers
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
-    </div>
-    <div class="six columns align-right">
-        @if($data->status == 'pending')
-        <button class="button topbar__utility__button--modal">PROCESS</button>
-        @endif
+    <div class="twelve columns utility utility--align-right" >
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+        <button  type="button" class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                    <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}">Unit of Purchase Request</a>
+                    <a class="button__options__item" href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}">Request For Quotation</a>
 
-        <a class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
-        <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
+                @if(!$data->payment_release_date)
+                    <a href="#" id="release-button" class="button__options__item " tooltip="Release Payment"> Release Payment</a>
+                @endif
 
-        @if(!$data->payment_release_date)
-        <a href="#" id="release-button" class="button" tooltip="Release Payment"> <span class=" nc-icon-glyph business_cheque"></span> </a>
-        @endif
-
-        @if(!$data->payment_received_date and $data->payment_release_date)
-        <a href="#" id="received-button" class="button" tooltip="Received Payment"> <span class=" nc-icon-glyph business_payment"></span> </a>
-        @endif
-
-        <a class="button" href="{{route($indexRoute)}}">BACK</a>
-        <a class="button" href="{{route($editRoute,$data->id)}}">EDIT</a>
+                @if(!$data->payment_received_date and $data->payment_release_date)
+                    <a href="#" id="received-button" class="button__options__item" tooltip="Received Payment"> Received Payment</a>
+                @endif
+            </div>
+        </button>
+        <a class="button" href="{{route($editRoute,$data->id)}}"><i class="nc-icon-mini design_pen-01"></i></a>
     </div>
 </div>
+
 
 <div class="row">
     <div class="six columns pull-left">

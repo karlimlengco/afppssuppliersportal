@@ -11,21 +11,24 @@ Delivered Items Inspection
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h1></h1>
-    </div>
-    <div class="six columns align-right">
-        @if($data->start_date and !$data->closed_date)
-            <a class="button" href="#" id="add-issue-button">Add Issue</a>
-            <a class="button" href="#" id="close-button">Close Inspection</a>
-        @endif
-        @if(!$data->start_date)
-            <a class="button" href="#" id="start-button">Start Inspection</a>
-        @endif
-        @if($data->start_date and $data->closed_date)
-            <a class="button" href="#">Print</a>
-        @endif
-        <a class="button" href="{{route($indexRoute)}}">Back</a>
+    <div class="twelve columns utility utility--align-right" >
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+        <button style="margin-right:25px" type="button" class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                @if($data->start_date and !$data->closed_date)
+                    <a class="button__options__item" href="#" id="add-issue-button">Add Issue</a>
+                    <a class="button__options__item" href="#" id="close-button">Close Inspection</a>
+                @endif
+                @if(!$data->start_date)
+                    <a class="button__options__item" href="#" id="start-button">Start Inspection</a>
+                @endif
+            </div>
+        </button>
+
+            @if($data->start_date and $data->closed_date)
+                <a class="button" href="#"><i class="nc-icon-mini tech_print"></i></a>
+            @endif
     </div>
 </div>
 

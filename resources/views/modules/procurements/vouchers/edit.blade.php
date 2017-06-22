@@ -8,16 +8,20 @@ Vouchers
 
 @section('contents')
 
+{!! Form::model($data, $modelConfig['update']) !!}
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
+    <div class="twelve columns align-right utility utility--align-right">
+
+        <button type="submit" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+
+        <a href="{{route($indexRoute,$data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+        <a href="#" class="button topbar__utility__button--modal" ><i class="nc-icon-mini ui-1_trash"></i></a>
     </div>
 </div>
 
 <div class="row">
     <div class="twelve columns">
-        {!! Form::model($data, $modelConfig['update']) !!}
 
             <div class="row">
                 <div class="six columns">
@@ -43,17 +47,6 @@ Vouchers
                 </div>
             </div>
 
-
-            <div class="row">
-                <div class="six columns">
-                    <button type="reset" class="button"> <a href="{{route($indexRoute,$data->id)}}">Back</a> </button>
-                    <button type="submit" class="button">Save</button>
-                </div>
-
-                <div class="six columns align-right">
-                    <button class="button topbar__utility__button--modal" >Delete</button>
-                </div>
-            </div>
         {!! Form::close() !!}
     </div>
 </div>

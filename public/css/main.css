@@ -84,7 +84,7 @@ h4,
 h5,
 h6 {
   font-family: "Nunito Sans";
-  color: #141414;
+  color: #2e2e2e;
   line-height: 1;
   letter-spacing: normal;
   margin: 0 0 24px 0;
@@ -122,14 +122,14 @@ paragraph
 p {
   font-family: "Nunito Sans";
   font-weight: 400;
-  color: #949494;
+  color: #7a7a7a;
   line-height: 1.4;
   margin: 0 0 24px 0;
   padding: 0;
 }
 strong {
   font-family: "Nunito Sans";
-  color: #141414;
+  color: #2e2e2e;
   font-weight: 700;
 }
 /*
@@ -142,7 +142,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: #389dff;
+  color: #51a9ff;
 }
 /*
 lists
@@ -159,7 +159,7 @@ ol li {
   font-family: "Nunito Sans";
   font-size: 16px;
   font-weight: 400;
-  color: #949494;
+  color: #7a7a7a;
   line-height: 1.4;
   margin: 0;
   padding: 0;
@@ -794,7 +794,7 @@ modal.less
   font-size: 20px;
   background: none;
   border: none;
-  color: #949494;
+  color: #7a7a7a;
   cursor: pointer;
   zoom: 1;
   filter: alpha(opacity=50);
@@ -892,7 +892,7 @@ chatbox.less
   font-size: 20px;
   background: none;
   border: none;
-  color: #949494;
+  color: #7a7a7a;
   cursor: pointer;
   zoom: 1;
   filter: alpha(opacity=50);
@@ -1051,7 +1051,7 @@ login.less
   font-weight: 400;
   text-align: center;
   margin-top: 125px;
-  color: #949494;
+  color: #7a7a7a;
 }
 .login__form .forgot-password:hover {
   color: #545454;
@@ -1077,10 +1077,9 @@ printable-form.less
   height: 13in;
   max-height: 13in;
   min-height: 13in;
-  padding: 0;
-  margin: 30px 0;
+  // padding: 0;
+  // margin: 30px 0;
   border: solid 1px transparent;
-  // border: solid 1px #cccccc;
 }
 .printable-form * {
   font-size: 12px;
@@ -1574,7 +1573,7 @@ form-input-group.less
   height: 44px;
   background: transparent;
   border-right: solid 1px #adadad;
-  color: #949494;
+  color: #7a7a7a;
   padding: 0 12px;
 }
 .input-group--outline-icon .input {
@@ -1702,7 +1701,7 @@ form-help-text.less
   text-transform: uppercase;
   line-height: 1.2;
   font-weight: 400;
-  color: #949494;
+  color: #7a7a7a;
   zoom: 1;
   filter: alpha(opacity=50);
   -webkit-opacity: 0.5;
@@ -1720,7 +1719,7 @@ form-label.less
   font-family: "Nunito Sans";
   font-size: 16px;
   font-weight: 400;
-  color: #949494;
+  color: #7a7a7a;
 }
 /*
 form-input.less
@@ -1734,7 +1733,7 @@ form-input.less
   font-family: "Nunito Sans";
   font-size: 16px;
   font-weight: 400;
-  color: #949494;
+  color: #7a7a7a;
   background: #FFFFFF;
   border: solid 1px #adadad;
   border-radius: 0;
@@ -1816,7 +1815,7 @@ form-textarea.less
   font-family: "Nunito Sans";
   font-size: 16px;
   font-weight: 400;
-  color: #949494;
+  color: #7a7a7a;
   background: #FFFFFF;
   border: solid 1px #adadad;
   border-radius: 0;
@@ -1907,7 +1906,7 @@ form-select.less
   margin: 0;
   padding: 0;
   font-family: "Nucleo Glyph";
-  color: #949494;
+  color: #7a7a7a;
   background: none;
   user-select: none;
   pointer-events: none;
@@ -1926,7 +1925,7 @@ form-select.less
   font-family: "Nunito Sans";
   font-size: 16px;
   font-weight: 400;
-  color: #949494;
+  color: #7a7a7a;
   border: solid 1px #adadad;
   background: transparent;
   background-image: none;
@@ -1943,7 +1942,7 @@ form-select.less
   font-weight: 400;
   background: #FFFFFF;
   outline: solid 1px #adadad;
-  color: #949494;
+  color: #7a7a7a;
 }
 .select select:focus {
   border-color: #4698dd;
@@ -2039,7 +2038,7 @@ form-radio.less
   font-family: "Nunito Sans";
   font-size: 16px;
   font-weight: 400;
-  color: #949494;
+  color: #7a7a7a;
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -2071,7 +2070,7 @@ form-radio.less
   background: #adadad;
 }
 .radio--disabled .radio__label {
-  color: #bababa;
+  color: #a1a1a1;
   user-select: none;
   pointer-events: none;
   cursor: not-allowed;
@@ -2107,7 +2106,7 @@ form-checkbox.less
   font-family: "Nunito Sans";
   font-size: 16px;
   font-weight: 400;
-  color: #949494;
+  color: #7a7a7a;
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -2161,7 +2160,7 @@ form-checkbox.less
   content: '';
 }
 .checkbox--disabled .checkbox__label {
-  color: #bababa;
+  color: #a1a1a1;
   user-select: none;
   pointer-events: none;
   cursor: not-allowed;
@@ -2255,7 +2254,8 @@ table.less
 .table tr th,
 .table tr td {
   font-family: "Nunito Sans";
-  color: #949494;
+  font-size: 14px;
+  color: #7a7a7a;
   font-weight: 400;
   padding: 12px;
   text-align: left;
@@ -2273,8 +2273,8 @@ table.less
   border-bottom: solid 2px #adadad;
 }
 .table thead tr th {
-  font-weight: 700;
-  color: #545454;
+  font-weight: 800;
+  color: #3a3a3a;
 }
 .table tbody tr:last-child {
   border-bottom: none;
@@ -2304,11 +2304,27 @@ table.less
 pagination.less
 ------------------------------------------------------------------------- */
 .pagination {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   margin-top: 30px;
-  text-align: center;
 }
-.pagination__item {
+.pagination__count {
+  font-family: "Nunito Sans";
+  font-size: 16px;
+  color: #7a7a7a;
+  font-weight: 400;
+  flex-shrink: 0;
+  margin-left: 50px;
+}
+.pagination__count strong {
+  color: #545454;
+  font-weight: 600;
+}
+.pagination__list {
+  flex-grow: 1;
+}
+.pagination__list__item {
   display: inline-block;
   font-family: "Nunito Sans";
   font-size: 16px;
@@ -2319,85 +2335,79 @@ pagination.less
   padding: 0;
   height: 40px;
   width: 40px;
-  color: #949494;
+  color: #7a7a7a;
   border-radius: 0;
 }
-.pagination__item:hover {
-  color: #545454;
+.pagination__list__item:hover {
+  color: #3a3a3a;
 }
-.pagination__item i {
+.pagination__list__item i {
   -webkit-transform: translateY(1px);
   -moz-transform: translateY(1px);
   -ms-transform: translateY(1px);
   -o-transform: translateY(1px);
   transform: translateY(1px);
 }
-.pagination__item--active {
-  color: #545454;
-  border-bottom: solid 1px #949494;
+.pagination__list__item--active {
+  color: #3a3a3a;
+  border-bottom: solid 1px #7a7a7a;
 }
-.pagination__item--disabled {
-  color: #c7c7c7;
+.pagination__list__item--disabled {
+  color: #adadad;
   pointer-events: none;
   user-select: none;
 }
-.pagination--solid .pagination__item {
+.pagination__list--solid .pagination__list__item {
   font-size: 14px;
-  background: #adadad;
-  border: solid 1px #adadad;
+  background: #56697b;
+  border: solid 1px #56697b;
   color: #FFFFFF;
 }
-.pagination--solid .pagination__item:hover {
-  background: #bababa;
-  border-color: #bababa;
+.pagination__list--solid .pagination__list__item:hover {
+  background: #60768a;
+  border-color: #60768a;
   color: #FFFFFF;
 }
-.pagination--solid .pagination__item--active {
-  background: #6d6d6d;
-  border-color: #6d6d6d;
+.pagination__list--solid .pagination__list__item--active {
+  background: #37434e;
+  border-color: #37434e;
 }
-.pagination--solid .pagination__item--active:hover {
-  background: #6d6d6d;
-  border-color: #6d6d6d;
+.pagination__list--solid .pagination__list__item--active:hover {
+  background: #37434e;
+  border-color: #37434e;
 }
-.pagination--solid .pagination__item--disabled {
-  background: #e0e0e0;
-  border-color: #e0e0e0;
+.pagination__list--solid .pagination__list__item--disabled {
+  background: #8a9cad;
+  border-color: #8a9cad;
 }
-.pagination--round-corner .pagination__item {
+.pagination__list--round-corner .pagination__list__item {
   border-radius: 4px;
 }
-.pagination--round .pagination__item {
+.pagination__list--round .pagination__list__item {
   border-radius: 50%;
 }
-.pagination--outline .pagination__item {
+.pagination__list--outline .pagination__list__item {
   background: transparent;
-  color: #949494;
+  color: #7a7a7a;
 }
-.pagination--outline .pagination__item:hover {
-  background: #adadad;
-  border-color: #adadad;
+.pagination__list--outline .pagination__list__item:hover {
+  background: #56697b;
+  border-color: #56697b;
   color: #FFFFFF;
 }
-.pagination--outline .pagination__item--active {
-  background: #6d6d6d;
-  border-color: #6d6d6d;
+.pagination__list--outline .pagination__list__item--active {
+  background: #37434e;
+  border-color: #37434e;
   color: #FFFFFF;
 }
-.pagination--outline .pagination__item--active:hover {
-  background: #6d6d6d;
-  border-color: #6d6d6d;
+.pagination__list--outline .pagination__list__item--active:hover {
+  background: #37434e;
+  border-color: #37434e;
   color: #FFFFFF;
 }
-.pagination--outline .pagination__item--disabled {
+.pagination__list--outline .pagination__list__item--disabled {
   background: transparent;
-  color: #c7c7c7;
-}
-.pagination--left {
-  text-align: left;
-}
-.pagination--right {
-  text-align: right;
+  color: #adadad;
 }
 /*
 message-box.less
@@ -2412,8 +2422,8 @@ message-box.less
   text-transform: uppercase;
   margin: 8px 0 0 0;
   padding: 12px;
-  background: #adadad;
-  border: solid 1px #adadad;
+  background: #56697b;
+  border: solid 1px #56697b;
   color: #FFFFFF;
 }
 .message-box:before {
@@ -2425,7 +2435,7 @@ message-box.less
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-top: 6px solid transparent;
-  border-bottom: 6px solid #adadad;
+  border-bottom: 6px solid #56697b;
 }
 .message-box__icon {
   display: flex;
@@ -2456,7 +2466,7 @@ message-box.less
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-top: 6px solid #adadad;
+  border-top: 6px solid #56697b;
 }
 .message-box--login {
   width: 100%;
@@ -2544,8 +2554,8 @@ tooltip.less
   height: auto;
   padding: 8px;
   border-radius: 0;
-  background: #adadad;
-  border: solid 1px #adadad;
+  background: #4b5d6c;
+  border: solid 1px #4b5d6c;
   color: #FFFFFF;
 }
 [tooltip]:hover:before,
@@ -2575,7 +2585,7 @@ tooltip.less
   height: 0;
   border-left: solid 4px transparent;
   border-right: solid 4px transparent;
-  border-top: solid 4px #adadad;
+  border-top: solid 4px #4b5d6c;
 }
 [tooltip][position^="top"]:after,
 [tooltip]:not([position]):after {
@@ -2610,7 +2620,7 @@ bottom:calc(100% + 4px);
   height: 0;
   border-left: solid 4px transparent;
   border-right: solid 4px transparent;
-  border-bottom: solid 4px #adadad;
+  border-bottom: solid 4px #4b5d6c;
 }
 [tooltip][position^="bottom"]:after {
   -lh-property: 0;
@@ -2642,7 +2652,7 @@ top:calc(100% + 4px);
   height: 0;
   border-top: solid 4px transparent;
   border-bottom: solid 4px transparent;
-  border-left: solid 4px #adadad;
+  border-left: solid 4px #4b5d6c;
 }
 [tooltip][position^="left"]:after {
   -lh-property: 0;
@@ -2674,7 +2684,7 @@ right:calc(100% + 4px);
   height: 0;
   border-top: solid 4px transparent;
   border-bottom: solid 4px transparent;
-  border-right: solid 4px #adadad;
+  border-right: solid 4px #4b5d6c;
 }
 [tooltip][position^="right"]:after {
   -lh-property: 0;
@@ -2707,6 +2717,138 @@ left:calc(100% + 4px);
 }
 [tooltip][size^="large"]:after {
   min-width: 200px;
+}
+/*
+utility.less
+------------------------------------------------------------------------- */
+.utility {
+  display: block;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.utility .button {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  padding: 0;
+  margin: 0 2px;
+  font-weight: 300;
+  -webkit-border-radius: 50%;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 50%;
+  -moz-background-clip: padding;
+  border-radius: 50%;
+  background-clip: padding-box;
+  border-color: #00A1E4;
+  background: #00A1E4;
+}
+.utility .button:hover {
+  background: #00b3fe;
+  border-color: #00b3fe;
+}
+.utility .button:first-child {
+  margin-left: 0;
+}
+.utility .button:last-child {
+  margin-right: 0;
+}
+.utility .button__options {
+  position: absolute;
+  left: 50%;
+  width: auto;
+  list-style: none;
+  margin: 0;
+  padding: 10px 20px;
+  background: #fff;
+  border-radius: 3px;
+  border: solid 1px #e6e6e6;
+  visibility: hidden;
+  zoom: 1;
+  filter: alpha(opacity=0);
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  -webkit-transition: all 0.15s ease-in-out;
+  -moz-transition: all 0.15s ease-in-out;
+  -o-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+.utility .button__options.is-visible {
+  visibility: visible;
+  zoom: 1;
+  filter: alpha(opacity=100);
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+  -webkit-transform: translate(-50%, 10px);
+  -moz-transform: translate(-50%, 10px);
+  -ms-transform: translate(-50%, 10px);
+  -o-transform: translate(-50%, 10px);
+  transform: translate(-50%, 10px);
+}
+.utility .button__options:before {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #b3b3b3;
+}
+.utility .button__options:after {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #fff;
+}
+.utility .button__options__item {
+  display: block;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: solid 1px #e6e6e6;
+}
+.utility .button__options__item:first-child {
+  padding-top: 0;
+}
+.utility .button__options__item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.utility .button--pull-left {
+  float: left;
+}
+.utility--align-left {
+  text-align: left;
+}
+.utility--align-right {
+  text-align: right;
 }
 /*
 plugins
@@ -4377,7 +4519,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
   vertical-align: middle;
   display: inline-block;
   padding: 0;
-  border-left: 1px solid #adadad;
+  border-left: 1px solid #FFFFFF;
   box-sizing: border-box;
 }
 .selectize-control.plugin-remove_button [data-value] .remove:hover {
@@ -4404,27 +4546,27 @@ http://nicolasgallagher.com/micro-clearfix-hack/
   font-family: "Nunito Sans";
   font-size: 16px;
   line-height: 24px;
-  color: #949494;
+  color: #7a7a7a;
 }
 .selectize-dropdown::-webkit-input-placeholder,
 .selectize-input::-webkit-input-placeholder,
 .selectize-input input::-webkit-input-placeholder {
-  color: #949494;
+  color: #7a7a7a;
 }
 .selectize-dropdown:-moz-placeholder,
 .selectize-input:-moz-placeholder,
 .selectize-input input:-moz-placeholder {
-  color: #949494;
+  color: #7a7a7a;
 }
 .selectize-dropdown::-moz-placeholder,
 .selectize-input::-moz-placeholder,
 .selectize-input input::-moz-placeholder {
-  color: #949494;
+  color: #7a7a7a;
 }
 .selectize-dropdown:-ms-input-placeholder,
 .selectize-input:-ms-input-placeholder,
 .selectize-input input:-ms-input-placeholder {
-  color: #949494;
+  color: #7a7a7a;
 }
 .selectize-input,
 .selectize-control.single .selectize-input.input-active {
@@ -4469,17 +4611,17 @@ http://nicolasgallagher.com/micro-clearfix-hack/
   cursor: pointer;
   font-size: 14px;
   padding: 0 8px;
-  background: #637074;
+  background: #00A1E4;
   color: white;
   border: solid 2px #FFFFFF;
 }
 .selectize-control.multi .selectize-input > div.active {
-  background: #4c5558;
+  background: #007db1;
   color: white;
 }
 .selectize-control.multi .selectize-input.disabled > div,
 .selectize-control.multi .selectize-input.disabled > div.active {
-  background: #b8b8b8;
+  background: #b5b5b5;
   color: #ffffff;
 }
 .selectize-input > input {
@@ -4523,7 +4665,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
   margin: -1px 0 0 0;
   border-top: 0 none;
   box-sizing: border-box;
-  color: #949494;
+  color: #7a7a7a;
 }
 .selectize-dropdown [data-selectable] {
   cursor: pointer;
@@ -4586,7 +4728,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
   right: 12px;
   margin: 0;
   padding: 0;
-  color: #949494;
+  color: #7a7a7a;
   background: none;
   user-select: none;
   pointer-events: none;

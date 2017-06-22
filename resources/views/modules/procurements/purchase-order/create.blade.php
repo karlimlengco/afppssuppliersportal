@@ -6,14 +6,13 @@ Purchase Order
 <link rel="stylesheet" href="/vendors/timepicker/timepicker.min.css">
 @stop
 @section('contents')
+{!! Form::open($modelConfig['store']) !!}
 
-<div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
-    </div>
+<div class="twelve columns utility utility--align-right" >
+    <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+    <button type="submit" class="button"><i class="nc-icon-mini ui-2_disk"></i></button>
 </div>
 
-{!! Form::open($modelConfig['store']) !!}
 <div class="row">
     <div class="twelve columns">
         <div class="row">
@@ -30,9 +29,6 @@ Purchase Order
                 {!! Form::selectField('payment_term', 'Payment Terms', $term_lists) !!}
             </div>
         </div>
-
-         <a class="button" href="{{route($indexRoute)}}">Back</a>
-        <button type="submit" class="button">Save</button>
 
     </div>
 </div>

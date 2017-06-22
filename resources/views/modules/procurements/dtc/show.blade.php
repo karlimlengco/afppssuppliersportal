@@ -9,14 +9,16 @@ Delivery To COA
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h1></h1>
-    </div>
-    <div class="six columns align-right">
-        @if(!$data->date_delivered_to_coa)
-            <a class="button topbar__utility__button--modal" href="#">Proceed</a>
-        @endif
-        <a class="button" href="{{route($indexRoute)}}">Back</a>
+    <div class="twelve columns utility utility--align-right" >
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+        <button type="button" class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                @if(!$data->date_delivered_to_coa)
+                    <a class="button__options__item topbar__utility__button--modal" href="#">Proceed</a>
+                @endif
+            </div>
+        </button>
     </div>
 </div>
 

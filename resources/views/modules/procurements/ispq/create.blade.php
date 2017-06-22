@@ -9,12 +9,9 @@ Invitation to Submit Price Quotation
 {!! Form::open($modelConfig['store']) !!}
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3> </h3>
-    </div>
-    <div class="six columns align-right">
-        <button type="reset" class="button"> <a href="{{route($indexRoute)}}">Back</a> </button>
-        <button type="submit" class="button">Save</button>
+    <div class="twelve columns align-right utility utility--align-right">
+        <button type="submit" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
     </div>
 </div>
 

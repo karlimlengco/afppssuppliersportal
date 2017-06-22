@@ -13,34 +13,47 @@ Unit Purchase Request
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
-    </div>
-    <div class="six columns align-right">
-        @if($data->status == 'pending')
-        <button class="button topbar__utility__button--modal">PROCESS</button>
-        @endif
+    <div class="twelve columns align-right utility utility--align-right">
 
-        @if(count($data->philgeps) != 0)
-            <a href="{{route('procurements.philgeps-posting.edit', $data->philgeps->id)}}" class="button" tooltip="PhilGeps"> <span class=" nc-icon-glyph files_paper"></span> </a>
-        @endif
-        @if(count($data->rfq) != 0)
-        <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
-        @endif
-        @if(count($data->canvassing) != 0)
-        <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button" tooltip="CANVASSING"> <span class=" nc-icon-glyph business_award-49"></span>  </a>
-        <a href="{{route('procurements.noa.show', $data->canvassing->id)}}" class="button" tooltip="AWARDEE"> <span class=" nc-icon-glyph education_award-55"></span>  </a>
-        @endif
-        @if(count($data->purchase_order) != 0)
-        <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button" tooltip="PURCHASE ORDER"> <span class=" nc-icon-glyph shopping_cart"></span>  </a>
-        <a href="{{route('procurements.ntp.show', $data->purchase_order->id)}}" class="button" tooltip="NTP"> <span class=" nc-icon-glyph ui-1_notification-70"></span>  </a>
-        @endif
-        @if(count($data->delivery_order) != 0)
-        <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button" tooltip="DELIVERY"> <span class=" nc-icon-glyph transportation_truck-front"></span>  </a>
-        @endif
-        <a class="button" href="{{route($indexRoute)}}">PRINT</a>
-        <a class="button" href="{{route($indexRoute)}}">BACK</a>
-        <a class="button" href="{{route($editRoute,$data->id)}}">EDIT</a>
+        <button class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                 @if($data->status == 'pending')
+                    <a class="button__options__item topbar__utility__button--modal" href="#">PROCESS</a>
+                @endif
+
+                @if(count($data->rfq) != 0)
+                    <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button__options__item">Request for Quotation</a>
+                @endif
+
+                @if(count($data->philgeps) != 0)
+                    <a href="{{route('procurements.philgeps-posting.edit', $data->philgeps->id)}}" class="button__options__item">PhilGeps</a>
+                @endif
+
+                @if(count($data->canvassing) != 0)
+                    <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button__options__item">Canvassing</a>
+                    <a href="{{route('procurements.noa.show', $data->canvassing->id)}}" class="button__options__item">Notice of Award</a>
+                @endif
+
+                @if(count($data->purchase_order) != 0)
+                    <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">Purchase Order</a>
+                    <a href="{{route('procurements.ntp.show', $data->purchase_order->id)}}" class="button__options__item">Notice to Proceed</a>
+                @endif
+
+                @if(count($data->delivery_order) != 0)
+                    <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button__options__item">Delivery</a>
+                @endif
+            </div>
+        </button>
+
+        <a href="#" class="button" tooltip="Print">
+            <i class="nc-icon-mini tech_print"></i>
+        </a>
+        <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
+            <i class="nc-icon-mini design_pen-01"></i>
+        </a>
+
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
     </div>
 </div>
 <br>

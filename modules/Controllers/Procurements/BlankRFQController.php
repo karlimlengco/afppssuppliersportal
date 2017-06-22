@@ -119,7 +119,7 @@ class BlankRFQController extends Controller
 
         if($upr_model->unit && $upr_model->centers)
         {
-            $rfq_name   =   $upr_model->unit->name ."-". $upr_model->centers->name."-". $result->id;
+            $rfq_name   =   "RFQ-".$upr_model->unit->name ."-". $upr_model->centers->name."-". $result->id;
             $rfq_name   =   str_replace(" ", "-", $rfq_name);
         }
 
@@ -241,7 +241,7 @@ class BlankRFQController extends Controller
         // dd();
         $pdf = PDF::loadView('forms.rfq', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->download('rfq.pdf');
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('rfq.pdf');
         return $pdf->download('rfq.pdf');
     }
 }

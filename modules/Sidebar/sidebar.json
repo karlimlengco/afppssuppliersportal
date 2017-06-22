@@ -1,8 +1,27 @@
 {
-
+    "Bidding": [
+        {
+            "name"      : "Competitive Bidding",
+            "icon"      : "nc-icon-mini business_hammer",
+            "subname"   : "procurements",
+            "route"     :   "settings.index",
+            "navigation": [
+                {
+                    "route" :   "procurements.unit-purchase-requests.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Not yet available"
+                },
+                {
+                    "route" :   "procurements.unit-purchase-requests.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Not yet available"
+                }
+            ]
+        }
+    ],
     "Procurements": [
         {
-            "name"      : "Procurements",
+            "name"      : "Alternative Mode of Procurement",
             "icon"      : "nc-icon-mini business_hammer",
             "subname"   : "procurements",
             "route"     :   "settings.index",
@@ -116,6 +135,26 @@
                     "route" :   "maintenance.banks.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Banks"
+                }
+            ]
+        }
+    ],
+    "Report": [
+        {
+            "name"      : "Reports",
+            "icon"      : "nc-icon-mini files_single-folded-content",
+            "subname"   : "procurements",
+            "route"     :   "settings.index",
+            "navigation": [
+                {
+                    "route" :   "procurements.unit-purchase-requests.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Not yet available"
+                },
+                {
+                    "route" :   "procurements.unit-purchase-requests.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Not yet available"
                 }
             ]
         }

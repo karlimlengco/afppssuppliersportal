@@ -1,7 +1,7 @@
 <div class="modal" id="received-item-modal">
     <div class="modal__dialogue modal__dialogue--round-corner">
         <form method="POST" id="delete-form" action="" accept-charset="UTF-8">
-            <button class="modal__close-button">
+            <button type="button" class="modal__close-button">
                 <i class="nc-icon-outline ui-1_simple-remove"></i>
             </button>
 

@@ -10,12 +10,26 @@ Notice Of Award
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h1> </h1>
-    </div>
-    <div class="six columns align-right">
 
-        <a class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
+    <div class="twelve columns align-right utility utility--align-right">
+        <button class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item">Unit Purchase Request</a>
+
+                <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item">Request For Quotation</a>
+
+                <a href="{{route('procurements.canvassing.show', $data->id)}}" class="button__options__item">Canvassing</a>
+
+                <a href="#"  id="signatory-button" class="button__options__item">Signatories</a>
+
+                @if(!$awardee->received_by && !$awardee->award_accepted_date)
+                    <a href="#"  id="received-button" class="button__options__item">Received</a>
+                @endif
+            </div>
+        </button>
+
+     {{--    <a class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
         <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
         <a href="{{route('procurements.canvassing.show', $data->id)}}" class="button" tooltip="CANVASSING"> <span class=" nc-icon-glyph business_award-49"></span>  </a>
 
@@ -23,9 +37,11 @@ Notice Of Award
 
         @if(!$awardee->received_by && !$awardee->award_accepted_date)
             <a class="button" id="received-button" href="#">Received</a>
+        @endif --}}
+        @if($data->signatory_id)
+        <a target="_blank class="button" href="{{route($printRoute,$data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
         @endif
-        <a class="button" href="{{route($printRoute,$data->id)}}">PRINT</a>
-        <a class="button" href="{{route($indexRoute)}}">Back</a>
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
     </div>
 </div>
 <br>

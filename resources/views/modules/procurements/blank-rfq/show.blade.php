@@ -9,21 +9,32 @@ Request For Quotation
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
-    </div>
-    <div class="six columns align-right">
-        @if($data->status == 'pending')
-        <a class="button topbar__utility__button--modal" href="#">ADD PROPONENTS</a>
-        @endif
-        <a class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
-        @if(count($data->canvassing))
-            <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button" tooltip="CANVASSING"> <span class=" nc-icon-glyph business_award-49"></span>  </a>
-            <a href="{{route('procurements.noa.show', $data->canvassing->id)}}" class="button" tooltip="AWARDEE"> <span class=" nc-icon-glyph education_award-55"></span>  </a>
-        @endif
-        <a class="button" href="{{route($printRoute,$data->id)}}">PRINT</a>
-        <a class="button" href="{{route($indexRoute)}}">BACK</a>
-        <a class="button" href="{{route($editRoute,$data->id)}}">EDIT</a>
+    <div class="twelve columns align-right utility utility--align-right">
+        <button class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                @if($data->status == 'pending')
+                    <a href="#" class="topbar__utility__button--modal button__options__item">Add Proponents</a>
+                @endif
+
+                <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="topbar__utility__button--modal button__options__item">Unit Purchase Request</a>
+
+                @if(count($data->canvassing))
+                    <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="topbar__utility__button--modal button__options__item">Canvassing</a>
+                    <a href="{{route('procurements.noa.show', $data->canvassing->id)}}" class="topbar__utility__button--modal button__options__item">Awardee</a>
+                @endif
+            </div>
+        </button>
+
+        <a target="_blank" href="{{route($printRoute,$data->id)}}" class="button" tooltip="Print">
+            <i class="nc-icon-mini tech_print"></i>
+        </a>
+        <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
+            <i class="nc-icon-mini design_pen-01"></i>
+        </a>
+
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+
     </div>
 </div>
 <br>

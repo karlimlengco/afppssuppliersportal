@@ -183,7 +183,7 @@ class NoticeOfAwardController extends Controller
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [
                 'receive_award' =>  [
-                    'route'     =>  [$this->baseUrl.'update', $result->rfq_id]
+                    'route'     =>  [$this->baseUrl.'update', $result->id]
                 ],
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update-signatory', $id],
@@ -323,6 +323,6 @@ class NoticeOfAwardController extends Controller
         // $data['quotations']         =  $result->quotations;
         $pdf = PDF::loadView('forms.noa', ['data' => $data])->setOption('margin-left', 13)->setOption('margin-right', 13)->setOption('margin-bottom', 10)->setPaper('a4');
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->download('noa.pdf');
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('noa.pdf');
     }
 }

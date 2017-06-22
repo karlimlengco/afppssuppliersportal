@@ -198,6 +198,6 @@ class NoticeToProceedController extends Controller
         // $data['quotations']         =  $result->quotations;
         $pdf = PDF::loadView('forms.ntp', ['data' => $data])->setOption('margin-left', 13)->setOption('margin-right', 13)->setOption('margin-bottom', 10)->setPaper('a4');
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->download('ntp.pdf');
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('ntp.pdf');
     }
 }

@@ -20,24 +20,32 @@ class CreateUnitPurchaseRequests extends Migration
             $table->string('mode_of_procurement');
             $table->string('chargeability');
             $table->string('account_code');
+
             $table->string('fund_validity')->nullable();
             $table->string('terms_of_payment')->nullable();
             $table->string('other_infos')->nullable();
+
             $table->string('units');
-            $table->string('upr_number');
             $table->text('purpose');
-            $table->string('afpps_ref_number')->nullable();
+
+            $table->string('project_name')->nullable();
+            $table->string('upr_number')->nullable();
+            $table->string('ref_number')->nullable();
+
             $table->date('date_prepared');
             $table->date('date_processed')->nullable();
-            $table->string('status')->default('pending');
+
             $table->string('total_amount');
+
+            $table->string('status')->default('draft');
+
             $table->integer('prepared_by');
 
             $table->timestamps();
 
             $table->index('account_code');
             $table->index('upr_number');
-            $table->index('afpps_ref_number');
+            $table->index('ref_number');
         });
     }
 
