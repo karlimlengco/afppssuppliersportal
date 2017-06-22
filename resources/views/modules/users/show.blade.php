@@ -4,9 +4,17 @@ Users
 
 @section('contents')
 
+{!! Form::model($user, $modelConfig['update']) !!}
+
 <div class="row">
-    <div class="six columns align-left">
-        <h3> </h3>
+    <div class="twelve columns align-left utility utility--align-right">
+        <a href="{{route('settings.users.index')}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+
+        <button type="submit" class="button topbar__utility__button--modal"  tooltip="Save">
+        <i class="nc-icon-mini ui-2_disk"></i>
+        </button>
+
+        <a href="" class="button topbar__utility__button--modal" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
     </div>
 </div>
 
@@ -53,7 +61,6 @@ Users
                 <hr>
                 <br>
 
-                {!! Form::model($user, $modelConfig['update']) !!}
 
                     {!! Form::fileField('avatar', 'Avatar') !!}
                     {!! Form::textField('username', 'Username') !!}
@@ -64,8 +71,8 @@ Users
                     {!! Form::selectField('gender', 'Gender', $genders) !!}
                     {!! Form::textField('email', 'Email Address') !!}
                     {!! Form::textField('address', 'Address') !!}
-                    <button type="submit" class="button">Update</button>
-                    <button class="button topbar__utility__button--modal" >Delete</button>
+                 {{--    <button type="submit" class="button">Update</button>
+                    <button class="button topbar__utility__button--modal" >Delete</button> --}}
                 {!! Form::close() !!}
 
                 <br>
