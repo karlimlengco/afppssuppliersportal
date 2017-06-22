@@ -135,6 +135,11 @@
                     "route" :   "maintenance.banks.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Banks"
+                },
+                {
+                    "route" :   "maintenance.catered-units.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Catered Units"
                 }
             ]
         }

@@ -107,6 +107,7 @@ Route::group(['as' => 'maintenance.', 'prefix' => 'maintenance'], function () {
     Route::resource('payment-terms', '\Revlv\Controllers\Settings\PaymentTermController');
     Route::resource('units', '\Revlv\Controllers\Settings\UnitController');
     Route::resource('banks', '\Revlv\Controllers\Settings\BankController');
+    Route::resource('catered-units', '\Revlv\Controllers\Settings\CateredUnitController');
 
 });
 
@@ -189,6 +190,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('payment-terms', '\Revlv\Controllers\Settings\PaymentTermController@getDatatable')->name('maintenance.payment-terms');
     Route::get('units', '\Revlv\Controllers\Settings\UnitController@getDatatable')->name('maintenance.units');
     Route::get('banks', '\Revlv\Controllers\Settings\BankController@getDatatable')->name('maintenance.banks');
+    Route::get('catered-units', '\Revlv\Controllers\Settings\CateredUnitController@getDatatable')->name('maintenance.catered-units');
 
     /*
     |--------------------------------------------------------------------------

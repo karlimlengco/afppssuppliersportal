@@ -51,13 +51,13 @@ Units
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.maintenance.units')}}",
+                url: "{{route('datatables.maintenance.catered-units')}}",
                 // data: function (d) {
                     // d.search.value = $('#search-table').val();
                 // }
             },
         columns: [
-            {data: 'name', name: 'name'},
+            {data: 'short_code', name: 'short_code'},
             {data: 'description', name: 'description'},
             {data: 'procurement_name', name: 'procurement_name'},
             {data: 'created_at', name: 'created_at'},
