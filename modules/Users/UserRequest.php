@@ -12,13 +12,30 @@ class UserRequest extends BaseRequest
     protected $whitelist = [
         'email',
         'username',
+        'password',
+
+        'permissions',
+        'avatar',
+
+        'last_login',
+
+        'contact_number',
+        'address',
+
+        'unit_id',
+        'designation',
+
         'first_name',
         'middle_name',
         'surname',
-        'contact_number',
-        'address',
+
         'gender',
-        'avatar',
+        'status',
+
+        'birthday',
+
+        'username',
+        'email',
     ];
 
     /**
@@ -39,8 +56,8 @@ class UserRequest extends BaseRequest
     public function rules()
     {
         return [
-            'username'              => 'required|min:5|unique:users,username,' . $this->user . ',username',
-            'email'                 => 'required|unique:users,email,'. $this->user . ',username',
+            'unit_id'            => 'required',
+            'designation'            => 'required',
             'first_name'            => 'required',
             'middle_name'           => 'required',
             'surname'               => 'required',

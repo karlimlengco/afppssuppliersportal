@@ -32,52 +32,11 @@ class UserRepository extends BaseRepository
      */
     public function create(array $data)
     {
-        $permissions =   null;
-
-        if(isset($data['permissions']))
-        {
-            $permissions =    $data['permissions'];
-        }
-
-        $data   =   [
-                "email"             => $data['email'],
-                "username"          => $data['username'],
-                "first_name"        => $data['first_name'],
-                "middle_name"       => $data['middle_name'],
-                "surname"           => $data['surname'],
-                'address'           => $data['address'],
-                'contact_number'    => $data['contact_number'],
-                'gender'            => $data['gender'],
-                "password"          => str_random(32),
-                "status"            => 1,
-        ];
-
+        $data['status']     =   1;
         try
         {
-            if ($user = \Sentinel::register($data))
-            {
-                $user->username             = $data['username'];
-                $user->first_name           = $data['first_name'];
-                $user->middle_name          = $data['middle_name'];
-                $user->surname              = $data['surname'];
-
-                $user->address              = $data['address'];
-                $user->contact_number       = $data['contact_number'];
-
-                $user->gender               = $data['gender'];
-
-                if($permissions != null){
-                    $user->permissions   =   $permissions;
-                }
-
-                $user->save();
-
-                $this->sendActivationCode($user);
-
-                return $user;
-
-            }
-
+            $user = \Sentinel::registerAndActivate($data);
+            return $user;
         }
         catch (\Exception $e)
         {
@@ -235,14 +194,18 @@ class UserRepository extends BaseRepository
      *
      * @return [type]            [description]
      */
-    public function getDatatable($company_id)
+    public function getDatatable($archives = null)
     {
         $model  =   $this->model;
-
 
         $model  = $model->select('users.*',
                 \DB::raw("CONCAT(users.first_name,' ', users.surname) AS full_name")
             );
+
+        if($archives == 'archive')
+        {
+            $model  =   $model->onlyTrashed();
+        }
 
         return $this->dataTable($model->get());
     }

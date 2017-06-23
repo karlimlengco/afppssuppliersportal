@@ -4,6 +4,7 @@ Suppliers
 
 @section('modal')
     @include('modules.partials.modals.delete')
+    @include('modules.partials.modals.accept')
 @stop
 
 @section('contents')
@@ -14,11 +15,20 @@ Suppliers
     <div class="twelve columns align-left utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
-        <button type="submit" class="button topbar__utility__button--modal"  tooltip="Save">
+        @if($data->status == 'draft')
+            <button type="button" class="button button--options-trigger" tooltip="Options">
+                <i class="nc-icon-mini ui-2_menu-dots"></i>
+                <div class="button__options">
+                    <a href="#" id="accept-button" class="button__options__item ">Accept</a>
+                </div>
+            </button>
+        @endif
+
+        <button type="submit" class="button "  tooltip="Save">
         <i class="nc-icon-mini ui-2_disk"></i>
         </button>
 
-        <a href="" class="button topbar__utility__button--modal" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
+        <a href="" class="button" id="delete-button" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
     </div>
 </div>
 
@@ -100,4 +110,27 @@ Suppliers
 </div>
 
 {!! Form::close() !!}
+@stop
+
+@section('scripts')
+
+<script type="text/javascript">
+
+    $('#delete-button').click(function(e){
+        e.preventDefault();
+        $('#delete-modal').addClass('is-visible');
+    })
+
+    $('#accept-button').click(function(e){
+        e.preventDefault();
+        $('#accept-modal').addClass('is-visible');
+    })
+    // end datepicker
+
+    $(document).on('click', '#accept-button', function(e){
+        var supplierId  = "{{$data->id}}";
+        var form = document.getElementById('accept-form').action;
+        document.getElementById('accept-form').action = "/settings/suppliers/accepts/"+supplierId;
+    });
+</script>
 @stop

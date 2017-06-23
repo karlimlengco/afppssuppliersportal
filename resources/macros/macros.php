@@ -61,7 +61,7 @@ Form::macro('tagField', function($name, $label = null, $options, $value = null, 
 {
 
     // selectize-tagging selectize , 'data-selectize' => 'taggingField'
-    $attributes = $attributes + ['class' => 'select', 'multiple'];
+    $attributes = $attributes + ['class' => 'selectize tagging', 'multiple'];
 
     $element = Form::select($name.'[]', [null => 'Select One'] + $options, $value, fieldAttributes($name, $attributes));
 

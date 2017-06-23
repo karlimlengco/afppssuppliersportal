@@ -12,6 +12,7 @@ use Revlv\Users\PasswordRequest;
 use Revlv\Users\UserRepository;
 use Revlv\Users\UserCreateRequest;
 use Revlv\Sentinel\Roles\RoleRepository;
+use \Revlv\Settings\CateredUnits\CateredUnitRepository;
 
 class UserController extends Controller
 {
@@ -20,13 +21,8 @@ class UserController extends Controller
      * @var
      */
     private $userRepository;
-
-    /**
-     * Role Repository
-     *
-     * @var [type]
-     */
     protected $roleRepository;
+    protected $units;
 
     private $gender = ['male'=> 'Male', 'female' => 'Female'];
 
@@ -56,8 +52,30 @@ class UserController extends Controller
      */
     public function getDatatable()
     {
-        $company_id =   \Sentinel::getUser()->company_id;
-        return $this->userRepository->getDatatable($company_id);
+        return $this->userRepository->getDatatable();
+    }
+
+
+    /**
+     * [getAll description]
+     *
+     * @param  integer $limit    [description]
+     *
+     * @param  boolean $paginate [description]
+     *
+     * @return [type]            [description]
+     */
+    public function getArchivedDatatable()
+    {
+        return $this->userRepository->getDatatable('archive');
+    }
+
+    /**
+     *
+     */
+    public function archives()
+    {
+        $this->view('modules.users.archives');
     }
 
     /**
@@ -65,9 +83,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $this->view('modules.users.index', [
-            // 'users' => $this->userRepository->paginate()
-        ]);
+        $this->view('modules.users.index');
     }
 
     /**
@@ -99,22 +115,23 @@ class UserController extends Controller
      * @param $username
      * @internal param $user
      */
-    public function show($username)
+    public function show($username,CateredUnitRepository $units)
     {
 
         $gender         =   $this->gender;
+        $unit_lists     =   $units->lists('id', 'short_code');
         $roles          =   $this->roleRepository->lists('id','name');
         $user           =   $this->userRepository->findByUsername($username);
 
         $this->view('modules.users.show', [
             'user'          =>  $user,
+            'unit_lists'    =>  $unit_lists,
             'editRoute'   => 'settings.users.edit',
             'modelConfig' => [
                 'update'  => [
                     'route' =>  ['settings.users.update',$username],
                     'method'=>  'PATCH',
                     'files' =>  true,
-                    'class' => 'form-horizontal form-label-left',
                 ],
                 'destroy'       => [
                     'route'         => ['settings.users.destroy',$username],
@@ -152,12 +169,14 @@ class UserController extends Controller
     /**
      *
      */
-    public function create()
+    public function create(CateredUnitRepository $units)
     {
         $gender         =   $this->gender;
+        $unit_lists     =   $units->lists('id', 'short_code');
 
         $this->view('modules.users.create', [
             'genders'       =>  $gender,
+            'unit_lists'    =>  $unit_lists
         ]);
     }
 
@@ -187,7 +206,7 @@ class UserController extends Controller
     {
         $user = $this->userRepository->findByUsername($user);
 
-        $user->forceDelete();
+        $user->delete();
 
         return redirect()->route('settings.users.index')->with([
             'success'  => "Record has been successfully deleted."
@@ -218,14 +237,16 @@ class UserController extends Controller
      *
      * @return [type] [description]
      */
-    public function showProfile()
+    public function showProfile(CateredUnitRepository $units)
     {
         $user           =   \Sentinel::getUser();
         $gender         =   $this->gender;
+        $unit_lists     =   $units->lists('id', 'short_code');
 
         $this->view('modules.users.profile', [
             'user' => $user,
             'profile'=> true,
+            'unit_lists'    =>  $unit_lists,
             'modelConfig' => [
                 'update'  => [
                     'route' =>  ['profile.update',$user->username],

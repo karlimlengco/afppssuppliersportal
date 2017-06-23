@@ -63,7 +63,7 @@
                     <input type="password" class="login__form__input" placeholder="Password" name="password" required>
                 </div>
                 <button class="login__form__button">Sign-in</button>
-                <a href="#" class="forgot-password">Forgot your password?</a>
+                {{-- <a href="#" class="forgot-password">Forgot your password?</a> --}}
             </form>
         </div>
 

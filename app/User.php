@@ -49,7 +49,35 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'avatar', 'birthday', 'username', 'first_name', 'middle_name', 'surname', 'address', 'contact_number', 'gender', 'status'];
+    protected $fillable = [
+        'email',
+        'username',
+        'password',
+
+        'permissions',
+        'avatar',
+
+        'last_login',
+
+        'contact_number',
+        'address',
+
+        'unit_id',
+        'designation',
+
+        'first_name',
+        'middle_name',
+        'surname',
+
+        'gender',
+        'status',
+
+        'birthday',
+
+        'username',
+        'email',
+
+    ];
 
     protected $assets   = ['avatar'];
 

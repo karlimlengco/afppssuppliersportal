@@ -16,14 +16,17 @@ trait DatatableTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getDatatable()
+    public function getDatatable($status = 'accepted')
     {
         $model  =   $this->model;
+
+        $model  =   $model->whereStatus($status);
 
         $model->orderBy('created_at', 'desc');
 
         return $this->dataTable($model->get());
     }
+
 
     /**
      * [dataTable description]

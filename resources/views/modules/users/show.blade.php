@@ -2,6 +2,10 @@
 Users
 @stop
 
+@section('modal')
+    @include('modules.partials.modals.delete')
+@stop
+
 @section('contents')
 
 {!! Form::model($user, $modelConfig['update']) !!}
@@ -14,7 +18,7 @@ Users
         <i class="nc-icon-mini ui-2_disk"></i>
         </button>
 
-        <a href="" class="button topbar__utility__button--modal" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
+        <a href="#" class="button topbar__utility__button--modal" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
     </div>
 </div>
 
@@ -39,10 +43,6 @@ Users
 
             </ul>
 
-                <a class="button" href="{{route('reminder.reset', 'email='.$user->email)}}"><i class="fa fa-edit m-right-xs"></i>Reset Password</a>
-            @if($user->last_login == null)
-                    <a class="button" href="{{route('reminder.reset', 'email='.$user->email)}}"><i class="fa fa-paper-plane m-right-xs"></i>Resend Code</a>
-            @endif
             <br>
         </div>
     </div>
@@ -58,19 +58,55 @@ Users
                 <div class="row">
                     <h3>User Details</h3>
                 </div>
-                <hr>
-                <br>
 
+                    <div class="row">
+                        <div class="six columns">
+                            {!! Form::textField('username', 'Username', null, ['readony']) !!}
+                        </div>
+                        <div class="six columns">
+                            {!! Form::fileField('avatar', 'Avatar') !!}
+                        </div>
+                    </div>
 
-                    {!! Form::fileField('avatar', 'Avatar') !!}
-                    {!! Form::textField('username', 'Username') !!}
-                    {!! Form::textField('first_name', 'First Name') !!}
-                    {!! Form::textField('middle_name', 'Middle Name') !!}
-                    {!! Form::textField('surname', 'Surname') !!}
-                    {!! Form::textField('contact_number', 'Contact Number') !!}
-                    {!! Form::selectField('gender', 'Gender', $genders) !!}
-                    {!! Form::textField('email', 'Email Address') !!}
-                    {!! Form::textField('address', 'Address') !!}
+                    <div class="row">
+                        <div class="four columns">
+                            {!! Form::textField('first_name', 'First Name') !!}
+                        </div>
+                        <div class="four columns">
+                            {!! Form::textField('middle_name', 'Middle Name') !!}
+                        </div>
+                        <div class="four columns">
+                            {!! Form::textField('surname', 'Last Name') !!}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="four columns">
+                            {!! Form::selectField('unit_id', 'Unit', $unit_lists) !!}
+                        </div>
+                        <div class="four columns">
+                            {!! Form::textField('designation', 'Designation') !!}
+                        </div>
+                        <div class="four columns">
+                            {!! Form::textField('email', 'Email') !!}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="six columns">
+                            {!! Form::textField('contact_number', 'Contact Number') !!}
+                        </div>
+                        <div class="six columns">
+                            {!! Form::selectField('gender', 'Gender', $genders) !!}
+                        </div>
+                    </div>
+
+                    <row class="">
+                        <div class="twelve columns">
+                            {!! Form::textareaField('address', 'Address', null, ['rows'=>4]) !!}
+                        </div>
+                    </row>
+
                  {{--    <button type="submit" class="button">Update</button>
                     <button class="button topbar__utility__button--modal" >Delete</button> --}}
                 {!! Form::close() !!}

@@ -33,6 +33,8 @@ class CreateSuppliers extends Migration
             $table->string('fax_2')->nullable();
             $table->string('email_1')->nullable();
             $table->string('email_2')->nullable();
+
+            $table->string('status')->default('draft');
             $table->timestamps();
         });
     }

@@ -2793,6 +2793,7 @@ utility.less
   -ms-transform: translate(-50%, 10px);
   -o-transform: translate(-50%, 10px);
   transform: translate(-50%, 10px);
+  z-index:9999
 }
 .utility .button__options:before {
   position: absolute;

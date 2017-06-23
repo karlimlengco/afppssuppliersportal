@@ -53,6 +53,30 @@ class SupplierController extends Controller
     }
 
     /**
+     * [getDraftDatatable description]
+     *
+     * @param  SupplierRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function getDraftDatatable(SupplierRepository $model)
+    {
+        return $model->getDatatable('draft');
+    }
+
+    /**
+     * [drafts description]
+     *
+     * @return [type] [description]
+     */
+    public function drafts()
+    {
+        return $this->view('modules.settings.suppliers.drafts',[
+            'indexRoute'    =>  $this->baseUrl."index",
+            'createRoute'   =>  $this->baseUrl.'create'
+        ]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -60,7 +84,8 @@ class SupplierController extends Controller
     public function index()
     {
         return $this->view('modules.settings.suppliers.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'draftRoute'    =>  $this->baseUrl."drafts"
         ]);
     }
 
@@ -149,6 +174,22 @@ class SupplierController extends Controller
     public function update(SupplierRequest $request, $id, SupplierRepository $model)
     {
         $model->update($request->getData(), $id);
+
+        return redirect()->route($this->baseUrl.'edit', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
+     * [accepts description]
+     *
+     * @param  [type]             $id [description]
+     * @param  SupplierRepository $id [description]
+     * @return [type]                 [description]
+     */
+    public function acceptSupplier($id, SupplierRepository $model)
+    {
+        $model->update(['status' => 'accepted'], $id);
 
         return redirect()->route($this->baseUrl.'edit', $id)->with([
             'success'  => "Record has been successfully updated."

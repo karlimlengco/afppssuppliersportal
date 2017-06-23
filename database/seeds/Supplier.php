@@ -15,17 +15,20 @@ class Supplier extends Seeder
             [
                 "name"          => 'ACS DEVELOPMENT & PROPERTY MANAGERS INC',
                 "owner"         => 'Timotei Martin C. Santiago',
-                "address"       => '30 Muralla St., New Intramuros Village'
+                "address"       => '30 Muralla St., New Intramuros Village',
+                'status'        => 'draft'
             ],
             [
                 "name"          => '2174 Catering Service',
                 "owner"         => 'Mercy Bapruga Agbayani',
-                "address"       => '2174 Sobriedad Extension Sampaloc 053'
+                "address"       => '2174 Sobriedad Extension Sampaloc 053',
+                'status'        => 'draft'
             ],
             [
                 "name"          => '3 R Trading',
                 "owner"         => 'Josefina Emberga Repalpa',
-                "address"       => '715 Kalayaan St. San Antonio Cavite City'
+                "address"       => '715 Kalayaan St. San Antonio Cavite City',
+                'status'        => 'draft'
             ]
         ]);
     }

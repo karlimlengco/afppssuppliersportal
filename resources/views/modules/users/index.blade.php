@@ -9,6 +9,14 @@ Users
         <h3> </h3>
     </div>
     <div class="six columns utility utility--align-right" >
+
+        <button class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                <a href="{{route('settings.users.archives')}}" class="button__options__item">Archives</a>
+            </div>
+        </button>
+
         <a class="button" href="{{route('settings.users.create')}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
     </div>
 </div>

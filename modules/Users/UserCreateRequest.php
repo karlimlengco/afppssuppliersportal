@@ -12,13 +12,30 @@ class UserCreateRequest extends BaseRequest
     protected $whitelist = [
         'email',
         'username',
+        'password',
+
+        'permissions',
+        'avatar',
+
+        'last_login',
+
+        'contact_number',
+        'address',
+
+        'unit_id',
+        'designation',
+
         'first_name',
         'middle_name',
         'surname',
-        'birthday',
-        'contact_number',
-        'address',
+
         'gender',
+        'status',
+
+        'birthday',
+
+        'username',
+        'email',
     ];
 
     /**
@@ -53,13 +70,14 @@ class UserCreateRequest extends BaseRequest
     {
         return [
             'username'              => 'required|min:5|max:25|unique:users',
-            'email'                 => 'required|unique:users',
             'first_name'            => 'required',
             'middle_name'           => 'required',
             'surname'               => 'required',
             'contact_number'        => 'required',
             'gender'                => 'required',
             'address'               => 'required',
+            'unit_id'               => 'required',
+            'designation'           => 'required',
         ];
     }
 }

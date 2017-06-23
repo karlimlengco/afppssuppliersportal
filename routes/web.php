@@ -128,12 +128,15 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('users/archives', '\Revlv\Controllers\Sentinel\UserController@archives')->name('users.archives');
     Route::resource('users', '\Revlv\Controllers\Sentinel\UserController');
     Route::resource('roles', '\Revlv\Controllers\Sentinel\RoleController');
     Route::resource('permissions', '\Revlv\Controllers\Sentinel\PermissionController');
     Route::resource('user/groups', '\Revlv\Controllers\Sentinel\UserGroupController');
 
 
+    Route::post('suppliers/accepts/{id}', '\Revlv\Controllers\Settings\SupplierController@acceptSupplier')->name('suppliers.accepts');
+    Route::get('suppliers/drafts', '\Revlv\Controllers\Settings\SupplierController@drafts')->name('suppliers.drafts');
     Route::resource('suppliers', '\Revlv\Controllers\Settings\SupplierController');
     Route::resource('signatories', '\Revlv\Controllers\Settings\SignatoryController');
 
@@ -167,6 +170,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('permissions', '\Revlv\Controllers\Sentinel\PermissionController@getDatatable')->name('permissions');
     Route::get('roles', '\Revlv\Controllers\Sentinel\RoleController@getDatatable')->name('roles');
     Route::get('users', '\Revlv\Controllers\Sentinel\UserController@getDatatable')->name('users');
+    Route::get('users-trashed', '\Revlv\Controllers\Sentinel\UserController@getArchivedDatatable')->name('users-trashed');
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +178,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('supplier-drafts', '\Revlv\Controllers\Settings\SupplierController@getDraftDatatable')->name('settings.supplier-drafts');
     Route::get('suppliers', '\Revlv\Controllers\Settings\SupplierController@getDatatable')->name('settings.suppliers');
     Route::get('signatories', '\Revlv\Controllers\Settings\SignatoryController@getDatatable')->name('settings.signatories');
 

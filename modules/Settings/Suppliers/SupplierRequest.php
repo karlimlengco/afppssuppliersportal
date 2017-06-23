@@ -26,6 +26,7 @@ class SupplierRequest extends BaseRequest
         'fax_2',
         'email_1',
         'email_2',
+        'status',
     ];
 
     /**

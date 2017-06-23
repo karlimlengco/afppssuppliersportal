@@ -5,17 +5,8 @@ Suppliers
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
-    </div>
-    <div class="six columns utility utility--align-right" >
-
-        <button class="button button--options-trigger" tooltip="Options">
-            <i class="nc-icon-mini ui-2_menu-dots"></i>
-            <div class="button__options">
-                <a href="{{route($draftRoute)}}" class="button__options__item">Drafts</a>
-            </div>
-        </button>
+    <div class="twelve columns utility utility--align-right" >
+        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
         <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
     </div>
@@ -59,7 +50,7 @@ Suppliers
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.settings.suppliers')}}",
+                url: "{{route('datatables.settings.supplier-drafts')}}",
                 // data: function (d) {
                     // d.search.value = $('#search-table').val();
                 // }

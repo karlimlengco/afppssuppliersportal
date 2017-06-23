@@ -36,6 +36,7 @@ class SupplierEloquent extends Model
         'fax_2',
         'email_1',
         'email_2',
+        'status',
     ];
 
 }
