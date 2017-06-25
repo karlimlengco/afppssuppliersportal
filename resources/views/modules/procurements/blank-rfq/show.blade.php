@@ -2,6 +2,10 @@
 Request For Quotation
 @stop
 
+@section('styles')
+<link rel="stylesheet" href="/vendors/timepicker/timepicker.min.css">
+@stop
+
 @section('modal')
     @include('modules.partials.modals.proponents')
     @include('modules.partials.modals.philgeps_posting')
@@ -14,9 +18,13 @@ Request For Quotation
         <button class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
+                <a href="#" class="button__options__item" id="proponent-button">Add Proponents</a>
                 @if($data->status == 'pending')
-                    <a href="#" class="button__options__item" id="proponent-button">Add Proponents</a>
                     <a href="#" class="button__options__item" id="philgeps-posting-button">PhilGeps Posting</a>
+                @endif
+
+                @if(count($data->philgeps) != 0)
+                    <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" class="button__options__item">PhilGeps Posting</a>
                 @endif
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
@@ -104,7 +112,18 @@ Request For Quotation
 @stop
 
 @section('scripts')
+<script src="/vendors/timepicker/timepicker.min.js"></script>
 <script type="text/javascript">
+    var timepicker = new TimePicker('id-field-opening_time', {
+        lang: 'en',
+        theme: 'dark'
+    });
+
+    timepicker.on('change', function(evt){
+      var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+      evt.element.value = value;
+    });
+
 
     $('#proponent-button').click(function(e){
         e.preventDefault();
@@ -127,6 +146,32 @@ Request For Quotation
         yearRange: [2000,2020]
     });
 
+
+    // datepicker
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-transaction_date'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-deadline_rfq'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-philgeps_posting'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
 
 </script>
 @stop

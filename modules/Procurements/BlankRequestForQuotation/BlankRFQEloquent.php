@@ -92,4 +92,14 @@ class BlankRFQEloquent extends Model
         return $this->hasMany('\Revlv\Procurements\Items\ItemEloquent', 'upr_id');
     }
 
+    /**
+     * [philgeps description]
+     *
+     * @return [type] [description]
+     */
+    public function philgeps()
+    {
+        return $this->hasOne('\Revlv\Procurements\PhilGepsPosting\PhilGepsPostingEloquent', 'rfq_id');
+    }
+
 }

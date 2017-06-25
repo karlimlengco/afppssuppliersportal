@@ -93,7 +93,10 @@ class PhilGepsPostingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PhilGepsPostingRequest $request, PhilGepsPostingRepository $model, BlankRFQRepository $rfq)
+    public function store(
+        PhilGepsPostingRequest $request,
+        PhilGepsPostingRepository $model,
+        BlankRFQRepository $rfq)
     {
         $rfq_model              =   $rfq->findById($request->rfq_id);
         $inputs                 =   $request->getData();
@@ -106,7 +109,7 @@ class PhilGepsPostingController extends Controller
 
         $result = $model->save($inputs);
 
-        return redirect()->route($this->baseUrl.'show', $result->id)->with([
+        return redirect()->back()->with([
             'success'  => "New record has been successfully added."
         ]);
     }

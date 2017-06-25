@@ -78,9 +78,12 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'request_for_quotations.status as rfq_status',
             'request_for_quotations.created_at as rfq_created_at',
             'request_for_quotations.completed_at as rfq_completed_at',
+            'philgeps_posting.id as pp_id',
+            'philgeps_posting.philgeps_posting as pp_completed_at',
         ]);
 
         $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
 
         $model  =   $model->where('unit_purchase_requests.id', '=', $id);
 

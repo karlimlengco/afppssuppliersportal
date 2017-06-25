@@ -42,7 +42,7 @@ Unit Purchase Request
                     <td>{{$data->rfq_completed_at}}</td>
 
                     <td>
-                    @if($data->rfq_completed_at)
+                    @if($data->rfq_completed_at && $data->rfq_completed_at)
                         {{-- Assigning dates to get day interval--}}
                         <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at); ?>
                         <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->date_prepared); ?>
@@ -51,6 +51,25 @@ Unit Purchase Request
                     @endif
                     </td>
                 </tr>
+
+                <tr>
+                    <td>PhilGeps Posting</td>
+
+                    <td>Completed</td>
+
+                    <td>{{$data->pp_completed_at}}</td>
+
+                    <td>
+                    @if($data->pp_completed_at && $data->rfq_completed_at)
+                        {{-- Assigning dates to get day interval--}}
+                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->pp_completed_at); ?>
+                        <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->rfq_completed_at); ?>
+
+                        {{ $dt->diffInDays($upr_create) }}
+                    @endif
+                    </td>
+                </tr>
+
             </tbody>
         </table>
     </div>

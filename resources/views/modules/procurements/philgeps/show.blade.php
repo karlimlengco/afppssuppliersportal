@@ -14,7 +14,9 @@ PhilGeps Posting
         <button class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
-                    <a href="#" class=" topbar__utility__button--modal button__options__item">Add Attachment</a>
+                <a href="#" class=" topbar__utility__button--modal button__options__item">Add Attachment</a>
+                <a href="{{route('procurements.unit-purchase-requests.show',$data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
+                <a href="{{route('procurements.blank-rfq.show',$data->rfq_id)}}" class=" button__options__item">Request For Quotation</a>
             </div>
         </button>
         <a class="button" href="{{route($editRoute,$data->id)}}">

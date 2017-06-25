@@ -28,6 +28,10 @@ Unit Purchase Request
                 @if(count($data->rfq) != 0)
                     <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button__options__item">Request for Quotation</a>
                 @endif
+
+                @if(count($data->philgeps) != 0)
+                    <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" class="button__options__item">PhilGeps Posting</a>
+                @endif
             </div>
         </button>
 
