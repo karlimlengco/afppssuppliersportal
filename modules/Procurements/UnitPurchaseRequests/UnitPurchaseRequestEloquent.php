@@ -24,6 +24,7 @@ class UnitPurchaseRequestEloquent extends Model
     protected $fillable = [
         'place_of_delivery',
         'status',
+        'state',
         'mode_of_procurement',
         'chargeability',
         'account_code',

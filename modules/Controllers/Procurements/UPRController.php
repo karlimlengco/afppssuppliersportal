@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use DB;
+use Excel;
 
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRequest;
@@ -66,6 +67,42 @@ class UPRController extends Controller
     }
 
     /**
+     * [uploadView description]
+     *
+     * @return [type] [description]
+     */
+    public function uploadView()
+    {
+        return $this->view('modules.procurements.upr.import',[
+            'indexRoute'    =>  $this->baseUrl."index",
+            'modelConfig'   =>  [
+                'importFile'    =>  [
+                    'route' =>  $this->baseUrl.'import-file',
+                    'method'=>  'POST',
+                    'files' =>  true
+                ]
+            ]
+        ]);
+    }
+
+    /**
+     * [uploadFile description]
+     *
+     * @param  Request                       $request [description]
+     * @param  UnitPurchaseRequestRepository $model   [description]
+     * @return [type]                                 [description]
+     */
+    public function uploadFile(Request $request, UnitPurchaseRequestRepository $model)
+    {
+        $path           =   $request->file('file')->getRealPath();
+
+        $data           =   [];
+        $reader         =   Excel::selectSheets('UPR')->load($path, function($reader) {});
+
+        dd($reader->get()->toArray());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -73,7 +110,8 @@ class UPRController extends Controller
     public function index()
     {
         return $this->view('modules.procurements.upr.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'importRoute'   =>  $this->baseUrl."imports"
         ]);
     }
 

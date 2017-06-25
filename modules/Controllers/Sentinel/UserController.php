@@ -190,6 +190,18 @@ class UserController extends Controller
         $user               =   $this->userRepository->findByUsername($user);
         $inputs             =   $request->getData();
 
+        if( $request->role != null)
+        {
+            $user->roles()->detach();
+
+            $role = \Sentinel::findRoleById( $request->role );
+
+            foreach($role as $rol)
+            {
+                $rol->users()->attach($user);
+            }
+        }
+
         $this->userRepository->update($inputs, $user->id);
 
         return redirect()->route('settings.users.show', $user->username)->with([

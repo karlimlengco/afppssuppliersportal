@@ -38,6 +38,8 @@ Users
                 <tr>
                     <th>Username</th>
                     <th>Full name</th>
+                    <th>Designation</th>
+                    <th>Unit</th>
                     <th>Email</th>
                     <th>Contact #</th>
                     <th>Gender</th>
@@ -65,6 +67,8 @@ Users
         columns: [
             {data: 'username', name: 'username'},
             {data: 'full_name', name: 'full_name'},
+            {data: 'designation', name: 'designation'},
+            {data: 'unit_name', name: 'unit_name'},
             {data: 'email', name: 'email'},
             {data: 'contact_number', name: 'contact_number'},
             {data: 'gender', name: 'gender'},

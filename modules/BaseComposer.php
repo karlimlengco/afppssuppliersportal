@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Revlv\Users\UserRepository;
 use Revlv\Messages\MessageEloquent;
 use Cart;
-use Revlv\Items\Orders\Lines\OrderLineEloquent;
 
 class BaseComposer
 {
@@ -23,9 +22,9 @@ class BaseComposer
      * @param Model $model
      * @param Department Model $model
      */
-    public function __construct()
+    public function __construct(UserRepository $user)
     {
-
+        $this->user =   $user;
     }
 
     /**
@@ -33,7 +32,11 @@ class BaseComposer
      */
     public function compose($view)
     {
-        $user   =   \Sentinel::getUser();
-        $view->with('currentUser', $user);
+
+        $userId         =   \Sentinel::getUser()->id;
+
+        $userModel      =   $this->user->findById($userId);
+
+        $view->with('currentUser', $userModel);
     }
 }

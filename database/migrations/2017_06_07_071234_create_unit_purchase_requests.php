@@ -38,6 +38,7 @@ class CreateUnitPurchaseRequests extends Migration
             $table->string('total_amount');
 
             $table->string('status')->default('draft');
+            $table->string('state')->default('draft');
 
             $table->integer('prepared_by');
 

@@ -32,6 +32,8 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
 
     Route::get('rfq/get-info/{id}', '\Revlv\Controllers\Procurements\BlankRFQController@getInfo')->name('rfq.get-info');
 
+    Route::get('unit-purchase-requests/imports', '\Revlv\Controllers\Procurements\UPRController@uploadView')->name('unit-purchase-requests.imports');
+    Route::post('unit-purchase-requests/import-file', '\Revlv\Controllers\Procurements\UPRController@uploadFile')->name('unit-purchase-requests.import-file');
     Route::resource('unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController');
 
     Route::resource('blank-rfq', '\Revlv\Controllers\Procurements\BlankRFQController');

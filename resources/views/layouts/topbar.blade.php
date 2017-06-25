@@ -29,7 +29,7 @@ $cRoute = explode('.', $currentRoute);
             <div class="topbar__user">
                 <div class="topbar__user__info">
                     <span class="topbar__user__info__name">{{$currentUser->first_name}}, {{$currentUser->surname}}</span>
-                    <span class="topbar__user__info__dept">Headquarters</span>
+                    <span class="topbar__user__info__dept">{{$currentUser->designation}}</span>
                 </div>
                 <div class="topbar__user__avatar">
                     <!-- DC -->

@@ -9,7 +9,7 @@ Roles
         <h3> </h3>
     </div>
     <div class="six columns utility utility--align-right" >
-        <a class="button" href="{{route('settings.roles.index')}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
+        <a class="button" href="{{route('settings.roles.create')}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
     </div>
 </div>
 

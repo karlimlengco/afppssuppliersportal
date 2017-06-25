@@ -9,13 +9,13 @@ Permissions
 @section('contents')
 
 
-{!! Form::model($role, ['route' => ['settings.permissions.update', $role->id], 'id' => 'mainForm', 'method' => 'PUT']) !!}
+{!! Form::model($permission, ['route' => ['settings.permissions.update', $permission->id], 'id' => 'mainForm', 'method' => 'PUT']) !!}
 
 <div class="row">
     <div class="twelve columns align-left utility utility--align-right">
         <a href="{{route('settings.permissions.index')}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
-        <button type="submit" class="button topbar__utility__button--modal"  tooltip="Save">
+        <button type="submit" class="button "  tooltip="Save">
         <i class="nc-icon-mini ui-2_disk"></i>
         </button>
 
@@ -26,9 +26,9 @@ Permissions
 <div class="row">
     <div class="twelve column">
 
-        {!! Form::textField('permission', '') !!}
+        {!! Form::textField('permission', 'Permission') !!}
 
-        {!! Form::textField('description', '') !!}
+        {!! Form::textField('description', 'Description') !!}
 
     </div>
 </div>

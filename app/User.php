@@ -35,6 +35,7 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
         'address',
         'email',
         'username',
+        'unit_id',
     ];
 
     /**
@@ -43,6 +44,7 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
      * @var string
      */
     protected $table = 'users';
+    // protected $with  = 'units';
 
     /**
      * The attributes that are mass assignable.
@@ -103,6 +105,16 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
     public function notebook()
     {
         return $this->hasMany(Notebook::class);
+    }
+
+    /**
+     * [unit description]
+     *
+     * @return [type] [description]
+     */
+    public function units()
+    {
+        return $this->belongsTo('\Revlv\Settings\CateredUnits\CateredUnitEloquent', 'unit_id');
     }
 
     /**

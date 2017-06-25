@@ -10,6 +10,14 @@ Unit Purchase Request
         {{-- <h3>Unit Purchase Request</h3> --}}
     </div>
     <div class="six columns utility utility--align-right" >
+
+        <button class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                <a href="{{route($importRoute)}}" class="button__options__item">Import UPR</a>
+            </div>
+        </button>
+
         <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
     </div>
 </div>

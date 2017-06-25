@@ -198,9 +198,13 @@ class UserRepository extends BaseRepository
     {
         $model  =   $this->model;
 
-        $model  = $model->select('users.*',
-                \DB::raw("CONCAT(users.first_name,' ', users.surname) AS full_name")
+        $model  = $model->select(
+            'users.*',
+            \DB::raw("CONCAT(users.first_name,' ', users.surname) AS full_name"),
+            'catered_units.description as unit_name'
             );
+
+        $model  = $model->leftJoin('catered_units', 'catered_units.id', '=', 'users.unit_id');
 
         if($archives == 'archive')
         {

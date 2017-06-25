@@ -4,7 +4,7 @@ My Profile
 
 @section('contents')
 
-{!! Form::model($data, $modelConfig['update']) !!}
+{!! Form::model($user, $modelConfig['update']) !!}
 
 <div class="row">
     <div class="twelve columns align-left utility utility--align-right">
@@ -38,11 +38,11 @@ My Profile
                 <li><a href="#" >{{$user->email}}</a></li>
                 <li></i> {{$user->last_login  }}</li>
             </ul>
-
+{{--
                 <a class="button" href="{{route('reminder.reset', 'email='.$user->email)}}" >Reset Password</a>
             @if($user->last_login == null)
                 <a class="button" href="{{route('reminder.reset', 'email='.$user->email)}}">Resend Code</a>
-            @endif
+            @endif --}}
             <br>
         </div>
     </div>

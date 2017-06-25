@@ -14,7 +14,7 @@ Users
     <div class="twelve columns align-left utility utility--align-right">
         <a href="{{route('settings.users.index')}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
-        <button type="submit" class="button topbar__utility__button--modal"  tooltip="Save">
+        <button type="submit" class="button "  tooltip="Save">
         <i class="nc-icon-mini ui-2_disk"></i>
         </button>
 
@@ -109,7 +109,7 @@ Users
 
                  {{--    <button type="submit" class="button">Update</button>
                     <button class="button topbar__utility__button--modal" >Delete</button> --}}
-                {!! Form::close() !!}
+                {{-- {!! Form::close() !!} --}}
 
                 <br>
                 <br>
@@ -119,12 +119,15 @@ Users
                 <hr>
                 <br>
 
-                {!!Form::model($user, ['route'=>['user.groups.update',$user->id], 'method'=> 'PUT', 'id' => 'mainForm'])!!}
+                    {!! Form::tagField('role', 'Roles', $roles, (count( $user->roles ) != 0 ) ? $user->roles->pluck('id')->toArray()   : "", ['data-max-items' => 10]) !!}
+{{--                 {!!Form::model($user, ['route'=>['user.groups.update',$user->id], 'method'=> 'PUT', 'id' => 'mainForm'])!!}
                     {!! Form::tagField('role', 'Roles', $roles, (count( $user->roles ) != 0 ) ? $user->roles->pluck('id')->toArray()   : "", ['data-max-items' => 10]) !!}
                     <button type="submit" class="button">Continue</button>
-                {!!Form::close()!!}</div>
+                {!!Form::close()!!}
+ --}}                </div>
             </div>
 
+                {!! Form::close() !!}
         </div>
     </div>
 
