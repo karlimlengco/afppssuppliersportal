@@ -14,16 +14,28 @@ class UnitPurchaseRequestRequest extends BaseRequest
         'mode_of_procurement',
         'chargeability',
         'account_code',
+
         'fund_validity',
         'terms_of_payment',
-        'date_processed',
         'other_infos',
-        'upr_number',
-        'purpose',
-        'afpps_ref_number',
-        'date_prepared',
+
         'units',
+        'purpose',
+
+        'project_name',
+        'upr_number',
+        'ref_number',
+
+        'date_prepared',
         'prepared_by',
+
+        'date_processed',
+        'processed_by',
+
+        'total_amount',
+
+        'status',
+        'state',
     ];
 
     /**
@@ -34,13 +46,15 @@ class UnitPurchaseRequestRequest extends BaseRequest
     public function rules()
     {
         return [
-            'place_of_delivery'     => 'required',
-            'mode_of_procurement'   => 'required',
-            'chargeability'         => 'required',
-            'units'                 => 'required',
+            'project_name'          => 'required',
+            'upr_number'            => 'required',
+            'place_of_delivery'     => 'required|integer',
+            'mode_of_procurement'   => 'required|integer',
+            'chargeability'         => 'required|integer',
+            'units'                 => 'required|integer',
             'purpose'               => 'required',
-            'account_code'          => 'required',
-            'afpps_ref_number'      => 'required'
+            'account_code'          => 'required|integer',
+            'date_prepared'         => 'required|date',
         ];
     }
 }

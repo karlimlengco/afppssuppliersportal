@@ -16,12 +16,19 @@ class CreateRequestForQuotations extends Migration
         Schema::create('request_for_quotations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('upr_id');
+
             $table->string('upr_number')->nullable();
             $table->string('rfq_number')->nullable();
+
             $table->date('deadline');
-            $table->string('status')->default('pending');
             $table->time('opening_time');
             $table->date('transaction_date');
+            $table->timestamp('completed_at')->nullable();
+
+            $table->string('status')->default('pending');
+            $table->string('remarks')->nullable();
+            $table->integer('processed_by')->nullable();
+
             $table->integer('awarded_to')->nullable();
             $table->date('awarded_date')->nullable();
             $table->string('is_award_accepted')->nullable();

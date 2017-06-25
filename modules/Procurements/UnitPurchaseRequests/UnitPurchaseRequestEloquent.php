@@ -23,22 +23,31 @@ class UnitPurchaseRequestEloquent extends Model
      */
     protected $fillable = [
         'place_of_delivery',
-        'status',
-        'state',
         'mode_of_procurement',
         'chargeability',
         'account_code',
+
         'fund_validity',
         'terms_of_payment',
         'other_infos',
-        'upr_number',
-        'purpose',
-        'afpps_ref_number',
-        'date_prepared',
-        'total_amount',
-        'date_processed',
+
         'units',
+        'purpose',
+
+        'project_name',
+        'upr_number',
+        'ref_number',
+
+        'date_prepared',
         'prepared_by',
+
+        'date_processed',
+        'processed_by',
+
+        'total_amount',
+
+        'status',
+        'state',
     ];
 
     /**
@@ -162,6 +171,16 @@ class UnitPurchaseRequestEloquent extends Model
     }
 
     /**
+     * [processor description]
+     *
+     * @return [type] [description]
+     */
+    public function processor()
+    {
+        return $this->belongsTo('\App\User', 'processed_by');
+    }
+
+    /**
      * [items description]
      *
      * @return [type] [description]
@@ -169,6 +188,16 @@ class UnitPurchaseRequestEloquent extends Model
     public function items()
     {
         return $this->hasMany('\Revlv\Procurements\Items\ItemEloquent', 'upr_id');
+    }
+
+    /**
+     * [attachments description]
+     *
+     * @return [type] [description]
+     */
+    public function attachments()
+    {
+         return $this->hasMany('\Revlv\Procurements\UnitPurchaseRequests\Attachments\AttachmentEloquent', 'upr_id');
     }
 
 }

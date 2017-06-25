@@ -23,14 +23,21 @@ class BlankRFQEloquent extends Model
      */
     protected $fillable = [
         'upr_id',
+
         'upr_number',
         'rfq_number',
+
         'deadline',
-        'status',
         'opening_time',
+        'transaction_date',
+
+        'status',
+        'remarks',
+        'processed_by',
+
         'awarded_to',
         'awarded_date',
-        'transaction_date',
+        'completed_at',
         'is_award_accepted',
         'award_accepted_date',
     ];
@@ -43,6 +50,16 @@ class BlankRFQEloquent extends Model
     public function proponents()
     {
          return $this->hasMany('\Revlv\Procurements\RFQProponents\RFQProponentEloquent', 'rfq_id');
+    }
+
+    /**
+     * [processor description]
+     *
+     * @return [type] [description]
+     */
+    public function processor()
+    {
+        return $this->belongsTo('\App\User', 'processed_by');
     }
 
     /**

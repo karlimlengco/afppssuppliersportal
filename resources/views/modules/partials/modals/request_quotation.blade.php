@@ -1,4 +1,4 @@
-<div class="modal">
+<div class="modal" id="process-modal">
     <div class="modal__dialogue modal__dialogue--round-corner">
         <form method="POST" id="delete-form" action="{{ route($modelConfig['request_quotation']['route']) }}" accept-charset="UTF-8">
             <button type="button" class="modal__close-button">
@@ -11,18 +11,19 @@
 
             <div class="modal__dialogue__body">
                 <div class="row">
-                    <div class="six columns">
+                    <div class="four columns">
                         {!! Form::textField('transaction_date', 'Transaction Date') !!}
                     </div>
-                    <div class="six columns">
+                    <div class="four columns">
                         {!! Form::textField('deadline', 'Deadline to submit') !!}
+                    </div>
+                    <div class="four columns">
+                        {!! Form::textField('opening_time', 'Opening Time') !!}
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="six columns">
-                        {!! Form::textField('opening_time', 'Opening Time') !!}
-                    </div>
+                    {!! Form::textareaField('remarks', 'Remarks', null, ['rows'=>3])!!}
                 </div>
 
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">

@@ -252,4 +252,20 @@ class RFQProponentController extends Controller
             'success'  => "Record has been successfully deleted."
         ]);
     }
+
+    /**
+     * [delete description]
+     *
+     * @param  [type]                 $id    [description]
+     * @param  RFQProponentRepository $model [description]
+     * @return [type]                        [description]
+     */
+    public function delete($id, RFQProponentRepository $model)
+    {
+        $result     =   $model->delete($id);
+
+        return redirect()->route('procurements.blank-rfq.show',$result->rfq_id)->with([
+            'success'  => "Record has been successfully deleted."
+        ]);
+    }
 }

@@ -4,7 +4,7 @@ namespace Revlv\Procurements\BlankRequestForQuotation;
 
 use Revlv\BaseRequest;
 
-class BlankRFQRequest extends BaseRequest
+class UpdateRequest extends BaseRequest
 {
     /**
      * @var array
@@ -17,6 +17,7 @@ class BlankRFQRequest extends BaseRequest
 
         'deadline',
         'opening_time',
+        'completed_at',
         'transaction_date',
 
         'status',
@@ -25,7 +26,6 @@ class BlankRFQRequest extends BaseRequest
 
         'awarded_to',
         'awarded_date',
-        'completed_at',
         'is_award_accepted',
         'award_accepted_date',
     ];
@@ -38,7 +38,6 @@ class BlankRFQRequest extends BaseRequest
     public function rules()
     {
         return [
-            'upr_id'                => 'required',
             'deadline'              => 'required',
             'opening_time'          => 'required',
             'transaction_date'      => 'required',

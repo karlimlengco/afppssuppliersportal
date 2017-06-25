@@ -3,6 +3,7 @@
 namespace Revlv\Procurements\UnitPurchaseRequests;
 
 use Revlv\BaseRepository;
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class UnitPurchaseRequestRepository extends BaseRepository
@@ -49,6 +50,59 @@ class UnitPurchaseRequestRepository extends BaseRepository
         $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
 
         $model  =   $model->where('request_for_quotations.id', '=', $rfq);
+
+        return $model->first();
+    }
+
+    /**
+     * [findTimelineById description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function findTimelineById($id)
+    {
+        $model  =    $this->model;
+
+        $model  =   $model->select([
+            'unit_purchase_requests.id',
+            'unit_purchase_requests.project_name',
+            'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.ref_number',
+            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.state',
+            'unit_purchase_requests.date_processed',
+            'unit_purchase_requests.created_at as upr_created_at',
+            'request_for_quotations.id as rfq_id',
+            'request_for_quotations.rfq_number',
+            'request_for_quotations.status as rfq_status',
+            'request_for_quotations.created_at as rfq_created_at',
+            'request_for_quotations.completed_at as rfq_completed_at',
+        ]);
+
+        $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
+
+        $model  =   $model->where('unit_purchase_requests.id', '=', $id);
+
+        return $model->first();
+    }
+
+    /**
+     * [getCountByYear description]
+     *
+     * @param  [type] $year [description]
+     * @return [type]       [description]
+     */
+    public function getCountByYear($year)
+    {
+
+        $model  =   $this->model;
+
+        $model  =   $model->select([
+            DB::raw("count(id) as total")
+        ]);
+
+        $model  =   $model->whereYear('prepared_by', '=', $year);
 
         return $model->first();
     }

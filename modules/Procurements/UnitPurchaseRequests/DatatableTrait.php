@@ -23,11 +23,12 @@ trait DatatableTrait
         $model  =   $model->select([
             'unit_purchase_requests.id',
             'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.ref_number',
             'unit_purchase_requests.date_prepared',
-            'unit_purchase_requests.afpps_ref_number',
             'unit_purchase_requests.created_at',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.status',
+            'unit_purchase_requests.state',
             'mode_of_procurements.name as type',
             DB::raw("CONCAT(users.first_name,' ', users.surname) AS full_name"),
             DB::raw("COUNT(unit_purchase_request_items.id) as item_count")
@@ -41,9 +42,10 @@ trait DatatableTrait
             'unit_purchase_requests.id',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.date_prepared',
-            'unit_purchase_requests.afpps_ref_number',
+            'unit_purchase_requests.ref_number',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.status',
+            'unit_purchase_requests.state',
             'unit_purchase_requests.created_at',
             'users.first_name',
             'users.surname',
@@ -72,6 +74,9 @@ trait DatatableTrait
             })
             ->editColumn('status', function($data){
                 return ucfirst($data->status);
+            })
+            ->editColumn('state', function($data){
+                return ucfirst($data->state);
             })
             ->rawColumns(['upr_number'])
             ->make(true);

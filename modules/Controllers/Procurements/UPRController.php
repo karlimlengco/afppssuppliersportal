@@ -9,6 +9,7 @@ use DB;
 use Excel;
 
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
+use \Revlv\Procurements\UnitPurchaseRequests\Attachments\AttachmentRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRequest;
 use \Revlv\Procurements\Items\ItemRepository;
 use \Revlv\Settings\AccountCodes\AccountCodeRepository;
@@ -160,25 +161,33 @@ class UPRController extends Controller
      */
     public function store(UnitPurchaseRequestRequest $request, UnitPurchaseRequestRepository $model)
     {
-        $items  =   $request->only(['item_description', 'quantity', 'unit_measurement', 'unit_price', 'total_amount']);
-        $procs  =   $request->getData();
+        $items                  =   $request->only([
+            'item_description',
+            'quantity',
+            'unit_measurement',
+            'unit_price',
+            'total_amount'
+        ]);
 
-        $total_amount   =   array_sum($items['total_amount']);
-        $prepared_by    =   \Sentinel::getUser()->id;
-        $item_datas     =   [];
+        $procs                  =   $request->getData();
+        $date                   =   \Carbon\Carbon::now();
+
+        $total_amount           =   array_sum($items['total_amount']);
+        $prepared_by            =   \Sentinel::getUser()->id;
+        $item_datas             =   [];
 
         $procs['total_amount']  =   $total_amount;
         $procs['prepared_by']   =   $prepared_by;
 
         $result = $model->save($procs);
 
-        if($result->unit && $result->centers)
-        {
-            $upr_name   =   "UPR-".$result->unit->name ."-". $result->centers->name."-". $result->id;
-            $upr_name   =   str_replace(" ", "-", $upr_name);
-        }
+        $counts                 =   $model->getCountByYear($date->format('Y'))->total;
+        $counts                 += 1;
 
-        $model->update(['upr_number' => $upr_name], $result->id);
+        $ref_name   =   "AMP-". $result->centers->name ."-". $counts ."-". $result->centers->name ."-". $date->format('Y');
+        $ref_name   =   str_replace(" ", "", $ref_name);
+
+        $model->update(['ref_number' => $ref_name], $result->id);
 
         if($result)
         {
@@ -190,7 +199,7 @@ class UPRController extends Controller
                     'unit_price'            =>  $items['unit_price'][$i],
                     'total_amount'          =>  $items['total_amount'][$i],
                     'upr_number'            =>  $request->get('upr_number'),
-                    'afpps_ref_number'      =>  $request->get('afpps_ref_number'),
+                    'ref_number'            =>  $request->get('ref_number'),
                     'prepared_by'           =>  $prepared_by,
                     'date_prepared'         =>  $request->get('date_prepared'),
                     'upr_id'                =>  $result->id
@@ -213,7 +222,7 @@ class UPRController extends Controller
      */
     public function show($id, UnitPurchaseRequestRepository $model)
     {
-        $result =   $model->with(['philgeps', 'rfq', 'canvassing', 'purchase_order', 'delivery_order'])->findById($id);
+        $result =   $model->with(['attachments'])->findById($id);
 
         return $this->view('modules.procurements.upr.show',[
             'data'          =>  $result,
@@ -222,6 +231,9 @@ class UPRController extends Controller
             'modelConfig'   =>  [
                 'request_quotation' =>  [
                     'route'     =>  'procurements.blank-rfq.store',
+                ],
+                'add_attachment' =>  [
+                    'route'     =>  [$this->baseUrl.'attachments.store', $id],
                 ]
             ]
         ]);
@@ -298,5 +310,85 @@ class UPRController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * [uploadAttachment description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function uploadAttachment(
+        Request $request,
+        $id,
+        AttachmentRepository $attachments)
+    {
+
+        $file       = md5_file($request->file);
+        $file       = $file.".".$request->file->getClientOriginalExtension();
+
+        $validator = \Validator::make($request->all(), [
+            'file' => 'required',
+        ]);
+
+        $result     = $attachments->save([
+            'upr_id'        =>  $id,
+            'name'          =>  $request->file->getClientOriginalName(),
+            'file_name'     =>  $file,
+            'user_id'       =>  \Sentinel::getUser()->id,
+            'upload_date'   =>  \Carbon\Carbon::now()
+        ]);
+
+        if($result)
+        {
+            $path       = $request->file->storeAs('upr-attachments', $file);
+        }
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Attachment has been successfully added."
+        ]);
+    }
+
+    /**
+     * [downloadAttachment description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function downloadAttachment(
+        Request $request,
+        $id,
+        AttachmentRepository $attachments)
+    {
+        $result     = $attachments->findById($id);
+
+        $directory      =   storage_path("app/upr-attachments/".$result->file_name);
+
+        if(!file_exists($directory))
+        {
+            return 'Sorry. File does not exists.';
+        }
+
+        return response()->download($directory);
+    }
+
+    /**
+     * [timelines description]
+     *
+     * @param  [type]                        $id    [description]
+     * @param  UnitPurchaseRequestRepository $model [description]
+     * @return [type]                               [description]
+     */
+    public function timelines($id, UnitPurchaseRequestRepository $model)
+    {
+        $upr_model  =   $model->findTimelineById($id);
+
+
+        return $this->view('modules.procurements.upr.timelines',[
+            'data'              =>  $upr_model,
+            'indexRoute'        =>  $this->baseUrl."show"
+        ]);
     }
 }

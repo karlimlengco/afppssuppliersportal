@@ -32,6 +32,9 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
 
     Route::get('rfq/get-info/{id}', '\Revlv\Controllers\Procurements\BlankRFQController@getInfo')->name('rfq.get-info');
 
+    Route::post('unit-purchase-requests/attachments/{id}', '\Revlv\Controllers\Procurements\UPRController@uploadAttachment')->name('unit-purchase-requests.attachments.store');
+    Route::get('unit-purchase-requests/timelines/{id}', '\Revlv\Controllers\Procurements\UPRController@timelines')->name('unit-purchase-requests.timelines');
+    Route::get('unit-purchase-requests/download/{id}', '\Revlv\Controllers\Procurements\UPRController@downloadAttachment')->name('unit-purchase-requests.attachments.download');
     Route::get('unit-purchase-requests/imports', '\Revlv\Controllers\Procurements\UPRController@uploadView')->name('unit-purchase-requests.imports');
     Route::post('unit-purchase-requests/import-file', '\Revlv\Controllers\Procurements\UPRController@uploadFile')->name('unit-purchase-requests.import-file');
     Route::resource('unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController');
@@ -45,6 +48,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('ispq/print/{id}', '\Revlv\Controllers\Procurements\ISPQController@viewPrint')->name('ispq.print');
     Route::resource('ispq', '\Revlv\Controllers\Procurements\ISPQController');
 
+    Route::get('rfq-proponents/delete{id}', '\Revlv\Controllers\Procurements\RFQProponentController@delete')->name('rfq-proponents.delete');
     Route::resource('rfq-proponents', '\Revlv\Controllers\Procurements\RFQProponentController');
 
     Route::resource('canvassing', '\Revlv\Controllers\Procurements\CanvassingController');

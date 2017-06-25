@@ -8,6 +8,7 @@ use PDF;
 use Auth;
 
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
+use \Revlv\Procurements\BlankRequestForQuotation\UpdateRequest;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
@@ -110,21 +111,26 @@ class BlankRFQController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BlankRFQRequest $request, BlankRFQRepository $model, UnitPurchaseRequestRepository $upr)
+    public function store(
+        BlankRFQRequest $request,
+        BlankRFQRepository $model,
+        UnitPurchaseRequestRepository $upr)
     {
-        $upr_model              =   $upr->with(['unit', 'centers'])->findById($request->upr_id);
+        $upr_model              =   $upr->findById($request->upr_id);
         $inputs                 =   $request->getData();
         $inputs['upr_number']   =   $upr_model->upr_number;
+        $inputs['processed_by'] =   \Sentinel::getUser()->id;
+        $split_upr              =   explode('-', $upr_model->ref_number);
+        $inputs['rfq_number']   =  "RFQ-".$split_upr[1]."-".$split_upr[2]."-".$split_upr[3]."-".$split_upr[4] ;
+
         $result = $model->save($inputs);
 
-        if($upr_model->unit && $upr_model->centers)
-        {
-            $rfq_name   =   "RFQ-".$upr_model->unit->name ."-". $upr_model->centers->name."-". $result->id;
-            $rfq_name   =   str_replace(" ", "-", $rfq_name);
-        }
-
-        $upr->update(['status' => 'processing', 'date_processed' => \Carbon\Carbon::now()], $upr_model->id);
-        $model->update(['rfq_number' => $rfq_name], $result->id);
+        $upr->update([
+            'status'        => 'Processing RFQ',
+            'state'         => 'On-Going',
+            'date_processed'=> \Carbon\Carbon::now(),
+            'processed_by'  => \Sentinel::getUser()->id
+            ], $upr_model->id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -198,7 +204,7 @@ class BlankRFQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BlankRFQRequest $request, $id, BlankRFQRepository $model)
+    public function update(UpdateRequest $request, $id, BlankRFQRepository $model)
     {
         $model->update($request->getData(), $id);
 

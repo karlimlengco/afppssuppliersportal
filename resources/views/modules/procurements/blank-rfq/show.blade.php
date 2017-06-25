@@ -4,6 +4,7 @@ Request For Quotation
 
 @section('modal')
     @include('modules.partials.modals.proponents')
+    @include('modules.partials.modals.philgeps_posting')
 @stop
 
 @section('contents')
@@ -14,14 +15,15 @@ Request For Quotation
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 @if($data->status == 'pending')
-                    <a href="#" class="topbar__utility__button--modal button__options__item">Add Proponents</a>
+                    <a href="#" class="button__options__item" id="proponent-button">Add Proponents</a>
+                    <a href="#" class="button__options__item" id="philgeps-posting-button">PhilGeps Posting</a>
                 @endif
 
-                <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="topbar__utility__button--modal button__options__item">Unit Purchase Request</a>
+                <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
 
                 @if(count($data->canvassing))
-                    <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="topbar__utility__button--modal button__options__item">Canvassing</a>
-                    <a href="{{route('procurements.noa.show', $data->canvassing->id)}}" class="topbar__utility__button--modal button__options__item">Awardee</a>
+                    <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class=" button__options__item">Canvassing</a>
+                    <a href="{{route('procurements.noa.show', $data->canvassing->id)}}" class=" button__options__item">Awardee</a>
                 @endif
             </div>
         </button>
@@ -38,8 +40,6 @@ Request For Quotation
     </div>
 </div>
 <br>
-<br>
-<br>
 <div class="row">
     <div class="six columns pull-left">
         <ul>
@@ -54,6 +54,8 @@ Request For Quotation
             <li> <strong>Deadline to Submit :</strong> {{ $data->deadline }} </li>
             <li> <strong>Canvas Opening Time :</strong> {{ $data->opening_time }} </li>
             <li> <strong>TransactionDate :</strong> {{ $data->transaction_date }} </li>
+            <li> <strong>Remarks :</strong> {{ $data->remarks }} </li>
+            <li> <strong>Processed By :</strong> {{($data->processor) ? $data->processor->first_name ." ". $data->processor->surname :""}} </li>
         </ul>
     </div>
 </div>
@@ -74,6 +76,7 @@ Request For Quotation
                     <th>Name</th>
                     <th>Processed Date</th>
                     <th>Bid Amount</th>
+                    <th>Notes</th>
                     <th>Prepared By</th>
                     <th></th>
                 </tr>
@@ -85,9 +88,10 @@ Request For Quotation
                     <td>{{$proponent->date_processed}}</td>
                     <td>{{formatPrice($proponent->bid_amount)}}</td>
                     <td>{{($proponent->users) ? $proponent->users->first_name ." ". $proponent->users->surname :""}} </td>
+                    <td>{{$proponent->note}}</td>
                     <td>
                         <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="attachments"> <span class="nc-icon-glyph ui-1_attach-87"></span> </a>
-                        <a href="#" tooltip="remove"> <span class="nc-icon-glyph ui-1_trash-simple"></span> </a>
+                        <a href="{{route('procurements.rfq-proponents.delete',$proponent->id)}}" tooltip="remove"> <span class="nc-icon-glyph ui-1_trash-simple"></span> </a>
                     </td>
                 </tr>
                 @endforeach
@@ -101,6 +105,15 @@ Request For Quotation
 
 @section('scripts')
 <script type="text/javascript">
+
+    $('#proponent-button').click(function(e){
+        e.preventDefault();
+        $('#proponent-modal').addClass('is-visible');
+    })
+    $('#philgeps-posting-button').click(function(e){
+        e.preventDefault();
+        $('#philgeps-posting-modal').addClass('is-visible');
+    })
     // datepicker
     // pickmeup('#id-field-date_processed', {
     //     format  : 'Y-m-d'
