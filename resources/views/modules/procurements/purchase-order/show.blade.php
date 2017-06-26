@@ -5,6 +5,7 @@ Purchase Order
 @section('modal')
     @include('modules.partials.modals.mfo')
     @include('modules.partials.modals.pcco')
+    @include('modules.partials.modals.po_signatory')
 @stop
 
 @section('contents')
@@ -26,9 +27,13 @@ Purchase Order
                 <a class=" button__options__item" id="pcco-button" href="#">PCCO Approval</a>
                 @endif
 
+                <a href="#" class="button__options__item" id="signatory-button"> Signatories</a>
+                <a href="{{route('procurements.purchase-orders.print-terms', $data->id)}}" class="button__options__item" id="signatory-button"> Print Terms</a>
+
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
                 <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="RFQ"> Request For Quotation</a>
-                <a href="{{route('procurements.ntp.show', $data->id)}}" class="button__options__item" tooltip="NTP"> Notice To Proceed</a>
+
+                {{-- <a href="{{route('procurements.ntp.show', $data->id)}}" class="button__options__item" tooltip="NTP"> Notice To Proceed</a> --}}
 
                 @if(count($data->delivery) != 0)
                 <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" tooltip="Delivery"> Delivery</a>
@@ -36,7 +41,7 @@ Purchase Order
             </div>
         </button>
 
-        <a href="#" class="button" tooltip="Print">
+        <a href="{{route('procurements.purchase-orders.print', $data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
         </a>
 
@@ -140,6 +145,10 @@ $('#pcco-button').click(function(e){
 $('#mfo-button').click(function(e){
     e.preventDefault();
     $('#mfo-modal').addClass('is-visible');
+})
+$('#signatory-button').click(function(e){
+    e.preventDefault();
+    $('#signatory-modal').addClass('is-visible');
 })
 
 $('#proceed-ntp-button').click(function(e){

@@ -35,6 +35,9 @@ class CreatePurchaseOrders extends Migration
             $table->text('mfo_remarks')->nullable();
             $table->string('received_by')->nullable();
             $table->string('signatory_id')->nullable();
+            $table->string('requestor_id')->nullable();
+            $table->string('accounting_id')->nullable();
+            $table->string('approver_id')->nullable();
             $table->date('award_accepted_date')->nullable();
             $table->timestamps();
         });

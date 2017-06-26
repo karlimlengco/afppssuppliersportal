@@ -63,6 +63,16 @@ class BlankRFQEloquent extends Model
     }
 
     /**
+     * [noa description]
+     *
+     * @return [type] [description]
+     */
+    public function noa()
+    {
+        return $this->hasOne('\Revlv\Procurements\NoticeOfAward\NOAELoquent', 'upr_id');
+    }
+
+    /**
      * [upr description]
      *
      * @return [type] [description]
@@ -80,6 +90,16 @@ class BlankRFQEloquent extends Model
     public function canvassing()
     {
         return $this->hasOne('\Revlv\Procurements\Canvassing\CanvassingEloquent', 'rfq_id');
+    }
+
+    /**
+     * [po description]
+     *
+     * @return [type] [description]
+     */
+    public function po()
+    {
+        return $this->hasOne('\Revlv\Procurements\PurchaseOrder\POEloquent', 'rfq_id');
     }
 
     /**

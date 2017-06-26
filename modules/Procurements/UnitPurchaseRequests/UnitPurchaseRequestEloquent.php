@@ -91,6 +91,16 @@ class UnitPurchaseRequestEloquent extends Model
     }
 
     /**
+     * [noa description]
+     *
+     * @return [type] [description]
+     */
+    public function noa()
+    {
+        return $this->hasOne('\Revlv\Procurements\NoticeOfAward\NOAELoquent', 'upr_id');
+    }
+
+    /**
      * [purchase_order description]
      *
      * @return [type] [description]

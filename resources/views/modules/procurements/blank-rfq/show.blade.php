@@ -36,6 +36,8 @@ Request For Quotation
                     @endif
                 @endif
 
+                <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
+
                 @if(count($data->philgeps) != 0)
                     <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" class="button__options__item">PhilGeps Posting</a>
                 @endif
@@ -52,7 +54,16 @@ Request For Quotation
                 @if(count($data->canvassing) != 0)
                     <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button__options__item">View Canvass</a>
                 @endif
-                <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
+
+                @if(count($data->noa) != 0)
+                    <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a>
+                    @if(count($data->po) == 0)
+                        <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button__options__item">Create PO</a>
+                    @else
+                        <a href="{{route('procurements.purchase-orders.show', $data->id)}}" class="button__options__item">View PO</a>
+                    @endif
+
+                @endif
 
             </div>
         </button>

@@ -41,8 +41,30 @@ class POEloquent extends Model
         'po_number',
         'received_by',
         'award_accepted_date',
-
+        'requestor_id',
+        'accounting_id',
+        'approver_id',
     ];
+
+    /**
+     * [upr description]
+     *
+     * @return [type] [description]
+     */
+    public function upr()
+    {
+        return $this->belongsTo('\Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestEloquent', 'upr_id');
+    }
+
+    /**
+     * [rfq description]
+     *
+     * @return [type] [description]
+     */
+    public function rfq()
+    {
+        return $this->belongsTo('\Revlv\Procurements\BlankRequestForQuotation\BlankRFQEloquent', 'rfq_id');
+    }
 
     /**
      * [terms description]

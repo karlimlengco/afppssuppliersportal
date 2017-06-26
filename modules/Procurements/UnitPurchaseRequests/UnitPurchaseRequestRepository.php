@@ -81,12 +81,18 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'philgeps_posting.id as pp_id',
             'philgeps_posting.philgeps_posting as pp_completed_at',
             'invitation_for_quotation.transaction_date as ispq_transaction_date',
+            'canvassing.created_at as canvass_start_date',
+            'notice_of_awards.awarded_date as noa_award_date',
+            'notice_of_awards.accepted_date as noa_approved_date',
+            'notice_of_awards.award_accepted_date as noa_award_accepted_date',
         ]);
 
         $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('ispq_quotations', 'ispq_quotations.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('invitation_for_quotation', 'invitation_for_quotation.id', '=', 'ispq_quotations.ispq_id');
+        $model  =   $model->leftJoin('canvassing', 'canvassing.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('notice_of_awards', 'notice_of_awards.upr_id', '=', 'unit_purchase_requests.id');
 
         $model  =   $model->where('unit_purchase_requests.id', '=', $id);
 

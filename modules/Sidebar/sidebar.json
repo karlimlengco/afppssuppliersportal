@@ -35,6 +35,11 @@
                     "route" :   "procurements.noa.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "Notice of Award"
+                },
+                {
+                    "route" :   "procurements.purchase-orders.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Purchase Orders"
                 }
             ]
         }

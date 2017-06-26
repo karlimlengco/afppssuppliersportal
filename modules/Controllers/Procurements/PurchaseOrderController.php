@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use DB;
+use PDF;
 
 use \Revlv\Procurements\PurchaseOrder\PORepository;
+use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\PurchaseOrder\Items\ItemRepository;
 use \Revlv\Procurements\PurchaseOrder\PORequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Settings\PaymentTerms\PaymentTermRepository;
+use \Revlv\Settings\Signatories\SignatoryRepository;
 
 class PurchaseOrderController extends Controller
 {
@@ -33,9 +36,11 @@ class PurchaseOrderController extends Controller
     protected $blank;
     protected $items;
     protected $upr;
+    protected $noa;
     protected $rfq;
     protected $terms;
     protected $proponents;
+    protected $signatories;
 
     /**
      * [$model description]
@@ -146,6 +151,27 @@ class PurchaseOrderController extends Controller
 
     }
 
+    public function createFromRfq(
+        $id,
+        BlankRFQRepository $rfq,
+        PaymentTermRepository $terms,
+        PORepository $model)
+    {
+
+        $term_lists =   $terms->lists('id','name');
+
+        $this->view('modules.procurements.purchase-order.create-from-rfq',[
+            'indexRoute'    =>  $this->baseUrl.'index',
+            'term_lists'    =>  $term_lists,
+            'rfq_id'        =>  $id,
+            'modelConfig'   =>  [
+                'store' =>  [
+                    'route'     =>  [$this->baseUrl.'store-from-rfq',$id]
+                ]
+            ]
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -166,6 +192,68 @@ class PurchaseOrderController extends Controller
                     'route'     =>  $this->baseUrl.'store'
                 ]
             ]
+        ]);
+    }
+    public function storeFromRfq(
+        $id,
+        Request $request,
+        PORepository $model,
+        ItemRepository $items,
+        NOARepository $noa,
+        UnitPurchaseRequestRepository $upr,
+        BlankRFQRepository $rfq)
+    {
+
+        $this->validate($request,[
+            'purchase_date'     => 'required',
+            'payment_term'      => 'required',
+        ]);
+
+        $inputs                 =   [
+            'purchase_date' =>  $request->purchase_date,
+            'payment_term'  =>  $request->payment_term,
+        ];
+
+        $items                  =   $request->only([
+            'item_description', 'quantity', 'unit_measurement', 'unit_price', 'total_amount'
+        ]);
+        $noa_model              =   $noa->with('winner')->findByRFQ($id);
+
+        $split_upr              =   explode('-', $noa_model->rfq_number);
+        $inputs['po_number']    =  "PO-".$split_upr[1]."-".$split_upr[2]."-".$split_upr[3]."-".$split_upr[4] ;
+
+        $rfq_model              =   $rfq->findById($noa_model->rfq_id);
+
+        $inputs['prepared_by']  =   \Sentinel::getUser()->id;
+        $inputs['rfq_id']       =   $id;
+        $inputs['upr_id']       =   $rfq_model->upr_id;
+        $inputs['upr_number']   =   $rfq_model->upr_number;
+        $inputs['rfq_number']   =   $rfq_model->rfq_number;
+        $inputs['bid_amount']   =   $noa_model->winner->bid_amount;
+        $inputs['status']       =   "pending";
+
+        $result = $model->save($inputs);
+
+        if($result)
+        {
+            for ($i=0; $i < count($items['item_description']); $i++) {
+                $item_datas[]  =   [
+                    'description'           =>  $items['item_description'][$i],
+                    'quantity'              =>  $items['quantity'][$i],
+                    'unit'                  =>  $items['unit_measurement'][$i],
+                    'price_unit'            =>  $items['unit_price'][$i],
+                    'total_amount'          =>  $items['total_amount'][$i],
+                    'order_id'              =>  $result->id,
+                ];
+            }
+
+            DB::table('purchase_order_items')->insert($item_datas);
+        }
+
+        $upr->update(['status' => "PO Created"], $noa_model->upr_id);
+
+        return redirect()->route($this->baseUrl.'show', $result->id)->with([
+            'success'  => "New record has been successfully added."
         ]);
     }
 
@@ -231,6 +319,7 @@ class PurchaseOrderController extends Controller
         $id,
         PORepository $model,
         RFQProponentRepository $proponents,
+        SignatoryRepository $signatories,
         UnitPurchaseRequestRepository $upr)
     {
         $result             =   $model->findById($id);
@@ -238,9 +327,11 @@ class PurchaseOrderController extends Controller
         $supplier           =   $proponent_awardee->supplier;
         $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findByRFQId($proponent_awardee->rfq_id);
 
+        $signatory_list     =   $signatories->lists('id','name');
         return $this->view('modules.procurements.purchase-order.show',[
             'data'          =>  $result,
             'upr_model'     =>  $upr_model,
+            'signatory_list'=>  $signatory_list,
             'supplier'      =>  $supplier,
             'awardee'       =>  $proponent_awardee,
             'indexRoute'    =>  $this->baseUrl.'index',
@@ -252,6 +343,10 @@ class PurchaseOrderController extends Controller
                 'pcco_approval' =>  [
                     'route'     =>  [$this->baseUrl.'pcco-approved', $id],
                     'method'    =>  'POST'
+                ],
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update', $id],
+                    'method'    =>  'PUT'
                 ]
             ]
         ]);
@@ -308,22 +403,13 @@ class PurchaseOrderController extends Controller
         PORepository $model
         )
     {
-        $this->validate($request, [
-            'received_by'   =>  'required',
-            'award_accepted_date'   =>  'required',
-        ]);
-
         $input  =   [
-            'received_by'           =>  $request->received_by,
-            'award_accepted_date'   =>  $request->award_accepted_date,
+            'requestor_id'  =>  $request->requestor_id,
+            'accounting_id' =>  $request->accounting_id,
+            'approver_id'   =>  $request->approver_id,
         ];
 
-        $result             =   $model->findById($id);
-        $proponent_awardee  =   $rfq->with('supplier')->findAwardeeByRFQId($result->rfq_id);
-
-        $proponent          =   $rfq->update($input, $proponent_awardee->id);
-
-        $blank->update(['status' => 'NOA Accepted'], $proponent->rfq_id);
+        $model->update($input, $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -343,5 +429,25 @@ class PurchaseOrderController extends Controller
         return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "Record has been successfully deleted."
         ]);
+    }
+
+
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrintTerms($id, PORepository $model)
+    {
+        $result                     =  $model->with(['rfq'])->findById($id);
+        $data['transaction_date']   =  $result->rfq->transaction_date;
+        $data['rfq_number']         =  $result->rfq_number;
+
+        $pdf = PDF::loadView('forms.po-terms', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('po-terms.pdf');
+        return $pdf->download('po-terms.pdf');
     }
 }

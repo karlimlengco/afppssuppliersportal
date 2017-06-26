@@ -18,6 +18,9 @@ class PORequest extends BaseRequest
         'bid_amount',
         'payment_term',
         'prepared_by',
+        'requestor_id',
+        'accounting_id',
+        'approver_id',
     ];
 
     /**

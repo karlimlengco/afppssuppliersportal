@@ -65,7 +65,7 @@ Unit Purchase Request
                         <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->pp_completed_at); ?>
                         <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d  H:i:s', $data->rfq_completed_at); ?>
 
-                        {{ $dt->diffInDays($upr_create) }}
+                        {{ ($dt->diffInDays($upr_create) == 0) ? "1" : $dt->diffInDays($upr_create) }}
                     @endif
                     </td>
                 </tr>
@@ -83,7 +83,79 @@ Unit Purchase Request
                         <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date); ?>
                         <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d  H:i:s', $data->rfq_completed_at); ?>
 
-                        {{ $dt->diffInDays($upr_create) }}
+                        {{ ($dt->diffInDays($upr_create) == 0) ? "1" : $dt->diffInDays($upr_create) }}
+                    @endif
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Canvassing</td>
+
+                    <td>Completed</td>
+
+                    <td>{{$data->canvass_start_date}}</td>
+
+                    <td>
+                    @if($data->ispq_transaction_date && $data->rfq_completed_at)
+                        {{-- Assigning dates to get day interval--}}
+                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_start_date); ?>
+                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date); ?>
+
+                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                    @endif
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Release NOA</td>
+
+                    <td>Completed</td>
+
+                    <td>{{$data->noa_award_date}}</td>
+
+                    <td>
+                    @if($data->canvass_start_date )
+                        {{-- Assigning dates to get day interval--}}
+                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->noa_award_date); ?>
+                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_start_date); ?>
+
+                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                    @endif
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Approved NOA</td>
+
+                    <td>Completed</td>
+
+                    <td>{{$data->noa_approved_date}}</td>
+
+                    <td>
+                    @if($data->noa_award_date )
+                        {{-- Assigning dates to get day interval--}}
+                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_approved_date); ?>
+                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->noa_award_date); ?>
+
+                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                    @endif
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Accepted NOA</td>
+
+                    <td>Completed</td>
+
+                    <td>{{$data->noa_award_accepted_date}}</td>
+
+                    <td>
+                    @if($data->noa_approved_date )
+                        {{-- Assigning dates to get day interval--}}
+                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_award_accepted_date); ?>
+                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_approved_date); ?>
+
+                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
                     @endif
                     </td>
                 </tr>

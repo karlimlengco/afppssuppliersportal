@@ -164,7 +164,7 @@ class BlankRFQRepository extends BaseRepository
             'unit_purchase_requests.terms_of_payment',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.total_amount as abc',
-            'unit_purchase_requests.afpps_ref_number',
+            'unit_purchase_requests.ref_number',
             'unit_purchase_requests.purpose',
             'unit_purchase_request_items.id as item_id',
             'unit_purchase_request_items.item_description',
@@ -180,7 +180,6 @@ class BlankRFQRepository extends BaseRepository
         $model  =   $model->leftJoin('unit_purchase_request_items', 'unit_purchase_request_items.upr_id', '=', 'request_for_quotations.upr_id');
 
         $model  =   $model->where('request_for_quotations.id','=', $id);
-        $model  =   $model->whereNotNull('is_award_accepted');
 
         return $model->get();
     }

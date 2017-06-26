@@ -35,8 +35,13 @@ Unit Purchase Request
                 @if(count($data->invitations) != 0)
                     <a href="{{route('procurements.ispq.edit', $data->invitations->ispq_id)}}" class="button__options__item">Invitation</a>
                 @endif
+
                 @if(count($data->canvassing) != 0)
                     <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button__options__item">View Canvass</a>
+                @endif
+
+                @if(count($data->noa) != 0)
+                    <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a>
                 @endif
 
             </div>
