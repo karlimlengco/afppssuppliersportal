@@ -5,9 +5,12 @@ namespace Revlv\Controllers\Procurements;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use PDF;
 
 use \Revlv\Procurements\Canvassing\CanvassingRepository;
+use \Revlv\Procurements\Canvassing\Signatories\SignatoryRepository as CSignatoryRepository;
 use \Revlv\Procurements\Canvassing\CanvassingRequest;
+use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
@@ -28,19 +31,9 @@ class CanvassingController extends Controller
      * @var [type]
      */
     protected $upr;
-
-    /**
-     * [$upr description]
-     *
-     * @var [type]
-     */
     protected $rfq;
-
-    /**
-     *
-     *
-     * @var [type]
-     */
+    protected $signatories;
+    protected $mysignatories;
     protected $proponents;
 
     /**
@@ -101,6 +94,48 @@ class CanvassingController extends Controller
     }
 
     /**
+     * [openCanvass description]
+     *
+     * @param  [type]                        $id    [description]
+     * @param  CanvassingRepository          $model [description]
+     * @param  BlankRFQRepository            $rfq   [description]
+     * @param  UnitPurchaseRequestRepository $upr   [description]
+     * @return [type]                               [description]
+     */
+    public function openCanvass(
+        $id,
+        CanvassingRepository $model,
+        BlankRFQRepository $rfq,
+        UnitPurchaseRequestRepository $upr)
+    {
+        $rfq_model              =   $rfq->with('invitations')->findById($id);
+
+        if($rfq_model->invitations == null)
+        {
+            return redirect()->back()->with([
+                'error'     =>  'Create Invitation First'
+            ]);
+        }
+
+        $inputs['rfq_number']   =   $rfq_model->rfq_number;
+        $inputs['upr_number']   =   $rfq_model->upr_number;
+        $inputs['upr_id']       =   $rfq_model->upr_id;
+        $inputs['rfq_id']       =   $id;
+        $inputs['canvass_date'] =   $rfq_model->invitations->canvassing_date;
+        $inputs['canvass_time'] =   \Carbon\Carbon::now()->format('H:i:s');
+        $inputs['open_by']      =   \Sentinel::getUser()->id;
+        $canvass_date           =   \Carbon\Carbon::now()->format("Y-m-d H:i:s");
+
+        $result = $model->save($inputs);
+
+        $upr->update(['status' => "Open Canvass ($canvass_date)"], $rfq_model->upr_id);
+
+        return redirect()->route($this->baseUrl.'show', $result->id)->with([
+            'success'  => "New record has been successfully added."
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -130,16 +165,22 @@ class CanvassingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( CanvassingRepository $model, $id, RFQProponentRepository $proponents)
+    public function show(
+        $id,
+        CanvassingRepository $model,
+        SignatoryRepository $signatories,
+        RFQProponentRepository $proponents)
     {
-        $result         =   $model->findById($id);
+        $result         =   $model->with(['opens', 'signatories'])->findById($id);
+        $signatory_lists=   $signatories->lists('id', 'name');
         $proponent_list =   $proponents->findByRFQId($result->rfq_id);
 
         return $this->view('modules.procurements.canvassing.show',[
-            'data'          =>  $result,
-            'proponent_list'=>  $proponent_list,
-            'indexRoute'    =>  $this->baseUrl.'index',
-            'editRoute'     =>  $this->baseUrl.'edit',
+            'data'              =>  $result,
+            'signatory_lists'   =>  $signatory_lists,
+            'proponent_list'    =>  $proponent_list,
+            'indexRoute'        =>  $this->baseUrl.'index',
+            'editRoute'         =>  $this->baseUrl.'edit',
         ]);
     }
 
@@ -188,6 +229,33 @@ class CanvassingController extends Controller
     }
 
     /**
+     * [addSignatories description]
+     *
+     */
+    public function addSignatories(
+        $id,
+        Request $request,
+        CSignatoryRepository $mysignatories,
+        CanvassingRepository $model
+        )
+    {
+        $canvass    =   $model->with('signatories')->findById($id);
+
+        $mysignatories->deleteAllByCanvass($id);
+
+        for ($i=0; $i < count($request->signatory_id); $i++) {
+            $mysignatories->save([
+                'signatory_id'  =>  $request->signatory_id[$i],
+                'canvass_id'    =>  $id
+            ]);
+        }
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "New record has been successfully added."
+        ]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -200,5 +268,31 @@ class CanvassingController extends Controller
         return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "Record has been successfully deleted."
         ]);
+    }
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint($id, CanvassingRepository $model)
+    {
+        $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
+
+        $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
+
+        $data['rfq_number']         =  $result->rfq->rfq_number;
+        $data['total_amount']       =  $result->upr->total_amount;
+        $data['unit']               =  $result->upr->unit->name;
+        $data['center']             =  $result->upr->centers->name;
+        $data['venue']              =  $result->rfq->invitations->ispq->venue;
+        $data['signatories']        =  $result->signatories;
+        $data['proponents']         =  $result->rfq->proponents;
+        $data['min_bid']            =  $min;
+
+        $pdf = PDF::loadView('forms.canvass', ['data' => $data])->setOption('margin-bottom', 10)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('canvass.pdf');
     }
 }

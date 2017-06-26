@@ -15,6 +15,7 @@ class CanvassingRequest extends BaseRequest
         'closebox_time',
         'order_time',
         'rfq_id',
+        'canvass_time',
         'rfq_number',
         'upr_number',
     ];

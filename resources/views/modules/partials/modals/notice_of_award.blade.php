@@ -1,4 +1,4 @@
-<div class="modal">
+<div class="modal" id="award-modal">
     <div class="modal__dialogue modal__dialogue--round-corner">
         <form method="POST" id="award-form" action="#" accept-charset="UTF-8">
             <button type="button" class="modal__close-button">

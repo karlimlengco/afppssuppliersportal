@@ -13,6 +13,7 @@ class RFQProponentEloquent extends Model
      * @var string
      */
     protected $table = 'rfq_proponents';
+    protected $with  = 'supplier';
 
     /**
      * The attributes that are mass assignable.

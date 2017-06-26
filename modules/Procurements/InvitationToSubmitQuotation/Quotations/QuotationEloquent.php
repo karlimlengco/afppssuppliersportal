@@ -13,6 +13,7 @@ class QuotationEloquent extends Model
      * @var string
      */
     protected $table = 'ispq_quotations';
+    protected $with =   'ispq';
 
     /**
      * The attributes that are mass assignable.

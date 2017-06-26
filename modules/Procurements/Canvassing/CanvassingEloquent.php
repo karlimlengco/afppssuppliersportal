@@ -26,6 +26,8 @@ class CanvassingEloquent extends Model
         'rfq_id',
         'upr_id',
         'rfq_number',
+        'canvass_time',
+        'open_by',
         'upr_number',
         'order_time',
         'signatory_id',
@@ -48,16 +50,35 @@ class CanvassingEloquent extends Model
      */
     public function upr()
     {
-        return $this->belongsTo('\Revlv\Procurements\BlankRequestForQuotation\BlankuprEloquent', 'upr_id');
+        return $this->belongsTo('\Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestEloquent', 'upr_id');
     }
 
+    // /**
+    //  * [signatories description]
+    //  *
+    //  * @return [type] [description]
+    //  */
+    // public function signatories()
+    // {
+    //     return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'signatory_id');
+    // }
+
     /**
-     * [signatories description]
-     *
-     * @return [type] [description]
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function signatories()
     {
-        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'signatory_id');
+        return $this->hasMany('\Revlv\Procurements\Canvassing\Signatories\SignatoryEloquent', 'canvass_id');
+        // return $this->belongsToMany(Role::class, 'role_users', 'user_id', 'role_id')->withTimestamps();
+    }
+
+    /**
+     * [opens description]
+     *
+     * @return [type] [description]
+     */
+    public function opens()
+    {
+        return $this->belongsTo('\App\User', 'open_by');
     }
 }

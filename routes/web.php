@@ -53,6 +53,9 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('rfq-proponents/delete{id}', '\Revlv\Controllers\Procurements\RFQProponentController@delete')->name('rfq-proponents.delete');
     Route::resource('rfq-proponents', '\Revlv\Controllers\Procurements\RFQProponentController');
 
+    Route::get('canvassing/print/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewPrint')->name('canvassing.print');
+    Route::post('canvassing/signatories/{id}', '\Revlv\Controllers\Procurements\CanvassingController@addSignatories')->name('canvassing.signatories');
+    Route::get('canvassing/opening/{id}', '\Revlv\Controllers\Procurements\CanvassingController@openCanvass')->name('canvassing.opening');
     Route::resource('canvassing', '\Revlv\Controllers\Procurements\CanvassingController');
 
     Route::post('rfq-proponents/attachments/{id}', '\Revlv\Controllers\Procurements\RFQProponentController@uploadAttachment')->name('rfq-proponents.attachments.store');

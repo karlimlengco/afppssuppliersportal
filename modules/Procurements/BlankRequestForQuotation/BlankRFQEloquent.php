@@ -14,7 +14,7 @@ class BlankRFQEloquent extends Model
      */
     protected $table = 'request_for_quotations';
 
-    protected $with  = 'proponents';
+    protected $with  = ['proponents','invitations'];
 
     /**
      * The attributes that are mass assignable.

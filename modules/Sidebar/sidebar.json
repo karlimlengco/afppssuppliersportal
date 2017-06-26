@@ -25,6 +25,11 @@
                     "route" :   "procurements.ispq.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "ISPQ"
+                },
+                {
+                    "route" :   "procurements.canvassing.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Canvassing"
                 }
             ]
         }
