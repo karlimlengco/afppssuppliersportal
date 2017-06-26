@@ -39,6 +39,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::post('unit-purchase-requests/import-file', '\Revlv\Controllers\Procurements\UPRController@uploadFile')->name('unit-purchase-requests.import-file');
     Route::resource('unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController');
 
+    Route::get('blank-rfq/closed/{id}', '\Revlv\Controllers\Procurements\BlankRFQController@closed')->name('blank-rfq.closed');
     Route::resource('blank-rfq', '\Revlv\Controllers\Procurements\BlankRFQController');
 
     Route::post('philgeps-posting/attachments/{id}', '\Revlv\Controllers\Procurements\PhilGepsPostingController@uploadAttachment')->name('philgeps-posting.attachments.store');
@@ -46,6 +47,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::resource('philgeps-posting', '\Revlv\Controllers\Procurements\PhilGepsPostingController');
 
     Route::get('ispq/print/{id}', '\Revlv\Controllers\Procurements\ISPQController@viewPrint')->name('ispq.print');
+    Route::post('ispq/store-by-rfq/{id}', '\Revlv\Controllers\Procurements\ISPQController@createByRFQ')->name('ispq.store-by-rfq');
     Route::resource('ispq', '\Revlv\Controllers\Procurements\ISPQController');
 
     Route::get('rfq-proponents/delete{id}', '\Revlv\Controllers\Procurements\RFQProponentController@delete')->name('rfq-proponents.delete');

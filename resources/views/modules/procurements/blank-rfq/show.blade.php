@@ -9,6 +9,8 @@ Request For Quotation
 @section('modal')
     @include('modules.partials.modals.proponents')
     @include('modules.partials.modals.philgeps_posting')
+    @include('modules.partials.modals.close_rfq')
+    @include('modules.partials.modals.invitation')
 @stop
 
 @section('contents')
@@ -18,30 +20,43 @@ Request For Quotation
         <button class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
+                @if($data->status != 'closed')
                 <a href="#" class="button__options__item" id="proponent-button">Add Proponents</a>
+                @endif
                 @if($data->status == 'pending')
                     <a href="#" class="button__options__item" id="philgeps-posting-button">PhilGeps Posting</a>
+                @else
+                    @if($data->status != 'closed')
+                    <a href="#" class="button__options__item" id="close-button">Close RFQ</a>
+                    @else
+
+                        @if(count($data->invitations) == 0)
+                            <a href="#" class="button__options__item" id="invitation-button">Create Invitation</a>
+                        @endif
+                    @endif
                 @endif
 
                 @if(count($data->philgeps) != 0)
                     <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" class="button__options__item">PhilGeps Posting</a>
                 @endif
 
+                @if(count($data->invitations) != 0)
+                    <a href="{{route('procurements.ispq.edit', $data->invitations->ispq_id)}}" class="button__options__item">Invitation</a>
+                @endif
+
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
 
-                @if(count($data->canvassing))
-                    <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class=" button__options__item">Canvassing</a>
-                    <a href="{{route('procurements.noa.show', $data->canvassing->id)}}" class=" button__options__item">Awardee</a>
-                @endif
             </div>
         </button>
 
         <a target="_blank" href="{{route($printRoute,$data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
         </a>
-        <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
-            <i class="nc-icon-mini design_pen-01"></i>
-        </a>
+        @if($data->status != 'closed')
+            <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
+                <i class="nc-icon-mini design_pen-01"></i>
+            </a>
+        @endif
 
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
@@ -55,6 +70,9 @@ Request For Quotation
             <li> <strong>UPR No. :</strong> {{$data->upr_number}} </li>
             <li> <strong>Status :</strong> {{ ucfirst($data->status) }} </li>
             <li> <strong>ABC :</strong> {{ formatPrice($data->upr->total_amount) }} </li>
+            @if($data->status == 'closed')
+            <li> <strong>Closed At :</strong> {{ $data->completed_at }} </li>
+            @endif
         </ul>
     </div>
     <div class="six columns pull-right">
@@ -99,7 +117,10 @@ Request For Quotation
                     <td>{{$proponent->note}}</td>
                     <td>
                         <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="attachments"> <span class="nc-icon-glyph ui-1_attach-87"></span> </a>
+
+                        @if($data->status != 'closed')
                         <a href="{{route('procurements.rfq-proponents.delete',$proponent->id)}}" tooltip="remove"> <span class="nc-icon-glyph ui-1_trash-simple"></span> </a>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
@@ -114,16 +135,15 @@ Request For Quotation
 @section('scripts')
 <script src="/vendors/timepicker/timepicker.min.js"></script>
 <script type="text/javascript">
-    var timepicker = new TimePicker('id-field-opening_time', {
+    var timepicker1 = new TimePicker(['id-field-opening_time', 'id-field-canvassing_time'], {
         lang: 'en',
         theme: 'dark'
     });
 
-    timepicker.on('change', function(evt){
+    timepicker1.on('change', function(evt){
       var value = (evt.hour || '00') + ':' + (evt.minute || '00');
       evt.element.value = value;
     });
-
 
     $('#proponent-button').click(function(e){
         e.preventDefault();
@@ -133,11 +153,19 @@ Request For Quotation
         e.preventDefault();
         $('#philgeps-posting-modal').addClass('is-visible');
     })
+    $('#close-button').click(function(e){
+        e.preventDefault();
+        $('#close-modal').addClass('is-visible');
+    })
+    $('#invitation-button').click(function(e){
+        e.preventDefault();
+        $('#invitation-modal').addClass('is-visible');
+    })
     // datepicker
     // pickmeup('#id-field-date_processed', {
     //     format  : 'Y-m-d'
     // });
-    var picker = new Pikaday(
+    var date_processed = new Pikaday(
     {
         field: document.getElementById('id-field-date_processed'),
         firstDay: 1,
@@ -148,7 +176,7 @@ Request For Quotation
 
 
     // datepicker
-    var picker = new Pikaday(
+    var transaction_date = new Pikaday(
     {
         field: document.getElementById('id-field-transaction_date'),
         firstDay: 1,
@@ -156,7 +184,7 @@ Request For Quotation
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]
     });
-    var picker = new Pikaday(
+    var deadline_rfq = new Pikaday(
     {
         field: document.getElementById('id-field-deadline_rfq'),
         firstDay: 1,
@@ -164,7 +192,15 @@ Request For Quotation
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]
     });
-    var picker = new Pikaday(
+    var canvassing_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-canvassing_date'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+    var philgeps_posting = new Pikaday(
     {
         field: document.getElementById('id-field-philgeps_posting'),
         firstDay: 1,

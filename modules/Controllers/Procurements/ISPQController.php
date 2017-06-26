@@ -97,6 +97,55 @@ class ISPQController extends Controller
         ]);
     }
 
+    public function createByRFQ(
+        $id,
+        QuotationRepository $quotations,
+        Request $request,
+        ISPQRepository $model,
+        UnitPurchaseRequestRepository $upr,
+        BlankRFQRepository $rfq
+        )
+    {
+
+        $this->validate($request, [
+            'venue'             =>  'required',
+            'signatory_id'      =>  'required',
+            'canvassing_date'   =>  'required',
+            'canvassing_time'   =>  'required',
+        ]);
+
+        $result =   $model->save([
+            'prepared_by'       =>  \Sentinel::getUser()->id,
+            'canvassing_date'   =>  $request->get('canvassing_date'),
+            'canvassing_time'   =>  $request->get('canvassing_time'),
+            'venue'             =>  $request->get('venue'),
+            'signatory_id'      =>  $request->get('signatory_id'),
+            'transaction_date'  =>  \Carbon\Carbon::now(),
+        ]);
+
+        $rfq_model      =   $rfq->findById($id);
+        $upr_model      =   $upr->findById($rfq_model->upr_id);
+        $data           =   [
+            'ispq_id'           =>  $result->id,
+            'rfq_id'            =>  $rfq_model->id,
+            'upr_id'            =>  $rfq_model->upr_id,
+            'description'       =>  $upr_model->project_name,
+            'total_amount'      =>  $rfq_model->upr->total_amount,
+            'upr_number'        =>  $rfq_model->upr_number,
+            'rfq_number'        =>  $rfq_model->rfq_number,
+            'canvassing_date'   =>  $request->get('canvassing_date'),
+            'canvassing_time'   =>  $request->get('canvassing_time'),
+        ];
+
+        $upr->update(['status' => 'Invitation Created'], $upr_model->id);
+
+        $quotations->save($data);
+
+        return redirect()->route('procurements.blank-rfq.show', $rfq_model->id)->with([
+            'success'  => "New record has been successfully added."
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

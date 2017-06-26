@@ -22,7 +22,7 @@ Invitation to Submit Price Quotation
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
 
-        <a target="_blank href="{{route('procurements.ispq.print',$data->id)}}" class="button" tooltip="Print">
+        <a target="_blank" href="{{route('procurements.ispq.print',$data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
         </a>
         <a href="#" class="button topbar__utility__button--modal" ><i class="nc-icon-mini ui-1_trash"></i></a>

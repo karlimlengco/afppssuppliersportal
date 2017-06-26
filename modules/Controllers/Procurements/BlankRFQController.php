@@ -8,6 +8,7 @@ use PDF;
 use Auth;
 
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
+use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\UpdateRequest;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
@@ -29,6 +30,8 @@ class BlankRFQController extends Controller
      * @var [type]
      */
     protected $upr;
+    protected $suppliers;
+    protected $signatories;
 
     /**
      * [$model description]
@@ -36,13 +39,6 @@ class BlankRFQController extends Controller
      * @var [type]
      */
     protected $model;
-
-    /**
-     * [$suppliers description]
-     *
-     * @var [type]
-     */
-    protected $suppliers;
 
     /**
      * @param model $model
@@ -143,10 +139,15 @@ class BlankRFQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, BlankRFQRepository $model, SupplierRepository $suppliers)
+    public function show(
+        $id,
+        SignatoryRepository $signatories,
+        BlankRFQRepository $model,
+        SupplierRepository $suppliers)
     {
         $supplier_lists =   $suppliers->lists('id', 'name');
-        $result         =   $model->with(['proponents','upr', 'canvassing'])->findById($id);
+        $signatory_lists=   $signatories->lists('id', 'name');
+        $result         =   $model->with(['invitations', 'proponents','upr', 'canvassing'])->findById($id);
 
         $exist_supplier =   $result->proponents->pluck('proponents')->toArray();
         foreach($exist_supplier as $list)
@@ -155,12 +156,13 @@ class BlankRFQController extends Controller
         }
 
         return $this->view('modules.procurements.blank-rfq.show',[
-            'supplier_lists'=>  $supplier_lists,
-            'data'          =>  $result,
-            'indexRoute'    =>  $this->baseUrl.'index',
-            'printRoute'    =>  $this->baseUrl.'print',
-            'editRoute'     =>  $this->baseUrl.'edit',
-            'modelConfig'   =>  [
+            'supplier_lists'    =>  $supplier_lists,
+            'data'              =>  $result,
+            'signatory_lists'   =>  $signatory_lists,
+            'indexRoute'        =>  $this->baseUrl.'index',
+            'printRoute'        =>  $this->baseUrl.'print',
+            'editRoute'         =>  $this->baseUrl.'edit',
+            'modelConfig'       =>  [
                 'add_proponents'   => [
                     'route' => 'procurements.rfq-proponents.store',
                     'method'=> 'DELETE'
@@ -207,6 +209,23 @@ class BlankRFQController extends Controller
     public function update(UpdateRequest $request, $id, BlankRFQRepository $model)
     {
         $model->update($request->getData(), $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
+     * [closed description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function closed($id, BlankRFQRepository $model)
+    {
+
+        $model->update(['status' => 'closed', 'completed_at' => \Carbon\Carbon::now()], $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

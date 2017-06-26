@@ -32,6 +32,10 @@ Unit Purchase Request
                 @if(count($data->philgeps) != 0)
                     <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" class="button__options__item">PhilGeps Posting</a>
                 @endif
+                @if(count($data->invitations) != 0)
+                    <a href="{{route('procurements.ispq.edit', $data->invitations->ispq_id)}}" class="button__options__item">Invitation</a>
+                @endif
+
             </div>
         </button>
 

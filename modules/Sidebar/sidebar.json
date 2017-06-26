@@ -20,6 +20,11 @@
                     "route" :   "procurements.philgeps-posting.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "PhilGeps Posting"
+                },
+                {
+                    "route" :   "procurements.ispq.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "ISPQ"
                 }
             ]
         }

@@ -71,6 +71,16 @@ class UnitPurchaseRequestEloquent extends Model
     }
 
     /**
+     * [invitations description]
+     *
+     * @return [type] [description]
+     */
+    public function invitations()
+    {
+        return $this->hasOne('\Revlv\Procurements\InvitationToSubmitQuotation\Quotations\QuotationEloquent', 'upr_id');
+    }
+
+    /**
      * [canvassing description]
      *
      * @return [type] [description]

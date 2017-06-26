@@ -83,6 +83,16 @@ class BlankRFQEloquent extends Model
     }
 
     /**
+     * [invitations description]
+     *
+     * @return [type] [description]
+     */
+    public function invitations()
+    {
+        return $this->hasOne('\Revlv\Procurements\InvitationToSubmitQuotation\Quotations\QuotationEloquent', 'rfq_id');
+    }
+
+    /**
      * [items description]
      *
      * @return [type] [description]

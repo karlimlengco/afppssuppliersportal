@@ -62,8 +62,26 @@ Unit Purchase Request
                     <td>
                     @if($data->pp_completed_at && $data->rfq_completed_at)
                         {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->pp_completed_at); ?>
-                        <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->rfq_completed_at); ?>
+                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->pp_completed_at); ?>
+                        <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d  H:i:s', $data->rfq_completed_at); ?>
+
+                        {{ $dt->diffInDays($upr_create) }}
+                    @endif
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Invitation</td>
+
+                    <td>Completed</td>
+
+                    <td>{{$data->pp_completed_at}}</td>
+
+                    <td>
+                    @if($data->ispq_transaction_date && $data->rfq_completed_at)
+                        {{-- Assigning dates to get day interval--}}
+                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date); ?>
+                        <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d  H:i:s', $data->rfq_completed_at); ?>
 
                         {{ $dt->diffInDays($upr_create) }}
                     @endif
