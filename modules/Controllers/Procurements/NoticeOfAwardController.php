@@ -116,6 +116,41 @@ class NoticeOfAwardController extends Controller
     }
 
     /**
+     * [acceptNOA description]
+     *
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function acceptNOA(Request $request, NOARepository $model)
+    {
+        $id         =   $request->id;
+
+        $validator = \Validator::make($request->all(), [
+            'file' => 'required',
+        ]);
+
+        $file       = md5_file($request->file);
+        $file       = $file.".".$request->file->getClientOriginalExtension();
+
+        $data       =   [
+            'file'          =>  $file,
+            'accepted_date' =>  \Carbon\Carbon::now(),
+            'status'        =>  'approved'
+        ];
+
+        $result =   $model->update($data, $id);
+
+        if($result)
+        {
+            $path       = $request->file->storeAs('noa-attachments', $file);
+        }
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "NOA has been successfully accepted."
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -207,34 +242,6 @@ class NoticeOfAwardController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id, CanvassingRepository $model, BlankRFQRepository $rfq)
-    {
-        $result     =   $model->findById($id);
-        $rfq_list   =   $rfq->lists('id', 'rfq_number');
-
-        return $this->view('modules.procurements.canvassing.edit',[
-            'data'          =>  $result,
-            'rfq_list'      =>  $rfq_list,
-            'indexRoute'    =>  $this->baseUrl.'index',
-            'modelConfig'   =>  [
-                'update' =>  [
-                    'route'     =>  [$this->baseUrl.'update', $id],
-                    'method'    =>  'PUT'
-                ],
-                'destroy'   => [
-                    'route' => [$this->baseUrl.'destroy',$id],
-                    'method'=> 'DELETE'
-                ]
-            ]
-        ]);
-    }
-
-    /**
      * [updateSignatory description]
      *
      * @param  Request $request [description]
@@ -266,25 +273,25 @@ class NoticeOfAwardController extends Controller
         $id,
         RFQProponentRepository $rfq,
         BlankRFQRepository $blank,
-        CanvassingRepository $model
+        UnitPurchaseRequestRepository $upr,
+        NOARepository $model
         )
     {
         $this->validate($request, [
-            'received_by'   =>  'required',
+            'received_by'           =>  'required',
             'award_accepted_date'   =>  'required',
         ]);
 
         $input  =   [
             'received_by'           =>  $request->received_by,
             'award_accepted_date'   =>  $request->award_accepted_date,
+            'status'                =>  'accepted',
         ];
 
         $result             =   $model->findById($id);
-        $proponent_awardee  =   $rfq->with('supplier')->findAwardeeByRFQId($result->rfq_id);
 
-        $proponent          =   $rfq->update($input, $proponent_awardee->id);
-
-        $blank->update(['status' => 'NOA Accepted', 'is_award_accepted' => 1, 'award_accepted_date' => $request->award_accepted_date], $proponent->rfq_id);
+        $model->update($input, $id);
+        $upr->update(['status' => 'NOA Received'], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -337,5 +344,25 @@ class NoticeOfAwardController extends Controller
         $pdf = PDF::loadView('forms.noa', ['data' => $data])->setOption('margin-left', 13)->setOption('margin-right', 13)->setOption('margin-bottom', 10)->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('noa.pdf');
+    }
+
+    /**
+     * [downloadCopy description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function downloadCopy($id, NOARepository $model)
+    {
+        $result         = $model->findById($id);
+
+        $directory      =   storage_path("app/noa-attachments/".$result->file);
+
+        if(!file_exists($directory))
+        {
+            return 'Sorry. File does not exists.';
+        }
+
+        return response()->download($directory);
     }
 }

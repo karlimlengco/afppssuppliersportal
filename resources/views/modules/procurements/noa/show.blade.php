@@ -4,6 +4,7 @@ Notice Of Award
 
 @section('modal')
     @include('modules.partials.modals.signatory')
+    @include('modules.partials.modals.accept-noa')
     @include('modules.partials.modals.received')
 @stop
 
@@ -23,8 +24,11 @@ Notice Of Award
 
                 <a href="#"  id="signatory-button" class="button__options__item">Signatories</a>
 
-                @if(!$data->received_by && !$data->award_accepted_date)
+                @if($data->status == 'approved')
                     <a href="#"  id="received-button" class="button__options__item">Received</a>
+                @endif
+                @if($data->status == 'pending')
+                    <a href="#"  id="accept-button" class="button__options__item">Accept NOA</a>
                 @endif
             </div>
         </button>
@@ -42,14 +46,19 @@ Notice Of Award
 <br>
 <div class="row">
     <div class="six columns pull-left">
-        <h3>Canvass Details</h3>
+        <h3>Details</h3>
         <ul>
             <li> <strong>UPR No. :</strong> {{$canvass->upr_number}} </li>
             <li> <strong>RFQ No. :</strong> {{$canvass->rfq_number}} </li>
+            <li> <strong>Status :</strong> {{$data->status}} </li>
             <li> <strong>Canvass Date :</strong> {{$canvass->canvass_date}} </li>
             <li> <strong>Adjourned Time :</strong> {{$canvass->adjourned_time}} </li>
             @if($data->awarded_date  )
             <li> <strong>Award Date :</strong> {{$data->awarded_date}} </li>
+            @endif
+            @if($data->accepted_date  )
+            <li> <strong>Approved Date :</strong> {{$data->accepted_date}} </li>
+            <li> <strong>Approved Copy :</strong> <a target="_blank" href="{{route('procurements.noa.download',$data->id)}}">{{$data->file}}</a> </li>
             @endif
             @if($data->received_by && $data->award_accepted_date)
                 <li> <strong>Received By :</strong> {{$data->received_by}} </li>
@@ -86,6 +95,12 @@ Notice Of Award
     $('#received-button').click(function(e){
         e.preventDefault();
         $('#received-modal').addClass('is-visible');
+    })
+
+
+    $('#accept-button').click(function(e){
+        e.preventDefault();
+        $('#accept-modal').addClass('is-visible');
     })
 
     var picker = new Pikaday(

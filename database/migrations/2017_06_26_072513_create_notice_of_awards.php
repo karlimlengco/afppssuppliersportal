@@ -24,7 +24,13 @@ class CreateNoticeOfAwards extends Migration
             $table->integer('proponent_id');
             $table->integer('awarded_by')->nullable();
             $table->timestamp('awarded_date')->nullable();
+            $table->string('status')->nullable();
             $table->text('remarks')->nullable();
+            $table->text('file')->nullable();
+
+            $table->string('received_by')->nullable();
+            $table->date('award_accepted_date')->nullable();
+            $table->date('accepted_date')->nullable();
             $table->timestamps();
         });
     }

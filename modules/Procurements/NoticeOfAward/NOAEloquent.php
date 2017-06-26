@@ -30,6 +30,11 @@ class NOAEloquent extends Model
         'awarded_by',
         'awarded_date',
         'remarks',
+        'received_by',
+        'file',
+        'status',
+        'award_accepted_date',
+        'accepted_date',
     ];
 
     /**
