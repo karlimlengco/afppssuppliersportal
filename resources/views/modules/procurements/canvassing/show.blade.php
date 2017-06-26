@@ -30,7 +30,7 @@ Canvassing
             <i class="nc-icon-mini tech_print"></i>
         </a>
 
-        <a class="button" href="{{route($editRoute,$data->id)}}"><i class="nc-icon-mini design_pen-01"></i></a>
+        {{-- <a class="button" href="{{route($editRoute,$data->id)}}"><i class="nc-icon-mini design_pen-01"></i></a> --}}
     </div>
 </div>
 
@@ -80,7 +80,7 @@ Canvassing
                         @if($data->adjourned_time == null)
                         <a href="#" class="award-button award" data-id="{{$proponent->id}}" data-name="{{$proponent->supplier->name}}" tooltip="Award"> <span class="nc-icon-glyph business_award-48"></span> </a>
                         @endif
-                        @if($proponent->is_awarded)
+                        @if($proponent->winners != null)
                             <a href="#" class=" award" tooltip="Winner"> <span class="nc-icon-glyph business_award-48"></span> </a>
                         @endif
                     </td>

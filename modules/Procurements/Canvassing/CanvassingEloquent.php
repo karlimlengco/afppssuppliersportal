@@ -53,6 +53,16 @@ class CanvassingEloquent extends Model
         return $this->belongsTo('\Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestEloquent', 'upr_id');
     }
 
+    /**
+     * [winners description]
+     *
+     * @return [type] [description]
+     */
+    public function winners()
+    {
+        return $this->hasOne('\Revlv\Procurements\NoticeOfAward\NOAEloquent', 'canvass_id');
+    }
+
     // /**
     //  * [signatories description]
     //  *

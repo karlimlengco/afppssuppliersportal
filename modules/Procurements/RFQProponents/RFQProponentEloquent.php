@@ -13,7 +13,7 @@ class RFQProponentEloquent extends Model
      * @var string
      */
     protected $table = 'rfq_proponents';
-    protected $with  = 'supplier';
+    protected $with  = ['supplier', 'winners'];
 
     /**
      * The attributes that are mass assignable.
@@ -62,5 +62,16 @@ class RFQProponentEloquent extends Model
     public function attachments()
     {
          return $this->hasMany('\Revlv\Procurements\ProponentAttachments\ProponentAttachmentEloquent', 'proponent_id');
+    }
+
+
+    /**
+     * [winners description]
+     *
+     * @return [type] [description]
+     */
+    public function winners()
+    {
+        return $this->hasOne('\Revlv\Procurements\NoticeOfAward\NOAEloquent', 'canvass_id');
     }
 }

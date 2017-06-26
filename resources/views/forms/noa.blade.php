@@ -49,7 +49,7 @@
                     Tel: {{$data['supplier']->phone_1}} Fax: {{$data['supplier']->fax_1}}
                 </p>
                 <p>Dear Madam,</p>
-                <p>We are pleased to notify you that your price offer/s for the procurement of One Hundred (100) BOND PAPER A4 only of RFQ No. {{$data['rfq_number']}} dated {{$data['transaction_date']}} for the use of {{$data['unit']}} in the amount of {{translateToWords($data['total_amount'])}} PESOS ONLY (Php {{formatPrice($data['total_amount'])}}) is hereby accepted. A contract for the procurement of this item/s is being awarded to your company/firm.</p>
+                <p>We are pleased to notify you that your price offer/s for the procurement of {{$data['project_name']}} only of RFQ No. {{$data['rfq_number']}} dated {{$data['transaction_date']}} for the use of {{$data['unit']}} in the amount of {{translateToWords($data['total_amount'])}} PESOS ONLY (Php {{formatPrice($data['total_amount'])}}) is hereby accepted. A contract for the procurement of this item/s is being awarded to your company/firm.</p>
                 <p>You shall subsequently be informed (thru your contact number or email address specified below) accordingly to appear before this office for the requirements.</p>
                 <ul>
                     <li>Signing of PURCHASE ORDER</li>

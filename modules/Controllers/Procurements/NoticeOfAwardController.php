@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use PDF;
 
+use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\Canvassing\CanvassingRepository;
 use \Revlv\Procurements\Canvassing\CanvassingRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
@@ -32,6 +33,7 @@ class NoticeOfAwardController extends Controller
     protected $blank;
     protected $upr;
     protected $rfq;
+    protected $noa;
     protected $signatories;
     protected $proponents;
 
@@ -61,6 +63,7 @@ class NoticeOfAwardController extends Controller
         RFQProponentRepository $proponents,
         BlankRFQRepository $blank,
         UnitPurchaseRequestRepository $upr,
+        NOARepository $noa,
         $canvasId,
         $proponentId
         )
@@ -69,14 +72,23 @@ class NoticeOfAwardController extends Controller
         $proponent_model    =   $proponents->with('supplier')->findById($proponentId);
         $supplier_name      =   $proponent_model->supplier->name;
 
-        // Update canvass adjuourned time
+        $data   =   [
+            'canvass_id'    =>  $canvasId,
+            'upr_id'        =>  $canvasModel->upr_id,
+            'rfq_id'        =>  $canvasModel->rfq_id,
+            'rfq_number'    =>  $canvasModel->rfq_number,
+            'upr_number'    =>  $canvasModel->upr_number,
+            'proponent_id'  =>  $proponentId,
+            'awarded_by'    =>  \Sentinel::getUser()->id,
+            'awarded_date'  =>  \Carbon\Carbon::now(),
+        ];
+
+        $noa->save($data);
+
+        // // Update canvass adjuourned time
         $model->update(['adjourned_time' => \Carbon\Carbon::now()], $canvasId);
-        // update proponent adding awarded date
-        $proponents->update(['is_awarded' => 1, 'awarded_date' => \Carbon\Carbon::now()], $proponentId);
-        // Update rfq
-        $rfq    =   $blank->update(['status' => "Awarded To $supplier_name",'is_awarded' => 1, 'awarded_date' => \Carbon\Carbon::now()], $canvasModel->rfq_id);
-        // update upr
-        $upr->update(['status' => "Awarded To $supplier_name"],  $rfq->upr_id);
+        // // update upr
+        $upr->update(['status' => "Awarded To $supplier_name"],  $canvasModel->upr_id);
 
         return redirect()->route('procurements.canvassing.show', $canvasId)->with([
             'success'  => "New record has been successfully added."
@@ -88,9 +100,9 @@ class NoticeOfAwardController extends Controller
      *
      * @return [type]            [description]
      */
-    public function getDatatable(CanvassingRepository $model)
+    public function getDatatable(NOARepository $model)
     {
-        return $model->getNOADatatable();
+        return $model->getDatatable();
     }
 
     /**
@@ -153,13 +165,15 @@ class NoticeOfAwardController extends Controller
      */
     public function show(
         CanvassingRepository $model,
+        NOARepository $noa,
         $id,
         RFQProponentRepository $proponents,
         SignatoryRepository $signatories,
         UnitPurchaseRequestRepository $upr)
     {
-        $result             =   $model->findById($id);
-        $proponent_awardee  =   $proponents->with('supplier')->findAwardeeByRFQId($result->rfq_id);
+        $result             =   $noa->with('winner')->findById($id);
+        $canvass            =   $model->findById($result->canvass_id);
+        $proponent_awardee  =   $result->winner->supplier;
 
         if(!$proponent_awardee)
         {
@@ -168,7 +182,6 @@ class NoticeOfAwardController extends Controller
             ]);
         }
 
-        $supplier           =   $proponent_awardee->supplier;
         $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findByRFQId($proponent_awardee->rfq_id);
 
         $signatory_list     =   $signatories->lists('id','name');
@@ -176,9 +189,9 @@ class NoticeOfAwardController extends Controller
         return $this->view('modules.procurements.noa.show',[
             'data'          =>  $result,
             'upr_model'     =>  $upr_model,
-            'supplier'      =>  $supplier,
+            'canvass'       =>  $canvass,
+            'supplier'      =>  $proponent_awardee,
             'signatory_list'=>  $signatory_list,
-            'awardee'       =>  $proponent_awardee,
             'printRoute'    =>  $this->baseUrl.'print',
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [
@@ -228,7 +241,7 @@ class NoticeOfAwardController extends Controller
      * @param  [type]  $id      [description]
      * @return [type]           [description]
      */
-    public function updateSignatory(Request $request, $id, CanvassingRepository $model)
+    public function updateSignatory(Request $request, $id, NOARepository $model)
     {
         $this->validate($request, [
             'signatory_id'   =>  'required',
@@ -303,24 +316,24 @@ class NoticeOfAwardController extends Controller
         $id,
         CanvassingRepository $model,
         BlankRFQRepository $blank,
+        NOARepository $noa,
         UnitPurchaseRequestRepository $upr,
         RFQProponentRepository $rfq)
     {
-        $result                     =   $model->with('signatories')->findById($id);
-        $proponent_awardee          =   $rfq->with('supplier')->findAwardeeByRFQId($result->rfq_id);
+        $noa_modal                  =   $noa->with(['winner','signatory'])->findById($id);
+        $result                     =   $model->findById($noa_modal->canvass_id);
+        $proponent_awardee          =   $noa_modal->winner->supplier;
         $rfq_model                  =   $blank->findById($result->rfq_id);
         $upr_model                  =   $upr->with(['unit'])->findById($rfq_model->upr_id);
-        $data['supplier']           =   $proponent_awardee->supplier;
+        $data['supplier']           =   $proponent_awardee;
         $data['canvass_date']       =   $result->canvass_date;
         $data['rfq_number']         =   $rfq_model->rfq_number;
         $data['transaction_date']   =   $rfq_model->transaction_date;
         $data['total_amount']       =   $upr_model->total_amount;
         $data['unit']               =   $upr_model->unit->description;
-        $data['signatory']          =   $result->signatories;
+        $data['signatory']          =   $noa_modal->signatory;
+        $data['project_name']       =   $upr_model->project_name;
 
-        // $data['transaction_date']   =  $result->transaction_date;
-        // $data['venue']              =  $result->venue;
-        // $data['quotations']         =  $result->quotations;
         $pdf = PDF::loadView('forms.noa', ['data' => $data])->setOption('margin-left', 13)->setOption('margin-right', 13)->setOption('margin-bottom', 10)->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('noa.pdf');

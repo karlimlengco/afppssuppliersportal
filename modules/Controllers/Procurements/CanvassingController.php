@@ -171,7 +171,7 @@ class CanvassingController extends Controller
         SignatoryRepository $signatories,
         RFQProponentRepository $proponents)
     {
-        $result         =   $model->with(['opens', 'signatories'])->findById($id);
+        $result         =   $model->with(['opens', 'signatories', 'winners'])->findById($id);
         $signatory_lists=   $signatories->lists('id', 'name');
         $proponent_list =   $proponents->findByRFQId($result->rfq_id);
 
