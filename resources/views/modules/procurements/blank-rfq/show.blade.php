@@ -93,34 +93,34 @@ Request For Quotation
 
     </div>
 </div>
-<br>
-<div class="row">
-    <div class="six columns pull-left">
-        <ul>
-            <li> <strong>RFQ No. :</strong> {{$data->rfq_number}} </li>
-            <li> <strong>UPR No. :</strong> {{$data->upr_number}} </li>
-            <li> <strong>Status :</strong> {{ ucfirst($data->status) }} </li>
-            <li> <strong>ABC :</strong> {{ formatPrice($data->upr->total_amount) }} </li>
+
+<div class="data-panel">
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">RFQ No. :</strong> {{$data->rfq_number}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Status :</strong> {{ ucfirst($data->status) }} </li>
             @if($data->status == 'closed')
-            <li> <strong>Closed At :</strong> {{ $data->completed_at }} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Closed At :</strong> {{ $data->completed_at }} </li>
             @endif
         </ul>
     </div>
-    <div class="six columns pull-right">
+    <div class="data-panel__section">
         <ul>
-            <li> <strong>Deadline to Submit :</strong> {{ $data->deadline }} </li>
-            <li> <strong>Canvas Opening Time :</strong> {{ $data->opening_time }} </li>
-            <li> <strong>TransactionDate :</strong> {{ $data->transaction_date }} </li>
-            <li> <strong>Remarks :</strong> {{ $data->remarks }} </li>
-            <li> <strong>Processed By :</strong> {{($data->processor) ? $data->processor->first_name ." ". $data->processor->surname :""}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">ABC :</strong> {{ formatPrice($data->upr->total_amount) }} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Deadline to Submit :</strong> {{ $data->deadline }} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Canvas Opening Time :</strong> {{ $data->opening_time }} </li>
+    </div>
+    <div class="data-panel__section">
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">TransactionDate :</strong> {{ $data->transaction_date }} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Remarks :</strong> {{ $data->remarks }} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Processed By :</strong> {{($data->processor) ? $data->processor->first_name ." ". $data->processor->surname :""}} </li>
         </ul>
     </div>
 </div>
 <div class="row">
     <div class="six columns">
         <h3>Proponents</h3>
-    </div>
-    <div class="six columns">
     </div>
 </div>
 

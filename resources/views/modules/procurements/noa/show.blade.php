@@ -41,42 +41,44 @@ Notice Of Award
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
     </div>
 </div>
-<br>
-<br>
-<br>
-<div class="row">
-    <div class="six columns pull-left">
+<div class="data-panel">
+    <div class="data-panel__section">
         <h3>Details</h3>
-        <ul>
-            <li> <strong>UPR No. :</strong> {{$canvass->upr_number}} </li>
-            <li> <strong>RFQ No. :</strong> {{$canvass->rfq_number}} </li>
-            <li> <strong>Status :</strong> {{$data->status}} </li>
-            <li> <strong>Canvass Date :</strong> {{$canvass->canvass_date}} </li>
-            <li> <strong>Adjourned Time :</strong> {{$canvass->adjourned_time}} </li>
+        <ul  class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR No. :</strong> {{$canvass->upr_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ No. :</strong> {{$canvass->rfq_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{$data->status}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Canvass Date :</strong> {{$canvass->canvass_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Adjourned Time :</strong> {{$canvass->adjourned_time}} </li>
+        </ul>
+    </div>
+    <div class="data-panel__section">
+        <h3></h3>
+        <ul  class="data-panel__list">
             @if($data->awarded_date  )
-            <li> <strong>Award Date :</strong> {{$data->awarded_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award Date :</strong> {{$data->awarded_date}} </li>
             @endif
             @if($data->accepted_date  )
-            <li> <strong>Approved Date :</strong> {{$data->accepted_date}} </li>
-            <li> <strong>Approved Copy :</strong> <a target="_blank" href="{{route('procurements.noa.download',$data->id)}}">{{$data->file}}</a> </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Date :</strong> {{$data->accepted_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Copy :</strong> <a target="_blank" href="{{route('procurements.noa.download',$data->id)}}">{{$data->file}}</a> </li>
             @endif
             @if($data->received_by && $data->award_accepted_date)
-                <li> <strong>Received By :</strong> {{$data->received_by}} </li>
-                <li> <strong>Received Date :</strong> {{$data->award_accepted_date}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received By :</strong> {{$data->received_by}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received Date :</strong> {{$data->award_accepted_date}} </li>
             @endif
         </ul>
     </div>
-    <div class="six columns pull-right">
+    <div class="data-panel__section">
         <h3>Proponent Details</h3>
-        <ul>
-            <li> <strong>Name :</strong> {{$supplier->name}} </li>
-            <li> <strong>Owner :</strong> {{$supplier->owner}} </li>
-            <li> <strong>Address :</strong> {{$supplier->address}} </li>
-            <li> <strong>TIN :</strong> {{$supplier->tin}} </li>
-            <li> <strong>Cellphone # :</strong> {{$supplier->cell_1}} </li>
-            <li> <strong>Phone # :</strong> {{$supplier->phone_1}} </li>
-            <li> <strong>FAX :</strong> {{$supplier->fax_1}} </li>
-            <li> <strong>Email :</strong> {{$supplier->email_1}} </li>
+        <ul  class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Name :</strong> {{$supplier->name}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Owner :</strong> {{$supplier->owner}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Address :</strong> {{$supplier->address}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">TIN :</strong> {{$supplier->tin}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Cellphone # :</strong> {{$supplier->cell_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Phone # :</strong> {{$supplier->phone_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">FAX :</strong> {{$supplier->fax_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Email :</strong> {{$supplier->email_1}} </li>
         </ul>
     </div>
 </div>

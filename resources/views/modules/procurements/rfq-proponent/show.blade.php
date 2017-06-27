@@ -18,19 +18,27 @@ Proponent
     </div>
 </div>
 
-<div class="row">
-    <div class="six columns pull-left">
-        <ul>
-            <li> <strong>Name :</strong> {{$data->supplier->name}} </li>
-            <li> <strong>Cellphone # :</strong> {{$data->supplier->cell_1}} </li>
-            <li> <strong>Phone # :</strong> {{$data->supplier->phone_1}} </li>
-            <li> <strong>Fax # :</strong> {{$data->supplier->fax_1}} </li>
-            <li> <strong>Address :</strong> {{$data->supplier->address}} </li>
-            <li> <strong>Processed Date :</strong> {{$data->date_processed}} </li>
-            <li> <strong>Prepared By :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname :""}}  </li>
+<div class="data-panel">
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Name :</strong> {{$data->supplier->name}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Cellphone # :</strong> {{$data->supplier->cell_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Phone # :</strong> {{$data->supplier->phone_1}} </li>
         </ul>
     </div>
-    <div class="six columns pull-right">
+
+    <div class="data-panel__section">
+        <ul class="data-panel__list">hone # :</strong> {{$data->supplier->phone_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Fax # :</strong> {{$data->supplier->fax_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Address :</strong> {{$data->supplier->address}} </li>
+        </ul>
+    </div>
+
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Processed Date :</strong> {{$data->date_processed}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared By :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname :""}}  </li>
+        </ul>
     </div>
 </div>
 

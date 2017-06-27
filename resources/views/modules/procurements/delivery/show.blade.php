@@ -45,34 +45,36 @@ Notice Of Delivery
     </div>
 </div>
 
-<div class="row">
-    <div class="six columns pull-left">
+<div class="data-panel">
+    <div class="data-panel__section">
         <h1>Delivery Details</h1>
-        <ul  class="data-panel">
-            <li  class="data-panel__item"> <strong  class="data-panel__item__label">RFQ Number :</strong> {{$data->rfq_number}} </li>
-            <li  class="data-panel__item"> <strong  class="data-panel__item__label">UPR Number :</strong> {{$data->upr_number}} </li>
-            <li  class="data-panel__item"> <strong  class="data-panel__item__label">Expected Delivery Date :</strong> {{$data->expected_date}} </li>
-            <li  class="data-panel__item"> <strong  class="data-panel__item__label">Created By :</strong> {{($data->creator) ? $data->creator->first_name .' '. $data->creator->surname : " "}} </li>
-            <li  class="data-panel__item"> <strong  class="data-panel__item__label">Status :</strong> {{ucwords($data->status)}} </li>
+        <ul class="data-panel__list">
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">RFQ Number :</strong> {{$data->rfq_number}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">UPR Number :</strong> {{$data->upr_number}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Expected Delivery Date :</strong> {{$data->expected_date}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Created By :</strong> {{($data->creator) ? $data->creator->first_name .' '. $data->creator->surname : " "}} </li>
 
         </ul>
     </div>
 
-    <div class="six columns pull-right">
+    <div class="data-panel__section">
         <h1></h1>
-        <ul   class="data-panel">
+        <ul  class="data-panel__list">
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Status :</strong> {{ucwords($data->status)}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Delivery Date :</strong> {{$data->delivery_date}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Delivery Number :</strong> {{$data->delivery_number}} </li>
+        </ul>
+    </div>
+
+    <div class="data-panel__section">
+        <h1></h1>
+        <ul  class="data-panel__list">
 
             @if($data->delivery_date)
-               {{--  <li  class="data-panel__item">  {!! Form::textField('delivery_date', 'Delivery Date') !!} </li>
-                <li  class="data-panel__item">  {!! Form::textField('delivery_number', 'Delivery Number') !!} </li>
-                <li  class="data-panel__item">   {!! Form::textareaField('notes', 'Notes') !!} </li>--}}
-            {{-- @else --}}
-                <li  class="data-panel__item"> <strong  class="data-panel__item__label">Delivery Date :</strong> {{$data->delivery_date}} </li>
-                <li  class="data-panel__item"> <strong  class="data-panel__item__label">Delivery Number :</strong> {{$data->delivery_number}} </li>
-                <li  class="data-panel__item"> <strong  class="data-panel__item__label">Delivery Note :</strong> {{$data->notes}} </li>
-                <li  class="data-panel__item"> <strong  class="data-panel__item__label">Received by :</strong> {{($data->receiver) ? $data->receiver->first_name ." ". $data->receiver->surname : ""}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Delivery Note :</strong> {{$data->notes}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Received by :</strong> {{($data->receiver) ? $data->receiver->first_name ." ". $data->receiver->surname : ""}} </li>
                 @if($data->status)
-                    <li  class="data-panel__item"> <strong  class="data-panel__item__label">Completed Date :</strong> {{$data->date_completed}} </li>
+                    <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Completed Date :</strong> {{$data->date_completed}} </li>
                 @endif
             @endif
         </ul>

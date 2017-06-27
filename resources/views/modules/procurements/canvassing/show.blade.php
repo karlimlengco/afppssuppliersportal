@@ -34,22 +34,31 @@ Canvassing
     </div>
 </div>
 
-<div class="row">
-    <div class="six columns pull-left">
-        <ul>
-            <li> <strong>UPR No. :</strong> {{$data->upr_number}} </li>
-            <li> <strong>RFQ No. :</strong> {{$data->rfq_number}} </li>
-            <li> <strong>Canvass Date :</strong> {{$data->canvass_date}} </li>
+<div class="data-panel">
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ No. :</strong> {{$data->rfq_number}} </li>
+        </ul>
+    </div>
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Canvass Date :</strong> {{$data->canvass_date}} </li>
 
             @if($data->canvass_time)
-                <li> <strong>Opening Date :</strong> {{$data->created_at}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Opening Date :</strong> {{$data->created_at}} </li>
             @endif
+        </ul>
+    </div>
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
             @if($data->opens != null)
-                <li> <strong>Opening By :</strong> {{$data->opens->first_name}} {{$data->opens->surname}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Opening By :</strong> {{$data->opens->first_name}} {{$data->opens->surname}} </li>
             @endif
 
             @if($data->adjourned_time)
-            <li> <strong>Adjourned Time :</strong> {{$data->adjourned_time}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Adjourned Time :</strong> {{$data->adjourned_time}} </li>
             @endif
         </ul>
     </div>

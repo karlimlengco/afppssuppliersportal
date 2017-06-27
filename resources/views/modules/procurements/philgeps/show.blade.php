@@ -25,16 +25,24 @@ PhilGeps Posting
     </div>
 </div>
 
-<div class="row">
-    <div class="six columns pull-left">
-        <ul>
-            <li> <strong>RFQ Number :</strong> {{$data->rfq_number}} </li>
-            <li> <strong>UPR Number :</strong> {{$data->upr_number}} </li>
-            <li> <strong>PhilGeps Number :</strong> {{$data->philgeps_number}} </li>
-            <li> <strong>Transaction Date :</strong> {{$data->transaction_date}} </li>
-            <li> <strong>PhilGeps Posting Date :</strong> {{$data->philgeps_posting}} </li>
-            <li> <strong>RFQ Submition Deadline :</strong> {{$data->deadline_rfq}} </li>
-            <li> <strong>Canvas Opening Time :</strong> {{$data->opening_time}} </li>
+<div class="data-panel">
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ Number :</strong> {{$data->rfq_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR Number :</strong> {{$data->upr_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PhilGeps Number :</strong> {{$data->philgeps_number}} </li>
+        </ul>
+    </div>
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Transaction Date :</strong> {{$data->transaction_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PhilGeps Posting Date :</strong> {{$data->philgeps_posting}} </li>
+        </ul>
+    </div>
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ Submition Deadline :</strong> {{$data->deadline_rfq}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Canvas Opening Time :</strong> {{$data->opening_time}} </li>
         </ul>
     </div>
 </div>

@@ -32,35 +32,40 @@ Delivered Items Inspection
     </div>
 </div>
 
-<div class="row">
-    <div class="six columns pull-left">
+<div class="data-panel">
+    <div class="data-panel__section">
         <h3>Inspection Details</h3>
-        <ul>
-            <li> <strong>UPR No. :</strong> {{$data->upr_number}} </li>
-            <li> <strong>RFQ No. :</strong> {{$data->rfq_number}} </li>
-            <li> <strong>Delivery No. :</strong> {{$data->delivery_number}} </li>
-            <li> <strong>Status :</strong> {{ucfirst($data->status)}} </li>
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ No. :</strong> {{$data->rfq_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Delivery No. :</strong> {{$data->delivery_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{ucfirst($data->status)}} </li>
+        </ul>
+    </div>
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+
             @if($data->started)
-                <li> <strong>Start Date :</strong> {{$data->start_date}} </li>
-                <li> <strong>Started By :</strong> {{($data->started) ? $data->started->first_name .' '. $data->started->surname : ""}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Start Date :</strong> {{$data->start_date}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Started By :</strong> {{($data->started) ? $data->started->first_name .' '. $data->started->surname : ""}} </li>
             @endif
             @if($data->closed)
-                <li> <strong>Close Date :</strong> {{$data->closed_date}} </li>
-                <li> <strong>Closed By :</strong> {{($data->closed) ? $data->closed->first_name .' '. $data->closed->surname : ""}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Close Date :</strong> {{$data->closed_date}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Closed By :</strong> {{($data->closed) ? $data->closed->first_name .' '. $data->closed->surname : ""}} </li>
             @endif
         </ul>
     </div>
-    <div class="six columns pull-right">
+    <div class="data-panel__section">
         <h3>Proponent Details</h3>
-        <ul>
-            <li> <strong>Name :</strong> {{$supplier->name}} </li>
-            <li> <strong>Owner :</strong> {{$supplier->owner}} </li>
-            <li> <strong>Address :</strong> {{$supplier->address}} </li>
-            <li> <strong>TIN :</strong> {{$supplier->tin}} </li>
-            <li> <strong>Cellphone # :</strong> {{$supplier->cell_1}} </li>
-            <li> <strong>Phone # :</strong> {{$supplier->phone_1}} </li>
-            <li> <strong>FAX :</strong> {{$supplier->fax_1}} </li>
-            <li> <strong>Email :</strong> {{$supplier->email_1}} </li>
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Name :</strong> {{$supplier->name}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Owner :</strong> {{$supplier->owner}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Address :</strong> {{$supplier->address}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">TIN :</strong> {{$supplier->tin}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Cellphone # :</strong> {{$supplier->cell_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Phone # :</strong> {{$supplier->phone_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">FAX :</strong> {{$supplier->fax_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Email :</strong> {{$supplier->email_1}} </li>
         </ul>
     </div>
 </div>

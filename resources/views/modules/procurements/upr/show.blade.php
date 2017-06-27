@@ -63,48 +63,54 @@ Unit Purchase Request
     </div>
 </div>
 
-<br>
-<div class="row">
-    <div class="six columns pull-left">
-        <ul>
-            <li> <strong>Project Name:</strong> {{$data->project_name}} </li>
-            <li> <strong>UPR No. :</strong> {{$data->upr_number}} </li>
-            <li> <strong>Reference No. :</strong> {{$data->ref_number}} </li>
-            <li> <strong>Date Prepared :</strong> {{$data->date_prepared}} </li>
-            <li> <strong>Prepared by :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname :""}} </li>
-            <li> <strong>Place of delivery :</strong> {{($data->centers) ? $data->centers->name :""}} </li>
-            <li> <strong>Mode of Procurement :</strong> {{($data->modes) ? $data->modes->name :""}} </li>
-            <li> <strong>Total ABC :</strong> {{number_format($data->total_amount,2)}} </li>
-            <li> <strong>Created :</strong> {{$data->created_at}} </li>
-        </ul>
+
+<div class="data-panel">
+    <div class="data-panel__section">
+            <ul class="data-panel__list">
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Project Name:</strong> {{$data->project_name}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Reference No. :</strong> {{$data->ref_number}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Date Prepared :</strong> {{$data->date_prepared}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Prepared by :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname :""}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Place of delivery :</strong> {{($data->centers) ? $data->centers->name :""}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Mode of Procurement :</strong> {{($data->modes) ? $data->modes->name :""}} </li>
+            </ul>
     </div>
-    <div class="six columns">
-        <ul>
-            <li> <strong>Units :</strong>    {{($data->unit) ? $data->unit->name :""}} </li>
-            <li> <strong>Chargeability :</strong> {{($data->charges) ? $data->charges->name :""}} </li>
-            <li> <strong>Account Code :</strong> {{($data->accounts) ? $data->accounts->new_account_code :""}} </li>
-            <li> <strong>Fund Validity :</strong> {{$data->fund_validity}} </li>
-            <li> <strong>Terms of Payment :</strong> {{($data->terms) ? $data->terms->name :""}} </li>
-            <li> <strong>Status :</strong> {{ucfirst($data->status)}} </li>
-            <li> <strong>State :</strong> {{ucfirst($data->state)}} </li>
-            <li> <strong>Total ABC :</strong> {{number_format($data->total_amount,2)}} </li>
-            @if($data->date_processed)
-            <li> <strong>Date Processed :</strong> {{$data->date_processed}} </li>
-            <li> <strong>Processed By :</strong> {{($data->processor) ? $data->processor->first_name ." ". $data->processor->surname :""}} </li>
-            @endif
-        </ul>
+    <div class="data-panel__section">
+
+            <ul  class="data-panel__list">
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Total ABC :</strong> {{number_format($data->total_amount,2)}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Created :</strong> {{$data->created_at}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Units :</strong>    {{($data->unit) ? $data->unit->name :""}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Chargeability :</strong> {{($data->charges) ? $data->charges->name :""}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Account Code :</strong> {{($data->accounts) ? $data->accounts->new_account_code :""}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Fund Validity :</strong> {{$data->fund_validity}} </li>
+            </ul>
+    </div>
+    <div class="data-panel__section">
+
+            <ul  class="data-panel__list">
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Terms of Payment :</strong> {{($data->terms) ? $data->terms->name :""}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Status :</strong> {{ucfirst($data->status)}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">State :</strong> {{ucfirst($data->state)}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Total ABC :</strong> {{number_format($data->total_amount,2)}} </li>
+                @if($data->date_processed)
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Date Processed :</strong> {{$data->date_processed}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Processed By :</strong> {{($data->processor) ? $data->processor->first_name ." ". $data->processor->surname :""}} </li>
+                @endif
+            </ul>
     </div>
 </div>
 
-<div class="row">
-    <div class="twelve columns">
-        <ul>
-            <li> <strong>Purpose of Purchase :</strong>
+<div class="data-panel">
+    <div class="data-panel__section">
+        <ul  class="data-panel__list">
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Purpose of Purchase :</strong>
                 <ul>
                     <li> {{$data->purpose}} </li>
                 </ul>
             </li>
-            <li> <strong>Other Essential Info :</strong>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Other Essential Info :</strong>
                 <ul>
                     <li> {{$data->other_infos}} </li>
                 </ul>
@@ -112,8 +118,8 @@ Unit Purchase Request
         </ul>
     </div>
 </div>
-<div class="row">
-    <div class="twelve columns">
+<div >
+    <div>
         <table class='table' id="item_table">
             <thead>
                 <tr>

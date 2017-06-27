@@ -32,29 +32,33 @@ Vouchers
 </div>
 
 
-<div class="row">
-    <div class="six columns pull-left">
-        <ul>
-            <li> <strong>UPR No. :</strong> {{$data->upr_number}} </li>
-            <li> <strong>RFQ No. :</strong> {{$data->rfq_number}} </li>
-            <li> <strong>Transaction DAte :</strong> {{$data->transaction_date}} </li>
-            <li> <strong>BIR Address. :</strong> {{$data->bir_address}} </li>
-            <li> <strong>Final Tax :</strong> {{$data->final_tax}} </li>
-            <li> <strong>Expanded Witholding Tax :</strong> {{$data->expanded_witholding_tax}} </li>
-            <li> <strong>Prepared By:</strong> {{($data->users) ? $data->users->first_name .' '.$data->users->surname : " "}} </li>
+<div class="data-panel">
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ No. :</strong> {{$data->rfq_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Transaction DAte :</strong> {{$data->transaction_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">BIR Address. :</strong> {{$data->bir_address}} </li>
         </ul>
     </div>
-    <div class="six columns pull-right">
-        <ul>
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Final Tax :</strong> {{$data->final_tax}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Expanded Witholding Tax :</strong> {{$data->expanded_witholding_tax}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared By:</strong> {{($data->users) ? $data->users->first_name .' '.$data->users->surname : " "}} </li>
+        </ul>
+    </div>
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
 
             @if($data->payment_release_date)
-                <li> <strong>Payment Release Date :</strong> {{$data->payment_release_date}} </li>
-                <li> <strong>Releaser :</strong> {{($data->releaser) ? $data->releaser->first_name .' '.$data->releaser->surname : " "}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Payment Release Date :</strong> {{$data->payment_release_date}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Releaser :</strong> {{($data->releaser) ? $data->releaser->first_name .' '.$data->releaser->surname : " "}} </li>
             @endif
 
             @if($data->payment_received_date)
-                <li> <strong>Payment Received Date :</strong> {{$data->payment_received_date}} </li>
-                <li> <strong>Receiver :</strong> {{($data->recevier) ? $data->recevier->first_name .' '.$data->recevier->surname : " "}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Payment Received Date :</strong> {{$data->payment_received_date}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Receiver :</strong> {{($data->recevier) ? $data->recevier->first_name .' '.$data->recevier->surname : " "}} </li>
             @endif
         </ul>
     </div>

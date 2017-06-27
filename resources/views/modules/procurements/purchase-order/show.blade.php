@@ -80,57 +80,54 @@ Purchase Order
         {{-- <a class="button" href="{{route($indexRoute,$data->rfq_id)}}">Back</a> --}}
 
 
-<div class="row">
-    <div class="six columns pull-left">
+<div class="data-panel">
+    <div class="data-panel__section">
+
         <h3>Purchase Details</h3>
-        <ul>
-            <li> <strong>Purchase Number :</strong> {{$data->po_number}} </li>
-            <li> <strong>Purchase Date :</strong> {{$data->purchase_date}} </li>
-            <li> <strong>Bid Amount :</strong> {{$data->bid_amount}} </li>
-            <li> <strong>Payment Term :</strong> {{($data->terms) ? $data->terms->name : ""}} </li>
-            <li> <strong>Prepared By :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname : ""}} </li>
-            <li> <strong>Status :</strong> {{$data->status}} </li>
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Purchase Number :</strong> {{$data->po_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Purchase Date :</strong> {{$data->purchase_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Bid Amount :</strong> {{$data->bid_amount}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Payment Term :</strong> {{($data->terms) ? $data->terms->name : ""}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared By :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname : ""}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{$data->status}} </li>
             @if($data->coa_approved_date)
-                <li> <strong>COA Approved Date :</strong> {{$data->coa_approved_date}} </li>
-                <li> <strong>COA File :</strong> <a target="_blank" href="{{route('procurements.purchase-orders.coa-file',$data->id)}}">{{$data->coa_file}} </a></li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">COA Approved Date :</strong> {{$data->coa_approved_date}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">COA File :</strong> <a target="_blank" href="{{route('procurements.purchase-orders.coa-file',$data->id)}}">{{$data->coa_file}} </a></li>
             @endif
         </ul>
     </div>
-    <div class="six columns">
+
+    <div class="data-panel__section">
         <h3>Approval Details</h3>
-        <ul>
-            <li> <strong>MFO Has Issue? :</strong> {{$data->mfo_has_issue}} </li>
-            <li> <strong>MFO Released Date :</strong> {{$data->mfo_released_date}} </li>
-            <li> <strong>MFO Received Date :</strong> {{$data->mfo_received_date}} </li>
-            <li> <strong>MFO Remarks :</strong> {{$data->mfo_remarks}} </li>
-            <li> <strong>PCCO Has Issue? :</strong> {{$data->pcco_has_issue}} </li>
-            <li> <strong>PCCO Released Date :</strong> {{$data->pcco_released_date}} </li>
-            <li> <strong>PCCO Received Date :</strong> {{$data->pcco_received_date}} </li>
-            <li> <strong>PCCO Remarks :</strong> {{$data->pcco_remarks}} </li>
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Has Issue? :</strong> {{$data->mfo_has_issue}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Released Date :</strong> {{$data->mfo_released_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Received Date :</strong> {{$data->mfo_received_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Remarks :</strong> {{$data->mfo_remarks}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PCCO Has Issue? :</strong> {{$data->pcco_has_issue}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PCCO Released Date :</strong> {{$data->pcco_released_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PCCO Received Date :</strong> {{$data->pcco_received_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PCCO Remarks :</strong> {{$data->pcco_remarks}} </li>
+        </ul>
+    </div>
+
+    <div class="data-panel__section">
+        <h3>Proponent Details</h3>
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Name :</strong> {{$supplier->name}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Owner :</strong> {{$supplier->owner}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Address :</strong> {{$supplier->address}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">TIN :</strong> {{$supplier->tin}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Cellphone # :</strong> {{$supplier->cell_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Phone # :</strong> {{$supplier->phone_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">FAX :</strong> {{$supplier->fax_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Email :</strong> {{$supplier->email_1}} </li>
         </ul>
     </div>
 </div>
 
-<div class="row">
-    <div class="six columns">
-        <h3>Proponent Details</h3>
-        <ul>
-            <li> <strong>Name :</strong> {{$supplier->name}} </li>
-            <li> <strong>Owner :</strong> {{$supplier->owner}} </li>
-            <li> <strong>Address :</strong> {{$supplier->address}} </li>
-            <li> <strong>TIN :</strong> {{$supplier->tin}} </li>
-        </ul>
-    </div>
-    <div class="six columns pull-right">
-        <h3></h3>
-        <ul>
-            <li> <strong>Cellphone # :</strong> {{$supplier->cell_1}} </li>
-            <li> <strong>Phone # :</strong> {{$supplier->phone_1}} </li>
-            <li> <strong>FAX :</strong> {{$supplier->fax_1}} </li>
-            <li> <strong>Email :</strong> {{$supplier->email_1}} </li>
-        </ul>
-    </div>
-</div>
+
 <div class="row">
     <div class="twelve columns ">
         <h3>Items Details</h3>

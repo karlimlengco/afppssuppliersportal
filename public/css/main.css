@@ -1159,7 +1159,7 @@ printable-form.less
   table-layout: auto;
   /* auto or fixed */
   border-collapse: collapse;
-  /* standard table used for custom forms */
+  /* custom table */
 }
 .printable-form__body__table tr td,
 .printable-form__body__table tr th {
@@ -1219,6 +1219,14 @@ printable-form.less
 .printable-form__body__table--custom tr th.v-align-middle {
   vertical-align: middle !important;
 }
+.printable-form__body__table--custom tr td.v-align-bottom,
+.printable-form__body__table--custom tr th.v-align-bottom {
+  vertical-align: bottom !important;
+}
+.printable-form__body__table--custom tr td.v-align-top,
+.printable-form__body__table--custom tr th.v-align-top {
+  vertical-align: top !important;
+}
 .printable-form__body__table--custom tr td .child-table,
 .printable-form__body__table--custom tr th .child-table {
   width: 100%;
@@ -1259,6 +1267,26 @@ printable-form.less
   color: #545454;
   text-transform: uppercase;
 }
+.printable-form__body__table--custom tr td.signatory,
+.printable-form__body__table--custom tr th.signatory {
+  padding: 0 0 4px 0 !important;
+}
+.printable-form__body__table--custom tr td.signatory .signatory-name,
+.printable-form__body__table--custom tr th.signatory .signatory-name {
+  display: block;
+  width: 100%;
+  font-weight: 800;
+  padding-top: 4px;
+  border-top: solid 1px #adadad;
+}
+.printable-form__body__table--custom tr td.signatory .conforme-label,
+.printable-form__body__table--custom tr th.signatory .conforme-label {
+  display: block;
+  width: 100%;
+  font-weight: 800;
+  padding-top: 4px;
+  border-top: solid 1px #adadad;
+}
 .printable-form__body__table--custom tr td:last-child,
 .printable-form__body__table--custom tr th:last-child {
   text-align: right;
@@ -1266,6 +1294,11 @@ printable-form.less
 .printable-form__body__table--custom tr td:first-child,
 .printable-form__body__table--custom tr th:first-child {
   text-align: left;
+}
+.printable-form__body__table--borderless tr th,
+.printable-form__body__table--borderless tr td {
+  border: none;
+  font-size: 12px;
 }
 .printable-form__foot {
   position: absolute;
@@ -1303,66 +1336,6 @@ printable-form.less
 }
 .printable-form__foot__code img {
   height: 100%;
-}
-.conforme {
-  display: block;
-}
-.conforme__head {
-  display: block;
-}
-.conforme__note {
-  display: block;
-  margin-top: 45px;
-  margin-bottom: 55px;
-}
-.conforme__details {
-  display: block;
-  text-align: center;
-  padding-top: 5px;
-  margin-top: 40px;
-  width: 100%;
-  border-top: solid 1px #adadad;
-}
-.conforme__details__label {
-  display: block;
-}
-.conforme.no-head .conforme__details {
-  margin-top: 0;
-  margin-bottom: 40px;
-}
-.signatory {
-  display: block;
-  margin-top: 50px;
-}
-.signatory__table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.signatory__table tr td {
-  width: 50%;
-  vertical-align: top;
-}
-.signatory__table tr td:first-child {
-  padding-right: 35px;
-}
-.signatory__table tr td:last-child {
-  padding-left: 35px;
-}
-.signatory__details {
-  display: block;
-  text-align: center;
-  padding-top: 5px;
-  margin-top: 50px;
-  width: 100%;
-  border-top: solid 1px #adadad;
-}
-.signatory__details__name {
-  display: block;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-.signatory__details__position {
-  display: block;
 }
 /*
 form.less
@@ -2952,18 +2925,36 @@ utility.less
 data-panel.less
 ------------------------------------------------------------------------- */
 .data-panel {
-  display: block;
-  margin: 0 0 30px 0;
+  display: flex;
+  flex-direction: row;
+  padding: 30px;
+  margin-bottom: 50px;
+  border: solid 1px #adadad;
+}
+.data-panel__section {
+  margin-right: 30px;
+  padding: 0;
+  -lh-property: 0;
+width:-webkit-calc(((100% - 60px) / 3));
+width:-moz-calc(((100% - 60px) / 3));
+width:calc(((100% - 60px) / 3));
+;
+}
+.data-panel__section:last-child {
+  margin-right: 0;
+}
+.data-panel__list {
+  margin: 0;
   padding: 0;
 }
-.data-panel__item {
+.data-panel__list__item {
   display: block;
   list-style: none;
   margin: 0;
   padding: 10px 0;
   border-bottom: solid 1px #adadad;
 }
-.data-panel__item__label {
+.data-panel__list__item__label {
   display: block;
   font-size: 12px;
   text-transform: uppercase;
@@ -2974,10 +2965,10 @@ data-panel.less
   -moz-opacity: 0.75;
   opacity: 0.75;
 }
-.data-panel__item:first-child {
+.data-panel__list__item:first-child {
   padding-top: 0;
 }
-.data-panel__item:last-child {
+.data-panel__list__item:last-child {
   padding-bottom: 0;
   border-bottom: none;
 }

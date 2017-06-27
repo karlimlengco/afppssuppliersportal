@@ -44,34 +44,41 @@ Notice To Proceed
     </div>
 </div>
 
-<div class="row">
-    <div class="six columns">
+<div class="data-panel">
+    <div class="data-panel__section">
         <h3>Details</h3>
-        <ul>
-            <li> <strong>RFQ Number :</strong> {{$data->rfq_number}} </li>
-            <li> <strong>UPR Number :</strong> {{$data->upr_number}} </li>
-            <li> <strong>PO Number :</strong> {{$po_model->po_number}} </li>
-            <li> <strong>Prepared Date :</strong> {{$data->prepared_date}} </li>
-            <li> <strong>Prepared By :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname : ""}} </li>
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ Number :</strong> {{$data->rfq_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR Number :</strong> {{$data->upr_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PO Number :</strong> {{$po_model->po_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared Date :</strong> {{$data->prepared_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared By :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname : ""}} </li>
 
             @if($data->received_by)
-            <li> <strong>Received Date :</strong> {{$data->award_accepted_date}} </li>
-            <li> <strong>Received by :</strong> {{$data->received_by}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received Date :</strong> {{$data->award_accepted_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received by :</strong> {{$data->received_by}} </li>
             @endif
 
         </ul>
     </div>
+
+    <div class="six columns pull-right">
+        <h3></h3>
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Name :</strong> {{$supplier->name}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Owner :</strong> {{$supplier->owner}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Address :</strong> {{$supplier->address}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">TIN :</strong> {{$supplier->tin}} </li>
+        </ul>
+    </div>
+
     <div class="six columns pull-right">
         <h3>Proponent Details</h3>
-        <ul>
-            <li> <strong>Name :</strong> {{$supplier->name}} </li>
-            <li> <strong>Owner :</strong> {{$supplier->owner}} </li>
-            <li> <strong>Address :</strong> {{$supplier->address}} </li>
-            <li> <strong>TIN :</strong> {{$supplier->tin}} </li>
-            <li> <strong>Cellphone # :</strong> {{$supplier->cell_1}} </li>
-            <li> <strong>Phone # :</strong> {{$supplier->phone_1}} </li>
-            <li> <strong>FAX :</strong> {{$supplier->fax_1}} </li>
-            <li> <strong>Email :</strong> {{$supplier->email_1}} </li>
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Cellphone # :</strong> {{$supplier->cell_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Phone # :</strong> {{$supplier->phone_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">FAX :</strong> {{$supplier->fax_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Email :</strong> {{$supplier->email_1}} </li>
         </ul>
     </div>
 </div>

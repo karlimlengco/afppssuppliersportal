@@ -32,56 +32,62 @@ Inspection And Acceptance Report
         <a class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
     </div>
 </div>
-<hr>
 
-<div class="row">
-    <div class="six columns pull-left">
+<div class="data-panel">
+    <div class="data-panel__section">
         <h3>Inspection Details</h3>
-        <ul>
-            <li> <strong>UPR No. :</strong> {{$data->upr_number}} </li>
-            <li> <strong>RFQ No. :</strong> {{$data->rfq_number}} </li>
-            <li> <strong>Delivery No. :</strong> {{$data->delivery_number}} </li>
-            <li> <strong>Status :</strong> {{$data->status}} </li>
-            <li> <strong>Inspection Date :</strong> {{$data->inspection_date}} </li>
-            <li> <strong>Nature Of Delivery :</strong> {{$data->nature_of_delivery}} </li>
-            <li> <strong>Prepared By :</strong> {{($data->users) ? $data->users->first_name .' '.$data->users->surname : ""}} </li>
+        <ul  class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ No. :</strong> {{$data->rfq_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Delivery No. :</strong> {{$data->delivery_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{$data->status}} </li>
+        </ul>
+    </div>
+
+    <div class="data-panel__section">
+        <h3></h3>
+        <ul  class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Inspection Date :</strong> {{$data->inspection_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Nature Of Delivery :</strong> {{$data->nature_of_delivery}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared By :</strong> {{($data->users) ? $data->users->first_name .' '.$data->users->surname : ""}} </li>
             @if($data->accepted_date)
-                <li> <strong>Date Accepted :</strong> {{$data->accepted_date}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Date Accepted :</strong> {{$data->accepted_date}} </li>
             @endif
 
             @foreach($data->invoices as $invoice)
-                <li>
-                    <strong>Invoice #. :</strong> {{$invoice->invoice_number}}
-                    <ul>
-                        <li>{{$invoice->invoice_date}}</li>
+                <li class="data-panel__list__item">
+                    <strong class="data-panel__list__item__label">Invoice #. :</strong> {{$invoice->invoice_number}}
+                    <ul  class="data-panel__list">
+                        <li class="data-panel__list__item">{{$invoice->invoice_date}}</li>
                     </ul>
                 </li>
             @endforeach
         </ul>
+
     </div>
 
-    <div class="six columns pull-right">
+    <div class="data-panel__section">
         <h3>Supplier Details</h3>
-        <ul>
-            <li> <strong>Name :</strong> {{$supplier->name}} </li>
-            <li> <strong>Owner :</strong> {{$supplier->owner}} </li>
-            <li> <strong>Address :</strong> {{$supplier->address}} </li>
-            <li> <strong>TIN :</strong> {{$supplier->tin}} </li>
-            <li> <strong>Cellphone # :</strong> {{$supplier->cell_1}} </li>
-            <li> <strong>Phone # :</strong> {{$supplier->phone_1}} </li>
-            <li> <strong>FAX :</strong> {{$supplier->fax_1}} </li>
-            <li> <strong>Email :</strong> {{$supplier->email_1}} </li>
+        <ul  class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Name :</strong> {{$supplier->name}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Owner :</strong> {{$supplier->owner}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Address :</strong> {{$supplier->address}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">TIN :</strong> {{$supplier->tin}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Cellphone # :</strong> {{$supplier->cell_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Phone # :</strong> {{$supplier->phone_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">FAX :</strong> {{$supplier->fax_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Email :</strong> {{$supplier->email_1}} </li>
         </ul>
 
     </div>
 </div>
 
 
-<div class="row">
-    <div class="twelve columns">
-        <ul>
-            <li> <strong>Findings :</strong> {{$data->findings}} </li>
-            <li> <strong>Recommendation :</strong> {{$data->recommendation}}   </li>
+<div class="data-panel">
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Findings :</strong> {{$data->findings}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Recommendation :</strong> {{$data->recommendation}}   </li>
         </ul>
     </div>
 </div>
