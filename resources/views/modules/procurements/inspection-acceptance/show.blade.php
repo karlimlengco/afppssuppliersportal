@@ -4,6 +4,7 @@ Inspection And Acceptance Report
 
 @section('modal')
     @include('modules.partials.modals.notice_of_award')
+    @include('modules.partials.modals.iar-signatories')
 @stop
 
 @section('contents')
@@ -11,11 +12,21 @@ Inspection And Acceptance Report
 <div class="row">
     <div class="twelve columns utility utility--align-right" >
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+
+
+        <button class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                <a id="signatory-button" href="#" class="button__options__item" > Signatories</a>
+
+            </div>
+        </button>
+
         @if(!$data->accepted_date)
-            <a class="button" href="{{route($acceptRoute,$data->id)}}"><i class="nc-icon-mini ui-1_check-bold"></i></a>
+            <a class="button" tooltip="Accept"  href="{{route($acceptRoute,$data->id)}}"><i class="nc-icon-mini ui-1_check-bold"></i></a>
         @else
-            <a class="button" href="{{route($indexRoute)}}"><i class="nc-icon-mini tech_print"></i></a>
         @endif
+        <a class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
     </div>
 </div>
 <hr>
@@ -76,5 +87,10 @@ Inspection And Acceptance Report
 
 @section('scripts')
 <script type="text/javascript">
+
+$('#signatory-button').click(function(e){
+    e.preventDefault();
+    $('#signatory-modal').addClass('is-visible');
+})
 </script>
 @stop

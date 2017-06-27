@@ -16,6 +16,7 @@ Notice Of Delivery
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
+
                 <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="RFQ"> Request For Quotation</a>
 
                 <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="NTP"> Purchase Order</a>
@@ -23,9 +24,12 @@ Notice Of Delivery
                 @if(count($data->delivery) != 0)
                 <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" tooltip="Delivery"> Delivery</a>
                 @endif
+
                 @if($data->delivery_date)
                     @if(!$data->date_completed)
                         <a class="button__options__item" href="{{route($completeRoute,$data->id)}}">Complete</a>
+                    @else
+                        <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.create-from-delivery',$data->id)}}">Start Inspection</a>
                     @endif
                 @endif
                 <a target="_blank" class="button__options__item" id="signatory-button" href="#">Signatory</a>

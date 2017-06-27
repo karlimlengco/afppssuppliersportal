@@ -34,6 +34,8 @@ class InspectionAndAcceptanceEloquent extends Model
         'recommendation',
         'accepted_date',
         'status',
+        'inspection_signatory',
+        'acceptance_signatory',
     ];
 
     /**
@@ -44,6 +46,26 @@ class InspectionAndAcceptanceEloquent extends Model
     public function users()
     {
         return $this->belongsTo('\App\User', 'prepared_by');
+    }
+
+    /**
+     * [inspector description]
+     *
+     * @return [type] [description]
+     */
+    public function inspector()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'inspection_signatory');
+    }
+
+    /**
+     * [acceptor description]
+     *
+     * @return [type] [description]
+     */
+    public function acceptor()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'acceptance_signatory');
     }
 
     /**
