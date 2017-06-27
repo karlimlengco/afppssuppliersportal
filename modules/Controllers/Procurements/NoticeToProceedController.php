@@ -190,7 +190,8 @@ class NoticeToProceedController extends Controller
         $id,
         RFQProponentRepository $rfq,
         BlankRFQRepository $blank,
-        PORepository $model
+        UnitPurchaseRequestRepository $upr,
+        NTPRepository $model
         )
     {
         $this->validate($request, [
@@ -201,10 +202,11 @@ class NoticeToProceedController extends Controller
         $input  =   [
             'received_by'           =>  $request->received_by,
             'award_accepted_date'   =>  $request->award_accepted_date,
-            'status'                =>  "NTP Accepted",
+            'status'                =>  "Accepted",
         ];
 
         $result             =   $model->update($input, $id);
+        $upr->update(['status' => 'NTP Accepted'], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

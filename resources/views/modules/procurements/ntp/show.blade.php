@@ -15,18 +15,19 @@ Notice To Proceed
         <button class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
-                @if($data->pcco_released_date and $data->mfo_released_date)
-                    @if(!$data->received_by)
-                    <a class="button__options__item" id="proceed-ntp-button" href="#">Received</a>
-                    @else
-                        @if(count($data->delivery) == 0)
-                            <a class="button__options__item" id="create-delivery-button" href="#">Create Notice Of Delivery</a>
-                        @endif
+
+                @if(!$data->received_by)
+                <a class="button__options__item" id="proceed-ntp-button" href="#">Received</a>
+                @else
+                    @if(count($data->delivery) == 0)
+                        <a class="button__options__item" id="create-delivery-button" href="#">Create Notice Of Delivery</a>
                     @endif
                 @endif
 
                 <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="UPR"> Purchase Oreder</a>
+
                 <a id="signatory-button" href="#" class="button__options__item" > Signatories</a>
+
             </div>
         </button>
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
@@ -49,6 +50,12 @@ Notice To Proceed
             <li> <strong>PO Number :</strong> {{$po_model->po_number}} </li>
             <li> <strong>Prepared Date :</strong> {{$data->prepared_date}} </li>
             <li> <strong>Prepared By :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname : ""}} </li>
+
+            @if($data->received_by)
+            <li> <strong>Received Date :</strong> {{$data->award_accepted_date}} </li>
+            <li> <strong>Received by :</strong> {{$data->received_by}} </li>
+            @endif
+
         </ul>
     </div>
     <div class="six columns pull-right">
