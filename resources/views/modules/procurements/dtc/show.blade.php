@@ -11,12 +11,18 @@ Delivery To COA
 <div class="row">
     <div class="twelve columns utility utility--align-right" >
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-        <button type="button" class="button button--options-trigger" tooltip="Options">
+        <button type="button" style="margin-right:40px" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 @if(!$data->date_delivered_to_coa)
                     <a class="button__options__item topbar__utility__button--modal" href="#">Proceed</a>
                 @endif
+
+                <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
+
+                <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="RFQ"> Request For Quotation</a>
+
+                <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="NTP"> Purchase Order</a>
             </div>
         </button>
     </div>

@@ -64,12 +64,17 @@ Request For Quotation
                     @endif
                 @endif
 
-                @if(count($data->delivery) != 0)
-                    <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item">View Delivery</a>
-                @endif
-
                 @if(count($data->ntp) != 0)
                     <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item">View NTP</a>
+                @endif
+
+                @if(count($data->delivery) != 0)
+                    <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item">View Delivery</a>
+                    <a href="{{route('procurements.delivery-to-coa.show', $data->delivery->id)}}" class="button__options__item">View Delivery To COA</a>
+                @endif
+                @if(count($data->diir) != 0)
+                    <a href="{{route('procurements.delivered-inspections.show', $data->diir->id)}}" class="button__options__item">View DIIR</a>
+
                 @endif
 
             </div>

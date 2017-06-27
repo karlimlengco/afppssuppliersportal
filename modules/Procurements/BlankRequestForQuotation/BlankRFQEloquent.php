@@ -93,6 +93,16 @@ class BlankRFQEloquent extends Model
     }
 
     /**
+     * [diir description]
+     *
+     * @return [type] [description]
+     */
+    public function diir()
+    {
+        return $this->hasOne('\Revlv\Procurements\DeliveryInspection\DeliveryInspectionEloquent',  'rfq_id');
+    }
+
+    /**
      * [upr description]
      *
      * @return [type] [description]

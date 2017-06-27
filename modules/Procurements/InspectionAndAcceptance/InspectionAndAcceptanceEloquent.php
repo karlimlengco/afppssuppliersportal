@@ -75,7 +75,7 @@ class InspectionAndAcceptanceEloquent extends Model
      */
     public function delivery()
     {
-        return $this->belongsTo('\Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent', 'rfq_id');
+        return $this->belongsTo('\Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent', 'dr_id');
     }
 
     /**

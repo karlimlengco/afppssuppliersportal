@@ -63,4 +63,34 @@ class DeliveryInspectionEloquent extends Model
     {
         return $this->hasMany('\Revlv\Procurements\DeliveryInspection\Issues\IssueEloquent', 'inspection_id');
     }
+
+    /**
+     * [upr description]
+     *
+     * @return [type] [description]
+     */
+    public function upr()
+    {
+        return $this->belongsTo('\Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestEloquent', 'upr_id');
+    }
+
+    /**
+     * [rfq description]
+     *
+     * @return [type] [description]
+     */
+    public function rfq()
+    {
+        return $this->belongsTo('\Revlv\Procurements\BlankRequestForQuotation\BlankRFQEloquent', 'rfq_id');
+    }
+
+    /**
+     * [delivery description]
+     *
+     * @return [type] [description]
+     */
+    public function delivery()
+    {
+        return $this->belongsTo('\Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent', 'dr_id');
+    }
 }
