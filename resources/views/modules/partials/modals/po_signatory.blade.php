@@ -15,6 +15,7 @@
                         {!! Form::selectField('requestor_id', 'Requestor', $signatory_list) !!}
                         {!! Form::selectField('accounting_id', 'Accounting', $signatory_list) !!}
                         {!! Form::selectField('approver_id', 'Approver', $signatory_list) !!}
+                        {!! Form::selectField('coa_signatory', 'COA Signatory', $signatory_list) !!}
                     </div>
                 </div>
             </div>

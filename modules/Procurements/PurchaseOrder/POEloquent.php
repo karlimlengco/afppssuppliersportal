@@ -44,6 +44,10 @@ class POEloquent extends Model
         'requestor_id',
         'accounting_id',
         'approver_id',
+        'coa_approved_date',
+        'coa_approved',
+        'coa_signatory',
+        'coa_file',
     ];
 
     /**
@@ -114,5 +118,15 @@ class POEloquent extends Model
     public function signatories()
     {
         return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'signatory_id');
+    }
+
+    /**
+     * [coa_signatories description]
+     *
+     * @return [type] [description]
+     */
+    public function coa_signatories()
+    {
+        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'coa_signatory');
     }
 }

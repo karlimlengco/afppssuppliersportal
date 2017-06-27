@@ -299,7 +299,7 @@ topbar.less
   left: 0;
   right: 0;
   width: 100%;
-  padding-left: 300px;
+  padding-left: 340px;
   background: #2C363F;
 }
 .topbar__wrapper {
@@ -473,6 +473,9 @@ topbar.less
   background: #fff;
   border-radius: 3px;
   border: solid 1px #e6e6e6;
+  -webkit-box-shadow: 0px 2px 26px -8px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 2px 26px -8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 26px -8px rgba(0, 0, 0, 0.5);
   visibility: hidden;
   zoom: 1;
   filter: alpha(opacity=0);
@@ -534,7 +537,7 @@ sidebar.less
   left: 0;
   bottom: 0;
   margin-top: 268px;
-  width: 300px;
+  width: 340px;
   height: 100%;
   -lh-property: 0;
 height:-webkit-calc(100% - 268px);
@@ -545,7 +548,7 @@ height:calc(100% - 268px);
 }
 .sidebar__logo {
   position: fixed;
-  width: 300px;
+  width: 340px;
   top: 0;
   display: flex;
   align-items: center;
@@ -571,7 +574,7 @@ height:calc(100% - 268px);
 }
 .sidebar__search {
   position: fixed;
-  width: 300px;
+  width: 340px;
   top: 200px;
   display: flex;
   flex-direction: row;
@@ -732,7 +735,7 @@ content.less
 ------------------------------------------------------------------------- */
 .content {
   display: block;
-  padding-left: 300px;
+  padding-left: 340px;
   padding-top: 100px;
   background: #fff;
 }
@@ -1077,8 +1080,8 @@ printable-form.less
   height: 13in;
   max-height: 13in;
   min-height: 13in;
-  // padding: 0;
-  // margin: 30px 0;
+  padding: 0;
+  margin: 30px 0;
   border: solid 1px transparent;
 }
 .printable-form * {
@@ -2761,10 +2764,13 @@ utility.less
   width: auto;
   list-style: none;
   margin: 0;
-  padding: 10px 20px;
+  padding: 20px;
   background: #fff;
   border-radius: 3px;
   border: solid 1px #e6e6e6;
+  -webkit-box-shadow: 0px 2px 26px -8px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 2px 26px -8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 26px -8px rgba(0, 0, 0, 0.5);
   visibility: hidden;
   zoom: 1;
   filter: alpha(opacity=0);
@@ -2793,33 +2799,32 @@ utility.less
   -ms-transform: translate(-50%, 10px);
   -o-transform: translate(-50%, 10px);
   transform: translate(-50%, 10px);
-  z-index:9999
 }
 .utility .button__options:before {
   position: absolute;
   bottom: 100%;
   left: 50%;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-  transform: translateX(-50%);
+  -webkit-transform: translate(-50%, -1px);
+  -moz-transform: translate(-50%, -1px);
+  -ms-transform: translate(-50%, -1px);
+  -o-transform: translate(-50%, -1px);
+  transform: translate(-50%, -1px);
   content: '';
   width: 0;
   height: 0;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-bottom: 8px solid #b3b3b3;
+  border-bottom: 8px solid #e6e6e6;
 }
 .utility .button__options:after {
   position: absolute;
   bottom: 100%;
   left: 50%;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-  transform: translateX(-50%);
+  -webkit-transform: translate(-50%, 1px);
+  -moz-transform: translate(-50%, 1px);
+  -ms-transform: translate(-50%, 1px);
+  -o-transform: translate(-50%, 1px);
+  transform: translate(-50%, 1px);
   content: '';
   width: 0;
   height: 0;
@@ -2830,7 +2835,8 @@ utility.less
 .utility .button__options__item {
   display: block;
   margin: 0;
-  padding: 0;
+  padding: 8px 0;
+  line-height: 1;
   text-align: left;
   white-space: nowrap;
   border-bottom: solid 1px #e6e6e6;
@@ -4612,12 +4618,12 @@ http://nicolasgallagher.com/micro-clearfix-hack/
   cursor: pointer;
   font-size: 14px;
   padding: 0 8px;
-  background: #00A1E4;
+  background: #3BB273;
   color: white;
   border: solid 2px #FFFFFF;
 }
 .selectize-control.multi .selectize-input > div.active {
-  background: #007db1;
+  background: #2e8c5a;
   color: white;
 }
 .selectize-control.multi .selectize-input.disabled > div,

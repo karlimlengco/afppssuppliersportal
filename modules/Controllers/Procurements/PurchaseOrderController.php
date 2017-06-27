@@ -106,7 +106,7 @@ class PurchaseOrderController extends Controller
 
         if($result->pcco_has_issue AND $result->pcco_has_issue != 'yes')
         {
-            $model->update(['status' => 'Approved'], $id);
+            $model->update(['status' => 'MFO/PCCO Approved'], $id);
         }
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -142,7 +142,7 @@ class PurchaseOrderController extends Controller
 
         if($result->mfo_has_issue AND $result->mfo_has_issue != 'yes')
         {
-            $model->update(['status' => 'Approved'], $id);
+            $model->update(['status' => 'MFO/PCCO Approved'], $id);
         }
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -407,6 +407,7 @@ class PurchaseOrderController extends Controller
             'requestor_id'  =>  $request->requestor_id,
             'accounting_id' =>  $request->accounting_id,
             'approver_id'   =>  $request->approver_id,
+            'coa_signatory' =>  $request->coa_signatory,
         ];
 
         $model->update($input, $id);
@@ -431,8 +432,6 @@ class PurchaseOrderController extends Controller
         ]);
     }
 
-
-
     /**
      * [viewPrint description]
      *
@@ -449,5 +448,95 @@ class PurchaseOrderController extends Controller
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('po-terms.pdf');
         return $pdf->download('po-terms.pdf');
+    }
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrintCOA($id, PORepository $model, NOARepository $noa)
+    {
+        $result                     =  $model->with(['coa_signatories','rfq','upr'])->findById($id);
+        $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+
+        if($result->coa_signatories == null)
+        {
+            return redirect()->back()->with(['error' => 'Please add signatory for COA']);
+        }
+
+        $data['transaction_date']   =  $result->rfq->transaction_date;
+        $data['today']              =  \Carbon\Carbon::now()->format("d F Y");
+        $data['rfq_number']         =  $result->rfq_number;
+        $data['bid_amount']         =  $result->bid_amount;
+        $data['project_name']       =  $result->upr->project_name;
+        $data['winner']             =  $noa_model->name;
+        $data['coa_signatory']      =  $result->coa_signatories;
+
+        $pdf = PDF::loadView('forms.po-coa', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('po-coa.pdf');
+        return $pdf->download('po-coa.pdf');
+    }
+
+    /**
+     * [coaApproved description]
+     *
+     * @param  [type]       $id      [description]
+     * @param  Request      $request [description]
+     * @param  PORepository $model   [description]
+     * @return [type]                [description]
+     */
+    public function coaApproved(
+        $id,
+        Request $request,
+        PORepository $model)
+    {
+        $validator = \Validator::make($request->all(), [
+            'file' => 'required',
+        ]);
+
+        $file       = md5_file($request->file);
+        $file       = $file.".".$request->file->getClientOriginalExtension();
+
+        $data       =   [
+            'coa_file'          =>  $file,
+            'coa_approved_date' =>  \Carbon\Carbon::now(),
+            'coa_approved'      =>  \Sentinel::getUser()->id,
+            'status'            =>  'COA Approved'
+        ];
+
+        $result =   $model->update($data, $id);
+
+        if($result)
+        {
+            $path       = $request->file->storeAs('coa-approved-attachments', $file);
+        }
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Purchase Order has been successfully approved."
+        ]);
+    }
+
+    /**
+     * [downloadCoa description]
+     *
+     * @param  [type]       $id    [description]
+     * @param  PORepository $model [description]
+     * @return [type]              [description]
+     */
+    public function downloadCoa($id, PORepository $model)
+    {
+        $result         = $model->findById($id);
+
+        $directory      =   storage_path("app/coa-approved-attachments/".$result->coa_file);
+
+        if(!file_exists($directory))
+        {
+            return 'Sorry. File does not exists.';
+        }
+
+        return response()->download($directory);
     }
 }

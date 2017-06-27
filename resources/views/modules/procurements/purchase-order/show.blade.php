@@ -6,6 +6,7 @@ Purchase Order
     @include('modules.partials.modals.mfo')
     @include('modules.partials.modals.pcco')
     @include('modules.partials.modals.po_signatory')
+    @include('modules.partials.modals.coa-approval')
 @stop
 
 @section('contents')
@@ -20,20 +21,29 @@ Purchase Order
         <button type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
+
                 @if(!$data->mfo_released_date)
-                <a class=" button__options__item" id="mfo-button" href="#">MFO Approval</a>
+                    <a class=" button__options__item" id="mfo-button" href="#">MFO Approval</a>
                 @endif
                 @if(!$data->pcco_released_date)
-                <a class=" button__options__item" id="pcco-button" href="#">PCCO Approval</a>
+                    <a class=" button__options__item" id="pcco-button" href="#">PCCO Approval</a>
+                @endif
+
+                @if($data->status == 'MFO/PCCO Approved')
+                    <a href="#" class="button__options__item" id="coa-button"> COA Approval</a>
+                @endif
+
+                @if($data->status == 'COA Approved')
+                    <a href="{{route('procurements.ntp.show', $data->id)}}" class="button__options__item"> Notice To Proceed</a>
                 @endif
 
                 <a href="#" class="button__options__item" id="signatory-button"> Signatories</a>
-                <a href="{{route('procurements.purchase-orders.print-terms', $data->id)}}" class="button__options__item" id="signatory-button"> Print Terms</a>
+                <a target="_blank" href="{{route('procurements.purchase-orders.print-terms', $data->id)}}" class="button__options__item" id="signatory-button"> Print Terms</a>
+                <a target="_blank" href="{{route('procurements.purchase-orders.print-coa', $data->id)}}" class="button__options__item" id="signatory-button"> Print COA Approval</a>
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
                 <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="RFQ"> Request For Quotation</a>
 
-                {{-- <a href="{{route('procurements.ntp.show', $data->id)}}" class="button__options__item" tooltip="NTP"> Notice To Proceed</a> --}}
 
                 @if(count($data->delivery) != 0)
                 <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" tooltip="Delivery"> Delivery</a>
@@ -44,7 +54,6 @@ Purchase Order
         <a href="{{route('procurements.purchase-orders.print', $data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
         </a>
-
 
     </div>
 </div>
@@ -65,7 +74,7 @@ Purchase Order
 
 
 <div class="row">
-    <div class="four columns pull-left">
+    <div class="six columns pull-left">
         <h3>Purchase Details</h3>
         <ul>
             <li> <strong>Purchase Number :</strong> {{$data->po_number}} </li>
@@ -74,9 +83,13 @@ Purchase Order
             <li> <strong>Payment Term :</strong> {{($data->terms) ? $data->terms->name : ""}} </li>
             <li> <strong>Prepared By :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname : ""}} </li>
             <li> <strong>Status :</strong> {{$data->status}} </li>
+            @if($data->coa_approved_date)
+                <li> <strong>COA Approved Date :</strong> {{$data->coa_approved_date}} </li>
+                <li> <strong>COA File :</strong> <a target="_blank" href="{{route('procurements.purchase-orders.coa-file',$data->id)}}">{{$data->coa_file}} </a></li>
+            @endif
         </ul>
     </div>
-    <div class="four columns">
+    <div class="six columns">
         <h3>Approval Details</h3>
         <ul>
             <li> <strong>MFO Has Issue? :</strong> {{$data->mfo_has_issue}} </li>
@@ -89,13 +102,21 @@ Purchase Order
             <li> <strong>PCCO Remarks :</strong> {{$data->pcco_remarks}} </li>
         </ul>
     </div>
-    <div class="four columns pull-right">
+</div>
+
+<div class="row">
+    <div class="six columns">
         <h3>Proponent Details</h3>
         <ul>
             <li> <strong>Name :</strong> {{$supplier->name}} </li>
             <li> <strong>Owner :</strong> {{$supplier->owner}} </li>
             <li> <strong>Address :</strong> {{$supplier->address}} </li>
             <li> <strong>TIN :</strong> {{$supplier->tin}} </li>
+        </ul>
+    </div>
+    <div class="six columns pull-right">
+        <h3></h3>
+        <ul>
             <li> <strong>Cellphone # :</strong> {{$supplier->cell_1}} </li>
             <li> <strong>Phone # :</strong> {{$supplier->phone_1}} </li>
             <li> <strong>FAX :</strong> {{$supplier->fax_1}} </li>
@@ -141,6 +162,10 @@ Purchase Order
 $('#pcco-button').click(function(e){
     e.preventDefault();
     $('#pcco-modal').addClass('is-visible');
+})
+$('#coa-button').click(function(e){
+    e.preventDefault();
+    $('#coa-modal').addClass('is-visible');
 })
 $('#mfo-button').click(function(e){
     e.preventDefault();

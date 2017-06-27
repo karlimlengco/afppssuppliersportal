@@ -21,6 +21,9 @@ class PORequest extends BaseRequest
         'requestor_id',
         'accounting_id',
         'approver_id',
+        'coa_approved_date',
+        'coa_approved',
+        'coa_file',
     ];
 
     /**
