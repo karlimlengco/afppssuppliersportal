@@ -81,6 +81,16 @@ class POEloquent extends Model
     }
 
     /**
+     * [ntp description]
+     *
+     * @return [type] [description]
+     */
+    public function ntp()
+    {
+        return $this->hasOne('\Revlv\Procurements\NoticeToProceed\NTPEloquent', 'po_id');
+    }
+
+    /**
      * [users description]
      *
      * @return [type] [description]

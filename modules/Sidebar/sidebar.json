@@ -40,6 +40,11 @@
                     "route" :   "procurements.purchase-orders.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "Purchase Orders"
+                },
+                {
+                    "route" :   "procurements.ntp.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Notice To Proceed"
                 }
             ]
         }

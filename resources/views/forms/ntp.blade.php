@@ -39,14 +39,14 @@
             <div class="printable-form__body">
                 <span class="printable-form__body__title">NOTICE TO PROCEED</span>
 
-                <p>{{$data['transaction_date']}}</p>
+                <p>{{$data['today']}}</p>
                 <p>
                     {{$data['supplier']->owner}}<br>
                     {{$data['supplier']->name}}<br>
                     {{$data['supplier']->address}}<br>
                 </p>
                 <p>Dear Madam,</p>
-                <p>Please be informed that the PURCHASE ORDER No. {{$data['po_number']}} dated {{$data['transaction_date']}} prepared in your favor for the procurement of One Hundred (100) BOND PAPER A4 only amounting to {{translateToWords($data['total_amount'])}} (Php  {{formatPrice($data['total_amount'])}}) ONLY is hereby approved.</p>
+                <p>Please be informed that the PURCHASE ORDER No. {{$data['po_number']}} dated {{$data['po_transaction_date']}} prepared in your favor for the procurement of {{$data['project_name']}} only amounting to {{translateToWords($data['total_amount'])}} (Php {{formatPrice($data['total_amount'])}}) ONLY is hereby approved.</p>
                 <p>May we request you or your authorized representative to receive this notice and the approved PURCHASE ORDER not later than seven (7) calendar days reckoned from the date of this notice.</p>
                 <p>Furthermore, be reminded that failure on your part to receive document on the specified date is ground for cancellation of the aforesaid PURCHASE ORDER.</p>
                 <p>Very truly yours;</p>
@@ -86,7 +86,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <span class="printable-form__foot__ref">{{$data['po_number']}} 111685 {{$data['transaction_date']}}</span>
+                            <span class="printable-form__foot__ref">{{$data['po_number']}} 111685 {{$data['today']}}</span>
                         </td>
                         <td>
                             <span class="printable-form__foot__code">

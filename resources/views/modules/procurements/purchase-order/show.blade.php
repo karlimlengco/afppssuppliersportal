@@ -5,6 +5,7 @@ Purchase Order
 @section('modal')
     @include('modules.partials.modals.mfo')
     @include('modules.partials.modals.pcco')
+    @include('modules.partials.modals.ntp')
     @include('modules.partials.modals.po_signatory')
     @include('modules.partials.modals.coa-approval')
 @stop
@@ -34,7 +35,12 @@ Purchase Order
                 @endif
 
                 @if($data->status == 'COA Approved')
-                    <a href="{{route('procurements.ntp.show', $data->id)}}" class="button__options__item"> Notice To Proceed</a>
+
+                    @if(count($data->ntp) != 0)
+                        <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item"> View Notice To Proceed</a>
+                    @else
+                        <a href="#" class="button__options__item" id="ntp-button"> Notice To Proceed</a>
+                    @endif
                 @endif
 
                 <a href="#" class="button__options__item" id="signatory-button"> Signatories</a>
@@ -43,6 +49,7 @@ Purchase Order
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
                 <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="RFQ"> Request For Quotation</a>
+
 
 
                 @if(count($data->delivery) != 0)
@@ -162,6 +169,10 @@ Purchase Order
 $('#pcco-button').click(function(e){
     e.preventDefault();
     $('#pcco-modal').addClass('is-visible');
+})
+$('#ntp-button').click(function(e){
+    e.preventDefault();
+    $('#ntp-modal').addClass('is-visible');
 })
 $('#coa-button').click(function(e){
     e.preventDefault();

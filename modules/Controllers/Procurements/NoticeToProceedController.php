@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Auth;
 use PDF;
 
+use \Revlv\Procurements\NoticeOfAward\NOARepository;
+use \Revlv\Procurements\NoticeToProceed\NTPRepository;
 use \Revlv\Procurements\PurchaseOrder\PORepository;
 use \Revlv\Procurements\Canvassing\CanvassingRepository;
 use \Revlv\Procurements\Canvassing\CanvassingRequest;
@@ -33,6 +35,9 @@ class NoticeToProceedController extends Controller
     protected $blank;
     protected $upr;
     protected $rfq;
+    protected $po;
+    protected $ntp;
+    protected $noa;
     protected $signatories;
 
     /**
@@ -55,9 +60,9 @@ class NoticeToProceedController extends Controller
      *
      * @return [type]            [description]
      */
-    public function getDatatable(PORepository $model)
+    public function getDatatable(NTPRepository $model)
     {
-        return $model->getNTPDatatable();
+        return $model->getDatatable();
     }
 
     /**
@@ -78,15 +83,16 @@ class NoticeToProceedController extends Controller
      */
     public function show(
         $id,
-        PORepository $model,
+        NTPRepository $model,
+        PORepository $po,
         SignatoryRepository $signatories,
         RFQProponentRepository $proponents,
         UnitPurchaseRequestRepository $upr)
     {
-        $result             =   $model->with(['delivery'])->findById($id);
-        $proponent_awardee  =   $proponents->with('supplier')->findAwardeeByRFQId($result->rfq_id);
-        $supplier           =   $proponent_awardee->supplier;
-        $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findByRFQId($proponent_awardee->rfq_id);
+        $result             =   $model->with(['winner'])->findById($id);
+        $po_model           =   $po->with(['items'])->findById($result->po_id);
+        $supplier           =   $result->winner->supplier;
+        $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findById($result->rfq_id);
 
         $signatory_list     =   $signatories->lists('id','name');
 
@@ -94,8 +100,8 @@ class NoticeToProceedController extends Controller
             'data'          =>  $result,
             'upr_model'     =>  $upr_model,
             'supplier'      =>  $supplier,
+            'po_model'      =>  $po_model,
             'signatory_list'=>  $signatory_list,
-            'awardee'       =>  $proponent_awardee,
             'indexRoute'    =>  $this->baseUrl.'index',
             'printRoute'    =>  $this->baseUrl.'print',
             'modelConfig'   =>  [
@@ -115,6 +121,43 @@ class NoticeToProceedController extends Controller
         ]);
     }
 
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request,
+        NTPRepository $model,
+        NOARepository $noa,
+        UnitPurchaseRequestRepository $upr,
+        PORepository $po)
+    {
+        $po_model           =   $po->findById($request->po_id);
+        $noa_model          =   $noa->findByRFQ($po_model->rfq_id);
+
+        $inputs             =   [
+            'po_id'             =>  $request->po_id,
+            'prepared_by'       =>  \Sentinel::getUser()->id,
+            'prepared_date'     =>  \Carbon\Carbon::now(),
+            'upr_id'            =>  $po_model->upr_id,
+            'rfq_id'            =>  $po_model->rfq_id,
+            'rfq_number'        =>  $po_model->rfq_number,
+            'upr_number'        =>  $po_model->upr_number,
+            'proponent_id'      =>  $noa_model->proponent_id,
+            'status'            =>  'pending',
+        ];
+
+        $upr->update(['status' => "NTP Created"], $po_model->upr_id);
+
+        $result = $model->save($inputs);
+
+        return redirect()->route($this->baseUrl.'show', $result->id)->with([
+            'success'  => "New record has been successfully added."
+        ]);
+    }
+
     /**
      * [updateSignatory description]
      *
@@ -122,7 +165,7 @@ class NoticeToProceedController extends Controller
      * @param  [type]  $id      [description]
      * @return [type]           [description]
      */
-    public function updateSignatory(Request $request, $id, PORepository $model)
+    public function updateSignatory(Request $request, $id, NTPRepository $model)
     {
         $this->validate($request, [
             'signatory_id'   =>  'required',
@@ -176,26 +219,28 @@ class NoticeToProceedController extends Controller
      */
     public function viewPrint(
         $id,
-        PORepository $model,
+        NTPRepository $model,
+        PORepository $po,
         UnitPurchaseRequestRepository $upr,
         BlankRFQRepository $blank,
         RFQProponentRepository $proponents)
     {
-        $result                     =   $model->with('signatories')->findById($id);
-        $proponent_awardee          =   $proponents->with('supplier')->findAwardeeByRFQId($result->rfq_id);
-        $supplier                   =   $proponent_awardee->supplier;
+        $result                     =   $model->with(['signatory', 'po'])->findById($id);
+        $supplier                   =   $result->winner->supplier;
         $blank_model                =   $blank->findById($result->rfq_id);
         $upr_model                  =   $upr->findById($result->upr_id);
-        $data['transaction_date']   =   $result->award_accepted_date;
+
+        $data['transaction_date']   =   $result->prepared_date;
         $data['supplier']           =   $supplier;
-        $data['po_number']          =   $result->po_number;
+        $data['po_transaction_date']=   $result->po->po_number;
+        $data['po_number']          =   $result->po->created_at;
         $data['rfq_number']         =   $result->rfq_number;
         $data['rfq_date']           =   $blank_model->transaction_date;
-        $data['total_amount']       =   $upr_model->total_amount;
-        $data['signatory']          =   $result->signatories;
-        // dd($result);
-        // $data['venue']              =  $result->venue;
-        // $data['quotations']         =  $result->quotations;
+        $data['total_amount']       =   $result->po->bid_amount;
+        $data['signatory']          =   $result->signatory;
+        $data['project_name']       =   $upr_model->project_name;
+        $data['today']              =   \Carbon\Carbon::now()->format("d F Y");
+
         $pdf = PDF::loadView('forms.ntp', ['data' => $data])->setOption('margin-left', 13)->setOption('margin-right', 13)->setOption('margin-bottom', 10)->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('ntp.pdf');

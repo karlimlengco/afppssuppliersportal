@@ -15,6 +15,22 @@ class CreateNoticeToProceed extends Migration
     {
         Schema::create('notice_to_proceed', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('po_id');
+            $table->integer('rfq_id');
+            $table->integer('upr_id');
+            $table->string('rfq_number')->nullable();
+            $table->string('upr_number')->nullable();
+            $table->integer('signatory_id')->nullable();
+            $table->integer('proponent_id');
+            $table->integer('prepared_by')->nullable();
+            $table->timestamp('prepared_date')->nullable();
+            $table->string('status')->nullable();
+            $table->text('remarks')->nullable();
+            $table->text('file')->nullable();
+
+            $table->string('received_by')->nullable();
+            $table->date('award_accepted_date')->nullable();
+            $table->date('accepted_date')->nullable();
             $table->timestamps();
         });
     }

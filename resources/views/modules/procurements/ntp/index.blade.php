@@ -29,8 +29,8 @@ Notice To Proceed
                     <th>RFQ No.</th>
                     <th>Purchase Date</th>
                     <th>Bid Amount</th>
-                    <th>MFO Released</th>
-                    <th>PCCO Released</th>
+                    <th>Status</th>
+                    <th>Supplier</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,11 +52,11 @@ Notice To Proceed
                 url: "{{route('datatables.procurements.ntp')}}",
             },
         columns: [
-            {data: 'ntp_rfq_number', name: 'ntp_rfq_number'},
+            {data: 'rfq_number', name: 'rfq_number'},
             {data: 'purchase_date', name: 'purchase_date'},
             {data: 'bid_amount', name: 'bid_amount'},
-            {data: 'mfo_released_date', name: 'mfo_released_date'},
-            {data: 'pcco_released_date', name: 'pcco_released_date'},
+            {data: 'status', name: 'status'},
+            {data: 'name', name: 'name'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
