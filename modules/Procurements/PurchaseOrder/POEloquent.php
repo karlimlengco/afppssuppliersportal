@@ -139,4 +139,34 @@ class POEloquent extends Model
     {
         return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'coa_signatory');
     }
+
+    /**
+     * [requestor description]
+     *
+     * @return [type] [description]
+     */
+    public function requestor()
+    {
+        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'requestor_id');
+    }
+
+    /**
+     * [accounting description]
+     *
+     * @return [type] [description]
+     */
+    public function accounting()
+    {
+        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'accounting_id');
+    }
+
+    /**
+     * [approver description]
+     *
+     * @return [type] [description]
+     */
+    public function approver()
+    {
+        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'approver_id');
+    }
 }

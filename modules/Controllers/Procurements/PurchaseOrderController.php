@@ -450,6 +450,43 @@ class PurchaseOrderController extends Controller
         return $pdf->download('po-terms.pdf');
     }
 
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint($id, PORepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr)
+    {
+        $result                     =  $model->with(['delivery','rfq','items'])->findById($id);
+        $upr_model                  =  $upr->findById($result->upr_id);
+        $noa_model                  =  $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+        $data['po_number']          =  $result->po_number;
+        $data['purchase_date']      =  $result->purchase_date;
+        $data['transaction_date']   =  $result->rfq->transaction_date;
+        $data['winner']             =  $noa_model;
+        $data['rfq_number']         =  $result->rfq_number;
+        $data['mode']               =  $upr_model->modes->name;
+        $data['term']               =  $upr_model->terms->name;
+        $data['accounts']           =  $upr_model->accounts->new_account_code;
+        $data['centers']            =  $upr_model->centers->name;
+        $data['delivery']           =  $result->delivery;
+        $data['items']              =  $result->items;
+        $data['bid_amount']         =  $result->bid_amount;
+        $data['requestor']          =  $result->requestor;
+        $data['accounting']         =  $result->accounting;
+        $data['approver']           =  $result->approver;
+        $data['coa_signatories']    =  $result->coa_signatories;
+        $data['mfo_release_date']   =  $result->mfo_release_date;
+        $data['coa_approved_date']  =  $result->coa_approved_date;
+        $data['pcco_release_date']  =  $result->pcco_release_date;
+
+        $pdf = PDF::loadView('forms.po', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('po.pdf');
+    }
+
     /**
      * [viewPrint description]
      *
