@@ -62,7 +62,14 @@ Request For Quotation
                     @else
                         <a href="{{route('procurements.purchase-orders.show', $data->id)}}" class="button__options__item">View PO</a>
                     @endif
+                @endif
 
+                @if(count($data->delivery) != 0)
+                    <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item">View Delivery</a>
+                @endif
+
+                @if(count($data->ntp) != 0)
+                    <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item">View NTP</a>
                 @endif
 
             </div>

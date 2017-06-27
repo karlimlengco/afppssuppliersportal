@@ -18,6 +18,9 @@ Inspection And Acceptance Report
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 <a id="signatory-button" href="#" class="button__options__item" > Signatories</a>
+                <a id="signatory-button" href="{{route('procurements.unit-purchase-requests.show', $data->upr->id)}}" class="button__options__item" > Unit Purchase Request</a>
+                <a id="signatory-button" href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button__options__item" > Request For Quotation</a>
+                <a id="signatory-button" href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" > Delivery</a>
 
             </div>
         </button>

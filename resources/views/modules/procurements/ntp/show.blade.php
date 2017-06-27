@@ -21,10 +21,13 @@ Notice To Proceed
                 @else
                     @if(count($data->delivery) == 0)
                         <a class="button__options__item" id="create-delivery-button" href="#">Create Notice Of Delivery</a>
+                    @else
+                        <a class="button__options__item"  href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}">View Notice Of Delivery</a>
                     @endif
                 @endif
 
-                <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="UPR"> Purchase Oreder</a>
+                <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="UPR"> Request For Quotation</a>
+                <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="UPR"> Purchase Order</a>
 
                 <a id="signatory-button" href="#" class="button__options__item" > Signatories</a>
 

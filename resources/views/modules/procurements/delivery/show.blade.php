@@ -21,15 +21,15 @@ Notice Of Delivery
 
                 <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="NTP"> Purchase Order</a>
 
-                @if(count($data->delivery) != 0)
-                <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" tooltip="Delivery"> Delivery</a>
-                @endif
-
                 @if($data->delivery_date)
                     @if(!$data->date_completed)
                         <a class="button__options__item" href="{{route($completeRoute,$data->id)}}">Complete</a>
                     @else
+                        @if(count($data->inspections) == 0)
                         <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.create-from-delivery',$data->id)}}">Start Inspection</a>
+                        @else
+                            <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.show',$data->inspections->id)}}">View Inspection</a>
+                        @endif
                     @endif
                 @endif
                 <a target="_blank" class="button__options__item" id="signatory-button" href="#">Signatory</a>

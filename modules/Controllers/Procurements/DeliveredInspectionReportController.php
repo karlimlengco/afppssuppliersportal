@@ -5,11 +5,13 @@ namespace Revlv\Controllers\Procurements;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use PDF ;
 
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Procurements\DeliveryInspection\DeliveryInspectionRepository;
 use \Revlv\Procurements\DeliveryInspection\DeliveryInspectionRequest;
+use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\DeliveryInspection\Issues\IssueRepository;
 
 class DeliveredInspectionReportController extends Controller
@@ -35,6 +37,7 @@ class DeliveredInspectionReportController extends Controller
      * @var [type]
      */
     protected $proponents;
+    protected $noa;
     protected $inspections;
     protected $delivery;
     protected $issues;
@@ -218,6 +221,7 @@ class DeliveredInspectionReportController extends Controller
             'data'          =>  $result,
             'supplier'      =>  $supplier,
             'indexRoute'    =>  $this->baseUrl.'index',
+            'printRoute'    =>  $this->baseUrl.'print',
             'modelConfig'   =>  [
                 'dtc_proceed' =>  [
                     'route'     =>  [$this->baseUrl.'proceed', $id],
@@ -239,4 +243,25 @@ class DeliveredInspectionReportController extends Controller
         ]);
     }
 
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint(
+        $id,
+        DeliveryOrderRepository $model,
+        NOARepository $noa
+        )
+    {
+        // $result                     =  $model->with(['signatory','upr', 'po'])->findById($id);
+
+        // $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+        // $data['expected_date']      =  $result->expected_date;
+// , ['data' => $data]
+        $pdf = PDF::loadView('forms.diir')->setOption('margin-bottom', 0)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('diir.pdf');
+    }
 }

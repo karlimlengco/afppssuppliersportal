@@ -77,7 +77,7 @@ class UnitPurchaseRequestEloquent extends Model
      */
     public function invitations()
     {
-        return $this->hasOne('\Revlv\Procurements\InvitationToSubmitQuotation\Quotations\QuotationEloquent', 'upr_id');
+        return $this->hasOne('\Revlv\Procurements\InvitationToSubmitQuotation\Quotations\QuotationEloquent',  'upr_id');
     }
 
     /**
@@ -97,7 +97,7 @@ class UnitPurchaseRequestEloquent extends Model
      */
     public function noa()
     {
-        return $this->hasOne('\Revlv\Procurements\NoticeOfAward\NOAELoquent', 'upr_id');
+        return $this->hasOne('\Revlv\Procurements\NoticeOfAward\NOAEloquent',  'upr_id');
     }
 
     /**
@@ -107,7 +107,7 @@ class UnitPurchaseRequestEloquent extends Model
      */
     public function purchase_order()
     {
-        return $this->hasOne('\Revlv\Procurements\PurchaseOrder\POEloquent', 'upr_id');
+        return $this->hasOne('\Revlv\Procurements\PurchaseOrder\POEloquent','upr_id');
     }
 
     /**
@@ -117,7 +117,7 @@ class UnitPurchaseRequestEloquent extends Model
      */
     public function delivery_order()
     {
-        return $this->hasOne('\Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent', 'upr_id');
+        return $this->hasOne('\Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent',  'upr_id');
     }
 
     /**

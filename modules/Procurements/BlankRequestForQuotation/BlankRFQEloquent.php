@@ -69,7 +69,27 @@ class BlankRFQEloquent extends Model
      */
     public function noa()
     {
-        return $this->hasOne('\Revlv\Procurements\NoticeOfAward\NOAELoquent', 'upr_id');
+        return $this->hasOne('\Revlv\Procurements\NoticeOfAward\NOAELoquent', 'rfq_id');
+    }
+
+    /**
+     * [ntp description]
+     *
+     * @return [type] [description]
+     */
+    public function ntp()
+    {
+        return $this->hasOne('\Revlv\Procurements\NoticeToProceed\NTPEloquent',  'rfq_id');
+    }
+
+    /**
+     * [delivery description]
+     *
+     * @return [type] [description]
+     */
+    public function delivery()
+    {
+        return $this->hasOne('\Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent',  'rfq_id');
     }
 
     /**
@@ -109,7 +129,7 @@ class BlankRFQEloquent extends Model
      */
     public function invitations()
     {
-        return $this->hasOne('\Revlv\Procurements\InvitationToSubmitQuotation\Quotations\QuotationEloquent', 'rfq_id');
+        return $this->hasOne('\Revlv\Procurements\InvitationToSubmitQuotation\Quotations\QuotationEloquent',  'rfq_id');
     }
 
     /**
@@ -119,7 +139,7 @@ class BlankRFQEloquent extends Model
      */
     public function items()
     {
-        return $this->hasMany('\Revlv\Procurements\Items\ItemEloquent', 'upr_id');
+        return $this->hasMany('\Revlv\Procurements\Items\ItemEloquent', 'rfq_id');
     }
 
     /**

@@ -122,6 +122,16 @@ class DeliveryOrderEloquent extends Model
      */
     public function signatory()
     {
-        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'signatory_id');
+        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'signatory_id');
+    }
+
+    /**
+     * [inspections description]
+     *
+     * @return [type] [description]
+     */
+    public function inspections()
+    {
+        return $this->hasOne('\Revlv\Procurements\InspectionAndAcceptance\InspectionAndAcceptanceEloquent', 'dr_id');
     }
 }

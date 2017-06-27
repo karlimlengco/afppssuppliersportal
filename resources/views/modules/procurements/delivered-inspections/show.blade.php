@@ -13,7 +13,7 @@ Delivered Items Inspection
 <div class="row">
     <div class="twelve columns utility utility--align-right" >
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-        <button style="margin-right:25px" type="button" class="button button--options-trigger" tooltip="Options">
+        <button type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 @if($data->start_date and !$data->closed_date)
@@ -25,10 +25,7 @@ Delivered Items Inspection
                 @endif
             </div>
         </button>
-
-            @if($data->start_date and $data->closed_date)
-                <a class="button" href="#"><i class="nc-icon-mini tech_print"></i></a>
-            @endif
+        <a class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
     </div>
 </div>
 

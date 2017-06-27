@@ -165,6 +165,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('delivered-inspections/print/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrint')->name('delivered-inspections.print');
     Route::post('delivered-inspections/add-issue/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@addIssue')->name('delivered-inspections.add-issue');
     Route::post('delivered-inspections/start-inspection/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@startInspection')->name('delivered-inspections.start-inspection');
     Route::post('delivered-inspections/close-inspection/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@closeInspection')->name('delivered-inspections.close-inspection');

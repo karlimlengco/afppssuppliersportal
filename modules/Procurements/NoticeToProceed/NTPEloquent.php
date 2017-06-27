@@ -56,7 +56,7 @@ class NTPEloquent extends Model
      */
     public function signatory()
     {
-        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'signatory_id');
+        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'signatory_id');
     }
 
     /**
@@ -67,6 +67,16 @@ class NTPEloquent extends Model
     public function rfq()
     {
         return $this->belongsTo('\Revlv\Procurements\BlankRequestForQuotation\BlankRFQEloquent', 'rfq_id');
+    }
+
+    /**
+     * [delivery description]
+     *
+     * @return [type] [description]
+     */
+    public function delivery()
+    {
+        return $this->hasOne('\Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent',  'rfq_id');
     }
 
     /**
