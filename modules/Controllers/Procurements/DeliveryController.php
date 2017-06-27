@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use DB;
+use PDF;
 
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
+use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRequest;
 use \Revlv\Procurements\DeliveryOrder\Items\ItemRepository;
 use \Revlv\Procurements\PurchaseOrder\PORepository;
+use \Revlv\Settings\Signatories\SignatoryRepository;
 
 class DeliveryController extends Controller
 {
@@ -35,7 +38,9 @@ class DeliveryController extends Controller
      * @var [type]
      */
     protected $po;
+    protected $noa;
     protected $items;
+    protected $signatories;
 
     /**
      * @param model $model
@@ -67,15 +72,6 @@ class DeliveryController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -149,17 +145,22 @@ class DeliveryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, DeliveryOrderRepository $model)
+    public function show($id,
+        DeliveryOrderRepository $model,
+        SignatoryRepository $signatories)
     {
-        $result     =   $model->with(['items'])->findById($id);
+        $result             =   $model->with(['items'])->findById($id);
+        $signatory_list     =   $signatories->lists('id','name');
 
         return $this->view('modules.procurements.delivery.show',[
             'data'          =>  $result,
+            'signatory_list'=>  $signatory_list,
             'indexRoute'    =>  $this->baseUrl.'index',
+            'editRoute'     =>  $this->baseUrl.'edit',
             'completeRoute' =>  $this->baseUrl.'completed',
             'modelConfig'   =>  [
                 'update' =>  [
-                    'route'     =>  [$this->baseUrl.'update', $id],
+                    'route'     =>  [$this->baseUrl.'update-signatory', $id],
                     'method'    =>  'PUT'
                 ]
             ]
@@ -174,11 +175,12 @@ class DeliveryController extends Controller
      */
     public function edit($id, DeliveryOrderRepository $model)
     {
-        $result =   $model->findById($id);
+        $result =   $model->with(['items'])->findById($id);
 
         return $this->view('modules.procurements.delivery.edit',[
             'data'          =>  $result,
             'indexRoute'    =>  $this->baseUrl.'index',
+            'showRoute'     =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
@@ -213,8 +215,29 @@ class DeliveryController extends Controller
                 'received_quantity' => $item_input['received_quantity'][$i]
                 ], $item_input['ids'][$i]);
         }
-
+        $inputs['received_by']  =   \Sentinel::getUser()->id;
         $model->update($inputs, $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+
+    /**
+     * [updateSignatory description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function updateSignatory(Request $request, $id, DeliveryOrderRepository $model)
+    {
+        $this->validate($request, [
+            'signatory_id'   =>  'required',
+        ]);
+
+        $model->update(['signatory_id' =>$request->signatory_id], $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -252,5 +275,35 @@ class DeliveryController extends Controller
         return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "Record has been successfully deleted."
         ]);
+    }
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint(
+        $id,
+        DeliveryOrderRepository $model,
+        NOARepository $noa
+        )
+    {
+        $result                     =  $model->with(['signatory','upr', 'po'])->findById($id);
+
+        $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+        $data['today']              =  \Carbon\Carbon::now()->format("d F Y");
+        $data['po_number']          =  $result->po->po_number;
+        $data['transaction_date']   =  $result->created_at;
+        $data['bid_amount']         =  $result->po->bid_amount;
+        $data['project_name']       =  $result->upr->project_name;
+        $data['center']             =  $result->upr->centers->name;
+        $data['signatory']          =  $result->signatory;
+        $data['winner']             =  $noa_model->name;
+        $data['expected_date']      =  $result->expected_date;
+
+        $pdf = PDF::loadView('forms.nod', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('nod.pdf');
     }
 }

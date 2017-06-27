@@ -137,6 +137,8 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('delivery-orders/print/{id}', '\Revlv\Controllers\Procurements\DeliveryController@viewPrint')->name('delivery-orders.print');
+    Route::put('delivery-orders/update-signatory/{id}', '\Revlv\Controllers\Procurements\DeliveryController@updateSignatory')->name('delivery-orders.update-signatory');
     Route::post('delivery-orders/create-purchase/{id}', '\Revlv\Controllers\Procurements\DeliveryController@createFromPurchase')->name('delivery-orders.create-purchase');
     Route::get('delivery-orders/completed/{id}', '\Revlv\Controllers\Procurements\DeliveryController@completeOrder')->name('delivery-orders.completed');
     Route::resource('delivery-orders', '\Revlv\Controllers\Procurements\DeliveryController');

@@ -9,7 +9,6 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
 <div class="sidebar">
     <!-- logo -->
     <div class="sidebar__logo">
-        {{-- <h1 class="sidebar__logo__type">AFP</h1> --}}
         <span class="sidebar__logo__icon"><img src="/img/logo.png" alt=""></span>
     </div>
 

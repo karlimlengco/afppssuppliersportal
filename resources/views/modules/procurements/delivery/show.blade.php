@@ -2,8 +2,11 @@
 Notice Of Delivery
 @stop
 
+@section('modal')
+    @include('modules.partials.modals.signatory')
+@stop
+
 @section('contents')
-{!! Form::model($data, $modelConfig['update']) !!}
 
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
@@ -25,15 +28,13 @@ Notice Of Delivery
                         <a class="button__options__item" href="{{route($completeRoute,$data->id)}}">Complete</a>
                     @endif
                 @endif
+                <a target="_blank" class="button__options__item" id="signatory-button" href="#">Signatory</a>
             </div>
         </button>
 
-{{--
-        <a class="button" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR"> <span class="nc-icon-glyph business_agenda"></span> </a>
-        <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button" tooltip="RFQ"> <span class=" nc-icon-glyph ui-1_edit-74"></span> </a>
-        <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button" tooltip="PURCHASE ORDER"> <span class=" nc-icon-glyph shopping_cart"></span></a> --}}
+        <a href="{{route('procurements.delivery-orders.print', $data->id)}}" class="button" tooltip="PRINT"><i class="nc-icon-mini tech_print "></i></a>
         @if(!$data->delivery_date)
-        <button type="submit" class="button"><i class="nc-icon-mini ui-2_disk"></i></button>
+            <a href="{{route($editRoute, $data->id)}}" class="button" tooltip="Edit"><i class="nc-icon-mini design_pen-01"></i></a>
         @else
 
         @endif
@@ -42,77 +43,37 @@ Notice Of Delivery
 
 <div class="row">
     <div class="six columns pull-left">
-        <ul>
-            <li> <strong>RFQ Number :</strong> {{$data->rfq_number}} </li>
-            <li> <strong>UPR Number :</strong> {{$data->upr_number}} </li>
-            <li> <strong>Expected Delivery Date :</strong> {{$data->expected_date}} </li>
-            <li> <strong>Created By :</strong> {{($data->creator) ? $data->creator->first_name .' '. $data->creator->surname : " "}} </li>
+        <h1>Delivery Details</h1>
+        <ul  class="data-panel">
+            <li  class="data-panel__item"> <strong  class="data-panel__item__label">RFQ Number :</strong> {{$data->rfq_number}} </li>
+            <li  class="data-panel__item"> <strong  class="data-panel__item__label">UPR Number :</strong> {{$data->upr_number}} </li>
+            <li  class="data-panel__item"> <strong  class="data-panel__item__label">Expected Delivery Date :</strong> {{$data->expected_date}} </li>
+            <li  class="data-panel__item"> <strong  class="data-panel__item__label">Created By :</strong> {{($data->creator) ? $data->creator->first_name .' '. $data->creator->surname : " "}} </li>
+            <li  class="data-panel__item"> <strong  class="data-panel__item__label">Status :</strong> {{ucwords($data->status)}} </li>
+
         </ul>
     </div>
-    <div class="six columns pull-right">
-        <ul>
 
-            @if(!$data->delivery_date)
-                <li>  {!! Form::textField('delivery_date', 'Delivery Date') !!} </li>
-                <li>   {!! Form::textField('delivery_number', 'Delivery Number') !!} </li>
-                <li>   {!! Form::textareaField('notes', 'Notes') !!} </li>
-            @else
-                <li> <strong>Delivery Date :</strong> {{$data->delivery_date}} </li>
-                <li> <strong>Delivery Number :</strong> {{$data->delivery_number}} </li>
-                <li> <strong>Delivery Note :</strong> {{$data->notes}} </li>
-                <li> <strong>Status :</strong> {{ucwords($data->status)}} </li>
+    <div class="six columns pull-right">
+        <h1></h1>
+        <ul   class="data-panel">
+
+            @if($data->delivery_date)
+               {{--  <li  class="data-panel__item">  {!! Form::textField('delivery_date', 'Delivery Date') !!} </li>
+                <li  class="data-panel__item">  {!! Form::textField('delivery_number', 'Delivery Number') !!} </li>
+                <li  class="data-panel__item">   {!! Form::textareaField('notes', 'Notes') !!} </li>--}}
+            {{-- @else --}}
+                <li  class="data-panel__item"> <strong  class="data-panel__item__label">Delivery Date :</strong> {{$data->delivery_date}} </li>
+                <li  class="data-panel__item"> <strong  class="data-panel__item__label">Delivery Number :</strong> {{$data->delivery_number}} </li>
+                <li  class="data-panel__item"> <strong  class="data-panel__item__label">Delivery Note :</strong> {{$data->notes}} </li>
+                <li  class="data-panel__item"> <strong  class="data-panel__item__label">Received by :</strong> {{($data->receiver) ? $data->receiver->first_name ." ". $data->receiver->surname : ""}} </li>
                 @if($data->status)
-                    <li> <strong>Completed Date :</strong> {{$data->date_completed}} </li>
+                    <li  class="data-panel__item"> <strong  class="data-panel__item__label">Completed Date :</strong> {{$data->date_completed}} </li>
                 @endif
             @endif
         </ul>
     </div>
 </div>
-
-<div class="row">
-    <div class="twelve columns">
-        <table class='table' id="item_table">
-            <thead>
-                <tr>
-                    <th>Description</th>
-                    <th>Qty</th>
-                    <th>Received Qty</th>
-                    <th>Unit</th>
-                    <th>Unit Price</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @if(!$data->delivery_date)
-                    @foreach($data->items as $item)
-                        <input type="hidden" name="ids[]" value="{{$item->id}}">
-                        <tr>
-                            <td>{{$item->description}}</td>
-                            <td>{{$item->quantity}}</td>
-                            <td> {{Form::text('received_quantity[]', $item->received_quantity, ['class' => 'input'])}} </td>
-                            <td>{{$item->unit}}</td>
-                            <td>{{formatPrice($item->price_unit)}}</td>
-                            <td>{{formatPrice($item->total_amount)}}</td>
-                        </tr>
-                    @endforeach
-                @else
-                    @foreach($data->items as $item)
-                        <tr>
-                            <td>{{$item->description}}</td>
-                            <td>{{$item->quantity}}</td>
-                            <td>{{$item->received_quantity}}</td>
-                            <td>{{$item->unit}}</td>
-                            <td>{{formatPrice($item->price_unit)}}</td>
-                            <td>{{formatPrice($item->total_amount)}}</td>
-                        </tr>
-                    @endforeach
-                @endif
-            </tbody>
-        </table>
-    </div>
-</div>
-{!!Form::close()!!}
 @stop
 
 @section('scripts')
@@ -126,6 +87,12 @@ var delivery_date = new Pikaday(
     maxDate: new Date(2020, 12, 31),
     yearRange: [2000,2020]
 });
+
+$('#signatory-button').click(function(e){
+    e.preventDefault();
+    $('#signatory-modal').addClass('is-visible');
+})
+
 
 </script>
 @stop
