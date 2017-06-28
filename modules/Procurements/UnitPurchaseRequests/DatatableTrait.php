@@ -5,6 +5,7 @@ namespace Revlv\Procurements\UnitPurchaseRequests;
 use Illuminate\Http\Request;
 use DB;
 use Datatables;
+use Carbon;
 
 trait DatatableTrait
 {
@@ -78,6 +79,234 @@ trait DatatableTrait
             ->editColumn('state', function($data){
                 return ucfirst($data->state);
             })
+            ->editColumn('d_blank_rfq', function($data){
+                $days = 0;
+                if($data->rfq_completed_at)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->date_prepared);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+            ->editColumn('d_philgeps', function($data){
+                $days = 0;
+                if($data->pp_completed_at)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->pp_completed_at);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+            ->editColumn('d_ispq', function($data){
+                $days = 0;
+                if($data->ispq_transaction_date)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+            ->editColumn('d_canvass', function($data){
+                $days = 0;
+                if($data->canvass_start_date)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_start_date);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+            ->editColumn('d_noa', function($data){
+                $days = 0;
+                if($data->noa_award_date)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->noa_award_date);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_start_date);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_noa_approved', function($data){
+                $days = 0;
+                if($data->noa_approved_date)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_approved_date);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->noa_award_date);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_noa_accepted', function($data){
+                $days = 0;
+                if($data->noa_award_accepted_date)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_award_accepted_date);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_approved_date);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_po_create_date', function($data){
+                $days = 0;
+                if($data->po_create_date)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->po_create_date);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_award_accepted_date);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_mfo_released_date', function($data){
+                $days = 0;
+                if($data->mfo_released_date)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->mfo_released_date);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->po_create_date);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_pcco_released_date', function($data){
+                $days = 0;
+                if($data->pcco_released_date)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->pcco_released_date);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->mfo_released_date);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_coa_approved_date', function($data){
+                $days = 0;
+                if($data->coa_approved_date)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->coa_approved_date);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->pcco_released_date);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_ntp_date', function($data){
+                $days = 0;
+                if($data->ntp_date)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->ntp_date);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d  H:i:s', $data->coa_approved_date);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_ntp_award_date', function($data){
+                $days = 0;
+                if($data->ntp_award_date)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->ntp_award_date);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->ntp_date);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_delivery_date', function($data){
+                $days = 0;
+                if($data->delivery_date)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->delivery_date);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d  H:i:s', $data->dr_date);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_dr_coa_date', function($data){
+                $days = 0;
+                if($data->dr_coa_date)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_coa_date);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->delivery_date);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_dr_inspection', function($data){
+                $days = 0;
+                if($data->dr_inspection)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_inspection);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_coa_date);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_di_start', function($data){
+                $days = 0;
+                if($data->di_start)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_start);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_inspection);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_di_close', function($data){
+                $days = 0;
+                if($data->di_close)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_close);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_start);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_vou_start', function($data){
+                $days = 0;
+                if($data->vou_start)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->vou_start);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_close);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_vou_release', function($data){
+                $days = 0;
+                if($data->vou_release)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_release);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->vou_start);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+            ->editColumn('d_vou_received', function($data){
+                $days = 0;
+                if($data->vou_received)
+                {
+                    $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_received);
+                    $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_release);
+                    $days       = $dt->diffInDays($upr_create);
+                }
+                return $days;
+            })
+
+
             ->rawColumns(['upr_number'])
             ->make(true);
     }

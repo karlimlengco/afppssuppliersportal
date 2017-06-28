@@ -14,6 +14,13 @@ Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard
 
 
 
+Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
+    Route::get('psr/download/{search_at?}', '\Revlv\Controllers\Reports\PSRController@download')->name('reports.psr-transactions.download');
+    Route::resource('psr-transactions', '\Revlv\Controllers\Reports\PSRController');
+
+    Route::get('transaction-days/download/{search_at?}', '\Revlv\Controllers\Reports\TransactionDayController@download')->name('reports.transaction-days.download');
+    Route::resource('transaction-days', '\Revlv\Controllers\Reports\TransactionDayController');
+});
 /*
 |--------------------------------------------------------------------------
 | Procurements Routes
@@ -279,6 +286,15 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('supplier-drafts', '\Revlv\Controllers\Settings\SupplierController@getDraftDatatable')->name('settings.supplier-drafts');
     Route::get('suppliers', '\Revlv\Controllers\Settings\SupplierController@getDatatable')->name('settings.suppliers');
     Route::get('signatories', '\Revlv\Controllers\Settings\SignatoryController@getDatatable')->name('settings.signatories');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reports Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::get('psr-transactions', '\Revlv\Controllers\Reports\PSRController@getDatatable')->name('reports.psr-transactions');
+    Route::get('transaction-days', '\Revlv\Controllers\Reports\TransactionDayController@getDatatable')->name('reports.transaction-days');
 
     /*
     |--------------------------------------------------------------------------

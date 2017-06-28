@@ -201,12 +201,14 @@ class VoucherController extends Controller
      * @param  VoucherRepository $model [description]
      * @return [type]                   [description]
      */
-    public function receivePayment($id, VoucherRepository $model, Request $request)
+    public function receivePayment($id, VoucherRepository $model, Request $request, UnitPurchaseRequestRepository $upr)
     {
-        $model->update([
+        $result     =   $model->update([
             'payment_received_date' => $request->payment_received_date,
             'payment_receiver'      => \Sentinel::getUser()->id,
         ], $id);
+
+        $upr->update(['status' => 'completed','state' => 'completed'], $result->upr_id)
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

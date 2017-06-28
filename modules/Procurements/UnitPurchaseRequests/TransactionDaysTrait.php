@@ -2,65 +2,20 @@
 
 namespace Revlv\Procurements\UnitPurchaseRequests;
 
-use Revlv\BaseRepository;
+use Illuminate\Http\Request;
 use DB;
-use Illuminate\Database\Eloquent\Model;
+use Datatables;
 
-class UnitPurchaseRequestRepository extends BaseRepository
+trait TransactionDaysTrait
 {
-    use  DatatableTrait, PSRTrait, TransactionDaysTrait;
 
     /**
-     * Specify Model class name
+     * [getDatatable description]
      *
-     * @return string
+     * @param  [int]    $company_id ['company id ']
+     * @return [type]               [description]
      */
-    public function model()
-    {
-        return UnitPurchaseRequestEloquent::class;
-    }
-
-    /**
-     * Return the model by its key valued pair
-     *
-     * @param string $id
-     * @param string $value
-     * @return mixed
-     */
-    public function listPending($id = 'id', $value = 'name')
-    {
-
-        $model =    $this->model;
-
-        $model =    $model->whereStatus('pending');
-
-        return $model->pluck($value, $id)->all();
-    }
-
-    /**
-     * [findByRFQId description]
-     *
-     * @param  [type] $rfq [description]
-     * @return [type]      [description]
-     */
-    public function findByRFQId($rfq)
-    {
-        $model  =    $this->model;
-
-        $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
-
-        $model  =   $model->where('request_for_quotations.id', '=', $rfq);
-
-        return $model->first();
-    }
-
-    /**
-     * [findTimelineById description]
-     *
-     * @param  [type] $id [description]
-     * @return [type]     [description]
-     */
-    public function findTimelineById($id)
+    public function getTransactionDay($search = null)
     {
         $model  =    $this->model;
 
@@ -115,28 +70,20 @@ class UnitPurchaseRequestRepository extends BaseRepository
         $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
 
-        $model  =   $model->where('unit_purchase_requests.id', '=', $id);
 
-        return $model->first();
+        return $model->get();
     }
 
     /**
-     * [getCountByYear description]
+     * [getPSRDatatable description]
      *
-     * @param  [type] $year [description]
-     * @return [type]       [description]
+     * @return [type] [description]
      */
-    public function getCountByYear($year)
+    public function getTransactionDayDatatable()
     {
+        $model      =   $this->getTransactionDay();
 
-        $model  =   $this->model;
-
-        $model  =   $model->select([
-            DB::raw("count(id) as total")
-        ]);
-
-        $model  =   $model->whereYear('prepared_by', '=', $year);
-
-        return $model->first();
+        return $this->dataTable($model);
     }
+
 }

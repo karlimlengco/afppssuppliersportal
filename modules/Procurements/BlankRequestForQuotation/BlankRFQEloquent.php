@@ -69,7 +69,7 @@ class BlankRFQEloquent extends Model
      */
     public function noa()
     {
-        return $this->hasOne('\Revlv\Procurements\NoticeOfAward\NOAELoquent', 'rfq_id');
+        return $this->hasOne('\Revlv\Procurements\NoticeOfAward\NOAEloquent', 'rfq_id');
     }
 
     /**

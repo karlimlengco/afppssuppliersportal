@@ -119,3 +119,7 @@
 .pickmeup{
     z-index: 999
 }
+
+.button__options{
+    z-index: 999999999999;
+}
