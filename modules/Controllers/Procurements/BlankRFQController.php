@@ -255,14 +255,14 @@ class BlankRFQController extends Controller
      */
     public function viewPrint($id, BlankRFQRepository $model)
     {
-        $result     =   $model->with(['upr', 'items'])->findById($id);
+        $result     =   $model->with(['upr'])->findById($id);
         $data['total_amount']       =  $result->upr->total_amount;
         $data['transaction_date']   =  $result->transaction_date;
         $data['rfq_number']         =  $result->rfq_number;
         $data['upr_number']         =  $result->upr_number;
         $data['opening_time']       =  $result->opening_time;
         $data['deadline']           =  $result->deadline;
-        $data['items']              =  $result->items;
+        $data['items']              =  $result->upr->items;
         // dd();
         $pdf = PDF::loadView('forms.rfq', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
 

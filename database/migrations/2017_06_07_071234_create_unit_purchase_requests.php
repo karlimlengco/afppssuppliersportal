@@ -36,7 +36,11 @@ class CreateUnitPurchaseRequests extends Migration
             $table->integer('prepared_by');
 
             $table->timestamp('date_processed')->nullable();
+            $table->timestamp('terminated_date')->nullable();
+            $table->string('terminate_status')->nullable();
+            $table->string('remarks')->nullable();
             $table->integer('processed_by')->nullable();
+            $table->integer('terminated_by')->nullable();
 
             $table->string('total_amount');
 

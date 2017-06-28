@@ -70,7 +70,6 @@ trait TransactionDaysTrait
         $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
 
-
         return $model->get();
     }
 

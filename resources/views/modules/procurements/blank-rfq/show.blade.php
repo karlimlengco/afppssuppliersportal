@@ -133,8 +133,8 @@ Request For Quotation
                     <th>Name</th>
                     <th>Processed Date</th>
                     <th>Bid Amount</th>
-                    <th>Notes</th>
                     <th>Prepared By</th>
+                    <th>Notes</th>
                     <th></th>
                 </tr>
             </thead>

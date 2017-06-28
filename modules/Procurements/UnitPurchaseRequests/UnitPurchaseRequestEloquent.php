@@ -23,8 +23,12 @@ class UnitPurchaseRequestEloquent extends Model
      */
     protected $fillable = [
         'place_of_delivery',
+        'terminated_date',
+        'terminated_by',
         'mode_of_procurement',
         'chargeability',
+        'terminate_status',
+        'remarks',
         'account_code',
 
         'fund_validity',
@@ -188,6 +192,16 @@ class UnitPurchaseRequestEloquent extends Model
     public function users()
     {
         return $this->belongsTo('\App\User', 'prepared_by');
+    }
+
+    /**
+     * [terminator description]
+     *
+     * @return [type] [description]
+     */
+    public function terminator()
+    {
+        return $this->belongsTo('\App\User', 'terminated_by');
     }
 
     /**

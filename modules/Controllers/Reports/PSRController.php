@@ -174,7 +174,8 @@ class PSRController extends Controller
                 $sheet->mergeCells('A2:AA2');
                 $sheet->mergeCells('A3:AA3');
 
-                $sheet->row(6, ['PC/CO',
+                $sheet->row(6, [
+                    'PC/CO',
                     'UPR',
                     'RFQ',
                     'RFQ Closed',

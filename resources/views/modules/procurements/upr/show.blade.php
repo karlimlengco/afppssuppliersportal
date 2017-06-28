@@ -10,6 +10,7 @@ Unit Purchase Request
     @include('modules.partials.modals.view-attachments')
     @include('modules.partials.modals.request_quotation')
     @include('modules.partials.modals.dropzone')
+    @include('modules.partials.modals.terminate')
 @stop
 
 @section('contents')
@@ -42,6 +43,9 @@ Unit Purchase Request
 
                 @if(count($data->noa) != 0)
                     <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a>
+                @endif
+                @if(strtolower($data->state) == 'completed')
+                    <a href="#" id="terminate-button" class="button__options__item">Terminate</a>
                 @endif
 
             </div>
@@ -117,6 +121,33 @@ Unit Purchase Request
             </li>
         </ul>
     </div>
+    @if($data->terminated_date)
+    <div class="data-panel__section">
+        <ul  class="data-panel__list">
+            <li  class="data-panel__list__item">
+                <strong  class="data-panel__list__item__label">Terminated Status :</strong>
+                {{$data->terminate_status}}
+            </li>
+            <li  class="data-panel__list__item">
+                <strong  class="data-panel__list__item__label">Terminated Date :</strong>
+                {{$data->terminated_date}}
+            </li>
+        </ul>
+    </div>
+    <div class="data-panel__section">
+        <ul  class="data-panel__list">
+            <li  class="data-panel__list__item">
+                <strong  class="data-panel__list__item__label">Terminated By :</strong>
+                {{($data->terminator) ? $data->terminator->first_name ." ". $data->terminator->surname :""}}
+            </li>
+            <li  class="data-panel__list__item">
+                <strong  class="data-panel__list__item__label">Remarks :</strong>
+                {{$data->remarks}}
+            </li>
+        </ul>
+    </div>
+    @endif
+
 </div>
 <div >
     <div>
@@ -150,6 +181,10 @@ Unit Purchase Request
 <script src="/vendors/timepicker/timepicker.min.js"></script>
 <script type="text/javascript">
 
+    $('#terminate-button').click(function(e){
+        e.preventDefault();
+        $('#terminate-modal').addClass('is-visible');
+    })
     $('#attachment-button').click(function(e){
         e.preventDefault();
         $('#dropzone-modal').addClass('is-visible');

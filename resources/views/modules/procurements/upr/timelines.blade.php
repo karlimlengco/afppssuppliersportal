@@ -37,9 +37,9 @@ Unit Purchase Request
                 <tr>
                     <td>RFQ</td>
 
+                    @if($data->rfq_completed_at && $data->rfq_completed_at)
                     <td>{{ ucfirst($data->rfq_status)}}</td>
 
-                    @if($data->rfq_completed_at && $data->rfq_completed_at)
                     <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at)->format('Y-m-d')}}</td>
 
                     <td>
@@ -48,16 +48,30 @@ Unit Purchase Request
                         <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->date_prepared); ?>
 
                         {{ $dt->diffInDays($upr_create) }}
-                    @endif
                     </td>
+                    @endif
+                    @if($data->date_prepared and !$data->rfq_completed_at)
+
+                        <?php $dt = Carbon\Carbon::now(); ?>
+                        <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->date_prepared); ?>
+                        <?php $days =   $dt->diffInDays($upr_create); ?>
+                        @if($days >= 1)
+                            <td>Delayed</td>
+                        @else
+                            <td></td>
+                        @endif
+
+                        <td></td>
+                        <td>{{ $days }}</td>
+                    @endif
                 </tr>
 
                 <tr>
                     <td>PhilGeps Posting</td>
+                    @if($data->pp_completed_at && $data->rfq_completed_at)
 
                     <td>Completed</td>
 
-                    @if($data->pp_completed_at && $data->rfq_completed_at)
                     <td>{{$data->pp_completed_at}}</td>
 
                     <td>
@@ -66,15 +80,15 @@ Unit Purchase Request
                         <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d  H:i:s', $data->rfq_completed_at); ?>
 
                         {{ ($dt->diffInDays($upr_create) == 0) ? "1" : $dt->diffInDays($upr_create) }}
-                    @endif
                     </td>
+                    @endif
                 </tr>
 
                 <tr>
                     <td>Invitation</td>
+                    @if($data->ispq_transaction_date && $data->rfq_completed_at)
 
                     <td>Completed</td>
-                    @if($data->ispq_transaction_date && $data->rfq_completed_at)
 
                     <td>{{$data->pp_completed_at}}</td>
 
@@ -91,9 +105,9 @@ Unit Purchase Request
                 <tr>
                     <td>Canvassing</td>
 
+                    @if($data->canvass_start_date)
                     <td>Completed</td>
 
-                    @if($data->canvass_start_date)
                     <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_start_date)->format('Y-m-d')}}</td>
 
                     <td>
@@ -109,9 +123,9 @@ Unit Purchase Request
                 <tr>
                     <td>Release NOA</td>
 
+                    @if($data->noa_award_date )
                     <td>Completed</td>
 
-                    @if($data->noa_award_date )
                     <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->noa_award_date)->format('Y-m-d') }}</td>
 
                     <td>
@@ -126,10 +140,10 @@ Unit Purchase Request
 
                 <tr>
                     <td>Approved NOA</td>
-w
-                    <td>Completed</td>
 
                     @if($data->noa_approved_date )
+                    <td>Completed</td>
+
                     <td>{{$data->noa_approved_date}}</td>
 
                     <td>
@@ -144,10 +158,10 @@ w
 
                 <tr>
                     <td>Accepted NOA</td>
+                    @if($data->noa_award_accepted_date )
 
                     <td>Completed</td>
 
-                    @if($data->noa_award_accepted_date )
                     <td>{{$data->noa_award_accepted_date}}</td>
 
                     <td>
@@ -163,9 +177,9 @@ w
                 <tr>
                     <td>Preparing PO</td>
 
+                    @if($data->po_create_date )
                     <td>Completed</td>
 
-                    @if($data->po_create_date )
                     <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->po_create_date)->format('Y-m-d') }}</td>
 
                     <td>
@@ -180,10 +194,10 @@ w
 
                 <tr>
                     <td>Funding PO</td>
+                    @if($data->mfo_released_date )
 
                     <td>Completed</td>
 
-                    @if($data->mfo_released_date )
                     <td>{{$data->mfo_released_date}}</td>
 
                     <td>
@@ -198,10 +212,10 @@ w
 
                 <tr>
                     <td>Issuance of Certificate</td>
+                    @if($data->pcco_released_date )
 
                     <td>Completed</td>
 
-                    @if($data->pcco_released_date )
                     <td>{{$data->pcco_released_date}}</td>
 
                     <td>
@@ -217,9 +231,9 @@ w
                 <tr>
                     <td>PO Approval</td>
 
+                    @if($data->coa_approved_date )
                     <td>Completed</td>
 
-                    @if($data->coa_approved_date )
                     <td>{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->coa_approved_date)->format('Y-m-d')}}</td>
 
                     <td>
@@ -234,10 +248,10 @@ w
 
                 <tr>
                     <td>Prepared NTP</td>
+                    @if($data->ntp_date )
 
                     <td>Completed</td>
 
-                    @if($data->ntp_date )
                     <td>{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->ntp_date)->format('Y-m-d')}}</td>
 
                     <td>
@@ -253,9 +267,9 @@ w
                 <tr>
                     <td>Serving NTP</td>
 
+                    @if($data->ntp_award_date )
                     <td>Completed</td>
 
-                    @if($data->ntp_award_date )
                     <td>{{$data->ntp_award_date}}</td>
 
                     <td>
@@ -271,9 +285,9 @@ w
                 <tr>
                     <td>Delivery of Items</td>
 
+                    @if($data->delivery_date )
                     <td>Completed</td>
 
-                    @if($data->delivery_date )
                     <td>{{$data->delivery_date}}</td>
 
                     <td>
@@ -289,9 +303,9 @@ w
                 <tr>
                     <td>Delivery To COA</td>
 
+                    @if($data->dr_coa_date )
                     <td>Completed</td>
 
-                    @if($data->dr_coa_date )
                     <td>{{$data->dr_coa_date}}</td>
 
                     <td>
@@ -307,9 +321,9 @@ w
                 <tr>
                     <td>Conduct Inspection</td>
 
+                    @if($data->dr_inspection )
                     <td>Completed</td>
 
-                    @if($data->dr_inspection )
                     <td>{{$data->dr_inspection}}</td>
 
                     <td>
@@ -324,9 +338,9 @@ w
                 <tr>
                     <td>Conduct Inspection of Delivered Items</td>
 
+                    @if($data->di_start )
                     <td>Completed</td>
 
-                    @if($data->di_start )
                     <td>{{$data->di_start}}</td>
 
                     <td>
@@ -342,9 +356,9 @@ w
                 <tr>
                     <td>Prepare Certificate of Inspection</td>
 
+                    @if($data->di_close )
                     <td>Completed</td>
 
-                    @if($data->di_close )
                     <td>{{$data->di_close}}</td>
 
                     <td>
@@ -359,10 +373,10 @@ w
 
                 <tr>
                     <td>Preparation of Voucher</td>
+                    @if($data->vou_start )
 
                     <td>Completed</td>
 
-                    @if($data->vou_start )
                     <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->vou_start)->format('Y-m-d') }}</td>
 
                     <td>
@@ -378,9 +392,9 @@ w
                 <tr>
                     <td>Release Payment</td>
 
+                    @if($data->vou_release )
                     <td>Completed</td>
 
-                    @if($data->vou_release )
                     <td>{{$data->vou_release}}</td>
 
                     <td>
@@ -395,10 +409,10 @@ w
 
                 <tr>
                     <td>Received Payment</td>
+                    @if($data->vou_received )
 
                     <td>Completed</td>
 
-                    @if($data->vou_received )
                     <td>{{$data->vou_received}}</td>
 
                     <td>

@@ -37,6 +37,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |
     */
 
+    Route::post('unit-purchase-requests/terminate/{id}', '\Revlv\Controllers\Procurements\UPRController@terminateUPR')->name('unit-purchase-requests.terminate');
     Route::post('unit-purchase-requests/attachments/{id}', '\Revlv\Controllers\Procurements\UPRController@uploadAttachment')->name('unit-purchase-requests.attachments.store');
     Route::get('unit-purchase-requests/timelines/{id}', '\Revlv\Controllers\Procurements\UPRController@timelines')->name('unit-purchase-requests.timelines');
     Route::get('unit-purchase-requests/download/{id}', '\Revlv\Controllers\Procurements\UPRController@downloadAttachment')->name('unit-purchase-requests.attachments.download');

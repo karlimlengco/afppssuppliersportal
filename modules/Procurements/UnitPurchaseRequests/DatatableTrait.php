@@ -91,7 +91,8 @@ trait DatatableTrait
             })
             ->editColumn('d_philgeps', function($data){
                 $days = 0;
-                if($data->pp_completed_at)
+
+                if($data->pp_completed_at and  $data->rfq_completed_at)
                 {
                     $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->pp_completed_at);
                     $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at);
@@ -101,7 +102,7 @@ trait DatatableTrait
             })
             ->editColumn('d_ispq', function($data){
                 $days = 0;
-                if($data->ispq_transaction_date)
+                if($data->ispq_transaction_date and  $data->rfq_completed_at)
                 {
                     $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date);
                     $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at);

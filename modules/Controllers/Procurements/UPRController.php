@@ -302,6 +302,33 @@ class UPRController extends Controller
     }
 
     /**
+     * [terminateUPR description]
+     *
+     * @param  [type]  $id      [description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function terminateUPR($id, Request $request, UnitPurchaseRequestRepository $model)
+    {
+        $this->validate($request, [
+            'terminate_status'  => 'required',
+            'remarks'           => 'required',
+        ]);
+
+        $model->update([
+            'terminate_status'  =>  $request->terminate_status,
+            'remarks'           =>  $request->remarks,
+            'state'             =>  "Terminated (".$request->terminate_status.")",
+            'terminated_date'   =>  \Carbon\Carbon::now(),
+            'terminated_by'     =>  \Sentinel::getUser()->id,
+        ], $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

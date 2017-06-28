@@ -211,7 +211,7 @@ class TransactionDayController extends Controller
                     }
 
                     $d_pp_completed_at = 0;
-                    if($data->pp_completed_at)
+                    if($data->pp_completed_at != null && $data->rfq_completed_at != null)
                     {
                         $dt                 = Carbon\Carbon::createFromFormat('Y-m-d', $data->pp_completed_at);
                         $upr_create         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at);
@@ -219,7 +219,7 @@ class TransactionDayController extends Controller
                     }
 
                     $dispq_transaction_date = 0;
-                    if($data->ispq_transaction_date)
+                    if($data->ispq_transaction_date && $data->rfq_completed_at != null)
                     {
                         $dt                         = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date);
                         $upr_create                 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at);

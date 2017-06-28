@@ -17,40 +17,41 @@ PSR Transactions
                 <input type="text" class="input" placeholder="Search" id="newForm">
             </div>
         </div>
+        <div class="table-scroll">
+            <table id="datatable-responsive" class="table table--with-border">
 
-        <table id="datatable-responsive" class="table" >
-
-            <thead>
-                <tr>
-                    <th>PC/CO</th>
-                    <th>UPR</th>
-                    <th>RFQ</th>
-                    <th>RFQ Closed</th>
-                    <th>PhilGeps</th>
-                    <th>ISPQ</th>
-                    <th>Canvass</th>
-                    <th>NOA</th>
-                    <th>NOAA</th>
-                    <th>PO</th>
-                    <th>MFO OB</th>
-                    <th>ACCTG OB</th>
-                    <th>MFO Received</th>
-                    <th>ACCTG Received</th>
-                    <th>COA Approved</th>
-                    <th>NTP</th>
-                    <th>NTPA</th>
-                    <th>NOD</th>
-                    <th>Delivery</th>
-                    <th>TIAC</th>
-                    <th>COA Delivery</th>
-                    <th>DIIR</th>
-                    <th>Voucher</th>
-                    <th>End</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+                <thead>
+                    <tr>
+                        <th>PC/CO</th>
+                        <th>UPR</th>
+                        <th>RFQ</th>
+                        <th>RFQ Closed</th>
+                        <th>PhilGeps</th>
+                        <th>ISPQ</th>
+                        <th>Canvass</th>
+                        <th>NOA</th>
+                        <th>NOAA</th>
+                        <th>PO</th>
+                        <th>MFO OB</th>
+                        <th>ACCTG OB</th>
+                        <th>MFO Received</th>
+                        <th>ACCTG Received</th>
+                        <th>COA Approved</th>
+                        <th>NTP</th>
+                        <th>NTPA</th>
+                        <th>NOD</th>
+                        <th>Delivery</th>
+                        <th>TIAC</th>
+                        <th>COA Delivery</th>
+                        <th>DIIR</th>
+                        <th>Voucher</th>
+                        <th>End</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

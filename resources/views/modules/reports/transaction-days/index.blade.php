@@ -18,37 +18,39 @@ Transaction Days Report
             </div>
         </div>
 
-        <table id="datatable-responsive" class="table" >
+        <div class="table-scroll">
+            <table id="datatable-responsive" class="table table--with-border">
 
-            <thead>
-                <tr>
-                    <th>UPR</th>
-                    <th>Blank RFQ</th>
-                    <th>PhilGeps Posting</th>
-                    <th>ISPQ</th>
-                    <th>Canvass</th>
-                    <th>NOA</th>
-                    <th>NOA Approved</th>
-                    <th>NOA Accepted</th>
-                    <th>PO Create</th>
-                    <th>Funding PO</th>
-                    <th>Issuance of Certificate</th>
-                    <th>PO COA Approval</th>
-                    <th>NTP</th>
-                    <th>NTPA</th>
-                    <th>Delivery</th>
-                    <th>Delivery To COA</th>
-                    <th>Conduct Inspection</th>
-                    <th>Conduct Inspection of Delivered Items</th>
-                    <th>Prepare Certificate of Inspection</th>
-                    <th>Preparation of Voucher</th>
-                    <th>Release Payment</th>
-                    <th>Received Payment</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+                <thead>
+                    <tr>
+                        <th>UPR</th>
+                        <th>Blank RFQ</th>
+                        <th>PhilGeps Posting</th>
+                        <th>ISPQ</th>
+                        <th>Canvass</th>
+                        <th>NOA</th>
+                        <th>NOA Approved</th>
+                        <th>NOA Accepted</th>
+                        <th>PO Create</th>
+                        <th>Funding PO</th>
+                        <th>Issuance of Certificate</th>
+                        <th>PO COA Approval</th>
+                        <th>NTP</th>
+                        <th>NTPA</th>
+                        <th>Delivery</th>
+                        <th>Delivery To COA</th>
+                        <th>Conduct Inspection</th>
+                        <th>Conduct Inspection of Delivered Items</th>
+                        <th>Prepare Certificate of Inspection</th>
+                        <th>Preparation of Voucher</th>
+                        <th>Release Payment</th>
+                        <th>Received Payment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
