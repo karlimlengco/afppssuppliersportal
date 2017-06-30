@@ -20,11 +20,20 @@ Unit Purchase Request
         <button class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
-                <a class="button__options__item" id="view-attachments-button" href="#">View Attachments</a>
-                <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->id)}}">View Timelines</a>
+                {{-- Process --}}
                 @if($data->status == 'pending')
                     <a class="button__options__item" id="process-button" href="#">Process</a>
                 @endif
+                @if(strtolower($data->state) == 'completed')
+                    <a href="#" id="terminate-button" class="button__options__item">Terminate</a>
+                @endif
+                {{-- Process --}}
+
+                {{-- Always shhow --}}
+                <a class="button__options__item" id="view-attachments-button" href="#">View Attachments</a>
+                <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->id)}}">View Timelines</a>
+                <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}">View Logs</a>
+                {{-- Always shhow --}}
 
                 @if(count($data->rfq) != 0)
                     <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button__options__item">Request for Quotation</a>
@@ -43,9 +52,6 @@ Unit Purchase Request
 
                 @if(count($data->noa) != 0)
                     <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a>
-                @endif
-                @if(strtolower($data->state) == 'completed')
-                    <a href="#" id="terminate-button" class="button__options__item">Terminate</a>
                 @endif
 
             </div>
@@ -89,6 +95,7 @@ Unit Purchase Request
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Chargeability :</strong> {{($data->charges) ? $data->charges->name :""}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Account Code :</strong> {{($data->accounts) ? $data->accounts->new_account_code :""}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Fund Validity :</strong> {{$data->fund_validity}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Last Update :</strong> {{$data->updated_at}} </li>
             </ul>
     </div>
     <div class="data-panel__section">

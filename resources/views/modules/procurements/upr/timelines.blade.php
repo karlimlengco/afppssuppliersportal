@@ -81,6 +81,25 @@ Unit Purchase Request
 
                         {{ ($dt->diffInDays($upr_create) == 0) ? "1" : $dt->diffInDays($upr_create) }}
                     </td>
+                    @else
+                        @if($data->rfq_completed_at)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 1)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                 </tr>
 
@@ -98,6 +117,27 @@ Unit Purchase Request
                         <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d  H:i:s', $data->rfq_completed_at); ?>
 
                         {{ ($dt->diffInDays($upr_create) == 0) ? "1" : $dt->diffInDays($upr_create) }}
+
+                    @else
+
+                        @if($data->rfq_completed_at)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 2)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -116,6 +156,28 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+
+                        @if($data->ispq_transaction_date)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 1)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
+
                     @endif
                     </td>
                 </tr>
@@ -134,6 +196,26 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_start_date); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+                        @if($data->canvass_start_date)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_start_date); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 1)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -152,6 +234,27 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->noa_award_date); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+
+                         @if($data->noa_award_date)
+                             <?php $dt = Carbon\Carbon::now(); ?>
+                             <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->noa_award_date); ?>
+                             <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                             @if($days >= 1)
+                                 <td>Delayed</td>
+                             @else
+                                 <td></td>
+                             @endif
+
+                             <td></td>
+                             <td>{{ $days }}</td>
+                         @else
+                             <td></td>
+                             <td></td>
+                             <td></td>
+                         @endif
                     @endif
                     </td>
                 </tr>
@@ -170,6 +273,26 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_approved_date); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+                        @if($data->noa_approved_date)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_approved_date); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 1)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -188,6 +311,26 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_award_accepted_date); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+                        @if($data->noa_award_accepted_date)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_award_accepted_date); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 2)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -206,6 +349,27 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->po_create_date); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+
+                        @if($data->po_create_date)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->po_create_date); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 2)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -224,6 +388,26 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->mfo_released_date); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+                        @if($data->mfo_released_date)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->mfo_released_date); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 2)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -242,6 +426,27 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->pcco_released_date); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+
+                        @if($data->pcco_released_date)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->pcco_released_date); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 1)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -260,6 +465,27 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->coa_approved_date); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+
+                        @if($data->coa_approved_date)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->coa_approved_date); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 1)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -278,6 +504,11 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->ntp_date); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     @endif
                     </td>
                 </tr>
@@ -296,6 +527,27 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->dr_date); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+
+                        @if($data->dr_date)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->dr_date); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 15)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -314,6 +566,26 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->delivery_date); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+                        @if($data->delivery_date)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->delivery_date); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 15)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -332,6 +604,26 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_coa_date); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+                        @if($data->dr_coa_date)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_coa_date); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 2)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -349,6 +641,26 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_inspection); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+                        @if($data->dr_inspection)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_inspection); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 1)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -367,6 +679,26 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_start); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+                        @if($data->di_start)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_start); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 1)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -385,6 +717,26 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_close); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+                        @if($data->di_close)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_close); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 1)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -403,6 +755,26 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->vou_start); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+                        @if($data->vou_start)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->vou_start); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 1)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>
@@ -421,6 +793,26 @@ Unit Purchase Request
                         <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_release); ?>
 
                         {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+
+                    @else
+                        @if($data->vou_release)
+                            <?php $dt = Carbon\Carbon::now(); ?>
+                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->vou_release); ?>
+                            <?php $days =   $dt->diffInDays($upr_create); ?>
+
+                            @if($days >= 1)
+                                <td>Delayed</td>
+                            @else
+                                <td></td>
+                            @endif
+
+                            <td></td>
+                            <td>{{ $days }}</td>
+                        @else
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        @endif
                     @endif
                     </td>
                 </tr>

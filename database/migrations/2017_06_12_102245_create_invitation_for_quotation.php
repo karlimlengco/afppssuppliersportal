@@ -18,6 +18,9 @@ class CreateInvitationForQuotation extends Migration
             $table->integer('signatory_id');
             $table->text('venue');
             $table->date('transaction_date');
+            $table->text('remarks')->nullable();
+            $table->text('update_remarks')->nullable();
+            $table->integer('days')->nullable();
             $table->integer('prepared_by')->nullable();
             $table->timestamps();
         });

@@ -24,6 +24,9 @@ class CreatePhilgepsPosting extends Migration
             $table->date('philgeps_posting');
             $table->date('deadline_rfq');
             $table->string('opening_time');
+            $table->string('update_remarks')->nullable();
+            $table->string('remarks')->nullable();
+            $table->integer('days')->nullable();
             $table->timestamps();
         });
     }

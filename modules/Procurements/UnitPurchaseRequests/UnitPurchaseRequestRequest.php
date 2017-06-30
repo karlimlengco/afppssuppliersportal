@@ -17,6 +17,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
 
         'fund_validity',
         'terms_of_payment',
+        'update_remarks',
         'other_infos',
 
         'units',
@@ -48,6 +49,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
         return [
             'project_name'          => 'required',
             'upr_number'            => 'required',
+            'update_remarks'        => 'required',
             'place_of_delivery'     => 'required|integer',
             'mode_of_procurement'   => 'required|integer',
             'chargeability'         => 'required|integer',

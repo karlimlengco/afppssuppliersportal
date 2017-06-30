@@ -18,6 +18,7 @@ use \Revlv\Settings\ModeOfProcurements\ModeOfProcurementRepository;
 use \Revlv\Settings\ProcurementCenters\ProcurementCenterRepository;
 use \Revlv\Settings\PaymentTerms\PaymentTermRepository;
 use \Revlv\Settings\Units\UnitRepository;
+use \Revlv\Settings\AuditLogs\AuditLogRepository;
 
 class UPRController extends Controller
 {
@@ -41,6 +42,7 @@ class UPRController extends Controller
     protected $terms;
     protected $items;
     protected $units;
+    protected $logs;
 
     /**
      * [$model description]
@@ -65,6 +67,27 @@ class UPRController extends Controller
     public function getDatatable(UnitPurchaseRequestRepository $model)
     {
         return $model->getDatatable();
+    }
+
+    /**
+     * [logs description]
+     *
+     * @param  [type]                        $id    [description]
+     * @param  UnitPurchaseRequestRepository $model [description]
+     * @param  AuditLogRepository            $logs  [description]
+     * @return [type]                               [description]
+     */
+    public function viewLogs($id, UnitPurchaseRequestRepository $model, AuditLogRepository $logs)
+    {
+        $modelType  =   'Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $upr_model  =   $model->findById($id);
+
+        return $this->view('modules.procurements.upr.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'upr'           =>  $upr_model,
+        ]);
     }
 
     /**
@@ -100,7 +123,7 @@ class UPRController extends Controller
         $data           =   [];
         $reader         =   Excel::selectSheets('UPR')->load($path, function($reader) {});
 
-        dd($reader->get()->toArray());
+        dd($reader->get()->groupBy('ITEM NO'));
     }
 
     /**

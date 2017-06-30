@@ -22,7 +22,7 @@
     "Procurements": [
         {
             "name"      : "Alternative Mode of Procurement",
-            "icon"      : "nc-icon-mini business_hammer",
+            "icon"      : "nc-icon-mini shopping_cart-simple",
             "subname"   : "procurements",
             "route"     :   "settings.index",
             "navigation": [
@@ -147,8 +147,8 @@
     "Report": [
         {
             "name"      : "Reports",
-            "icon"      : "nc-icon-mini files_single-folded-content",
-            "subname"   : "procuremesnts",
+            "icon"      : "nc-icon-mini files_single-content-03",
+            "subname"   : "reports",
             "route"     :   "settings.index",
             "navigation": [
                 {

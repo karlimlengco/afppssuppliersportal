@@ -3,9 +3,26 @@
 namespace Revlv\Procurements\UnitPurchaseRequests;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class UnitPurchaseRequestEloquent extends Model
+class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
 {
+    use Auditable;
+
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [
+        'date_prepared',
+        'other_infos',
+        'purpose',
+        'update_remarks',
+        'account_code',
+    ];
+
 
     /**
      * The database table used by the model.
@@ -29,6 +46,7 @@ class UnitPurchaseRequestEloquent extends Model
         'chargeability',
         'terminate_status',
         'remarks',
+        'update_remarks',
         'account_code',
 
         'fund_validity',

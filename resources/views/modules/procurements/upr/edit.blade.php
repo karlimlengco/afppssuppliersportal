@@ -4,15 +4,16 @@ Unit Purchase Request
 
 @section('modal')
     @include('modules.partials.modals.delete')
+{!! Form::model($data, $modelConfig['update']) !!}
+    @include('modules.partials.modals.edit-remarks')
 @stop
 
 @section('contents')
 
-{!! Form::model($data, $modelConfig['update']) !!}
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route($indexRoute,$data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-        <button type="submit" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+        <a class="button" tooltip="Save" id="edit-button"><i class="nc-icon-mini ui-2_disk"></i></a>
     </div>
 </div>
 
@@ -79,11 +80,11 @@ Unit Purchase Request
 
 @section('scripts')
 <script>
-    // datepicker
-    // pickmeup('#id-field-date_prepared', {
-    //     format  : 'Y-m-d'
-    // });
 
+    $('#edit-button').click(function(e){
+        e.preventDefault();
+        $('#edit-modal').addClass('is-visible');
+    })
 
     var picker = new Pikaday(
     {

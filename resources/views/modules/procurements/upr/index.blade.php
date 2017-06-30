@@ -31,7 +31,8 @@ Unit Purchase Request
             </div>
         </div>
 
-        <table id="datatable-responsive" class="table" >
+        {{-- <div class="table-scroll"> --}}
+            <table id="datatable-responsive" class="table ">
             <thead>
                 <tr>
                     <th>UPR No.</th>
@@ -39,7 +40,7 @@ Unit Purchase Request
                     <th>Items</th>
                     <th>ABC</th>
                     <th>TYPE</th>
-                    <th>Prepared At</th>
+                    <th style="text-align:center">Date Prepared</th>
                     <th>Status</th>
                     <th>State</th>
                 </tr>
@@ -47,6 +48,7 @@ Unit Purchase Request
             <tbody>
             </tbody>
         </table>
+        {{-- </div> --}}
     </div>
 </div>
 

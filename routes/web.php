@@ -20,6 +20,8 @@ Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
 
     Route::get('transaction-days/download/{search_at?}', '\Revlv\Controllers\Reports\TransactionDayController@download')->name('reports.transaction-days.download');
     Route::resource('transaction-days', '\Revlv\Controllers\Reports\TransactionDayController');
+
+    Route::resource('suppliers', '\Revlv\Controllers\Reports\TransactionDayController');
 });
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +43,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::post('unit-purchase-requests/attachments/{id}', '\Revlv\Controllers\Procurements\UPRController@uploadAttachment')->name('unit-purchase-requests.attachments.store');
     Route::get('unit-purchase-requests/timelines/{id}', '\Revlv\Controllers\Procurements\UPRController@timelines')->name('unit-purchase-requests.timelines');
     Route::get('unit-purchase-requests/download/{id}', '\Revlv\Controllers\Procurements\UPRController@downloadAttachment')->name('unit-purchase-requests.attachments.download');
+    Route::get('unit-purchase-requests/logs/{id}', '\Revlv\Controllers\Procurements\UPRController@viewLogs')->name('unit-purchase-requests.logs');
     Route::get('unit-purchase-requests/imports', '\Revlv\Controllers\Procurements\UPRController@uploadView')->name('unit-purchase-requests.imports');
     Route::post('unit-purchase-requests/import-file', '\Revlv\Controllers\Procurements\UPRController@uploadFile')->name('unit-purchase-requests.import-file');
     Route::resource('unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController');

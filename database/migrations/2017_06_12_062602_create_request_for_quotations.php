@@ -27,12 +27,12 @@ class CreateRequestForQuotations extends Migration
 
             $table->string('status')->default('pending');
             $table->string('remarks')->nullable();
+            $table->string('update_remarks')->nullable();
             $table->integer('processed_by')->nullable();
+            $table->integer('days')->nullable();
 
             $table->integer('awarded_to')->nullable();
             $table->date('awarded_date')->nullable();
-            $table->string('is_award_accepted')->nullable();
-            $table->date('award_accepted_date')->nullable();
             $table->timestamps();
         });
     }

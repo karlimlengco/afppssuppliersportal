@@ -25,14 +25,14 @@ Request For Quotation
                 @endif
                 @if($data->status == 'pending')
                     <a href="#" class="button__options__item" id="philgeps-posting-button">PhilGeps Posting</a>
-                @else
-                    @if($data->status != 'closed')
-                    <a href="#" class="button__options__item" id="close-button">Close RFQ</a>
-                    @else
+                @endif
 
-                        @if(count($data->invitations) == 0)
-                            <a href="#" class="button__options__item" id="invitation-button">Create Invitation</a>
-                        @endif
+                @if($data->status != 'closed')
+                    <a href="#" class="button__options__item" id="close-button">Close RFQ</a>
+                @else
+
+                    @if(count($data->invitations) == 0)
+                        <a href="#" class="button__options__item" id="invitation-button">Create Invitation</a>
                     @endif
                 @endif
 
