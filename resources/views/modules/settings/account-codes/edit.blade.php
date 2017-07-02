@@ -25,6 +25,7 @@ Account Codes
 <div class="row">
     <div class="twelve columns">
         {!! Form::textField('name', 'Name') !!}
+        {!! Form::textField('old_account_code', 'Old Account Code') !!}
         {!! Form::textField('new_account_code', 'Account Code') !!}
     </div>
 </div>

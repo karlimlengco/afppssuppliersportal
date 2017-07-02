@@ -19,6 +19,7 @@ use \Revlv\Settings\ProcurementCenters\ProcurementCenterRepository;
 use \Revlv\Settings\PaymentTerms\PaymentTermRepository;
 use \Revlv\Settings\Units\UnitRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Settings\CateredUnits\CateredUnitRepository;
 
 class UPRController extends Controller
 {
@@ -116,14 +117,124 @@ class UPRController extends Controller
      * @param  UnitPurchaseRequestRepository $model   [description]
      * @return [type]                                 [description]
      */
-    public function uploadFile(Request $request, UnitPurchaseRequestRepository $model)
+    public function uploadFile(
+        Request $request,
+        UnitPurchaseRequestRepository $model,
+        AccountCodeRepository $accounts,
+        ChargeabilityRepository $chargeability,
+        ModeOfProcurementRepository $modes,
+        ProcurementCenterRepository $centers,
+        CateredUnitRepository $units,
+        PaymentTermRepository $terms)
     {
         $path           =   $request->file('file')->getRealPath();
 
         $data           =   [];
-        $reader         =   Excel::selectSheets('UPR')->load($path, function($reader) {});
+        $reader         =   Excel::load($path, function($reader) {});
+        $fields         =   $reader->limitColumns(5)->limitRows(10)->get();
+        $items          =   $reader->skipRows(12)->limitColumns(5)->get();
 
-        dd($reader->get()->groupBy('ITEM NO'));
+        $array          =   [];
+        $itemArray      =   [];
+
+
+        foreach($fields->toArray() as $row)
+        {
+            switch ($row[0]) {
+                case 'UPR NO':
+                    $array['upr_number'] = $row[2];
+                    break;
+                case 'DATE PREPARED':
+                    $array['date_prepared'] = $row[2];
+                    break;
+                case 'PROJECT NAME':
+                    $array['project_name'] = $row[2];
+                    break;
+                case 'PLACE OF DELIVERY':
+                    $centerModel    =   $centers->findByName($row[2]);
+                    if($centerModel != null)
+                    {
+                        $array['place_of_delivery'] = $centerModel->id;
+                    }
+                    break;
+                case 'MODE OF PROCUREMENT':
+                    $modesModel    =   $modes->findByName($row[2]);
+                    if($modesModel != null)
+                    {
+                        $array['mode_of_procurement'] = $modesModel->id;
+                    }
+                    break;
+                case 'CHARGEABILITY':
+                    $chargeabilityModel    =   $chargeability->findByName($row[2]);
+                    if($chargeabilityModel != null)
+                    {
+                        $array['chargeability'] = $chargeabilityModel->id;
+                    }
+                    break;
+                case 'ACCOUNT CODE':
+                    $accountsModel    =   $accounts->findByName($row[2]);
+                    if($accountsModel != null)
+                    {
+                        $array['account_code'] = $accountsModel->id;
+                    }
+                    break;
+                case 'FUND VALIDITY':
+                    $array['fund_validity'] = $row[2];
+                    break;
+                case 'TERMS OF PAYMENTS':
+                    $termsModel    =   $terms->findByName($row[2]);
+                    if($termsModel != null)
+                    {
+                        $array['terms_of_payment'] = $termsModel->id;
+                    }
+                        break;
+                case 'OTHER ESSENTIAL INFO':
+                    $array['other_infos'] = $row[2];
+                    break;
+                case 'PURPOSE':
+                    $array['purpose'] = $row[2];
+                        break;
+
+                default:
+
+                    break;
+            }
+
+        }
+
+        foreach($items->toArray() as $itemRow)
+        {
+            if($itemRow[0] != "ITEM DESCRIPTION")
+            {
+                $itemArray[]    =   [
+                    'item_description'      =>  $itemRow[0],
+                    'quantity'              =>  $itemRow[1],
+                    'unit'                  =>  $itemRow[2],
+                    'unit_price'            =>  $itemRow[3],
+                    'total_amount'          =>  $itemRow[4],
+                ];
+            }
+        }
+
+        $account_codes      =    $accounts->lists('id', 'new_account_code');
+        $charges            =    $chargeability->lists('id', 'name');
+        $procurement_modes  =    $modes->lists('id', 'name');
+        $procurement_center =    $centers->lists('id', 'name');
+        $payment_terms      =    $terms->lists('id', 'name');
+        $unit               =    $units->lists('id', 'short_code');
+
+
+        return $this->view('modules.procurements.upr.import-validate',[
+            'indexRoute'        =>  $this->baseUrl."index",
+            'data'              =>  $array,
+            'items'             =>  $itemArray,
+            'account_codes'     =>  $account_codes,
+            'payment_terms'     =>  $payment_terms,
+            'unit'              =>  $unit,
+            'charges'           =>  $charges,
+            'procurement_modes' =>  $procurement_modes,
+            'procurement_center'=>  $procurement_center,
+        ]);
     }
 
     /**
@@ -149,7 +260,7 @@ class UPRController extends Controller
         ChargeabilityRepository $chargeability,
         ModeOfProcurementRepository $modes,
         ProcurementCenterRepository $centers,
-        UnitRepository $units,
+        CateredUnitRepository $units,
         PaymentTermRepository $terms)
     {
 
@@ -158,7 +269,7 @@ class UPRController extends Controller
         $procurement_modes  =    $modes->lists('id', 'name');
         $procurement_center =    $centers->lists('id', 'name');
         $payment_terms      =    $terms->lists('id', 'name');
-        $unit               =    $units->lists('id', 'name');
+        $unit               =    $units->lists('id', 'short_code');
         // $this->permissions->lists('permission','description')
         $this->view('modules.procurements.upr.create',[
             'indexRoute'        =>  $this->baseUrl.'index',
@@ -284,7 +395,7 @@ class UPRController extends Controller
         $procurement_modes  =    $modes->lists('id', 'name');
         $procurement_center =    $centers->lists('id', 'name');
         $payment_terms      =    $terms->lists('id', 'name');
-        $unit               =    $units->lists('id', 'name');
+        $unit               =    $units->lists('id', 'short_code');
 
         return $this->view('modules.procurements.upr.edit',[
             'data'              =>  $result,

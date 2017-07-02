@@ -45,7 +45,8 @@ class DashboardController extends Controller
         $result2    =   $model->getPSRUnits();
         // $rfq    =   $blankRfq->getAll();
         // $values =   [];
-        // $array  =   [];
+        $array      =   [];
+        $array2     =   [];
         // $test   =   [];
         // $name   =   "";
         $monthranges =   range(0, 11);

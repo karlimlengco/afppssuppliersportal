@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProcurementCenters extends Migration
+class CreateMessages extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateProcurementCenters extends Migration
      */
     public function up()
     {
-        Schema::create('procurement_centers', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->text('address');
-            $table->string('programs');
+            $table->text('message');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
-
-            $table->index('name');
         });
     }
 
@@ -31,6 +28,6 @@ class CreateProcurementCenters extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('procurement_centers');
+        Schema::dropIfExists('messages');
     }
 }

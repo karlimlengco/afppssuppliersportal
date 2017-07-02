@@ -107,6 +107,13 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
         return $this->hasMany(Notebook::class);
     }
 
+
+    public function messages()
+    {
+        return $this->hasMany('\Revlv\Chats\Message\MessageEloquent');
+    }
+
+
     /**
      * [unit description]
      *

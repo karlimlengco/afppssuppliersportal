@@ -12,6 +12,7 @@ class ProcurementCenterRequest extends BaseRequest
     protected $whitelist = [
         'name',
         'address',
+        'programs',
     ];
 
     /**
@@ -24,6 +25,7 @@ class ProcurementCenterRequest extends BaseRequest
         return [
             'name'          => 'required',
             'address'       => 'required',
+            'programs'      => 'required',
         ];
     }
 }

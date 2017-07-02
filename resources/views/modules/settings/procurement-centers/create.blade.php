@@ -19,6 +19,7 @@ Procurement Centers
             {!! Form::textField('name', 'Name') !!}
 
             {!! Form::textField('address', 'Address') !!}
+            {!! Form::selectField('programs', 'Program', ['1' => '1', '2' => '2', '3' => '3', '4' => '4']) !!}
 
     </div>
 </div>

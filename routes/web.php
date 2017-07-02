@@ -12,7 +12,13 @@
 */
 Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard.index');
 
+Route::get('chat', function(){
+    return view('chat');
+});
 
+Route::get('/messages', function(){
+    return \Revlv\Chats\Message\MessageEloquent::all();
+});
 
 Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
     Route::get('psr/download/{search_at?}', '\Revlv\Controllers\Reports\PSRController@download')->name('reports.psr-transactions.download');

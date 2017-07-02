@@ -29,6 +29,7 @@ class UsersTableSeeder extends Seeder
             "gender"        => 'male',
             "address"       => 'Makati City',
             "contact_number"=> '09363494225',
+            "designation"   => 'Administrator',
             "permissions"   => ['superuser'=>'1'],
             "status"        => '1',
         ]);
@@ -43,6 +44,7 @@ class UsersTableSeeder extends Seeder
             "gender"        => 'male',
             "address"       => 'Columbia City',
             "status"        => '1',
+            "designation"   => 'Tester',
             "contact_number"=> '09363494228'
         ]);
 

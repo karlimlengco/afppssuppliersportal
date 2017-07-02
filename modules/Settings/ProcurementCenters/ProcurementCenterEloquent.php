@@ -21,6 +21,7 @@ class ProcurementCenterEloquent extends Model
      */
     protected $fillable = [
         'name',
+        'programs',
         'address',
     ];
 

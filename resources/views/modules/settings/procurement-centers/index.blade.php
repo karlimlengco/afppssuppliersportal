@@ -31,6 +31,7 @@ Procurement Centers
                 <tr>
                     <th>Name</th>
                     <th>Address</th>
+                    <th>Program</th>
                     <th>Created</th>
                 </tr>
             </thead>
@@ -58,6 +59,7 @@ Procurement Centers
         columns: [
             {data: 'name', name: 'name'},
             {data: 'address', name: 'address'},
+            {data: 'programs', name: 'programs'},
             {data: 'created_at', name: 'created_at'},
         ],
         "fnInitComplete": function (oSettings, json) {

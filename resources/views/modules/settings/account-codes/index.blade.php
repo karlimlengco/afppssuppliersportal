@@ -31,6 +31,7 @@ Account Codes
                 <tr>
                     <th>Name</th>
                     <th>Account Code</th>
+                    <th>Old Code</th>
                     <th>Created</th>
                 </tr>
             </thead>
@@ -58,6 +59,7 @@ Account Codes
         columns: [
             {data: 'name', name: 'name'},
             {data: 'new_account_code', name: 'new_account_code'},
+            {data: 'old_account_code', name: 'old_account_code'},
             {data: 'created_at', name: 'created_at'},
         ],
         "fnInitComplete": function (oSettings, json) {
