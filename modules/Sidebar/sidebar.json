@@ -182,6 +182,11 @@
                     "name"  :   "Signatories"
                 },
                 {
+                    "route" :   "settings.holidays.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Holidays"
+                },
+                {
                     "route" :   "settings.users.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Users"

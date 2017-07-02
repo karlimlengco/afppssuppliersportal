@@ -254,6 +254,7 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
     Route::post('suppliers/accepts/{id}', '\Revlv\Controllers\Settings\SupplierController@acceptSupplier')->name('suppliers.accepts');
     Route::get('suppliers/drafts', '\Revlv\Controllers\Settings\SupplierController@drafts')->name('suppliers.drafts');
     Route::resource('suppliers', '\Revlv\Controllers\Settings\SupplierController');
+    Route::resource('holidays', '\Revlv\Controllers\Settings\HolidayController');
     Route::resource('signatories', '\Revlv\Controllers\Settings\SignatoryController');
 
     /*
@@ -297,6 +298,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('supplier-drafts', '\Revlv\Controllers\Settings\SupplierController@getDraftDatatable')->name('settings.supplier-drafts');
     Route::get('suppliers', '\Revlv\Controllers\Settings\SupplierController@getDatatable')->name('settings.suppliers');
     Route::get('signatories', '\Revlv\Controllers\Settings\SignatoryController@getDatatable')->name('settings.signatories');
+    Route::get('holidays', '\Revlv\Controllers\Settings\HolidayController@getDatatable')->name('settings.holidays');
 
     /*
     |--------------------------------------------------------------------------
