@@ -49,7 +49,6 @@ class UnitPurchaseRequestRequest extends BaseRequest
         return [
             'project_name'          => 'required',
             'upr_number'            => 'required',
-            'update_remarks'        => 'required',
             'place_of_delivery'     => 'required|integer',
             'mode_of_procurement'   => 'required|integer',
             'chargeability'         => 'required|integer',

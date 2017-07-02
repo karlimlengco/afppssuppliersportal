@@ -4,7 +4,7 @@ Unit Purchase Request Import Validate
 
 @section('contents')
 
-{!! Form::model($data, ['routes' => 'procurements.unit-purchase-requests.import-file']) !!}
+{!! Form::model($data, ['route' => 'procurements.unit-purchase-requests.save-file']) !!}
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
@@ -83,11 +83,11 @@ Unit Purchase Request Import Validate
             <tbody>
                 @foreach($items as $item)
                 <tr>
-                    <td> {!! Form::text('a_item_description',  $item['item_description'], ['class' => 'input', 'id' => 'item_description']) !!} </td>
-                    <td> {!! Form::text('a_quantity', $item['quantity'], ['class' => 'input', 'id' => 'quantity']) !!} </td>
-                    <td> {!! Form::text('a_unit_measurement', $item['unit'], ['class' => 'input', 'id' => 'unit_measurement']) !!} </td>
-                    <td> {!! Form::text('a_unit_price', $item['unit_price'], ['class' => 'input', 'id' => 'unit_price']) !!} </td>
-                    <td> {!! Form::text('a_total_amount', $item['total_amount'], ['class' => 'input', 'id' => 'total_amount', 'readonly']) !!} </td>
+                    <td> {!! Form::text('item_description[]',  $item['item_description'], ['class' => 'input', 'id' => 'item_description']) !!} </td>
+                    <td> {!! Form::text('quantity[]', $item['quantity'], ['class' => 'input', 'id' => 'quantity']) !!} </td>
+                    <td> {!! Form::text('unit_measurement[]', $item['unit'], ['class' => 'input', 'id' => 'unit_measurement']) !!} </td>
+                    <td> {!! Form::text('unit_price[]', $item['unit_price'], ['class' => 'input', 'id' => 'unit_price']) !!} </td>
+                    <td> {!! Form::text('total_amount[]', $item['total_amount'], ['class' => 'input', 'id' => 'total_amount', 'readonly']) !!} </td>
                     {{-- <td> <button type="button" class="button" id="add_item">add</button> </td> --}}
                 </tr>
                 @endforeach
@@ -102,5 +102,14 @@ Unit Purchase Request Import Validate
 @section('scripts')
 <script>
 
+
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-date_prepared'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
 </script>
 @stop

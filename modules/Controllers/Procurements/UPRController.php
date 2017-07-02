@@ -131,12 +131,14 @@ class UPRController extends Controller
 
         $data           =   [];
         $reader         =   Excel::load($path, function($reader) {});
+        // $reader->formatDates(true, 'd F Y');
         $fields         =   $reader->limitColumns(5)->limitRows(10)->get();
         $items          =   $reader->skipRows(12)->limitColumns(5)->get();
 
         $array          =   [];
         $itemArray      =   [];
 
+        $array['units'] =   \Sentinel::getUser()->unit_id;
 
         foreach($fields->toArray() as $row)
         {
@@ -145,7 +147,8 @@ class UPRController extends Controller
                     $array['upr_number'] = $row[2];
                     break;
                 case 'DATE PREPARED':
-                    $array['date_prepared'] = $row[2];
+                    $date   =   \Carbon\Carbon::createFromFormat('d F Y', ($row[2]));
+                    $array['date_prepared'] = $date;
                     break;
                 case 'PROJECT NAME':
                     $array['project_name'] = $row[2];
@@ -284,6 +287,68 @@ class UPRController extends Controller
                     'route'     =>  $this->baseUrl.'store'
                 ]
             ]
+        ]);
+    }
+
+    /**
+     * [saveFile description]
+     *
+     * @param  UnitPurchaseRequestRequest    $request [description]
+     * @param  UnitPurchaseRequestRepository $model   [description]
+     * @return [type]                                 [description]
+     */
+    public function saveFile(UnitPurchaseRequestRequest $request, UnitPurchaseRequestRepository $model)
+    {
+        $items                  =   $request->only([
+            'item_description',
+            'quantity',
+            'unit_measurement',
+            'unit_price',
+            'total_amount'
+        ]);
+
+        $procs                  =   $request->getData();
+        $date                   =   \Carbon\Carbon::now();
+
+        $total_amount           =   array_sum($items['total_amount']);
+        $prepared_by            =   \Sentinel::getUser()->id;
+        $item_datas             =   [];
+
+        $procs['total_amount']  =   $total_amount;
+        $procs['prepared_by']   =   $prepared_by;
+
+        $result = $model->save($procs);
+
+        $counts                 =   $model->getCountByYear($date->format('Y'))->total;
+        $counts                 += 1;
+
+        $ref_name   =   "AMP-". $result->centers->name ."-". $counts ."-". $result->centers->name ."-". $date->format('Y');
+        $ref_name   =   str_replace(" ", "", $ref_name);
+
+        $model->update(['ref_number' => $ref_name], $result->id);
+
+        if($result)
+        {
+            for ($i=0; $i < count($items['item_description']); $i++) {
+                $item_datas[]  =   [
+                    'item_description'      =>  $items['item_description'][$i],
+                    'quantity'              =>  $items['quantity'][$i],
+                    'unit_measurement'      =>  $items['unit_measurement'][$i],
+                    'unit_price'            =>  $items['unit_price'][$i],
+                    'total_amount'          =>  $items['total_amount'][$i],
+                    'upr_number'            =>  $request->get('upr_number'),
+                    'ref_number'            =>  $request->get('ref_number'),
+                    'prepared_by'           =>  $prepared_by,
+                    'date_prepared'         =>  $request->get('date_prepared'),
+                    'upr_id'                =>  $result->id
+                ];
+            }
+
+            DB::table('unit_purchase_request_items')->insert($item_datas);
+        }
+
+        return redirect()->route($this->baseUrl.'show', $result->id)->with([
+            'success'  => "New record has been successfully added."
         ]);
     }
 
