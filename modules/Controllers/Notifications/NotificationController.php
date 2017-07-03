@@ -638,6 +638,63 @@ class NotificationController extends Controller
             }
             // IAR Acceptance
 
+            // DR Inspection Start
+            if($item->iar_accepted_date != null && $item->di_start == null )
+            {
+                $iar_accepted_date    = Carbon::createFromFormat('Y-m-d', $item->iar_accepted_date);
+                // Count working days
+                $days = $today->diffInDaysFiltered(function (Carbon $date) use ($h_lists) {
+                    return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
+                }, $iar_accepted_date);
+
+                $data   =   [
+                    'id'                =>  $item->id,
+                    'project_name'      =>  $item->project_name,
+                    'upr_number'        =>  $item->upr_number,
+                    'ref_number'        =>  $item->ref_number,
+                    'total_amount'      =>  $item->total_amount,
+                    'date_prepared'     =>  $item->date_prepared,
+                    'state'             =>  $item->state,
+                    'event'             =>  "Start Delivered Inspection",
+                    'status'            =>  "Delay",
+                    'days'              =>  $days,
+                    'transaction_date'  =>  $iar_accepted_date->addDays(1)->format('Y-m-d'),
+                ];
+
+                if($days >= 1)
+                {
+                    $newCollection->push($data);
+                }
+            }
+            if($item->di_start != null && $item->di_close == null )
+            {
+                $di_start    = Carbon::createFromFormat('Y-m-d', $item->di_start);
+                // Count working days
+                $days = $today->diffInDaysFiltered(function (Carbon $date) use ($h_lists) {
+                    return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
+                }, $di_start);
+
+                $data   =   [
+                    'id'                =>  $item->id,
+                    'project_name'      =>  $item->project_name,
+                    'upr_number'        =>  $item->upr_number,
+                    'ref_number'        =>  $item->ref_number,
+                    'total_amount'      =>  $item->total_amount,
+                    'date_prepared'     =>  $item->date_prepared,
+                    'state'             =>  $item->state,
+                    'event'             =>  "Close Delivered Inspection",
+                    'status'            =>  "Delay",
+                    'days'              =>  $days,
+                    'transaction_date'  =>  $di_start->addDays(1)->format('Y-m-d'),
+                ];
+
+                if($days >= 1)
+                {
+                    $newCollection->push($data);
+                }
+            }
+            // DR Inspection Start
+
 
         }
 

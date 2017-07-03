@@ -13,6 +13,8 @@ use \Revlv\Procurements\DeliveryInspection\DeliveryInspectionRepository;
 use \Revlv\Procurements\DeliveryInspection\DeliveryInspectionRequest;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\DeliveryInspection\Issues\IssueRepository;
+use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
+use \Revlv\Settings\Signatories\SignatoryRepository;
 
 class DeliveredInspectionReportController extends Controller
 {
@@ -38,9 +40,11 @@ class DeliveredInspectionReportController extends Controller
      */
     protected $proponents;
     protected $noa;
+    protected $signatories;
     protected $inspections;
     protected $delivery;
     protected $issues;
+    protected $upr;
 
     /**
      * @param model $model
@@ -176,6 +180,39 @@ class DeliveredInspectionReportController extends Controller
      * @param  DeliveryInspectionRepository $model    [description]
      * @return [type]                                 [description]
      */
+    public function storeByDR(
+            $id,
+            DeliveryOrderRepository $delivery,
+            UnitPurchaseRequestRepository $upr,
+            DeliveryInspectionRepository $model)
+    {
+        $delivery_model =   $delivery->findById($id);
+
+        $inputs         =   [
+            'dr_id'             =>  $id,
+            'rfq_id'            =>  $delivery_model->rfq_id,
+            'upr_id'            =>  $delivery_model->upr_id,
+            'rfq_number'        =>  $delivery_model->rfq_number,
+            'upr_number'        =>  $delivery_model->upr_number,
+            'delivery_number'   =>  $delivery_model->delivery_number,
+            'status'            =>  "pending",
+        ];
+
+        $result         =   $model->save($inputs);
+
+        return redirect()->route($this->baseUrl.'show', $result->id)->with([
+            'success'  => "New record has been successfully added."
+        ]);
+    }
+
+    /**
+     * [store description]
+     *
+     * @param  DeliveryInspectionRequest    $request  [description]
+     * @param  DeliveryOrderRepository      $delivery [description]
+     * @param  DeliveryInspectionRepository $model    [description]
+     * @return [type]                                 [description]
+     */
     public function store(
             DeliveryInspectionRequest $request,
             DeliveryOrderRepository $delivery,
@@ -211,15 +248,20 @@ class DeliveredInspectionReportController extends Controller
         $id,
         DeliveryOrderRepository $delivery,
         DeliveryInspectionRepository $model,
+        NOARepository $noa,
+        SignatoryRepository $signatories,
         RFQProponentRepository $proponents)
     {
+
         $result             =   $model->with('issues')->findById($id);
-        $proponent_awardee  =   $proponents->with('supplier')->findAwardeeByRFQId($result->rfq_id);
-        $supplier           =   $proponent_awardee->supplier;
+        $supplier           =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+
+        $signatory_list     =   $signatories->lists('id','name');
 
         return $this->view('modules.procurements.delivered-inspections.show',[
             'data'          =>  $result,
             'supplier'      =>  $supplier,
+            'signatory_list'=>  $signatory_list,
             'indexRoute'    =>  $this->baseUrl.'index',
             'printRoute'    =>  $this->baseUrl.'print',
             'modelConfig'   =>  [
@@ -238,8 +280,42 @@ class DeliveredInspectionReportController extends Controller
                 'close_inspection' =>  [
                     'route'     =>  [$this->baseUrl.'close-inspection', $id],
                     'method'    =>  'POST'
+                ],
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update-signatory', $id],
+                    'method'    =>  'PUT'
                 ]
             ]
+        ]);
+    }
+
+    /**
+     * [updateSignatory description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function updateSignatory(Request $request, $id, DeliveryInspectionRepository $model)
+    {
+        $this->validate($request, [
+            'received_by'   => 'required',
+            'approved_by'   => 'required',
+            'issued_by'     => 'required',
+            'requested_by'  => 'required'
+        ]);
+
+        $data   =   [
+            'received_by'   =>  $request->received_by,
+            'approved_by'   =>  $request->approved_by,
+            'issued_by'     =>  $request->issued_by,
+            'requested_by'  =>  $request->requested_by
+        ];
+
+        $model->update($data, $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
         ]);
     }
 

@@ -21,6 +21,10 @@ class DeliveryInspectionRequest extends BaseRequest
         'closed_date',
         'started_by',
         'closed_by',
+        'received_by',
+        'approved_by',
+        'issued_by',
+        'requested_by',
     ];
 
     /**

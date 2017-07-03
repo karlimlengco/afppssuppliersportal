@@ -134,4 +134,14 @@ class DeliveryOrderEloquent extends Model
     {
         return $this->hasOne('\Revlv\Procurements\InspectionAndAcceptance\InspectionAndAcceptanceEloquent', 'dr_id');
     }
+
+    /**
+     * [diir description]
+     *
+     * @return [type] [description]
+     */
+    public function diir()
+    {
+        return $this->hasOne('\Revlv\Procurements\DeliveryInspection\DeliveryInspectionEloquent', 'dr_id');
+    }
 }

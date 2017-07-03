@@ -32,7 +32,53 @@ class DeliveryInspectionEloquent extends Model
         'closed_date',
         'started_by',
         'closed_by',
+
+        'received_by',
+        'approved_by',
+        'issued_by',
+        'requested_by',
     ];
+
+    /**
+     * [receiver description]
+     *
+     * @return [type] [description]
+     */
+    public function receiver()
+    {
+        return $this->belongsTo('\Revlv\Procurements\Canvassing\Signatories\SignatoryEloquent', 'received_by');
+    }
+
+    /**
+     * [approver description]
+     *
+     * @return [type] [description]
+     */
+    public function approver()
+    {
+        return $this->belongsTo('\Revlv\Procurements\Canvassing\Signatories\SignatoryEloquent', 'approved_by');
+    }
+
+    /**
+     * [issuer description]
+     *
+     * @return [type] [description]
+     */
+    public function issuer()
+    {
+        return $this->belongsTo('\Revlv\Procurements\Canvassing\Signatories\SignatoryEloquent', 'issued_by');
+    }
+
+
+    /**
+     * [requestor description]
+     *
+     * @return [type] [description]
+     */
+    public function requestor()
+    {
+        return $this->belongsTo('\Revlv\Procurements\Canvassing\Signatories\SignatoryEloquent', 'requested_by');
+    }
 
     /**
      * [started description]

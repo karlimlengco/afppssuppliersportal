@@ -179,6 +179,11 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'delivery_orders.date_delivered_to_coa as dr_coa_date',
             'inspection_acceptance_report.inspection_date as dr_inspection',
             'inspection_acceptance_report.accepted_date as iar_accepted_date',
+            'delivery_inspection.closed_date as di_close',
+            'delivery_inspection.start_date as di_start',
+            'vouchers.created_at as vou_start',
+            'vouchers.payment_release_date as vou_release',
+            'vouchers.payment_received_date as vou_received',
             // DB::raw("(select count(*) from holidays where holiday_date >= unit_purchase_requests.created_at and holiday_date <= NOW()) as holidays"),
             // DB::raw("datediff(NOW(), unit_purchase_requests.created_at ) as days"),
             // DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.created_at) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.created_at) + WEEKDAY(NOW()) + 1, 1) as working_days")
@@ -198,6 +203,8 @@ class UnitPurchaseRequestRepository extends BaseRepository
         $model  =   $model->leftJoin('notice_to_proceed', 'notice_to_proceed.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('delivery_orders', 'delivery_orders.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('inspection_acceptance_report', 'inspection_acceptance_report.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
 
         $model  =   $model->get();
 

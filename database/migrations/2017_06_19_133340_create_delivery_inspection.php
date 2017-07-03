@@ -27,6 +27,13 @@ class CreateDeliveryInspection extends Migration
             $table->date('closed_date')->nullable();
             $table->integer('started_by')->nullable();
             $table->integer('closed_by')->nullable();
+
+
+            $table->integer('received_by')->nullable();
+            $table->integer('approved_by')->nullable();
+            $table->integer('issued_by')->nullable();
+            $table->integer('requested_by')->nullable();
+
             $table->timestamps();
         });
     }

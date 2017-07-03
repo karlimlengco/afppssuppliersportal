@@ -62,7 +62,7 @@ Purchase Order
             {data: 'purchase_date', name: 'purchase_date'},
             {data: 'bid_amount', name: 'bid_amount'},
             {data: 'mfo_released_date', name: 'mfo_released_date'},
-            {data: 'pcco_released_date', name: 'pcco_released_date'},
+            {data: 'funding_released_date', name: 'funding_released_date'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

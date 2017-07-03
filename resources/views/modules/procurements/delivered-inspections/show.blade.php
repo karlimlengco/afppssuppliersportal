@@ -6,6 +6,7 @@ Delivered Items Inspection
     @include('modules.partials.modals.add-issue')
     @include('modules.partials.modals.start-inspection')
     @include('modules.partials.modals.close-inspection')
+    @include('modules.partials.modals.diir-signatory')
 @stop
 
 @section('contents')
@@ -16,6 +17,7 @@ Delivered Items Inspection
         <button type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
+                <a class="button__options__item" href="#" id="signatories-button">Signatories</a>
                 @if($data->start_date and !$data->closed_date)
                     <a class="button__options__item" href="#" id="add-issue-button">Add Issue</a>
                     <a class="button__options__item" href="#" id="close-button">Close Inspection</a>
@@ -100,6 +102,11 @@ Delivered Items Inspection
     $('#add-issue-button').click(function(e){
         e.preventDefault();
         $('#add-issue-modal').addClass('is-visible');
+    })
+
+    $('#signatories-button').click(function(e){
+        e.preventDefault();
+        $('#signatories-modal').addClass('is-visible');
     })
 
     $('#start-button').click(function(e){

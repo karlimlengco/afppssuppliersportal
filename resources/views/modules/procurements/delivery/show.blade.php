@@ -27,9 +27,14 @@ Notice Of Delivery
                         <a class="button__options__item" href="#" id="coa-button">Complete COA Delivery</a>
                     @else
                         @if(count($data->inspections) == 0)
-                        <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.create-from-delivery',$data->id)}}">Start Inspection</a>
+                        <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.create-from-delivery',$data->id)}}">Technical Inspection</a>
                         @else
-                            <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.show',$data->inspections->id)}}">View Inspection</a>
+                            <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.show',$data->inspections->id)}}">Technical Inspection</a>
+                            @if(count($data->diir) == 0)
+                                <a class="button__options__item" href="{{route('procurements.delivery-orders.store-by-dr',$data->id)}}">Delivered Items</a>
+                            @else
+                                <a class="button__options__item" href="{{route('procurements.delivered-inspections.show',$data->diir->id)}}">Delivered Items</a>
+                            @endif
                         @endif
                     @endif
                 @endif
