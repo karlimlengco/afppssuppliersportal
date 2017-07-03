@@ -29,6 +29,16 @@ Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
 
     Route::resource('suppliers', '\Revlv\Controllers\Reports\TransactionDayController');
 });
+
+/*
+|--------------------------------------------------------------------------
+| Procurements Routes
+|--------------------------------------------------------------------------
+|
+*/
+Route::resource('notifications', '\Revlv\Controllers\Notifications\NotificationController');
+
+
 /*
 |--------------------------------------------------------------------------
 | Procurements Routes

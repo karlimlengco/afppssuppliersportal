@@ -450,7 +450,7 @@ class UPRController extends Controller
         ModeOfProcurementRepository $modes,
         ProcurementCenterRepository $centers,
         UnitPurchaseRequestRepository $model,
-        UnitRepository $units,
+        CateredUnitRepository $units,
         PaymentTermRepository $terms)
     {
         $result =   $model->findById($id);

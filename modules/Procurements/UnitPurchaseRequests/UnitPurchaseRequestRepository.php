@@ -139,4 +139,42 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         return $model->first();
     }
+
+    /**
+     *
+     *
+     * @return [type] [description]
+     */
+    public function getDelays()
+    {
+        $model  =   $this->model;
+
+
+        $model  =   $model->select([
+            'unit_purchase_requests.id',
+            'unit_purchase_requests.project_name',
+            'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.ref_number',
+            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.state',
+            'unit_purchase_requests.total_amount',
+            'unit_purchase_requests.date_processed',
+            'unit_purchase_requests.created_at as upr_created_at',
+            // DB::raw("(select count(*) from holidays where holiday_date >= unit_purchase_requests.created_at and holiday_date <= NOW()) as holidays"),
+            'request_for_quotations.created_at as rfq_created_at',
+            'request_for_quotations.completed_at as rfq_completed_at',
+            // DB::raw("datediff(NOW(), unit_purchase_requests.created_at ) as days"),
+            // DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.created_at) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.created_at) + WEEKDAY(NOW()) + 1, 1) as working_days")
+        ]);
+
+        $model  =   $model->where('state', '!=', 'completed');
+        $model  =   $model->where('state', '!=', 'Terminated pass');
+        $model  =   $model->where('state', '!=', 'Terminated failed');
+
+        $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
+
+        $model  =   $model->paginate(20);
+
+        return $model;
+    }
 }

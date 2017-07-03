@@ -123,3 +123,7 @@
 .button__options{
     z-index: 999999999999;
 }
+
+.red{
+    color: rgba(231, 76, 60,1.0)
+}
