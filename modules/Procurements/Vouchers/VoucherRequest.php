@@ -15,10 +15,23 @@ class VoucherRequest extends BaseRequest
         'prepared_by',
         'rfq_number',
         'upr_number',
-        'transaction_date',
+        'voucher_transaction_date',
         'bir_address',
         'final_tax',
         'expanded_witholding_tax',
+
+        'preaudit_date',
+
+        'certify_date',
+        'is_cash_avail',
+        'subject_to_authority_to_debit_acc',
+        'documents_completed',
+
+        'journal_entry_date',
+        'journal_entry_number',
+        'or',
+
+        'approval_date',
     ];
 
     /**
@@ -29,9 +42,9 @@ class VoucherRequest extends BaseRequest
     public function rules()
     {
         return [
-            'rfq_id'                => 'required',
-            'transaction_date'      => 'required',
-            'bir_address'           => 'required',
+            'rfq_id'                    => 'required',
+            'voucher_transaction_date'  => 'required',
+            'bir_address'               => 'required',
         ];
     }
 }

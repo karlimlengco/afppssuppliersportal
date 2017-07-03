@@ -11,6 +11,7 @@ Unit Purchase Request
     @include('modules.partials.modals.request_quotation')
     @include('modules.partials.modals.dropzone')
     @include('modules.partials.modals.terminate')
+    @include('modules.partials.modals.voucher')
 @stop
 
 @section('contents')
@@ -64,6 +65,15 @@ Unit Purchase Request
 
                 @if(count($data->delivery_order) != 0)
                     <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button__options__item">View NOD</a>
+                @endif
+
+                @if(count($data->diir) != 0)
+                    <a href="{{route('procurements.delivered-inspections.show', $data->diir->id)}}" class="button__options__item">View DIIR</a>
+                    @if(count($data->voucher) == 0)
+                        <a href="#" id="voucher-button" class="button__options__item">Create Voucher</a>
+                    @else
+                        <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button__options__item">View Voucher</a>
+                    @endif
                 @endif
 
             </div>
@@ -214,6 +224,11 @@ Unit Purchase Request
         $('#process-modal').addClass('is-visible');
     })
 
+    $('#voucher-button').click(function(e){
+        e.preventDefault();
+        $('#voucher-modal').addClass('is-visible');
+    })
+
     $('#view-attachments-button').click(function(e){
         e.preventDefault();
         $('#view-attachments-modal').addClass('is-visible');
@@ -227,6 +242,17 @@ Unit Purchase Request
     timepicker.on('change', function(evt){
       var value = (evt.hour || '00') + ':' + (evt.minute || '00');
       evt.element.value = value;
+    });
+
+    var voucher_transaction_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-voucher_transaction_date'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
     });
 
     var picker = new Pikaday(

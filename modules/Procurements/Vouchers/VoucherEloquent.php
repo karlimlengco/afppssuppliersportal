@@ -33,6 +33,20 @@ class VoucherEloquent extends Model
         'payment_received_date',
         'payment_receiver',
         'expanded_witholding_tax',
+
+
+        'preaudit_date',
+
+        'certify_date',
+        'is_cash_avail',
+        'subject_to_authority_to_debit_acc',
+        'documents_completed',
+
+        'journal_entry_date',
+        'journal_entry_number',
+        'or',
+
+        'approval_date',
     ];
 
     /**

@@ -98,16 +98,17 @@ class VoucherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VoucherRequest $request, VoucherRepository $model, BlankRFQRepository $rfq)
+    public function store(VoucherRequest $request, VoucherRepository $model, BlankRFQRepository $rfq, UnitPurchaseRequestRepository $upr)
     {
-        $rfq_model              =   $rfq->findById($request->rfq_id);
-        $inputs                 =   $request->getData();
-        $inputs['rfq_number']   =   $rfq_model->rfq_number;
-        $inputs['upr_number']   =   $rfq_model->upr_number;
-        $inputs['upr_id']       =   $rfq_model->upr_id;
-        $inputs['prepared_by']  =   \Sentinel::getUser()->id;
-
+        $rfq_model                  =   $rfq->findById($request->rfq_id);
+        $inputs                     =   $request->getData();
+        $inputs['rfq_number']       =   $rfq_model->rfq_number;
+        $inputs['transaction_date'] =   $request->voucher_transaction_date;
+        $inputs['upr_number']       =   $rfq_model->upr_number;
+        $inputs['upr_id']           =   $rfq_model->upr_id;
+        $inputs['prepared_by']      =   \Sentinel::getUser()->id;
         $result = $model->save($inputs);
+        $upr->update(['status' => 'Voucher Created'], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -176,6 +177,100 @@ class VoucherController extends Controller
     }
 
     /**
+     * [preauditVoucher description]
+     *
+     * @param  [type]            $id      [description]
+     * @param  Request           $request [description]
+     * @param  VoucherRepository $model   [description]
+     * @return [type]                     [description]
+     */
+    public function preauditVoucher($id, Request $request, VoucherRepository $model)
+    {
+        $this->validate($request, ['preaudit_date'=>'required']);
+
+        $model->update(['preaudit_date' => $request->preaudit_date], $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
+     * [approvedVoucher description]
+     *
+     * @param  [type]            $id      [description]
+     * @param  Request           $request [description]
+     * @param  VoucherRepository $model   [description]
+     * @return [type]                     [description]
+     */
+    public function approvedVoucher($id, Request $request, VoucherRepository $model)
+    {
+        $this->validate($request, ['approval_date'=>'required']);
+
+        $model->update(['approval_date' => $request->approval_date], $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
+     * [certifyVoucher description]
+     *
+     * @param  [type]            $id      [description]
+     * @param  Request           $request [description]
+     * @param  VoucherRepository $model   [description]
+     * @return [type]                     [description]
+     */
+    public function certifyVoucher($id, Request $request, VoucherRepository $model)
+    {
+        $this->validate($request, [
+            'certify_date'                      =>'required',
+            'is_cash_avail'                     =>'required',
+            'subject_to_authority_to_debit_acc' =>'required',
+            'documents_completed'               =>'required',
+        ]);
+
+        $model->update([
+            'certify_date'                      => $request->certify_date,
+            'is_cash_avail'                     => $request->is_cash_avail,
+            'subject_to_authority_to_debit_acc' => $request->subject_to_authority_to_debit_acc,
+            'documents_completed'               => $request->documents_completed
+        ], $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
+     * [journalVoucher description]
+     *
+     * @param  [type]            $id      [description]
+     * @param  Request           $request [description]
+     * @param  VoucherRepository $model   [description]
+     * @return [type]                     [description]
+     */
+    public function journalVoucher($id, Request $request, VoucherRepository $model)
+    {
+        $this->validate($request, [
+            'journal_entry_date'    =>'required',
+            'journal_entry_number'  =>'required',
+            'or'                    =>'required',
+        ]);
+
+        $model->update([
+            'journal_entry_date'    => $request->journal_entry_date,
+            'journal_entry_number'  => $request->journal_entry_number,
+            'or'                    => $request->or,
+        ], $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
      * [releasePayment description]
      *
      * @param  [type]            $id    [description]
@@ -208,7 +303,7 @@ class VoucherController extends Controller
             'payment_receiver'      => \Sentinel::getUser()->id,
         ], $id);
 
-        $upr->update(['status' => 'completed','state' => 'completed'], $result->upr_id)
+        $upr->update(['status' => 'completed', 'state' => 'completed'], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

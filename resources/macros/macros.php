@@ -219,7 +219,7 @@ Form::macro('booleanField', function($name, $label = null, $value = null, $attri
 {
     $attributes = $attributes + ['class' => 'selectize'];
 
-    $element = Form::select($name, [null => 'Select One', 1 => 'Enabled', 0 => 'Disabled'], $value, fieldAttributes($name, $attributes));
+    $element = Form::select($name, [null => 'Select One', 1 => 'Yes', 0 => 'No'], $value, fieldAttributes($name, $attributes));
 
     return fieldWrapper($name, $label, $element);
 });

@@ -694,6 +694,216 @@ class NotificationController extends Controller
                 }
             }
             // DR Inspection Start
+            //
+            // Voucher Create
+            if($item->di_close != null && $item->v_transaction_date == null )
+            {
+                $di_close    = Carbon::createFromFormat('Y-m-d', $item->di_close);
+                // Count working days
+                $days = $today->diffInDaysFiltered(function (Carbon $date) use ($h_lists) {
+                    return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
+                }, $di_close);
+
+                $data   =   [
+                    'id'                =>  $item->id,
+                    'project_name'      =>  $item->project_name,
+                    'upr_number'        =>  $item->upr_number,
+                    'ref_number'        =>  $item->ref_number,
+                    'total_amount'      =>  $item->total_amount,
+                    'date_prepared'     =>  $item->date_prepared,
+                    'state'             =>  $item->state,
+                    'event'             =>  "Create Voucher",
+                    'status'            =>  "Delay",
+                    'days'              =>  $days,
+                    'transaction_date'  =>  $di_close->addDays(1)->format('Y-m-d'),
+                ];
+
+                if($days >= 1)
+                {
+                    $newCollection->push($data);
+                }
+            }
+            // Voucher Create
+
+            // Voucher Preaudit
+            if($item->v_transaction_date != null && $item->preaudit_date == null )
+            {
+                $v_transaction_date    = Carbon::createFromFormat('Y-m-d', $item->v_transaction_date);
+                // Count working days
+                $days = $today->diffInDaysFiltered(function (Carbon $date) use ($h_lists) {
+                    return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
+                }, $v_transaction_date);
+
+                $data   =   [
+                    'id'                =>  $item->id,
+                    'project_name'      =>  $item->project_name,
+                    'upr_number'        =>  $item->upr_number,
+                    'ref_number'        =>  $item->ref_number,
+                    'total_amount'      =>  $item->total_amount,
+                    'date_prepared'     =>  $item->date_prepared,
+                    'state'             =>  $item->state,
+                    'event'             =>  "Voucher PreAudit",
+                    'status'            =>  "Delay",
+                    'days'              =>  $days,
+                    'transaction_date'  =>  $v_transaction_date->addDays(1)->format('Y-m-d'),
+                ];
+
+                if($days >= 1)
+                {
+                    $newCollection->push($data);
+                }
+            }
+            // Voucher Preaudit
+
+            // Voucher Certify
+            if($item->preaudit_date != null && $item->certify_date == null )
+            {
+                $preaudit_date    = Carbon::createFromFormat('Y-m-d', $item->preaudit_date);
+                // Count working days
+                $days = $today->diffInDaysFiltered(function (Carbon $date) use ($h_lists) {
+                    return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
+                }, $preaudit_date);
+
+                $data   =   [
+                    'id'                =>  $item->id,
+                    'project_name'      =>  $item->project_name,
+                    'upr_number'        =>  $item->upr_number,
+                    'ref_number'        =>  $item->ref_number,
+                    'total_amount'      =>  $item->total_amount,
+                    'date_prepared'     =>  $item->date_prepared,
+                    'state'             =>  $item->state,
+                    'event'             =>  "Voucher Certificate",
+                    'status'            =>  "Delay",
+                    'days'              =>  $days,
+                    'transaction_date'  =>  $preaudit_date->addDays(1)->format('Y-m-d'),
+                ];
+
+                if($days >= 1)
+                {
+                    $newCollection->push($data);
+                }
+            }
+            // Voucher Certify
+
+            // Voucher JEV
+            if($item->certify_date != null && $item->journal_entry_date == null )
+            {
+                $certify_date    = Carbon::createFromFormat('Y-m-d', $item->certify_date);
+                // Count working days
+                $days = $today->diffInDaysFiltered(function (Carbon $date) use ($h_lists) {
+                    return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
+                }, $certify_date);
+
+                $data   =   [
+                    'id'                =>  $item->id,
+                    'project_name'      =>  $item->project_name,
+                    'upr_number'        =>  $item->upr_number,
+                    'ref_number'        =>  $item->ref_number,
+                    'total_amount'      =>  $item->total_amount,
+                    'date_prepared'     =>  $item->date_prepared,
+                    'state'             =>  $item->state,
+                    'event'             =>  "Voucher Journal Entry",
+                    'status'            =>  "Delay",
+                    'days'              =>  $days,
+                    'transaction_date'  =>  $certify_date->addDays(1)->format('Y-m-d'),
+                ];
+
+                if($days >= 1)
+                {
+                    $newCollection->push($data);
+                }
+            }
+            // Voucher JEV
+
+            // Voucher Approval
+            if($item->journal_entry_date != null && $item->vou_approval_date == null )
+            {
+                $journal_entry_date    = Carbon::createFromFormat('Y-m-d', $item->journal_entry_date);
+                // Count working days
+                $days = $today->diffInDaysFiltered(function (Carbon $date) use ($h_lists) {
+                    return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
+                }, $journal_entry_date);
+
+                $data   =   [
+                    'id'                =>  $item->id,
+                    'project_name'      =>  $item->project_name,
+                    'upr_number'        =>  $item->upr_number,
+                    'ref_number'        =>  $item->ref_number,
+                    'total_amount'      =>  $item->total_amount,
+                    'date_prepared'     =>  $item->date_prepared,
+                    'state'             =>  $item->state,
+                    'event'             =>  "Voucher Approval",
+                    'status'            =>  "Delay",
+                    'days'              =>  $days,
+                    'transaction_date'  =>  $journal_entry_date->addDays(1)->format('Y-m-d'),
+                ];
+
+                if($days >= 1)
+                {
+                    $newCollection->push($data);
+                }
+            }
+            // Voucher Approva
+
+            // Voucher Release
+            if($item->vou_approval_date != null && $item->vou_release == null )
+            {
+                $vou_approval_date    = Carbon::createFromFormat('Y-m-d', $item->vou_approval_date);
+                // Count working days
+                $days = $today->diffInDaysFiltered(function (Carbon $date) use ($h_lists) {
+                    return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
+                }, $vou_approval_date);
+
+                $data   =   [
+                    'id'                =>  $item->id,
+                    'project_name'      =>  $item->project_name,
+                    'upr_number'        =>  $item->upr_number,
+                    'ref_number'        =>  $item->ref_number,
+                    'total_amount'      =>  $item->total_amount,
+                    'date_prepared'     =>  $item->date_prepared,
+                    'state'             =>  $item->state,
+                    'event'             =>  "Voucher Release",
+                    'status'            =>  "Delay",
+                    'days'              =>  $days,
+                    'transaction_date'  =>  $vou_approval_date->addDays(1)->format('Y-m-d'),
+                ];
+
+                if($days >= 1)
+                {
+                    $newCollection->push($data);
+                }
+            }
+            // Voucher Release
+
+            // Voucher Received1
+            if($item->vou_release != null && $item->vou_received == null )
+            {
+                $vou_release    = Carbon::createFromFormat('Y-m-d', $item->vou_release);
+                // Count working days
+                $days = $today->diffInDaysFiltered(function (Carbon $date) use ($h_lists) {
+                    return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
+                }, $vou_release);
+
+                $data   =   [
+                    'id'                =>  $item->id,
+                    'project_name'      =>  $item->project_name,
+                    'upr_number'        =>  $item->upr_number,
+                    'ref_number'        =>  $item->ref_number,
+                    'total_amount'      =>  $item->total_amount,
+                    'date_prepared'     =>  $item->date_prepared,
+                    'state'             =>  $item->state,
+                    'event'             =>  "Voucher Received1",
+                    'status'            =>  "Delay",
+                    'days'              =>  $days,
+                    'transaction_date'  =>  $vou_release->addDays(1)->format('Y-m-d'),
+                ];
+
+                if($days >= 1)
+                {
+                    $newCollection->push($data);
+                }
+            }
+            // Voucher Received1
 
 
         }

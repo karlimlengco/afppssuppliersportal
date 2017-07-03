@@ -28,6 +28,20 @@ class CreateVouchers extends Migration
             $table->string('bir_address');
             $table->string('final_tax')->nullable();
             $table->string('expanded_witholding_tax')->nullable();
+
+            $table->date('preaudit_date')->nullable();
+
+            $table->date('certify_date')->nullable();
+            $table->integer('is_cash_avail')->nullable();
+            $table->integer('subject_to_authority_to_debit_acc')->nullable();
+            $table->integer('documents_completed')->nullable();
+
+            $table->date('journal_entry_date')->nullable();
+            $table->string('journal_entry_number')->nullable();
+            $table->string('or')->nullable();
+
+            $table->date('approval_date')->nullable();
+
             $table->timestamps();
         });
     }
