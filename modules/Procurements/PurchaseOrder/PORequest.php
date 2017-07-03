@@ -24,6 +24,14 @@ class PORequest extends BaseRequest
         'coa_approved_date',
         'coa_approved',
         'coa_file',
+
+        'funding_released_date',
+        'funding_received_date',
+        'funding_remarks',
+
+        'mfo_received_date',
+        'mfo_released_date',
+        'mfo_remarks',
     ];
 
     /**

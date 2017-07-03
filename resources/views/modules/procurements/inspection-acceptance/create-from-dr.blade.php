@@ -73,6 +73,8 @@ Inspection And Acceptance Report
     {
         field: document.getElementById('id-field-inspection_date'),
         firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]
@@ -82,6 +84,8 @@ Inspection And Acceptance Report
     {
         field: document.getElementById('invoice_date'),
         firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]

@@ -137,10 +137,14 @@ class NoticeToProceedController extends Controller
         $po_model           =   $po->findById($request->po_id);
         $noa_model          =   $noa->findByRFQ($po_model->rfq_id);
 
+        $this->validate($request, [
+            'preparared_date'   =>  'required'
+        ]);
+
         $inputs             =   [
             'po_id'             =>  $request->po_id,
             'prepared_by'       =>  \Sentinel::getUser()->id,
-            'prepared_date'     =>  \Carbon\Carbon::now(),
+            'prepared_date'     =>  $request->preparared_date,
             'upr_id'            =>  $po_model->upr_id,
             'rfq_id'            =>  $po_model->rfq_id,
             'rfq_number'        =>  $po_model->rfq_number,
@@ -231,6 +235,13 @@ class NoticeToProceedController extends Controller
         $supplier                   =   $result->winner->supplier;
         $blank_model                =   $blank->findById($result->rfq_id);
         $upr_model                  =   $upr->findById($result->upr_id);
+
+        if($result->signatory == null)
+        {
+            return redirect()->back()->with([
+                'error'  => "Please select signatory first"
+            ]);
+        }
 
         $data['transaction_date']   =   $result->prepared_date;
         $data['supplier']           =   $supplier;

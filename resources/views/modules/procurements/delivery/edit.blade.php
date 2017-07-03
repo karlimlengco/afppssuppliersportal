@@ -54,31 +54,18 @@ Notice Of Delivery
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($data->items as $item)
+                        <input type="hidden" name="ids[]" value="{{$item->id}}">
+                        <tr>
+                            <td>{{$item->description}}</td>
+                            <td>{{$item->quantity}}</td>
+                            <td> {{Form::text('received_quantity[]', $item->received_quantity, ['class' => 'input'])}} </td>
+                            <td>{{$item->unit}}</td>
+                            <td>{{formatPrice($item->price_unit)}}</td>
+                            <td>{{formatPrice($item->total_amount)}}</td>
+                        </tr>
+                    @endforeach
 
-                    @if(!$data->delivery_date)
-                        @foreach($data->items as $item)
-                            <input type="hidden" name="ids[]" value="{{$item->id}}">
-                            <tr>
-                                <td>{{$item->description}}</td>
-                                <td>{{$item->quantity}}</td>
-                                <td> {{Form::text('received_quantity[]', $item->received_quantity, ['class' => 'input'])}} </td>
-                                <td>{{$item->unit}}</td>
-                                <td>{{formatPrice($item->price_unit)}}</td>
-                                <td>{{formatPrice($item->total_amount)}}</td>
-                            </tr>
-                        @endforeach
-                    @else
-                        @foreach($data->items as $item)
-                            <tr>
-                                <td>{{$item->description}}</td>
-                                <td>{{$item->quantity}}</td>
-                                <td>{{$item->received_quantity}}</td>
-                                <td>{{$item->unit}}</td>
-                                <td>{{formatPrice($item->price_unit)}}</td>
-                                <td>{{formatPrice($item->total_amount)}}</td>
-                            </tr>
-                        @endforeach
-                    @endif
                 </tbody>
             </table>
         </div>
@@ -99,6 +86,8 @@ Notice Of Delivery
     {
         field: document.getElementById('id-field-delivery_date'),
         firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]

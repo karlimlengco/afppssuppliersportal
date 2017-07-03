@@ -19,7 +19,7 @@ trait NTPTrait
     {
         $model  =   $this->model;
 
-        $model  =   $model->whereNotNull('pcco_released_date');
+        $model  =   $model->whereNotNull('funding_released_date');
         $model  =   $model->whereNotNull('mfo_released_date');
 
         $model  =   $model->orderBy('created_at', 'desc');

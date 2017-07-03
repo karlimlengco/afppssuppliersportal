@@ -90,13 +90,11 @@ class PurchaseOrderController extends Controller
     public function mfoApproved($id, Request $request, PORepository $model)
     {
         $this->validate($request, [
-            'mfo_has_issue'     =>  'required',
             'mfo_released_date' =>  'required',
             'mfo_received_date' =>  'required',
         ]);
 
         $inputs =   [
-            'mfo_has_issue'     => $request->mfo_has_issue,
             'mfo_released_date' => $request->mfo_released_date,
             'mfo_received_date' => $request->mfo_received_date,
             'mfo_remarks'       => $request->mfo_remarks,
@@ -104,10 +102,7 @@ class PurchaseOrderController extends Controller
 
         $result =   $model->update($inputs, $id);
 
-        if($result->pcco_has_issue AND $result->pcco_has_issue != 'yes')
-        {
-            $model->update(['status' => 'MFO/PCCO Approved'], $id);
-        }
+        $model->update(['status' => 'MFO Approved'], $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -126,24 +121,19 @@ class PurchaseOrderController extends Controller
     public function pccoApproved($id, Request $request, PORepository $model)
     {
         $this->validate($request, [
-            'pcco_has_issue'     =>  'required',
-            'pcco_released_date' =>  'required',
-            'pcco_received_date' =>  'required',
+            'funding_released_date' =>  'required',
+            'funding_received_date' =>  'required',
         ]);
 
         $inputs =   [
-            'pcco_has_issue'     => $request->pcco_has_issue,
-            'pcco_released_date' => $request->pcco_released_date,
-            'pcco_received_date' => $request->pcco_received_date,
-            'pcco_remarks'       => $request->pcco_remarks,
+            'funding_released_date' => $request->funding_released_date,
+            'funding_received_date' => $request->funding_received_date,
+            'funding_remarks'       => $request->funding_remarks,
         ];
 
         $result =   $model->update($inputs, $id);
 
-        if($result->mfo_has_issue AND $result->mfo_has_issue != 'yes')
-        {
-            $model->update(['status' => 'MFO/PCCO Approved'], $id);
-        }
+        $model->update(['status' => 'Accounting Approved'], $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -194,6 +184,19 @@ class PurchaseOrderController extends Controller
             ]
         ]);
     }
+
+    /**
+     * [storeFromRfq description]
+     *
+     * @param  [type]                        $id      [description]
+     * @param  Request                       $request [description]
+     * @param  PORepository                  $model   [description]
+     * @param  ItemRepository                $items   [description]
+     * @param  NOARepository                 $noa     [description]
+     * @param  UnitPurchaseRequestRepository $upr     [description]
+     * @param  BlankRFQRepository            $rfq     [description]
+     * @return [type]                                 [description]
+     */
     public function storeFromRfq(
         $id,
         Request $request,
@@ -217,6 +220,7 @@ class PurchaseOrderController extends Controller
         $items                  =   $request->only([
             'item_description', 'quantity', 'unit_measurement', 'unit_price', 'total_amount'
         ]);
+
         $noa_model              =   $noa->with('winner')->findByRFQ($id);
 
         $split_upr              =   explode('-', $noa_model->rfq_number);
@@ -320,20 +324,18 @@ class PurchaseOrderController extends Controller
         PORepository $model,
         RFQProponentRepository $proponents,
         SignatoryRepository $signatories,
+        NOARepository $noa,
         UnitPurchaseRequestRepository $upr)
     {
         $result             =   $model->findById($id);
-        $proponent_awardee  =   $proponents->with('supplier')->findAwardeeByRFQId($result->rfq_id);
-        $supplier           =   $proponent_awardee->supplier;
-        $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findByRFQId($proponent_awardee->rfq_id);
+        $noa_model          =   $noa->with('winner')->findByRFQ($result->rfq_id);
+        $supplier           =   $noa_model->winner->supplier;
 
         $signatory_list     =   $signatories->lists('id','name');
         return $this->view('modules.procurements.purchase-order.show',[
             'data'          =>  $result,
-            'upr_model'     =>  $upr_model,
             'signatory_list'=>  $signatory_list,
             'supplier'      =>  $supplier,
-            'awardee'       =>  $proponent_awardee,
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [
                 'mfo_approval' =>  [
@@ -459,16 +461,22 @@ class PurchaseOrderController extends Controller
      */
     public function viewPrint($id, PORepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr)
     {
-        $result                     =  $model->with(['delivery','rfq','items'])->findById($id);
+        $result                     =  $model->with(['terms','delivery','rfq','items'])->findById($id);
         $upr_model                  =  $upr->findById($result->upr_id);
         $noa_model                  =  $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+
+        if($result->coa_signatories == null || $result->requestor == null || $result->accounting == null || $result->approver == null)
+        {
+            return redirect()->back()->with(['error' => 'Please add signatories']);
+        }
+
         $data['po_number']          =  $result->po_number;
         $data['purchase_date']      =  $result->purchase_date;
         $data['transaction_date']   =  $result->rfq->transaction_date;
         $data['winner']             =  $noa_model;
         $data['rfq_number']         =  $result->rfq_number;
         $data['mode']               =  $upr_model->modes->name;
-        $data['term']               =  $upr_model->terms->name;
+        $data['term']               =  $result->terms->name;
         $data['accounts']           =  $upr_model->accounts->new_account_code;
         $data['centers']            =  $upr_model->centers->name;
         $data['delivery']           =  $result->delivery;
@@ -480,7 +488,7 @@ class PurchaseOrderController extends Controller
         $data['coa_signatories']    =  $result->coa_signatories;
         $data['mfo_release_date']   =  $result->mfo_release_date;
         $data['coa_approved_date']  =  $result->coa_approved_date;
-        $data['pcco_release_date']  =  $result->pcco_release_date;
+        $data['funding_release_date']  =  $result->funding_release_date;
 
         $pdf = PDF::loadView('forms.po', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
 
@@ -528,10 +536,12 @@ class PurchaseOrderController extends Controller
     public function coaApproved(
         $id,
         Request $request,
+        UnitPurchaseRequestRepository $upr,
         PORepository $model)
     {
-        $validator = \Validator::make($request->all(), [
-            'file' => 'required',
+        $validator = $this->validate($request, [
+            'file'              => 'required',
+            'coa_approved_date' => 'required',
         ]);
 
         $file       = md5_file($request->file);
@@ -539,7 +549,7 @@ class PurchaseOrderController extends Controller
 
         $data       =   [
             'coa_file'          =>  $file,
-            'coa_approved_date' =>  \Carbon\Carbon::now(),
+            'coa_approved_date' =>  $request->coa_approved_date,
             'coa_approved'      =>  \Sentinel::getUser()->id,
             'status'            =>  'COA Approved'
         ];
@@ -550,6 +560,8 @@ class PurchaseOrderController extends Controller
         {
             $path       = $request->file->storeAs('coa-approved-attachments', $file);
         }
+
+        $upr->update(['status' => 'PO Approved'], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Purchase Order has been successfully approved."

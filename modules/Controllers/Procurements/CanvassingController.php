@@ -104,6 +104,7 @@ class CanvassingController extends Controller
      */
     public function openCanvass(
         $id,
+        Request $request,
         CanvassingRepository $model,
         BlankRFQRepository $rfq,
         UnitPurchaseRequestRepository $upr)
@@ -121,7 +122,7 @@ class CanvassingController extends Controller
         $inputs['upr_number']   =   $rfq_model->upr_number;
         $inputs['upr_id']       =   $rfq_model->upr_id;
         $inputs['rfq_id']       =   $id;
-        $inputs['canvass_date'] =   $rfq_model->invitations->canvassing_date;
+        $inputs['canvass_date'] =   $request->open_canvass_date;
         $inputs['canvass_time'] =   \Carbon\Carbon::now()->format('H:i:s');
         $inputs['open_by']      =   \Sentinel::getUser()->id;
         $canvass_date           =   \Carbon\Carbon::now()->format("Y-m-d H:i:s");
@@ -171,7 +172,7 @@ class CanvassingController extends Controller
         SignatoryRepository $signatories,
         RFQProponentRepository $proponents)
     {
-        $result         =   $model->with(['opens', 'signatories', 'winners'])->findById($id);
+        $result         =   $model->with(['opens', 'signatories', 'winners', 'upr'])->findById($id);
         $signatory_lists=   $signatories->lists('id', 'name');
         $proponent_list =   $proponents->findByRFQId($result->rfq_id);
 

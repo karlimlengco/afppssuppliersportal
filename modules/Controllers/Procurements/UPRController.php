@@ -322,7 +322,7 @@ class UPRController extends Controller
         $counts                 =   $model->getCountByYear($date->format('Y'))->total;
         $counts                 += 1;
 
-        $ref_name   =   "AMP-". $result->centers->name ."-". $counts ."-". $result->centers->name ."-". $date->format('Y');
+        $ref_name   =   "AMP-". $result->centers->name ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
         $ref_name   =   str_replace(" ", "", $ref_name);
 
         $model->update(['ref_number' => $ref_name], $result->id);
@@ -383,7 +383,7 @@ class UPRController extends Controller
         $counts                 =   $model->getCountByYear($date->format('Y'))->total;
         $counts                 += 1;
 
-        $ref_name   =   "AMP-". $result->centers->name ."-". $counts ."-". $result->centers->name ."-". $date->format('Y');
+        $ref_name   =   "AMP-". $result->centers->name ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
         $ref_name   =   str_replace(" ", "", $ref_name);
 
         $model->update(['ref_number' => $ref_name], $result->id);

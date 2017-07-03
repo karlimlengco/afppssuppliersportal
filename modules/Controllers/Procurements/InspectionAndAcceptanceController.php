@@ -13,6 +13,7 @@ use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
 use \Revlv\Procurements\InspectionAndAcceptance\InspectionAndAcceptanceRepository;
 use \Revlv\Procurements\InspectionAndAcceptance\InspectionAndAcceptanceRequest;
+use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 
 class InspectionAndAcceptanceController extends Controller
@@ -40,6 +41,7 @@ class InspectionAndAcceptanceController extends Controller
     protected $devivery;
     protected $noa;
     protected $signatories;
+    protected $upr;
     protected $rfq;
 
     /**
@@ -65,13 +67,19 @@ class InspectionAndAcceptanceController extends Controller
      *
      * @return [type] [description]
      */
-    public function acceptOrder($id, InspectionAndAcceptanceRepository $model, DeliveryOrderRepository $delivery)
+    public function acceptOrder(Request $request, $id, InspectionAndAcceptanceRepository $model, DeliveryOrderRepository $delivery, UnitPurchaseRequestRepository $upr)
     {
-        $date_completed     =   \Carbon\Carbon::now();
+        $this->validate($request, [
+            'accepted_date' =>  'required'
+        ]);
+
+        $date_completed     =   $request->accepted_date;
 
         $result =   $model->update(['accepted_date' => $date_completed, 'status' => 'Accepted', 'accepted_by' => \Sentinel::getUser()->id], $id);
 
         $delivery->update(['status' => 'Accepted'], $result->dr_id);
+
+        $upr->update(['status' => 'Inspection Accepted'], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -143,6 +151,7 @@ class InspectionAndAcceptanceController extends Controller
         $id,
         Request $request,
         DeliveryOrderRepository $delivery,
+        UnitPurchaseRequestRepository $upr,
         InspectionAndAcceptanceRepository $model)
     {
         $this->validate($request,[
@@ -184,6 +193,8 @@ class InspectionAndAcceptanceController extends Controller
 
             DB::table('inspection_acceptance_invoices')->insert($invoices);
         }
+
+        $upr->update(['status' => 'Inspection Started'], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

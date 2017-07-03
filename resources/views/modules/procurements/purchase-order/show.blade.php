@@ -23,15 +23,16 @@ Purchase Order
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
 
-                @if(!$data->mfo_released_date)
-                    <a class=" button__options__item" id="mfo-button" href="#">MFO Approval</a>
-                @endif
-                @if(!$data->pcco_released_date)
-                    <a class=" button__options__item" id="pcco-button" href="#">PCCO Approval</a>
+                @if(!$data->funding_released_date)
+                    <a class=" button__options__item" id="pcco-button" href="#">Funding Approval</a>
                 @endif
 
-                @if($data->status == 'MFO/PCCO Approved')
-                    <a href="#" class="button__options__item" id="coa-button"> COA Approval</a>
+                @if(!$data->mfo_released_date && $data->funding_released_date)
+                    <a class=" button__options__item" id="mfo-button" href="#">MFO Approval</a>
+                @endif
+
+                @if($data->mfo_released_date && $data->funding_released_date && !$data->coa_approved_date)
+                    <a href="#" class="button__options__item" id="coa-button">  Approval</a>
                 @endif
 
                 @if($data->status == 'COA Approved')
@@ -53,12 +54,12 @@ Purchase Order
 
 
                 @if(count($data->delivery) != 0)
-                <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" tooltip="Delivery"> Delivery</a>
+                    <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" tooltip="Delivery"> Delivery</a>
                 @endif
             </div>
         </button>
 
-        <a href="{{route('procurements.purchase-orders.print', $data->id)}}" class="button" tooltip="Print">
+        <a target="_blank" href="{{route('procurements.purchase-orders.print', $data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
         </a>
 
@@ -87,10 +88,10 @@ Purchase Order
         <ul class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Purchase Number :</strong> {{$data->po_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Purchase Date :</strong> {{$data->purchase_date}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Bid Amount :</strong> {{$data->bid_amount}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Bid Amount :</strong> {{ formatPrice($data->bid_amount)}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Payment Term :</strong> {{($data->terms) ? $data->terms->name : ""}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared By :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname : ""}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{$data->status}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{ucfirst($data->status)}} </li>
             @if($data->coa_approved_date)
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">COA Approved Date :</strong> {{$data->coa_approved_date}} </li>
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">COA File :</strong> <a target="_blank" href="{{route('procurements.purchase-orders.coa-file',$data->id)}}">{{$data->coa_file}} </a></li>
@@ -101,14 +102,13 @@ Purchase Order
     <div class="data-panel__section">
         <h3>Approval Details</h3>
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Has Issue? :</strong> {{$data->mfo_has_issue}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Funding Released Date :</strong> {{$data->funding_released_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Funding Received Date :</strong> {{$data->funding_received_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Funding Remarks :</strong> {{$data->funding_remarks}} </li>
+
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Released Date :</strong> {{$data->mfo_released_date}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Received Date :</strong> {{$data->mfo_received_date}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Remarks :</strong> {{$data->mfo_remarks}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PCCO Has Issue? :</strong> {{$data->pcco_has_issue}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PCCO Released Date :</strong> {{$data->pcco_released_date}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PCCO Received Date :</strong> {{$data->pcco_received_date}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PCCO Remarks :</strong> {{$data->pcco_remarks}} </li>
         </ul>
     </div>
 
@@ -194,6 +194,19 @@ var mfo_released_date = new Pikaday(
 {
     field: document.getElementById('id-field-mfo_released_date'),
     firstDay: 1,
+    defaultDate: new Date(),
+    setDefaultDate: new Date(),
+    // minDate: new Date(),
+    maxDate: new Date(2020, 12, 31),
+    yearRange: [2000,2020]
+});
+
+var preparared_date = new Pikaday(
+{
+    field: document.getElementById('id-field-preparared_date'),
+    firstDay: 1,
+    defaultDate: new Date(),
+    setDefaultDate: new Date(),
     // minDate: new Date(),
     maxDate: new Date(2020, 12, 31),
     yearRange: [2000,2020]
@@ -204,6 +217,8 @@ var mfo_received_date = new Pikaday(
 {
     field: document.getElementById('id-field-mfo_received_date'),
     firstDay: 1,
+    defaultDate: new Date(),
+    setDefaultDate: new Date(),
     // minDate: new Date(),
     maxDate: new Date(2020, 12, 31),
     yearRange: [2000,2020]
@@ -212,8 +227,22 @@ var mfo_received_date = new Pikaday(
 
 var pcco_released_date = new Pikaday(
 {
-    field: document.getElementById('id-field-pcco_released_date'),
+    field: document.getElementById('id-field-funding_released_date'),
     firstDay: 1,
+    defaultDate: new Date(),
+    setDefaultDate: new Date(),
+    // minDate: new Date(),
+    maxDate: new Date(2020, 12, 31),
+    yearRange: [2000,2020]
+});
+
+
+var coa_approved_date = new Pikaday(
+{
+    field: document.getElementById('id-field-coa_approved_date'),
+    firstDay: 1,
+    defaultDate: new Date(),
+    setDefaultDate: new Date(),
     // minDate: new Date(),
     maxDate: new Date(2020, 12, 31),
     yearRange: [2000,2020]
@@ -221,8 +250,10 @@ var pcco_released_date = new Pikaday(
 
 var pcco_received_date = new Pikaday(
 {
-    field: document.getElementById('id-field-pcco_received_date'),
+    field: document.getElementById('id-field-funding_received_date'),
     firstDay: 1,
+    defaultDate: new Date(),
+    setDefaultDate: new Date(),
     // minDate: new Date(),
     maxDate: new Date(2020, 12, 31),
     yearRange: [2000,2020]

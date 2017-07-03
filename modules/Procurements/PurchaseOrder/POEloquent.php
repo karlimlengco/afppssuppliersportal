@@ -28,14 +28,15 @@ class POEloquent extends Model
         'bid_amount',
         'payment_term',
         'prepared_by',
-        'pcco_has_issue',
-        'pcco_released_date',
-        'pcco_received_date',
-        'pcco_remarks',
-        'mfo_has_issue',
+
+        'funding_released_date',
+        'funding_received_date',
+        'funding_remarks',
+
         'mfo_received_date',
         'mfo_released_date',
         'mfo_remarks',
+
         'signatory_id',
         'status',
         'po_number',

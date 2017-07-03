@@ -104,7 +104,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     */
     Route::get('canvassing/print/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewPrint')->name('canvassing.print');
     Route::post('canvassing/signatories/{id}', '\Revlv\Controllers\Procurements\CanvassingController@addSignatories')->name('canvassing.signatories');
-    Route::get('canvassing/opening/{id}', '\Revlv\Controllers\Procurements\CanvassingController@openCanvass')->name('canvassing.opening');
+    Route::post('canvassing/opening/{id}', '\Revlv\Controllers\Procurements\CanvassingController@openCanvass')->name('canvassing.opening');
     Route::resource('canvassing', '\Revlv\Controllers\Procurements\CanvassingController');
 
     /*
@@ -168,7 +168,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('delivery-orders/print/{id}', '\Revlv\Controllers\Procurements\DeliveryController@viewPrint')->name('delivery-orders.print');
     Route::put('delivery-orders/update-signatory/{id}', '\Revlv\Controllers\Procurements\DeliveryController@updateSignatory')->name('delivery-orders.update-signatory');
     Route::post('delivery-orders/create-purchase/{id}', '\Revlv\Controllers\Procurements\DeliveryController@createFromPurchase')->name('delivery-orders.create-purchase');
-    Route::get('delivery-orders/completed/{id}', '\Revlv\Controllers\Procurements\DeliveryController@completeOrder')->name('delivery-orders.completed');
+    Route::post('delivery-orders/completed/{id}', '\Revlv\Controllers\Procurements\DeliveryController@completeOrder')->name('delivery-orders.completed');
     Route::resource('delivery-orders', '\Revlv\Controllers\Procurements\DeliveryController');
 
     /*
@@ -180,7 +180,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('inspection-and-acceptance/print/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@viewPrint')->name('inspection-and-acceptance.print');
     Route::post('inspection-and-acceptance/create-from-delivery/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@storeFromDelivery')->name('inspection-and-acceptance.create-from-delivery.store');
     Route::get('inspection-and-acceptance/create-from-delivery/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@createFromDelivery')->name('inspection-and-acceptance.create-from-delivery');
-    Route::get('inspection-and-acceptance/accepted/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@acceptOrder')->name('inspection-and-acceptance.accepted');
+    Route::post('inspection-and-acceptance/accepted/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@acceptOrder')->name('inspection-and-acceptance.accepted');
     Route::put('inspection-and-acceptance/update-signatory/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@updateSignatory')->name('inspection-and-acceptance.update-signatory');
     Route::resource('inspection-and-acceptance', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController');
 

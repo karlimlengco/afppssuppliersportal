@@ -28,10 +28,10 @@
 
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::textField('deadline_rfq', 'Deadline To Submit RFQ') !!}
+                        {!! Form::textField('deadline_rfq', 'Deadline To Submit RFQ', $data->deadline) !!}
                     </div>
                     <div class="six columns">
-                        {!! Form::textField('opening_time', 'Opening Time') !!}
+                        {!! Form::textField('opening_time', 'Opening Time', $data->opening_time) !!}
                     </div>
                 </div>
 

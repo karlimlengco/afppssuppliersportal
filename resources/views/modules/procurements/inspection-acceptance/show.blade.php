@@ -5,6 +5,7 @@ Inspection And Acceptance Report
 @section('modal')
     @include('modules.partials.modals.notice_of_award')
     @include('modules.partials.modals.iar-signatories')
+    @include('modules.partials.modals.iar-accept')
 @stop
 
 @section('contents')
@@ -26,10 +27,10 @@ Inspection And Acceptance Report
         </button>
 
         @if(!$data->accepted_date)
-            <a class="button" tooltip="Accept"  href="{{route($acceptRoute,$data->id)}}"><i class="nc-icon-mini ui-1_check-bold"></i></a>
+            <a class="button" tooltip="Accept" id="accept-button"  href="#"><i class="nc-icon-mini ui-1_check-bold"></i></a>
         @else
         @endif
-        <a class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
+        <a target="_blank" class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
     </div>
 </div>
 
@@ -53,17 +54,7 @@ Inspection And Acceptance Report
             @if($data->accepted_date)
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Date Accepted :</strong> {{$data->accepted_date}} </li>
             @endif
-
-            @foreach($data->invoices as $invoice)
-                <li class="data-panel__list__item">
-                    <strong class="data-panel__list__item__label">Invoice #. :</strong> {{$invoice->invoice_number}}
-                    <ul  class="data-panel__list">
-                        <li class="data-panel__list__item">{{$invoice->invoice_date}}</li>
-                    </ul>
-                </li>
-            @endforeach
         </ul>
-
     </div>
 
     <div class="data-panel__section">
@@ -80,6 +71,22 @@ Inspection And Acceptance Report
         </ul>
 
     </div>
+</div>
+
+<div class="data-panel">
+    <div class="data-panel__section">
+        <h3>Invoice Details</h3>
+        <ul  class="data-panel__list">
+
+            @foreach($data->invoices as $invoice)
+                <li class="data-panel__list__item">
+                    <strong> {{$invoice->invoice_number}}:</strong>
+                        {{$invoice->invoice_date}}
+                </li>
+            @endforeach
+        </ul>
+    </div>
+
 </div>
 
 
@@ -101,5 +108,21 @@ $('#signatory-button').click(function(e){
     e.preventDefault();
     $('#signatory-modal').addClass('is-visible');
 })
+$('#accept-button').click(function(e){
+    e.preventDefault();
+    $('#accept-modal').addClass('is-visible');
+})
+
+
+var accepted_date = new Pikaday(
+{
+    field: document.getElementById('id-field-accepted_date'),
+    firstDay: 1,
+    defaultDate: new Date(),
+    setDefaultDate: new Date(),
+    // minDate: new Date(),
+    maxDate: new Date(2020, 12, 31),
+    yearRange: [2000,2020]
+});
 </script>
 @stop

@@ -54,6 +54,18 @@ Unit Purchase Request
                     <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a>
                 @endif
 
+                @if(count($data->purchase_order) != 0)
+                    <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">View PO</a>
+                @endif
+
+                @if(count($data->ntp) != 0)
+                    <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item">View NTP</a>
+                @endif
+
+                @if(count($data->delivery_order) != 0)
+                    <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button__options__item">View NOD</a>
+                @endif
+
             </div>
         </button>
 
@@ -221,6 +233,8 @@ Unit Purchase Request
     {
         field: document.getElementById('id-field-transaction_date'),
         firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]

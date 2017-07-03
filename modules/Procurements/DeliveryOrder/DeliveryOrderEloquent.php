@@ -122,7 +122,7 @@ class DeliveryOrderEloquent extends Model
      */
     public function signatory()
     {
-        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'signatory_id');
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'signatory_id');
     }
 
     /**

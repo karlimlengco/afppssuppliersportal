@@ -11,10 +11,10 @@ Request For Quotation
     @include('modules.partials.modals.philgeps_posting')
     @include('modules.partials.modals.close_rfq')
     @include('modules.partials.modals.invitation')
+    @include('modules.partials.modals.open_canvass')
 @stop
 
 @section('contents')
-
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
         <button class="button button--options-trigger" tooltip="Options">
@@ -23,7 +23,8 @@ Request For Quotation
                 @if($data->status != 'closed')
                 <a href="#" class="button__options__item" id="proponent-button">Add Proponents</a>
                 @endif
-                @if($data->status == 'pending')
+
+                @if(count($data->philgeps) == 0)
                     <a href="#" class="button__options__item" id="philgeps-posting-button">PhilGeps Posting</a>
                 @endif
 
@@ -47,7 +48,7 @@ Request For Quotation
 
 
                     @if(count($data->canvassing) == 0)
-                        <a href="{{route('procurements.canvassing.opening', $data->id)}}" class="button__options__item">Open Canvass</a>
+                        <a href="#" id="open_canvass-button" class="button__options__item">Open Canvass</a>
                     @endif
                 @endif
 
@@ -180,6 +181,10 @@ Request For Quotation
         e.preventDefault();
         $('#proponent-modal').addClass('is-visible');
     })
+    $('#open_canvass-button').click(function(e){
+        e.preventDefault();
+        $('#open_canvass-modal').addClass('is-visible');
+    })
     $('#philgeps-posting-button').click(function(e){
         e.preventDefault();
         $('#philgeps-posting-modal').addClass('is-visible');
@@ -211,10 +216,38 @@ Request For Quotation
     {
         field: document.getElementById('id-field-transaction_date'),
         firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]
     });
+
+
+    // datepicker
+    var ispq_transaction_dates = new Pikaday(
+    {
+        field: document.getElementById('id-field-ispq_transaction_dates'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
+    // datepicker
+    var open_canvass_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-open_canvass_date'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
     var deadline_rfq = new Pikaday(
     {
         field: document.getElementById('id-field-deadline_rfq'),

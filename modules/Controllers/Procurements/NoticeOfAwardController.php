@@ -72,6 +72,10 @@ class NoticeOfAwardController extends Controller
         $proponent_model    =   $proponents->with('supplier')->findById($proponentId);
         $supplier_name      =   $proponent_model->supplier->name;
 
+        $this->validate($request,[
+            'awarded_date'  =>   'required'
+        ]);
+
         $data   =   [
             'canvass_id'    =>  $canvasId,
             'upr_id'        =>  $canvasModel->upr_id,
@@ -80,7 +84,7 @@ class NoticeOfAwardController extends Controller
             'upr_number'    =>  $canvasModel->upr_number,
             'proponent_id'  =>  $proponentId,
             'awarded_by'    =>  \Sentinel::getUser()->id,
-            'awarded_date'  =>  \Carbon\Carbon::now(),
+            'awarded_date'  =>  $request->awarded_date,
         ];
 
         $noa->save($data);
@@ -125,22 +129,29 @@ class NoticeOfAwardController extends Controller
     {
         $id         =   $request->id;
 
-        $validator = \Validator::make($request->all(), [
-            'file' => 'required',
+        $validator = $this->validate($request->all(), [
+            'file'          => 'required',
+            'accepted_date' => 'required',
         ]);
 
-        $file       = md5_file($request->file);
-        $file       = $file.".".$request->file->getClientOriginalExtension();
 
         $data       =   [
-            'file'          =>  $file,
-            'accepted_date' =>  \Carbon\Carbon::now(),
-            'status'        =>  'approved'
+            'accepted_date' =>  $request->accepted_date,
+            'status'        =>  'approved',
+            'file'          =>  ''
         ];
+
+        if($request->file)
+        {
+            $file       = md5_file($request->file);
+            $file       = $file.".".$request->file->getClientOriginalExtension();
+            $data['file']   =   $file;
+        }
+
 
         $result =   $model->update($data, $id);
 
-        if($result)
+        if($result && $request->has('file'))
         {
             $path       = $request->file->storeAs('noa-attachments', $file);
         }
@@ -206,7 +217,7 @@ class NoticeOfAwardController extends Controller
         SignatoryRepository $signatories,
         UnitPurchaseRequestRepository $upr)
     {
-        $result             =   $noa->with('winner')->findById($id);
+        $result             =   $noa->with(['winner', 'upr'])->findById($id);
         $canvass            =   $model->findById($result->canvass_id);
         $proponent_awardee  =   $result->winner->supplier;
 
@@ -328,6 +339,13 @@ class NoticeOfAwardController extends Controller
         RFQProponentRepository $rfq)
     {
         $noa_modal                  =   $noa->with(['winner','signatory'])->findById($id);
+
+        if($noa_modal->signatory == null)
+        {
+            return redirect()->back()->with([
+                'error'  => "Please select signatory first"
+            ]);
+        }
         $result                     =   $model->findById($noa_modal->canvass_id);
         $proponent_awardee          =   $noa_modal->winner->supplier;
         $rfq_model                  =   $blank->findById($result->rfq_id);

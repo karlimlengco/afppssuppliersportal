@@ -28,6 +28,7 @@ class BlankRFQRequest extends BaseRequest
         'completed_at',
         'is_award_accepted',
         'award_accepted_date',
+        'days',
     ];
 
     /**

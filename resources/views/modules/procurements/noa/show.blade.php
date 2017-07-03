@@ -47,25 +47,23 @@ Notice Of Award
         <ul  class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR No. :</strong> {{$canvass->upr_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ No. :</strong> {{$canvass->rfq_number}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{$data->status}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{ ucwords($data->status)}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Canvass Date :</strong> {{$canvass->canvass_date}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Adjourned Time :</strong> {{$canvass->adjourned_time}} </li>
+            @if($data->awarded_date  )
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award Date :</strong> {{$data->awarded_date}} </li>
+            @endif
         </ul>
     </div>
     <div class="data-panel__section">
         <h3></h3>
         <ul  class="data-panel__list">
-            @if($data->awarded_date  )
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award Date :</strong> {{$data->awarded_date}} </li>
-            @endif
-            @if($data->accepted_date  )
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Date :</strong> {{$data->accepted_date}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Copy :</strong> <a target="_blank" href="{{route('procurements.noa.download',$data->id)}}">{{$data->file}}</a> </li>
-            @endif
-            @if($data->received_by && $data->award_accepted_date)
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received By :</strong> {{$data->received_by}} </li>
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received Date :</strong> {{$data->award_accepted_date}} </li>
-            @endif
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">ABC :</strong> {{formatPrice($data->upr->total_amount)}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">BID Amount :</strong> {{formatPrice($data->winner->bid_amount)}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Date :</strong> {{$data->accepted_date}} &nbsp;</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Copy :</strong> <a target="_blank" href="{{route('procurements.noa.download',$data->id)}}">{{$data->file}}</a> &nbsp;</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received By :</strong> {{$data->received_by}}&nbsp; </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received Date :</strong> {{$data->award_accepted_date}} &nbsp;</li>
         </ul>
     </div>
     <div class="data-panel__section">
@@ -74,11 +72,11 @@ Notice Of Award
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Name :</strong> {{$supplier->name}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Owner :</strong> {{$supplier->owner}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Address :</strong> {{$supplier->address}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">TIN :</strong> {{$supplier->tin}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Cellphone # :</strong> {{$supplier->cell_1}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Phone # :</strong> {{$supplier->phone_1}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">FAX :</strong> {{$supplier->fax_1}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Email :</strong> {{$supplier->email_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">TIN :</strong>&nbsp; {{$supplier->tin}} &nbsp;</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Cellphone # :</strong> {{$supplier->cell_1}}&nbsp; </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Phone # :</strong> {{$supplier->phone_1}}&nbsp; </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">FAX :</strong> {{$supplier->fax_1}} &nbsp;</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Email :</strong> {{$supplier->email_1}}&nbsp; </li>
         </ul>
     </div>
 </div>
@@ -109,6 +107,19 @@ Notice Of Award
     {
         field: document.getElementById('id-field-award_accepted_date'),
         firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
+    var accepted_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-accepted_date'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]

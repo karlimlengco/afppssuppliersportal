@@ -39,6 +39,7 @@ class BlankRFQEloquent extends Model
         'awarded_date',
         'completed_at',
         'is_award_accepted',
+        'days',
         'award_accepted_date',
     ];
 

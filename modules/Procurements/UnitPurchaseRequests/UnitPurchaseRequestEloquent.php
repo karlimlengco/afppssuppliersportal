@@ -123,6 +123,16 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
     }
 
     /**
+     * [ntp description]
+     *
+     * @return [type] [description]
+     */
+    public function ntp()
+    {
+        return $this->hasOne('\Revlv\Procurements\NoticeToProceed\NTPEloquent',  'upr_id');
+    }
+
+    /**
      * [purchase_order description]
      *
      * @return [type] [description]
@@ -179,7 +189,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     public function unit()
     {
-        return $this->belongsTo('\Revlv\Settings\Units\UnitEloquent', 'units');
+        return $this->belongsTo('\Revlv\Settings\CateredUnits\CateredUnitEloquent', 'units');
     }
 
     /**

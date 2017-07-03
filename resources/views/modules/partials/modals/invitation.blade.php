@@ -12,11 +12,14 @@
             <div class="modal__dialogue__body">
 
                 <div class="row">
-                    <div class="six columns">
+                    <div class="four columns">
                         {!! Form::textField('canvassing_date', 'Canvass Date') !!}
                     </div>
-                    <div class="six columns">
+                    <div class="four columns">
                         {!! Form::textField('canvassing_time', 'Canvass Time') !!}
+                    </div>
+                    <div class="four columns">
+                        {!! Form::textField('ispq_transaction_dates', 'Transaction Date') !!}
                     </div>
                 </div>
 

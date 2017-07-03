@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use PDF;
 use Auth;
+use Carbon\Carbon;
 
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
@@ -119,6 +120,12 @@ class BlankRFQController extends Controller
         $split_upr              =   explode('-', $upr_model->ref_number);
         $inputs['rfq_number']   =  "RFQ-".$split_upr[1]."-".$split_upr[2]."-".$split_upr[3]."-".$split_upr[4] ;
 
+        $prepared_date          =   Carbon::createFromFormat('Y-m-d', $upr_model->date_prepared);
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
+        $days                   =   $prepared_date->diffInDays($transaction_date, false);
+
+        $inputs['days']         =   $days;
+
         $result = $model->save($inputs);
 
         $upr->update([
@@ -224,6 +231,15 @@ class BlankRFQController extends Controller
      */
     public function closed($id, BlankRFQRepository $model)
     {
+        $rfq    =   $model->findById($id);
+
+
+        if(count($rfq->proponents) == 0)
+        {
+            return redirect()->route($this->baseUrl.'show', $id)->with([
+                'error'  => "RFQ cannot be close without proponents"
+            ]);
+        }
 
         $model->update(['status' => 'closed', 'completed_at' => \Carbon\Carbon::now()], $id);
 

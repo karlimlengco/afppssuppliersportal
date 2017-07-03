@@ -24,23 +24,26 @@ class CreatePurchaseOrders extends Migration
             $table->string('bid_amount');
             $table->integer('payment_term');
             $table->integer('prepared_by');
-            $table->string('status')->nullable();
-            $table->string('pcco_has_issue')->nullable();
-            $table->date('pcco_released_date')->nullable();
-            $table->date('pcco_received_date')->nullable();
-            $table->text('pcco_remarks')->nullable();
-            $table->string('mfo_has_issue')->nullable();
+            $table->string('status')->nullable()
+            ;
+            $table->date('funding_released_date')->nullable();
+            $table->date('funding_received_date')->nullable();
+            $table->text('funding_remarks')->nullable();
+
             $table->date('mfo_received_date')->nullable();
             $table->date('mfo_released_date')->nullable();
             $table->text('mfo_remarks')->nullable();
+
             $table->string('received_by')->nullable();
             $table->string('signatory_id')->nullable();
             $table->string('requestor_id')->nullable();
             $table->string('accounting_id')->nullable();
+
             $table->string('coa_signatory')->nullable();
             $table->string('approver_id')->nullable();
             $table->date('coa_approved_date')->nullable();
             $table->string('coa_approved')->nullable();
+
             $table->text('coa_file')->nullable();
             $table->date('award_accepted_date')->nullable();
             $table->timestamps();

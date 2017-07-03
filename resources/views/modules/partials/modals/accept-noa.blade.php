@@ -10,6 +10,7 @@
             </div>
 
             <div class="modal__dialogue__body">
+                {!!Form::textField('accepted_date', 'NOA Approval date')!!}
                 {!!Form::fileField('file', 'Scan copy of NOA')!!}
                 <input name="id" type="hidden" value="{{ $data->id }}">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">

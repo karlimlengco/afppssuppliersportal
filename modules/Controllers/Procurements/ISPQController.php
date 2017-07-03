@@ -108,10 +108,11 @@ class ISPQController extends Controller
     {
 
         $this->validate($request, [
-            'venue'             =>  'required',
-            'signatory_id'      =>  'required',
-            'canvassing_date'   =>  'required',
-            'canvassing_time'   =>  'required',
+            'venue'                     =>  'required',
+            'signatory_id'              =>  'required',
+            'canvassing_date'           =>  'required',
+            'canvassing_time'           =>  'required',
+            'ispq_transaction_dates'    =>  'required',
         ]);
 
         $result =   $model->save([
@@ -120,7 +121,7 @@ class ISPQController extends Controller
             'canvassing_time'   =>  $request->get('canvassing_time'),
             'venue'             =>  $request->get('venue'),
             'signatory_id'      =>  $request->get('signatory_id'),
-            'transaction_date'  =>  \Carbon\Carbon::now(),
+            'transaction_date'  =>  $request->get('ispq_transaction_dates'),
         ]);
 
         $rfq_model      =   $rfq->findById($id);

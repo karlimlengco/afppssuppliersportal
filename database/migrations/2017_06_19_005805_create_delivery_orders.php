@@ -26,6 +26,7 @@ class CreateDeliveryOrders extends Migration
             $table->string('status')->nullable();
             $table->string('inspection_status')->nullable();
             $table->date('transaction_date')->nullable();
+            $table->integer('received_by')->nullable();
             $table->integer('prepared_by')->nullable();
             $table->integer('signatory_id')->nullable();
             $table->integer('created_by')->nullable();

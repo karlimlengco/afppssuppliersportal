@@ -11,11 +11,6 @@
 
             <div class="modal__dialogue__body">
                 <div class="row">
-                    <div class="twelve columns">
-                        {!! Form::selectField('mfo_has_issue', 'Has Issue', ['yes' => 'Yes', 'no' => 'No']) !!}
-                    </div>
-                </div>
-                <div class="row">
                     <div class="six columns">
                         {!! Form::textField('mfo_released_date', 'Date Released') !!}
                     </div>

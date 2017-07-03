@@ -14,6 +14,7 @@ use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRequest;
 use \Revlv\Procurements\DeliveryOrder\Items\ItemRepository;
 use \Revlv\Procurements\PurchaseOrder\PORepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
+use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 
 class DeliveryController extends Controller
 {
@@ -40,6 +41,7 @@ class DeliveryController extends Controller
     protected $po;
     protected $noa;
     protected $items;
+    protected $upr;
     protected $signatories;
 
     /**
@@ -98,23 +100,26 @@ class DeliveryController extends Controller
     public function createFromPurchase($id,
         Request $request,
         DeliveryOrderRepository $model,
+        UnitPurchaseRequestRepository $upr,
         PORepository $po)
     {
         $this->validate($request, [
-            'expected_date' =>  'required'
+            'expected_date'     =>  'required',
+            'transaction_date'  =>  'required',
         ]);
 
         $po_model   =   $po->with(['items'])->findById($id);
 
         $inputs     =   [
-            'expected_date' =>  $request->expected_date,
-            'po_id'         =>  $id,
-            'rfq_id'        =>  $po_model->rfq_id,
-            'upr_id'        =>  $po_model->upr_id,
-            'rfq_number'    =>  $po_model->rfq_number,
-            'status'        =>  'ongoing',
-            'upr_number'    =>  $po_model->upr_number,
-            'created_by'    =>  \Sentinel::getUser()->id
+            'expected_date'     =>  $request->expected_date,
+            'transaction_date'  =>  $request->transaction_date,
+            'po_id'             =>  $id,
+            'rfq_id'            =>  $po_model->rfq_id,
+            'upr_id'            =>  $po_model->upr_id,
+            'rfq_number'        =>  $po_model->rfq_number,
+            'status'            =>  'ongoing',
+            'upr_number'        =>  $po_model->upr_number,
+            'created_by'        =>  \Sentinel::getUser()->id
         ];
 
         $result = $model->save($inputs);
@@ -122,7 +127,7 @@ class DeliveryController extends Controller
         $items  =   [];
 
         foreach ($po_model->items as $item) {
-            $items  =   [
+            $items[]  =   [
                 'order_id'      =>  $result->id,
                 'description'   =>  $item->description,
                 'quantity'      =>  $item->quantity,
@@ -133,6 +138,8 @@ class DeliveryController extends Controller
         }
 
         DB::table('delivery_order_items')->insert($items);
+
+        $rfq->update(['status' => 'NOD Created'], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -251,11 +258,17 @@ class DeliveryController extends Controller
      * @param  DeliveryOrderRepository $model [description]
      * @return [type]                         [description]
      */
-    public function completeOrder($id, DeliveryOrderRepository $model)
+    public function completeOrder(Request $request, $id, DeliveryOrderRepository $model, UnitPurchaseRequestRepository $upr)
     {
         $date_completed     =   \Carbon\Carbon::now();
 
-        $model->update(['date_completed' => $date_completed, 'status' => 'completed'], $id);
+        $this->validate($request, [
+            'date_delivered_to_coa'   =>  'required',
+        ]);
+
+        $result =   $model->update(['date_delivered_to_coa' => $request->date_delivered_to_coa, 'status' => 'completed', 'delivered_to_coa_by' => \Sentinel::getUser()->id], $id);
+
+        $upr->update(['status' => 'Complete COA Delivery'], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -290,6 +303,14 @@ class DeliveryController extends Controller
         )
     {
         $result                     =  $model->with(['signatory','upr', 'po'])->findById($id);
+
+
+        if($result->signatory == null)
+        {
+            return redirect()->back()->with([
+                'error'  => "Please select signatory first"
+            ]);
+        }
 
         $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
         $data['today']              =  \Carbon\Carbon::now()->format("d F Y");

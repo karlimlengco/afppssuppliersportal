@@ -95,13 +95,13 @@
                             </td>
                             <td class="align-left">
                                 <span class="label">Delivery Schedule</span>
-                                {{$data['delivery']->expected_date}}
+                                {{($data['delivery']) ? $data['delivery']->expected_date : ""}}
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
                                 <span class="label">Delivery Term</span>
-                                {{$data['delivery']->notes}}
+                                {{($data['delivery']) ? $data['delivery']->notes : ""}}
                             </td>
                             <td class="align-left">
                                 <span class="label">Payment Term</span>

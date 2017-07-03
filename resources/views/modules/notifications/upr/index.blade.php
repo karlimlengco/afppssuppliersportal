@@ -8,9 +8,6 @@ Notifications
     <div class="six columns align-left">
         <h3> </h3>
     </div>
-    <div class="six columns utility utility--align-right" >
-        <a class="button" href="{{route('settings.permissions.create')}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
-    </div>
 </div>
 
 
@@ -24,7 +21,8 @@ Notifications
                    <th>Name</th>
                    <th>ABC</th>
                    <th>Status</th>
-                   <th>Days</th>
+                   <th>Expected Date</th>
+                   <th>Working Days</th>
                </tr>
            </thead>
            <tbody>
@@ -35,6 +33,7 @@ Notifications
                         <td>{{$data['project_name']}}</td>
                         <td>{{formatPrice($data['total_amount'])}}</td>
                         <td>{{$data['event']}}</td>
+                        <td>{{$data['transaction_date']}}</td>
                         <td>{{$data['days']}}</td>
                     </tr>
                 @endforeach

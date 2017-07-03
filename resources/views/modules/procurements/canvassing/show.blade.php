@@ -19,6 +19,9 @@ Canvassing
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
 
                 <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class=" button__options__item">Request For Quotation</a>
+                @if(count($data->winners) != 0)
+                <a href="{{route('procurements.noa.show', $data->winners->id)}}" class=" button__options__item">View NOA</a>
+                @endif
             </div>
         </button>
 
@@ -39,6 +42,7 @@ Canvassing
         <ul class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ No. :</strong> {{$data->rfq_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">ABC :</strong> {{formatPrice($data->upr->total_amount)}} </li>
         </ul>
     </div>
     <div class="data-panel__section">
@@ -47,7 +51,7 @@ Canvassing
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Canvass Date :</strong> {{$data->canvass_date}} </li>
 
             @if($data->canvass_time)
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Opening Date :</strong> {{$data->created_at}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Opening Date :</strong> {{$data->canvass_date}}  {{$data->canvass_time}}</li>
             @endif
         </ul>
     </div>
@@ -63,7 +67,6 @@ Canvassing
         </ul>
     </div>
 </div>
-
 <div class="row">
     <div class="twelve columns">
         <table class="table">
@@ -73,6 +76,8 @@ Canvassing
                     <th>Processed Date</th>
                     <th>Prepared By</th>
                     <th>Bid Amount</th>
+                    <th>Residual</th>
+                    <th>Notes</th>
                     <th></th>
                 </tr>
             </thead>
@@ -84,11 +89,15 @@ Canvassing
                     <td>{{$proponent->date_processed}}</td>
                     <td>{{($proponent->users) ? $proponent->users->first_name ." ". $proponent->users->surname :""}} </td>
                     <td>{{formatPrice($proponent->bid_amount)}}</td>
+                    <td>{{formatPrice($data->upr->total_amount - $proponent->bid_amount)}}</td>
+                    <td>{{ $proponent->note }}</td>
                     <td>
                         <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="attachments"> <span class="nc-icon-glyph ui-1_attach-87"></span> </a>
+
                         @if($data->adjourned_time == null)
                         <a href="#" class="award-button award" data-id="{{$proponent->id}}" data-name="{{$proponent->supplier->name}}" tooltip="Award"> <span class="nc-icon-glyph business_award-48"></span> </a>
                         @endif
+
                         @if($proponent->winners != null)
                             <a href="#" class=" award" tooltip="Winner"> <span class="nc-icon-glyph business_award-48"></span> </a>
                         @endif
@@ -130,6 +139,20 @@ $('#id-field-signatory_id').selectize({
     delimiter: ',',
     persist: false,
     maxItems: 3
+});
+
+
+
+
+var awarded_date = new Pikaday(
+{
+    field: document.getElementById('id-field-awarded_date'),
+    firstDay: 1,
+    defaultDate: new Date(),
+    setDefaultDate: new Date(),
+    // minDate: new Date(),
+    maxDate: new Date(2020, 12, 31),
+    yearRange: [2000,2020]
 });
 </script>
 @stop

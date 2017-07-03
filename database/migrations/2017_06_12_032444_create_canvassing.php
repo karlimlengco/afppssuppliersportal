@@ -20,10 +20,12 @@ class CreateCanvassing extends Migration
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
             $table->date('canvass_date');
+            $table->time('canvass_time')->nullable();
             $table->time('adjourned_time')->nullable();
             $table->time('closebox_time')->nullable();
             $table->time('order_time')->nullable();
             $table->string('signatory_id')->nullable();
+            $table->string('open_by')->nullable();
             $table->timestamps();
         });
     }

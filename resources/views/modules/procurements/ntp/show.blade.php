@@ -15,6 +15,7 @@ Notice To Proceed
         <button class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
+                <a id="signatory-button" href="#" class="button__options__item" > Signatories</a>
 
                 @if(!$data->received_by)
                 <a class="button__options__item" id="proceed-ntp-button" href="#">Received</a>
@@ -25,11 +26,14 @@ Notice To Proceed
                         <a class="button__options__item"  href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}">View Notice Of Delivery</a>
                     @endif
                 @endif
+                @if(count($data->po) != 0)
+                    <a href="{{route('procurements.purchase-orders.show', $data->po->id)}}" class="button__options__item">View PO</a>
+                @endif
 
                 <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="UPR"> Request For Quotation</a>
                 <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="UPR"> Purchase Order</a>
 
-                <a id="signatory-button" href="#" class="button__options__item" > Signatories</a>
+
 
             </div>
         </button>
@@ -63,7 +67,7 @@ Notice To Proceed
     </div>
 
     <div class="six columns pull-right">
-        <h3></h3>
+        <h3>Proponent Details</h3>
         <ul class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Name :</strong> {{$supplier->name}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Owner :</strong> {{$supplier->owner}} </li>
@@ -73,12 +77,12 @@ Notice To Proceed
     </div>
 
     <div class="six columns pull-right">
-        <h3>Proponent Details</h3>
+        <h3></h3>
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Cellphone # :</strong> {{$supplier->cell_1}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Phone # :</strong> {{$supplier->phone_1}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">FAX :</strong> {{$supplier->fax_1}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Email :</strong> {{$supplier->email_1}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Cellphone # :</strong> {{$supplier->cell_1}} &nbsp;</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Phone # :</strong> {{$supplier->phone_1}} &nbsp;</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">FAX :</strong> {{$supplier->fax_1}} &nbsp;</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Email :</strong> {{$supplier->email_1}} &nbsp;</li>
         </ul>
     </div>
 </div>
@@ -137,6 +141,8 @@ var award_accepted_date = new Pikaday(
 {
     field: document.getElementById('id-field-award_accepted_date'),
     firstDay: 1,
+    defaultDate: new Date(),
+    setDefaultDate: new Date(),
     // minDate: new Date(),
     maxDate: new Date(2020, 12, 31),
     yearRange: [2000,2020]
@@ -147,6 +153,8 @@ var transaction_date = new Pikaday(
 {
     field: document.getElementById('id-field-transaction_date'),
     firstDay: 1,
+    defaultDate: new Date(),
+    setDefaultDate: new Date(),
     // minDate: new Date(),
     maxDate: new Date(2020, 12, 31),
     yearRange: [2000,2020]
@@ -156,6 +164,8 @@ var expected_date = new Pikaday(
 {
     field: document.getElementById('id-field-expected_date'),
     firstDay: 1,
+    defaultDate: new Date(),
+    setDefaultDate: new Date(),
     // minDate: new Date(),
     maxDate: new Date(2020, 12, 31),
     yearRange: [2000,2020]

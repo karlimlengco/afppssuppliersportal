@@ -122,6 +122,8 @@ Unit Purchase Request
     {
         field: document.getElementById('id-field-date_prepared'),
         firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]
