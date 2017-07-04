@@ -43,14 +43,28 @@ Request For Quotation
                 </div>
             </div>
 
-            <div class="row">
-                <div class="six columns">
-                    {!! Form::textField('deadline', 'Deadline to submit') !!}
+            @if(!$data->completed_at)
+                <div class="row">
+                    <div class="six columns">
+                        {!! Form::textField('deadline', 'Deadline to submit') !!}
+                    </div>
+                    <div class="six columns">
+                        {!! Form::textField('opening_time', 'Opening Time') !!}
+                    </div>
                 </div>
-                <div class="six columns">
-                    {!! Form::textField('opening_time', 'Opening Time') !!}
+            @else
+                <div class="row">
+                    <div class="four columns">
+                        {!! Form::textField('deadline', 'Deadline to submit') !!}
+                    </div>
+                    <div class="four columns">
+                        {!! Form::textField('opening_time', 'Opening Time') !!}
+                    </div>
+                    <div class="four columns">
+                        {!! Form::textField('completed_at', 'Completed Date') !!}
+                    </div>
                 </div>
-            </div>
+            @endif
 
             <div class="row">
                 <div class="twelve columns">
@@ -99,6 +113,15 @@ Request For Quotation
     var picker = new Pikaday(
     {
         field: document.getElementById('id-field-transaction_date'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
+    var completed_at = new Pikaday(
+    {
+        field: document.getElementById('id-field-completed_at'),
         firstDay: 1,
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),

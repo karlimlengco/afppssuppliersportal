@@ -2,13 +2,6 @@
 Unit Purchase Request
 @stop
 
-@section('styles')
-<link rel="stylesheet" href="/vendors/timepicker/timepicker.min.css">
-@stop
-
-@section('modal')
-@stop
-
 @section('contents')
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">

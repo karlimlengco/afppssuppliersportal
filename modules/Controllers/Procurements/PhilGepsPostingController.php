@@ -11,6 +11,7 @@ use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRepository;
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
+use \Revlv\Settings\AuditLogs\AuditLogRepository;
 
 class PhilGepsPostingController extends Controller
 {
@@ -30,6 +31,7 @@ class PhilGepsPostingController extends Controller
     protected $upr;
     protected $rfq;
     protected $attachments;
+    protected $audits;
 
     /**
      * [$model description]
@@ -150,7 +152,7 @@ class PhilGepsPostingController extends Controller
         return $this->view('modules.procurements.philgeps.edit',[
             'data'          =>  $result,
             'rfq_list'      =>  $rfq_list,
-            'indexRoute'    =>  $this->baseUrl.'index',
+            'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
@@ -251,5 +253,26 @@ class PhilGepsPostingController extends Controller
         }
 
         return response()->download($directory);
+    }
+
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, PhilGepsPostingRepository $model, AuditLogRepository $logs)
+    {
+
+        $modelType  =   'Revlv\Procurements\PhilGepsPosting\PhilGepsPostingEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.procurements.philgeps.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'model'         =>  $data_model
+        ]);
     }
 }

@@ -17,6 +17,7 @@ class PhilGepsPostingRequest extends BaseRequest
         'transaction_date',
         'philgeps_posting',
         'deadline_rfq',
+        'update_remarks',
         'opening_time',
     ];
 

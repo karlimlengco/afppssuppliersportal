@@ -22,6 +22,7 @@ class BlankRFQEloquent extends Model implements  AuditableContract
         'update_remarks',
         'remarks',
         'transaction_date',
+        'completed_at',
     ];
 
     /**

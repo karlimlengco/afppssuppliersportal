@@ -19,6 +19,11 @@ PhilGeps Posting
                 <a href="{{route('procurements.blank-rfq.show',$data->rfq_id)}}" class=" button__options__item">Request For Quotation</a>
             </div>
         </button>
+
+        <a href="{{route('procurements.philgeps-posting.logs', $data->id)}}" class="button" tooltip="Logs">
+            <i class="nc-icon-mini files_archive-content"></i>
+        </a>
+
         <a class="button" href="{{route($editRoute,$data->id)}}">
             <i class="nc-icon-mini design_pen-01"></i></a>
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>

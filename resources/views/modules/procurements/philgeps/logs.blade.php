@@ -1,20 +1,17 @@
 @section('title')
-PhilGeps Posting
-@stop
-
-@section('modal')
+Request For Quotations
 @stop
 
 @section('contents')
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
-        <a href="{{route($indexRoute, $rfq->id)}}" class="button button--pull-left" tooltip="Back">
+        <a href="{{route($indexRoute, $model->id)}}" class="button button--pull-left" tooltip="Back">
             <i class="nc-icon-mini arrows-1_tail-left"></i>
         </a>
     </div>
 </div>
 
-<h1>{{$rfq->rfq_number}}</h1>
+<h1>{{$model->rfq_number}}</h1>
 <div>
     <div>
         <table class='table table--equal-column' id="item_table">

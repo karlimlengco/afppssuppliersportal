@@ -3,9 +3,29 @@
 namespace Revlv\Procurements\PhilGepsPosting;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class PhilGepsPostingEloquent extends Model
+class PhilGepsPostingEloquent extends Model implements  AuditableContract
 {
+
+    use Auditable;
+
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [
+        'philgeps_number',
+        'philgeps_posting',
+        'deadline_rfq',
+        'opening_time',
+        'transaction_date',
+        'update_remarks',
+        'remarks',
+    ];
+
 
     /**
      * The database table used by the model.
@@ -28,6 +48,8 @@ class PhilGepsPostingEloquent extends Model
         'transaction_date',
         'philgeps_posting',
         'deadline_rfq',
+        'update_remarks',
+        'remarks',
         'opening_time',
     ];
 
