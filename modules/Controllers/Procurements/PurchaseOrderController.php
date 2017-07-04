@@ -17,6 +17,7 @@ use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Settings\PaymentTerms\PaymentTermRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
+use \Revlv\Settings\AuditLogs\AuditLogRepository;
 
 class PurchaseOrderController extends Controller
 {
@@ -41,6 +42,8 @@ class PurchaseOrderController extends Controller
     protected $terms;
     protected $proponents;
     protected $signatories;
+    protected $audits;
+
 
     /**
      * [$model description]
@@ -337,6 +340,7 @@ class PurchaseOrderController extends Controller
             'signatory_list'=>  $signatory_list,
             'supplier'      =>  $supplier,
             'indexRoute'    =>  $this->baseUrl.'index',
+            'editRoute'     =>  $this->baseUrl.'edit',
             'modelConfig'   =>  [
                 'mfo_approval' =>  [
                     'route'     =>  [$this->baseUrl.'mfo-approved', $id],
@@ -362,24 +366,16 @@ class PurchaseOrderController extends Controller
      */
     public function edit(
         $id,
-        PORepository $model,
-        PaymentTermRepository $terms,
-        BlankRFQRepository $rfq)
+        PORepository $model)
     {
         $result     =   $model->findById($id);
-        $rfq_list   =   $rfq->listsAccepted('id', 'rfq_number');
-
-        $term_lists =   $terms->lists('id','name');
-
 
         return $this->view('modules.procurements.purchase-order.edit',[
             'data'          =>  $result,
-            'rfq_list'      =>  $rfq_list,
-            'term_lists'    =>  $term_lists,
-            'indexRoute'    =>  $this->baseUrl.'index',
+            'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
                 'update' =>  [
-                    'route'     =>  [$this->baseUrl.'update', $id],
+                    'route'     =>  [$this->baseUrl.'update-dates', $id],
                     'method'    =>  'PUT'
                 ],
                 'destroy'   => [
@@ -410,6 +406,49 @@ class PurchaseOrderController extends Controller
             'accounting_id' =>  $request->accounting_id,
             'approver_id'   =>  $request->approver_id,
             'coa_signatory' =>  $request->coa_signatory,
+        ];
+
+        $model->update($input, $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateDates(
+        Request $request,
+        $id,
+        RFQProponentRepository $rfq,
+        BlankRFQRepository $blank,
+        PORepository $model
+        )
+    {
+
+        $this->validate($request, [
+            'update_remarks',
+            'purchase_date',
+            'funding_released_date',
+            'funding_received_date',
+            'mfo_released_date',
+            'mfo_received_date',
+            'coa_approved_date',
+        ]);
+
+        $input  =   [
+            'update_remarks'        =>  $request->update_remarks,
+            'purchase_date'         =>  $request->purchase_date,
+            'funding_released_date' =>  $request->funding_released_date,
+            'funding_received_date' =>  $request->funding_received_date,
+            'mfo_released_date'     =>  $request->mfo_released_date,
+            'mfo_received_date'     =>  $request->mfo_received_date,
+            'coa_approved_date'     =>  $request->coa_approved_date,
         ];
 
         $model->update($input, $id);
@@ -587,5 +626,27 @@ class PurchaseOrderController extends Controller
         }
 
         return response()->download($directory);
+    }
+
+
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, PORepository $model, AuditLogRepository $logs)
+    {
+
+        $modelType  =   'Revlv\Procurements\PurchaseOrder\POEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.procurements.purchase-order.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'model'         =>  $data_model
+        ]);
     }
 }

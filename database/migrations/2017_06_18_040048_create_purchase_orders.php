@@ -38,6 +38,7 @@ class CreatePurchaseOrders extends Migration
             $table->string('signatory_id')->nullable();
             $table->string('requestor_id')->nullable();
             $table->string('accounting_id')->nullable();
+            $table->string('update_remarks')->nullable();
 
             $table->string('coa_signatory')->nullable();
             $table->string('approver_id')->nullable();

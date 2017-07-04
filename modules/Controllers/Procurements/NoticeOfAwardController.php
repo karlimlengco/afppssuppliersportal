@@ -448,6 +448,7 @@ class NoticeOfAwardController extends Controller
 
         return response()->download($directory);
     }
+
     /**
      * [viewLogs description]
      *

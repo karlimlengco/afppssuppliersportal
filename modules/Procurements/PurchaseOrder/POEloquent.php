@@ -3,9 +3,32 @@
 namespace Revlv\Procurements\PurchaseOrder;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class POEloquent extends Model
+
+class POEloquent extends Model implements  AuditableContract
 {
+    use Auditable;
+
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [
+        'purchase_date',
+
+        'funding_released_date',
+        'funding_received_date',
+
+        'mfo_received_date',
+        'mfo_released_date',
+
+        'award_accepted_date',
+        'coa_approved_date',
+        'update_remarks',
+    ];
 
     /**
      * The database table used by the model.
@@ -32,6 +55,7 @@ class POEloquent extends Model
         'funding_released_date',
         'funding_received_date',
         'funding_remarks',
+        'update_remarks',
 
         'mfo_received_date',
         'mfo_released_date',
