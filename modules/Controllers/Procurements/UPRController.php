@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use DB;
 use Excel;
+use PDF;
 
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\Attachments\AttachmentRepository;
@@ -617,5 +618,33 @@ class UPRController extends Controller
             'data'              =>  $upr_model,
             'indexRoute'        =>  $this->baseUrl."show"
         ]);
+    }
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint($id, UnitPurchaseRequestRepository $model)
+    {
+        $result     =   $model->with(['centers', 'modes', 'charges', 'accounts', 'terms', 'items'])->findById($id);
+
+        $data['upr_number']         =  $result->upr_number;
+        $data['ref_number']         =  $result->ref_number;
+        $data['date_prepared']      =  $result->date_prepared;
+        $data['mode']               =  $result->modes->name;
+        $data['center']             =  $result->centers->name;
+        $data['charge']             =  $result->charges->name;
+        $data['codes']              =  $result->accounts->name;
+        $data['fund_validity']      =  $result->fund_validity;
+        $data['terms']              =  $result->terms->name;
+        $data['other_infos']        =  $result->other_infos;
+        $data['items']              =  $result->items;
+        $data['purpose']            =  $result->purpose;
+        $data['total_amount']       =  $result->total_amount;
+
+        $pdf = PDF::loadView('forms.upr', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('upr.pdf');
     }
 }

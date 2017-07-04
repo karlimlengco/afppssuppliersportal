@@ -1,5 +1,5 @@
 @section('title')
-PSR Transactions
+Transaction Summary
 @stop
 
 @section('contents')

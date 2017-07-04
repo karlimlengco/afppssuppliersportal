@@ -149,7 +149,7 @@
                 {
                     "route" :   "reports.psr-transactions.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "PSR Transactions"
+                    "name"  :   "Transactions Summary"
                 },
                 {
                     "route" :   "reports.transaction-days.index",

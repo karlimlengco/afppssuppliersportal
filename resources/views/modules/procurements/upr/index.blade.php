@@ -7,7 +7,6 @@ Unit Purchase Request
 <div class="row">
     <div class="six columns align-left">
         <h3></h3>
-        {{-- <h3>Unit Purchase Request</h3> --}}
     </div>
     <div class="six columns utility utility--align-right" >
 
@@ -37,12 +36,12 @@ Unit Purchase Request
                 <tr>
                     <th>UPR No.</th>
                     <th>Ref No.</th>
-                    <th>Items</th>
+                    <th>Project</th>
                     <th>ABC</th>
                     <th>TYPE</th>
-                    <th style="text-align:center">Date Prepared</th>
                     <th>Status</th>
                     <th>State</th>
+                    <th>Calendar Days</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,12 +69,12 @@ Unit Purchase Request
         columns: [
             {data: 'upr_number', name: 'upr_number'},
             {data: 'ref_number', name: 'ref_number'},
-            {data: 'item_count', name: 'item_count'},
+            {data: 'project_name', name: 'project_name'},
             {data: 'total_amount', name: 'total_amount'},
             {data: 'type', name: 'type'},
-            {data: 'date_prepared', name: 'date_prepared'},
             {data: 'status', name: 'status'},
             {data: 'state', name: 'state'},
+            {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

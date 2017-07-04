@@ -29,10 +29,12 @@ trait DatatableTrait
             'unit_purchase_requests.created_at',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.status',
+            'unit_purchase_requests.project_name',
             'unit_purchase_requests.state',
             'mode_of_procurements.name as type',
             DB::raw("CONCAT(users.first_name,' ', users.surname) AS full_name"),
-            DB::raw("COUNT(unit_purchase_request_items.id) as item_count")
+            DB::raw("COUNT(unit_purchase_request_items.id) as item_count"),
+            DB::raw("datediff(NOW(), unit_purchase_requests.date_prepared ) as calendar_days")
         ]);
 
         $model  =   $model->leftJoin('users', 'users.id', '=', 'unit_purchase_requests.prepared_by');
@@ -45,6 +47,7 @@ trait DatatableTrait
             'unit_purchase_requests.date_prepared',
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.total_amount',
+            'unit_purchase_requests.project_name',
             'unit_purchase_requests.status',
             'unit_purchase_requests.state',
             'unit_purchase_requests.created_at',
@@ -74,7 +77,7 @@ trait DatatableTrait
                 return formatPrice($data->total_amount);
             })
             ->editColumn('status', function($data){
-                return ucfirst($data->status);
+                return ucfirst(substr($data->status, 0, 25) );
             })
             ->editColumn('state', function($data){
                 return ucfirst($data->state);

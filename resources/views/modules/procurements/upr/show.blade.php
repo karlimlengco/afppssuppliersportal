@@ -83,7 +83,7 @@ Unit Purchase Request
             <i class="nc-icon-mini ui-1_attach-86"></i>
         </a>
 
-        <a href="#" class="button" tooltip="Print">
+        <a target="_blank" href="{{route('procurements.unit-purchase-requests.print', $data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
         </a>
 
