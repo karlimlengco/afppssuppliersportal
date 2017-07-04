@@ -44,6 +44,9 @@ Vouchers
                 @endif
             </div>
         </button>
+        <a href="{{route('procurements.vouchers.logs', $data->id)}}" class="button" tooltip="Logs">
+            <i class="nc-icon-mini files_archive-content"></i>
+        </a>
         <a class="button" href="{{route($editRoute,$data->id)}}"><i class="nc-icon-mini design_pen-01"></i></a>
     </div>
 </div>

@@ -3,9 +3,28 @@
 namespace Revlv\Procurements\Vouchers;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class VoucherEloquent extends Model
+class VoucherEloquent extends Model implements  AuditableContract
 {
+    use Auditable;
+
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [
+        'update_remarks',
+        'transaction_date',
+        'payment_release_date',
+        'payment_received_date',
+        'preaudit_date',
+        'certify_date',
+        'journal_entry_date',
+        'approval_date',
+    ];
 
     /**
      * The database table used by the model.
@@ -25,6 +44,7 @@ class VoucherEloquent extends Model
         'prepared_by',
         'rfq_number',
         'upr_number',
+        'update_remarks',
         'transaction_date',
         'bir_address',
         'final_tax',

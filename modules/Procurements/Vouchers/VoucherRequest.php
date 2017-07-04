@@ -19,6 +19,7 @@ class VoucherRequest extends BaseRequest
         'bir_address',
         'final_tax',
         'expanded_witholding_tax',
+        'update_remarks',
 
         'preaudit_date',
 

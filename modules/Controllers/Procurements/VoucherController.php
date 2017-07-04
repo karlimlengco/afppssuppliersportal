@@ -10,6 +10,7 @@ use \Revlv\Procurements\Vouchers\VoucherRepository;
 use \Revlv\Procurements\Vouchers\VoucherRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
+use \Revlv\Settings\AuditLogs\AuditLogRepository;
 
 class VoucherController extends Controller
 {
@@ -27,13 +28,8 @@ class VoucherController extends Controller
      * @var [type]
      */
     protected $upr;
-
-    /**
-     * [$upr description]
-     *
-     * @var [type]
-     */
     protected $rfq;
+    protected $audits;
 
     /**
      * [$model description]
@@ -138,14 +134,12 @@ class VoucherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, VoucherRepository $model, BlankRFQRepository $rfq)
+    public function edit($id, VoucherRepository $model)
     {
         $result     =   $model->findById($id);
-        $rfq_list   =   $rfq->lists('id', 'rfq_number');
 
         return $this->view('modules.procurements.vouchers.edit',[
             'data'          =>  $result,
-            'rfq_list'      =>  $rfq_list,
             'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
                 'update' =>  [
@@ -167,9 +161,31 @@ class VoucherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(VoucherRequest $request, $id, VoucherRepository $model)
+    public function update(Request $request, $id, VoucherRepository $model)
     {
-        $model->update($request->getData(), $id);
+        $this->validate($request, [
+            'update_remarks'        =>  'required',
+            'transaction_date'      =>  'required',
+            'payment_release_date'  =>  'required',
+            'payment_received_date' =>  'required',
+            'preaudit_date'         =>  'required',
+            'certify_date'          =>  'required',
+            'journal_entry_date'    =>  'required',
+            'approval_date'         =>  'required'
+        ]);
+
+        $data   =   [
+            'update_remarks'        =>  $request->update_remarks,
+            'transaction_date'      =>  $request->transaction_date,
+            'payment_release_date'  =>  $request->payment_release_date,
+            'payment_received_date' =>  $request->payment_received_date,
+            'preaudit_date'         =>  $request->preaudit_date,
+            'certify_date'          =>  $request->certify_date,
+            'journal_entry_date'    =>  $request->journal_entry_date,
+            'approval_date'         =>  $request->approval_date
+        ];
+
+        $model->update($data, $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -322,6 +338,26 @@ class VoucherController extends Controller
 
         return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "Record has been successfully deleted."
+        ]);
+    }
+
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, VoucherRepository $model, AuditLogRepository $logs)
+    {
+        $modelType  =   'Revlv\Procurements\Vouchers\VoucherEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.procurements.vouchers.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'model'         =>  $data_model
         ]);
     }
 }

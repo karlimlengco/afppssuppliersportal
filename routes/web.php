@@ -222,6 +222,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('vouchers/logs/{id}', '\Revlv\Controllers\Procurements\VoucherController@viewLogs')->name('vouchers.logs');
     Route::post('vouchers/preaudit/{id}', '\Revlv\Controllers\Procurements\VoucherController@preauditVoucher')->name('vouchers.preaudit');
     Route::post('vouchers/certify/{id}', '\Revlv\Controllers\Procurements\VoucherController@certifyVoucher')->name('vouchers.certify');
     Route::post('vouchers/journal/{id}', '\Revlv\Controllers\Procurements\VoucherController@journalVoucher')->name('vouchers.journal');
