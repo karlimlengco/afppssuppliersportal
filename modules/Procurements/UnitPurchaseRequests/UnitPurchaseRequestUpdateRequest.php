@@ -37,6 +37,10 @@ class UnitPurchaseRequestUpdateRequest extends BaseRequest
 
         'status',
         'state',
+
+        'requestor_id',
+        'fund_signatory_id',
+        'approver_id',
     ];
 
     /**

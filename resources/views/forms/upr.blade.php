@@ -119,22 +119,22 @@
                                                         <td class="head align-center v-align-middle" width="33.333%">Approved</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="align-center v-align-bottom" height="75px">Signature</td>
-                                                        <td class="align-center v-align-bottom" height="75px">Signature</td>
-                                                        <td class="align-center v-align-bottom" height="75px">Signature</td>
+                                                        <td class="align-center v-align-bottom" height="75px"></td>
+                                                        <td class="align-center v-align-bottom" height="75px"></td>
+                                                        <td class="align-center v-align-bottom" height="75px"></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="align-center">
-                                                            <span class="label">Full Name</span>
-                                                            Designation
+                                                            <span class="label">{{$data['requestor']->name}}</span>
+                                                            {{$data['requestor']->designation}}
                                                         </td>
                                                         <td class="align-center">
-                                                            <span class="label">Full Name</span>
-                                                            Designation
+                                                            <span class="label">{{$data['funder']->name}}</span>
+                                                            {{$data['funder']->designation}}
                                                         </td>
                                                         <td class="align-center">
-                                                            <span class="label">Full Name</span>
-                                                            Designation
+                                                            <span class="label">{{$data['approver']->name}}</span>
+                                                            {{$data['approver']->designation}}
                                                         </td>
                                                     </tr>
                                                 </table>

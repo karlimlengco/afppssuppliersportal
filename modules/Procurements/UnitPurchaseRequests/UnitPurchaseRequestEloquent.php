@@ -70,7 +70,42 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
 
         'status',
         'state',
+
+        'requestor_id',
+        'fund_signatory_id',
+        'approver_id',
     ];
+
+
+    /**
+     * [approver description]
+     *
+     * @return [type] [description]
+     */
+    public function approver()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'approver_id');
+    }
+
+    /**
+     * [funder description]
+     *
+     * @return [type] [description]
+     */
+    public function funders()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'fund_signatory_id');
+    }
+
+    /**
+     * [requestor description]
+     *
+     * @return [type] [description]
+     */
+    public function requestor()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'requestor_id');
+    }
 
     /**
      * [philgeps description]

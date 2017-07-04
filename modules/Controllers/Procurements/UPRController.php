@@ -14,6 +14,7 @@ use \Revlv\Procurements\UnitPurchaseRequests\Attachments\AttachmentRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestUpdateRequest;
 use \Revlv\Procurements\Items\ItemRepository;
+use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Settings\AccountCodes\AccountCodeRepository;
 use \Revlv\Settings\Chargeability\ChargeabilityRepository;
 use \Revlv\Settings\ModeOfProcurements\ModeOfProcurementRepository;
@@ -46,6 +47,7 @@ class UPRController extends Controller
     protected $items;
     protected $units;
     protected $logs;
+    protected $signatories;
 
     /**
      * [$model description]
@@ -421,20 +423,29 @@ class UPRController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, UnitPurchaseRequestRepository $model)
+    public function show(
+        $id,
+        UnitPurchaseRequestRepository $model,
+        SignatoryRepository $signatories)
     {
-        $result =   $model->with(['attachments'])->findById($id);
+        $result         =   $model->with(['attachments'])->findById($id);
+        $signatory_lists=   $signatories->lists('id', 'name');
 
         return $this->view('modules.procurements.upr.show',[
-            'data'          =>  $result,
-            'indexRoute'    =>  $this->baseUrl.'index',
-            'editRoute'     =>  $this->baseUrl.'edit',
-            'modelConfig'   =>  [
+            'data'              =>  $result,
+            'indexRoute'        =>  $this->baseUrl.'index',
+            'signatory_list'    =>  $signatory_lists,
+            'editRoute'         =>  $this->baseUrl.'edit',
+            'modelConfig'       =>  [
                 'request_quotation' =>  [
                     'route'     =>  'procurements.blank-rfq.store',
                 ],
                 'add_attachment' =>  [
                     'route'     =>  [$this->baseUrl.'attachments.store', $id],
+                ],
+                'update'   => [
+                    'route' => [$this->baseUrl.'update-signatories', $id],
+                    'method'=> 'PUT'
                 ]
             ]
         ]);
@@ -498,6 +509,34 @@ class UPRController extends Controller
         $model->update($request->getData(), $id);
 
         return redirect()->route($this->baseUrl.'edit', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
+     * [updateSignatory description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function updateSignatory(Request $request, $id, UnitPurchaseRequestRepository $model)
+    {
+        $this->validate($request, [
+            'requestor_id'      =>  'required',
+            'fund_signatory_id' =>  'required',
+            'approver_id'       =>  'required',
+        ]);
+
+        $data   =   [
+            'requestor_id'      =>  $request->requestor_id,
+            'fund_signatory_id' =>  $request->fund_signatory_id,
+            'approver_id'       =>  $request->approver_id,
+        ];
+
+        $model->update($data, $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
         ]);
     }
@@ -627,7 +666,17 @@ class UPRController extends Controller
      */
     public function viewPrint($id, UnitPurchaseRequestRepository $model)
     {
-        $result     =   $model->with(['centers', 'modes', 'charges', 'accounts', 'terms', 'items'])->findById($id);
+        $result     =   $model->with([
+            'centers',
+            'modes',
+            'charges',
+            'accounts',
+            'terms',
+            'items',
+            'requestor',
+            'funders',
+            'approver',
+            ])->findById($id);
 
         $data['upr_number']         =  $result->upr_number;
         $data['ref_number']         =  $result->ref_number;
@@ -642,6 +691,9 @@ class UPRController extends Controller
         $data['items']              =  $result->items;
         $data['purpose']            =  $result->purpose;
         $data['total_amount']       =  $result->total_amount;
+        $data['requestor']          =  $result->requestor;
+        $data['funder']             =  $result->funders;
+        $data['approver']           =  $result->approver;
 
         $pdf = PDF::loadView('forms.upr', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
 

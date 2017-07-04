@@ -43,6 +43,10 @@ class CreateUnitPurchaseRequests extends Migration
             $table->integer('processed_by')->nullable();
             $table->integer('terminated_by')->nullable();
 
+            $table->integer('requestor_id')->nullable();
+            $table->integer('fund_signatory_id')->nullable();
+            $table->integer('approver_id')->nullable();
+
             $table->string('total_amount');
 
             $table->string('status')->default('pending');

@@ -54,7 +54,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
-
+Route::put('unit-purchase-requests/update-signatories/{id}', '\Revlv\Controllers\Procurements\UPRController@updateSignatory')->name('unit-purchase-requests.update-signatories');
     Route::get('unit-purchase-requests/print/{id}', '\Revlv\Controllers\Procurements\UPRController@viewPrint')->name('unit-purchase-requests.print');
     Route::post('unit-purchase-requests/terminate/{id}', '\Revlv\Controllers\Procurements\UPRController@terminateUPR')->name('unit-purchase-requests.terminate');
     Route::post('unit-purchase-requests/attachments/{id}', '\Revlv\Controllers\Procurements\UPRController@uploadAttachment')->name('unit-purchase-requests.attachments.store');

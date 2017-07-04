@@ -12,6 +12,7 @@ Unit Purchase Request
     @include('modules.partials.modals.dropzone')
     @include('modules.partials.modals.terminate')
     @include('modules.partials.modals.voucher')
+    @include('modules.partials.modals.upr-signatory')
 @stop
 
 @section('contents')
@@ -31,7 +32,8 @@ Unit Purchase Request
                 {{-- Process --}}
 
                 {{-- Always shhow --}}
-                <a class="button__options__item" id="view-attachments-button" href="#">View Attachments</a>
+                <a class="button__options__item" id="signatory-button" href="#">Signatories</a>
+                <a class="button__options__item" id="view-attachments-button" href="#">Attachments</a>
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->id)}}">View Timelines</a>
                 {{-- <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}">View Logs</a> --}}
                 {{-- Always shhow --}}
@@ -48,31 +50,31 @@ Unit Purchase Request
                 @endif
 
                 @if(count($data->canvassing) != 0)
-                    <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button__options__item">View Canvass</a>
+                    <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button__options__item">Canvass</a>
                 @endif
 
                 @if(count($data->noa) != 0)
-                    <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a>
+                    <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">NOA</a>
                 @endif
 
                 @if(count($data->purchase_order) != 0)
-                    <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">View PO</a>
+                    <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">PO</a>
                 @endif
 
                 @if(count($data->ntp) != 0)
-                    <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item">View NTP</a>
+                    <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item">NTP</a>
                 @endif
 
                 @if(count($data->delivery_order) != 0)
-                    <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button__options__item">View NOD</a>
+                    <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button__options__item">NOD</a>
                 @endif
 
                 @if(count($data->diir) != 0)
-                    <a href="{{route('procurements.delivered-inspections.show', $data->diir->id)}}" class="button__options__item">View DIIR</a>
+                    <a href="{{route('procurements.delivered-inspections.show', $data->diir->id)}}" class="button__options__item">DIIR</a>
                     @if(count($data->voucher) == 0)
                         <a href="#" id="voucher-button" class="button__options__item">Create Voucher</a>
                     @else
-                        <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button__options__item">View Voucher</a>
+                        <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button__options__item">Voucher</a>
                     @endif
                 @endif
 
@@ -217,6 +219,10 @@ Unit Purchase Request
     $('#terminate-button').click(function(e){
         e.preventDefault();
         $('#terminate-modal').addClass('is-visible');
+    })
+    $('#signatory-button').click(function(e){
+        e.preventDefault();
+        $('#signatory-modal').addClass('is-visible');
     })
     $('#attachment-button').click(function(e){
         e.preventDefault();
