@@ -3,9 +3,26 @@
 namespace Revlv\Procurements\NoticeOfAward;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class NOAEloquent extends Model
+class NOAEloquent extends Model implements  AuditableContract
 {
+
+    use Auditable;
+
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [
+        'awarded_date',
+        'remarks',
+        'update_remarks',
+        'award_accepted_date',
+        'accepted_date',
+    ];
 
     /**
      * The database table used by the model.
@@ -29,6 +46,7 @@ class NOAEloquent extends Model
         'proponent_id',
         'awarded_by',
         'awarded_date',
+        'update_remarks',
         'remarks',
         'received_by',
         'file',

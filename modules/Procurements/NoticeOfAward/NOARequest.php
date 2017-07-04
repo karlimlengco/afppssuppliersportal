@@ -23,6 +23,7 @@ class NOARequest extends BaseRequest
         'received_by',
         'status',
         'award_accepted_date',
+        'update_remarks',
         'accepted_date',
     ];
 

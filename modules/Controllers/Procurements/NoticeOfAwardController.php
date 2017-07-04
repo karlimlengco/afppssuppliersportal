@@ -14,6 +14,7 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
+use \Revlv\Settings\AuditLogs\AuditLogRepository;
 
 class NoticeOfAwardController extends Controller
 {
@@ -36,6 +37,7 @@ class NoticeOfAwardController extends Controller
     protected $noa;
     protected $signatories;
     protected $proponents;
+    protected $audits;
 
     /**
      * [$model description]
@@ -181,6 +183,30 @@ class NoticeOfAwardController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(
+        $id,
+        NOARepository $model)
+    {
+        $result             =   $model->findById($id);
+
+        return $this->view('modules.procurements.noa.edit',[
+            'data'              =>  $result,
+            'indexRoute'        =>  $this->baseUrl.'show',
+            'modelConfig'       =>  [
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update-dates', $id],
+                    'method'    =>  'PUT'
+                ]
+            ]
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -240,6 +266,7 @@ class NoticeOfAwardController extends Controller
             'signatory_list'=>  $signatory_list,
             'printRoute'    =>  $this->baseUrl.'print',
             'indexRoute'    =>  $this->baseUrl.'index',
+            'editRoute'     =>  $this->baseUrl.'edit',
             'modelConfig'   =>  [
                 'receive_award' =>  [
                     'route'     =>  [$this->baseUrl.'update', $result->id]
@@ -266,6 +293,44 @@ class NoticeOfAwardController extends Controller
         ]);
 
         $model->update(['signatory_id' =>$request->signatory_id], $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateDates(
+        Request $request,
+        $id,
+        RFQProponentRepository $rfq,
+        BlankRFQRepository $blank,
+        UnitPurchaseRequestRepository $upr,
+        NOARepository $model
+        )
+    {
+        $this->validate($request, [
+            'awarded_date'              =>  'required',
+            'award_accepted_date'       =>  'required',
+            'accepted_date'             =>  'required',
+        ]);
+
+        $input  =   [
+            'awarded_date'              =>  $request->awarded_date,
+            'award_accepted_date'       =>  $request->award_accepted_date,
+            'accepted_date'             =>  $request->accepted_date,
+            'update_remarks'            =>  $request->update_remarks,
+        ];
+
+        $result             =   $model->findById($id);
+
+        $model->update($input, $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -382,5 +447,25 @@ class NoticeOfAwardController extends Controller
         }
 
         return response()->download($directory);
+    }
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, NOARepository $model, AuditLogRepository $logs)
+    {
+
+        $modelType  =   'Revlv\Procurements\NoticeOfAward\NOAEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.procurements.noa.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'model'         =>  $data_model
+        ]);
     }
 }
