@@ -176,7 +176,10 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |
     */
     Route::get('delivery-orders/store-by-dr/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@storeByDR')->name('delivery-orders.store-by-dr');
+    Route::get('delivery-orders/edit-dates/{id}', '\Revlv\Controllers\Procurements\DeliveryController@editDates')->name('delivery-orders.edit-dates');
+    Route::get('delivery-orders/logs/{id}', '\Revlv\Controllers\Procurements\DeliveryController@viewLogs')->name('delivery-orders.logs');
     Route::get('delivery-orders/print/{id}', '\Revlv\Controllers\Procurements\DeliveryController@viewPrint')->name('delivery-orders.print');
+    Route::put('delivery-orders/update-dates/{id}', '\Revlv\Controllers\Procurements\DeliveryController@updateDates')->name('delivery-orders.update-dates');
     Route::put('delivery-orders/update-signatory/{id}', '\Revlv\Controllers\Procurements\DeliveryController@updateSignatory')->name('delivery-orders.update-signatory');
     Route::post('delivery-orders/create-purchase/{id}', '\Revlv\Controllers\Procurements\DeliveryController@createFromPurchase')->name('delivery-orders.create-purchase');
     Route::post('delivery-orders/completed/{id}', '\Revlv\Controllers\Procurements\DeliveryController@completeOrder')->name('delivery-orders.completed');

@@ -15,6 +15,7 @@ use \Revlv\Procurements\DeliveryOrder\Items\ItemRepository;
 use \Revlv\Procurements\PurchaseOrder\PORepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
+use \Revlv\Settings\AuditLogs\AuditLogRepository;
 
 class DeliveryController extends Controller
 {
@@ -43,6 +44,7 @@ class DeliveryController extends Controller
     protected $items;
     protected $upr;
     protected $signatories;
+    protected $audits;
 
     /**
      * @param model $model
@@ -164,6 +166,7 @@ class DeliveryController extends Controller
             'signatory_list'=>  $signatory_list,
             'indexRoute'    =>  $this->baseUrl.'index',
             'editRoute'     =>  $this->baseUrl.'edit',
+            'editDateRoute' =>  $this->baseUrl.'edit-dates',
             'completeRoute' =>  $this->baseUrl.'completed',
             'modelConfig'   =>  [
                 'update' =>  [
@@ -198,6 +201,63 @@ class DeliveryController extends Controller
                     'method'=> 'DELETE'
                 ]
             ]
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editDates($id, DeliveryOrderRepository $model)
+    {
+        $result =   $model->with(['items'])->findById($id);
+
+        return $this->view('modules.procurements.delivery.edit-dates',[
+            'data'          =>  $result,
+            'indexRoute'    =>  $this->baseUrl.'index',
+            'showRoute'     =>  $this->baseUrl.'show',
+            'modelConfig'   =>  [
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update-dates', $id],
+                    'method'    =>  'PUT'
+                ]
+            ]
+        ]);
+    }
+
+
+    /**
+     * [updateSignatory description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function updateDates(Request $request, $id, DeliveryOrderRepository $model)
+    {
+
+        $this->validate($request, [
+            "update_remarks"        => 'required',
+            "expected_date"         => 'required',
+            "delivery_date"         => 'required',
+            "transaction_date"      => 'required',
+            "date_delivered_to_coa" => 'required',
+        ]);
+
+        $input  =   [
+            "update_remarks"        =>  $request->update_remarks,
+            "expected_date"         =>  $request->expected_date,
+            "delivery_date"         =>  $request->delivery_date,
+            "transaction_date"      =>  $request->transaction_date,
+            "date_delivered_to_coa" =>  $request->date_delivered_to_coa,
+        ];
+
+        $model->update($input, $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
         ]);
     }
 
@@ -327,4 +387,26 @@ class DeliveryController extends Controller
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('nod.pdf');
     }
+
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, DeliveryOrderRepository $model, AuditLogRepository $logs)
+    {
+
+        $modelType  =   'Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.procurements.delivery.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'model'         =>  $data_model
+        ]);
+    }
+
 }

@@ -48,6 +48,14 @@ Notice Of Delivery
         @else
 
         @endif
+
+        <a href="{{route('procurements.delivery-orders.logs', $data->id)}}" class="button" tooltip="Logs">
+            <i class="nc-icon-mini files_archive-content"></i>
+        </a>
+
+        <a href="{{route($editDateRoute,$data->id)}}" class="button" tooltip="Edit">
+            <i class="nc-icon-mini design_pen-01"></i>
+        </a>
     </div>
 </div>
 
@@ -74,7 +82,7 @@ Notice Of Delivery
     </div>
 
     <div class="data-panel__section">
-        <h3></h3>
+        <h3>&nbsp;</h3>
         <ul  class="data-panel__list">
 
             @if($data->delivery_date)

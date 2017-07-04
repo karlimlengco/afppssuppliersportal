@@ -31,6 +31,7 @@ class CreateDeliveryOrders extends Migration
             $table->integer('signatory_id')->nullable();
             $table->integer('created_by')->nullable();
             $table->text('notes')->nullable();
+            $table->text('update_remarks')->nullable();
             $table->date('date_completed')->nullable();
             $table->date('date_delivered_to_coa')->nullable();
             $table->integer('delivered_to_coa_by')->nullable();

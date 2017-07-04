@@ -22,6 +22,7 @@ class DeliveryOrderRequest extends BaseRequest
         'prepared_by',
         'created_by',
         'notes',
+        'update_remarks',
     ];
 
     /**
