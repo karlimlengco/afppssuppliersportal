@@ -26,6 +26,7 @@ class CreateCanvassing extends Migration
             $table->time('order_time')->nullable();
             $table->string('signatory_id')->nullable();
             $table->string('open_by')->nullable();
+            $table->string('update_remarks')->nullable();
             $table->timestamps();
         });
     }

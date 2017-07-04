@@ -3,9 +3,27 @@
 namespace Revlv\Procurements\Canvassing;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class CanvassingEloquent extends Model
+class CanvassingEloquent extends Model implements  AuditableContract
 {
+
+    use Auditable;
+
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [
+        'canvass_date',
+        'adjourned_time',
+        'closebox_time',
+        'canvass_time',
+        'update_remarks',
+        'order_time',
+    ];
 
     /**
      * The database table used by the model.
@@ -28,6 +46,7 @@ class CanvassingEloquent extends Model
         'rfq_number',
         'canvass_time',
         'open_by',
+        'update_remarks',
         'upr_number',
         'order_time',
         'signatory_id',

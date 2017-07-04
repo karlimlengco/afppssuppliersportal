@@ -32,8 +32,11 @@ Canvassing
         <a target="_blank" href="{{route('procurements.canvassing.print',$data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
         </a>
+        <a href="{{route('procurements.canvassing.logs', $data->id)}}" class="button" tooltip="Logs">
+            <i class="nc-icon-mini files_archive-content"></i>
+        </a>
 
-        {{-- <a class="button" href="{{route($editRoute,$data->id)}}"><i class="nc-icon-mini design_pen-01"></i></a> --}}
+        <a class="button" href="{{route($editRoute,$data->id)}}"><i class="nc-icon-mini design_pen-01"></i></a>
     </div>
 </div>
 

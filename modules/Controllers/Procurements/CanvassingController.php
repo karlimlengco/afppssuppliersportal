@@ -13,6 +13,7 @@ use \Revlv\Procurements\Canvassing\CanvassingRequest;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
+use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 
 class CanvassingController extends Controller
@@ -34,6 +35,7 @@ class CanvassingController extends Controller
     protected $rfq;
     protected $signatories;
     protected $mysignatories;
+    protected $audits;
     protected $proponents;
 
     /**
@@ -199,7 +201,7 @@ class CanvassingController extends Controller
         return $this->view('modules.procurements.canvassing.edit',[
             'data'          =>  $result,
             'rfq_list'      =>  $rfq_list,
-            'indexRoute'    =>  $this->baseUrl.'index',
+            'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
@@ -295,5 +297,26 @@ class CanvassingController extends Controller
         $pdf = PDF::loadView('forms.canvass', ['data' => $data])->setOption('margin-bottom', 10)->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('canvass.pdf');
+    }
+
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, CanvassingRepository $model, AuditLogRepository $logs)
+    {
+
+        $modelType  =   'Revlv\Procurements\Canvassing\CanvassingEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.procurements.ispq.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'model'         =>  $data_model
+        ]);
     }
 }

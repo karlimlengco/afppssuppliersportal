@@ -8,17 +8,18 @@ Canvassing
 
 @section('modal')
     @include('modules.partials.modals.delete')
+    {!! Form::model($data, $modelConfig['update']) !!}
+    @include('modules.partials.modals.edit-remarks')
 @stop
 
 @section('contents')
 
-{!! Form::model($data, $modelConfig['update']) !!}
 
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
 
-            <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-            <button class="button"><i class="nc-icon-mini ui-2_disk"></i></button>
+            <a href="{{route($indexRoute, $data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+            <button type="button" class="button" id="edit-button" ><i class="nc-icon-mini ui-2_disk"></i></button>
             <a href="#" class="button topbar__utility__button--modal" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
     </div>
 </div>
@@ -27,11 +28,14 @@ Canvassing
     <div class="twelve columns">
 
             <div class="row">
-                <div class="six columns">
-                    {!! Form::selectField('rfq_id', 'RFQ Number', $rfq_list) !!}
-                </div>
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('canvass_date', 'Canvassing Date') !!}
+                </div>
+                <div class="four columns">
+                    {!! Form::textField('canvass_time', 'Canvassing Time') !!}
+                </div>
+                <div class="four columns">
+                    {!! Form::textField('adjourned_time', 'Adjourned Time') !!}
                 </div>
             </div>
 
@@ -46,6 +50,22 @@ Canvassing
 <script src="/vendors/timepicker/timepicker.min.js"></script>
 
 <script type="text/javascript">
+
+
+    $('#edit-button').click(function(e){
+        e.preventDefault();
+        $('#edit-modal').addClass('is-visible');
+    })
+
+    var timepicker = new TimePicker(['id-field-canvass_time', 'id-field-adjourned_time' ], {
+        lang: 'en',
+        theme: 'dark'
+    });
+
+    timepicker.on('change', function(evt){
+      var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+      evt.element.value = value;
+    });
 
 
     // datepicker

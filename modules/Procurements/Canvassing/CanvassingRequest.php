@@ -17,6 +17,7 @@ class CanvassingRequest extends BaseRequest
         'rfq_id',
         'canvass_time',
         'rfq_number',
+        'update_remarks',
         'upr_number',
     ];
 
@@ -29,7 +30,7 @@ class CanvassingRequest extends BaseRequest
     {
         return [
             'canvass_date'              => 'required',
-            'rfq_id'                    => 'required',
+            // 'rfq_id'                    => 'required',
         ];
     }
 }
