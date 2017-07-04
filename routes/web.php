@@ -163,6 +163,8 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('ntp/logs/{id}', '\Revlv\Controllers\Procurements\NoticeToProceedController@viewLogs')->name('ntp.logs');
+    Route::put('ntp/update-dates/{id}', '\Revlv\Controllers\Procurements\NoticeToProceedController@updateDates')->name('ntp.update-dates');
     Route::put('ntp/update-signatory/{id}', '\Revlv\Controllers\Procurements\NoticeToProceedController@updateSignatory')->name('ntp.update-signatory');
     Route::get('ntp/print/{id}', '\Revlv\Controllers\Procurements\NoticeToProceedController@viewPrint')->name('ntp.print');
     Route::resource('ntp', '\Revlv\Controllers\Procurements\NoticeToProceedController');

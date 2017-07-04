@@ -21,6 +21,7 @@ class NTPRequest extends BaseRequest
         'prepared_date',
         'status',
         'remarks',
+        'update_remarks',
         'file',
 
         'received_by',

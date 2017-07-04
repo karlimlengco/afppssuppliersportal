@@ -16,6 +16,8 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
+use \Revlv\Settings\AuditLogs\AuditLogRepository;
+
 
 class NoticeToProceedController extends Controller
 {
@@ -39,6 +41,7 @@ class NoticeToProceedController extends Controller
     protected $ntp;
     protected $noa;
     protected $signatories;
+    protected $audits;
 
     /**
      * [$model description]
@@ -103,6 +106,7 @@ class NoticeToProceedController extends Controller
             'po_model'      =>  $po_model,
             'signatory_list'=>  $signatory_list,
             'indexRoute'    =>  $this->baseUrl.'index',
+            'editRoute'    =>  $this->baseUrl.'edit',
             'printRoute'    =>  $this->baseUrl.'print',
             'modelConfig'   =>  [
                 'receive_ntp' =>  [
@@ -163,6 +167,28 @@ class NoticeToProceedController extends Controller
     }
 
     /**
+     * [create description]
+     * @return [type] [description]
+     */
+    public function edit($id, NTPRepository $model)
+    {
+
+        $data   =   $model->findById($id);
+
+        return $this->view('modules.procurements.ntp.edit',[
+            'data'          =>  $data,
+            'indexRoute'    =>  $this->baseUrl.'show',
+            'modelConfig'   =>  [
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update-dates', $id],
+                    'method'    =>  'PUT'
+                ],
+            ]
+
+        ]);
+    }
+
+    /**
      * [updateSignatory description]
      *
      * @param  Request $request [description]
@@ -176,6 +202,36 @@ class NoticeToProceedController extends Controller
         ]);
 
         $model->update(['signatory_id' =>$request->signatory_id], $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+
+    /**
+     * [updateDates description]
+     *
+     * @param  [type]        $id      [description]
+     * @param  Request       $request [description]
+     * @param  NTPRepository $model   [description]
+     * @return [type]                 [description]
+     */
+    public function updateDates($id, Request $request, NTPRepository $model)
+    {
+        $this->validate($request, [
+            'prepared_date'         =>  'required',
+            'update_remarks'        =>  'required',
+            'award_accepted_date'   =>  'required',
+        ]);
+
+        $input  =   [
+            'prepared_date'         =>  $request->prepared_date,
+            'update_remarks'        =>  $request->update_remarks,
+            'award_accepted_date'   =>  $request->award_accepted_date,
+        ];
+
+        $result             =   $model->update($input, $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -257,5 +313,26 @@ class NoticeToProceedController extends Controller
         $pdf = PDF::loadView('forms.ntp', ['data' => $data])->setOption('margin-left', 13)->setOption('margin-right', 13)->setOption('margin-bottom', 10)->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('ntp.pdf');
+    }
+
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, NTPRepository $model, AuditLogRepository $logs)
+    {
+
+        $modelType  =   'Revlv\Procurements\NoticeToProceed\NTPEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.procurements.ntp.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'model'         =>  $data_model
+        ]);
     }
 }

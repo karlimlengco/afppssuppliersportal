@@ -28,7 +28,7 @@ trait DatatableTrait
             'purchase_orders.po_number',
             'purchase_orders.purchase_date',
             'purchase_orders.mfo_released_date',
-            'purchase_orders.pcco_released_date',
+            'purchase_orders.funding_released_date',
             'purchase_orders.bid_amount',
             'purchase_orders.status',
             'suppliers.name'

@@ -44,6 +44,14 @@ Notice To Proceed
             <i class="nc-icon-mini tech_print"></i>
         </a>
 
+        <a href="{{route('procurements.ntp.logs', $data->id)}}" class="button" tooltip="Logs">
+            <i class="nc-icon-mini files_archive-content"></i>
+        </a>
+
+        <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
+            <i class="nc-icon-mini design_pen-01"></i>
+        </a>
+
 
     </div>
 </div>

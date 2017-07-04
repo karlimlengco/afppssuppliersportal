@@ -3,9 +3,26 @@
 namespace Revlv\Procurements\NoticeToProceed;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class NTPEloquent extends Model
+class NTPEloquent extends Model implements  AuditableContract
 {
+    use Auditable;
+
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [
+        'prepared_date',
+        'remarks',
+        'update_remarks',
+        'award_accepted_date',
+        'accepted_date',
+    ];
+
 
     /**
      * The database table used by the model.
@@ -31,6 +48,7 @@ class NTPEloquent extends Model
         'prepared_date',
         'status',
         'remarks',
+        'update_remarks',
         'file',
 
         'received_by',

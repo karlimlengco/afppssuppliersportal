@@ -26,6 +26,7 @@ class CreateNoticeToProceed extends Migration
             $table->timestamp('prepared_date')->nullable();
             $table->string('status')->nullable();
             $table->text('remarks')->nullable();
+            $table->text('update_remarks')->nullable();
             $table->text('file')->nullable();
 
             $table->string('received_by')->nullable();
