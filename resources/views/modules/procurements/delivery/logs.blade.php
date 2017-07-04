@@ -1,5 +1,5 @@
 @section('title')
-Notice Of Award
+Notice Of Delivery
 @stop
 
 @section('contents')

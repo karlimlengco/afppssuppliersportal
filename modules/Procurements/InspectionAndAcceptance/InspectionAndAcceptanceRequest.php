@@ -21,6 +21,7 @@ class InspectionAndAcceptanceRequest extends BaseRequest
         'findings',
         'prepared_by',
         'status',
+        'update_remarks',
         'recommendation',
     ];
 

@@ -2,47 +2,34 @@
 Inspection And Acceptance Report
 @stop
 
-@section('styles')
-<link rel="stylesheet" href="/vendors/timepicker/timepicker.min.css">
-@stop
 
 @section('modal')
-    @include('modules.partials.modals.delete')
+    {!! Form::model($data, $modelConfig['update']) !!}
+    @include('modules.partials.modals.edit-remarks')
 @stop
+
 
 @section('contents')
 
-
 <div class="row">
-    <div class="six columns align-left">
-        <h3> </h3>
+    <div class="twelve columns align-right utility utility--align-right">
+
+        <button type="button" class="button"  id="edit-button"  tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+
+        <a href="{{route($indexRoute, $data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
     </div>
 </div>
 
 <div class="row">
     <div class="twelve columns">
-        {!! Form::model($data, $modelConfig['update']) !!}
 
             <div class="row">
                 <div class="six columns">
-                    {!! Form::selectField('rfq_id', 'RFQ Number', $rfq_list) !!}
+                    {!! Form::textField('accepted_date', 'Accepted Date') !!}
                 </div>
                 <div class="six columns">
-                    {!! Form::textField('canvass_date', 'Canvassing Date') !!}
+                    {!! Form::textField('inspection_date', 'Inspection Date') !!}
                 </div>
-            </div>
-
-            <div class="row">
-
-                <div class="six columns">
-                    <button type="button" class="button"> <a href="{{route($indexRoute)}}"> Back </a></button>
-                    <button class="button">Save</button>
-                </div>
-
-                <div class="six columns align-right">
-                    <button class="button topbar__utility__button--modal" >Delete</button>
-                </div>
-
             </div>
         {!! Form::close() !!}
     </div>
@@ -52,20 +39,25 @@ Inspection And Acceptance Report
 @stop
 
 @section('scripts')
-<script src="/vendors/timepicker/timepicker.min.js"></script>
 
 <script type="text/javascript">
 
-
+    $('#edit-button').click(function(e){
+        e.preventDefault();
+        $('#edit-modal').addClass('is-visible');
+    })
     // datepicker
 
-    var picker = new Pikaday(
+    var accepted_date = new Pikaday(
     {
-        field: document.getElementById('id-field-canvass_date'),
+        field: document.getElementById('id-field-accepted_date'),
         firstDay: 1,
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
+    });
+
+    var inspection_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-inspection_date'),
+        firstDay: 1,
     });
     // end datepicker
 </script>

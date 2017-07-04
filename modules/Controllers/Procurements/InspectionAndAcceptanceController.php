@@ -15,6 +15,7 @@ use \Revlv\Procurements\InspectionAndAcceptance\InspectionAndAcceptanceRepositor
 use \Revlv\Procurements\InspectionAndAcceptance\InspectionAndAcceptanceRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
+use \Revlv\Settings\AuditLogs\AuditLogRepository;
 
 class InspectionAndAcceptanceController extends Controller
 {
@@ -43,6 +44,7 @@ class InspectionAndAcceptanceController extends Controller
     protected $signatories;
     protected $upr;
     protected $rfq;
+    protected $audits;
 
     /**
      * @param model $model
@@ -269,6 +271,7 @@ class InspectionAndAcceptanceController extends Controller
             'supplier'      =>  $supplier,
             'indexRoute'    =>  $this->baseUrl.'index',
             'printRoute'    =>  $this->baseUrl.'print',
+            'editRoute'     =>  $this->baseUrl.'edit',
             'acceptRoute'   =>  $this->baseUrl.'accepted',
             'modelConfig'   =>  [
                 'update' =>  [
@@ -292,15 +295,11 @@ class InspectionAndAcceptanceController extends Controller
 
         return $this->view('modules.procurements.inspection-acceptance.edit',[
             'data'          =>  $result,
-            'indexRoute'    =>  $this->baseUrl.'index',
+            'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
                     'method'    =>  'PUT'
-                ],
-                'destroy'   => [
-                    'route' => [$this->baseUrl.'destroy',$id],
-                    'method'=> 'DELETE'
                 ]
             ]
         ]);
@@ -313,11 +312,22 @@ class InspectionAndAcceptanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(InspectionAndAcceptanceRequest $request, $id, InspectionAndAcceptanceRepository $model)
+    public function update(Request $request, $id, InspectionAndAcceptanceRepository $model)
     {
-        $model->update($request->getData(), $id);
+        $this->validate($request, [
+            "update_remarks"    => 'required',
+            "accepted_date"     => 'required',
+            "inspection_date"   => 'required',
+        ]);
+        $input  =[
+            "update_remarks"    => $request->update_remarks,
+            "accepted_date"     => $request->accepted_date,
+            "inspection_date"   => $request->inspection_date,
+        ];
 
-        return redirect()->route($this->baseUrl.'edit', $id)->with([
+        $model->update($input, $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
         ]);
     }
@@ -398,6 +408,27 @@ class InspectionAndAcceptanceController extends Controller
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, InspectionAndAcceptanceRepository $model, AuditLogRepository $logs)
+    {
+
+        $modelType  =   'Revlv\Procurements\InspectionAndAcceptance\InspectionAndAcceptanceEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.procurements.delivery.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'model'         =>  $data_model
         ]);
     }
 }

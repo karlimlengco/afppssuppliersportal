@@ -3,9 +3,24 @@
 namespace Revlv\Procurements\InspectionAndAcceptance;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class InspectionAndAcceptanceEloquent extends Model
+class InspectionAndAcceptanceEloquent extends Model implements  AuditableContract
 {
+    use Auditable;
+
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [
+        'inspection_date',
+        'accepted_date',
+        'update_remarks',
+    ];
+
 
     /**
      * The database table used by the model.
@@ -35,6 +50,7 @@ class InspectionAndAcceptanceEloquent extends Model
         'accepted_date',
         'status',
         'inspection_signatory',
+        'update_remarks',
         'acceptance_signatory',
     ];
 

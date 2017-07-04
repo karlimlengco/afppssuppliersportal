@@ -28,6 +28,7 @@ class CreateInspectionAcceptanceReport extends Migration
             $table->string('status')->nullable();
             $table->text('findings')->nullable();
             $table->text('recommendation')->nullable();
+            $table->text('update_remarks')->nullable();
             $table->integer('prepared_by')->nullable();
             $table->integer('inspection_signatory')->nullable();
             $table->integer('acceptance_signatory')->nullable();
