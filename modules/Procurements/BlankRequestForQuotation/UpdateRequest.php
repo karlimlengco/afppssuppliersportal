@@ -19,6 +19,7 @@ class UpdateRequest extends BaseRequest
         'opening_time',
         'completed_at',
         'transaction_date',
+        'update_remarks',
 
         'status',
         'remarks',

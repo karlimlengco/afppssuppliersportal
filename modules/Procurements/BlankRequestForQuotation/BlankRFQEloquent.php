@@ -3,9 +3,26 @@
 namespace Revlv\Procurements\BlankRequestForQuotation;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class BlankRFQEloquent extends Model
+class BlankRFQEloquent extends Model implements  AuditableContract
 {
+
+    use Auditable;
+
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [
+        'deadline',
+        'opening_time',
+        'update_remarks',
+        'remarks',
+        'transaction_date',
+    ];
 
     /**
      * The database table used by the model.
@@ -30,6 +47,7 @@ class BlankRFQEloquent extends Model
         'deadline',
         'opening_time',
         'transaction_date',
+        'update_remarks',
 
         'status',
         'remarks',

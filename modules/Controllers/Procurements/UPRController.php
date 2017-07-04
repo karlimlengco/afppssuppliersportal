@@ -11,6 +11,7 @@ use Excel;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\Attachments\AttachmentRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRequest;
+use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestUpdateRequest;
 use \Revlv\Procurements\Items\ItemRepository;
 use \Revlv\Settings\AccountCodes\AccountCodeRepository;
 use \Revlv\Settings\Chargeability\ChargeabilityRepository;
@@ -491,7 +492,7 @@ class UPRController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UnitPurchaseRequestRequest $request, $id, UnitPurchaseRequestRepository $model)
+    public function update(UnitPurchaseRequestUpdateRequest $request, $id, UnitPurchaseRequestRepository $model)
     {
         $model->update($request->getData(), $id);
 

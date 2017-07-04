@@ -33,7 +33,7 @@ Unit Purchase Request
                 {{-- Always shhow --}}
                 <a class="button__options__item" id="view-attachments-button" href="#">View Attachments</a>
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->id)}}">View Timelines</a>
-                <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}">View Logs</a>
+                {{-- <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}">View Logs</a> --}}
                 {{-- Always shhow --}}
 
                 @if(count($data->rfq) != 0)
@@ -85,6 +85,10 @@ Unit Purchase Request
 
         <a href="#" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
+        </a>
+
+        <a href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}" class="button" tooltip="Logs">
+            <i class="nc-icon-mini files_archive-content"></i>
         </a>
 
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">

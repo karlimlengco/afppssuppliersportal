@@ -14,6 +14,7 @@ use \Revlv\Procurements\BlankRequestForQuotation\UpdateRequest;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
+use \Revlv\Settings\AuditLogs\AuditLogRepository;
 
 class BlankRFQController extends Controller
 {
@@ -33,6 +34,7 @@ class BlankRFQController extends Controller
     protected $upr;
     protected $suppliers;
     protected $signatories;
+    protected $audits;
 
     /**
      * [$model description]
@@ -192,7 +194,7 @@ class BlankRFQController extends Controller
         return $this->view('modules.procurements.blank-rfq.edit',[
             'data'          =>  $result,
             'upr_list'      =>  $upr_list,
-            'indexRoute'    =>  $this->baseUrl.'index',
+            'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
@@ -284,5 +286,26 @@ class BlankRFQController extends Controller
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('rfq.pdf');
         return $pdf->download('rfq.pdf');
+    }
+
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, BlankRFQRepository $model, AuditLogRepository $logs)
+    {
+
+        $modelType  =   'Revlv\Procurements\BlankRequestForQuotation\BlankRFQEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $rfq_model  =   $model->findById($id);
+
+        return $this->view('modules.procurements.blank-rfq.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'rfq'           =>  $rfq_model,
+        ]);
     }
 }

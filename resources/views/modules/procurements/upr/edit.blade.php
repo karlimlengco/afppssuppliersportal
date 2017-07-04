@@ -24,39 +24,15 @@ Unit Purchase Request
                 {!! Form::textField('project_name', 'Project Name') !!}
             </div>
             <div class="six columns">
-                {!! Form::textField('upr_number', 'UPR Number') !!}
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="six columns">
                 {!! Form::textField('date_prepared', 'Date Prepared') !!}
             </div>
+        </div>
+
+        <div class="row">
             <div class="six columns">
-                {!! Form::selectField('units', 'Units', $unit) !!}
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="four columns">
-                {!! Form::selectField('place_of_delivery', 'Place of delivery', $procurement_center) !!}
-            </div>
-            <div class="four columns">
-                {!! Form::selectField('mode_of_procurement', 'Mode of Procurement', $procurement_modes) !!}
-            </div>
-            <div class="four columns">
-                {!! Form::selectField('chargeability', 'Chargeability', $charges) !!}
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="four columns">
-                {!! Form::selectField('account_code', 'Account Code', $account_codes) !!}
-            </div>
-            <div class="four columns">
                 {!! Form::textField('fund_validity', 'Fund Validity') !!}
             </div>
-            <div class="four columns">
+            <div class="six columns">
                 {!! Form::selectField('terms_of_payment', 'Terms of Payment', $payment_terms) !!}
             </div>
         </div>

@@ -8,15 +8,18 @@ Request For Quotation
 
 @section('modal')
     @include('modules.partials.modals.delete')
+    {!! Form::model($data, $modelConfig['update']) !!}
+    @include('modules.partials.modals.edit-remarks')
 @stop
 
 @section('contents')
 
-{!! Form::model($data, $modelConfig['update']) !!}
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
+
         <a href="{{route($indexRoute,$data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-        <button type="submit" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+
+        <button type="button" id="edit-button" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
 
         <a href="#" class="button topbar__utility__button--modal" ><i class="nc-icon-mini ui-1_trash"></i></a>
     </div>
@@ -48,6 +51,12 @@ Request For Quotation
                     {!! Form::textField('opening_time', 'Opening Time') !!}
                 </div>
             </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
     </div>
 </div>
 
@@ -59,6 +68,12 @@ Request For Quotation
 <script src="/vendors/timepicker/timepicker.min.js"></script>
 
 <script type="text/javascript">
+
+
+    $('#edit-button').click(function(e){
+        e.preventDefault();
+        $('#edit-modal').addClass('is-visible');
+    })
 
     var timepicker = new TimePicker('id-field-opening_time', {
         lang: 'en',
