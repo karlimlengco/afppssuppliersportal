@@ -15,6 +15,7 @@ use \Revlv\Procurements\InvitationToSubmitQuotation\UpdateRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\InvitationToSubmitQuotation\Quotations\QuotationRepository;
+use \Revlv\Settings\AuditLogs\AuditLogRepository;
 
 class ISPQController extends Controller
 {
@@ -35,6 +36,7 @@ class ISPQController extends Controller
     protected $rfq;
     protected $signatories;
     protected $quotations;
+    protected $audits;
 
     /**
      * [$model description]
@@ -280,6 +282,28 @@ class ISPQController extends Controller
 
         return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "Record has been successfully deleted."
+        ]);
+    }
+
+
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, ISPQRepository $model, AuditLogRepository $logs)
+    {
+
+        $modelType  =   'Revlv\Procurements\InvitationToSubmitQuotation\ISPQEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.procurements.ispq.logs',[
+            'indexRoute'    =>  $this->baseUrl."edit",
+            'data'          =>  $result,
+            'model'         =>  $data_model
         ]);
     }
 }

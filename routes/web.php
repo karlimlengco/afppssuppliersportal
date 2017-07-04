@@ -94,6 +94,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('ispq/logs/{id}', '\Revlv\Controllers\Procurements\ISPQController@viewLogs')->name('ispq.logs');
     Route::get('ispq/print/{id}', '\Revlv\Controllers\Procurements\ISPQController@viewPrint')->name('ispq.print');
     Route::post('ispq/store-by-rfq/{id}', '\Revlv\Controllers\Procurements\ISPQController@createByRFQ')->name('ispq.store-by-rfq');
     Route::resource('ispq', '\Revlv\Controllers\Procurements\ISPQController');

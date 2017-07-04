@@ -8,22 +8,26 @@ Invitation to Submit Price Quotation
 
 @section('modal')
     @include('modules.partials.modals.delete')
+    {!! Form::model($data, $modelConfig['update']) !!}
+    @include('modules.partials.modals.edit-remarks')
 @stop
 
 @section('contents')
 
-{!! Form::model($data, $modelConfig['update']) !!}
 
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
 
-        <button type="submit" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+        <button type="button" id="edit-button" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
 
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
 
         <a target="_blank" href="{{route('procurements.ispq.print',$data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
+        </a>
+        <a href="{{route('procurements.ispq.logs', $data->id)}}" class="button" tooltip="Logs">
+            <i class="nc-icon-mini files_archive-content"></i>
         </a>
         <a href="#" class="button topbar__utility__button--modal" ><i class="nc-icon-mini ui-1_trash"></i></a>
     </div>
@@ -94,6 +98,10 @@ Invitation to Submit Price Quotation
 
 <script type="text/javascript">
 
+    $('#edit-button').click(function(e){
+        e.preventDefault();
+        $('#edit-modal').addClass('is-visible');
+    })
     // datepicker
 
      var picker = new Pikaday(

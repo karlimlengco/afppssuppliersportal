@@ -16,6 +16,8 @@ class UpdateRequest extends BaseRequest
         'venue',
         'transaction_date',
         'signatory_id',
+        'update_remarks',
+        'remarks',
     ];
 
     /**

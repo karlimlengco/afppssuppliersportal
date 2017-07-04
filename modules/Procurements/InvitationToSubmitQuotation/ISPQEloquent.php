@@ -3,9 +3,27 @@
 namespace Revlv\Procurements\InvitationToSubmitQuotation;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class ISPQEloquent extends Model
+
+class ISPQEloquent extends Model implements  AuditableContract
 {
+
+    use Auditable;
+
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [
+        'signatory_id',
+        'venue',
+        'transaction_date',
+        'update_remarks',
+        'remarks',
+    ];
 
     /**
      * The database table used by the model.
@@ -24,6 +42,8 @@ class ISPQEloquent extends Model
         'venue',
         'transaction_date',
         'prepared_by',
+        'update_remarks',
+        'remarks',
     ];
 
     /**
