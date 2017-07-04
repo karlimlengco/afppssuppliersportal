@@ -31,6 +31,14 @@ Delivered Items Inspection
             </div>
         </button>
         <a class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
+
+        <a href="{{route('procurements.delivered-inspections.logs', $data->id)}}" class="button" tooltip="Logs">
+            <i class="nc-icon-mini files_archive-content"></i>
+        </a>
+
+        <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
+            <i class="nc-icon-mini design_pen-01"></i>
+        </a>
     </div>
 </div>
 

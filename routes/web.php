@@ -208,6 +208,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('delivered-inspections/logs/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewLogs')->name('delivered-inspections.logs');
     Route::put('delivered-inspections/update-signatory/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@updateSignatory')->name('delivered-inspections.update-signatory');
     Route::get('delivered-inspections/print/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrint')->name('delivered-inspections.print');
     Route::post('delivered-inspections/add-issue/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@addIssue')->name('delivered-inspections.add-issue');

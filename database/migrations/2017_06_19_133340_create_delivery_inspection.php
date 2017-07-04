@@ -23,6 +23,7 @@ class CreateDeliveryInspection extends Migration
             $table->string('status')->nullable();
             $table->string('delivery_number')->nullable();
             $table->string('inspection_number')->nullable();
+            $table->text('update_remarks')->nullable();
             $table->date('start_date')->nullable();
             $table->date('closed_date')->nullable();
             $table->integer('started_by')->nullable();

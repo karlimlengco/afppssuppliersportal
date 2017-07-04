@@ -15,6 +15,7 @@ use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\DeliveryInspection\Issues\IssueRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
+use \Revlv\Settings\AuditLogs\AuditLogRepository;
 
 class DeliveredInspectionReportController extends Controller
 {
@@ -45,6 +46,7 @@ class DeliveredInspectionReportController extends Controller
     protected $delivery;
     protected $issues;
     protected $upr;
+    protected $audits;
 
     /**
      * @param model $model
@@ -263,6 +265,7 @@ class DeliveredInspectionReportController extends Controller
             'supplier'      =>  $supplier,
             'signatory_list'=>  $signatory_list,
             'indexRoute'    =>  $this->baseUrl.'index',
+            'editRoute'     =>  $this->baseUrl.'edit',
             'printRoute'    =>  $this->baseUrl.'print',
             'modelConfig'   =>  [
                 'dtc_proceed' =>  [
@@ -286,6 +289,58 @@ class DeliveredInspectionReportController extends Controller
                     'method'    =>  'PUT'
                 ]
             ]
+        ]);
+    }
+
+    /**
+     * [edit description]
+     *
+     *
+     * @param  [type]                       $id    [description]
+     * @param  DeliveryInspectionRepository $model [description]
+     * @return [type]                              [description]
+     */
+    public function edit($id, DeliveryInspectionRepository $model)
+    {
+        $result   =   $model->findById($id);
+
+        return $this->view('modules.procurements.delivered-inspections.edit',[
+            'data'          =>  $result,
+            'showRoute'     =>  $this->baseUrl.'show',
+            'modelConfig'   =>  [
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update', $id],
+                    'method'    =>  'PUT'
+                ]
+            ]
+        ]);
+    }
+
+    /**
+     * [update description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function update(Request $request, $id, DeliveryInspectionRepository $model)
+    {
+        $this->validate($request, [
+            'start_date'    => 'required',
+            'closed_date'   => 'required',
+            'update_remarks'=> 'required',
+        ]);
+
+        $data   =   [
+            'start_date'    =>  $request->start_date,
+            'closed_date'   =>  $request->closed_date,
+            'update_remarks'=>  $request->update_remarks,
+        ];
+
+        $model->update($data, $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
         ]);
     }
 
@@ -339,5 +394,25 @@ class DeliveredInspectionReportController extends Controller
         $pdf = PDF::loadView('forms.diir')->setOption('margin-bottom', 0)->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('diir.pdf');
+    }
+
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, DeliveryInspectionRepository $model, AuditLogRepository $logs)
+    {
+        $modelType  =   'Revlv\Procurements\DeliveryInspection\DeliveryInspectionEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.procurements.delivered-inspections.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'model'         =>  $data_model
+        ]);
     }
 }

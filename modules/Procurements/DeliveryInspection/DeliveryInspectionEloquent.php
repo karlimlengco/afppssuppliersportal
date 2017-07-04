@@ -3,9 +3,23 @@
 namespace Revlv\Procurements\DeliveryInspection;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class DeliveryInspectionEloquent extends Model
+class DeliveryInspectionEloquent extends Model implements  AuditableContract
 {
+    use Auditable;
+
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [
+        'start_date',
+        'closed_date',
+        'update_remarks',
+    ];
 
     /**
      * The database table used by the model.
@@ -23,6 +37,7 @@ class DeliveryInspectionEloquent extends Model
         'dr_id',
         'upr_id',
         'rfq_id',
+        'update_remarks',
         'rfq_number',
         'upr_number',
         'delivery_number',

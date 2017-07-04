@@ -24,6 +24,7 @@ class DeliveryInspectionRequest extends BaseRequest
         'received_by',
         'approved_by',
         'issued_by',
+        'update_remarks',
         'requested_by',
     ];
 
