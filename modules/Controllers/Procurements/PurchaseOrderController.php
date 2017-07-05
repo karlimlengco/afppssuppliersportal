@@ -550,9 +550,9 @@ class PurchaseOrderController extends Controller
             return redirect()->back()->with(['error' => 'Please add signatory for COA']);
         }
 
-        $data['transaction_date']   =  $result->rfq->transaction_date;
-        $data['today']              =  \Carbon\Carbon::now()->format("d F Y");
+        $data['transaction_date']   =  $result->coa_approved_date;
         $data['rfq_number']         =  $result->rfq_number;
+        $data['po_number']         =  $result->po_number;
         $data['bid_amount']         =  $result->bid_amount;
         $data['project_name']       =  $result->upr->project_name;
         $data['winner']             =  $noa_model->name;

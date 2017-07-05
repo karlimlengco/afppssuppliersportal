@@ -382,16 +382,20 @@ class DeliveredInspectionReportController extends Controller
      */
     public function viewPrint(
         $id,
-        DeliveryOrderRepository $model,
+        DeliveryInspectionRepository $model,
         NOARepository $noa
         )
     {
-        // $result                     =  $model->with(['signatory','upr', 'po'])->findById($id);
+        $result                     =   $model->with(['receiver', 'approver','issuer','requestor','upr' ,'delivery'])->findById($id);
 
-        // $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
-        // $data['expected_date']      =  $result->expected_date;
-// , ['data' => $data]
-        $pdf = PDF::loadView('forms.diir')->setOption('margin-bottom', 0)->setPaper('a4');
+        $data['items']              =   $result->delivery->po->items;
+        $data['purpose']            =   $result->upr->purpose;
+        $data['ref_number']         =   $result->upr->ref_number;
+        $data['receiver']           =   $result->receiver;
+        $data['approver']           =   $result->approver;
+        $data['issuer']             =   $result->issuer;
+        $data['requestor']          =   $result->requestor;
+        $pdf = PDF::loadView('forms.diir', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('diir.pdf');
     }

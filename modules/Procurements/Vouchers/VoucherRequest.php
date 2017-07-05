@@ -33,6 +33,9 @@ class VoucherRequest extends BaseRequest
         'or',
 
         'approval_date',
+        'certified_by',
+        'approver_id',
+        'receiver_id',
     ];
 
     /**

@@ -411,16 +411,22 @@ class NoticeOfAwardController extends Controller
                 'error'  => "Please select signatory first"
             ]);
         }
+
         $result                     =   $model->findById($noa_modal->canvass_id);
         $proponent_awardee          =   $noa_modal->winner->supplier;
         $rfq_model                  =   $blank->findById($result->rfq_id);
         $upr_model                  =   $upr->with(['unit'])->findById($rfq_model->upr_id);
+
+        $data['transaction_date']   =   $noa_modal->awarded_date;
+        $data['rfq_date']           =   $rfq_model->transaction_date;
         $data['supplier']           =   $proponent_awardee;
-        $data['canvass_date']       =   $result->canvass_date;
-        $data['rfq_number']         =   $rfq_model->rfq_number;
-        $data['transaction_date']   =   $rfq_model->transaction_date;
-        $data['total_amount']       =   $upr_model->total_amount;
         $data['unit']               =   $upr_model->unit->description;
+        $data['rfq_number']         =   $rfq_model->rfq_number;
+        $data['total_amount']       =   $upr_model->total_amount;
+        $data['bid_amount']         =   $noa_modal->winner->bid_amount;
+
+
+        $data['canvass_date']       =   $result->canvass_date;
         $data['signatory']          =   $noa_modal->signatory;
         $data['project_name']       =   $upr_model->project_name;
 

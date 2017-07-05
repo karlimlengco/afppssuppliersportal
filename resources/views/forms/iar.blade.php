@@ -25,7 +25,7 @@
                         <tr>
                             <td class="align-left" width="20%">
                                 <span class="label">Date</span>
-                                {{$data['today']}}
+                                {{$data['inspection_date']}}
                             </td>
                             <td class="align-left" width="20%">
                                 <span class="label">Supplier</span>
@@ -37,7 +37,7 @@
                             </td>
                             <td class="align-left" width="30%">
                                 <span class="label">Requisitioning Office/Dept</span>
-                                Naval Logistics Center
+                                {{$data['center']}}
                             </td>
                         </tr>
                         <tr>
@@ -77,7 +77,7 @@
                                         </td>
                                         <td class="align-left v-align-middle">Inspected, verified and found in order as to quantity and specifications</td>
                                         <td class="v-align-middle" width="15%">
-                                            <span class="label">Date Inspected</span>
+                                            <span class="label">Date Accepted</span>
                                             {{$data['accepted_date']}}
                                         </td>
                                         <td class="has-child">
@@ -123,10 +123,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <span class="printable-form__foot__ref">302ND-NLC-SPOF-016-15 111685 281033H December 2015</span>
+                            <span class="printable-form__foot__ref">{{$data['po_number']}}{{$data['inspection_date']}}</span>
                         </td>
                         <td>
-                            <span class="printable-form__foot__code"><img src="src/img/barcode.png" alt=""></span>
+                            <span class="printable-form__foot__code"><img src="{{base_path('public/img/barcode.png')}}" alt=""></span>
                         </td>
                     </tr>
                 </table>

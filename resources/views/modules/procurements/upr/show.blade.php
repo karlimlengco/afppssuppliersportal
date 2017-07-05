@@ -54,19 +54,19 @@ Unit Purchase Request
                 @endif
 
                 @if(count($data->noa) != 0)
-                    <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">NOA</a>
+                    <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">Notice Of Award</a>
                 @endif
 
                 @if(count($data->purchase_order) != 0)
-                    <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">PO</a>
+                    <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">Purchase Order</a>
                 @endif
 
                 @if(count($data->ntp) != 0)
-                    <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item">NTP</a>
+                    <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item">Notice To Proceed</a>
                 @endif
 
                 @if(count($data->delivery_order) != 0)
-                    <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button__options__item">NOD</a>
+                    <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button__options__item">Notice Of Delivery</a>
                 @endif
 
                 @if(count($data->diir) != 0)

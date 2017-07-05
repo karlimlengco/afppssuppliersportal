@@ -61,7 +61,7 @@ class DeliveryInspectionEloquent extends Model implements  AuditableContract
      */
     public function receiver()
     {
-        return $this->belongsTo('\Revlv\Procurements\Canvassing\Signatories\SignatoryEloquent', 'received_by');
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'received_by');
     }
 
     /**
@@ -71,7 +71,7 @@ class DeliveryInspectionEloquent extends Model implements  AuditableContract
      */
     public function approver()
     {
-        return $this->belongsTo('\Revlv\Procurements\Canvassing\Signatories\SignatoryEloquent', 'approved_by');
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'approved_by');
     }
 
     /**
@@ -81,7 +81,7 @@ class DeliveryInspectionEloquent extends Model implements  AuditableContract
      */
     public function issuer()
     {
-        return $this->belongsTo('\Revlv\Procurements\Canvassing\Signatories\SignatoryEloquent', 'issued_by');
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'issued_by');
     }
 
 
@@ -92,7 +92,7 @@ class DeliveryInspectionEloquent extends Model implements  AuditableContract
      */
     public function requestor()
     {
-        return $this->belongsTo('\Revlv\Procurements\Canvassing\Signatories\SignatoryEloquent', 'requested_by');
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'requested_by');
     }
 
     /**

@@ -24,6 +24,8 @@ class VoucherEloquent extends Model implements  AuditableContract
         'certify_date',
         'journal_entry_date',
         'approval_date',
+
+
     ];
 
     /**
@@ -67,7 +69,41 @@ class VoucherEloquent extends Model implements  AuditableContract
         'or',
 
         'approval_date',
+
+        'certified_by',
+        'approver_id',
+        'receiver_id',
     ];
+
+    /**
+     * [certifier description]
+     *
+     * @return [type] [description]
+     */
+    public function certifier()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'certified_by');
+    }
+
+    /**
+     * [approver description]
+     *
+     * @return [type] [description]
+     */
+    public function approver()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'approver_id');
+    }
+
+    /**
+     * [receiver description]
+     *
+     * @return [type] [description]
+     */
+    public function receiver()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'receiver_id');
+    }
 
     /**
      * [users description]

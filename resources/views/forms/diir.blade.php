@@ -33,14 +33,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($data['items'] as $key=>$item)
                         <tr>
-                            <td>1</td>
-                            <td>RM</td>
-                            <td>Bond Paper A4</td>
-                            <td>100</td>
-                            <td>240.00</td>
-                            <td>24,000.00</td>
+                            <td>{{$key+1}}</td>
+                            <td>{{$item->unit}}</td>
+                            <td>{{$item->description}}</td>
+                            <td>{{$item->quantity}}</td>
+                            <td>{{formatPrice($item->price_unit)}}</td>
+                            <td>{{formatPrice($item->total_amount)}}</td>
                         </tr>
+                        @endforeach
                         <tr>
                             <td colspan="5">One Hundred Pesos</td>
                             <td>100.00</td>
@@ -48,7 +50,7 @@
                         <tr>
                             <td colspan="6">
                                 <span class="label">Purpose</span>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet alias ut, facilis reiciendis aspernatur, autem!
+                                {{$data['purpose']}}
                             </td>
                         </tr>
                         <tr>
@@ -60,40 +62,40 @@
                                     </tr>
                                     <tr>
                                         <td class="align-left" height="75px">
-                                            <span class="label">Signature</span>
+                                            <span class="label"> </span>
                                         </td>
                                         <td class="align-left">
-                                            <span class="label">Signature</span>
+                                            <span class="label"> </span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="align-left">
                                             <span class="label">Name</span>
-                                            Michael Giordano
+                                            {{$data['requestor']->name}}
                                         </td>
                                         <td class="align-left">
                                             <span class="label">Name</span>
-                                            Scottie Peppino
+                                            {{$data['approver']->name}}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="align-left">
                                             <span class="label">Designation</span>
-                                            Shooting Forward
+                                            {{$data['requestor']->designation}}
                                         </td>
                                         <td class="align-left">
                                             <span class="label">Designation</span>
-                                            Power Forward
+                                            {{$data['approver']->designation}}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="align-left">
                                             <span class="label">Date</span>
-                                            01-June-2017
+
                                         </td>
                                         <td class="align-left">
                                             <span class="label">Date</span>
-                                            01-June-2017
+
                                         </td>
                                     </tr>
                                     <tr>
@@ -102,40 +104,40 @@
                                     </tr>
                                     <tr>
                                         <td class="align-left" height="75px">
-                                            <span class="label">Signature</span>
+                                            <span class="label"></span>
                                         </td>
                                         <td class="align-left">
-                                            <span class="label">Signature</span>
+                                            <span class="label"></span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="align-left">
                                             <span class="label">Name</span>
-                                            Michael Giordano
+                                            {{$data['issuer']->name}}
                                         </td>
                                         <td class="align-left">
                                             <span class="label">Name</span>
-                                            Scottie Peppino
+                                            {{$data['receiver']->name}}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="align-left">
                                             <span class="label">Designation</span>
-                                            Shooting Forward
+                                            {{$data['issuer']->designation}}
                                         </td>
                                         <td class="align-left">
                                             <span class="label">Designation</span>
-                                            Power Forward
+                                            {{$data['receiver']->designation}}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="align-left">
                                             <span class="label">Date</span>
-                                            01-June-2017
+
                                         </td>
                                         <td class="align-left">
                                             <span class="label">Date</span>
-                                            01-June-2017
+
                                         </td>
                                     </tr>
                                 </table>
@@ -154,7 +156,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <span class="printable-form__foot__ref">302ND-NLC-SPOF-016-15 111685 281033H December 2015</span>
+                            <span class="printable-form__foot__ref">{{$data['ref_number']}}</span>
                         </td>
                         <td>
                             <span class="printable-form__foot__code">

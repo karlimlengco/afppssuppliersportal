@@ -43,6 +43,11 @@ class CreateVouchers extends Migration
 
             $table->date('approval_date')->nullable();
 
+            $table->integer('certified_by')->nullable();
+            $table->integer('approver_id')->nullable();
+            $table->integer('receiver_id')->nullable();
+
+
             $table->timestamps();
         });
     }

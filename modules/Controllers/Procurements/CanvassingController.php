@@ -282,12 +282,13 @@ class CanvassingController extends Controller
     public function viewPrint($id, CanvassingRepository $model)
     {
         $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
-
         $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
+
+        $data['date']               =  $result->canvass_date." ". $result->canvass_time;
 
         $data['rfq_number']         =  $result->rfq->rfq_number;
         $data['total_amount']       =  $result->upr->total_amount;
-        $data['unit']               =  $result->upr->unit->name;
+        $data['unit']               =  $result->upr->unit->short_code;
         $data['center']             =  $result->upr->centers->name;
         $data['venue']              =  $result->rfq->invitations->ispq->venue;
         $data['signatories']        =  $result->signatories;

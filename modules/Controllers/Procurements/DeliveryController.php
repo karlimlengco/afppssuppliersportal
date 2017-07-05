@@ -364,7 +364,6 @@ class DeliveryController extends Controller
     {
         $result                     =  $model->with(['signatory','upr', 'po'])->findById($id);
 
-
         if($result->signatory == null)
         {
             return redirect()->back()->with([
@@ -373,9 +372,8 @@ class DeliveryController extends Controller
         }
 
         $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
-        $data['today']              =  \Carbon\Carbon::now()->format("d F Y");
+        $data['transaction_date']   =  $result->delivery_date;
         $data['po_number']          =  $result->po->po_number;
-        $data['transaction_date']   =  $result->created_at;
         $data['bid_amount']         =  $result->po->bid_amount;
         $data['project_name']       =  $result->upr->project_name;
         $data['center']             =  $result->upr->centers->name;

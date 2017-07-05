@@ -5,11 +5,14 @@ namespace Revlv\Controllers\Procurements;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use PDF;
 
 use \Revlv\Procurements\Vouchers\VoucherRepository;
 use \Revlv\Procurements\Vouchers\VoucherRequest;
+use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
+use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 
 class VoucherController extends Controller
@@ -28,8 +31,10 @@ class VoucherController extends Controller
      * @var [type]
      */
     protected $upr;
+    protected $noa;
     protected $rfq;
     protected $audits;
+    protected $signatories;
 
     /**
      * [$model description]
@@ -117,14 +122,22 @@ class VoucherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( VoucherRepository $model, $id)
+    public function show( VoucherRepository $model, $id, SignatoryRepository $signatories)
     {
         $result         =   $model->findById($id);
+        $signatory_lists=   $signatories->lists('id', 'name');
 
         return $this->view('modules.procurements.vouchers.show',[
-            'data'          =>  $result,
-            'indexRoute'    =>  $this->baseUrl.'index',
-            'editRoute'     =>  $this->baseUrl.'edit',
+            'data'              =>  $result,
+            'signatory_list'    =>  $signatory_lists,
+            'indexRoute'        =>  $this->baseUrl.'index',
+            'editRoute'         =>  $this->baseUrl.'edit',
+            'modelConfig'   =>  [
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update-signatories', $id],
+                    'method'    =>  'PUT'
+                ]
+            ]
         ]);
     }
 
@@ -359,5 +372,67 @@ class VoucherController extends Controller
             'data'          =>  $result,
             'model'         =>  $data_model
         ]);
+    }
+
+    /**
+     * [updateSignatory description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function updateSignatory(Request $request, $id, VoucherRepository $model)
+    {
+        $this->validate($request, [
+            'certified_by'      =>  'required',
+            'approver_id'       =>  'required',
+            'receiver_id'       =>  'required',
+        ]);
+
+        $data   =   [
+            'certified_by'      =>  $request->certified_by,
+            'approver_id'       =>  $request->approver_id,
+            'receiver_id'       =>  $request->receiver_id,
+        ];
+
+        $model->update($data, $id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint($id, VoucherRepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr)
+    {
+        $result     =   $model->with(['receiver', 'approver', 'certifier'])->findById($id);
+        $noa_model  =   $noa->with(['winner','upr'])->findByRFQ($result->rfq_id);
+        $winner     =   $noa_model->winner->supplier;
+
+        $data['transaction_date']       =   $result->transaction_date;
+        $data['bir_address']            =   $result->bir_address;
+        $data['final_tax']              =   $result->final_tax;
+        $data['receiver']               =   $result->receiver;
+        $data['or']                     =   $result->or;
+        $data['approver']               =   $result->approver;
+        $data['certifier']              =   $result->certifier;
+        $data['journal_entry_date']     =   $result->journal_entry_date;
+        $data['journal_entry_number']   =   $result->journal_entry_number;
+        $data['payment_received_date']  =   $result->payment_received_date;
+        $data['approval_date']          =   $result->approval_date;
+        $data['certify_date']           =   $result->certify_date;
+        $data['expanded_witholding_tax']=   $result->expanded_witholding_tax;
+        $data['payee']                  =   $winner;
+        $data['upr']                    =   $noa_model->upr;
+        $data['po']                     =   $noa_model->upr->purchase_order;
+
+        $pdf = PDF::loadView('forms.voucher', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('voucher.pdf');
     }
 }

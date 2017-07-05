@@ -361,7 +361,6 @@ class InspectionAndAcceptanceController extends Controller
         )
     {
         $model                      =  $model->with(['acceptor', 'inspector'])->findById($id);
-
         if($model->acceptor ==null || $model->inspector == null)
         {
             return redirect()->back()->with(['error' => 'please add signatory']);
@@ -370,7 +369,6 @@ class InspectionAndAcceptanceController extends Controller
         $result                     =  $delivery->with(['upr', 'po'])->findById($model->dr_id);
 
         $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
-        $data['today']              =  \Carbon\Carbon::now()->format("d F Y");
         $data['po_number']          =  $result->po->po_number;
         $data['purchase_date']      =  $result->po->purchase_date;
         $data['bid_amount']         =  $result->po->bid_amount;

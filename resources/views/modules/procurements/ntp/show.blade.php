@@ -29,7 +29,7 @@ Notice To Proceed
                 @if(count($data->po) != 0)
                     <a href="{{route('procurements.purchase-orders.show', $data->po->id)}}" class="button__options__item">View PO</a>
                 @endif
-
+                <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
                 <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="UPR"> Request For Quotation</a>
                 <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="UPR"> Purchase Order</a>
 

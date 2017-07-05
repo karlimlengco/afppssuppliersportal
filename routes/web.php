@@ -54,7 +54,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
-Route::put('unit-purchase-requests/update-signatories/{id}', '\Revlv\Controllers\Procurements\UPRController@updateSignatory')->name('unit-purchase-requests.update-signatories');
+    Route::put('unit-purchase-requests/update-signatories/{id}', '\Revlv\Controllers\Procurements\UPRController@updateSignatory')->name('unit-purchase-requests.update-signatories');
     Route::get('unit-purchase-requests/print/{id}', '\Revlv\Controllers\Procurements\UPRController@viewPrint')->name('unit-purchase-requests.print');
     Route::post('unit-purchase-requests/terminate/{id}', '\Revlv\Controllers\Procurements\UPRController@terminateUPR')->name('unit-purchase-requests.terminate');
     Route::post('unit-purchase-requests/attachments/{id}', '\Revlv\Controllers\Procurements\UPRController@uploadAttachment')->name('unit-purchase-requests.attachments.store');
@@ -223,6 +223,8 @@ Route::put('unit-purchase-requests/update-signatories/{id}', '\Revlv\Controllers
     |--------------------------------------------------------------------------
     |
     */
+    Route::put('vouchers/update-signatories/{id}', '\Revlv\Controllers\Procurements\VoucherController@updateSignatory')->name('vouchers.update-signatories');
+    Route::get('vouchers/print/{id}', '\Revlv\Controllers\Procurements\VoucherController@viewPrint')->name('vouchers.print');
     Route::get('vouchers/logs/{id}', '\Revlv\Controllers\Procurements\VoucherController@viewLogs')->name('vouchers.logs');
     Route::post('vouchers/preaudit/{id}', '\Revlv\Controllers\Procurements\VoucherController@preauditVoucher')->name('vouchers.preaudit');
     Route::post('vouchers/certify/{id}', '\Revlv\Controllers\Procurements\VoucherController@certifyVoucher')->name('vouchers.certify');

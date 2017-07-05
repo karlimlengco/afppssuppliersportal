@@ -9,6 +9,7 @@ Vouchers
     @include('modules.partials.modals.certify-voucher')
     @include('modules.partials.modals.approval-voucher')
     @include('modules.partials.modals.journal')
+    @include('modules.partials.modals.voucher-signatory')
 @stop
 
 @section('contents')
@@ -19,8 +20,9 @@ Vouchers
         <button  type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
-                    <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}">Unit of Purchase Request</a>
-                    <a class="button__options__item" href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}">Request For Quotation</a>
+                <a class="button__options__item" href="#" id='signatory-button'>Signatories</a>
+                <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}">Unit of Purchase Request</a>
+                <a class="button__options__item" href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}">Request For Quotation</a>
 
                 @if($data->approval_date && !$data->payment_release_date)
                     <a href="#" id="release-button" class="button__options__item " tooltip="Release Payment"> Release Payment</a>
@@ -44,6 +46,10 @@ Vouchers
                 @endif
             </div>
         </button>
+
+        <a target="_blank" href="{{route('procurements.vouchers.print', $data->id)}}" class="button" tooltip="Print">
+            <i class="nc-icon-mini tech_print"></i>
+        </a>
         <a href="{{route('procurements.vouchers.logs', $data->id)}}" class="button" tooltip="Logs">
             <i class="nc-icon-mini files_archive-content"></i>
         </a>
@@ -120,6 +126,10 @@ $('#release-button').click(function(e){
 $('#journal-button').click(function(e){
     e.preventDefault();
     $('#journal-modal').addClass('is-visible');
+})
+$('#signatory-button').click(function(e){
+    e.preventDefault();
+    $('#signatory-modal').addClass('is-visible');
 })
 
 var payment_received_date = new Pikaday(
