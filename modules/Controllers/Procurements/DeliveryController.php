@@ -141,7 +141,7 @@ class DeliveryController extends Controller
 
         DB::table('delivery_order_items')->insert($items);
 
-        $rfq->update(['status' => 'NOD Created'], $result->upr_id);
+        $upr->update(['status' => 'NOD Created'], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -243,7 +243,7 @@ class DeliveryController extends Controller
             "expected_date"         => 'required',
             "delivery_date"         => 'required',
             "transaction_date"      => 'required',
-            "date_delivered_to_coa" => 'required',
+            // "date_delivered_to_coa" => 'required',
         ]);
 
         $input  =   [
@@ -251,7 +251,7 @@ class DeliveryController extends Controller
             "expected_date"         =>  $request->expected_date,
             "delivery_date"         =>  $request->delivery_date,
             "transaction_date"      =>  $request->transaction_date,
-            "date_delivered_to_coa" =>  $request->date_delivered_to_coa,
+            // "date_delivered_to_coa" =>  $request->date_delivered_to_coa,
         ];
 
         $model->update($input, $id);

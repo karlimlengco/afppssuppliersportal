@@ -25,9 +25,13 @@ Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
     Route::resource('psr-transactions', '\Revlv\Controllers\Reports\PSRController');
 
     Route::get('transaction-days/download/{search_at?}', '\Revlv\Controllers\Reports\TransactionDayController@download')->name('reports.transaction-days.download');
+    Route::get('transaction-days/download/{search_at?}', '\Revlv\Controllers\Reports\TransactionDayController@download')->name('reports.transaction-days.download');
     Route::resource('transaction-days', '\Revlv\Controllers\Reports\TransactionDayController');
 
     Route::resource('suppliers', '\Revlv\Controllers\Reports\TransactionDayController');
+    Route::get('uprs/{programs}/{centers}', '\Revlv\Controllers\Reports\UPRController@getUprs')->name('reports.uprs');
+    Route::get('upr-centers/{id}', '\Revlv\Controllers\Reports\UPRController@getUprCenters')->name('reports.upr-centers');
+    Route::get('upr-programs', '\Revlv\Controllers\Reports\UPRController@getUprPrograms')->name('reports.upr-analytics');
 });
 
 /*

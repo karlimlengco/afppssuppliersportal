@@ -65,8 +65,22 @@
                         </tr>
                         <tr>
                             <td class="signatory align-center v-align-middle" width="45%">
-                                <span class="signatory-name">{{$data['coa_signatory']->name}}</span>
-                                {{$data['coa_signatory']->designation}}</td>
+                                <div class="signatory-name">
+                                    <table>
+                                        <tr>
+                                            <td width="50%"></td>
+                                            <td nowrap>{{$data['coa_signatory']->name}}</td>
+                                            <td width="50%"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%"></td>
+                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['coa_signatory']->ranks; ?></pre> </td>
+                                            <td width="50%"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                {{$data['coa_signatory']->designation}}
+                            </td>
                             <td width="10%"></td>
                             <td class="signatory align-left v-align-middle" width="45%"></td>
                         </tr>

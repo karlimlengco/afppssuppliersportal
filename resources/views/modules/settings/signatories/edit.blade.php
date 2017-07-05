@@ -26,8 +26,11 @@ Signatories
     <div class="twelve columns">
 
             <div class="row">
-                <div class="twelve columns">
+                <div class="six columns">
                     {!! Form::textField('name', 'Name') !!}
+                </div>
+                <div class="six columns">
+                    {!! Form::textField('ranks', 'Rank') !!}
                 </div>
             </div>
 

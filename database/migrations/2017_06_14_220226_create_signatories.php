@@ -16,6 +16,7 @@ class CreateSignatories extends Migration
         Schema::create('signatories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('ranks');
             $table->string('designation');
             $table->timestamps();
         });

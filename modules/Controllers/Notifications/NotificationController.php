@@ -59,7 +59,7 @@ class NotificationController extends Controller
 
         foreach($delays as $key => $item)
         {
-            $upr_created    = Carbon::createFromFormat('Y-m-d H:i:s', $item->upr_created_at);
+            $upr_created    = Carbon::createFromFormat('Y-m-d', $item->upr_created_at);
 
             //UPR to RFQ Count
             if($item->rfq_created_at == null && $today->gte($upr_created) )
@@ -186,13 +186,13 @@ class NotificationController extends Controller
 
 
             // Canvass posting
-            if($item->ispq_transaction_date != null && $item->canvass_start_date == null )
+            if($item->pp_completed_at != null && $item->canvass_start_date == null )
             {
-                $ispq_transaction_date    = Carbon::createFromFormat('Y-m-d', $item->ispq_transaction_date);
+                $pp_completed_at    = Carbon::createFromFormat('Y-m-d', $item->pp_completed_at);
                 // Count working days
                 $days = $today->diffInDaysFiltered(function (Carbon $date) use ($h_lists) {
                     return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
-                }, $ispq_transaction_date);
+                }, $pp_completed_at);
 
 
                 $data   =   [
@@ -206,7 +206,7 @@ class NotificationController extends Controller
                     'event'             =>  "Opening Canvass",
                     'status'            =>  "Delay",
                     'days'              =>  $days,
-                    'transaction_date'  =>  $ispq_transaction_date->format('Y-m-d'),
+                    'transaction_date'  =>  $pp_completed_at->format('Y-m-d'),
                 ];
 
                 if($days >= 1)

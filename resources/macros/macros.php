@@ -533,3 +533,55 @@ function translateToWords($number)
 function rgbcode($id){
     return '#'.substr(md5($id), 1, 6);
 }
+
+define('JPAD_LEFT', 1);     // More spaces are added on the left of the line
+define('JPAD_RIGHT', 2);    // More spaces are added on the right of the line
+define('JPAD_BOTH', 4);     // Tries to evenly distribute the padding
+define('JPAD_AVERAGE', 8);  // Tries to position based on a mix of the three algorithms
+
+function justify($input, $width, $mode = JPAD_BOTH)
+{
+    // We want to have n characters wide of text per line.
+    // Use PHP's wordwrap feature to give us a rough estimate.
+    $justified = wordwrap($input, $width, "\n", false);
+    $justified = explode("\n", $justified);
+    $final     = "";
+
+    // Check each line is the required width. If not, pad
+    // it with spaces between words.
+    foreach($justified as $line)
+    {
+        if(strlen($line) != $width)
+        {
+            // Split by word, then glue together
+            $words = explode(' ', $line);
+            // dd($justified);
+            $diff  = $width - strlen($line);
+
+            while($diff > 0)
+            {
+                // Process the word at this diff
+                if     ($mode == JPAD_BOTH)  $words[$diff / count($words)] .= ' ';
+                else if($mode == JPAD_AVERAGE)
+                    $words[(($diff / count($words)) +
+                            ($diff % count($words)) +
+                            (count($words) - ($diff % count($words))))
+                            / 3] .= ' ';
+                else if($mode == JPAD_LEFT)  $words[$diff % count($words)] .= ' ';
+                else if($mode == JPAD_RIGHT) $words[count($words) - ($diff % count($words))] .= ' ';
+
+                // Next diff, please...
+                $diff--;
+            }
+        }
+        else
+        {
+            $words = explode(' ', $line);
+        }
+
+        $final .= implode(' ',  $words) . "\n";
+    }
+
+    // Return the final string
+    return $final;
+}

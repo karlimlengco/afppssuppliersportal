@@ -24,6 +24,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
         'purpose',
 
         'project_name',
+        'days',
         'upr_number',
         'ref_number',
 
@@ -32,6 +33,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
 
         'date_processed',
         'processed_by',
+        'completed_at',
 
         'total_amount',
 

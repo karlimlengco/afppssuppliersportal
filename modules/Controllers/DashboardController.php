@@ -41,6 +41,8 @@ class DashboardController extends Controller
      */
     public function index(BlankRFQRepository $blankRfq, UnitRepository $units, UnitPurchaseRequestRepository $model)
     {
+        // $analytics  =   $model->getAnalytics();
+
         $result     =   $model->getPSR();
         $result2    =   $model->getPSRUnits();
         // $rfq    =   $blankRfq->getAll();
@@ -166,7 +168,9 @@ class DashboardController extends Controller
             'description'   => "PCCI Graph"
         ]);
 
-        return $this->view('modules.dashboard');
+        return $this->view('modules.dashboard',[
+            // 'analytics' =>  $analytics
+        ]);
     }
 
     // $rfq    =   $blankRfq->getAll();

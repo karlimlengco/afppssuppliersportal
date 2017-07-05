@@ -131,7 +131,7 @@ class NoticeOfAwardController extends Controller
     {
         $id         =   $request->id;
 
-        $validator = $this->validate($request->all(), [
+        $validator = $this->validate($request, [
             'file'          => 'required',
             'accepted_date' => 'required',
         ]);

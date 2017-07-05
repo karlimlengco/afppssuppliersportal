@@ -6,6 +6,7 @@
         <title>AFP Procurement Service</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- app icon -->
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -13,6 +14,7 @@
 
         @include('layouts.styles')
         @yield('styles')
+
     </head>
 
     <body>
@@ -43,6 +45,13 @@
 
     @include('layouts.scripts')
     @yield('scripts')
+    <script type="text/javascript">
 
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+             }
+         });
+     </script>
     </body>
 </html>

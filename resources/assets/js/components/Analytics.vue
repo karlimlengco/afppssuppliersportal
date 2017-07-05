@@ -31,48 +31,61 @@
                         <td></td>
                     </tr>
                     <!-- child -->
-                    <tr v-for="itemProg in itemProgram">
-                        <td class="has-child" colspan="8">
-                            <table class="child-table table-name">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            {{itemProg.name}}
-                                            <button  v-on:click="clickItemProgramCenter(itemProg)" class="show-grand-child-table" ><i class="nc-icon-mini ui-1_circle-add"></i></button>
-                                        </td>
-                                        <td>{{itemProg.upr_count}} ({{itemProg.completed_count}})</td>
-                                        <td>{{itemProg.total_abc}}</td>
-                                        <td>{{itemProg.total_bid}}</td>
-                                        <td>{{itemProg.total_residual}}</td>
-                                        <td>{{itemProg.avg_days}}</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <!-- grand child -->
-                                    <tr  v-for="itemProgCent in itemProgramCenters">
-                                        <td class="has-child" colspan="8">
-                                            <table class="grand-child-table table-name">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>{{itemProgCent.upr_number}}</td>
-                                                        <td>{{itemProgCent.upr_count}} ({{itemProgCent.completed_count}})</td>
-                                                        <td>{{itemProgCent.total_abc}}</td>
-                                                        <td>{{itemProgCent.total_bid}}</td>
-                                                        <td>{{itemProgCent.total_residual}}</td>
-                                                        <td>{{itemProgCent.avg_days}}</td>
-                                                        <td>NA2</td>
-                                                        <td>NA2</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
+                    <template v-for="itemProg in itemProgram">
+                        <template v-if="itemProg.program == item.programs">
+                            <tr v-for="itemProgData in itemProg.data">
 
-                                </tbody>
-                            </table>
+                                <td class="has-child" colspan="8">
+                                    <table class="child-table table-name">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    {{itemProgData.name}}
+                                                    <button  v-on:click="clickItemProgramCenter(itemProgData)" class="show-grand-child-table" ><i class="nc-icon-mini ui-1_circle-add"></i></button>
+                                                </td>
+                                                <td>{{itemProgData.upr_count}} ({{itemProgData.completed_count}})</td>
+                                                <td>{{itemProgData.total_abc}}</td>
+                                                <td>{{itemProgData.total_bid}}</td>
+                                                <td>{{itemProgData.total_residual}}</td>
+                                                <td>{{itemProgData.avg_days}}</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <!-- grand child -->
 
-                        </td>
-                    </tr>
+                                            <template v-for="itemProgCent in itemProgramCenters">
+                                                <template v-if="itemProgCent.program == item.programs">
+                                                    <template v-if="itemProgCent.center == itemProgData.name">
+                                                        <tr >
+                                                            <td class="has-child" colspan="8">
+                                                                <table class="grand-child-table table-name">
+                                                                    <tbody>
+                                                                        <tr  v-for="itemProgCentData in itemProgCent.data">
+                                                                            <td>{{itemProgCentData.upr_number}}</td>
+                                                                            <td>{{itemProgCentData.upr_count}} ({{itemProgCentData.completed_count}})</td>
+                                                                            <td>{{itemProgCentData.total_abc}}</td>
+                                                                            <td>{{itemProgCentData.total_bid}}</td>
+                                                                            <td>{{itemProgCentData.total_residual}}</td>
+                                                                            <td>{{itemProgCentData.avg_days}}</td>
+                                                                            <td>NA2</td>
+                                                                            <td>NA2</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+
+                                                    </template>
+                                                </template>
+                                            </template>
+
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                            </tr>
+                        </template>
+                    </template>
 
                 </template>
 
@@ -83,6 +96,9 @@
 </template>
 
 <script>
+
+var arrayIDs    =   [];
+var array2IDs    =   [];
     export default {
         data() {
             return{
@@ -93,7 +109,6 @@
         },
 
         mounted() {
-            console.log('Component mounted.');
             this.fetchUprAnalytics();
         },
 
@@ -105,31 +120,37 @@
                     })
                     .catch(e => {
                         console.log(e)
-                      // this.errors.push(e)
                     })
             },
-            fetchUPRCenters: function($program){
-                axios.get('/reports/upr-centers/'+$program)
+            fetchUPRCenters: function(program){
+                axios.get('/reports/upr-centers/'+program)
                     .then(response => {
-                        this.itemProgram = response.data
+                        this.itemProgram.push(response.data)
                     })
                     .catch(e => {
                         console.log(e)
                     })
             },
-            fetchUPRs: function($program, $center){
-                axios.get('/reports/uprs/'+$program+'/'+$center)
+            fetchUPRs: function(program, center){
+                axios.get('/reports/uprs/'+program+'/'+center)
                     .then(response => {
-                        this.itemProgramCenters = response.data
+                        this.itemProgramCenters.push(response.data)
+                        console.log(this.itemProgramCenters)
                     })
                     .catch(e => {
                         console.log(e)
                     })
             },
             clickItemProgram: function(item){
-                this.fetchUPRCenters(item.programs)
+
+                if( arrayIDs.indexOf(item.programs) == -1 )
+                {
+                    arrayIDs.push(item.programs);
+                    this.fetchUPRCenters(item.programs)
+                }
             },
             clickItemProgramCenter: function(item){
+                array2IDs[item.programs]    =   item.name;
                 this.fetchUPRs(item.programs, item.name)
             }
         }

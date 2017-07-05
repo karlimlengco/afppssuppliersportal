@@ -135,4 +135,13 @@ class VoucherEloquent extends Model implements  AuditableContract
         return $this->belongsTo('\App\User', 'process_releaser');
     }
 
+    /**
+     * [upr description]
+     *
+     * @return [type] [description]
+     */
+    public function upr()
+    {
+        return $this->belongsTo('\Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestEloquent', 'upr_id');
+    }
 }

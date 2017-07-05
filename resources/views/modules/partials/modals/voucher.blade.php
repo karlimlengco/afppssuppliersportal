@@ -27,7 +27,9 @@
                         {!! Form::textareaField('bir_address', 'BIR Address', null, ['rows'=>3]) !!}
                     </div>
                 </div>
+                @if($data->rfq)
                 <input name="rfq_id" type="hidden" value="{{ $data->rfq->id }}">
+                @endif
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="_method" type="hidden" value="POST">
             </div>

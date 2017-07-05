@@ -127,3 +127,35 @@
 .red{
     color: rgba(231, 76, 60,1.0)
 }
+
+.printable-form__body__table tr td.head,
+.printable-form__body__table tr th.head {
+  font-weight: 800;
+  text-transform: uppercase;
+  background: #e6e6e6!important;
+}
+
+
+/* default for 'a4' bond paper prints */
+.printable-form {
+  display: block;
+  position: relative;
+  width: 100% !important;
+  height: 13in;
+  max-height: 13in;
+  min-height: 13in;
+  padding: 0 15px;
+  margin: 30px 0;
+  border: solid 1px transparent !important;
+  /* for 'long' bond paper prints */
+  /* for 'short' bond paper prints */
+  /* file name for dev reference only */
+  /* main form header area */
+  /* main form content area */
+  /* main form footer area */
+}
+.printable-form * {
+  font-size: 12px;
+  font-weight: 400 !important;
+  color: #545454;
+}

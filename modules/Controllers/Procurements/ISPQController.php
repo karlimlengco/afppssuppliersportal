@@ -206,7 +206,6 @@ class ISPQController extends Controller
         $data['venue']              =  $result->venue;
         $data['signatories']        =  $result->signatories;
         $data['quotations']         =  $result->quotations;
-
         $pdf = PDF::loadView('forms.ispq', ['data' => $result])->setOption('margin-bottom', 10)->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('ispq.pdf');

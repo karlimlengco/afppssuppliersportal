@@ -843,29 +843,10 @@ window.Vue = __webpack_require__(46);
  */
 
 Vue.component('example', __webpack_require__(41));
-Vue.component('chat-message', __webpack_require__(40));
-Vue.component('chat-log', __webpack_require__(39));
-Vue.component('chat-composer', __webpack_require__(38));
+Vue.component('analytics', __webpack_require__(58));
 
 var app = new Vue({
-    el: '#app',
-    data: function data() {
-        return {
-            messages: [{
-                message: 'HODOR!',
-                user: 'Hodor'
-            }, {
-                message: 'HOooDOooR!',
-                user: 'Hodor'
-            }]
-        };
-    },
-
-    methods: {
-        addMessage: function addMessage() {
-            console.log('sent!!!');
-        }
-    }
+  el: '#app'
 });
 
 /***/ }),
@@ -1716,73 +1697,9 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 29 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            messageMo: ""
-        };
-    },
-
-    methods: {
-        sendMessage: function sendMessage() {
-            this.$emit('messagesent', {
-                message: this.messageText,
-                author: "Hodor"
-            });
-            console.log(this.messageMo);
-        }
-    }
-});
-
-/***/ }),
-/* 30 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['messages']
-});
-
-/***/ }),
-/* 31 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['message']
-});
-
-/***/ }),
+/* 29 */,
+/* 30 */,
+/* 31 */,
 /* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -31795,108 +31712,9 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(29),
-  /* template */
-  __webpack_require__(44),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/storage/storage/Sites/epmis/resources/assets/js/components/ChatComposer.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] ChatComposer.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-486b8c8c", Component.options)
-  } else {
-    hotAPI.reload("data-v-486b8c8c", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(30),
-  /* template */
-  __webpack_require__(42),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/storage/storage/Sites/epmis/resources/assets/js/components/ChatLog.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] ChatLog.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-44e03688", Component.options)
-  } else {
-    hotAPI.reload("data-v-44e03688", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(31),
-  /* template */
-  __webpack_require__(45),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/storage/storage/Sites/epmis/resources/assets/js/components/ChatMessage.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] ChatMessage.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-638e43cb", Component.options)
-  } else {
-    hotAPI.reload("data-v-638e43cb", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 38 */,
+/* 39 */,
+/* 40 */,
 /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31931,29 +31749,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "chat-log"
-  }, _vm._l((_vm.messages), function(message) {
-    return _c('chat-message', {
-      attrs: {
-        "message": message
-      }
-    })
-  }))
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-44e03688", module.exports)
-  }
-}
-
-/***/ }),
+/* 42 */,
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31983,68 +31779,8 @@ if (false) {
 }
 
 /***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "chat-composer"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.messageMo),
-      expression: "messageMo"
-    }],
-    attrs: {
-      "type": "text",
-      "name": "Type here..."
-    },
-    domProps: {
-      "value": (_vm.messageMo)
-    },
-    on: {
-      "keydown": function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
-        _vm.sendMessage()
-      },
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.messageMo = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _c('button', {
-    on: {
-      "click": function($event) {
-        _vm.sendMessage()
-      }
-    }
-  }, [_vm._v("Send")])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-486b8c8c", module.exports)
-  }
-}
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('p', [_vm._v(_vm._s(_vm.message.message))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(_vm.message.user))])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-638e43cb", module.exports)
-  }
-}
-
-/***/ }),
+/* 44 */,
+/* 45 */,
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41778,6 +41514,276 @@ module.exports = function(module) {
 __webpack_require__(9);
 module.exports = __webpack_require__(10);
 
+
+/***/ }),
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+var arrayIDs = [];
+var array2IDs = [];
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            items: [],
+            itemProgram: [],
+            itemProgramCenters: []
+        };
+    },
+    mounted: function mounted() {
+        this.fetchUprAnalytics();
+    },
+
+
+    methods: {
+        fetchUprAnalytics: function fetchUprAnalytics() {
+            var _this = this;
+
+            axios.get('/reports/upr-programs').then(function (response) {
+                _this.items = response.data;
+            }).catch(function (e) {
+                console.log(e);
+            });
+        },
+        fetchUPRCenters: function fetchUPRCenters(program) {
+            var _this2 = this;
+
+            axios.get('/reports/upr-centers/' + program).then(function (response) {
+                _this2.itemProgram.push(response.data);
+            }).catch(function (e) {
+                console.log(e);
+            });
+        },
+        fetchUPRs: function fetchUPRs(program, center) {
+            var _this3 = this;
+
+            axios.get('/reports/uprs/' + program + '/' + center).then(function (response) {
+                _this3.itemProgramCenters.push(response.data);
+                console.log(_this3.itemProgramCenters);
+            }).catch(function (e) {
+                console.log(e);
+            });
+        },
+        clickItemProgram: function clickItemProgram(item) {
+
+            if (arrayIDs.indexOf(item.programs) == -1) {
+                arrayIDs.push(item.programs);
+                this.fetchUPRCenters(item.programs);
+            }
+        },
+        clickItemProgramCenter: function clickItemProgramCenter(item) {
+            array2IDs[item.programs] = item.name;
+            this.fetchUPRs(item.programs, item.name);
+        }
+    }
+});
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(57),
+  /* template */
+  __webpack_require__(59),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/storage/storage/Sites/epmis/resources/assets/js/components/Analytics.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Analytics.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-17e57342", Component.options)
+  } else {
+    hotAPI.reload("data-v-17e57342", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: " "
+  }, [_c('div', {
+    staticClass: "table-scroll"
+  }, [_c('table', {
+    staticClass: "table table--with-border table-name"
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
+    return [_c('tr', [_c('td', [_vm._v("\n                            Program " + _vm._s(item.programs) + "\n                            "), _c('button', {
+      staticClass: "show-child-table",
+      on: {
+        "click": function($event) {
+          _vm.clickItemProgram(item)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "nc-icon-mini ui-1_circle-add"
+    })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.upr_count) + " (" + _vm._s(item.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.avg_days))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgram), function(itemProg) {
+      return [(itemProg.program == item.programs) ? _vm._l((itemProg.data), function(itemProgData) {
+        return _c('tr', [_c('td', {
+          staticClass: "has-child",
+          attrs: {
+            "colspan": "8"
+          }
+        }, [_c('table', {
+          staticClass: "child-table table-name"
+        }, [_c('tbody', [_c('tr', [_c('td', [_vm._v("\n                                                    " + _vm._s(itemProgData.name) + "\n                                                    "), _c('button', {
+          staticClass: "show-grand-child-table",
+          on: {
+            "click": function($event) {
+              _vm.clickItemProgramCenter(itemProgData)
+            }
+          }
+        }, [_c('i', {
+          staticClass: "nc-icon-mini ui-1_circle-add"
+        })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.upr_count) + " (" + _vm._s(itemProgData.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.avg_days))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgramCenters), function(itemProgCent) {
+          return [(itemProgCent.program == item.programs) ? [(itemProgCent.center == itemProgData.name) ? [_c('tr', [_c('td', {
+            staticClass: "has-child",
+            attrs: {
+              "colspan": "8"
+            }
+          }, [_c('table', {
+            staticClass: "grand-child-table table-name"
+          }, [_c('tbody', _vm._l((itemProgCent.data), function(itemProgCentData) {
+            return _c('tr', [_c('td', [_vm._v(_vm._s(itemProgCentData.upr_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.upr_count) + " (" + _vm._s(itemProgCentData.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), _c('td', [_vm._v("NA2")]), _vm._v(" "), _c('td', [_vm._v("NA2")])])
+          }))])])])] : _vm._e()] : _vm._e()]
+        })], 2)])])])
+      }) : _vm._e()]
+    })]
+  })], 2)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v("# UPR")]), _vm._v(" "), _c('th', [_vm._v("ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVE days to complete")]), _vm._v(" "), _c('th', [_vm._v("AVE delays")]), _vm._v(" "), _c('th', [_vm._v("Remarks")])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-17e57342", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

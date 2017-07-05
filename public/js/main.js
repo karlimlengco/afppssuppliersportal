@@ -44,29 +44,6 @@ $('.chat__close-button').click(function(){
 
 
 
-// // avoid `console` errors in browsers that lack a console.
-// (function() {
-//     var method;
-//     var noop = function () {};
-//     var methods = [
-//         'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
-//         'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
-//         'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
-//         'timeline', 'timelineEnd', 'timeStamp', 'trace', 'warn'
-//     ];
-//     var length = methods.length;
-//     var console = (window.console = window.console || {});
-
-//     while (length--) {
-//         method = methods[length];
-
-//         // Only stub undefined methods.
-//         if (!console[method]) {
-//             console[method] = noop;
-//         }
-//     }
-// }());
-
 $('.selectize').each(function () {
     $(this).selectize();
 });
@@ -81,3 +58,17 @@ $('.tagging').selectize({
         }
     }
 });
+//show child table
+// $('.show-child-table').click(function(){
+$(document).on('click', '.show-child-table', function(e){
+    $(this).children('i').toggleClass('ui-1_circle-add ui-1_circle-delete');
+    $(this).parents('tr').next().find('.has-child').first().toggleClass('is-open');
+    $(this).parents('tr').next().find('.child-table').toggleClass('is-visible');
+})
+
+// // $('.show-grand-child-table').click(function(){
+$(document).on('click', '.show-grand-child-table', function(e){
+    $(this).children('i').toggleClass('ui-1_circle-add ui-1_circle-delete');
+    $(this).parents('tr').next().find('.has-child').first().toggleClass('is-open');
+    $(this).parents('tr').next().find('.grand-child-table').toggleClass('is-visible');
+})

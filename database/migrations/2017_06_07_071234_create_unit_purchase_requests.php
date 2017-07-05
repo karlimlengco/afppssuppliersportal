@@ -33,6 +33,7 @@ class CreateUnitPurchaseRequests extends Migration
             $table->string('ref_number')->nullable();
 
             $table->date('date_prepared');
+            $table->date('completed_at')->nullable();
             $table->integer('prepared_by');
 
             $table->timestamp('date_processed')->nullable();
@@ -51,6 +52,7 @@ class CreateUnitPurchaseRequests extends Migration
 
             $table->string('status')->default('pending');
             $table->string('state')->default('pending');
+            $table->string('days')->nullable();
 
 
             $table->timestamps();

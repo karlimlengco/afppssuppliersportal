@@ -13,40 +13,49 @@ class Signatory extends Seeder
     {
         \Revlv\Settings\Signatories\SignatoryEloquent::insert([
             [
-                "name"              => 'BGEN A C Q MENDOZA AFP',
-                "designation"       => 'UNIT HEAD'
+                "name"              => 'A C Q MENDOZA',
+                "designation"       => 'UNIT HEAD',
+                'ranks'             => 'BGEN AFP'
             ],
             [
-                "name"              => 'MAJ ABDULMANAN A ABAS (INF)',
-                "designation"       => 'CHAIRMAN'
+                "name"              => 'ABDULMANAN A ABAS',
+                "designation"       => 'CHAIRMAN',
+                'ranks'             => 'MAJ (INF) AFP'
             ],
             [
-                "name"              => 'COL ABRAHAM CLARO C CASIS (MNSA) PA',
-                "designation"       => 'MFO'
+                "name"              => 'ABRAHAM CLARO C CASIS ',
+                "designation"       => 'MFO',
+                'ranks'             => 'COL (MNSA) PA'
             ],
             [
-                "name"              => 'COL ADOLFO B ALBALATE (GSC) PN',
-                "designation"       => 'LEGAL'
+                "name"              => 'ADOLFO B ALBALATE',
+                "designation"       => 'LEGAL',
+                'ranks'             => 'COL (GSC) PN'
             ],
             [
-                "name"              => 'COL ADRIANO T CASTRO PA',
-                "designation"       => 'Sec Gen'
+                "name"              => 'COL ADRIANO T CASTRO',
+                "designation"       => 'Sec Gen',
+                'ranks'             => 'COL PA'
             ],
             [
-                "name"              => 'LTCOL ALANO S ABDULHALIM PN',
-                "designation"       => 'NOA'
+                "name"              => 'ALANO S ABDULHALIM',
+                "designation"       => 'NOA',
+                'ranks'             => 'LTCOL PN'
             ],
             [
-                "name"              => 'LTC ADONIS ARIEL G ORIO (GSC) PA',
-                "designation"       => 'CHAIRMAN, CCC'
+                "name"              => 'ADONIS ARIEL G ORIO',
+                "designation"       => 'CHAIRMAN, CCC',
+                'ranks'             => 'LTC (GSC)'
             ],
             [
-                "name"              => 'LTC ROMULO R SATPARAM  (OS) PA',
-                "designation"       => 'COMMANDING OFFICER'
+                "name"              => 'ROMULO R SATPARAM',
+                "designation"       => 'COMMANDING OFFICER',
+                'ranks'             => 'LTC (OS) PA'
             ],
             [
-                "name"              => 'LTC THIRD TAURO PA',
-                "designation"       => 'CHIEF'
+                "name"              => 'THIRD TAURO',
+                "designation"       => 'CHIEF',
+                'ranks'             => 'LTC PA'
             ]
         ]);
     }

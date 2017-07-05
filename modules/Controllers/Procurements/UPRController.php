@@ -9,6 +9,7 @@ use DB;
 use Excel;
 use PDF;
 
+use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\Attachments\AttachmentRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRequest;
@@ -46,6 +47,7 @@ class UPRController extends Controller
     protected $terms;
     protected $items;
     protected $units;
+    protected $holidays;
     protected $logs;
     protected $signatories;
 
@@ -648,13 +650,19 @@ class UPRController extends Controller
      * @param  UnitPurchaseRequestRepository $model [description]
      * @return [type]                               [description]
      */
-    public function timelines($id, UnitPurchaseRequestRepository $model)
+    public function timelines($id, UnitPurchaseRequestRepository $model, HolidayRepository $holidays)
     {
         $upr_model  =   $model->findTimelineById($id);
-
+        $holiday_lists  =   $holidays->lists('id','holiday_date');
+        $h_lists        =   [];
+        foreach($holiday_lists as $hols)
+        {
+            $h_lists[]  =   \Carbon\Carbon::createFromFormat('Y-m-d', $hols)->format('Y-m-d');
+        }
 
         return $this->view('modules.procurements.upr.timelines',[
             'data'              =>  $upr_model,
+            'h_lists'           =>  $h_lists,
             'indexRoute'        =>  $this->baseUrl."show"
         ]);
     }
@@ -677,6 +685,11 @@ class UPRController extends Controller
             'funders',
             'approver',
             ])->findById($id);
+
+        if($result->requestor == null ||  $result->funders == null || $result->approver == null)
+        {
+            return redirect()->back()->with(['error' => 'please add signatory']);
+        }
 
         $data['upr_number']         =  $result->upr_number;
         $data['ref_number']         =  $result->ref_number;

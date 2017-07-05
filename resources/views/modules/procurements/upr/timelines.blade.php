@@ -17,12 +17,17 @@ Unit Purchase Request
 
 <div class="row">
     <div class="twelve columns">
+    <?php
+        $totalDays      =   0;
+        $today          =   \Carbon\Carbon::now()->format('Y-m-d');
+        $today          =   \Carbon\Carbon::createFromFormat('Y-m-d', $today);
+        $upr_created    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->date_prepared);
+    ?>
 
         <table class="table" >
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Status</th>
                     <th>Date</th>
                     <th>Day/s</th>
                 </tr>
@@ -30,791 +35,507 @@ Unit Purchase Request
             <tbody>
                 <tr>
                     <td>UPR</td>
-                    <td>{{$data->state}}</td>
                     <td>{{$data->date_prepared}}</td>
                     <td></td>
                 </tr>
+
                 <tr>
-                    <td>RFQ</td>
-
-                    @if($data->rfq_completed_at && $data->rfq_completed_at)
-                    <td>{{ ucfirst($data->rfq_status)}}</td>
-
-                    <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at)->format('Y-m-d')}}</td>
-
+                    <td>Create RFQ</td>
+                    <td>{{$data->rfq_created_at}}</td>
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at); ?>
-                        <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->date_prepared); ?>
-
-                        {{ $dt->diffInDays($upr_create) }}
-                    </td>
-                    @endif
-                    @if($data->date_prepared and !$data->rfq_completed_at)
-
-                        <?php $dt = Carbon\Carbon::now(); ?>
-                        <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->date_prepared); ?>
-                        <?php $days =   $dt->diffInDays($upr_create); ?>
-                        @if($days >= 1)
-                            <td>Delayed</td>
+                        @if($data->rfq_created_at != null)
+                            <?php $rfq_created_at    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->rfq_created_at); ?>
+                            {{ $d = $rfq_created_at->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $upr_created )}}
+                            <?php $totalDays +=  $d; ?>
                         @else
-                            <td></td>
-                        @endif
 
-                        <td></td>
-                        <td>{{ $days }}</td>
-                    @endif
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $upr_created )}}
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
-                    <td>PhilGeps Posting</td>
-                    @if($data->pp_completed_at && $data->rfq_completed_at)
-
-                    <td>Completed</td>
-
-                    <td>{{$data->pp_completed_at}}</td>
-
+                    <td>Close RFQ</td>
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->pp_completed_at); ?>
-                        <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d  H:i:s', $data->rfq_completed_at); ?>
-
-                        {{ ($dt->diffInDays($upr_create) == 0) ? "1" : $dt->diffInDays($upr_create) }}
-                    </td>
-                    @else
                         @if($data->rfq_completed_at)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 1)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
-                        @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <?php $rfq_completed_ats = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->rfq_completed_at)->format('Y-m-d'); ?>
+                        {{  $rfq_completed_ats }}
                         @endif
-                    @endif
+                    </td>
+                    <td>
+                        @if($rfq_completed_ats != null)
+                            <?php $rfq_completed_at    =   \Carbon\Carbon::createFromFormat('Y-m-d', $rfq_completed_ats); ?>
+                            {{ $d = $rfq_completed_at->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $rfq_created_at )}}
+
+                            <?php $totalDays +=  $d; ?>
+
+                        @else
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $rfq_created_at )}}
+                        @endif
+
+                    </td>
                 </tr>
 
                 <tr>
-                    <td>Invitation</td>
-                    @if($data->ispq_transaction_date && $data->rfq_completed_at)
-
-                    <td>Completed</td>
-
-                    <td>{{$data->pp_completed_at}}</td>
-
+                    <td>RFQ Create Invitation</td>
+                    <td>{{$data->ispq_transaction_date}}</td>
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date); ?>
-                        <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d  H:i:s', $data->rfq_completed_at); ?>
 
-                        {{ ($dt->diffInDays($upr_create) == 0) ? "1" : $dt->diffInDays($upr_create) }}
+                        @if($data->ispq_transaction_date != null)
+                            <?php $ispq_transaction_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date); ?>
+                            {{ $d = $ispq_transaction_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $rfq_completed_at )}}
 
-                    @else
+                            <?php $totalDays +=  $d; ?>
 
-                        @if($data->rfq_completed_at)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 2)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $rfq_completed_at )}}
                         @endif
-                    @endif
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Philgeps posting</td>
+                    <td>{{$data->pp_completed_at}}</td>
+                    <td>
+                        @if($data->pp_completed_at != null)
+                            <?php $pp_completed_at    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->pp_completed_at); ?>
+                            {{ $d = $pp_completed_at->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ispq_transaction_date )}}
+
+                            <?php $totalDays +=  $d; ?>
+
+                        @else
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ispq_transaction_date )}}
+                        @endif
                     </td>
                 </tr>
 
                 <tr>
                     <td>Canvassing</td>
-
-                    @if($data->canvass_start_date)
-                    <td>Completed</td>
-
-                    <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_start_date)->format('Y-m-d')}}</td>
-
+                    <td>{{$data->canvass_start_date}}</td>
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_start_date); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date); ?>
+                        @if($data->canvass_start_date != null)
+                            <?php $canvass_start_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->canvass_start_date); ?>
+                            {{ $d = $canvass_start_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $pp_completed_at )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-
-                        @if($data->ispq_transaction_date)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 1)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        @endif
 
-                    @endif
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $pp_completed_at )}}
+                        @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Release NOA</td>
-
-                    @if($data->noa_award_date )
-                    <td>Completed</td>
-
-                    <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->noa_award_date)->format('Y-m-d') }}</td>
-
+                    <td>Awarding</td>
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->noa_award_date); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_start_date); ?>
-
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
-
-                    @else
-                        @if($data->canvass_start_date)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_start_date); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 1)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
-                        @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        @if($data->noa_award_date)
+                            <?php $noa_award_dates = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->noa_award_date)->format('Y-m-d'); ?>
+                            {{  $noa_award_dates }}
                         @endif
-                    @endif
+                    </td>
+                    <td>
+                        @if($noa_award_dates != null)
+                            <?php $noa_award_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $noa_award_dates); ?>
+                            {{ $d = $noa_award_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $canvass_start_date )}}
+
+                            <?php $totalDays +=  $d; ?>
+
+                        @else
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $canvass_start_date )}}
+                        @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Approved NOA</td>
-
-                    @if($data->noa_approved_date )
-                    <td>Completed</td>
-
+                    <td>NOA Approved</td>
                     <td>{{$data->noa_approved_date}}</td>
-
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_approved_date); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->noa_award_date); ?>
+                        @if($data->noa_approved_date != null)
+                            <?php $noa_approved_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_approved_date); ?>
+                            {{ $d = $noa_approved_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $noa_award_date )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
+                        @else
 
-                         @if($data->noa_award_date)
-                             <?php $dt = Carbon\Carbon::now(); ?>
-                             <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->noa_award_date); ?>
-                             <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                             @if($days >= 1)
-                                 <td>Delayed</td>
-                             @else
-                                 <td></td>
-                             @endif
-
-                             <td></td>
-                             <td>{{ $days }}</td>
-                         @else
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                         @endif
-                    @endif
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $noa_award_date )}}
+                        @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Accepted NOA</td>
-                    @if($data->noa_award_accepted_date )
-
-                    <td>Completed</td>
-
+                    <td>NOA Receieved</td>
                     <td>{{$data->noa_award_accepted_date}}</td>
 
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_award_accepted_date); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_approved_date); ?>
+                        @if($data->noa_award_accepted_date != null)
+                            <?php $noa_award_accepted_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_award_accepted_date); ?>
+                            {{ $d = $noa_award_accepted_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $noa_approved_date )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-                        @if($data->noa_approved_date)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_approved_date); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 1)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $noa_approved_date )}}
                         @endif
-                    @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Preparing PO</td>
-
-                    @if($data->po_create_date )
-                    <td>Completed</td>
-
-                    <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->po_create_date)->format('Y-m-d') }}</td>
-
+                    <td>PO Creation</td>
+                    <td>{{$data->po_create_date}}</td>
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->po_create_date); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_award_accepted_date); ?>
+                        @if($data->po_create_date != null)
+                            <?php $po_create_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->po_create_date); ?>
+                            {{ $d = $po_create_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $noa_award_accepted_date )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-                        @if($data->noa_award_accepted_date)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_award_accepted_date); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 2)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $noa_award_accepted_date )}}
                         @endif
-                    @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Funding PO</td>
-                    @if($data->mfo_released_date )
-
-                    <td>Completed</td>
-
-                    <td>{{$data->mfo_released_date}}</td>
-
+                    <td>PO Fund Release</td>
+                    <td>{{$data->funding_received_date}}</td>
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->mfo_released_date); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->po_create_date); ?>
+                        @if($data->funding_received_date != null)
+                            <?php $funding_received_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->funding_received_date); ?>
+                            {{ $d = $funding_received_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $po_create_date )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-
-                        @if($data->po_create_date)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->po_create_date); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 2)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $po_create_date )}}
                         @endif
-                    @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Issuance of Certificate</td>
-                    @if($data->pcco_released_date )
-
-                    <td>Completed</td>
-
-                    <td>{{$data->pcco_released_date}}</td>
-
+                    <td>PO MFO Release</td>
+                    <td>{{$data->mfo_received_date}}</td>
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->pcco_released_date); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->mfo_released_date); ?>
+                        @if($data->mfo_received_date != null)
+                            <?php $mfo_received_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->mfo_received_date); ?>
+                            {{ $d = $mfo_received_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $funding_received_date )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-                        @if($data->mfo_released_date)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->mfo_released_date); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 2)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $funding_received_date )}}
                         @endif
-                    @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>PO Approval</td>
-
-                    @if($data->coa_approved_date )
-                    <td>Completed</td>
-
-                    <td>{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->coa_approved_date)->format('Y-m-d')}}</td>
-
+                    <td>PO COA Approval</td>
+                    <td>{{$data->coa_approved_date}}</td>
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->coa_approved_date); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->pcco_released_date); ?>
+                        @if($data->coa_approved_date != null)
+                            <?php $coa_approved_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->coa_approved_date); ?>
+                            {{ $d = $coa_approved_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $mfo_received_date )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-
-                        @if($data->pcco_released_date)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->pcco_released_date); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 1)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $mfo_received_date )}}
                         @endif
-                    @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Prepared NTP</td>
-                    @if($data->ntp_date )
-
-                    <td>Completed</td>
-
-                    <td>{{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->ntp_date)->format('Y-m-d')}}</td>
-
+                    <td>NTP Create</td>
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->ntp_date); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->coa_approved_date); ?>
-
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
-
-                    @else
-
-                        @if($data->coa_approved_date)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->coa_approved_date); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 1)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
-                        @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        @if($data->ntp_date)
+                            <?php $ntp_dates = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->ntp_date)->format('Y-m-d'); ?>
+                            {{  $ntp_dates }}
                         @endif
-                    @endif
+                    </td>
+                    <td>
+                        @if($ntp_dates != null)
+                            <?php $ntp_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $ntp_dates); ?>
+                            {{ $d = $ntp_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $coa_approved_date )}}
+
+                            <?php $totalDays +=  $d; ?>
+
+                        @else
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $coa_approved_date )}}
+                        @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Serving NTP</td>
-
-                    @if($data->ntp_award_date )
-                    <td>Completed</td>
-
+                    <td>NTP Award</td>
                     <td>{{$data->ntp_award_date}}</td>
-
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->ntp_award_date); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->ntp_date); ?>
+                        @if($data->ntp_award_date != null)
+                            <?php $ntp_award_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->ntp_award_date); ?>
+                            {{ $d = $ntp_award_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ntp_date )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    @endif
+                        @else
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ntp_date )}}
+                        @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Delivery of Items</td>
+                    <td>Create Notice Of Delivery</td>
+                    <td>{{$data->dr_date}}</td>
+                    <td>
+                        @if($data->dr_date != null)
+                            <?php $dr_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_date); ?>
+                            {{ $d = $dr_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ntp_award_date )}}
 
-                    @if($data->delivery_date )
-                    <td>Completed</td>
+                            <?php $totalDays +=  $d; ?>
 
+                        @else
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ntp_award_date )}}
+                        @endif
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Receive Delivery</td>
                     <td>{{$data->delivery_date}}</td>
-
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->delivery_date); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->dr_date); ?>
+                        @if($data->delivery_date != null)
+                            <?php $delivery_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->delivery_date); ?>
+                            {{ $d = $delivery_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $dr_date )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-
-                        @if($data->dr_date)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->dr_date); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 15)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $dr_date )}}
                         @endif
-                    @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Delivery To COA</td>
-
-                    @if($data->dr_coa_date )
-                    <td>Completed</td>
-
+                    <td>COA Delivery</td>
                     <td>{{$data->dr_coa_date}}</td>
-
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_coa_date); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->delivery_date); ?>
+                        @if($data->dr_coa_date != null)
+                            <?php $dr_coa_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_coa_date); ?>
+                            {{ $d = $dr_coa_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $delivery_date )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-                        @if($data->delivery_date)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->delivery_date); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 15)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $delivery_date )}}
                         @endif
-                    @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Conduct Inspection</td>
-
-                    @if($data->dr_inspection )
-                    <td>Completed</td>
-
+                    <td>Delivery Inspection</td>
                     <td>{{$data->dr_inspection}}</td>
-
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_inspection); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_coa_date); ?>
+                        @if($data->dr_inspection != null)
+                            <?php $dr_inspection    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_inspection); ?>
+                            {{ $dr_inspection->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $dr_coa_date )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-                        @if($data->dr_coa_date)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_coa_date); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 2)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $dr_coa_date )}}
                         @endif
-                    @endif
                     </td>
                 </tr>
+
                 <tr>
-                    <td>Conduct Inspection of Delivered Items</td>
+                    <td>IAR Acceptance</td>
+                    <td>{{$data->iar_accepted_date}}</td>
+                    <td>
+                        @if($data->iar_accepted_date != null)
+                            <?php $iar_accepted_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->iar_accepted_date); ?>
+                            {{ $d = $iar_accepted_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $dr_inspection )}}
 
-                    @if($data->di_start )
-                    <td>Completed</td>
+                            <?php $totalDays +=  $d; ?>
 
+                        @else
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $dr_inspection )}}
+                        @endif
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>DR Inspection Start</td>
                     <td>{{$data->di_start}}</td>
-
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_start); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_inspection); ?>
+                        @if($data->di_start != null)
+                            <?php $di_start    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->di_start); ?>
+                            {{ $d = $di_start->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $iar_accepted_date )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-                        @if($data->dr_inspection)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_inspection); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 1)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $iar_accepted_date )}}
                         @endif
-                    @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Prepare Certificate of Inspection</td>
-
-                    @if($data->di_close )
-                    <td>Completed</td>
-
+                    <td>DR Inspection Close</td>
                     <td>{{$data->di_close}}</td>
-
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_close); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_start); ?>
+                        @if($data->di_close != null)
+                            <?php $di_close    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->di_close); ?>
+                            {{ $d = $di_close->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $di_start )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-                        @if($data->di_start)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_start); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 1)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $di_start )}}
                         @endif
-                    @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Preparation of Voucher</td>
-                    @if($data->vou_start )
-
-                    <td>Completed</td>
-
-                    <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->vou_start)->format('Y-m-d') }}</td>
-
+                    <td>Voucher Create</td>
+                    <td>{{$data->v_transaction_date}}</td>
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->vou_start); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_close); ?>
+                        @if($data->v_transaction_date != null)
+                            <?php $v_transaction_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->v_transaction_date); ?>
+                            {{ $d = $v_transaction_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $di_close )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-                        @if($data->di_close)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->di_close); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 1)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $di_close )}}
                         @endif
-                    @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Release Payment</td>
+                    <td>Voucher Preaudit</td>
+                    <td>{{$data->preaudit_date}}</td>
+                    <td>
+                        @if($data->preaudit_date != null)
+                            <?php $preaudit_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->preaudit_date); ?>
+                            {{ $d = $preaudit_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $v_transaction_date )}}
 
-                    @if($data->vou_release )
-                    <td>Completed</td>
+                            <?php $totalDays +=  $d; ?>
 
+                        @else
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $v_transaction_date )}}
+                        @endif
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Voucher Certify</td>
+                    <td>{{$data->certify_date}}</td>
+                    <td>
+                        @if($data->certify_date != null)
+                            <?php $certify_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->certify_date); ?>
+                            {{ $d = $certify_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $preaudit_date )}}
+
+                            <?php $totalDays +=  $d; ?>
+
+                        @else
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $preaudit_date )}}
+                        @endif
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Voucher JEV</td>
+                    <td>{{$data->journal_entry_date}}</td>
+                    <td>
+                        @if($data->journal_entry_date != null)
+                            <?php $journal_entry_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->journal_entry_date); ?>
+                            {{ $d = $journal_entry_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $certify_date )}}
+
+                            <?php $totalDays +=  $d; ?>
+
+                        @else
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $certify_date )}}
+                        @endif
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Voucher Approval</td>
+                    <td>{{$data->vou_approval_date}}</td>
+                    <td>
+                        @if($data->vou_approval_date != null)
+                            <?php $vou_approval_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_approval_date); ?>
+                            {{ $d = $vou_approval_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $journal_entry_date )}}
+
+                            <?php $totalDays +=  $d; ?>
+
+                        @else
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $journal_entry_date )}}
+                        @endif
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Voucher Release</td>
                     <td>{{$data->vou_release}}</td>
-
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_release); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->vou_start); ?>
+                        @if($data->vou_release != null)
+                            <?php $vou_release    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_release); ?>
+                            {{ $d = $vou_release->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $vou_approval_date )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-                        @if($data->vou_start)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->vou_start); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 1)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $vou_approval_date )}}
                         @endif
-                    @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Received Payment</td>
-                    @if($data->vou_received )
-
-                    <td>Completed</td>
-
+                    <td>Voucher Received/Complete RFQ</td>
                     <td>{{$data->vou_received}}</td>
-
                     <td>
-                        {{-- Assigning dates to get day interval--}}
-                        <?php $dt = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_received); ?>
-                        <?php $isqp = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_release); ?>
+                        @if($data->vou_received != null)
+                            <?php $vou_received    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_received); ?>
+                            {{ $vou_received->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $vou_release )}}
 
-                        {{ ($dt->diffInDays($isqp) == 0) ? "1" : $dt->diffInDays($isqp) }}
+                            <?php $totalDays +=  $d; ?>
 
-                    @else
-                        @if($data->vou_release)
-                            <?php $dt = Carbon\Carbon::now(); ?>
-                            <?php $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->vou_release); ?>
-                            <?php $days =   $dt->diffInDays($upr_create); ?>
-
-                            @if($days >= 1)
-                                <td>Delayed</td>
-                            @else
-                                <td></td>
-                            @endif
-
-                            <td></td>
-                            <td>{{ $days }}</td>
                         @else
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $vou_release )}}
                         @endif
-                    @endif
                     </td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td>Working Days</td>
+                    <td>{{$totalDays}}</td>
                 </tr>
 
             </tbody>

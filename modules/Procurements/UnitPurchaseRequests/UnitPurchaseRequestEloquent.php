@@ -21,6 +21,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
         'purpose',
         'update_remarks',
         'account_code',
+        'completed_at',
     ];
 
 
@@ -47,6 +48,8 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
         'terminate_status',
         'remarks',
         'update_remarks',
+        'days',
+        'completed_at',
         'account_code',
 
         'fund_validity',

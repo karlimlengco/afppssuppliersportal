@@ -10,7 +10,7 @@
             </div>
 
             <div class="modal__dialogue__body">
-                {!!Form::textField('certify_date', 'PreAudit Date')!!}
+                {!!Form::textField('certify_date', 'Certify Date')!!}
                 {!!Form::booleanField('is_cash_avail', 'Cash Available')!!}
                 {!!Form::booleanField('subject_to_authority_to_debit_acc', 'Subject to Authority to Debit Account ')!!}
                 {!!Form::booleanField('documents_completed', 'Supporting documents complete')!!}

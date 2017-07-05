@@ -23,7 +23,7 @@ Notice Of Delivery
 
             <div class="row">
                 <div class="six columns">
-                    {!! Form::textField('expected_date', 'Delivery Date') !!}
+                    {!! Form::textField('expected_date', 'Expexted Date') !!}
                 </div>
                 <div class="six columns">
                     {!! Form::textField('delivery_date', 'Delivery Date') !!}
@@ -33,10 +33,10 @@ Notice Of Delivery
             <div class="row">
 
                 <div class="six columns">
-                        {!! Form::textField('transaction_date', 'Delivery Date') !!}
+                        {!! Form::textField('transaction_date', 'Transaction Date') !!}
                 </div>
                 <div class="six columns">
-                        {!! Form::textField('date_delivered_to_coa', 'Delivery Date') !!}
+                        {!! Form::textField('date_delivered_to_coa', 'COA Delivery Date') !!}
                 </div>
             </div>
 

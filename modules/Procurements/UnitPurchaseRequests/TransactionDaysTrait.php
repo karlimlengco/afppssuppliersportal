@@ -42,7 +42,7 @@ trait TransactionDaysTrait
             'notice_of_awards.award_accepted_date as noa_award_accepted_date',
             'purchase_orders.created_at as po_create_date',
             'purchase_orders.mfo_released_date',
-            'purchase_orders.pcco_released_date',
+            'purchase_orders.funding_released_date',
             'purchase_orders.coa_approved_date',
             'notice_to_proceed.prepared_date as ntp_date',
             'notice_to_proceed.award_accepted_date as ntp_award_date',

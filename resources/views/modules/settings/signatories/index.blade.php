@@ -30,6 +30,7 @@ Signatories
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Rank</th>
                     <th>Designation</th>
                     <th>Created</th>
                 </tr>
@@ -57,6 +58,7 @@ Signatories
             },
         columns: [
             {data: 'name', name: 'name'},
+            {data: 'ranks', name: 'ranks'},
             {data: 'designation', name: 'designation'},
             {data: 'created_at', name: 'created_at'},
         ],

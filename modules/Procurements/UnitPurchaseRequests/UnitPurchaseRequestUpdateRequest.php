@@ -24,6 +24,8 @@ class UnitPurchaseRequestUpdateRequest extends BaseRequest
         'purpose',
 
         'project_name',
+        'completed_at',
+        'days',
         // 'upr_number',
         // 'ref_number',
 

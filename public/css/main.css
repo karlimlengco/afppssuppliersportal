@@ -258,11 +258,20 @@ input[type="password"] {
 .align-right {
   text-align: right;
 }
+.align-justify {
+  -ms-text-align-last: justify;
+  -moz-text-align-last: justify;
+  text-align-last: justify;
+  text-align: justify;
+}
 .pull-left {
   float: left;
 }
 .pull-right {
   float: right;
+}
+.no-wrap {
+  white-space: nowrap;
 }
 /*
 layout.less
@@ -1269,9 +1278,19 @@ printable-form.less
 .printable-form__body__table tr th.signatory .signatory-name {
   display: block;
   width: 100%;
-  font-weight: 800;
   padding-top: 4px;
   border-top: solid 1px #adadad;
+}
+.printable-form__body__table tr td.signatory .signatory-name table,
+.printable-form__body__table tr th.signatory .signatory-name table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+.printable-form__body__table tr td.signatory .signatory-name table tr td,
+.printable-form__body__table tr th.signatory .signatory-name table tr td {
+  font-weight: 800;
+  padding: 0;
   text-transform: uppercase;
 }
 .printable-form__body__table tr td.signatory .conforme-label,
@@ -2328,6 +2347,8 @@ table.less
   font-weight: 400;
   padding: 12px;
   text-align: left;
+  /* show child and grand child table button */
+  /* if td is a child */
 }
 .table tr th:first-child,
 .table tr td:first-child {
@@ -2337,6 +2358,80 @@ table.less
 .table tr td:last-child {
   text-align: right;
   padding-right: 4px;
+}
+.table tr th .show-child-table,
+.table tr td .show-child-table,
+.table tr th .show-grand-child-table,
+.table tr td .show-grand-child-table {
+  float: right;
+  margin: 0;
+  padding: 0;
+  height: 14px;
+  width: 14px;
+  background: none;
+  border: none;
+  color: #3BB273;
+  cursor: pointer;
+}
+.table tr th .show-child-table:hover,
+.table tr td .show-child-table:hover,
+.table tr th .show-grand-child-table:hover,
+.table tr td .show-grand-child-table:hover {
+  color: #45c180;
+}
+.table tr th .show-child-table:focus,
+.table tr td .show-child-table:focus,
+.table tr th .show-grand-child-table:focus,
+.table tr td .show-grand-child-table:focus {
+  color: #359f67;
+  outline: none;
+}
+.table tr th.has-child,
+.table tr td.has-child {
+  padding: 0 !important;
+  border-bottom: solid 1px #FFFFFF;
+  /* child and grand child table */
+}
+.table tr th.has-child.is-open,
+.table tr td.has-child.is-open {
+  border-bottom: solid 1px #adadad;
+}
+.table tr th.has-child .child-table,
+.table tr td.has-child .child-table,
+.table tr th.has-child .grand-child-table,
+.table tr td.has-child .grand-child-table {
+  border-collapse: collapse;
+  display: none;
+}
+.table tr th.has-child .child-table.is-visible,
+.table tr td.has-child .child-table.is-visible,
+.table tr th.has-child .grand-child-table.is-visible,
+.table tr td.has-child .grand-child-table.is-visible {
+  display: table;
+}
+.table tr th.has-child .child-table tbody tr:first-child td,
+.table tr td.has-child .child-table tbody tr:first-child td,
+.table tr th.has-child .grand-child-table tbody tr:first-child td,
+.table tr td.has-child .grand-child-table tbody tr:first-child td {
+  border-top: none;
+}
+.table tr th.has-child .child-table tbody tr:last-child td,
+.table tr td.has-child .child-table tbody tr:last-child td,
+.table tr th.has-child .grand-child-table tbody tr:last-child td,
+.table tr td.has-child .grand-child-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.table tr th.has-child .child-table tbody tr td:first-child,
+.table tr td.has-child .child-table tbody tr td:first-child,
+.table tr th.has-child .grand-child-table tbody tr td:first-child,
+.table tr td.has-child .grand-child-table tbody tr td:first-child {
+  border-left: none;
+}
+.table tr th.has-child .child-table tbody tr td:last-child,
+.table tr td.has-child .child-table tbody tr td:last-child,
+.table tr th.has-child .grand-child-table tbody tr td:last-child,
+.table tr td.has-child .grand-child-table tbody tr td:last-child {
+  border-right: none;
 }
 .table thead tr {
   border-bottom: solid 2px #adadad;
@@ -2351,17 +2446,28 @@ table.less
 .table--equal-column {
   table-layout: fixed;
 }
+.table--with-border thead tr {
+  border-bottom: none;
+}
+.table--with-border thead tr th {
+  background: #a0a0a0;
+  color: #FFFFFF;
+  font-weight: 700;
+}
 .table--with-border tr th,
 .table--with-border tr td {
   border: solid 1px #adadad;
+  text-align: center;
 }
 .table--with-border tr th:first-child,
 .table--with-border tr td:first-child {
   padding-left: 12px;
+  text-align: left;
 }
 .table--with-border tr th:last-child,
 .table--with-border tr td:last-child {
   padding-right: 12px;
+  text-align: right;
 }
 .table--with-hover tbody tr:hover {
   background: #f2f2f2;
@@ -2982,10 +3088,32 @@ table-scroll.less
   width: 100%;
   margin-bottom: 30px;
 }
+.table-scroll .table {
+  table-layout: fixed;
+}
 .table-scroll .table tr th,
 .table-scroll .table tr td {
-  min-width: 150px;
-  text-align: center;
+  width: 150px;
+}
+/*
+table-custom.less
+------------------------------------------------------------------------- */
+.table-name {
+  width: 100%;
+}
+.table-name tr th,
+.table-name tr td {
+  width: 200px !important;
+}
+.table-name tr th.has-child .child-table tr th,
+.table-name tr td.has-child .child-table tr th,
+.table-name tr th.has-child .grand-child-table tr th,
+.table-name tr td.has-child .grand-child-table tr th,
+.table-name tr th.has-child .child-table tr td,
+.table-name tr td.has-child .child-table tr td,
+.table-name tr th.has-child .grand-child-table tr td,
+.table-name tr td.has-child .grand-child-table tr td {
+  width: 200px !important;
 }
 /*
 plugins

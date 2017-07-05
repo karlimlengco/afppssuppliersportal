@@ -332,7 +332,12 @@ class VoucherController extends Controller
             'payment_receiver'      => \Sentinel::getUser()->id,
         ], $id);
 
-        $upr->update(['status' => 'completed', 'state' => 'completed'], $result->upr_id);
+        $prepared_date      =   \Carbon\Carbon::createFromFormat('Y-m-d', $result->upr->date_prepared);
+        $completed_date     =   \Carbon\Carbon::createFromFormat('Y-m-d', $request->payment_received_date);
+
+        $days               =   $completed_date->diffInDays($prepared_date);
+
+        $upr->update(['status' => 'completed', 'state' => 'completed', 'completed_at' => $request->payment_received_date, 'days' => $days], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

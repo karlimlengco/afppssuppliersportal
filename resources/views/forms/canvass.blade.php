@@ -126,7 +126,20 @@
                         </tr>
                         <tr>
                             <td class="signatory align-center v-align-middle" width="45%">
-                                <span class="signatory-name">{{$data['signatories'][0]->signatory->name}}</span>
+                                <div class="signatory-name">
+                                    <table>
+                                        <tr>
+                                            <td width="50%"></td>
+                                            <td nowrap>{{$data['signatories'][0]->signatory->name}}</td>
+                                            <td width="50%"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%"></td>
+                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['signatories'][0]->signatory->ranks; ?></pre> </td>
+                                            <td width="50%"></td>
+                                        </tr>
+                                    </table>
+                                </div>
                                 {{$data['signatories'][0]->signatory->designation}}
                             </td>
                             <td width="10%"></td>
@@ -142,12 +155,39 @@
                         </tr>
                         <tr>
                             <td class="signatory align-center v-align-middle" width="45%">
-                                <span class="signatory-name">{{$data['signatories'][1]->signatory->name}}</span>
+                                <div class="signatory-name">
+                                    <table>
+                                        <tr>
+                                            <td width="50%"></td>
+                                            <td nowrap>{{$data['signatories'][1]->signatory->name}}</td>
+                                            <td width="50%"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%"></td>
+                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['signatories'][1]->signatory->ranks; ?></pre> </td>
+                                            <td width="50%"></td>
+                                        </tr>
+                                    </table>
+                                </div>
                                 {{$data['signatories'][1]->signatory->designation}}
                             </td>
                             <td width="10%"></td>
                             <td class="signatory align-center v-align-middle" width="45%">
-                                <span class="signatory-name">{{$data['signatories'][2]->signatory->name}}</span>
+
+                                <div class="signatory-name">
+                                    <table>
+                                        <tr>
+                                            <td width="50%"></td>
+                                            <td nowrap>{{$data['signatories'][2]->signatory->name}}</td>
+                                            <td width="50%"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%"></td>
+                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['signatories'][2]->signatory->ranks; ?></pre> </td>
+                                            <td width="50%"></td>
+                                        </tr>
+                                    </table>
+                                </div>
                                 {{$data['signatories'][2]->signatory->designation}}
                             </td>
                         </tr>
@@ -161,12 +201,38 @@
                         </tr>
                         <tr>
                             <td class="signatory align-center v-align-middle" width="45%">
-                                <span class="signatory-name">{{$data['signatories'][3]->signatory->name}}</span>
+                                <div class="signatory-name">
+                                    <table>
+                                        <tr>
+                                            <td width="50%"></td>
+                                            <td nowrap>{{$data['signatories'][3]->signatory->name}}</td>
+                                            <td width="50%"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%"></td>
+                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['signatories'][3]->signatory->ranks; ?></pre> </td>
+                                            <td width="50%"></td>
+                                        </tr>
+                                    </table>
+                                </div>
                                 {{$data['signatories'][3]->signatory->designation}}
                             </td>
                             <td width="10%"></td>
                             <td class="signatory align-center v-align-middle" width="45%">
-                                <span class="signatory-name">{{$data['signatories'][4]->signatory->name}}</span>
+                                <div class="signatory-name">
+                                    <table>
+                                        <tr>
+                                            <td width="50%"></td>
+                                            <td nowrap>{{$data['signatories'][4]->signatory->name}}</td>
+                                            <td width="50%"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50%"></td>
+                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['signatories'][4]->signatory->ranks; ?></pre> </td>
+                                            <td width="50%"></td>
+                                        </tr>
+                                    </table>
+                                </div>
                                 {{$data['signatories'][4]->signatory->designation}}
                             </td>
                         </tr>

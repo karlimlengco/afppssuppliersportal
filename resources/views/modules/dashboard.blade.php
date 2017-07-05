@@ -3,6 +3,13 @@ OverView
 @stop
 
 @section('contents')
+    <div id="app">
+        <analytics> </analytics>
+
+    </div>
+
+
+
 
     <div class="row">
         <div class="twelve columns">
@@ -21,6 +28,7 @@ OverView
 
 @section('scripts')
 
+    <script src="/js/app.js"></script>
 <!-- Chart.js -->
 <script src="/vendors/Chart.js/dist/Chart.min.js"></script>
 <script type="text/javascript">

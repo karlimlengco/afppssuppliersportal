@@ -12,6 +12,7 @@ class SignatoryRequest extends BaseRequest
     protected $whitelist = [
         'name',
         'designation',
+        'ranks',
     ];
 
     /**
@@ -24,6 +25,7 @@ class SignatoryRequest extends BaseRequest
         return [
             'name'              => 'required',
             'designation'       => 'required',
+            'ranks'       => 'required',
         ];
     }
 }
