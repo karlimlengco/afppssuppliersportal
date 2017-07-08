@@ -26,6 +26,7 @@ trait AnalyticTrait
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
             DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
+            DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
             'procurement_centers.programs',
         ]);
 
@@ -56,6 +57,7 @@ trait AnalyticTrait
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
             DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
+            DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
             'procurement_centers.programs',
             'procurement_centers.name',
         ]);
@@ -90,9 +92,12 @@ trait AnalyticTrait
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
             DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
+            DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
+
             'procurement_centers.name',
             'procurement_centers.programs',
             'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.state',
         ]);
 
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
@@ -105,6 +110,7 @@ trait AnalyticTrait
             'procurement_centers.name',
             'procurement_centers.programs',
             'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.state',
         ]);
 
         return $model->get();

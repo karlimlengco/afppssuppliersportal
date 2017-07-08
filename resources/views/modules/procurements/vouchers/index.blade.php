@@ -29,9 +29,9 @@ Vouchers
 
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>RFQ Number</th>
                     <th>UPR Number</th>
+                    <th>Transaction Date</th>
+                    <th>RFQ Number</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,9 +53,9 @@ Vouchers
                 url: "{{route('datatables.procurements.vouchers')}}",
             },
         columns: [
-            {data: 'id', name: 'id'},
-            {data: 'rfq_number', name: 'rfq_number'},
             {data: 'upr_number', name: 'upr_number'},
+            {data: 'transaction_date', name: 'transaction_date'},
+            {data: 'rfq_number', name: 'rfq_number'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

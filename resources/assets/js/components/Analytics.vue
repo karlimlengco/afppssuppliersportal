@@ -27,7 +27,8 @@
                         <td>{{item.total_bid}}</td>
                         <td>{{item.total_residual}}</td>
                         <td>{{item.avg_days}}</td>
-                        <td></td>
+                        <td v-if="item.avg_delays >= 0">{{item.avg_delays}}</td>
+                        <td v-if="item.avg_delays < 0">0</td>
                         <td></td>
                     </tr>
                     <!-- child -->
@@ -48,7 +49,9 @@
                                                 <td>{{itemProgData.total_bid}}</td>
                                                 <td>{{itemProgData.total_residual}}</td>
                                                 <td>{{itemProgData.avg_days}}</td>
-                                                <td></td>
+
+                                                <td v-if="itemProgData.avg_delays >= 0">{{itemProgData.avg_delays}}</td>
+                                                <td v-if="itemProgData.avg_delays < 0">0</td>
                                                 <td></td>
                                             </tr>
                                             <!-- grand child -->
@@ -67,8 +70,10 @@
                                                                             <td>{{itemProgCentData.total_bid}}</td>
                                                                             <td>{{itemProgCentData.total_residual}}</td>
                                                                             <td>{{itemProgCentData.avg_days}}</td>
-                                                                            <td>NA2</td>
-                                                                            <td>NA2</td>
+
+                                                                            <td v-if="itemProgCentData.avg_delays >= 0">{{itemProgCentData.avg_delays}}</td>
+                                                                            <td v-if="itemProgCentData.avg_delays < 0">0</td>
+                                                                            <td>{{itemProgCentData.state}}</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
