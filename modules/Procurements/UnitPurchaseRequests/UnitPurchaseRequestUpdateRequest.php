@@ -31,6 +31,7 @@ class UnitPurchaseRequestUpdateRequest extends BaseRequest
 
         'date_prepared',
         'prepared_by',
+        'procurement_type',
 
         'date_processed',
         'processed_by',

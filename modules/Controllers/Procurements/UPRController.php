@@ -23,6 +23,7 @@ use \Revlv\Settings\ProcurementCenters\ProcurementCenterRepository;
 use \Revlv\Settings\PaymentTerms\PaymentTermRepository;
 use \Revlv\Settings\Units\UnitRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Settings\ProcurementTypes\ProcurementTypeRepository;
 use \Revlv\Settings\CateredUnits\CateredUnitRepository;
 
 class UPRController extends Controller
@@ -50,6 +51,7 @@ class UPRController extends Controller
     protected $holidays;
     protected $logs;
     protected $signatories;
+    protected $types;
 
     /**
      * [$model description]
@@ -270,6 +272,7 @@ class UPRController extends Controller
         ModeOfProcurementRepository $modes,
         ProcurementCenterRepository $centers,
         CateredUnitRepository $units,
+        ProcurementTypeRepository $types,
         PaymentTermRepository $terms)
     {
 
@@ -278,11 +281,13 @@ class UPRController extends Controller
         $procurement_modes  =    $modes->lists('id', 'name');
         $procurement_center =    $centers->lists('id', 'name');
         $payment_terms      =    $terms->lists('id', 'name');
+        $procurement_types  =    $types->lists('id', 'code');
         $unit               =    $units->lists('id', 'short_code');
         // $this->permissions->lists('permission','description')
         $this->view('modules.procurements.upr.create',[
             'indexRoute'        =>  $this->baseUrl.'index',
             'account_codes'     =>  $account_codes,
+            'procurement_types' =>  $procurement_types,
             'payment_terms'     =>  $payment_terms,
             'unit'              =>  $unit,
             'charges'           =>  $charges,
@@ -466,6 +471,7 @@ class UPRController extends Controller
         ProcurementCenterRepository $centers,
         UnitPurchaseRequestRepository $model,
         CateredUnitRepository $units,
+        ProcurementTypeRepository $types,
         PaymentTermRepository $terms)
     {
         $result =   $model->findById($id);
@@ -474,6 +480,7 @@ class UPRController extends Controller
         $charges            =    $chargeability->lists('id', 'name');
         $procurement_modes  =    $modes->lists('id', 'name');
         $procurement_center =    $centers->lists('id', 'name');
+        $procurement_types  =    $types->lists('id', 'name');
         $payment_terms      =    $terms->lists('id', 'name');
         $unit               =    $units->lists('id', 'short_code');
 
@@ -482,6 +489,7 @@ class UPRController extends Controller
             'indexRoute'        =>  $this->baseUrl.'show',
             'account_codes'     =>  $account_codes,
             'payment_terms'     =>  $payment_terms,
+            'procurement_types' =>  $procurement_types,
             'charges'           =>  $charges,
             'unit'              =>  $unit,
             'procurement_modes' =>  $procurement_modes,

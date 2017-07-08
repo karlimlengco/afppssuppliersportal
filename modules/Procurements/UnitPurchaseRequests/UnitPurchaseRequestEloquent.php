@@ -42,6 +42,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
     protected $fillable = [
         'place_of_delivery',
         'terminated_date',
+        'procurement_type',
         'terminated_by',
         'mode_of_procurement',
         'chargeability',
@@ -208,6 +209,16 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
     public function voucher()
     {
         return $this->hasOne('\Revlv\Procurements\Vouchers\VoucherEloquent',  'upr_id');
+    }
+
+    /**
+     * [types description]
+     *
+     * @return [type] [description]
+     */
+    public function types()
+    {
+        return $this->belongsTo('\Revlv\Settings\ProcurementTypes\ProcurementTypeEloquent', 'procurement_type');
     }
 
     /**

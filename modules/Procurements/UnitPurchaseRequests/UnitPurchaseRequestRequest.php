@@ -29,6 +29,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
         'ref_number',
 
         'date_prepared',
+        'procurement_type',
         'prepared_by',
 
         'date_processed',
@@ -53,6 +54,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
             'upr_number'            => 'required',
             'place_of_delivery'     => 'required|integer',
             'mode_of_procurement'   => 'required|integer',
+            'procurement_type'      => 'required|integer',
             'chargeability'         => 'required|integer',
             'units'                 => 'required|integer',
             'purpose'               => 'required',

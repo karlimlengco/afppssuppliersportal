@@ -23,11 +23,14 @@ Unit Purchase Request
             </div>
 
             <div class="row">
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('date_prepared', 'Date Prepared') !!}
                 </div>
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::selectField('units', 'Units', $unit) !!}
+                </div>
+                <div class="four columns">
+                    {!! Form::selectField('procurement_type', 'Procurement Type', $procurement_types) !!}
                 </div>
             </div>
 
