@@ -104,7 +104,17 @@
                 {
                     "route" :   "maintenance.procurement-centers.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Procurement Centers"
+                    "name"  :   "PC / CO"
+                },
+                {
+                    "route" :   "maintenance.catered-units.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Catered Units"
+                },
+                {
+                    "route" :   "maintenance.procurement-types.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Procurement Types"
                 },
                 {
                     "route" :   "maintenance.account-codes.index",
@@ -122,19 +132,14 @@
                     "name"  :   "Payment Terms"
                 },
                 {
-                    "route" :   "maintenance.units.index",
-                    "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Units"
-                },
-                {
                     "route" :   "maintenance.banks.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Banks"
                 },
                 {
-                    "route" :   "maintenance.catered-units.index",
+                    "route" :   "maintenance.announcements.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Catered Units"
+                    "name"  :   "Announcements"
                 }
             ]
         }

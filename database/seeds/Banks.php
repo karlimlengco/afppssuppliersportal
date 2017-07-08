@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use \Revlv\Settings\Banks\BankEloquent;
 
 class Banks extends Seeder
 {
@@ -11,27 +12,17 @@ class Banks extends Seeder
      */
     public function run()
     {
-        \Revlv\Settings\Banks\BankEloquent::insert([
-            [
-                "code"              => 'BPI',
-                "description"       => 'BPI'
-            ],
-            [
-                "code"              => 'UPCB',
-                "description"       => 'United Coconut Planters Bank'
-            ],
-            [
-                "code"              => 'AUB',
-                "description"       => 'Asia United Bank'
-            ],
-            [
-                "code"              => 'CHINABANK',
-                "description"       => 'China Banking Corporation'
-            ],
-            [
-                "code"              => 'CITIBANK',
-                "description"       => 'CITIBANK'
-            ]
+
+        $datas = collect([
+            new BankEloquent(["code" => 'BPI', "description"   => 'BPI']),
+            new BankEloquent(["code" => 'UPCB', "description"   => 'United Coconut Planters Bank']),
+            new BankEloquent(["code" => 'AUB', "description"   => 'Asia United Bank']),
+            new BankEloquent(["code" => 'CHINABANK', "description"   => 'China Banking Corporation']),
+            new BankEloquent(["code" => 'CITIBANK', "description"   => 'CITIBANK'])
         ]);
+
+        $datas->each(function($data) {
+            $data->save();
+        });
     }
 }

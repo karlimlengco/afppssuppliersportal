@@ -1,5 +1,5 @@
 @section('title')
-Account Codes
+Procurement Types
 @stop
 
 @section('contents')
@@ -29,9 +29,8 @@ Account Codes
 
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Account Code</th>
-                    <th>Old Code</th>
+                    <th>Code</th>
+                    <th>Description</th>
                     <th>Created</th>
                 </tr>
             </thead>
@@ -47,20 +46,19 @@ Account Codes
 <script type="text/javascript">
 
     table = $('#datatable-responsive').DataTable({
-        // "bLengthChange": false,
+        "bLengthChange": false,
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.maintenance.account-codes')}}",
+                url: "{{route('datatables.maintenance.procurement-types')}}",
                 // data: function (d) {
                     // d.search.value = $('#search-table').val();
                 // }
             },
         columns: [
-            {data: 'name', name: 'name'},
-            {data: 'new_account_code', name: 'new_account_code'},
-            {data: 'old_account_code', name: 'old_account_code'},
-            {data: 'created_at', name: 'created_at', searchable: false},
+            {data: 'code', name: 'code'},
+            {data: 'description', name: 'description'},
+            {data: 'created_at', name: 'created_at'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

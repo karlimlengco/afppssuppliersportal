@@ -256,12 +256,14 @@ Route::group(['as' => 'maintenance.', 'prefix' => 'maintenance'], function () {
     |
     */
     Route::resource('mode-of-procurements', '\Revlv\Controllers\Settings\ModeOfProcurementsController');
+    Route::resource('procurement-types', '\Revlv\Controllers\Settings\ProcurementTypeController');
     Route::resource('procurement-centers', '\Revlv\Controllers\Settings\ProcurementCenterController');
     Route::resource('account-codes', '\Revlv\Controllers\Settings\AccountCodeController');
     Route::resource('chargeability', '\Revlv\Controllers\Settings\ChargeabilityController');
     Route::resource('payment-terms', '\Revlv\Controllers\Settings\PaymentTermController');
     Route::resource('units', '\Revlv\Controllers\Settings\UnitController');
     Route::resource('banks', '\Revlv\Controllers\Settings\BankController');
+    Route::resource('announcements', '\Revlv\Controllers\Settings\AnnouncementController');
     Route::resource('catered-units', '\Revlv\Controllers\Settings\CateredUnitController');
 
 });
@@ -356,11 +358,13 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     */
     Route::get('mode-of-procurements', '\Revlv\Controllers\Settings\ModeOfProcurementsController@getDatatable')->name('maintenance.mode-of-procurements');
     Route::get('procurement-centers', '\Revlv\Controllers\Settings\ProcurementCenterController@getDatatable')->name('maintenance.procurement-centers');
+    Route::get('procurement-types', '\Revlv\Controllers\Settings\ProcurementTypeController@getDatatable')->name('maintenance.procurement-types');
     Route::get('account-codes', '\Revlv\Controllers\Settings\AccountCodeController@getDatatable')->name('maintenance.account-codes');
     Route::get('chargeability', '\Revlv\Controllers\Settings\ChargeabilityController@getDatatable')->name('maintenance.chargeability');
     Route::get('payment-terms', '\Revlv\Controllers\Settings\PaymentTermController@getDatatable')->name('maintenance.payment-terms');
     Route::get('units', '\Revlv\Controllers\Settings\UnitController@getDatatable')->name('maintenance.units');
     Route::get('banks', '\Revlv\Controllers\Settings\BankController@getDatatable')->name('maintenance.banks');
+    Route::get('announcements', '\Revlv\Controllers\Settings\AnnouncementController@getDatatable')->name('maintenance.announcements');
     Route::get('catered-units', '\Revlv\Controllers\Settings\CateredUnitController@getDatatable')->name('maintenance.catered-units');
 
     /*

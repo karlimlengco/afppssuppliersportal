@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use \Revlv\Settings\Chargeability\ChargeabilityEloquent;
 
 class Chargeability extends Seeder
 {
@@ -11,11 +12,13 @@ class Chargeability extends Seeder
      */
     public function run()
     {
-        \Revlv\Settings\Chargeability\ChargeabilityEloquent::insert([
-            [
-                "name"          => 'MOOE',
-                "description"   => 'Lorem Ipsum'
-            ]
+
+        $datas = collect([
+            new ChargeabilityEloquent(["name" => 'MOOE', "description"   => 'Lorem Ipsum']),
         ]);
+
+        $datas->each(function($data) {
+            $data->save();
+        });
     }
 }

@@ -60,7 +60,7 @@ Procurement Centers
             {data: 'name', name: 'name'},
             {data: 'address', name: 'address'},
             {data: 'programs', name: 'programs'},
-            {data: 'created_at', name: 'created_at'},
+            {data: 'created_at', name: 'created_at', searchable: false},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

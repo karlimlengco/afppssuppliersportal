@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Supplier::class);
         $this->call(CateredUnits::class);
         $this->call(Holidays::class);
+        $this->call(ProcurementTypes::class);
+        $this->call(Announcements::class);
     }
 }

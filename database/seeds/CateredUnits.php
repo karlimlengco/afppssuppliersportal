@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use League\Csv\Reader;
 
 class CateredUnits extends Seeder
 {
@@ -11,26 +12,15 @@ class CateredUnits extends Seeder
      */
     public function run()
     {
-        $pcco = \Revlv\Settings\ProcurementCenters\ProcurementCenterEloquent::pluck('id')->toArray();
-        \Revlv\Settings\CateredUnits\CateredUnitEloquent::insert([
-            [
-                "short_code"              => '101BDE',
-                "description"       => '101st Infantry Brigade',
-                'pcco_id'           =>  $pcco[array_rand($pcco)],
-                'coa_address'       =>  'lorem'
-            ],
-            [
-                "short_code"              => '101C0',
-                "description"       => '101st Contracting Office',
-                'pcco_id'           =>  $pcco[array_rand($pcco)],
-                'coa_address'       =>  'lorem'
-            ],
-            [
-                "short_code"              => '102BDE',
-                "description"       => '102nd Infantry Brigade',
-                'pcco_id'           =>  $pcco[array_rand($pcco)],
-                'coa_address'       =>  'lorem'
-            ]
-        ]);
+        $reader = Reader::createFromPath(database_path().'/csv/pcco_units.csv');
+        $reader->each(function($row, $rowOffset) {
+            \Revlv\Settings\CateredUnits\CateredUnitEloquent::create([
+                'short_code' => $row[1],
+                'description' => $row[2],
+                'pcco_id' => $row[0],
+                'coa_address' => "lorem Ipsum dolor sit"
+            ]);
+            return true;
+        });
     }
 }

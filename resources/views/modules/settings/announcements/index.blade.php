@@ -1,5 +1,5 @@
 @section('title')
-Account Codes
+Chargeability
 @stop
 
 @section('contents')
@@ -29,10 +29,11 @@ Account Codes
 
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Account Code</th>
-                    <th>Old Code</th>
-                    <th>Created</th>
+                    <th>Title</th>
+                    <th>Message</th>
+                    <th>Post At</th>
+                    <th>Expired At</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,27 +41,24 @@ Account Codes
         </table>
     </div>
 </div>
-
 @stop
 
 @section('scripts')
 <script type="text/javascript">
 
     table = $('#datatable-responsive').DataTable({
-        // "bLengthChange": false,
+        "bLengthChange": false,
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.maintenance.account-codes')}}",
-                // data: function (d) {
-                    // d.search.value = $('#search-table').val();
-                // }
+                url: "{{route('datatables.maintenance.announcements')}}",
             },
         columns: [
-            {data: 'name', name: 'name'},
-            {data: 'new_account_code', name: 'new_account_code'},
-            {data: 'old_account_code', name: 'old_account_code'},
-            {data: 'created_at', name: 'created_at', searchable: false},
+            {data: 'title', name: 'title'},
+            {data: 'message', name: 'message'},
+            {data: 'post_at', name: 'post_at'},
+            {data: 'expire_at', name: 'expire_at'},
+            {data: 'status', name: 'status'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

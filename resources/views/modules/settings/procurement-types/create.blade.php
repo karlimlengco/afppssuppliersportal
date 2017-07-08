@@ -1,5 +1,5 @@
 @section('title')
-Chargeability
+Procurement Types
 @stop
 
 @section('contents')
@@ -15,8 +15,11 @@ Chargeability
 </div>
 <div class="row">
     <div class="twelve columns">
-        {!! Form::textField('name', 'Name') !!}
+        {!! Form::textField('code', 'Code') !!}
         {!! Form::textareaField('description', 'Description') !!}
+
+        <button type="reset" class="button"> <a href="{{route($indexRoute)}}">Back</a> </button>
+        <button type="submit" class="button">Save</button>
 
     </div>
 </div>
