@@ -15,6 +15,19 @@
                         {!! Form::textField('payment_release_date', '') !!}
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="four columns">
+                        {!! Form::textField('payment_no', 'Check / ADA No') !!}
+                    </div>
+                    <div class="four columns">
+                        {!! Form::selectField('bank', 'Bank', $bank_list) !!}
+                    </div>
+                    <div class="four columns">
+                        {!! Form::textField('payment_date', 'Date') !!}
+                    </div>
+                </div>
+
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="_method" type="hidden" value="POST">
             </div>

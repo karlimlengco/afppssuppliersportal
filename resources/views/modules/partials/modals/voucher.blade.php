@@ -21,6 +21,14 @@
                         {!! Form::numberField('expanded_witholding_tax', 'Expanded Witholding Tax') !!}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="six columns">
+                        {!! Form::textField('final_tax_amount', 'Final Tax Amount') !!}
+                    </div>
+                    <div class="six columns">
+                        {!! Form::textField('ewt_amount', 'Expanded Witholding Tax Amount') !!}
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="twelve columns">

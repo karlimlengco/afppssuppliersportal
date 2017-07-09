@@ -55,6 +55,11 @@ class VoucherEloquent extends Model implements  AuditableContract
         'payment_received_date',
         'payment_receiver',
         'expanded_witholding_tax',
+        'final_tax_amount',
+        'ewt_amount',
+        'payment_no',
+        'bank',
+        'payment_date',
 
 
         'preaudit_date',
@@ -103,6 +108,16 @@ class VoucherEloquent extends Model implements  AuditableContract
     public function receiver()
     {
         return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'receiver_id');
+    }
+
+    /**
+     * [banks description]
+     *
+     * @return [type] [description]
+     */
+    public function banks()
+    {
+        return $this->belongsTo('\Revlv\Settings\Banks\BankEloquent', 'bank');
     }
 
     /**

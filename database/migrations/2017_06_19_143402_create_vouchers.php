@@ -39,7 +39,12 @@ class CreateVouchers extends Migration
             $table->date('journal_entry_date')->nullable();
             $table->string('journal_entry_number')->nullable();
             $table->string('update_remarks')->nullable();
+            $table->string('final_tax_amount')->nullable();
+            $table->string('ewt_amount')->nullable();
             $table->string('or')->nullable();
+            $table->string('payment_no')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('payment_date')->nullable();
 
             $table->date('approval_date')->nullable();
 

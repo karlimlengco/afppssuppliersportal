@@ -196,5 +196,15 @@ var approval_date = new Pikaday(
     maxDate: new Date(2020, 12, 31),
     yearRange: [2000,2020]
 });
+var payment_date = new Pikaday(
+{
+    field: document.getElementById('id-field-payment_date'),
+    firstDay: 1,
+    defaultDate: new Date(),
+    setDefaultDate: new Date(),
+    // minDate: new Date(),
+    maxDate: new Date(2020, 12, 31),
+    yearRange: [2000,2020]
+});
 </script>
 @stop

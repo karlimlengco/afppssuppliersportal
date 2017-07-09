@@ -14,6 +14,7 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Settings\Banks\BankRepository;
 
 class VoucherController extends Controller
 {
@@ -35,6 +36,7 @@ class VoucherController extends Controller
     protected $rfq;
     protected $audits;
     protected $signatories;
+    protected $banks;
 
     /**
      * [$model description]
@@ -122,14 +124,16 @@ class VoucherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( VoucherRepository $model, $id, SignatoryRepository $signatories)
+    public function show( VoucherRepository $model, $id, SignatoryRepository $signatories, BankRepository $banks)
     {
         $result         =   $model->findById($id);
         $signatory_lists=   $signatories->lists('id', 'name');
+        $bank_list      =   $banks->lists('id', 'code');
 
         return $this->view('modules.procurements.vouchers.show',[
             'data'              =>  $result,
             'signatory_list'    =>  $signatory_lists,
+            'bank_list'         =>  $bank_list  ,
             'indexRoute'        =>  $this->baseUrl.'index',
             'editRoute'         =>  $this->baseUrl.'edit',
             'modelConfig'   =>  [
@@ -308,8 +312,11 @@ class VoucherController extends Controller
      */
     public function releasePayment($id, VoucherRepository $model, Request $request)
     {
-        $model->update([
+        $result =   $model->update([
             'payment_release_date'  => $request->payment_release_date,
+            'payment_date'          => $request->payment_date,
+            'payment_no'            => $request->payment_no,
+            'bank'                  => $request->bank,
             'process_releaser'      => \Sentinel::getUser()->id,
         ], $id);
 
@@ -432,6 +439,11 @@ class VoucherController extends Controller
         $data['approval_date']          =   $result->approval_date;
         $data['certify_date']           =   $result->certify_date;
         $data['expanded_witholding_tax']=   $result->expanded_witholding_tax;
+        $data['ewt_amount']             =   $result->ewt_amount;
+        $data['final_tax_amount']       =   $result->final_tax_amount;
+        $data['payment_no']             =   $result->payment_no;
+        $data['payment_date']           =   $result->payment_date;
+        $data['payment_bank']           =   $result->banks->code;
         $data['payee']                  =   $winner;
         $data['upr']                    =   $noa_model->upr;
         $data['po']                     =   $noa_model->upr->purchase_order;

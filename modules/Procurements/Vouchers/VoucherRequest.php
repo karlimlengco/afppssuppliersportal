@@ -30,6 +30,11 @@ class VoucherRequest extends BaseRequest
 
         'journal_entry_date',
         'journal_entry_number',
+        'final_tax_amount',
+        'ewt_amount',
+        'payment_no',
+        'bank',
+        'payment_date',
         'or',
 
         'approval_date',

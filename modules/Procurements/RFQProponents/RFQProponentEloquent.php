@@ -65,6 +65,16 @@ class RFQProponentEloquent extends Model
          return $this->hasMany('\Revlv\Procurements\ProponentAttachments\ProponentAttachmentEloquent', 'proponent_id');
     }
 
+    /**
+     * [rfq description]
+     *
+     * @return [type] [description]
+     */
+    public function rfq()
+    {
+        return $this->belongsTo('\Revlv\Procurements\BlankRequestForQuotation\BlankRFQEloquent', 'rfq_id');
+    }
+
 
     /**
      * [winners description]
