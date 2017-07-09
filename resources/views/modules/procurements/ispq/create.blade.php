@@ -19,13 +19,29 @@ Invitation to Submit Price Quotation
     <div class="twelve columns">
 
         <div class="row">
-            <div class="six columns">
+            <div class="four columns">
+                {!! Form::textField('canvassing_date', 'Canvass Date') !!}
+            </div>
+            <div class="four columns">
+                {!! Form::textField('canvassing_time', 'Canvass Time') !!}
+            </div>
+            <div class="four columns">
                 {!! Form::textField('transaction_date', 'Transaction Date') !!}
             </div>
-            <div class="six columns">
+        </div>
+
+        <div class="row">
+            <div class="twelve columns">
                 {!! Form::selectField('signatory_id', 'Signatories', $signatory_lists) !!}
             </div>
         </div>
+
+        <div class="row">
+            <div class="twelve columns">
+                {!! Form::tagField('items', 'RFQ', $rfq_list) !!}
+            </div>
+        </div>
+
         <div class="row">
             <div class="twelve columns">
                 {!! Form::textareaField('venue', 'Venue', null, ['rows'=>3]) !!}
@@ -34,43 +50,6 @@ Invitation to Submit Price Quotation
 
     </div>
 </div>
-<br>
-<br>
-<br>
-<div class="row">
-    <div class="twelve columns">
-
-        <div class="row">
-            <div class="six columns">
-                <h3>Request For Quotation</h3>
-            </div>
-            <div class="five columns">
-                {!! Form::select('rfq_id', [''=> 'Select One']+$rfq_list, null, ['class'=>'  select', 'id' => 'rfq_id']) !!}
-            </div>
-            <div class="one columns">
-                <button class="button" type='button' id="add_rfq">Add</button>
-            </div>
-        </div>
-
-        <table class="table" id="item_table">
-            <thead>
-                <tr>
-                    <th>RFQ Number</th>
-                    <th>Item Description</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
 {!!Form::close()!!}
 
 @stop
@@ -78,6 +57,16 @@ Invitation to Submit Price Quotation
 <script src="/vendors/timepicker/timepicker.min.js"></script>
 
 <script type="text/javascript">
+
+    var timepicker1 = new TimePicker(['id-field-canvassing_time'], {
+        lang: 'en',
+        theme: 'dark'
+    });
+
+    timepicker1.on('change', function(evt){
+      var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+      evt.element.value = value;
+    });
 
     // datepicker
     var picker = new Pikaday(
@@ -89,46 +78,16 @@ Invitation to Submit Price Quotation
         yearRange: [2000,2020]
     });
 
-    // end datepicker
-
-    // // Add item button
-    $(document).on('click', '#add_rfq', function(e){
-        e.preventDefault();
-        addField()
+    // datepicker
+    var canvassing_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-canvassing_date'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
     });
 
-    //
-    function addField()
-    {
-        // vars
-        var rfq_id       = $("#rfq_id option:selected").val();
-        var rfq_id_text = $("#rfq_id option:selected").text();
-        // end vars
-
-        var table=document.getElementById("item_table");
-        var table_len=(table.rows.length)-1;
-
-        var newRow = "<tr id='row" + table_len + "'>";
-            newRow += "<td id='desciption_row"+table_len+"'>";
-            newRow += "<input type='hidden' name='items[]' value='"+rfq_id+"' class='input'/>"+rfq_id_text;
-            newRow += "</td>";
-            newRow += "<td id='name_row"+table_len+"'>";
-            newRow += "<input type='text' name='description[]' value='' class='input'/>";
-            newRow += "</td>";
-            newRow += "<td id='total_amount_row"+table_len+"'>";
-            newRow += "<input type='button' value='Delete' class='button delete' onclick='delete_row("+table_len+")'";
-            newRow += "</td>";
-            newRow += "</tr>";
-
-        table.insertRow(table_len).outerHTML=newRow;
-        $("#rfq_id").val("")
-    }
-
-    function delete_row(no)
-    {
-        console.log(no);
-         document.getElementById("row"+no+"").outerHTML="";
-    }
-    // End Add item button
+    // end datepicker
 </script>
 @stop

@@ -166,8 +166,11 @@ class ISPQController extends Controller
             'venue'             =>  $request->get('venue'),
             'signatory_id'      =>  $request->get('signatory_id'),
             'transaction_date'  =>  $request->get('transaction_date'),
+            'canvassing_date'   =>  $request->get('canvassing_date'),
+            'canvassing_time'   =>  $request->get('canvassing_time'),
         ]);
         $items  =   $request->get('items');
+
         foreach($items as $key => $item)
         {
             $newId          =   $items[$key];
@@ -176,12 +179,12 @@ class ISPQController extends Controller
                 'ispq_id'           =>  $result->id,
                 'rfq_id'            =>  $rfq_model->id,
                 'upr_id'            =>  $rfq_model->upr_id,
-                'description'       =>  $request->get('description')[$key],
+                'description'       =>  $rfq_model->upr->project_name,
                 'total_amount'      =>  $rfq_model->upr->total_amount,
                 'upr_number'        =>  $rfq_model->upr_number,
                 'rfq_number'        =>  $rfq_model->rfq_number,
-                'canvassing_date'   =>  $rfq_model->deadline,
-                'canvassing_time'   =>  $rfq_model->opening_time,
+                'canvassing_date'   =>  $request->get('canvassing_date'),
+                'canvassing_time'   =>  $request->get('canvassing_time'),
             ];
 
             $quotations->save($data);

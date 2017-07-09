@@ -16,6 +16,8 @@ class ISPQRequest extends BaseRequest
         'venue',
         'transaction_date',
         'signatory_id',
+        'canvassing_date',
+        'canvassing_time',
     ];
 
     /**
@@ -30,6 +32,8 @@ class ISPQRequest extends BaseRequest
             'signatory_id'      => 'required',
             'venue'             => 'required',
             'transaction_date'  => 'required',
+            'canvassing_date'   =>  'required',
+            'canvassing_time'   =>  'required',
         ];
     }
 }
