@@ -28,19 +28,17 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
         @foreach($sidebar->getSidebar() as $group => $route)
         <li class="sidebar__menu__item has-child">
 
-            @if(count($route->navigation) > 1)
-                @if(explode('.', $currentRoute)[0] == $route->subname)
+            @if(explode('.', $currentRoute)[0] == $route->subname)
                 <a href="#" class="sidebar__menu__item__link is-active">
-                @else
-                <a href="#" class="sidebar__menu__item__link ">
-                @endif
                     <i class="{{$route->icon}}"></i>{{$route->name}}
                 </a>
-                @if(explode('.', $currentRoute)[0] == $route->subname)
+            @else
+                <a href="#" class="sidebar__menu__item__link ">
+                    <i class="{{$route->icon}}"></i>{{$route->name}}
+                </a>
+            @endif
+            @if(explode('.', $currentRoute)[0] == $route->subname)
                 <ul class="sidebar__child-menu is-visible">
-                @else
-                <ul class="sidebar__child-menu">
-                @endif
                     @foreach($route->navigation as $nav)
                         <li class="sidebar__child-menu__item">
                             <a href="{{route($nav->route)}}" class="sidebar__child-menu__item__link">{{$nav->name}}</a>
@@ -48,12 +46,15 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
                     @endforeach
                 </ul>
             @else
-                @foreach($route->navigation as $nav)
-                <a href="{{route($nav->route)}}" class="sidebar__child-menu__item__link">
-                    <i class="{{$route->icon}}"></i>{{$route->name}}
-                </a>
-                @endforeach
+                <ul class="sidebar__child-menu">
+                    @foreach($route->navigation as $nav)
+                        <li class="sidebar__child-menu__item">
+                            <a href="{{route($nav->route)}}" class="sidebar__child-menu__item__link">{{$nav->name}}</a>
+                        </li>
+                    @endforeach
+                </ul>
             @endif
+
         </li>
         @endforeach
     </ul>

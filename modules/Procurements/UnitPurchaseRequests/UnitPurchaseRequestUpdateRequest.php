@@ -57,7 +57,7 @@ class UnitPurchaseRequestUpdateRequest extends BaseRequest
     {
         return [
             'project_name'          => 'required',
-            'upr_number'            => 'required',
+            'upr_number'            => 'required|unique:unit_purchase_requests,upr_number,'.$this->route('unit_purchase_request'),
             'place_of_delivery'     => 'required|integer',
             'mode_of_procurement'   => 'required|integer',
             'procurement_type'      => 'required|integer',

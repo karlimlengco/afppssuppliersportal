@@ -17,7 +17,7 @@ trait DatatableTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getDatatable()
+    public function getDatatable($id = null)
     {
         $model  =   $this->model;
 
@@ -29,6 +29,7 @@ trait DatatableTrait
             'unit_purchase_requests.created_at',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.status',
+            'unit_purchase_requests.prepared_by',
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.state',
             'mode_of_procurements.name as type',
@@ -48,6 +49,7 @@ trait DatatableTrait
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.project_name',
+            'unit_purchase_requests.prepared_by',
             'unit_purchase_requests.status',
             'unit_purchase_requests.state',
             'unit_purchase_requests.created_at',
@@ -56,6 +58,11 @@ trait DatatableTrait
             'mode_of_procurements.name',
         ]);
         $model  =   $model->orderBy('created_at', 'desc');
+
+        if($id != null)
+        {
+            $model  =   $model->where('unit_purchase_requests.prepared_by','=', $id);
+        }
 
         return $this->dataTable($model->get());
     }

@@ -71,27 +71,51 @@ class SidebarGenerator
         $accessibleRoute = [];
         foreach($routes as $group => $route)
         {
-            for ($i=0; $i < count($route); $i++) {
-                # code...
-                $navigation = $route[$i]->navigation;
-                $route[$i]->navigation   =   [];
-                foreach($navigation as $key => $nav)
+                foreach($route as $r)
                 {
-                    $route[$i]->navigation[]         =   $nav;
-                    if ($this->user->permissions != null )
+
+                    $navs   =   $r->navigation;
+                    $r->navigation  = [];
+                    foreach($navs as $key => $nav)
                     {
-                        $accessibleRoute[$group]        = $route[$i];
-                    }
-                    else
-                    {
-                        if ($this->checkPermissions($nav->route))
+                        if ($this->user->permissions != null )
                         {
-                            $accessibleRoute[$group]        = $route[$i];
+                            $r->navigation[]        = $nav;
+                            $accessibleRoute[$group]  = $r;
+                        }
+                        else
+                        {
+                            if ($this->checkPermissions($nav->route))
+                            {
+                                $r->navigation[]        = $nav;
+                                $accessibleRoute[$group]  = $r;
+                            }
                         }
                     }
                 }
-            }
+            // dd($route);
+            // for ($i=0; $i < count($route); $i++) {
+            //     # code...
+            //     $navigation = $route[$i]->navigation;
+            //     $route[$i]->navigation   =   [];
+            //     foreach($navigation as $key => $nav)
+            //     {
+            //         $route[$i]->navigation[]         =   $nav;
+            //         if ($this->user->permissions != null )
+            //         {
+            //             $accessibleRoute[$group]        = $route[$i];
+            //         }
+            //         else
+            //         {
+            //             if ($this->checkPermissions($nav->route))
+            //             {
+            //                 $accessibleRoute[$group]        = $route[$i];
+            //             }
+            //         }
+            //     }
+            // }
         }
+        // dd($accessibleRoute);
         $this->sidebar = $accessibleRoute;
 
     }

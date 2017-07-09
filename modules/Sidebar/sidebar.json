@@ -7,12 +7,12 @@
             "route"     :   "settings.index",
             "navigation": [
                 {
-                    "route" :   "procurements.unit-purchase-requests.index",
+                    "route" :   "settings.users.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Not yet available"
                 },
                 {
-                    "route" :   "procurements.unit-purchase-requests.index",
+                    "route" :   "settings.users.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Not yet available"
                 }
@@ -24,7 +24,7 @@
             "name"      : "Alternative Mode of Procurement",
             "icon"      : "nc-icon-mini shopping_cart-simple",
             "subname"   : "procurements",
-            "route"     :   "settings.index",
+            "route"     :   "procurements.index",
             "navigation": [
                 {
                     "route" :   "procurements.unit-purchase-requests.index",

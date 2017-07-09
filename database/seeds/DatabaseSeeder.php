@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Holidays::class);
         $this->call(ProcurementTypes::class);
         $this->call(Announcements::class);
+        $this->call(Permissions::class);
+        $this->call(Roles::class);
     }
 }
