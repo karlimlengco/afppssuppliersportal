@@ -35,6 +35,8 @@ class CreateUnitPurchaseRequests extends Migration
 
             $table->date('date_prepared');
             $table->date('completed_at')->nullable();
+            $table->date('cancelled_at')->nullable();
+            $table->text('cancel_reason')->nullable();
             $table->integer('prepared_by');
 
             $table->timestamp('date_processed')->nullable();

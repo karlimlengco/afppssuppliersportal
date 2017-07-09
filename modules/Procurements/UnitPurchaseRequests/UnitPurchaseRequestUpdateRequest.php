@@ -10,23 +10,25 @@ class UnitPurchaseRequestUpdateRequest extends BaseRequest
      * @var array
      */
     protected $whitelist = [
-        // 'place_of_delivery',
-        // 'mode_of_procurement',
-        // 'chargeability',
-        // 'account_code',
+        'place_of_delivery',
+        'mode_of_procurement',
+        'chargeability',
+        'account_code',
 
         'fund_validity',
         'terms_of_payment',
         'update_remarks',
         'other_infos',
 
-        // 'units',
+        'units',
         'purpose',
+        'cancelled_at',
+        'cancel_reason',
 
         'project_name',
         'completed_at',
         'days',
-        // 'upr_number',
+        'upr_number',
         // 'ref_number',
 
         'date_prepared',
@@ -55,13 +57,14 @@ class UnitPurchaseRequestUpdateRequest extends BaseRequest
     {
         return [
             'project_name'          => 'required',
-            // 'upr_number'            => 'required',
-            // 'place_of_delivery'     => 'required|integer',
-            // 'mode_of_procurement'   => 'required|integer',
-            // 'chargeability'         => 'required|integer',
-            // 'units'                 => 'required|integer',
+            'upr_number'            => 'required',
+            'place_of_delivery'     => 'required|integer',
+            'mode_of_procurement'   => 'required|integer',
+            'procurement_type'      => 'required|integer',
+            'chargeability'         => 'required|integer',
+            'units'                 => 'required|integer',
             'purpose'               => 'required',
-            // 'account_code'          => 'required|integer',
+            'account_code'          => 'required|integer',
             'date_prepared'         => 'required|date',
         ];
     }

@@ -5,6 +5,9 @@ namespace Revlv\Procurements\UnitPurchaseRequests;
 use Revlv\BaseRepository;
 use DB;
 use Illuminate\Database\Eloquent\Model;
+use Revlv\Procurements\UnitPurchaseRequests\Traits\PSRTrait;
+use Revlv\Procurements\UnitPurchaseRequests\Traits\TransactionDaysTrait;
+use Revlv\Procurements\UnitPurchaseRequests\Traits\AnalyticTrait;
 
 class UnitPurchaseRequestRepository extends BaseRepository
 {
@@ -142,7 +145,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
             DB::raw("count(id) as total")
         ]);
 
-        $model  =   $model->whereYear('prepared_by', '=', $year);
+        $model  =   $model->whereYear('date_prepared', '=', $year);
 
         return $model->first();
     }

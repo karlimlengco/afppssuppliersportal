@@ -9,6 +9,7 @@ Unit Purchase Request
 @section('modal')
     @include('modules.partials.modals.view-attachments')
     @include('modules.partials.modals.request_quotation')
+    @include('modules.partials.modals.reject-upr')
     @include('modules.partials.modals.dropzone')
     @include('modules.partials.modals.terminate')
     @include('modules.partials.modals.voucher')
@@ -25,6 +26,7 @@ Unit Purchase Request
                 {{-- Process --}}
                 @if($data->status == 'pending')
                     <a class="button__options__item" id="process-button" href="#">Process</a>
+                    <a class="button__options__item" id="reject-button" href="#">Cancel</a>
                 @endif
                 @if(strtolower($data->state) == 'completed')
                     <a href="#" id="terminate-button" class="button__options__item">Terminate</a>
@@ -32,9 +34,11 @@ Unit Purchase Request
                 {{-- Process --}}
 
                 {{-- Always shhow --}}
+                @if($data->status != 'pending' && $data->status != 'Cancelled')
                 <a class="button__options__item" id="signatory-button" href="#">Signatories</a>
                 <a class="button__options__item" id="view-attachments-button" href="#">Attachments</a>
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->id)}}">View Timelines</a>
+                @endif
                 {{-- <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}">View Logs</a> --}}
                 {{-- Always shhow --}}
 
@@ -93,9 +97,11 @@ Unit Purchase Request
             <i class="nc-icon-mini files_archive-content"></i>
         </a>
 
+        @if($data->status == 'pending')
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
             <i class="nc-icon-mini design_pen-01"></i>
         </a>
+        @endif
 
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
     </div>
@@ -138,10 +144,14 @@ Unit Purchase Request
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Date Processed :</strong> {{$data->date_processed}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Processed By :</strong> {{($data->processor) ? $data->processor->first_name ." ". $data->processor->surname :""}} </li>
                 @endif
+                @if($data->status == 'Cancelled')
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Date Cancelled :</strong> {{$data->cancelled_at}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">cancel reason :</strong> {{$data->cancel_reason}} </li>
+                @endif
             </ul>
     </div>
 </div>
-
+{{-- Main --}}
 <div class="data-panel">
     <div class="data-panel__section">
         <ul  class="data-panel__list">
@@ -211,6 +221,7 @@ Unit Purchase Request
         </table>
     </div>
 </div>
+{{-- Main --}}
 @stop
 
 @section('scripts')
@@ -228,6 +239,10 @@ Unit Purchase Request
     $('#attachment-button').click(function(e){
         e.preventDefault();
         $('#dropzone-modal').addClass('is-visible');
+    })
+    $('#reject-button').click(function(e){
+        e.preventDefault();
+        $('#reject-modal').addClass('is-visible');
     })
 
     $('#process-button').click(function(e){
@@ -254,6 +269,18 @@ Unit Purchase Request
       var value = (evt.hour || '00') + ':' + (evt.minute || '00');
       evt.element.value = value;
     });
+
+    var cancelled_at = new Pikaday(
+    {
+        field: document.getElementById('id-field-cancelled_at'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
 
     var voucher_transaction_date = new Pikaday(
     {

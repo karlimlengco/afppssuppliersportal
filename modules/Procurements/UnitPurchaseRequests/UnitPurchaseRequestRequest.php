@@ -20,6 +20,8 @@ class UnitPurchaseRequestRequest extends BaseRequest
         'update_remarks',
         'other_infos',
 
+        'cancelled_at',
+        'cancel_reason',
         'units',
         'purpose',
 

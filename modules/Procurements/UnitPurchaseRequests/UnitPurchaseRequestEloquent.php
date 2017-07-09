@@ -16,12 +16,25 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $auditInclude = [
-        'date_prepared',
-        'other_infos',
-        'purpose',
+        'place_of_delivery',
+        'terminated_date',
+        'procurement_type',
+        'mode_of_procurement',
+        'chargeability',
+        'remarks',
         'update_remarks',
         'account_code',
-        'completed_at',
+        'fund_validity',
+        'terms_of_payment',
+        'other_infos',
+        'units',
+        'purpose',
+        'project_name',
+        'upr_number',
+        'ref_number',
+        'date_prepared',
+        'date_processed',
+        'total_amount',
     ];
 
 
@@ -40,6 +53,8 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'cancelled_at',
+        'cancel_reason',
         'place_of_delivery',
         'terminated_date',
         'procurement_type',
