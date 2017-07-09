@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMeetingMinutes extends Migration
+class CreateMeetingMembers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateMeetingMinutes extends Migration
      */
     public function up()
     {
-        Schema::create('meeting_minutes', function (Blueprint $table) {
+        Schema::create('meeting_members', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date_opened');
-            $table->time('time_opened');
-            $table->string('venue');
-            $table->time('time_closed')->nullable();
+            $table->integer('meeting_id');
+            $table->integer('signatory_id');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateMeetingMinutes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meeting_minutes');
+        Schema::dropIfExists('meeting_members');
     }
 }

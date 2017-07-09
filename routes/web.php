@@ -120,6 +120,14 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
 
     /*
     |--------------------------------------------------------------------------
+    | Minutes Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::resource('minutes', '\Revlv\Controllers\Procurements\MinutesController');
+
+    /*
+    |--------------------------------------------------------------------------
     | RFQ Proponents Routes
     |--------------------------------------------------------------------------
     |
@@ -380,6 +388,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('philgeps-posting', '\Revlv\Controllers\Procurements\PhilGepsPostingController@getDatatable')->name('procurements.philgeps-posting');
     Route::get('ispq', '\Revlv\Controllers\Procurements\ISPQController@getDatatable')->name('procurements.ispq');
     Route::get('canvassing', '\Revlv\Controllers\Procurements\CanvassingController@getDatatable')->name('procurements.canvassing');
+    Route::get('minutes', '\Revlv\Controllers\Procurements\MinutesController@getDatatable')->name('procurements.minutes');
     Route::get('noa', '\Revlv\Controllers\Procurements\NoticeOfAwardController@getDatatable')->name('procurements.noa');
     Route::get('ntp', '\Revlv\Controllers\Procurements\NoticeToProceedController@getDatatable')->name('procurements.ntp');
     Route::get('purchase-orders', '\Revlv\Controllers\Procurements\PurchaseOrderController@getDatatable')->name('procurements.purchase-orders');
