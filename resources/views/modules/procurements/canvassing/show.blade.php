@@ -77,9 +77,9 @@ Canvassing
                 <tr>
                     <th>Name</th>
                     <th>Processed Date</th>
-                    <th>Prepared By</th>
                     <th>Bid Amount</th>
                     <th>Residual</th>
+                    <th>Status</th>
                     <th>Notes</th>
                     <th></th>
                 </tr>
@@ -90,18 +90,19 @@ Canvassing
                 <tr>
                     <td>{{($proponent->supplier) ? $proponent->supplier->name :""}}</td>
                     <td>{{$proponent->date_processed}}</td>
-                    <td>{{($proponent->users) ? $proponent->users->first_name ." ". $proponent->users->surname :""}} </td>
                     <td>{{formatPrice($proponent->bid_amount)}}</td>
                     <td>{{formatPrice($data->upr->total_amount - $proponent->bid_amount)}}</td>
+                    <td>{{$proponent->status}} </td>
                     <td>{{ $proponent->note }}</td>
                     <td>
-                        <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="attachments"> <span class="nc-icon-glyph ui-1_attach-87"></span> </a>
-
-                        @if($data->adjourned_time == null)
-                        <a href="#" class="award-button award" data-id="{{$proponent->id}}" data-name="{{$proponent->supplier->name}}" tooltip="Award"> <span class="nc-icon-glyph business_award-48"></span> </a>
-                        @endif
-                        @if($data->winners != null && $data->winners->proponent_id == $proponent->id )
-                            <a href="#" class=" award" tooltip="Winner"> <span class="nc-icon-glyph business_award-48"></span> </a>
+                        <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="edit"> <span class="nc-icon-glyph design_pen-01"></span> </a>
+                        @if($proponent->bid_amount != null)
+                            @if($data->adjourned_time == null)
+                            <a href="#" class="award-button award" data-id="{{$proponent->id}}" data-name="{{$proponent->supplier->name}}" tooltip="Award"> <span class="nc-icon-glyph business_award-48"></span> </a>
+                            @endif
+                            @if($data->winners != null && $data->winners->proponent_id == $proponent->id )
+                                <a href="#" class=" award" tooltip="Winner"> <span class="nc-icon-glyph business_award-48"></span> </a>
+                            @endif
                         @endif
                     </td>
                 </tr>

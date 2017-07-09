@@ -189,6 +189,10 @@ class RFQProponentController extends Controller
             'modelConfig'   =>  [
                 'add_attachment' =>  [
                     'route'     =>  [$this->baseUrl.'attachments.store', $id],
+                ],
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update', $id],
+                    'method'    => 'PUT'
                 ]
             ]
         ]);
@@ -229,11 +233,12 @@ class RFQProponentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RFQProponentRequest $request, $id, RFQProponentRepository $model)
+    public function update(Request $request, $id, RFQProponentRepository $model)
     {
-        $model->update($request->getData(), $id);
+        $this->validate($request, ['bid_amount' => 'required', 'status' => 'required']);
+        $model->update(['bid_amount' => $request->bid_amount, 'status' => $request->status], $id);
 
-        return redirect()->route($this->baseUrl.'edit', $id)->with([
+        return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
         ]);
     }

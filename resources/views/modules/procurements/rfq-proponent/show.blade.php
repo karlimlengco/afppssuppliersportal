@@ -8,13 +8,25 @@ Proponent
 
 @section('contents')
 
+{!! Form::model($data, $modelConfig['update']) !!}
 <div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
+    <div class="twelve columns align-right utility utility--align-right">
+
+        <a href="{{route('procurements.canvassing.show',$data->id)}}" class="button button--pull-left" tooltip="Back">
+            <i class="nc-icon-mini arrows-1_tail-left"></i>
+        </a>
+        <a class="button topbar__utility__button--modal" href="#"><i class="nc-icon-mini ui-1_attach-86"></i></a>
+        <button class="button" tooltip="Save" type="submit"><i class="nc-icon-mini ui-2_disk"></i></button>
     </div>
-    <div class="six columns align-right">
-        <a class="button topbar__utility__button--modal" href="#">Add Attachment</a>
-        <a class="button" href="{{route($indexRoute,$data->rfq_id)}}">Back</a>
+</div>
+
+<div class="row">
+    <div class="six columns">
+        {!! Form::textField('bid_amount', 'Bid Amount')!!}
+    </div>
+
+    <div class="six columns">
+        {!! Form::selectField('status', 'Status', ['passed' => 'Passed', 'failed' => 'Failed'])!!}
     </div>
 </div>
 
@@ -41,6 +53,7 @@ Proponent
         </ul>
     </div>
 </div>
+{!! Form::close() !!}
 
 @if(count($data->attachments) != 0)
 <div class="row">

@@ -21,6 +21,7 @@ class CreateRfqProponents extends Migration
             $table->string('bid_amount')->nullable();
             $table->date('date_processed');
             $table->integer('prepared_by');
+            $table->string('status')->nullable();
             $table->string('is_awarded')->nullable();
             $table->string('is_award_accepted')->nullable();
             $table->string('received_by')->nullable();

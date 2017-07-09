@@ -86,7 +86,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td>Passed</td>
+                                <td>{{ucfirst($proponent->status)}}</td>
                             </tr>
                             @endforeach
                         </tbody>
