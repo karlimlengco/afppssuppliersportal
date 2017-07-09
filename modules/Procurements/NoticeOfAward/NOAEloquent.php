@@ -66,6 +66,16 @@ class NOAEloquent extends Model implements  AuditableContract
     }
 
     /**
+     * [signatory description]
+     *
+     * @return [type] [description]
+     */
+    public function awarder()
+    {
+        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'awarded_by');
+    }
+
+    /**
      * [rfq description]
      *
      * @return [type] [description]

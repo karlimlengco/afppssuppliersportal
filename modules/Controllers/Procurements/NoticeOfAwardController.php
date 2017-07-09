@@ -75,7 +75,8 @@ class NoticeOfAwardController extends Controller
         $supplier_name      =   $proponent_model->supplier->name;
 
         $this->validate($request,[
-            'awarded_date'  =>   'required'
+            'awarded_date'  =>   'required',
+            'awarded_by'    =>   'required',
         ]);
 
         $data   =   [
@@ -85,7 +86,7 @@ class NoticeOfAwardController extends Controller
             'rfq_number'    =>  $canvasModel->rfq_number,
             'upr_number'    =>  $canvasModel->upr_number,
             'proponent_id'  =>  $proponentId,
-            'awarded_by'    =>  \Sentinel::getUser()->id,
+            'awarded_by'    =>  $request->awarded_by,
             'awarded_date'  =>  $request->awarded_date,
         ];
 

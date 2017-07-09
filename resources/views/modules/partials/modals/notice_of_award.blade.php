@@ -11,6 +11,7 @@
 
             <div class="modal__dialogue__body">
                 {!! Form::textField('awarded_date', 'Award Date')!!}
+                {!! Form::selectField('awarded_by', 'Award By', $current_signs)!!}
                 <p>You will award this to <strong><span id='proponent'></span></strong></p>
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="_method" type="hidden" value="POST">

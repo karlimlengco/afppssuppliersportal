@@ -172,15 +172,21 @@ class CanvassingController extends Controller
         $id,
         CanvassingRepository $model,
         SignatoryRepository $signatories,
+        CSignatoryRepository $mysignatories,
         RFQProponentRepository $proponents)
     {
         $result         =   $model->with(['opens', 'signatories', 'winners', 'upr'])->findById($id);
         $signatory_lists=   $signatories->lists('id', 'name');
         $proponent_list =   $proponents->findByRFQId($result->rfq_id);
 
+        $my_signtories  =   $result->signatories->pluck('signatory_id', 'signatory_id');
+
+        $current_signs  =   array_intersect_key( $signatory_lists, $my_signtories->toArray()  );
+
         return $this->view('modules.procurements.canvassing.show',[
             'data'              =>  $result,
             'signatory_lists'   =>  $signatory_lists,
+            'current_signs'     =>  $current_signs,
             'proponent_list'    =>  $proponent_list,
             'indexRoute'        =>  $this->baseUrl.'index',
             'editRoute'         =>  $this->baseUrl.'edit',
