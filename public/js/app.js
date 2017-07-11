@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 48);
+/******/ 	return __webpack_require__(__webpack_require__.s = 42);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(7);
+var bind = __webpack_require__(6);
 
 /*global toString:true*/
 
@@ -374,63 +374,6 @@ module.exports = {
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
-
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  scopeId,
-  cssModules
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  // inject cssModules
-  if (cssModules) {
-    var computed = Object.create(options.computed || null)
-    Object.keys(cssModules).forEach(function (key) {
-      var module = cssModules[key]
-      computed[key] = function () { return module }
-    })
-    options.computed = computed
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -454,10 +397,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(3);
+    adapter = __webpack_require__(2);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(3);
+    adapter = __webpack_require__(2);
   }
   return adapter;
 }
@@ -528,10 +471,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(37)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(35)))
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -542,7 +485,7 @@ var settle = __webpack_require__(18);
 var buildURL = __webpack_require__(21);
 var parseHeaders = __webpack_require__(27);
 var isURLSameOrigin = __webpack_require__(25);
-var createError = __webpack_require__(6);
+var createError = __webpack_require__(5);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(20);
 
 module.exports = function xhrAdapter(config) {
@@ -715,7 +658,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -741,7 +684,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -753,7 +696,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -777,7 +720,7 @@ module.exports = function createError(message, config, code, response) {
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -792,6 +735,63 @@ module.exports = function bind(fn, thisArg) {
     return fn.apply(thisArg, args);
   };
 };
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+// this module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  scopeId,
+  cssModules
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  // inject cssModules
+  if (cssModules) {
+    var computed = Object.create(options.computed || null)
+    Object.keys(cssModules).forEach(function (key) {
+      var module = cssModules[key]
+      computed[key] = function () { return module }
+    })
+    options.computed = computed
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
 
 
 /***/ }),
@@ -832,9 +832,9 @@ module.exports = g;
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(33);
+__webpack_require__(31);
 
-window.Vue = __webpack_require__(46);
+window.Vue = __webpack_require__(40);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -842,8 +842,8 @@ window.Vue = __webpack_require__(46);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(41));
-Vue.component('analytics', __webpack_require__(58));
+Vue.component('example', __webpack_require__(37));
+Vue.component('analytics', __webpack_require__(36));
 
 var app = new Vue({
   el: '#app'
@@ -869,9 +869,9 @@ module.exports = __webpack_require__(12);
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(7);
+var bind = __webpack_require__(6);
 var Axios = __webpack_require__(14);
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(1);
 
 /**
  * Create an instance of Axios
@@ -904,9 +904,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(4);
+axios.Cancel = __webpack_require__(3);
 axios.CancelToken = __webpack_require__(13);
-axios.isCancel = __webpack_require__(5);
+axios.isCancel = __webpack_require__(4);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -927,7 +927,7 @@ module.exports.default = axios;
 "use strict";
 
 
-var Cancel = __webpack_require__(4);
+var Cancel = __webpack_require__(3);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -991,7 +991,7 @@ module.exports = CancelToken;
 "use strict";
 
 
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(1);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(15);
 var dispatchRequest = __webpack_require__(16);
@@ -1144,8 +1144,8 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(19);
-var isCancel = __webpack_require__(5);
-var defaults = __webpack_require__(2);
+var isCancel = __webpack_require__(4);
+var defaults = __webpack_require__(1);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -1254,7 +1254,7 @@ module.exports = function enhanceError(error, config, code, response) {
 "use strict";
 
 
-var createError = __webpack_require__(6);
+var createError = __webpack_require__(5);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -1697,10 +1697,179 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+var arrayIDs = [];
+var array2IDs = [];
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            items: [],
+            itemProgram: [],
+            itemProgramCenters: []
+        };
+    },
+    mounted: function mounted() {
+        this.fetchUprAnalytics();
+    },
+
+
+    methods: {
+        fetchUprAnalytics: function fetchUprAnalytics() {
+            var _this = this;
+
+            axios.get('/reports/upr-programs').then(function (response) {
+                _this.items = response.data;
+            }).catch(function (e) {
+                console.log(e);
+            });
+        },
+        fetchUPRCenters: function fetchUPRCenters(program) {
+            var _this2 = this;
+
+            axios.get('/reports/upr-centers/' + program).then(function (response) {
+                _this2.itemProgram.push(response.data);
+            }).catch(function (e) {
+                console.log(e);
+            });
+        },
+        fetchUPRs: function fetchUPRs(program, center) {
+            var _this3 = this;
+
+            axios.get('/reports/uprs/' + program + '/' + center).then(function (response) {
+                _this3.itemProgramCenters.push(response.data);
+            }).catch(function (e) {
+                console.log(e);
+            });
+        },
+        clickItemProgram: function clickItemProgram(item) {
+
+            if (arrayIDs.indexOf(item.programs) == -1) {
+                arrayIDs.push(item.programs);
+                this.fetchUPRCenters(item.programs);
+            }
+        },
+        clickItemProgramCenter: function clickItemProgramCenter(item) {
+            if (array2IDs.indexOf(item.programs) == -1) {
+                if (array2IDs[item.programs] != item.name) {
+                    console.log('asd');
+                    array2IDs[item.programs] = item.name;
+                    this.fetchUPRs(item.programs, item.name);
+                }
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1729,11 +1898,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 33 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(36);
+window._ = __webpack_require__(34);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -1742,9 +1911,9 @@ window._ = __webpack_require__(36);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(35);
+  window.$ = window.jQuery = __webpack_require__(33);
 
-  __webpack_require__(34);
+  __webpack_require__(32);
 } catch (e) {}
 
 /**
@@ -1787,7 +1956,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 34 */
+/* 32 */
 /***/ (function(module, exports) {
 
 /*!
@@ -4170,7 +4339,7 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 35 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14430,7 +14599,7 @@ return jQuery;
 
 
 /***/ }),
-/* 36 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -31519,10 +31688,10 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(47)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(41)(module)))
 
 /***/ }),
-/* 37 */
+/* 35 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -31712,17 +31881,48 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(7)(
   /* script */
-  __webpack_require__(32),
+  __webpack_require__(29),
   /* template */
-  __webpack_require__(43),
+  __webpack_require__(38),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/storage/storage/Sites/epmis/resources/assets/js/components/Analytics.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Analytics.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-17e57342", Component.options)
+  } else {
+    hotAPI.reload("data-v-17e57342", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(7)(
+  /* script */
+  __webpack_require__(30),
+  /* template */
+  __webpack_require__(39),
   /* scopeId */
   null,
   /* cssModules */
@@ -31749,8 +31949,72 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 42 */,
-/* 43 */
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: " "
+  }, [_c('div', {
+    staticClass: "table-scroll"
+  }, [_c('table', {
+    staticClass: "table table--with-border table-name"
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
+    return [_c('tr', [_c('td', [_vm._v("\n                            Program " + _vm._s(item.programs) + "\n                            "), _c('button', {
+      staticClass: "show-child-table",
+      on: {
+        "click": function($event) {
+          _vm.clickItemProgram(item)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "nc-icon-mini ui-1_circle-add"
+    })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.upr_count) + " (" + _vm._s(item.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.avg_days))]), _vm._v(" "), (item.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(item.avg_delays))]) : _vm._e(), _vm._v(" "), (item.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgram), function(itemProg) {
+      return [(itemProg.program == item.programs) ? _vm._l((itemProg.data), function(itemProgData) {
+        return _c('tr', [_c('td', {
+          staticClass: "has-child",
+          attrs: {
+            "colspan": "8"
+          }
+        }, [_c('table', {
+          staticClass: "child-table table-name"
+        }, [_c('tbody', [_c('tr', [_c('td', [_vm._v("\n                                                    " + _vm._s(itemProgData.name) + "\n                                                    "), _c('button', {
+          staticClass: "show-grand-child-table",
+          on: {
+            "click": function($event) {
+              _vm.clickItemProgramCenter(itemProgData)
+            }
+          }
+        }, [_c('i', {
+          staticClass: "nc-icon-mini ui-1_circle-add"
+        })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.upr_count) + " (" + _vm._s(itemProgData.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.avg_days))]), _vm._v(" "), (itemProgData.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(itemProgData.avg_delays))]) : _vm._e(), _vm._v(" "), (itemProgData.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgramCenters), function(itemProgCent) {
+          return [(itemProgCent.program == item.programs) ? [(itemProgCent.center == itemProgData.name) ? [_c('tr', [_c('td', {
+            staticClass: "has-child",
+            attrs: {
+              "colspan": "8"
+            }
+          }, [_c('table', {
+            staticClass: "grand-child-table table-name"
+          }, [_c('tbody', _vm._l((itemProgCent.data), function(itemProgCentData) {
+            return _c('tr', [_c('td', [_vm._v(_vm._s(itemProgCentData.upr_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.upr_count) + " (" + _vm._s(itemProgCentData.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), (itemProgCentData.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(itemProgCentData.avg_delays))]) : _vm._e(), _vm._v(" "), (itemProgCentData.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.state))])])
+          }))])])])] : _vm._e()] : _vm._e()]
+        })], 2)])])])
+      }) : _vm._e()]
+    })]
+  })], 2)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v("# UPR")]), _vm._v(" "), _c('th', [_vm._v("ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVE days to complete")]), _vm._v(" "), _c('th', [_vm._v("AVE delays")]), _vm._v(" "), _c('th', [_vm._v("Remarks")])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-17e57342", module.exports)
+  }
+}
+
+/***/ }),
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -31779,9 +32043,7 @@ if (false) {
 }
 
 /***/ }),
-/* 44 */,
-/* 45 */,
-/* 46 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41480,7 +41742,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 47 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -41508,287 +41770,12 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 48 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);
 module.exports = __webpack_require__(10);
 
-
-/***/ }),
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-var arrayIDs = [];
-var array2IDs = [];
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            items: [],
-            itemProgram: [],
-            itemProgramCenters: []
-        };
-    },
-    mounted: function mounted() {
-        this.fetchUprAnalytics();
-    },
-
-
-    methods: {
-        fetchUprAnalytics: function fetchUprAnalytics() {
-            var _this = this;
-
-            axios.get('/reports/upr-programs').then(function (response) {
-                _this.items = response.data;
-            }).catch(function (e) {
-                console.log(e);
-            });
-        },
-        fetchUPRCenters: function fetchUPRCenters(program) {
-            var _this2 = this;
-
-            axios.get('/reports/upr-centers/' + program).then(function (response) {
-                _this2.itemProgram.push(response.data);
-            }).catch(function (e) {
-                console.log(e);
-            });
-        },
-        fetchUPRs: function fetchUPRs(program, center) {
-            var _this3 = this;
-
-            axios.get('/reports/uprs/' + program + '/' + center).then(function (response) {
-                _this3.itemProgramCenters.push(response.data);
-                console.log(_this3.itemProgramCenters);
-            }).catch(function (e) {
-                console.log(e);
-            });
-        },
-        clickItemProgram: function clickItemProgram(item) {
-
-            if (arrayIDs.indexOf(item.programs) == -1) {
-                arrayIDs.push(item.programs);
-                this.fetchUPRCenters(item.programs);
-            }
-        },
-        clickItemProgramCenter: function clickItemProgramCenter(item) {
-            array2IDs[item.programs] = item.name;
-            this.fetchUPRs(item.programs, item.name);
-        }
-    }
-});
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(57),
-  /* template */
-  __webpack_require__(59),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/storage/storage/Sites/epmis/resources/assets/js/components/Analytics.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Analytics.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-17e57342", Component.options)
-  } else {
-    hotAPI.reload("data-v-17e57342", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 59 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: " "
-  }, [_c('div', {
-    staticClass: "table-scroll"
-  }, [_c('table', {
-    staticClass: "table table--with-border table-name"
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
-    return [_c('tr', [_c('td', [_vm._v("\n                            Program " + _vm._s(item.programs) + "\n                            "), _c('button', {
-      staticClass: "show-child-table",
-      on: {
-        "click": function($event) {
-          _vm.clickItemProgram(item)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "nc-icon-mini ui-1_circle-add"
-    })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.upr_count) + " (" + _vm._s(item.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.avg_days))]), _vm._v(" "), (item.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(item.avg_delays))]) : _vm._e(), _vm._v(" "), (item.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgram), function(itemProg) {
-      return [(itemProg.program == item.programs) ? _vm._l((itemProg.data), function(itemProgData) {
-        return _c('tr', [_c('td', {
-          staticClass: "has-child",
-          attrs: {
-            "colspan": "8"
-          }
-        }, [_c('table', {
-          staticClass: "child-table table-name"
-        }, [_c('tbody', [_c('tr', [_c('td', [_vm._v("\n                                                    " + _vm._s(itemProgData.name) + "\n                                                    "), _c('button', {
-          staticClass: "show-grand-child-table",
-          on: {
-            "click": function($event) {
-              _vm.clickItemProgramCenter(itemProgData)
-            }
-          }
-        }, [_c('i', {
-          staticClass: "nc-icon-mini ui-1_circle-add"
-        })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.upr_count) + " (" + _vm._s(itemProgData.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.avg_days))]), _vm._v(" "), (itemProgData.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(itemProgData.avg_delays))]) : _vm._e(), _vm._v(" "), (itemProgData.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgramCenters), function(itemProgCent) {
-          return [(itemProgCent.program == item.programs) ? [(itemProgCent.center == itemProgData.name) ? [_c('tr', [_c('td', {
-            staticClass: "has-child",
-            attrs: {
-              "colspan": "8"
-            }
-          }, [_c('table', {
-            staticClass: "grand-child-table table-name"
-          }, [_c('tbody', _vm._l((itemProgCent.data), function(itemProgCentData) {
-            return _c('tr', [_c('td', [_vm._v(_vm._s(itemProgCentData.upr_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.upr_count) + " (" + _vm._s(itemProgCentData.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), (itemProgCentData.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(itemProgCentData.avg_delays))]) : _vm._e(), _vm._v(" "), (itemProgCentData.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.state))])])
-          }))])])])] : _vm._e()] : _vm._e()]
-        })], 2)])])])
-      }) : _vm._e()]
-    })]
-  })], 2)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v("# UPR")]), _vm._v(" "), _c('th', [_vm._v("ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVE days to complete")]), _vm._v(" "), _c('th', [_vm._v("AVE delays")]), _vm._v(" "), _c('th', [_vm._v("Remarks")])])])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-17e57342", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

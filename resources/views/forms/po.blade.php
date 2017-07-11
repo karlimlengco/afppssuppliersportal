@@ -101,7 +101,7 @@
                         <tr>
                             <td colspan="2">
                                 <span class="label">Delivery Term</span>
-                                {{($data['delivery']) ? $data['delivery']->notes : ""}}
+                                {{$data['delivery_term']}} Days
                             </td>
                             <td class="align-left">
                                 <span class="label">Payment Term</span>

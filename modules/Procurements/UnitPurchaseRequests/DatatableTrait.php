@@ -91,10 +91,9 @@ trait DatatableTrait
             })
             ->editColumn('d_blank_rfq', function($data){
                 $days = 0;
-                $upr_created    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->date_prepared);
                 if($data->rfq_created_at != null)
                 {
-
+                    $upr_created    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->date_prepared);
                     $rfq_created_at     =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->rfq_created_at);
                     $days               = $rfq_created_at->diffInDaysFiltered(function (\Carbon\Carbon $date) {return $date->isWeekday(); }, $upr_created );
                 }
@@ -159,7 +158,7 @@ trait DatatableTrait
             })
             ->editColumn('d_canvass', function($data){
                 $days = 0;
-                if($data->canvass_start_date != null)
+                if($data->canvass_start_date != null && $data->pp_completed_at != null)
                 {
                     $canvass_start_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->canvass_start_date);
                     $pp_completed_at    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->pp_completed_at);

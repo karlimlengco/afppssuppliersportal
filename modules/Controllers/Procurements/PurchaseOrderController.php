@@ -213,11 +213,13 @@ class PurchaseOrderController extends Controller
         $this->validate($request,[
             'purchase_date'     => 'required',
             'payment_term'      => 'required',
+            'delivery_terms'     => 'required|integer',
         ]);
 
         $inputs                 =   [
             'purchase_date' =>  $request->purchase_date,
             'payment_term'  =>  $request->payment_term,
+            'delivery_terms' =>  $request->delivery_terms,
         ];
 
         $items                  =   $request->only([
@@ -249,7 +251,7 @@ class PurchaseOrderController extends Controller
                     'quantity'              =>  $items['quantity'][$i],
                     'unit'                  =>  $items['unit_measurement'][$i],
                     'price_unit'            =>  $items['unit_price'][$i],
-                    'total_amount'          =>  $items['total_amount'][$i],
+                    'total_amount'           =>  $items['total_amount'][$i],
                     'order_id'              =>  $result->id,
                 ];
             }
@@ -519,6 +521,7 @@ class PurchaseOrderController extends Controller
         $data['accounts']           =  $upr_model->accounts->new_account_code;
         $data['centers']            =  $upr_model->centers->name;
         $data['delivery']           =  $result->delivery;
+        $data['delivery_term']      =  $result->delivery_terms;
         $data['items']              =  $result->items;
         $data['bid_amount']         =  $result->bid_amount;
         $data['requestor']          =  $result->requestor;

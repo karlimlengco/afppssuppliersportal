@@ -27,6 +27,7 @@ class PORequest extends BaseRequest
 
         'funding_released_date',
         'funding_received_date',
+        'delivery_terms',
         'funding_remarks',
 
         'mfo_received_date',
@@ -46,6 +47,7 @@ class PORequest extends BaseRequest
             'rfq_id'            => 'required',
             'purchase_date'     => 'required',
             'payment_term'      => 'required',
+            'delivery_terms'    => 'required',
         ];
     }
 }

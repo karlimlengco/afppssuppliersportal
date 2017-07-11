@@ -140,7 +140,6 @@ var array2IDs    =   [];
                 axios.get('/reports/uprs/'+program+'/'+center)
                     .then(response => {
                         this.itemProgramCenters.push(response.data)
-                        console.log(this.itemProgramCenters)
                     })
                     .catch(e => {
                         console.log(e)
@@ -155,8 +154,15 @@ var array2IDs    =   [];
                 }
             },
             clickItemProgramCenter: function(item){
-                array2IDs[item.programs]    =   item.name;
-                this.fetchUPRs(item.programs, item.name)
+                if( array2IDs.indexOf(item.programs) == -1 )
+                {
+                    if(array2IDs[item.programs] != item.name)
+                    {
+                        console.log('asd')
+                        array2IDs[item.programs]    =   item.name;
+                        this.fetchUPRs(item.programs, item.name)
+                    }
+                }
             }
         }
     }

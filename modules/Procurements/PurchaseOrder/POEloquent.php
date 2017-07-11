@@ -50,6 +50,8 @@ class POEloquent extends Model implements  AuditableContract
         'purchase_date',
         'bid_amount',
         'payment_term',
+        'delivery_terms',
+        'delivery_date',
         'prepared_by',
 
         'funding_released_date',

@@ -11,10 +11,12 @@
 
             <div class="modal__dialogue__body">
                 <div class="row">
-                    <div class="six columns">
+                    <div class="twelve columns">
                         {!! Form::selectField('proponents', 'Proponents', $supplier_lists) !!}
                     </div>
-                    <div class="six columns">
+                </div>
+                <div class="row">
+                    <div class="twelve columns">
                         {!! Form::textField('date_processed', 'Date Processed') !!}
                     </div>
                 </div>

@@ -23,9 +23,10 @@ class CreatePurchaseOrders extends Migration
             $table->date('purchase_date');
             $table->string('bid_amount');
             $table->integer('payment_term');
+            $table->integer('delivery_terms');
+            $table->integer('delivery_date')->nullable();
             $table->integer('prepared_by');
-            $table->string('status')->nullable()
-            ;
+            $table->string('status')->nullable();
             $table->date('funding_released_date')->nullable();
             $table->date('funding_received_date')->nullable();
             $table->text('funding_remarks')->nullable();

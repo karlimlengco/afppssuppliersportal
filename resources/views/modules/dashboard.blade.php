@@ -10,7 +10,7 @@ OverView
 
 
 
-
+{{--
     <div class="row">
         <div class="twelve columns">
             <canvas id="lineChart" ></canvas>
@@ -23,14 +23,14 @@ OverView
         <div class="twelve columns">
             <canvas id="lineChart2" ></canvas>
         </div>
-    </div>
+    </div> --}}
 @stop
 
 @section('scripts')
 
     <script src="/js/app.js"></script>
 <!-- Chart.js -->
-<script src="/vendors/Chart.js/dist/Chart.min.js"></script>
+<script src="/vendors/Chart.js/dist/Chart.min.js"></script>{{--
 <script type="text/javascript">
     // Chart.defaults.global.legend = {
     //     enabled: false
@@ -104,5 +104,5 @@ OverView
 
           }
       });
-</script>
+</script> --}}
 @stop

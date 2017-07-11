@@ -20,7 +20,6 @@ trait TransactionDaysTrait
         $model  =    $this->model;
 
 
-
         $model  =   $model->select([
             'unit_purchase_requests.id',
             'unit_purchase_requests.project_name',
@@ -77,6 +76,47 @@ trait TransactionDaysTrait
         $model  =   $model->leftJoin('inspection_acceptance_report', 'inspection_acceptance_report.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
+
+        $model  =   $model->groupBy([
+            'unit_purchase_requests.id',
+            'unit_purchase_requests.project_name',
+            'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.ref_number',
+            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.state',
+            'unit_purchase_requests.total_amount',
+            'unit_purchase_requests.date_processed',
+            'request_for_quotations.transaction_date',
+            'request_for_quotations.transaction_date',
+            'request_for_quotations.completed_at',
+            'invitation_for_quotation.transaction_date',
+            'philgeps_posting.philgeps_posting',
+            'canvassing.canvass_date',
+            'notice_of_awards.awarded_date',
+            'notice_of_awards.accepted_date',
+            'notice_of_awards.award_accepted_date',
+            'purchase_orders.purchase_date',
+            'purchase_orders.mfo_received_date',
+            'purchase_orders.funding_received_date',
+            'purchase_orders.coa_approved_date',
+            'notice_to_proceed.prepared_date',
+            'notice_to_proceed.award_accepted_date',
+            'delivery_orders.transaction_date',
+            'delivery_orders.delivery_date',
+            'delivery_orders.date_delivered_to_coa',
+            'inspection_acceptance_report.inspection_date',
+            'inspection_acceptance_report.accepted_date',
+            'delivery_inspection.closed_date',
+            'delivery_inspection.start_date',
+            'vouchers.created_at',
+            'vouchers.transaction_date',
+            'vouchers.preaudit_date',
+            'vouchers.certify_date',
+            'vouchers.journal_entry_date',
+            'vouchers.approval_date',
+            'vouchers.payment_release_date',
+            'vouchers.payment_received_date',
+        ]);
 
         return $model->get();
     }
