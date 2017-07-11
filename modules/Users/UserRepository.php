@@ -45,6 +45,18 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * [getAllAdmins description]
+     *
+     * @return [type] [description]
+     */
+    public function getAllAdmins()
+    {
+        $model  =   $this->model;
+
+        return $model->get();
+    }
+
+    /**
      * @param Model $user
      * @param array $data
      * @return Model

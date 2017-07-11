@@ -36,11 +36,12 @@ Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
 
 /*
 |--------------------------------------------------------------------------
-| Procurements Routes
+| notifications Routes
 |--------------------------------------------------------------------------
 |
 */
 Route::resource('notifications', '\Revlv\Controllers\Notifications\NotificationController');
+Route::resource('change-logs', '\Revlv\Controllers\Notifications\ChangeLogsController');
 
 
 /*

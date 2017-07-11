@@ -31,7 +31,15 @@ $cRoute = explode('.', $currentRoute);
                         @endif
                     </button>
                 </a>
-                <button class="topbar__utility__button"><i class="nc-icon-mini ui-1_notification-69"></i></button>
+                <a href="{{route('change-logs.index')}}">
+                    <button class="topbar__utility__button">
+                        @if($logCounts >= 1)
+                            <i class="red nc-icon-mini ui-1_notification-69"></i>
+                        @else
+                            <i class="nc-icon-mini ui-1_notification-69"></i>
+                        @endif
+                    </button>
+                </a>
                 <button class="topbar__utility__button topbar__utility__button--chat"><i class="nc-icon-mini ui-2_chat-round"></i></button>
             </div>
             <div class="topbar__user">

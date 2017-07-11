@@ -38,4 +38,17 @@ class AuditLogRepository extends BaseRepository
         return $model;
     }
 
+    public function findLastByModelAndId($modelType, $id)
+    {
+        $model  =   $this->model;
+        $model  =   $model->where('auditable_type', '=', $modelType);
+
+        $model  =   $model->where('auditable_id', '=', $id);
+
+        $model  =   $model->orderBy('created_at', 'desc');
+        $model  =   $model->first();
+
+        return $model;
+    }
+
 }

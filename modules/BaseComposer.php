@@ -9,6 +9,7 @@ use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use Revlv\Messages\MessageEloquent;
+use \Revlv\Users\Logs\UserLogRepository;
 use Carbon\Carbon;
 
 class BaseComposer
@@ -22,6 +23,7 @@ class BaseComposer
     private $user;
     private $upr;
     private $holidays;
+    private $logs;
 
     /**
      * @param Model $model
@@ -30,9 +32,11 @@ class BaseComposer
     public function __construct(
         UserRepository $user,
         UnitPurchaseRequestRepository $upr,
+        UserLogRepository $logs,
         HolidayRepository $holidays)
     {
         $this->user     =   $user;
+        $this->logs     =   $logs;
         $this->upr      =   $upr;
         $this->holidays =   $holidays;
     }
@@ -917,7 +921,9 @@ class BaseComposer
         $userModel      =   $this->user->findById($userId);
 
         $delays         =   $this->getDelays();
+        $logs           =   $this->logs->findUnSeedByAdmin($userId);
 
+        $view->with('logCounts', count($logs) );
         $view->with('delayCounts', count($delays) );
         $view->with('currentUser', $userModel);
     }

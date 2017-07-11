@@ -25,6 +25,7 @@ use \Revlv\Settings\Units\UnitRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\ProcurementTypes\ProcurementTypeRepository;
 use \Revlv\Settings\CateredUnits\CateredUnitRepository;
+use \Revlv\Users\Logs\UserLogRepository;
 
 use Revlv\Procurements\UnitPurchaseRequests\Traits\FileTrait;
 use Revlv\Procurements\UnitPurchaseRequests\Traits\ImportTrait;
@@ -56,6 +57,8 @@ class UPRController extends Controller
     protected $logs;
     protected $signatories;
     protected $types;
+    protected $users;
+    protected $userLogs;
 
     /**
      * [$model description]
@@ -302,6 +305,9 @@ class UPRController extends Controller
     public function update(
         $id,
         UnitPurchaseRequestUpdateRequest $request,
+        UserLogRepository $userLogs,
+        AuditLogRepository $logs,
+        \Revlv\Users\UserRepository $users,
         UnitPurchaseRequestRepository $model)
     {
         $result     =   $model->update($request->getData(), $id);
@@ -312,6 +318,20 @@ class UPRController extends Controller
         $ref_name   =   str_replace(" ", "", $ref_name);
 
         $model->update(['ref_number' => $ref_name], $id);
+
+        $modelType  =   'Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestEloquent';
+        $resultLog  =   $logs->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
 
         return redirect()->route($this->baseUrl.'edit', $id)->with([
             'success'  => "Record has been successfully updated."
