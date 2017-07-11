@@ -17,6 +17,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     protected $auditInclude = [
         'place_of_delivery',
+        'procurement_office',
         'terminated_date',
         'procurement_type',
         'mode_of_procurement',
@@ -93,6 +94,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
         'requestor_id',
         'fund_signatory_id',
         'approver_id',
+        'procurement_office',
     ];
 
 
@@ -243,7 +245,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     public function centers()
     {
-        return $this->belongsTo('\Revlv\Settings\ProcurementCenters\ProcurementCenterEloquent', 'place_of_delivery');
+        return $this->belongsTo('\Revlv\Settings\ProcurementCenters\ProcurementCenterEloquent', 'procurement_office');
     }
 
     /**

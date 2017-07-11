@@ -3,7 +3,6 @@ Inspection And Acceptance Report
 @stop
 
 @section('modal')
-    @include('modules.partials.modals.notice_of_award')
     @include('modules.partials.modals.iar-signatories')
     @include('modules.partials.modals.iar-accept')
 @stop

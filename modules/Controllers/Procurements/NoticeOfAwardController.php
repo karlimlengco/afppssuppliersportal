@@ -77,8 +77,7 @@ class NoticeOfAwardController extends Controller
         $this->validate($request,[
             'awarded_date'  =>   'required',
             'awarded_by'    =>   'required',
-            'remarks'       =>   'required',
-            'resolution'    =>   'required',
+            'seconded_by'   =>   'required'
         ]);
 
         $data   =   [
@@ -89,13 +88,14 @@ class NoticeOfAwardController extends Controller
             'upr_number'    =>  $canvasModel->upr_number,
             'proponent_id'  =>  $proponentId,
             'awarded_by'    =>  $request->awarded_by,
+            'seconded_by'   =>  $request->seconded_by,
             'awarded_date'  =>  $request->awarded_date,
         ];
 
         $noa->save($data);
 
         // // Update canvass adjuourned time
-        $model->update(['resolution' => $request->resolution,  'remarks' => $request->remarks, 'adjourned_time' => \Carbon\Carbon::now()], $canvasId);
+        $model->update(['adjourned_time' => \Carbon\Carbon::now()], $canvasId);
         // // update upr
         $upr->update(['status' => "Awarded To $supplier_name"],  $canvasModel->upr_id);
 

@@ -61,6 +61,7 @@ Notice Of Award
             @if($data->awarded_date  )
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award Date :</strong> {{$data->awarded_date}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award By :</strong> {{($data->awarder) ? $data->awarder->name : ""}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Seconded By :</strong> {{($data->seconder) ? $data->seconder->name : ""}} </li>
             @endif
         </ul>
     </div>

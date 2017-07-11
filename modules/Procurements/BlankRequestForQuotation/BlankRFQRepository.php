@@ -118,7 +118,7 @@ class BlankRFQRepository extends BaseRepository
 
         $model  =   $model->whereNull('purchase_orders.id');
 
-        $model =    $model->whereNotNull('is_award_accepted');
+        // $model =    $model->whereNotNull('is_award_accepted');
 
         return $model->pluck($value, $id)->all();
     }

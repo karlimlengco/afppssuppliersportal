@@ -7,6 +7,7 @@ Delivered Items Inspection
     @include('modules.partials.modals.start-inspection')
     @include('modules.partials.modals.close-inspection')
     @include('modules.partials.modals.diir-signatory')
+    @include('modules.partials.modals.correct-issue')
 @stop
 
 @section('contents')
@@ -88,6 +89,8 @@ Delivered Items Inspection
                 <tr>
                     <th>Issues</th>
                     <th>Created By</th>
+                    <th>Status</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -95,6 +98,12 @@ Delivered Items Inspection
                     <tr>
                         <td>{{$issue->issue}}</td>
                         <td>{{($issue->prepared) ? $issue->prepared->first_name .' '. $issue->prepared->surname : ""}}</td>
+                        <td>{{($issue->is_corrected == 1) ? "Corrected" : ""}}</td>
+                        <td>
+                            @if(!$issue->is_corrected == 1)
+                            <a href="#" id="correct-issue-button" class="corrected" data-id="{{$issue->id}}"> <span class="nc-icon-mini ui-1_check-square-09"></span> </a>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -107,6 +116,10 @@ Delivered Items Inspection
 
 <script type="text/javascript">
 
+    $('#correct-issue-button').click(function(e){
+        e.preventDefault();
+        $('#correct-issue-modal').addClass('is-visible');
+    })
     $('#add-issue-button').click(function(e){
         e.preventDefault();
         $('#add-issue-modal').addClass('is-visible');
@@ -154,5 +167,13 @@ Delivered Items Inspection
         yearRange: [2000,2020]
     });
     // end datepicker
+
+    // click award
+    $(document).on('click', '.corrected', function(e){
+        var id  = $(this).data('id');
+        var form = document.getElementById('correct-form').action;
+        document.getElementById('correct-form').action = "/procurements/delivered-inspections/corrected/"+id;
+    });
+
 </script>
 @stop

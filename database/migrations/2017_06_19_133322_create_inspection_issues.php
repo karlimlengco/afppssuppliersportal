@@ -17,6 +17,8 @@ class CreateInspectionIssues extends Migration
             $table->increments('id');
             $table->integer('inspection_id');
             $table->string('issue');
+            $table->string('remarks')->nullable();
+            $table->string('is_corrected')->nullable();
             $table->integer('prepared_by');
             $table->timestamps();
         });

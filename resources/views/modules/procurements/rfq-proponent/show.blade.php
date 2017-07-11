@@ -11,9 +11,11 @@ Proponent
 {!! Form::model($data, $modelConfig['update']) !!}
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
+        @if($data->rfq->canvassing)
         <a href="{{route('procurements.canvassing.show',$data->rfq->canvassing->id)}}" class="button button--pull-left" tooltip="Back">
             <i class="nc-icon-mini arrows-1_tail-left"></i>
         </a>
+        @endif
         <a class="button topbar__utility__button--modal" href="#"><i class="nc-icon-mini ui-1_attach-86"></i></a>
         <button class="button" tooltip="Save" type="submit"><i class="nc-icon-mini ui-2_disk"></i></button>
     </div>

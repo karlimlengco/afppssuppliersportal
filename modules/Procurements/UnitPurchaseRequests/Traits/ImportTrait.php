@@ -101,7 +101,7 @@ trait ImportTrait
                     $centerModel    =   $centers->findByName($row[2]);
                     if($centerModel != null)
                     {
-                        $array['place_of_delivery'] = $centerModel->id;
+                        $array['procurement_office'] = $centerModel->id;
                     }
                     break;
                 case 'MODE OF PROCUREMENT':

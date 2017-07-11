@@ -50,6 +50,7 @@ class NOAEloquent extends Model implements  AuditableContract
         'remarks',
         'received_by',
         'file',
+        'seconded_by',
         'status',
         'award_accepted_date',
         'accepted_date',
@@ -73,6 +74,16 @@ class NOAEloquent extends Model implements  AuditableContract
     public function awarder()
     {
         return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'awarded_by');
+    }
+
+    /**
+     * [seconder description]
+     *
+     * @return [type] [description]
+     */
+    public function seconder()
+    {
+        return $this->hasOne('\Revlv\Settings\Signatories\SignatoryEloquent', 'id', 'seconded_by');
     }
 
     /**

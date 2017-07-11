@@ -102,6 +102,22 @@ class DeliveredInspectionReportController extends Controller
     }
 
     /**
+     * [correctedIssue description]
+     *
+     * @param  [type]          $id     [description]
+     * @param  IssueRepository $issues [description]
+     * @return [type]                  [description]
+     */
+    public function correctedIssue($id, IssueRepository $issues, Request $request)
+    {
+        $result =   $issues->update(['remarks' => $request->remarks, 'is_corrected' => 1], $id);
+
+        return redirect()->route($this->baseUrl.'show', $result->inspection_id)->with([
+            'success'  => "New record has been successfully updated."
+        ]);
+    }
+
+    /**
      * [startInspection description]
      *
      * @param [type]  $id      [description]

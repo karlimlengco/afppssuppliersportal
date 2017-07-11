@@ -24,7 +24,11 @@ $cRoute = explode('.', $currentRoute);
             <div class="topbar__utility">
                 <a href="{{route('notifications.index')}}" class="">
                     <button class="topbar__utility__button">
-                        <i class="red nc-icon-mini ui-1_bell-53"></i>
+                        @if($delayCounts >= 1)
+                            <i class="red nc-icon-mini ui-1_bell-53"></i>
+                        @else
+                            <i class="nc-icon-mini ui-1_bell-53"></i>
+                        @endif
                     </button>
                 </a>
                 <button class="topbar__utility__button"><i class="nc-icon-mini ui-1_notification-69"></i></button>

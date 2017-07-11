@@ -72,7 +72,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <p>{{$canvass->canvass->remarks}}</p>
+                    <p>That after reading the price quotation submitted of the proponent for <strong>{{$canvass->canvass->rfq_number}}</strong>, <strong>{{$canvass->canvass->winners->awarder->name}}</strong> moved <strong>{{$canvass->canvass->winners->winner->supplier->name}}</strong> be declared as the winner for having the lowest price among other bidder. <strong>{{$canvass->canvass->winners->seconder->name}}</strong> seconded it. Since no objection was raised, the Chairman declared <strong>{{$canvass->canvass->winners->winner->supplier->name}}</strong> as the winner.</p>
                     @endforeach
 
                 </div>

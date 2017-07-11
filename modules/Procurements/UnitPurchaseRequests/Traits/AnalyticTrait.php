@@ -31,7 +31,7 @@ trait AnalyticTrait
         ]);
 
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
-        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.place_of_delivery');
+        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
 
         $model  =   $model->groupBy([
             'procurement_centers.programs',
@@ -63,7 +63,7 @@ trait AnalyticTrait
         ]);
 
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
-        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.place_of_delivery');
+        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
 
         $model  =   $model->where('procurement_centers.programs', '=', $program);
 
@@ -101,7 +101,7 @@ trait AnalyticTrait
         ]);
 
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
-        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.place_of_delivery');
+        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
 
         $model  =   $model->where('procurement_centers.name', '=', $name);
         $model  =   $model->where('procurement_centers.programs', '=', $programs);

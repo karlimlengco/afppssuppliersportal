@@ -10,11 +10,12 @@ class UnitPurchaseRequestRequest extends BaseRequest
      * @var array
      */
     protected $whitelist = [
-        'place_of_delivery',
         'mode_of_procurement',
         'chargeability',
         'account_code',
+        'procurement_office',
 
+        'place_of_delivery',
         'fund_validity',
         'terms_of_payment',
         'update_remarks',
@@ -54,7 +55,8 @@ class UnitPurchaseRequestRequest extends BaseRequest
         return [
             'project_name'          => 'required',
             'upr_number'            => 'required|unique:unit_purchase_requests,upr_number',
-            'place_of_delivery'     => 'required|integer',
+            'place_of_delivery'     => 'required',
+            'procurement_office'    => 'required|integer',
             'mode_of_procurement'   => 'required|integer',
             'procurement_type'      => 'required|integer',
             'chargeability'         => 'required|integer',

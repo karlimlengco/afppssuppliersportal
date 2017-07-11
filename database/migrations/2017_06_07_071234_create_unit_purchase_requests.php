@@ -17,6 +17,7 @@ class CreateUnitPurchaseRequests extends Migration
             $table->increments('id');
 
             $table->string('place_of_delivery');
+            $table->string('procurement_office');
             $table->string('mode_of_procurement');
             $table->string('chargeability');
             $table->string('account_code');

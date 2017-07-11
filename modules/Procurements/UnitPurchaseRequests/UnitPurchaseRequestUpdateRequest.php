@@ -10,10 +10,11 @@ class UnitPurchaseRequestUpdateRequest extends BaseRequest
      * @var array
      */
     protected $whitelist = [
-        'place_of_delivery',
+        'procurement_office',
         'mode_of_procurement',
         'chargeability',
         'account_code',
+        'place_of_delivery',
 
         'fund_validity',
         'terms_of_payment',
@@ -58,7 +59,8 @@ class UnitPurchaseRequestUpdateRequest extends BaseRequest
         return [
             'project_name'          => 'required',
             'upr_number'            => 'required|unique:unit_purchase_requests,upr_number,'.$this->route('unit_purchase_request'),
-            'place_of_delivery'     => 'required|integer',
+            'place_of_delivery'     => 'required',
+            'procurement_office'    => 'required|integer',
             'mode_of_procurement'   => 'required|integer',
             'procurement_type'      => 'required|integer',
             'chargeability'         => 'required|integer',

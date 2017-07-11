@@ -28,6 +28,8 @@ class IssueEloquent extends Model
         'upr_number',
         'issue',
         'prepared_by',
+        'remarks',
+        'is_corrected',
     ];
 
     /**

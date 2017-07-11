@@ -14,11 +14,14 @@ Unit Purchase Request
 <div class="row">
     <div class="twelve columns">
             <div class="row">
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('project_name', 'Project Name') !!}
                 </div>
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('upr_number', 'UPR Number') !!}
+                </div>
+                <div class="four columns">
+                    {!! Form::textField('place_of_delivery', 'Place Of Delivery') !!}
                 </div>
             </div>
 
@@ -36,7 +39,7 @@ Unit Purchase Request
 
             <div class="row">
                 <div class="four columns">
-                    {!! Form::selectField('place_of_delivery', 'Place of delivery', $procurement_center) !!}
+                    {!! Form::selectField('procurement_office', 'Procurement Office', $procurement_center) !!}
                 </div>
                 <div class="four columns">
                     {!! Form::selectField('mode_of_procurement', 'Mode of Procurement', $procurement_modes) !!}
