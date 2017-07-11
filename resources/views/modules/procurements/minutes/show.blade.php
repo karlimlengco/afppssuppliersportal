@@ -11,8 +11,11 @@ Minutes of the Meeting
     <div class="twelve columns utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
-        <a href="#" class="button" tooltip="Print">
+        <a target="_blank" href="{{route($printRoute, $data->id)}}" class="button" tooltip="Print Minutes">
             <i class="nc-icon-mini tech_print"></i>
+        </a>
+        <a target="_blank" href="{{route('procurements.minutes.print-resolution', $data->id)}}" class="button" tooltip="Print Resolution">
+            <i class="nc-icon-mini tech_tablet-reader-31"></i>
         </a>
 
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">

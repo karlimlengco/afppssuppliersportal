@@ -14,6 +14,8 @@ class MemberEloquent extends Model
      */
     protected $table = 'meeting_members';
 
+    protected $with = 'signatory';
+
     /**
      * The attributes that are mass assignable.
      *

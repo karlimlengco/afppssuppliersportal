@@ -29,6 +29,12 @@ Proponent
     </div>
 </div>
 
+<div class="row">
+    <div class="twelve columns">
+        {!! Form::textareaField('remarks', 'Remarks', null, ['rows'=>3]) !!}
+    </div>
+</div>
+
 <div class="data-panel">
     <div class="data-panel__section">
         <ul class="data-panel__list">

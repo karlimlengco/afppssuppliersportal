@@ -18,6 +18,8 @@ class CreateMeetingMinutes extends Migration
             $table->date('date_opened');
             $table->time('time_opened');
             $table->string('venue');
+            $table->integer('officer_id');
+            $table->integer('prepared_by');
             $table->time('time_closed')->nullable();
             $table->timestamps();
         });

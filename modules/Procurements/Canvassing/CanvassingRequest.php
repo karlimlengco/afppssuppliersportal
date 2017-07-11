@@ -18,7 +18,9 @@ class CanvassingRequest extends BaseRequest
         'canvass_time',
         'rfq_number',
         'update_remarks',
+        'remarks',
         'upr_number',
+        'resolution',
     ];
 
     /**

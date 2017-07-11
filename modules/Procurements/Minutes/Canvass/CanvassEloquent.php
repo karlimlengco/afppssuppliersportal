@@ -14,6 +14,8 @@ class CanvassEloquent extends Model
      */
     protected $table = 'meeting_canvass';
 
+    protected $with = 'canvass';
+
     /**
      * The attributes that are mass assignable.
      *

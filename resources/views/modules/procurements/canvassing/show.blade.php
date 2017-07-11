@@ -70,6 +70,26 @@ Canvassing
         </ul>
     </div>
 </div>
+
+
+<div class="data-panel">
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Remarks :</strong> {{$data->remarks}} </li>
+        </ul>
+    </div>
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Resolution :</strong> {{$data->resolution}} </li>
+        </ul>
+    </div>
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label"></li>
+        </ul>
+    </div>
+</div>
+
 <div class="row">
     <div class="twelve columns">
         <table class="table">

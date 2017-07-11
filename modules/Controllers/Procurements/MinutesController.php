@@ -5,6 +5,7 @@ namespace Revlv\Controllers\Procurements;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use PDF;
 
 use \Revlv\Procurements\Minutes\MinuteRepository;
 use \Revlv\Procurements\Minutes\Members\MemberRepository;
@@ -76,7 +77,7 @@ class MinutesController extends Controller
     {
 
         $signatory_lists    =   $signatories->lists('id', 'name');
-        $canvass_lists      =   $canvass->lists('id', 'rfq_number');
+        $canvass_lists      =   $canvass->listCompleted('id', 'rfq_number');
 
         $this->view('modules.procurements.minutes.create',[
             'signatory_lists'   =>  $signatory_lists,
@@ -103,7 +104,10 @@ class MinutesController extends Controller
         MinuteRepository $model)
     {
 
-        $result = $model->save($request->getData());
+        $data   =   $request->getData();
+        $data['prepared_by']    = \Sentinel::getUser()->id;
+
+        $result = $model->save($data);
 
         foreach($request->members as $member)
         {
@@ -133,6 +137,7 @@ class MinutesController extends Controller
         return $this->view('modules.procurements.minutes.show',[
             'data'          =>  $result,
             'indexRoute'    =>  $this->baseUrl.'index',
+            'printRoute'    =>  $this->baseUrl.'print',
             'editRoute'     =>  $this->baseUrl.'edit',
 
         ]);
@@ -220,5 +225,55 @@ class MinutesController extends Controller
         return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "Record has been successfully deleted."
         ]);
+    }
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint(
+        $id,
+        MinuteRepository $model)
+    {
+        $mom                    =   $model->with(['members','canvass'])->findById($id);
+
+        $data['date_opened']    =   $mom->date_opened;
+        $data['time_opened']    =   $mom->time_opened;
+        $data['venue']          =   $mom->venue;
+        $data['time_closed']    =   $mom->time_closed;
+        $data['members']        =   $mom->members;
+        $data['canvass']        =   $mom->canvass;
+        $data['officer']        =   $mom->officer;
+
+        $pdf = PDF::loadView('forms.mom', ['data' => $data])->setOption('margin-left', 13)->setOption('margin-right', 13)->setOption('margin-bottom', 10)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('mom.pdf');
+    }
+
+    /**
+     * [viewResolution description]
+     *
+     * @param  [type]           $id    [description]
+     * @param  MinuteRepository $model [description]
+     * @return [type]                  [description]
+     */
+    public function viewResolution($id,
+        MinuteRepository $model)
+    {
+        $mom                    =   $model->with(['members','canvass'])->findById($id);
+
+        $data['date_opened']    =   $mom->date_opened;
+        $data['time_opened']    =   $mom->time_opened;
+        $data['venue']          =   $mom->venue;
+        $data['time_closed']    =   $mom->time_closed;
+        $data['members']        =   $mom->members;
+        $data['canvass']        =   $mom->canvass;
+        $data['officer']        =   $mom->officer;
+
+        $pdf = PDF::loadView('forms.resolution', ['data' => $data])->setOption('margin-left', 13)->setOption('margin-right', 13)->setOption('margin-bottom', 10)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('resolutions.pdf');
     }
 }

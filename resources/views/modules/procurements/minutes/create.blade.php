@@ -19,14 +19,20 @@ Minutes of the Meeting
     <div class="twelve columns">
 
         <div class="row">
-            <div class="four columns">
+            <div class="six columns">
                 {!! Form::textField('date_opened', 'Meeting Date') !!}
             </div>
-            <div class="four columns">
+            <div class="six columns">
                 {!! Form::textField('time_opened', 'Meeting Time') !!}
             </div>
-            <div class="four columns">
+        </div>
+
+        <div class="row">
+            <div class="six columns">
                 {!! Form::textField('time_closed', 'Adjourned Time') !!}
+            </div>
+            <div class="six columns">
+                {!! Form::selectField('officer_id', 'Presiding Officer',  $signatory_lists) !!}
             </div>
         </div>
 

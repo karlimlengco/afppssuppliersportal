@@ -23,7 +23,9 @@ class MinuteEloquent extends Model
         'date_opened',
         'time_opened',
         'venue',
+        'officer_id',
         'time_closed',
+        'prepared_by',
     ];
 
     /**
@@ -34,6 +36,16 @@ class MinuteEloquent extends Model
     public function members()
     {
         return $this->hasMany('\Revlv\Procurements\Minutes\Members\MemberEloquent', 'meeting_id');
+    }
+
+    /**
+     * [officer description]
+     *
+     * @return [type] [description]
+     */
+    public function officer()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'officer_id');
     }
 
     /**

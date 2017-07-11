@@ -14,7 +14,9 @@ class MinuteRequest extends BaseRequest
         'time_opened',
         'venue',
         'time_closed',
+        'officer_id',
         'canvass',
+        'prepared_by',
         'members',
     ];
 
@@ -28,6 +30,7 @@ class MinuteRequest extends BaseRequest
         return [
             'date_opened'           => 'required',
             'time_opened'           => 'required',
+            'officer_id'            => 'required',
             'members'               => 'required',
             'canvass'               => 'required',
             'venue'                 => 'required',

@@ -124,6 +124,8 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('minutes/print-resolution/{id}', '\Revlv\Controllers\Procurements\MinutesController@viewResolution')->name('minutes.print-resolution');
+    Route::get('minutes/print/{id}', '\Revlv\Controllers\Procurements\MinutesController@viewPrint')->name('minutes.print');
     Route::resource('minutes', '\Revlv\Controllers\Procurements\MinutesController');
 
     /*

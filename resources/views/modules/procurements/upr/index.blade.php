@@ -40,7 +40,7 @@ Unit Purchase Request
                     <th>ABC</th>
                     <th>TYPE</th>
                     <th>Status</th>
-                    <th>State</th>
+                    {{-- <th>State</th> --}}
                     <th>Calendar Days</th>
                 </tr>
             </thead>
@@ -73,7 +73,7 @@ Unit Purchase Request
             {data: 'total_amount', name: 'total_amount'},
             {data: 'type', name: 'type'},
             {data: 'status', name: 'status'},
-            {data: 'state', name: 'state'},
+            // {data: 'state', name: 'state'},
             {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {

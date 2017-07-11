@@ -28,6 +28,7 @@ class RFQProponentEloquent extends Model
         'status',
         'prepared_by',
         'received_by',
+        'remarks',
         'award_accepted_date',
         'is_awarded',
         'awarded_date',
