@@ -228,9 +228,9 @@ class TransactionDayController extends Controller
 
 
                     $d_canvass_start_date = 0;
-                    if($data->canvass_start_date)
+                    if($data->canvass_start_date && $data->ispq_transaction_date)
                     {
-                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_start_date);
+                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->canvass_start_date);
                         $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date);
                         $d_canvass_start_date       = $dt->diffInDays($upr_create);
                     }
@@ -239,7 +239,7 @@ class TransactionDayController extends Controller
                     if($data->noa_award_date)
                     {
                         $dt         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->noa_award_date);
-                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_start_date);
+                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->canvass_start_date);
                         $d_noa_award_date       = $dt->diffInDays($upr_create);
                     }
 
@@ -262,32 +262,32 @@ class TransactionDayController extends Controller
                     $d_po_create_date = 0;
                     if($data->po_create_date)
                     {
-                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->po_create_date);
+                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->po_create_date);
                         $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_award_accepted_date);
                         $d_po_create_date       = $dt->diffInDays($upr_create);
                     }
 
-                    $d_mfo_released_date = 0;
-                    if($data->mfo_released_date)
+                    $d_mfo_received_date = 0;
+                    if($data->mfo_received_date)
                     {
-                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->mfo_released_date);
-                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->po_create_date);
-                        $d_mfo_released_date       = $dt->diffInDays($upr_create);
+                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->mfo_received_date);
+                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->po_create_date);
+                        $d_mfo_received_date       = $dt->diffInDays($upr_create);
                     }
 
-                    $d_pcco_released_date = 0;
-                    if($data->pcco_released_date)
+                    $d_funding_released_date = 0;
+                    if($data->funding_received_date)
                     {
-                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->pcco_released_date);
-                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->mfo_released_date);
-                        $d_pcco_released_date       = $dt->diffInDays($upr_create);
+                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->funding_received_date);
+                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->mfo_received_date);
+                        $d_funding_released_date       = $dt->diffInDays($upr_create);
                     }
 
                     $d_coa_approved_date = 0;
                     if($data->coa_approved_date)
                     {
-                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->coa_approved_date);
-                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->pcco_released_date);
+                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->coa_approved_date);
+                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->funding_received_date);
                         $d_coa_approved_date       = $dt->diffInDays($upr_create);
                     }
 
@@ -295,7 +295,7 @@ class TransactionDayController extends Controller
                     if($data->ntp_date)
                     {
                         $dt         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->ntp_date);
-                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d  H:i:s', $data->coa_approved_date);
+                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->coa_approved_date);
                         $d_ntp_date       = $dt->diffInDays($upr_create);
                     }
 
@@ -311,7 +311,7 @@ class TransactionDayController extends Controller
                     if($data->delivery_date)
                     {
                         $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->delivery_date);
-                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d  H:i:s', $data->dr_date);
+                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_date);
                         $d_delivery_date       = $dt->diffInDays($upr_create);
                     }
 
@@ -382,8 +382,8 @@ class TransactionDayController extends Controller
                         $d_noa_approved_date,
                         $d_noa_award_accepted_date,
                         $d_po_create_date,
-                        $d_mfo_released_date,
-                        $d_pcco_released_date,
+                        $d_mfo_received_date,
+                        $d_funding_released_date,
                         $d_coa_approved_date,
                         $d_ntp_date,
                         $d_ntp_award_date,
