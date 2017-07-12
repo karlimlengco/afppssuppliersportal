@@ -15,7 +15,7 @@ trait AnalyticTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getProgramAnalytics($search = null)
+    public function getProgramAnalytics($search = null, $type = null)
     {
         $model  =   $this->model;
 
@@ -33,6 +33,15 @@ trait AnalyticTrait
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
 
+        if($type != 'alternative')
+        {
+            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
+        }
+        else
+        {
+            $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
+        }
+
         $model  =   $model->groupBy([
             'procurement_centers.programs',
         ]);
@@ -46,7 +55,7 @@ trait AnalyticTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getUprCenters($program)
+    public function getUprCenters($program, $type = null)
     {
         $model  =   $this->model;
 
@@ -67,6 +76,15 @@ trait AnalyticTrait
 
         $model  =   $model->where('procurement_centers.programs', '=', $program);
 
+        if($type != 'alternative')
+        {
+            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
+        }
+        else
+        {
+            $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
+        }
+
         $model  =   $model->groupBy([
             'procurement_centers.programs',
             'procurement_centers.name',
@@ -81,7 +99,7 @@ trait AnalyticTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getUprs($name, $programs)
+    public function getUprs($name, $programs, $type=null)
     {
         $model  =   $this->model;
 
@@ -90,14 +108,13 @@ trait AnalyticTrait
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
-            DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
+            DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
             DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
             DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
-
             'procurement_centers.name',
             'procurement_centers.programs',
             'unit_purchase_requests.upr_number',
-            'unit_purchase_requests.state',
+            'unit_purchase_requests.status',
         ]);
 
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
@@ -106,11 +123,20 @@ trait AnalyticTrait
         $model  =   $model->where('procurement_centers.name', '=', $name);
         $model  =   $model->where('procurement_centers.programs', '=', $programs);
 
+        if($type != 'alternative')
+        {
+            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
+        }
+        else
+        {
+            $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
+        }
+
         $model  =   $model->groupBy([
             'procurement_centers.name',
             'procurement_centers.programs',
             'unit_purchase_requests.upr_number',
-            'unit_purchase_requests.state',
+            'unit_purchase_requests.status',
         ]);
 
         return $model->get();

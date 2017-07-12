@@ -72,7 +72,7 @@ trait FileTrait
         $data['upr_number']         =  $result->upr_number;
         $data['ref_number']         =  $result->ref_number;
         $data['date_prepared']      =  $result->date_prepared;
-        $data['mode']               =  $result->modes->name;
+        $data['mode']               =  ($result->modes) ? $result->modes->name : "Public Bidding";
         $data['center']             =  $result->centers->name;
         $data['charge']             =  $result->charges->name;
         $data['codes']              =  $result->accounts->name;

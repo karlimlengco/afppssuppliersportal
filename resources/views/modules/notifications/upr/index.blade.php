@@ -22,7 +22,7 @@ Notifications
                    <th>ABC</th>
                    <th>Status</th>
                    <th>Expected Date</th>
-                   <th>Working Days</th>
+                   <th>Days(Working Days)</th>
                </tr>
            </thead>
            <tbody>
@@ -33,7 +33,7 @@ Notifications
                         <td>{{$data['project_name']}}</td>
                         <td>{{formatPrice($data['total_amount'])}}</td>
                         <td>{{$data['event']}}</td>
-                        <td>{{$data['transaction_date']}}</td>
+                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $data['transaction_date'])->format('d M Y') }}</td>
                         <td>{{$data['days']}}</td>
                     </tr>
                 @endforeach

@@ -114,7 +114,7 @@ class NoticeToProceedController extends Controller
                     'method'    =>  'PUT'
                 ],
                 'create_nod' =>  [
-                    'route'     =>  ['procurements.delivery-orders.create-purchase', $id]
+                    'route'     =>  ['procurements.delivery-orders.create-purchase', $result->po_id]
                 ],
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update-signatory', $id],

@@ -29,9 +29,9 @@ Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
     Route::resource('transaction-days', '\Revlv\Controllers\Reports\TransactionDayController');
 
     Route::resource('suppliers', '\Revlv\Controllers\Reports\TransactionDayController');
-    Route::get('uprs/{programs}/{centers}', '\Revlv\Controllers\Reports\UPRController@getUprs')->name('reports.uprs');
-    Route::get('upr-centers/{id}', '\Revlv\Controllers\Reports\UPRController@getUprCenters')->name('reports.upr-centers');
-    Route::get('upr-programs', '\Revlv\Controllers\Reports\UPRController@getUprPrograms')->name('reports.upr-analytics');
+    Route::get('uprs/{programs}/{centers}/{type}', '\Revlv\Controllers\Reports\UPRController@getUprs')->name('reports.uprs');
+    Route::get('upr-centers/{id}/{type}', '\Revlv\Controllers\Reports\UPRController@getUprCenters')->name('reports.upr-centers');
+    Route::get('upr-programs/{type}', '\Revlv\Controllers\Reports\UPRController@getUprPrograms')->name('reports.upr-analytics');
 });
 
 /*
@@ -43,6 +43,19 @@ Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
 Route::resource('notifications', '\Revlv\Controllers\Notifications\NotificationController');
 Route::resource('change-logs', '\Revlv\Controllers\Notifications\ChangeLogsController');
 
+/*
+|--------------------------------------------------------------------------
+| Biddings Routes
+|--------------------------------------------------------------------------
+|
+*/
+Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
+    Route::resource('unit-purchase-requests', '\Revlv\Controllers\Biddings\UPRController');
+
+    Route::post('request-for-bids/received', '\Revlv\Controllers\Biddings\RFBController@receivedRfb')->name('request-for-bids.received');
+    Route::resource('noa-acceptance', '\Revlv\Controllers\Biddings\NOAController');
+    Route::resource('request-for-bids', '\Revlv\Controllers\Biddings\RFBController');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -279,6 +292,7 @@ Route::group(['as' => 'maintenance.', 'prefix' => 'maintenance'], function () {
     Route::resource('banks', '\Revlv\Controllers\Settings\BankController');
     Route::resource('announcements', '\Revlv\Controllers\Settings\AnnouncementController');
     Route::resource('catered-units', '\Revlv\Controllers\Settings\CateredUnitController');
+    Route::resource('bacsec', '\Revlv\Controllers\Settings\BacSecController');
 
 });
 
@@ -332,6 +346,8 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
 Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
 
     Route::get('audit-logs', '\Revlv\Controllers\Settings\AuditLogController@getDatatable')->name('audit-logs');
+    Route::get('request-for-bids', '\Revlv\Controllers\Biddings\RFBController@getDatatable')->name('biddings.request-for-bids');
+    Route::get('noa-acceptance', '\Revlv\Controllers\Biddings\NOAController@getDatatable')->name('biddings.noa-acceptance');
 
     /*
     |--------------------------------------------------------------------------
@@ -380,6 +396,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('banks', '\Revlv\Controllers\Settings\BankController@getDatatable')->name('maintenance.banks');
     Route::get('announcements', '\Revlv\Controllers\Settings\AnnouncementController@getDatatable')->name('maintenance.announcements');
     Route::get('catered-units', '\Revlv\Controllers\Settings\CateredUnitController@getDatatable')->name('maintenance.catered-units');
+    Route::get('bacsec', '\Revlv\Controllers\Settings\BacSecController@getDatatable')->name('maintenance.bacsec');
 
     /*
     |--------------------------------------------------------------------------
@@ -388,6 +405,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     |
     */
     Route::get('procurements.unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController@getDatatable')->name('procurements.unit-purchase-request');
+    Route::get('biddings.unit-purchase-requests', '\Revlv\Controllers\Biddings\UPRController@getDatatable')->name('biddings.unit-purchase-request');
     Route::get('blank-rfq', '\Revlv\Controllers\Procurements\BlankRFQController@getDatatable')->name('procurements.blank-rfq');
     Route::get('philgeps-posting', '\Revlv\Controllers\Procurements\PhilGepsPostingController@getDatatable')->name('procurements.philgeps-posting');
     Route::get('ispq', '\Revlv\Controllers\Procurements\ISPQController@getDatatable')->name('procurements.ispq');

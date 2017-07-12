@@ -149,6 +149,16 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
     }
 
     /**
+     * [rfq description]
+     *
+     * @return [type] [description]
+     */
+    public function rfb()
+    {
+        return $this->hasOne('\Revlv\Biddings\RequestForBid\RequestForBidEloquent', 'upr_id');
+    }
+
+    /**
      * [invitations description]
      *
      * @return [type] [description]

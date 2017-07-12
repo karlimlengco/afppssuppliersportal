@@ -1804,6 +1804,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 var arrayIDs = [];
@@ -1813,19 +1815,20 @@ var array2IDs = [];
         return {
             items: [],
             itemProgram: [],
-            itemProgramCenters: []
+            itemProgramCenters: [],
+            types: "alternative"
         };
     },
     mounted: function mounted() {
-        this.fetchUprAnalytics();
+        this.fetchUprAnalytics(this.types);
     },
 
 
     methods: {
-        fetchUprAnalytics: function fetchUprAnalytics() {
+        fetchUprAnalytics: function fetchUprAnalytics(type) {
             var _this = this;
 
-            axios.get('/reports/upr-programs').then(function (response) {
+            axios.get('/reports/upr-programs/' + type).then(function (response) {
                 _this.items = response.data;
             }).catch(function (e) {
                 console.log(e);
@@ -1834,7 +1837,7 @@ var array2IDs = [];
         fetchUPRCenters: function fetchUPRCenters(program) {
             var _this2 = this;
 
-            axios.get('/reports/upr-centers/' + program).then(function (response) {
+            axios.get('/reports/upr-centers/' + program + '/' + this.types).then(function (response) {
                 _this2.itemProgram.push(response.data);
             }).catch(function (e) {
                 console.log(e);
@@ -1843,7 +1846,7 @@ var array2IDs = [];
         fetchUPRs: function fetchUPRs(program, center) {
             var _this3 = this;
 
-            axios.get('/reports/uprs/' + program + '/' + center).then(function (response) {
+            axios.get('/reports/uprs/' + program + '/' + center + '/' + this.types).then(function (response) {
                 _this3.itemProgramCenters.push(response.data);
             }).catch(function (e) {
                 console.log(e);
@@ -1851,19 +1854,28 @@ var array2IDs = [];
         },
         clickItemProgram: function clickItemProgram(item) {
 
-            if (arrayIDs.indexOf(item.programs) == -1) {
-                arrayIDs.push(item.programs);
-                this.fetchUPRCenters(item.programs);
-            }
+            // if( arrayIDs.indexOf(item.programs) == -1 )
+            // {
+            arrayIDs.push(item.programs);
+            this.fetchUPRCenters(item.programs);
+            // }
+        },
+        changeType: function changeType(type) {
+            this.types = type;
+            this.itemProgram = [];
+            this.itemProgramCenters = [];
+            this.fetchUprAnalytics(type);
         },
         clickItemProgramCenter: function clickItemProgramCenter(item) {
-            if (array2IDs.indexOf(item.programs) == -1) {
-                if (array2IDs[item.programs] != item.name) {
-                    console.log('asd');
-                    array2IDs[item.programs] = item.name;
-                    this.fetchUPRs(item.programs, item.name);
-                }
-            }
+            // if( array2IDs.indexOf(item.programs) == -1 )
+            // {
+            // if(array2IDs[item.programs] != item.name)
+            // {
+            console.log('asd');
+            array2IDs[item.programs] = item.name;
+            this.fetchUPRs(item.programs, item.name);
+            // }
+            // }
         }
     }
 });
@@ -31955,7 +31967,21 @@ module.exports = Component.exports
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: " "
-  }, [_c('div', {
+  }, [_c('h1', [_vm._v("Mode of Procurement")]), _vm._v(" "), _c('button', {
+    staticClass: "button",
+    on: {
+      "click": function($event) {
+        _vm.changeType('alternative')
+      }
+    }
+  }, [_vm._v("Alternative")]), _vm._v(" "), _c('button', {
+    staticClass: "button",
+    on: {
+      "click": function($event) {
+        _vm.changeType('bidding')
+      }
+    }
+  }, [_vm._v("Bidding")]), _vm._v(" "), _c('div', {
     staticClass: "table-scroll"
   }, [_c('table', {
     staticClass: "table table--with-border table-name"
@@ -31996,7 +32022,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }, [_c('table', {
             staticClass: "grand-child-table table-name"
           }, [_c('tbody', _vm._l((itemProgCent.data), function(itemProgCentData) {
-            return _c('tr', [_c('td', [_vm._v(_vm._s(itemProgCentData.upr_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.upr_count) + " (" + _vm._s(itemProgCentData.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), (itemProgCentData.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(itemProgCentData.avg_delays))]) : _vm._e(), _vm._v(" "), (itemProgCentData.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.state))])])
+            return _c('tr', [_c('td', [_vm._v(_vm._s(itemProgCentData.upr_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.upr_count) + " (" + _vm._s(itemProgCentData.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), (itemProgCentData.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(itemProgCentData.avg_delays))]) : _vm._e(), _vm._v(" "), (itemProgCentData.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.status))])])
           }))])])])] : _vm._e()] : _vm._e()]
         })], 2)])])])
       }) : _vm._e()]

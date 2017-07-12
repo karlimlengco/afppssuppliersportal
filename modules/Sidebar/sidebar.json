@@ -4,17 +4,22 @@
             "name"      : "Competitive Bidding",
             "icon"      : "nc-icon-mini business_hammer",
             "subname"   : "procurementss",
-            "route"     :   "settings.index",
+            "route"     :   "biddings.index",
             "navigation": [
                 {
-                    "route" :   "settings.users.index",
+                    "route" :   "biddings.unit-purchase-requests.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Not yet available"
+                    "name"  :   "Unit Purchase Reqeust"
                 },
                 {
-                    "route" :   "settings.users.index",
+                    "route" :   "biddings.request-for-bids.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Not yet available"
+                    "name"  :   "Request For Bids"
+                },
+                {
+                    "route" :   "biddings.noa-acceptance.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "NOA Acceptance"
                 }
             ]
         }
@@ -145,6 +150,11 @@
                     "route" :   "maintenance.announcements.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Announcements"
+                },
+                {
+                    "route" :   "maintenance.bacsec.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "BacSec"
                 }
             ]
         }

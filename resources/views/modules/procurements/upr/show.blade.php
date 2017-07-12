@@ -14,6 +14,7 @@ Unit Purchase Request
     @include('modules.partials.modals.terminate')
     @include('modules.partials.modals.voucher')
     @include('modules.partials.modals.upr-signatory')
+    @include('modules.partials.bid-modals.rfb-process')
 @stop
 
 @section('contents')
@@ -23,62 +24,74 @@ Unit Purchase Request
         <button class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
-                {{-- Process --}}
-                @if($data->status == 'pending')
-                    <a class="button__options__item" id="process-button" href="#">Process</a>
-                    <a class="button__options__item" id="reject-button" href="#">Cancel</a>
-                @endif
-                @if(strtolower($data->state) == 'completed')
-                    <a href="#" id="terminate-button" class="button__options__item">Terminate</a>
-                @endif
-                {{-- Process --}}
 
-                {{-- Always shhow --}}
-                @if($data->status != 'pending' && $data->status != 'Cancelled')
                 <a class="button__options__item" id="signatory-button" href="#">Signatories</a>
-                <a class="button__options__item" id="view-attachments-button" href="#">Attachments</a>
-                <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->id)}}">View Timelines</a>
-                @endif
-                {{-- <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}">View Logs</a> --}}
-                {{-- Always shhow --}}
+                @if($data->mode_of_procurement != 'public_bidding')
+                        {{-- Process --}}
+                        @if($data->status == 'pending')
+                            <a class="button__options__item" id="process-button" href="#">Process</a>
+                            <a class="button__options__item" id="reject-button" href="#">Cancel</a>
+                        @endif
+                        @if(strtolower($data->state) == 'completed')
+                            <a href="#" id="terminate-button" class="button__options__item">Terminate</a>
+                        @endif
+                        {{-- Process --}}
 
-                @if(count($data->rfq) != 0)
-                    <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button__options__item">Request for Quotation</a>
-                @endif
+                        {{-- Always shhow --}}
+                        @if($data->status != 'pending' && $data->status != 'Cancelled')
+                            <a class="button__options__item" id="view-attachments-button" href="#">Attachments</a>
+                            <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->id)}}">View Timelines</a>
+                        @endif
+                        {{-- <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}">View Logs</a> --}}
+                        {{-- Always shhow --}}
 
-                @if(count($data->philgeps) != 0)
-                    <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" class="button__options__item">PhilGeps Posting</a>
-                @endif
-                @if(count($data->invitations) != 0)
-                    <a href="{{route('procurements.ispq.edit', $data->invitations->ispq_id)}}" class="button__options__item">Invitation</a>
-                @endif
+                        @if(count($data->rfq) != 0)
+                            <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button__options__item">Request for Quotation</a>
+                        @endif
 
-                @if(count($data->canvassing) != 0)
-                    <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button__options__item">Canvass</a>
-                @endif
+                        @if(count($data->philgeps) != 0)
+                            <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" class="button__options__item">PhilGeps Posting</a>
+                        @endif
+                        @if(count($data->invitations) != 0)
+                            <a href="{{route('procurements.ispq.edit', $data->invitations->ispq_id)}}" class="button__options__item">Invitation</a>
+                        @endif
 
-                @if(count($data->noa) != 0)
-                    <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">Notice Of Award</a>
-                @endif
+                        @if(count($data->canvassing) != 0)
+                            <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button__options__item">Canvass</a>
+                        @endif
 
-                @if(count($data->purchase_order) != 0)
-                    <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">Purchase Order</a>
-                @endif
+                        @if(count($data->noa) != 0)
+                            <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">Notice Of Award</a>
+                        @endif
 
-                @if(count($data->ntp) != 0)
-                    <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item">Notice To Proceed</a>
-                @endif
+                        @if(count($data->purchase_order) != 0)
+                            <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">Purchase Order</a>
+                        @endif
 
-                @if(count($data->delivery_order) != 0)
-                    <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button__options__item">Notice Of Delivery</a>
-                @endif
+                        @if(count($data->ntp) != 0)
+                            <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item">Notice To Proceed</a>
+                        @endif
 
-                @if(count($data->diir) != 0)
-                    <a href="{{route('procurements.delivered-inspections.show', $data->diir->id)}}" class="button__options__item">DIIR</a>
-                    @if(count($data->voucher) == 0)
-                        <a href="#" id="voucher-button" class="button__options__item">Create Voucher</a>
-                    @else
-                        <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button__options__item">Voucher</a>
+                        @if(count($data->delivery_order) != 0)
+                            <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button__options__item">Notice Of Delivery</a>
+                        @endif
+
+                        @if(count($data->diir) != 0)
+                            <a href="{{route('procurements.delivered-inspections.show', $data->diir->id)}}" class="button__options__item">DIIR</a>
+                            @if(count($data->voucher) == 0)
+                                <a href="#" id="voucher-button" class="button__options__item">Create Voucher</a>
+                            @else
+                                <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button__options__item">Voucher</a>
+                            @endif
+                        @endif
+
+                @else
+                    @if($data->status == 'pending')
+                    <a class="button__options__item" id="rfb-process-button" href="#">Process</a>
+                    @endif
+
+                    @if(count($data->rfb) != 0)
+                        <a href="{{route('biddings.request-for-bids.show', $data->rfb->id)}}" class="button__options__item">Request for Bid</a>
                     @endif
                 @endif
 
@@ -103,7 +116,11 @@ Unit Purchase Request
         </a>
         @endif
 
-        <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+        @if($data->mode_of_procurement != 'public_bidding')
+            <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+        @else
+            <a href="{{route('biddings.unit-purchase-requests.index')}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+        @endif
     </div>
 </div>
 
@@ -117,7 +134,7 @@ Unit Purchase Request
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Date Prepared :</strong> {{$data->date_prepared}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Prepared by :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname :""}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Procurement Centers :</strong> {{($data->centers) ? $data->centers->name :""}} </li>
-                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Mode of Procurement :</strong> {{($data->modes) ? $data->modes->name :""}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Mode of Procurement :</strong> {{($data->modes) ? $data->modes->name :  "Public Bidding" }} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Place Of Delivery :</strong> {{$data->place_of_delivery}} </li>
             </ul>
     </div>
@@ -194,7 +211,6 @@ Unit Purchase Request
         </ul>
     </div>
     @endif
-
 </div>
 <div >
     <div>
@@ -246,6 +262,11 @@ Unit Purchase Request
         $('#reject-modal').addClass('is-visible');
     })
 
+    $('#rfb-process-button').click(function(e){
+        e.preventDefault();
+        $('#rfb-process-modal').addClass('is-visible');
+    })
+
     $('#process-button').click(function(e){
         e.preventDefault();
         $('#process-modal').addClass('is-visible');
@@ -286,6 +307,29 @@ Unit Purchase Request
     var voucher_transaction_date = new Pikaday(
     {
         field: document.getElementById('id-field-voucher_transaction_date'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
+    var rfb_transaction_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-rfb_transaction_date'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
+
+    var released_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-released_date'),
         firstDay: 1,
         defaultDate: new Date(),
         setDefaultDate: new Date(),

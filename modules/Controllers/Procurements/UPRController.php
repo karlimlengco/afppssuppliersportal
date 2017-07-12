@@ -26,6 +26,7 @@ use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\ProcurementTypes\ProcurementTypeRepository;
 use \Revlv\Settings\CateredUnits\CateredUnitRepository;
 use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Settings\BacSec\BacSecRepository;
 
 use Revlv\Procurements\UnitPurchaseRequests\Traits\FileTrait;
 use Revlv\Procurements\UnitPurchaseRequests\Traits\ImportTrait;
@@ -50,6 +51,7 @@ class UPRController extends Controller
     protected $chargeability;
     protected $modes;
     protected $centers;
+    protected $bacsec;
     protected $terms;
     protected $items;
     protected $units;
@@ -179,7 +181,15 @@ class UPRController extends Controller
 
         $counts                 =   $model->getCountByYear($date->format('Y'))->total;
 
-        $ref_name   =   "AMP-". $result->centers->name ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
+        if($result->mode_of_procurement != 'public_bidding')
+        {
+            $ref_name   =   "AMP-". $result->centers->name ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
+        }
+        else
+        {
+            $ref_name   =   "PB-". $result->centers->name ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
+        }
+
         $ref_name   =   str_replace(" ", "", $ref_name);
 
         $model->update(['ref_number' => $ref_name], $result->id);
@@ -217,6 +227,7 @@ class UPRController extends Controller
      */
     public function show(
         $id,
+        BacSecRepository $bacsec,
         UnitPurchaseRequestRepository $model,
         SignatoryRepository $signatories)
     {
@@ -225,6 +236,7 @@ class UPRController extends Controller
 
         return $this->view('modules.procurements.upr.show',[
             'data'              =>  $result,
+            'bacsec_list'       =>  $bacsec->lists('id', 'name'),
             'indexRoute'        =>  $this->baseUrl.'index',
             'signatory_list'    =>  $signatory_lists,
             'editRoute'         =>  $this->baseUrl.'edit',
@@ -313,7 +325,14 @@ class UPRController extends Controller
         $result     =   $model->update($request->getData(), $id);
 
         $ref        =   explode('-', $result->ref_number);
-        $ref_name   =   "AMP-". $result->centers->name ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
+        if($result->mode_of_procurement != 'public_bidding')
+        {
+            $ref_name   =   "AMP-". $result->centers->name ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
+        }
+        else
+        {
+            $ref_name   =   "PB-". $result->centers->name ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
+        }
 
         $ref_name   =   str_replace(" ", "", $ref_name);
 

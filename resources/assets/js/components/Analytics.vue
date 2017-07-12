@@ -1,6 +1,8 @@
 <template>
 <div class=" ">
-
+    <h1>Mode of Procurement</h1>
+    <button class='button'  v-on:click="changeType('alternative')" >Alternative</button>
+    <button class='button'  v-on:click="changeType('bidding')" >Bidding</button>
     <div class="table-scroll">
         <table class="table table--with-border table-name">
             <thead>
@@ -73,7 +75,7 @@
 
                                                                             <td v-if="itemProgCentData.avg_delays >= 0">{{itemProgCentData.avg_delays}}</td>
                                                                             <td v-if="itemProgCentData.avg_delays < 0">0</td>
-                                                                            <td>{{itemProgCentData.state}}</td>
+                                                                            <td>{{itemProgCentData.status}}</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -109,17 +111,18 @@ var array2IDs    =   [];
             return{
                 items: [],
                 itemProgram: [],
-                itemProgramCenters:[]
+                itemProgramCenters:[],
+                types:"alternative"
             }
         },
 
         mounted() {
-            this.fetchUprAnalytics();
+            this.fetchUprAnalytics(this.types);
         },
 
         methods: {
-            fetchUprAnalytics: function() {
-                axios.get('/reports/upr-programs')
+            fetchUprAnalytics: function(type) {
+                axios.get('/reports/upr-programs/'+type)
                     .then(response => {
                         this.items = response.data
                     })
@@ -128,7 +131,7 @@ var array2IDs    =   [];
                     })
             },
             fetchUPRCenters: function(program){
-                axios.get('/reports/upr-centers/'+program)
+                axios.get('/reports/upr-centers/'+program+'/'+this.types)
                     .then(response => {
                         this.itemProgram.push(response.data)
                     })
@@ -137,7 +140,7 @@ var array2IDs    =   [];
                     })
             },
             fetchUPRs: function(program, center){
-                axios.get('/reports/uprs/'+program+'/'+center)
+                axios.get('/reports/uprs/'+program+'/'+center+'/'+this.types)
                     .then(response => {
                         this.itemProgramCenters.push(response.data)
                     })
@@ -147,22 +150,28 @@ var array2IDs    =   [];
             },
             clickItemProgram: function(item){
 
-                if( arrayIDs.indexOf(item.programs) == -1 )
-                {
+                // if( arrayIDs.indexOf(item.programs) == -1 )
+                // {
                     arrayIDs.push(item.programs);
                     this.fetchUPRCenters(item.programs)
-                }
+                // }
+            },
+            changeType: function(type){
+                this.types = type
+                this.itemProgram = []
+                this.itemProgramCenters = []
+                this.fetchUprAnalytics(type)
             },
             clickItemProgramCenter: function(item){
-                if( array2IDs.indexOf(item.programs) == -1 )
-                {
-                    if(array2IDs[item.programs] != item.name)
-                    {
+                // if( array2IDs.indexOf(item.programs) == -1 )
+                // {
+                    // if(array2IDs[item.programs] != item.name)
+                    // {
                         console.log('asd')
                         array2IDs[item.programs]    =   item.name;
                         this.fetchUPRs(item.programs, item.name)
-                    }
-                }
+                    // }
+                // }
             }
         }
     }

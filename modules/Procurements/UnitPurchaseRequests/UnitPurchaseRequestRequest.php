@@ -57,7 +57,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
             'upr_number'            => 'required|unique:unit_purchase_requests,upr_number',
             'place_of_delivery'     => 'required',
             'procurement_office'    => 'required|integer',
-            'mode_of_procurement'   => 'required|integer',
+            'mode_of_procurement'   => 'required',
             'procurement_type'      => 'required|integer',
             'chargeability'         => 'required|integer',
             'units'                 => 'required|integer',
