@@ -43,7 +43,7 @@ Unit Purchase Request Import Validate
                     {!! Form::selectField('procurement_office', 'Procurement Office', $procurement_center) !!}
                 </div>
                 <div class="four columns">
-                    {!! Form::selectField('mode_of_procurement', 'Mode of Procurement', $procurement_modes) !!}
+                    {!! Form::selectField('mode_of_procurement', 'Mode of Procurement', ['public_bidding' => 'Public Bidding'] + $procurement_modes) !!}
                 </div>
                 <div class="four columns">
                     {!! Form::selectField('chargeability', 'Chargeability', $charges) !!}

@@ -14,7 +14,7 @@
                     <th>Residual Amount</th>
                     <th>AVE days to complete</th>
                     <th>AVE delays</th>
-                    <th>Remarks</th>
+                    <th style="text-align:center">Remarks</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,9 +25,9 @@
                             <button  v-on:click="clickItemProgram(item)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                         </td>
                         <td>{{item.upr_count}} ({{item.completed_count}})</td>
-                        <td>{{item.total_abc}}</td>
-                        <td>{{item.total_bid}}</td>
-                        <td>{{item.total_residual}}</td>
+                        <td>{{formatPrice(item.total_abc)}}</td>
+                        <td>{{formatPrice(item.total_bid)}}</td>
+                        <td>{{formatPrice(item.total_residual)}}</td>
                         <td>{{item.avg_days}}</td>
                         <td v-if="item.avg_delays >= 0">{{item.avg_delays}}</td>
                         <td v-if="item.avg_delays < 0">0</td>
@@ -47,9 +47,9 @@
                                                     <button  v-on:click="clickItemProgramCenter(itemProgData)" class="show-grand-child-table" ><i class="nc-icon-mini ui-1_circle-add"></i></button>
                                                 </td>
                                                 <td>{{itemProgData.upr_count}} ({{itemProgData.completed_count}})</td>
-                                                <td>{{itemProgData.total_abc}}</td>
-                                                <td>{{itemProgData.total_bid}}</td>
-                                                <td>{{itemProgData.total_residual}}</td>
+                                                <td>{{formatPrice(itemProgData.total_abc)}}</td>
+                                                <td>{{formatPrice(itemProgData.total_bid)}}</td>
+                                                <td>{{formatPrice(itemProgData.total_residual)}}</td>
                                                 <td>{{itemProgData.avg_days}}</td>
 
                                                 <td v-if="itemProgData.avg_delays >= 0">{{itemProgData.avg_delays}}</td>
@@ -68,14 +68,14 @@
                                                                         <tr  v-for="itemProgCentData in itemProgCent.data">
                                                                             <td>{{itemProgCentData.upr_number}}</td>
                                                                             <td>{{itemProgCentData.upr_count}} ({{itemProgCentData.completed_count}})</td>
-                                                                            <td>{{itemProgCentData.total_abc}}</td>
-                                                                            <td>{{itemProgCentData.total_bid}}</td>
-                                                                            <td>{{itemProgCentData.total_residual}}</td>
+                                                                            <td>{{formatPrice(itemProgCentData.total_abc)}}</td>
+                                                                            <td>{{formatPrice(itemProgCentData.total_bid)}}</td>
+                                                                            <td>{{formatPrice(itemProgCentData.total_residual)}}</td>
                                                                             <td>{{itemProgCentData.avg_days}}</td>
 
                                                                             <td v-if="itemProgCentData.avg_delays >= 0">{{itemProgCentData.avg_delays}}</td>
                                                                             <td v-if="itemProgCentData.avg_delays < 0">0</td>
-                                                                            <td>{{itemProgCentData.status}}</td>
+                                                                            <td  style="text-align:left">{{itemProgCentData.status}}</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -121,6 +121,10 @@ var array2IDs    =   [];
         },
 
         methods: {
+            formatPrice(value) {
+                let val = (value/1).toFixed(2).replace('.', ',')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            },
             fetchUprAnalytics: function(type) {
                 axios.get('/reports/upr-programs/'+type)
                     .then(response => {

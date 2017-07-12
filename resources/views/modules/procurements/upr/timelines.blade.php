@@ -5,18 +5,27 @@ Unit Purchase Request
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
-        {{-- <h3>Unit Purchase Request</h3> --}}
-    </div>
-    <div class="twelve columns utility utility--align-right" >
-
+    <div class="six columns utility utility--align-right" style="margin-bottom:0px" >
         <a href="{{route($indexRoute,$data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+    </div>
+    <div class="six columns utility"  style="margin-bottom:0px" >
+        {!! Form::selectField('', '', [])!!}
     </div>
 </div>
 
-<div class="row">
-    <div class="twelve columns">
+<div class="data-panel" style="padding:10px; margin-bottom:10px">
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label" style="font-weight:800; text-transform:capitalize">UPR No :</strong> {{$data->upr_number}} </li>
+        </ul>
+    </div>
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label" style="font-weight:800; text-transform:capitalize">Project Name :</strong> {{$data->project_name}} </li>
+        </ul>
+    </div>
+</div>
+
     <?php
         $totalDays      =   0;
         $today          =   \Carbon\Carbon::now()->format('Y-m-d');
@@ -24,29 +33,33 @@ Unit Purchase Request
         $upr_created    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->date_prepared);
     ?>
 
-        <table class="table" >
+        <table class="table">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Date</th>
+                    <th  style="text-align:center; width:150px">Latest Allowable Time</th>
                     <th>Day/s</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>UPR</td>
-                    <td>{{$data->date_prepared}}</td>
+                    <td>{{ $data->date_prepared}}</td>
+                    <td></td>
                     <td></td>
                 </tr>
 
                 <tr>
                     <td>Create RFQ</td>
-                    <td>{{$data->rfq_created_at}}</td>
+                    <td>{{ $data->rfq_created_at }}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->rfq_created_at != null)
                             <?php $rfq_created_at    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->rfq_created_at); ?>
                             {{ $d = $rfq_created_at->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $upr_created )}}
                             <?php $totalDays +=  $d; ?>
+                            <strong class="red">({{$d - 1}})</strong>
                         @else
 
                             {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $upr_created )}}
@@ -62,12 +75,13 @@ Unit Purchase Request
                         {{  $rfq_completed_ats }}
                         @endif
                     </td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($rfq_completed_ats != null)
                             <?php $rfq_completed_at    =   \Carbon\Carbon::createFromFormat('Y-m-d', $rfq_completed_ats); ?>
                             {{ $d = $rfq_completed_at->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $rfq_created_at )}}
-
                             <?php $totalDays +=  $d; ?>
+                            <strong class="red">({{$d - 1}})</strong>
 
                         @else
 
@@ -80,6 +94,7 @@ Unit Purchase Request
                 <tr>
                     <td>RFQ Create Invitation</td>
                     <td>{{$data->ispq_transaction_date}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
 
                         @if($data->ispq_transaction_date != null)
@@ -87,6 +102,9 @@ Unit Purchase Request
                             {{ $d = $ispq_transaction_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $rfq_completed_at )}}
 
                             <?php $totalDays +=  $d; ?>
+                            @if($d < 1)
+                            <strong class="red">({{$d - 1}})</strong>
+                            @endif
 
                         @else
 
@@ -99,12 +117,14 @@ Unit Purchase Request
                 <tr>
                     <td>Philgeps posting</td>
                     <td>{{$data->pp_completed_at}}</td>
+                    <td style="text-align:center">3</td>
                     <td>
                         @if($data->pp_completed_at != null)
                             <?php $pp_completed_at    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->pp_completed_at); ?>
                             {{ $d = $pp_completed_at->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ispq_transaction_date )}}
 
                             <?php $totalDays +=  $d; ?>
+                            <strong class="red">({{$d - 3}})</strong>
 
                         @else
 
@@ -116,16 +136,20 @@ Unit Purchase Request
                 <tr>
                     <td>Canvassing</td>
                     <td>{{$data->canvass_start_date}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->canvass_start_date != null)
                             <?php $canvass_start_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->canvass_start_date); ?>
-                            {{ $d = $canvass_start_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $pp_completed_at )}}
+                            {{ $d = $canvass_start_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ispq_transaction_date )}}
 
                             <?php $totalDays +=  $d; ?>
+                            @if($d > 1)
+                            <strong class="red">({{$d - 1}})</strong>
+                            @endif
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $pp_completed_at )}}
+                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ispq_transaction_date )}}
                         @endif
                     </td>
                 </tr>
@@ -138,8 +162,9 @@ Unit Purchase Request
                             {{  $noa_award_dates }}
                         @endif
                     </td>
+                    <td style="text-align:center">2</td>
                     <td>
-                        @if($noa_award_dates != null)
+                        @if($noa_award_dates != null && $data->noa_award_date)
                             <?php $noa_award_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $noa_award_dates); ?>
                             {{ $d = $noa_award_date->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $canvass_start_date )}}
 
@@ -155,6 +180,7 @@ Unit Purchase Request
                 <tr>
                     <td>NOA Approved</td>
                     <td>{{$data->noa_approved_date}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->noa_approved_date != null)
                             <?php $noa_approved_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->noa_approved_date); ?>
@@ -172,6 +198,7 @@ Unit Purchase Request
                 <tr>
                     <td>NOA Receieved</td>
                     <td>{{$data->noa_award_accepted_date}}</td>
+                    <td style="text-align:center">1</td>
 
                     <td>
                         @if($data->noa_award_accepted_date != null)
@@ -190,6 +217,7 @@ Unit Purchase Request
                 <tr>
                     <td>PO Creation</td>
                     <td>{{$data->po_create_date}}</td>
+                    <td style="text-align:center">2</td>
                     <td>
                         @if($data->po_create_date != null)
                             <?php $po_create_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->po_create_date); ?>
@@ -207,6 +235,7 @@ Unit Purchase Request
                 <tr>
                     <td>PO Fund Release</td>
                     <td>{{$data->funding_received_date}}</td>
+                    <td style="text-align:center">2</td>
                     <td>
                         @if($data->funding_received_date != null)
                             <?php $funding_received_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->funding_received_date); ?>
@@ -224,6 +253,7 @@ Unit Purchase Request
                 <tr>
                     <td>PO MFO Release</td>
                     <td>{{$data->mfo_received_date}}</td>
+                    <td style="text-align:center">2</td>
                     <td>
                         @if($data->mfo_received_date != null)
                             <?php $mfo_received_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->mfo_received_date); ?>
@@ -241,6 +271,7 @@ Unit Purchase Request
                 <tr>
                     <td>PO COA Approval</td>
                     <td>{{$data->coa_approved_date}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->coa_approved_date != null)
                             <?php $coa_approved_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->coa_approved_date); ?>
@@ -263,6 +294,7 @@ Unit Purchase Request
                             {{  $ntp_dates }}
                         @endif
                     </td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($ntp_dates != null)
                             <?php $ntp_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $ntp_dates); ?>
@@ -280,6 +312,7 @@ Unit Purchase Request
                 <tr>
                     <td>NTP Award</td>
                     <td>{{$data->ntp_award_date}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->ntp_award_date != null)
                             <?php $ntp_award_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->ntp_award_date); ?>
@@ -297,6 +330,7 @@ Unit Purchase Request
                 <tr>
                     <td>Create Notice Of Delivery</td>
                     <td>{{$data->dr_date}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->dr_date != null)
                             <?php $dr_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_date); ?>
@@ -314,6 +348,7 @@ Unit Purchase Request
                 <tr>
                     <td>Receive Delivery</td>
                     <td>{{$data->delivery_date}}</td>
+                    <td style="text-align:center">7</td>
                     <td>
                         @if($data->delivery_date != null)
                             <?php $delivery_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->delivery_date); ?>
@@ -331,6 +366,7 @@ Unit Purchase Request
                 <tr>
                     <td>COA Delivery</td>
                     <td>{{$data->dr_coa_date}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->dr_coa_date != null)
                             <?php $dr_coa_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_coa_date); ?>
@@ -348,6 +384,7 @@ Unit Purchase Request
                 <tr>
                     <td>Delivery Inspection</td>
                     <td>{{$data->dr_inspection}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->dr_inspection != null)
                             <?php $dr_inspection    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_inspection); ?>
@@ -365,6 +402,7 @@ Unit Purchase Request
                 <tr>
                     <td>IAR Acceptance</td>
                     <td>{{$data->iar_accepted_date}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->iar_accepted_date != null)
                             <?php $iar_accepted_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->iar_accepted_date); ?>
@@ -383,6 +421,7 @@ Unit Purchase Request
                 <tr>
                     <td>DR Inspection Start</td>
                     <td>{{$data->di_start}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->di_start != null)
                             <?php $di_start    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->di_start); ?>
@@ -400,6 +439,7 @@ Unit Purchase Request
                 <tr>
                     <td>DR Inspection Close</td>
                     <td>{{$data->di_close}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->di_close != null)
                             <?php $di_close    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->di_close); ?>
@@ -417,6 +457,7 @@ Unit Purchase Request
                 <tr>
                     <td>Voucher Create</td>
                     <td>{{$data->v_transaction_date}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->v_transaction_date != null)
                             <?php $v_transaction_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->v_transaction_date); ?>
@@ -434,6 +475,7 @@ Unit Purchase Request
                 <tr>
                     <td>Voucher Preaudit</td>
                     <td>{{$data->preaudit_date}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->preaudit_date != null)
                             <?php $preaudit_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->preaudit_date); ?>
@@ -451,6 +493,7 @@ Unit Purchase Request
                 <tr>
                     <td>Voucher Certify</td>
                     <td>{{$data->certify_date}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->certify_date != null)
                             <?php $certify_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->certify_date); ?>
@@ -468,6 +511,7 @@ Unit Purchase Request
                 <tr>
                     <td>Voucher JEV</td>
                     <td>{{$data->journal_entry_date}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->journal_entry_date != null)
                             <?php $journal_entry_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->journal_entry_date); ?>
@@ -485,6 +529,7 @@ Unit Purchase Request
                 <tr>
                     <td>Voucher Approval</td>
                     <td>{{$data->vou_approval_date}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->vou_approval_date != null)
                             <?php $vou_approval_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_approval_date); ?>
@@ -502,6 +547,7 @@ Unit Purchase Request
                 <tr>
                     <td>Voucher Release</td>
                     <td>{{$data->vou_release}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->vou_release != null)
                             <?php $vou_release    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_release); ?>
@@ -519,6 +565,7 @@ Unit Purchase Request
                 <tr>
                     <td>Voucher Received/Complete RFQ</td>
                     <td>{{$data->vou_received}}</td>
+                    <td style="text-align:center">1</td>
                     <td>
                         @if($data->vou_received != null)
                             <?php $vou_received    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_received); ?>
@@ -540,8 +587,6 @@ Unit Purchase Request
 
             </tbody>
         </table>
-    </div>
-</div>
 
 @stop
 

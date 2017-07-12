@@ -1825,6 +1825,11 @@ var array2IDs = [];
 
 
     methods: {
+        formatPrice: function formatPrice(value) {
+            var val = (value / 1).toFixed(2).replace('.', ',');
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        },
+
         fetchUprAnalytics: function fetchUprAnalytics(type) {
             var _this = this;
 
@@ -31995,7 +32000,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "nc-icon-mini ui-1_circle-add"
-    })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.upr_count) + " (" + _vm._s(item.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.avg_days))]), _vm._v(" "), (item.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(item.avg_delays))]) : _vm._e(), _vm._v(" "), (item.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgram), function(itemProg) {
+    })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.upr_count) + " (" + _vm._s(item.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.avg_days))]), _vm._v(" "), (item.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(item.avg_delays))]) : _vm._e(), _vm._v(" "), (item.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgram), function(itemProg) {
       return [(itemProg.program == item.programs) ? _vm._l((itemProg.data), function(itemProgData) {
         return _c('tr', [_c('td', {
           staticClass: "has-child",
@@ -32013,7 +32018,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }, [_c('i', {
           staticClass: "nc-icon-mini ui-1_circle-add"
-        })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.upr_count) + " (" + _vm._s(itemProgData.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.avg_days))]), _vm._v(" "), (itemProgData.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(itemProgData.avg_delays))]) : _vm._e(), _vm._v(" "), (itemProgData.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgramCenters), function(itemProgCent) {
+        })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.upr_count) + " (" + _vm._s(itemProgData.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.avg_days))]), _vm._v(" "), (itemProgData.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(itemProgData.avg_delays))]) : _vm._e(), _vm._v(" "), (itemProgData.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgramCenters), function(itemProgCent) {
           return [(itemProgCent.program == item.programs) ? [(itemProgCent.center == itemProgData.name) ? [_c('tr', [_c('td', {
             staticClass: "has-child",
             attrs: {
@@ -32022,14 +32027,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }, [_c('table', {
             staticClass: "grand-child-table table-name"
           }, [_c('tbody', _vm._l((itemProgCent.data), function(itemProgCentData) {
-            return _c('tr', [_c('td', [_vm._v(_vm._s(itemProgCentData.upr_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.upr_count) + " (" + _vm._s(itemProgCentData.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_bid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.total_residual))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), (itemProgCentData.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(itemProgCentData.avg_delays))]) : _vm._e(), _vm._v(" "), (itemProgCentData.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.status))])])
+            return _c('tr', [_c('td', [_vm._v(_vm._s(itemProgCentData.upr_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.upr_count) + " (" + _vm._s(itemProgCentData.completed_count) + ")")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), (itemProgCentData.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(itemProgCentData.avg_delays))]) : _vm._e(), _vm._v(" "), (itemProgCentData.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td', {
+              staticStyle: {
+                "text-align": "left"
+              }
+            }, [_vm._v(_vm._s(itemProgCentData.status))])])
           }))])])])] : _vm._e()] : _vm._e()]
         })], 2)])])])
       }) : _vm._e()]
     })]
   })], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v("# UPR")]), _vm._v(" "), _c('th', [_vm._v("ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVE days to complete")]), _vm._v(" "), _c('th', [_vm._v("AVE delays")]), _vm._v(" "), _c('th', [_vm._v("Remarks")])])])
+  return _c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v("# UPR")]), _vm._v(" "), _c('th', [_vm._v("ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVE days to complete")]), _vm._v(" "), _c('th', [_vm._v("AVE delays")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("Remarks")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
