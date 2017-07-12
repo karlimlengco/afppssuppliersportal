@@ -1822,7 +1822,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 var arrayIDs = [];
@@ -32061,7 +32060,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "tooltip": "Delay"
       }
-    }, [_vm._v("(" + _vm._s(item.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.avg_days))]), _vm._v(" "), (item.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(item.avg_delays))]) : _vm._e(), _vm._v(" "), (item.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgram), function(itemProg) {
+    }, [_vm._v("(" + _vm._s(item.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (item.avg_delays >= 0) ? _c('td') : _vm._e(), _vm._v(" "), (item.avg_delays < 0) ? _c('td') : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgram), function(itemProg) {
       return [(itemProg.program == item.programs) ? _vm._l((itemProg.data), function(itemProgData) {
         return _c('tr', [_c('td', {
           staticClass: "has-child",
@@ -32098,7 +32097,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           attrs: {
             "tooltip": "Delay"
           }
-        }, [_vm._v("(" + _vm._s(itemProgData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.avg_days))]), _vm._v(" "), (itemProgData.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(itemProgData.avg_delays))]) : _vm._e(), _vm._v(" "), (itemProgData.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgramCenters), function(itemProgCent) {
+        }, [_vm._v("(" + _vm._s(itemProgData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (itemProgData.avg_delays >= 0) ? _c('td') : _vm._e(), _vm._v(" "), (itemProgData.avg_delays < 0) ? _c('td') : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgramCenters), function(itemProgCent) {
           return [(itemProgCent.program == item.programs) ? [(itemProgCent.center == itemProgData.name) ? [_c('tr', [_c('td', {
             staticClass: "has-child",
             attrs: {
@@ -32135,7 +32134,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               attrs: {
                 "tooltip": "Delay"
               }
-            }, [_vm._v("(" + _vm._s(itemProgCentData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), (itemProgCentData.avg_delays >= 0) ? _c('td', [_vm._v(_vm._s(itemProgCentData.avg_delays))]) : _vm._e(), _vm._v(" "), (itemProgCentData.avg_delays < 0) ? _c('td', [_vm._v("0")]) : _vm._e(), _vm._v(" "), (itemProgCentData.status != 'pending') ? _c('td', {
+            }, [_vm._v("(" + _vm._s(itemProgCentData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.delay_count))]), _vm._v(" "), (itemProgCentData.status != 'pending') ? _c('td', {
               staticStyle: {
                 "text-align": "left"
               }
@@ -32150,7 +32149,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]
   })], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v("# UPR")]), _vm._v(" "), _c('th', [_vm._v("Total ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVE days to complete")]), _vm._v(" "), _c('th', [_vm._v("AVE delays")]), _vm._v(" "), _c('th', {
+  return _c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v("# UPR")]), _vm._v(" "), _c('th', [_vm._v("Total ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVG Days to Complete")]), _vm._v(" "), _c('th', [_vm._v("Number of Delays")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "text-align": "center"
     }

@@ -12,8 +12,8 @@
                     <th>Total ABC</th>
                     <th>Approved Contract Amount</th>
                     <th>Residual Amount</th>
-                    <th>AVE days to complete</th>
-                    <th>AVE delays</th>
+                    <th>AVG Days to Complete</th>
+                    <th>Number of Delays</th>
                     <th style="text-align:center">Remarks</th>
                 </tr>
             </thead>
@@ -33,9 +33,9 @@
                         <td>{{formatPrice(item.total_abc)}}</td>
                         <td>{{formatPrice(item.total_bid)}}</td>
                         <td>{{formatPrice(item.total_residual)}}</td>
-                        <td>{{item.avg_days}}</td>
-                        <td v-if="item.avg_delays >= 0" >{{item.avg_delays}}</td>
-                        <td v-if="item.avg_delays < 0">0</td>
+                        <td></td>
+                        <td v-if="item.avg_delays >= 0" ></td>
+                        <td v-if="item.avg_delays < 0"></td>
                         <td></td>
                     </tr>
                     <!-- child -->
@@ -60,10 +60,10 @@
                                                 <td>{{formatPrice(itemProgData.total_abc)}}</td>
                                                 <td>{{formatPrice(itemProgData.total_bid)}}</td>
                                                 <td>{{formatPrice(itemProgData.total_residual)}}</td>
-                                                <td>{{itemProgData.avg_days}}</td>
+                                                <td></td>
 
-                                                <td v-if="itemProgData.avg_delays >= 0">{{itemProgData.avg_delays}}</td>
-                                                <td v-if="itemProgData.avg_delays < 0">0</td>
+                                                <td v-if="itemProgData.avg_delays >= 0"></td>
+                                                <td v-if="itemProgData.avg_delays < 0"></td>
                                                 <td></td>
                                             </tr>
                                             <!-- grand child -->
@@ -89,8 +89,7 @@
                                                                             <td>{{formatPrice(itemProgCentData.total_residual)}}</td>
                                                                             <td>{{itemProgCentData.avg_days}}</td>
 
-                                                                            <td v-if="itemProgCentData.avg_delays >= 0">{{itemProgCentData.avg_delays}}</td>
-                                                                            <td v-if="itemProgCentData.avg_delays < 0">0</td>
+                                                                            <td>{{itemProgCentData.delay_count}}</td>
                                                                             <td  style="text-align:left" v-if="itemProgCentData.status != 'pending'">{{itemProgCentData.status}}</td>
                                                                             <td  style="text-align:left" v-else>UPR Processing</td>
                                                                         </tr>
