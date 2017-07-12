@@ -51,7 +51,7 @@ Notice Of Award
                 url: "{{route('datatables.procurements.noa')}}",
             },
         columns: [
-            {data: 'rfq_number', name: 'canvass_rfq'},
+            {data: 'rfq_number', name: 'rfq_number'},
             {data: 'upr_number', name: 'upr_number'},
             {data: 'name', name: 'name'},
             {data: 'awarded_date', name: 'awarded_date'},
