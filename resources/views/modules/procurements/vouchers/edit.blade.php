@@ -30,10 +30,10 @@ Vouchers
                     {!! Form::textField('transaction_date', 'Transaction Date') !!}
                 </div>
                 <div class="four columns">
-                    {!! Form::textField('payment_release_date', 'Transaction Date') !!}
+                    {!! Form::textField('payment_release_date', 'Payment Release Date') !!}
                 </div>
                 <div class="four columns">
-                    {!! Form::textField('payment_received_date', 'Transaction Date') !!}
+                    {!! Form::textField('payment_received_date', 'Payment Received Date') !!}
                 </div>
                 @else
                     <div class="six columns">
@@ -45,24 +45,24 @@ Vouchers
             <div class="row">
                 @if($data->preaudit_date)
                 <div class="six columns">
-                    {!! Form::textField('preaudit_date', 'Transaction Date') !!}
+                    {!! Form::textField('preaudit_date', 'Pre Audit Date') !!}
                 </div>
                 @endif
                 @if($data->certify_date)
                 <div class="six columns">
-                    {!! Form::textField('certify_date', 'Transaction Date') !!}
+                    {!! Form::textField('certify_date', 'Certify Date') !!}
                 </div>
                 @endif
             </div>
             <div class="row">
                 @if($data->journal_entry_date)
                 <div class="six columns">
-                    {!! Form::textField('journal_entry_date', 'Transaction Date') !!}
+                    {!! Form::textField('journal_entry_date', 'Journal Entry Date') !!}
                 </div>
                 @endif
                 @if($data->approval_date)
                 <div class="six columns">
-                    {!! Form::textField('approval_date', 'Transaction Date') !!}
+                    {!! Form::textField('approval_date', 'Approval Date') !!}
                 </div>
                 @endif
             </div>

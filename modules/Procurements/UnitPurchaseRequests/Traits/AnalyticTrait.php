@@ -115,6 +115,7 @@ trait AnalyticTrait
             'procurement_centers.programs',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.status',
+            DB::raw(" CASE WHEN unit_purchase_requests.status = 'pending' THEN 'UPR Processing' ELSE unit_purchase_requests.status END "),
         ]);
 
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
