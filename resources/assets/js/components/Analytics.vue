@@ -89,7 +89,7 @@
                                                                             <td>{{formatPrice(itemProgCentData.total_residual)}}</td>
                                                                             <td>{{itemProgCentData.avg_days}}</td>
 
-                                                                            <td>{{itemProgCentData.delay_count}}</td>
+                                                                            <td>{{itemProgCentData.delay}}</td>
                                                                             <td  style="text-align:left" v-if="itemProgCentData.status != 'pending'">{{itemProgCentData.status}}</td>
                                                                             <td  style="text-align:left" v-else>UPR Processing</td>
                                                                         </tr>

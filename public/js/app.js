@@ -32134,7 +32134,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               attrs: {
                 "tooltip": "Delay"
               }
-            }, [_vm._v("(" + _vm._s(itemProgCentData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.delay_count))]), _vm._v(" "), (itemProgCentData.status != 'pending') ? _c('td', {
+            }, [_vm._v("(" + _vm._s(itemProgCentData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.delay))]), _vm._v(" "), (itemProgCentData.status != 'pending') ? _c('td', {
               staticStyle: {
                 "text-align": "left"
               }
