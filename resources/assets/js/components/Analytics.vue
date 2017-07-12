@@ -1,8 +1,8 @@
 <template>
 <div class=" ">
     <h1>Mode of Procurement</h1>
-    <button class='button'  v-on:click="changeType('alternative')" >Alternative</button>
-    <button class='button'  v-on:click="changeType('bidding')" >Bidding</button>
+    <button class='button' v-bind:id="[ isActived  == 'alternative' ? 'button-focus' : '']" v-on:click="changeType('alternative')" >Alternative</button>
+    <button class='button'  v-bind:id="[ isActived == 'bidding' ? 'button-focus' : '']" v-on:click="changeType('bidding')" >Bidding</button>
     <div class="table-scroll">
         <table class="table table--with-border table-name">
             <thead>
@@ -112,7 +112,7 @@ var array2IDs    =   [];
                 items: [],
                 itemProgram: [],
                 itemProgramCenters:[],
-                types:"alternative"
+                types:"alternative",
             }
         },
 
@@ -176,6 +176,15 @@ var array2IDs    =   [];
                         this.fetchUPRs(item.programs, item.name)
                     // }
                 // }
+            }
+        },
+        computed: {
+            isActived: function () {
+                // if(this.types = 'alternative'){
+                    // return true;
+                // }
+                // return false;
+                return this.types
             }
         }
     }

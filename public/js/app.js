@@ -1882,6 +1882,15 @@ var array2IDs = [];
             // }
             // }
         }
+    },
+    computed: {
+        isActived: function isActived() {
+            // if(this.types = 'alternative'){
+            // return true;
+            // }
+            // return false;
+            return this.types;
+        }
     }
 });
 
@@ -31974,6 +31983,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: " "
   }, [_c('h1', [_vm._v("Mode of Procurement")]), _vm._v(" "), _c('button', {
     staticClass: "button",
+    attrs: {
+      "id": [_vm.isActived == 'alternative' ? 'button-focus' : '']
+    },
     on: {
       "click": function($event) {
         _vm.changeType('alternative')
@@ -31981,6 +31993,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Alternative")]), _vm._v(" "), _c('button', {
     staticClass: "button",
+    attrs: {
+      "id": [_vm.isActived == 'bidding' ? 'button-focus' : '']
+    },
     on: {
       "click": function($event) {
         _vm.changeType('bidding')
