@@ -454,6 +454,7 @@ class UPRController extends Controller
         UnitPurchaseRequestRepository $model,
         HolidayRepository $holidays)
     {
+        $upr_list   = $model->lists('id', 'upr_number');
         $upr_model  =   $model->findTimelineById($id);
         $holiday_lists  =   $holidays->lists('id','holiday_date');
         $h_lists        =   [];
@@ -465,6 +466,7 @@ class UPRController extends Controller
         return $this->view('modules.procurements.upr.timelines',[
             'data'              =>  $upr_model,
             'h_lists'           =>  $h_lists,
+            'upr_list'           =>  $upr_list,
             'indexRoute'        =>  $this->baseUrl."show"
         ]);
     }
