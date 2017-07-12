@@ -21,7 +21,9 @@ trait AnalyticTrait
 
         $model  =   $model->select([
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
+            DB::raw("count(unit_purchase_requests.delay_count) as delay_count"),
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
+            DB::raw(" ( count(unit_purchase_requests.id) - count(unit_purchase_requests.completed_at) ) - count(unit_purchase_requests.delay_count) as ongoing_count"),
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
@@ -61,7 +63,9 @@ trait AnalyticTrait
 
         $model  =   $model->select([
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
+            DB::raw("count(unit_purchase_requests.delay_count) as delay_count"),
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
+            DB::raw(" ( count(unit_purchase_requests.id) - count(unit_purchase_requests.completed_at) ) - count(unit_purchase_requests.delay_count) as ongoing_count"),
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
@@ -105,7 +109,9 @@ trait AnalyticTrait
 
         $model  =   $model->select([
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
+            DB::raw("count(unit_purchase_requests.delay_count) as delay_count"),
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
+            DB::raw(" ( count(unit_purchase_requests.id) - count(unit_purchase_requests.completed_at) ) - count(unit_purchase_requests.delay_count) as ongoing_count"),
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
@@ -114,8 +120,9 @@ trait AnalyticTrait
             'procurement_centers.name',
             'procurement_centers.programs',
             'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.project_name',
+            'unit_purchase_requests.id',
             'unit_purchase_requests.status',
-            DB::raw(" CASE WHEN unit_purchase_requests.status = 'pending' THEN 'UPR Processing' ELSE unit_purchase_requests.status END "),
         ]);
 
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
@@ -138,6 +145,8 @@ trait AnalyticTrait
             'procurement_centers.programs',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.status',
+            'unit_purchase_requests.project_name',
+            'unit_purchase_requests.id',
         ]);
 
         return $model->get();

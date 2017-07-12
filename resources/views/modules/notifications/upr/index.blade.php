@@ -22,7 +22,7 @@ Notifications
                    <th>ABC</th>
                    <th>Status</th>
                    <th>Expected Date</th>
-                   <th>Days(Working Days)</th>
+                   <th>Number of Delays</th>
                </tr>
            </thead>
            <tbody>

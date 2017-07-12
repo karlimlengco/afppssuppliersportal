@@ -127,6 +127,12 @@
 .red{
     color: rgba(231, 76, 60,1.0)
 }
+.blue{
+    color: rgba(41, 128, 185,1.0);
+}
+.green{
+    color:rgba(39, 174, 96,1.0);
+}
 
 .printable-form__body__table tr td.head,
 .printable-form__body__table tr th.head {
@@ -161,6 +167,11 @@
 }
 
 #button-focus {
-  background: #014d6d!important;
+  background: #00A1E4!important;
   outline: none;
+  color: #ffffff;
+}
+.button-unfocus{
+  background: #a8cfe0!important;
+  color:#969587;
 }

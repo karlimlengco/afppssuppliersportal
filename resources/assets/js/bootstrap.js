@@ -13,6 +13,10 @@ try {
     require('bootstrap-sass');
 } catch (e) {}
 
+import Vue from 'vue'
+import VTooltip from 'v-tooltip'
+
+Vue.use(VTooltip)
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

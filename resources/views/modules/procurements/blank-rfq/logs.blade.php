@@ -55,7 +55,11 @@ PhilGeps Posting
                                         <tr style="background: #eee">
                                             <td>New</td>
                                             <td>{{$newKey}}</td>
+                                            @if(is_object($newValue))
+                                            <td>{{json_encode($newValue)}}</td>
+                                            @else
                                             <td>{{$newValue}}</td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 {{-- </table> --}}

@@ -19,7 +19,47 @@
                 {
                     "route" :   "biddings.noa-acceptance.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "NOA Acceptance"
+                    "name"  :   "Perfomance Bond"
+                },
+                {
+                    "route" :   "biddings.noa-acceptance.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Concerened BAC"
+                },
+                {
+                    "route" :   "biddings.noa-acceptance.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Notice Of Award"
+                },
+                {
+                    "route" :   "biddings.noa-acceptance.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Contract Status"
+                },
+                {
+                    "route" :   "biddings.noa-acceptance.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Notice To Proceed"
+                },
+                {
+                    "route" :   "biddings.noa-acceptance.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Delivery"
+                },
+                {
+                    "route" :   "biddings.noa-acceptance.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Inspection of Delivered Items"
+                },
+                {
+                    "route" :   "biddings.noa-acceptance.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Inspection and Acceptance"
+                },
+                {
+                    "route" :   "biddings.noa-acceptance.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Voucher"
                 }
             ]
         }
