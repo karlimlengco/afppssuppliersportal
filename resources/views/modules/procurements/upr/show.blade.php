@@ -25,68 +25,20 @@ Unit Purchase Request
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
 
-                <a class="button__options__item" id="signatory-button" href="#">Signatories</a>
                 @if($data->mode_of_procurement != 'public_bidding')
                         {{-- Process --}}
-                        @if($data->status == 'pending')
-                            <a class="button__options__item" id="process-button" href="#">Process</a>
-                            <a class="button__options__item" id="reject-button" href="#">Cancel</a>
+                        @if($data->status == 'upr_processing')
+                            <a class="button__options__item" id="process-button" href="#">Process UPR</a>
+                            <a class="button__options__item" id="reject-button" href="#">Cancel UPR</a>
                         @endif
-                        @if(strtolower($data->state) == 'completed')
-                            <a href="#" id="terminate-button" class="button__options__item">Terminate</a>
-                        @endif
-                        {{-- Process --}}
 
                         {{-- Always shhow --}}
                         @if($data->status != 'pending' && $data->status != 'Cancelled')
-                            <a class="button__options__item" id="view-attachments-button" href="#">Attachments</a>
                             <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->id)}}">View Timelines</a>
-                        @endif
-                        {{-- <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}">View Logs</a> --}}
-                        {{-- Always shhow --}}
-
-                        @if(count($data->rfq) != 0)
-                            <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button__options__item">Request for Quotation</a>
-                        @endif
-
-                        @if(count($data->philgeps) != 0)
-                            <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" class="button__options__item">PhilGeps Posting</a>
-                        @endif
-                        @if(count($data->invitations) != 0)
-                            <a href="{{route('procurements.ispq.edit', $data->invitations->ispq_id)}}" class="button__options__item">Invitation</a>
-                        @endif
-
-                        @if(count($data->canvassing) != 0)
-                            <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button__options__item">Canvass</a>
-                        @endif
-
-                        @if(count($data->noa) != 0)
-                            <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">Notice Of Award</a>
-                        @endif
-
-                        @if(count($data->purchase_order) != 0)
-                            <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">Purchase Order</a>
-                        @endif
-
-                        @if(count($data->ntp) != 0)
-                            <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item">Notice To Proceed</a>
-                        @endif
-
-                        @if(count($data->delivery_order) != 0)
-                            <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button__options__item">Notice Of Delivery</a>
-                        @endif
-
-                        @if(count($data->diir) != 0)
-                            <a href="{{route('procurements.delivered-inspections.show', $data->diir->id)}}" class="button__options__item">DIIR</a>
-                            @if(count($data->voucher) == 0)
-                                <a href="#" id="voucher-button" class="button__options__item">Create Voucher</a>
-                            @else
-                                <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button__options__item">Voucher</a>
-                            @endif
                         @endif
 
                 @else
-                    @if($data->status == 'pending')
+                    @if($data->status == 'upr_processing')
                     <a class="button__options__item" id="rfb-process-button" href="#">Process</a>
                     @endif
 
@@ -95,25 +47,23 @@ Unit Purchase Request
                     @endif
                 @endif
 
+                <a class="button__options__item" id="view-attachments-button" href="#">Attachments</a>
+                @if($data->rfq)
+                <a class="button__options__item" href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}">Request For Quotations</a>
+                @endif
+
             </div>
         </button>
 
-        <a href="#" id="attachment-button" class="button" tooltip="Attachments">
-            <i class="nc-icon-mini ui-1_attach-86"></i>
-        </a>
+        <a href="#" id="attachment-button" class="button" tooltip="Attachments"><i class="nc-icon-mini ui-1_attach-86"></i> </a>
+        <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
 
-        <a target="_blank" href="{{route('procurements.unit-purchase-requests.print', $data->id)}}" class="button" tooltip="Print">
-            <i class="nc-icon-mini tech_print"></i>
-        </a>
+        <a target="_blank" href="{{route('procurements.unit-purchase-requests.print', $data->id)}}" class="button" tooltip="Print"> <i class="nc-icon-mini tech_print"></i> </a>
 
-        <a href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}" class="button" tooltip="Logs">
-            <i class="nc-icon-mini files_archive-content"></i>
-        </a>
+        <a href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}" class="button" tooltip="Logs"> <i class="nc-icon-mini files_archive-content"></i> </a>
 
-        @if($data->status == 'pending')
-        <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
-            <i class="nc-icon-mini design_pen-01"></i>
-        </a>
+        @if($data->status == 'upr_processing')
+        <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit"> <i class="nc-icon-mini design_pen-01"></i> </a>
         @endif
 
         @if($data->mode_of_procurement != 'public_bidding')

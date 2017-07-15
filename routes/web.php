@@ -95,7 +95,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('blank-rfq/logs/{id}', '\Revlv\Controllers\Procurements\BlankRFQController@viewLogs')->name('blank-rfq.logs');
     Route::get('blank-rfq/print/{id}', '\Revlv\Controllers\Procurements\BlankRFQController@viewPrint')->name('blank-rfq.print');
     Route::get('rfq/get-info/{id}', '\Revlv\Controllers\Procurements\BlankRFQController@getInfo')->name('rfq.get-info');
-    Route::get('blank-rfq/closed/{id}', '\Revlv\Controllers\Procurements\BlankRFQController@closed')->name('blank-rfq.closed');
+    Route::post('blank-rfq/closed', '\Revlv\Controllers\Procurements\BlankRFQController@closed')->name('blank-rfq.closed');
     Route::resource('blank-rfq', '\Revlv\Controllers\Procurements\BlankRFQController');
 
     /*

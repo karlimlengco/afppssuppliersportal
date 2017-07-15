@@ -30,6 +30,8 @@ class QuotationEloquent extends Model
         'canvassing_time',
         'upr_number',
         'rfq_number',
+        'delay_count',
+        'remarks',
     ];
 
     /**

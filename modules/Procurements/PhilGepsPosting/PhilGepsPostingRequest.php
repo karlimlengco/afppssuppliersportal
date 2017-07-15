@@ -19,6 +19,8 @@ class PhilGepsPostingRequest extends BaseRequest
         'deadline_rfq',
         'update_remarks',
         'opening_time',
+        'remarks',
+        'days',
     ];
 
     /**

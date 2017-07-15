@@ -58,7 +58,7 @@ Unit Purchase Request
 
         <div class="row">
             <div class="four columns">
-                {!! Form::selectField('account_code', 'Account Code', $account_codes) !!}
+                {!! Form::selectField('new_account_code', 'New Account Code', $account_codes) !!}
             </div>
             <div class="four columns">
                 {!! Form::textField('fund_validity', 'Fund Validity') !!}

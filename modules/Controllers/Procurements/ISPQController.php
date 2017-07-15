@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use PDF;
 use DB;
+use Carbon\Carbon;
 
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\InvitationToSubmitQuotation\ISPQRepository;
@@ -16,6 +17,8 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\InvitationToSubmitQuotation\Quotations\QuotationRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use Validator;
+use \Revlv\Settings\Holidays\HolidayRepository;
 
 class ISPQController extends Controller
 {
@@ -37,6 +40,7 @@ class ISPQController extends Controller
     protected $signatories;
     protected $quotations;
     protected $audits;
+    protected $holidays;
 
     /**
      * [$model description]
@@ -105,10 +109,10 @@ class ISPQController extends Controller
         Request $request,
         ISPQRepository $model,
         UnitPurchaseRequestRepository $upr,
-        BlankRFQRepository $rfq
+        BlankRFQRepository $rfq,
+        HolidayRepository $holidays
         )
     {
-
         $this->validate($request, [
             'venue'                     =>  'required',
             'signatory_id'              =>  'required',
@@ -117,6 +121,36 @@ class ISPQController extends Controller
             'ispq_transaction_dates'    =>  'required',
         ]);
 
+        $rfq_model              =   $rfq->findById($id);
+        $upr_model              =   $rfq_model->upr;
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('ispq_transaction_dates') );
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+        $day_delayed            =   $rfq_model->completed_at->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+        $day_delayed            =   $day_delayed - 1;
+
+        // Validate Remarks when  delay
+        $validator = Validator::make($request->all(),[
+            'canvassing_date'  =>  'required'
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('remarks') == null && $day_delayed >= 1) {
+                $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Validate Remarks when  delay
         $result =   $model->save([
             'prepared_by'       =>  \Sentinel::getUser()->id,
             'canvassing_date'   =>  $request->get('canvassing_date'),
@@ -126,8 +160,6 @@ class ISPQController extends Controller
             'transaction_date'  =>  $request->get('ispq_transaction_dates'),
         ]);
 
-        $rfq_model      =   $rfq->findById($id);
-        $upr_model      =   $upr->findById($rfq_model->upr_id);
         $data           =   [
             'ispq_id'           =>  $result->id,
             'rfq_id'            =>  $rfq_model->id,
@@ -136,11 +168,13 @@ class ISPQController extends Controller
             'total_amount'      =>  $rfq_model->upr->total_amount,
             'upr_number'        =>  $rfq_model->upr_number,
             'rfq_number'        =>  $rfq_model->rfq_number,
+            'delay_count'       =>  $day_delayed,
             'canvassing_date'   =>  $request->get('canvassing_date'),
             'canvassing_time'   =>  $request->get('canvassing_time'),
+            'remarks'           =>  $request->get('remarks'),
         ];
 
-        $upr->update(['status' => 'Invitation Created'], $upr_model->id);
+        $upr->update(['status' => 'Invitation Created', 'delay_count' => $day_delayed + $upr_model->delay_count], $upr_model->id);
 
         $quotations->save($data);
 
@@ -170,7 +204,6 @@ class ISPQController extends Controller
             'canvassing_time'   =>  $request->get('canvassing_time'),
         ]);
         $items  =   $request->get('items');
-
         foreach($items as $key => $item)
         {
             $newId          =   $items[$key];

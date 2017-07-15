@@ -33,7 +33,7 @@ trait AnalyticTrait
         ]);
 
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
-        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
+        $model  =   $model->crossJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
 
         if($type != 'alternative')
         {

@@ -97,7 +97,7 @@ trait ImportTrait
                 case 'PROJECT NAME':
                     $array['project_name'] = $row[2];
                     break;
-                case 'PLACE OF DELIVERY':
+                case 'Procurement Center / Office':
                     $centerModel    =   $centers->findByName($row[2]);
                     if($centerModel != null)
                     {
@@ -122,11 +122,14 @@ trait ImportTrait
                     $accountsModel    =   $accounts->findByName($row[2]);
                     if($accountsModel != null)
                     {
-                        $array['account_code'] = $accountsModel->id;
+                        $array['new_account_code'] = $accountsModel->id;
                     }
                     break;
                 case 'FUND VALIDITY':
                     $array['fund_validity'] = $row[2];
+                    break;
+                case 'PLACE OF DELIVERY':
+                    $array['place_of_delivery'] = $row[2];
                     break;
                 case 'TERMS OF PAYMENTS':
                     $termsModel    =   $terms->findByName($row[2]);

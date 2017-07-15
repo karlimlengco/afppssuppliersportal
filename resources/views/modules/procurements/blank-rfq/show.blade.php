@@ -24,10 +24,6 @@ Request For Quotation
                 <a href="#" class="button__options__item" id="proponent-button">Add Proponents</a>
                 @endif
 
-                @if(count($data->philgeps) == 0)
-                    <a href="#" class="button__options__item" id="philgeps-posting-button">PhilGeps Posting</a>
-                @endif
-
                 @if($data->status != 'closed')
                     <a href="#" class="button__options__item" id="close-button">Close RFQ</a>
                 @else
@@ -35,6 +31,10 @@ Request For Quotation
                     @if(count($data->invitations) == 0)
                         <a href="#" class="button__options__item" id="invitation-button">Create Invitation</a>
                     @endif
+                @endif
+
+                @if(count($data->philgeps) == 0)
+                    <a href="#" class="button__options__item" id="philgeps-posting-button">PhilGeps Posting</a>
                 @endif
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
@@ -48,7 +48,7 @@ Request For Quotation
 
 
                     @if(count($data->canvassing) == 0)
-                        <a href="#" id="open_canvass-button" class="button__options__item">Open Canvass</a>
+                        <a href="#" id="open_canvass-button" class="button__options__item"><strong>Open Canvass</strong></a>
                     @endif
                 @endif
 
@@ -109,6 +109,7 @@ Request For Quotation
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Status :</strong> {{ ucfirst($data->status) }} </li>
             @if($data->status == 'closed')
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Closed At :</strong> {{ $data->completed_at }} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Closed Remarks :</strong> {{ $data->close_remarks }} </li>
             @endif
         </ul>
     </div>
@@ -211,6 +212,17 @@ Request For Quotation
     {
         field: document.getElementById('id-field-date_processed'),
         firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
+    var completed_at = new Pikaday(
+    {
+        field: document.getElementById('id-field-completed_at'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]

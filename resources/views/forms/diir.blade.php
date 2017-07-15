@@ -146,7 +146,7 @@
                     </tbody>
                 </table>
             </div>
-
+{{--
             <div class="printable-form__foot">
                 <table class="printable-form__foot__table">
                     <tr>
@@ -164,7 +164,7 @@
                         </td>
                     </tr>
                 </table>
-            </div>
+            </div> --}}
         </div>
     </body>
 </html>

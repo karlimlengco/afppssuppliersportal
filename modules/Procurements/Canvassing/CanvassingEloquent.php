@@ -49,6 +49,7 @@ class CanvassingEloquent extends Model implements  AuditableContract
         'update_remarks',
         'upr_number',
         'order_time',
+        'days',
         'signatory_id',
         'remarks',
         'resolution',

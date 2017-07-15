@@ -57,6 +57,12 @@ PhilGeps Posting
                 </div>
             </div>
 
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
         {!! Form::close() !!}
     </div>
 </div>

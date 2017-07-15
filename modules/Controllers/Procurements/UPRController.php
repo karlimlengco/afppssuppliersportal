@@ -167,6 +167,13 @@ class UPRController extends Controller
             'total_amount'
         ]);
 
+        if($items['item_description'] == null)
+        {
+            return redirect()->back()->with([
+                'error' =>  'Pleased add item to continue.'
+            ]);
+        }
+
         $procs                  =   $request->getData();
         $date                   =   \Carbon\Carbon::now();
 

@@ -2,6 +2,15 @@
 Unit Purchase Request Import Validate
 @stop
 
+@section('styles')
+    <style type="text/css">
+        #item_table td{
+            padding:0;
+
+        }
+    </style>
+@stop
+
 @section('contents')
 
 {!! Form::model($data, ['route' => 'procurements.unit-purchase-requests.save-file']) !!}
@@ -52,7 +61,7 @@ Unit Purchase Request Import Validate
 
             <div class="row">
                 <div class="four columns">
-                    {!! Form::selectField('account_code', 'Account Code', $account_codes) !!}
+                    {!! Form::selectField('new_account_code', 'New Account Code', $account_codes) !!}
                 </div>
                 <div class="four columns">
                     {!! Form::textField('fund_validity', 'Fund Validity') !!}

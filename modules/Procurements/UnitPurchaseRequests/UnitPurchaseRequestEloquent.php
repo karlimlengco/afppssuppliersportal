@@ -36,6 +36,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
         'date_prepared',
         'date_processed',
         'total_amount',
+        'new_account_code',
     ];
 
 
@@ -48,26 +49,30 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
 
     protected $with =   ['unit','centers'];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'date_prepared',
+        'completed_at',
+        'cancelled_at',
+        'date_processed',
+        'terminated_date',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'cancelled_at',
-        'cancel_reason',
         'place_of_delivery',
-        'terminated_date',
-        'procurement_type',
-        'terminated_by',
+        'procurement_office',
         'mode_of_procurement',
         'chargeability',
-        'terminate_status',
-        'remarks',
-        'update_remarks',
-        'days',
-        'completed_at',
-        'account_code',
+        'old_account_code',
+        'new_account_code',
+        'procurement_type',
+        'total_amount',
 
         'fund_validity',
         'terms_of_payment',
@@ -83,18 +88,30 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
         'date_prepared',
         'prepared_by',
 
+        'completed_at',
+
+        'cancelled_at',
+        'cancel_reason',
+
+        'remarks',
+        'update_remarks',
+
         'date_processed',
         'processed_by',
 
-        'total_amount',
-
-        'status',
-        'state',
+        'terminated_date',
+        'terminate_status',
+        'terminated_by',
 
         'requestor_id',
         'fund_signatory_id',
         'approver_id',
-        'procurement_office',
+
+        'status',
+        'state',
+
+        'days',
+        'delay_count',
     ];
 
 
@@ -295,7 +312,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     public function accounts()
     {
-        return $this->belongsTo('\Revlv\Settings\AccountCodes\AccountCodeEloquent', 'account_code');
+        return $this->belongsTo('\Revlv\Settings\AccountCodes\AccountCodeEloquent', 'new_account_code');
     }
 
     /**

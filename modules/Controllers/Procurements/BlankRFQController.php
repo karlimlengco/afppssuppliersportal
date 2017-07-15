@@ -15,6 +15,8 @@ use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Settings\Holidays\HolidayRepository;
+use Validator;
 
 class BlankRFQController extends Controller
 {
@@ -35,6 +37,7 @@ class BlankRFQController extends Controller
     protected $suppliers;
     protected $signatories;
     protected $audits;
+    protected $holidays;
 
     /**
      * [$model description]
@@ -113,20 +116,46 @@ class BlankRFQController extends Controller
     public function store(
         BlankRFQRequest $request,
         BlankRFQRepository $model,
-        UnitPurchaseRequestRepository $upr)
+        UnitPurchaseRequestRepository $upr,
+        HolidayRepository $holidays)
     {
         $upr_model              =   $upr->findById($request->upr_id);
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+        $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $day_delayed            =   $day_delayed - 1;
+
+        // Validate Remarks when  delay
+        $validator = Validator::make($request->all(),[
+            'transaction_date'  =>  'required'
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Validate Remarks when  delay
+
         $inputs                 =   $request->getData();
         $inputs['upr_number']   =   $upr_model->upr_number;
         $inputs['processed_by'] =   \Sentinel::getUser()->id;
         $split_upr              =   explode('-', $upr_model->ref_number);
         $inputs['rfq_number']   =  "RFQ-".$split_upr[1]."-".$split_upr[2]."-".$split_upr[3]."-".$split_upr[4] ;
 
-        $prepared_date          =   Carbon::createFromFormat('Y-m-d', $upr_model->date_prepared);
-        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
-        $days                   =   $prepared_date->diffInDays($transaction_date, false);
-
-        $inputs['days']         =   $days;
+        $inputs['days']         =   $day_delayed;
 
         $result = $model->save($inputs);
 
@@ -134,7 +163,8 @@ class BlankRFQController extends Controller
             'status'        => 'Processing RFQ',
             'state'         => 'On-Going',
             'date_processed'=> \Carbon\Carbon::now(),
-            'processed_by'  => \Sentinel::getUser()->id
+            'processed_by'  => \Sentinel::getUser()->id,
+            'delay_count'   => $day_delayed
             ], $upr_model->id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
@@ -159,6 +189,7 @@ class BlankRFQController extends Controller
         $result         =   $model->with(['invitations', 'proponents','upr', 'canvassing'])->findById($id);
 
         $exist_supplier =   $result->proponents->pluck('proponents')->toArray();
+
         foreach($exist_supplier as $list)
         {
             unset($supplier_lists[$list]);
@@ -231,21 +262,60 @@ class BlankRFQController extends Controller
      * @param  BlankRFQRepository $model [description]
      * @return [type]                    [description]
      */
-    public function closed($id, BlankRFQRepository $model)
+    public function closed(
+        Request $request,
+        BlankRFQRepository $model,
+        UnitPurchaseRequestRepository $upr,
+        HolidayRepository $holidays)
     {
-        $rfq    =   $model->findById($id);
+        $rfq                =   $model->findById($request->rfq_id);
 
+        $completed_at       =   createCarbon('Y-m-d',$request->completed_at);
+
+        $holiday_lists      =   $holidays->lists('id','holiday_date');
+
+        $day_delayed        =   $rfq->transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $completed_at);
+
+        $day_delayed            =   $day_delayed - 1;
+
+        // Validate Remarks when  delay
+        $validator = Validator::make($request->all(),[
+            'completed_at'  =>  'required'
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('close_remarks') == null && $day_delayed >= 1 ) {
+                $validator->errors()->add('close_remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         if(count($rfq->proponents) == 0)
         {
-            return redirect()->route($this->baseUrl.'show', $id)->with([
+            return redirect()->route($this->baseUrl.'show', $request->rfq_id)->with([
                 'error'  => "RFQ cannot be close without proponents"
             ]);
         }
 
-        $model->update(['status' => 'closed', 'completed_at' => \Carbon\Carbon::now()], $id);
+        $upr->update(['delay_count' => $rfq->upr->delay_count + $day_delayed], $rfq->upr->id);
 
-        return redirect()->route($this->baseUrl.'show', $id)->with([
+        $model->update([
+            'status'        => 'closed',
+            'completed_at'  => $request->completed_at,
+            'close_remarks' => $request->close_remarks,
+            'close_days'    => $day_delayed,
+            ], $request->rfq_id);
+
+        return redirect()->route($this->baseUrl.'show', $request->rfq_id)->with([
             'success'  => "Record has been successfully updated."
         ]);
     }

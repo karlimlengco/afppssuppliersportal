@@ -24,6 +24,8 @@ class CreateIspqQuotations extends Migration
             $table->time('canvassing_time')->nullable();
             $table->string('upr_number')->nullable();
             $table->string('rfq_number')->nullable();
+            $table->string('delay_count')->nullable();
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }

@@ -56,6 +56,7 @@ Canvassing
             @if($data->canvass_time)
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Opening Date :</strong> {{$data->canvass_date}}  {{$data->canvass_time}}</li>
             @endif
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Remarks :</strong> {{$data->remarks}} </li>
         </ul>
     </div>
     <div class="data-panel__section">

@@ -77,7 +77,7 @@
 
                 </div>
                 <!-- form footer -->
-                <div class="printable-form__foot">
+           {{--      <div class="printable-form__foot">
                     <table class="printable-form__foot__table">
                         <tr>
                             <td colspan="2">
@@ -93,7 +93,7 @@
                             </td>
                         </tr>
                     </table>
-                </div>
+                </div> --}}
             </div>
 
 
@@ -225,7 +225,7 @@
                     </table>
                 </div>
                 <!-- form footer -->
-                <div class="printable-form__foot">
+                {{-- <div class="printable-form__foot">
                     <table class="printable-form__foot__table">
                         <tr>
                             <td colspan="2">
@@ -241,7 +241,7 @@
                             </td>
                         </tr>
                     </table>
-                </div>
+                </div> --}}
             </div>
 
         </div>

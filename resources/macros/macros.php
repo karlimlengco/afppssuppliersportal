@@ -585,3 +585,15 @@ function justify($input, $width, $mode = JPAD_BOTH)
     // Return the final string
     return $final;
 }
+
+/**
+ * [createCarbon description]
+ *
+ * @param  [type] $format [description]
+ * @param  [type] $value  [description]
+ * @return [type]         [description]
+ */
+function createCarbon($format, $value)
+{
+    return \Carbon\Carbon::createFromFormat($format, $value);
+}

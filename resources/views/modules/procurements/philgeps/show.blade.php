@@ -49,6 +49,7 @@ PhilGeps Posting
         <ul class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ Submition Deadline :</strong> {{$data->deadline_rfq}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Canvas Opening Time :</strong> {{$data->opening_time}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Remarks :</strong> {{$data->remarks}} </li>
         </ul>
     </div>
 </div>

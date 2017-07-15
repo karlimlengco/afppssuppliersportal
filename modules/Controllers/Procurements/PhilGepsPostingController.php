@@ -5,6 +5,8 @@ namespace Revlv\Controllers\Procurements;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Validator;
+use \Carbon\Carbon;
 
 use \Revlv\Procurements\PhilGepsPosting\Attachments\AttachmentRepository;
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRepository;
@@ -12,6 +14,7 @@ use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Settings\Holidays\HolidayRepository;
 
 class PhilGepsPostingController extends Controller
 {
@@ -32,6 +35,7 @@ class PhilGepsPostingController extends Controller
     protected $rfq;
     protected $attachments;
     protected $audits;
+    protected $holidays;
 
     /**
      * [$model description]
@@ -98,16 +102,59 @@ class PhilGepsPostingController extends Controller
     public function store(
         PhilGepsPostingRequest $request,
         PhilGepsPostingRepository $model,
-        BlankRFQRepository $rfq)
+        UnitPurchaseRequestRepository $upr,
+        BlankRFQRepository $rfq,
+        HolidayRepository $holidays)
     {
+
         $rfq_model              =   $rfq->findById($request->rfq_id);
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
+
+        if($invitation = $rfq_model->invitations)
+        {
+            $ispq_transaction_date   = Carbon::createFromFormat('Y-m-d', $invitation->ispq->transaction_date);
+        }
+        else
+        {
+            $ispq_transaction_date   = $rfq_model->completed_at;
+        }
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+        $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $day_delayed            =   $day_delayed - 1;
+
+        // Validate Remarks when  delay
+        $validator = Validator::make($request->all(),[
+            'transaction_date'  =>  'required'
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('remarks') == null && $day_delayed > 3) {
+                $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Validate Remarks when  delay
+
         $inputs                 =   $request->getData();
         $inputs['rfq_number']   =   $rfq_model->rfq_number;
         $inputs['upr_number']   =   $rfq_model->upr_number;
+        $inputs['remarks']      =   $request->remarks;
         $inputs['upr_id']       =   $rfq_model->upr_id;
-        $philgeps               =   $inputs['philgeps_number'];
+        $inputs['days']         =   $day_delayed;
 
-        // $rfq->update(['status' => "PhilGeps ($philgeps)"], $rfq_model->id);
+        $upr->update(['delay_count' => $day_delayed + $rfq_model->upr->delay_count], $rfq_model->upr->id);
 
         $result = $model->save($inputs);
 

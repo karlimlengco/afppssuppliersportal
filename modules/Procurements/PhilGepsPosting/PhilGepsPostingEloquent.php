@@ -50,6 +50,7 @@ class PhilGepsPostingEloquent extends Model implements  AuditableContract
         'deadline_rfq',
         'update_remarks',
         'remarks',
+        'days',
         'opening_time',
     ];
 

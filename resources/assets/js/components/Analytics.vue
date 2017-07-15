@@ -8,7 +8,10 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th># UPR</th>
+                    <th>
+                        # UPR
+                        <small style="display:block " class="background-white"><span class=" black">total</span> <span class="blue ">(cmpltd)</span> <span class="green ">(ongoing)</span> <span class="red ">(delay)</span></small>
+                    </th>
                     <th>Total ABC</th>
                     <th>Approved Contract Amount</th>
                     <th>Residual Amount</th>
@@ -76,7 +79,7 @@
                                                                 <table class="grand-child-table table-name">
                                                                     <tbody>
                                                                         <tr  v-for="itemProgCentData in itemProgCent.data">
-                                                                            <td>{{itemProgCentData.upr_number}} <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small></td>
+                                                                            <td>{{itemProgCentData.upr_number}} <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small></td>
                                                                             <td>
 
                                                                                 <span tooltip="Total" >{{itemProgCentData.upr_count}}</span>

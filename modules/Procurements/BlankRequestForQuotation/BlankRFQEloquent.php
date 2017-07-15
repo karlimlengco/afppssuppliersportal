@@ -25,6 +25,16 @@ class BlankRFQEloquent extends Model implements  AuditableContract
         'completed_at',
     ];
 
+
+    protected $dates = [
+        'created_at',
+        'completed_at',
+        'updated_at',
+        'transaction_date',
+        'awarded_date',
+        'award_accepted_date',
+    ];
+
     /**
      * The database table used by the model.
      *
@@ -60,6 +70,9 @@ class BlankRFQEloquent extends Model implements  AuditableContract
         'is_award_accepted',
         'days',
         'award_accepted_date',
+
+        'close_days',
+        'close_remarks',
     ];
 
     /**

@@ -5,6 +5,8 @@ namespace Revlv\Controllers\Procurements;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use \Carbon\Carbon;
+use Validator;
 use PDF;
 
 use \Revlv\Procurements\Canvassing\CanvassingRepository;
@@ -15,6 +17,7 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
+use \Revlv\Settings\Holidays\HolidayRepository;
 
 class CanvassingController extends Controller
 {
@@ -37,6 +40,7 @@ class CanvassingController extends Controller
     protected $mysignatories;
     protected $audits;
     protected $proponents;
+    protected $holidays;
 
     /**
      * [$model description]
@@ -109,7 +113,8 @@ class CanvassingController extends Controller
         Request $request,
         CanvassingRepository $model,
         BlankRFQRepository $rfq,
-        UnitPurchaseRequestRepository $upr)
+        UnitPurchaseRequestRepository $upr,
+        HolidayRepository $holidays)
     {
         $rfq_model              =   $rfq->with('invitations')->findById($id);
 
@@ -120,18 +125,50 @@ class CanvassingController extends Controller
             ]);
         }
 
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d',$request->open_canvass_date);
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+        $ispq_transaction_date  = Carbon::createFromFormat('Y-m-d', $rfq_model->invitations->ispq->transaction_date);
+
+        $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $day_delayed            =   $day_delayed - 1;
+
+        // Validate Remarks when  delay
+        $validator = Validator::make($request->all(),[
+            'open_canvass_date'  =>  'required'
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('remarks') == null && $day_delayed > 2) {
+                $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $inputs['rfq_number']   =   $rfq_model->rfq_number;
         $inputs['upr_number']   =   $rfq_model->upr_number;
         $inputs['upr_id']       =   $rfq_model->upr_id;
+        $inputs['days']         =   $day_delayed;
         $inputs['rfq_id']       =   $id;
         $inputs['canvass_date'] =   $request->open_canvass_date;
+        $inputs['remarks']      =   $request->remarks;
         $inputs['canvass_time'] =   \Carbon\Carbon::now()->format('H:i:s');
         $inputs['open_by']      =   \Sentinel::getUser()->id;
-        $canvass_date           =   \Carbon\Carbon::now()->format("Y-m-d H:i:s");
-
+        $canvass_date           =   $request->open_canvass_date;
         $result = $model->save($inputs);
 
-        $upr->update(['status' => "Open Canvass ($canvass_date)"], $rfq_model->upr_id);
+        $upr->update(['status' => "Open Canvass ($canvass_date)", 'delay_count' => $day_delayed + $rfq_model->upr->delay_count], $rfq_model->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

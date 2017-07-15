@@ -125,13 +125,21 @@
 }
 
 .red{
-    color: rgba(231, 76, 60,1.0)
+    color: rgba(231, 76, 60,1.0);
 }
 .blue{
     color: rgba(41, 128, 185,1.0);
 }
 .green{
-    color:rgba(39, 174, 96,1.0);
+    color:#1d8147;
+}
+
+.background-white{
+    background: #fff;
+}
+
+.black{
+    color:#222;
 }
 
 .printable-form__body__table tr td.head,
