@@ -140,7 +140,6 @@
                 </table>
                 <p>Purpose: {{$data['purpose']}}</p>
                 <p>In case of failure to make the full delivery within the time specified above, a penalty of one-tenth (1/10) of one percent (1%) for every day of delay shall be imposed. </p>
-                <p>Very truly yours,</p>
 
             </div>
 
@@ -148,6 +147,7 @@
 
 
                 <div class="printable-form__body">
+                <p>Very truly yours,</p>
                 <table class="printable-form__body__table
                               printable-form__body__table--custom
                               printable-form__body__table--borderless">

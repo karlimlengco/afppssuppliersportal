@@ -53,7 +53,7 @@
                                     <tr>
                                         <td>{{$key + 1}}</td>
                                         <td>{{$value->unit}}</td>
-                                        <td>{{$value->description}}</td>
+                                        <td style="text-align:left">{{$value->description}}</td>
                                         <td>{{$value->quantity}}</td>
                                     </tr>
                                     @endforeach

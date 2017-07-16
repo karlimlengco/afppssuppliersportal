@@ -37,7 +37,7 @@
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>{{$item->unit}}</td>
-                            <td>{{$item->description}}</td>
+                            <td style="text-align:left">{{$item->description}}</td>
                             <td>{{$item->quantity}}</td>
                             <td>{{formatPrice($item->price_unit)}}</td>
                             <td>{{formatPrice($item->total_amount)}}</td>
