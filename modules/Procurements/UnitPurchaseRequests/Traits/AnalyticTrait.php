@@ -150,7 +150,7 @@ trait AnalyticTrait
             DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
             DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
             DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
-            DB::raw(" unit_purchase_requests.delay_count as delay"),
+            // DB::raw(" unit_purchase_requests.delay_count as delay"),
             'procurement_centers.name',
             'procurement_centers.programs',
             'catered_units.short_code',
@@ -175,7 +175,7 @@ trait AnalyticTrait
         $model  =   $model->groupBy([
             'procurement_centers.name',
             'procurement_centers.programs',
-            'unit_purchase_requests.delay_count',
+            // 'unit_purchase_requests.delay_count',
             'catered_units.short_code',
         ]);
 
