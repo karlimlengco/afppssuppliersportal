@@ -84,7 +84,7 @@
                                 <td class="has-child" colspan="3">
                                     <table class="child-table">
                                         <tr>
-                                            <td class="head"  style="background:#c60000; color:red"  width="10%"> Item No </td>
+                                            <td class="head"  width="10%"> Item No </td>
                                             <td class="head"  width="30%">Item Description</td>
                                             <td class="head"  width="10%">Quantity</td>
                                             <td class="head"  width="10%">Unit</td>
@@ -94,7 +94,7 @@
                                         @foreach($data['items'] as $key => $item)
                                         <tr>
                                             <td>{{$key + 1}}</td>
-                                            <td>{{$item->item_description}}</td>
+                                            <td style="text-align:left">{{$item->item_description}}</td>
                                             <td>{{$item->quantity}}</td>
                                             <td>{{$item->unit_measurement}}</td>
                                             <td>{{formatPrice($item->unit_price)}}</td>
