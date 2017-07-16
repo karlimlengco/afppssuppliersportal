@@ -15,6 +15,9 @@ Unit Purchase Request
     @include('modules.partials.modals.voucher')
     @include('modules.partials.modals.upr-signatory')
     @include('modules.partials.bid-modals.rfb-process')
+    @include('modules.partials.bid-modals.philgeps_posting')
+    @include('modules.partials.bid-modals.bid_docs_issue')
+    @include('modules.partials.bid-modals.open-bid')
 @stop
 
 @section('contents')
@@ -46,11 +49,20 @@ Unit Purchase Request
 
                 @else
                     @if($data->status == 'upr_processing')
-                    <a class="button__options__item" id="rfb-process-button" href="#">Process</a>
+                    <a class="button__options__item"  href="{{route('biddings.document-acceptance.create-by-rfq', $data->id)}}">Document Acceptance</a>
                     @endif
-
-                    @if(count($data->rfb) != 0)
-                        <a href="{{route('biddings.request-for-bids.show', $data->rfb->id)}}" class="button__options__item">Request for Bid</a>
+                    @if($data->status == 'Document Accepted')
+                        <a class="button__options__item" id="itb-button" href="#">Invitation To Bid</a>
+                    @endif
+                    @if($data->status == 'ITB Created')
+                        <a class="button__options__item" id="biddings-philgeps-posting-button" href="#">PhilGeps Posting</a>
+                    @endif
+                    @if($data->status == 'Philgeps Posted')
+                        <a class="button__options__item" id="bid-docs-button" href="#">Bid Docs Issuance</a>
+                        <a class="button__options__item" href="{{route('biddings.pre-bids.create-by-upr', $data->id)}}">Pre-Bid Conference</a>
+                    @endif
+                    @if($data->status == 'Pre Bid Conference')
+                        <a class="button__options__item" id="open-bid-button" href="#">Bid Opening</a>
                     @endif
                 @endif
 
@@ -206,9 +218,21 @@ Unit Purchase Request
         e.preventDefault();
         $('#terminate-modal').addClass('is-visible');
     })
+    $('#open-bid-button').click(function(e){
+        e.preventDefault();
+        $('#open-bid-modal').addClass('is-visible');
+    })
     $('#signatory-button').click(function(e){
         e.preventDefault();
         $('#signatory-modal').addClass('is-visible');
+    })
+    $('#biddings-philgeps-posting-button').click(function(e){
+        e.preventDefault();
+        $('#biddings-philgeps-posting-modal').addClass('is-visible');
+    })
+    $('#bid-docs-button').click(function(e){
+        e.preventDefault();
+        $('#bid-docs-modal').addClass('is-visible');
     })
     $('#attachment-button').click(function(e){
         e.preventDefault();
@@ -219,9 +243,9 @@ Unit Purchase Request
         $('#reject-modal').addClass('is-visible');
     })
 
-    $('#rfb-process-button').click(function(e){
+    $('#itb-button').click(function(e){
         e.preventDefault();
-        $('#rfb-process-modal').addClass('is-visible');
+        $('#itb-button-modal').addClass('is-visible');
     })
 
     $('#process-button').click(function(e){
@@ -260,10 +284,43 @@ Unit Purchase Request
         yearRange: [2000,2020]
     });
 
+    var itb_approved_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-itb_approved_date'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
+    var op_transaction_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-op_transaction_date'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
 
     var voucher_transaction_date = new Pikaday(
     {
         field: document.getElementById('id-field-voucher_transaction_date'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
+    var bid_transaction_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-bid_transaction_date'),
         firstDay: 1,
         defaultDate: new Date(),
         setDefaultDate: new Date(),
@@ -301,6 +358,26 @@ Unit Purchase Request
         firstDay: 1,
         defaultDate: new Date(),
         setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
+    var pp_transaction_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-pp_transaction_date'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
+    var pp_philgeps_posting = new Pikaday(
+    {
+        field: document.getElementById('id-field-pp_philgeps_posting'),
+        firstDay: 1,
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]

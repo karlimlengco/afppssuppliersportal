@@ -26,6 +26,7 @@ use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\ProcurementTypes\ProcurementTypeRepository;
 use \Revlv\Settings\CateredUnits\CateredUnitRepository;
 use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\BacSec\BacSecRepository;
 
 use Revlv\Procurements\UnitPurchaseRequests\Traits\FileTrait;
@@ -60,6 +61,7 @@ class UPRController extends Controller
     protected $signatories;
     protected $types;
     protected $users;
+    protected $suppliers;
     protected $userLogs;
 
     /**
@@ -236,6 +238,7 @@ class UPRController extends Controller
         $id,
         BacSecRepository $bacsec,
         UnitPurchaseRequestRepository $model,
+        SupplierRepository $suppliers,
         SignatoryRepository $signatories)
     {
         $result         =   $model->with(['attachments'])->findById($id);
@@ -243,6 +246,7 @@ class UPRController extends Controller
 
         return $this->view('modules.procurements.upr.show',[
             'data'              =>  $result,
+            'proponent_lists'   =>  $suppliers->lists('id', 'name'),
             'bacsec_list'       =>  $bacsec->lists('id', 'name'),
             'indexRoute'        =>  $this->baseUrl.'index',
             'signatory_list'    =>  $signatory_lists,

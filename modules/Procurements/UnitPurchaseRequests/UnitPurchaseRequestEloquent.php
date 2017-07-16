@@ -114,6 +114,45 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
         'delay_count',
     ];
 
+    /**
+     * [itb description]
+     *
+     * @return [type] [description]
+     */
+    public function itb()
+    {
+        return $this->hasOne('\Revlv\Biddings\InvitationToBid\InvitationToBidEloquent',  'upr_id');
+    }
+
+    /**
+     * [document_accept description]
+     *
+     * @return [type] [description]
+     */
+    public function document_accept()
+    {
+        return $this->hasOne('\Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceEloquent',  'upr_id')->whereNotNull('approved_date');
+    }
+
+    /**
+     * [document_accept description]
+     *
+     * @return [type] [description]
+     */
+    public function bid_conference()
+    {
+        return $this->hasOne('\Revlv\Biddings\PreBid\PreBidEloquent',  'upr_id')->whereNotNull('bid_opening_date');
+    }
+
+    /**
+     * [document_accept description]
+     *
+     * @return [type] [description]
+     */
+    public function bid_proponents()
+    {
+        return $this->hasMany('\Revlv\Biddings\BidDocs\BidDocsEloquent',  'upr_id');
+    }
 
     /**
      * [approver description]
@@ -163,16 +202,6 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
     public function rfq()
     {
         return $this->hasOne('\Revlv\Procurements\BlankRequestForQuotation\BlankRFQEloquent', 'upr_id');
-    }
-
-    /**
-     * [rfq description]
-     *
-     * @return [type] [description]
-     */
-    public function rfb()
-    {
-        return $this->hasOne('\Revlv\Biddings\RequestForBid\RequestForBidEloquent', 'upr_id');
     }
 
     /**

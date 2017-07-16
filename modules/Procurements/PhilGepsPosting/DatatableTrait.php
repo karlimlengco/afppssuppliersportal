@@ -16,11 +16,30 @@ trait DatatableTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getDatatable()
+    public function getDatatable($type = null)
     {
         $model  =   $this->model;
 
-        $model->orderBy('created_at', 'desc');
+        $model  =   $model->select([
+            'philgeps_posting.*',
+            'unit_purchase_requests.mode_of_procurement'
+        ]);
+
+        if($type != null)
+        {
+            $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id',  '=', 'philgeps_posting.upr_id');
+
+            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
+        }
+        else
+        {
+
+            $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id',  '=', 'philgeps_posting.upr_id');
+
+            $model  =   $model->where('mode_of_procurement', '<>', 'public_bidding');
+        }
+
+        $model->orderBy('philgeps_posting.created_at', 'desc');
 
         return $this->dataTable($model->get());
     }

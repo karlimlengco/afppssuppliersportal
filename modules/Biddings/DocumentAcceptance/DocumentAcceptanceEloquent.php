@@ -1,12 +1,12 @@
 <?php
 
-namespace Revlv\Procurements\PhilGepsPosting;
+namespace Revlv\Biddings\DocumentAcceptance;
 
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class PhilGepsPostingEloquent extends Model implements  AuditableContract
+class DocumentAcceptanceEloquent extends Model implements  AuditableContract
 {
 
     use Auditable;
@@ -16,23 +16,14 @@ class PhilGepsPostingEloquent extends Model implements  AuditableContract
      *
      * @var array
      */
-    protected $auditInclude = [
-        'philgeps_number',
-        'philgeps_posting',
-        'deadline_rfq',
-        'opening_time',
-        'transaction_date',
-        'update_remarks',
-        'remarks',
-    ];
-
+    protected $auditInclude = [];
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'philgeps_posting';
+    protected $table = 'document_acceptance';
 
     /**
      * The attributes that are mass assignable.
@@ -40,30 +31,29 @@ class PhilGepsPostingEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
-        'rfq_id',
         'upr_id',
-        'philgeps_number',
-        'rfq_number',
-        'upr_number',
-        'transaction_date',
-        'philgeps_posting',
-        'newspaper',
-        'deadline_rfq',
+        'bac_id',
         'update_remarks',
+        'upr_number',
+        'ref_number',
+        'transaction_date',
+        'approved_date',
+        'resched_date',
+        'resched_remarks',
         'remarks',
-        'days',
         'action',
-        'opening_time',
+        'days',
+        'processed_by',
     ];
 
     /**
-     * [attachments description]
+     * [upr description]
      *
      * @return [type] [description]
      */
-    public function attachments()
+    public function bacsec()
     {
-         return $this->hasMany('\Revlv\Procurements\PhilGepsPosting\Attachments\AttachmentEloquent', 'philgeps_id');
+        return $this->belongsTo('\Revlv\Settings\BacSec\BacSecEloquent', 'bac_id');
     }
 
     /**
@@ -75,4 +65,15 @@ class PhilGepsPostingEloquent extends Model implements  AuditableContract
     {
         return $this->belongsTo('\Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestEloquent', 'upr_id');
     }
+
+    /**
+     * [user description]
+     *
+     * @return [type] [description]
+     */
+    public function user()
+    {
+        return $this->belongsTo('\App\User', 'processed_by');
+    }
+
 }

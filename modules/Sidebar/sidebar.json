@@ -12,54 +12,49 @@
                     "name"  :   "Unit Purchase Reqeust"
                 },
                 {
-                    "route" :   "biddings.request-for-bids.index",
+                    "route" :   "biddings.document-acceptance.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Request For Bids"
+                    "name"  :   "Document Acceptance"
                 },
                 {
-                    "route" :   "biddings.noa-acceptance.index",
+                    "route" :   "biddings.itb.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Perfomance Bond"
+                    "name"  :   "Invitation To Bid"
                 },
                 {
-                    "route" :   "biddings.noa-acceptance.index",
+                    "route" :   "biddings.philgeps.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Concerened BAC"
+                    "name"  :   "PhilGeps"
                 },
                 {
-                    "route" :   "biddings.noa-acceptance.index",
+                    "route" :   "biddings.bid-docs.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Notice Of Award"
+                    "name"  :   "Bid Docs Issuance"
                 },
                 {
-                    "route" :   "biddings.noa-acceptance.index",
+                    "route" :   "biddings.pre-bids.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Contract Status"
+                    "name"  :   "Pre Bid Conferense"
                 },
                 {
-                    "route" :   "biddings.noa-acceptance.index",
+                    "route" :   "biddings.bid-openings.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Notice To Proceed"
+                    "name"  :   "Bid Opening"
                 },
                 {
-                    "route" :   "biddings.noa-acceptance.index",
+                    "route" :   "biddings.post-qualifications.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Delivery"
+                    "name"  :   "Post Qualification"
                 },
                 {
-                    "route" :   "biddings.noa-acceptance.index",
+                    "route" :   "biddings.finalize-bid-docs.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Inspection of Delivered Items"
+                    "name"  :   "Finalize Bid Docs"
                 },
                 {
-                    "route" :   "biddings.noa-acceptance.index",
+                    "route" :   "procurements.noa.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Inspection and Acceptance"
-                },
-                {
-                    "route" :   "biddings.noa-acceptance.index",
-                    "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Voucher"
+                    "name"  :   "NOA Acceptance"
                 }
             ]
         }

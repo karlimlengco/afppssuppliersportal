@@ -55,9 +55,22 @@ Route::resource('change-logs', '\Revlv\Controllers\Notifications\ChangeLogsContr
 Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     Route::resource('unit-purchase-requests', '\Revlv\Controllers\Biddings\UPRController');
 
-    Route::post('request-for-bids/received', '\Revlv\Controllers\Biddings\RFBController@receivedRfb')->name('request-for-bids.received');
-    Route::resource('noa-acceptance', '\Revlv\Controllers\Biddings\NOAController');
-    Route::resource('request-for-bids', '\Revlv\Controllers\Biddings\RFBController');
+    Route::get('document-acceptance/create/{id}', '\Revlv\Controllers\Biddings\DocumentAcceptanceController@create')->name('document-acceptance.create-by-rfq');
+
+    Route::get('bid-openings/closed/{id}', '\Revlv\Controllers\Biddings\BidOpeningController@closed')->name('bid-openings.closed');
+    Route::get('pre-bids/create/{id}', '\Revlv\Controllers\Biddings\PreBidController@create')->name('pre-bids.create-by-upr');
+
+    Route::get('proponents/{id}/{proponent}', '\Revlv\Controllers\Biddings\BidDocsController@show')->name('proponents.show');
+
+    Route::resource('philgeps', '\Revlv\Controllers\Biddings\PhilGepsController');
+    Route::resource('bid-docs', '\Revlv\Controllers\Biddings\BidDocsController');
+    Route::resource('bid-openings', '\Revlv\Controllers\Biddings\BidOpeningController');
+    Route::resource('document-acceptance', '\Revlv\Controllers\Biddings\DocumentAcceptanceController');
+    Route::resource('finalize-bid-docs', '\Revlv\Controllers\Biddings\FinalBidDocsController');
+    Route::resource('itb', '\Revlv\Controllers\Biddings\InvitationToBidController');
+    Route::resource('post-qualifications', '\Revlv\Controllers\Biddings\PostQualificationController');
+    Route::resource('pre-bids', '\Revlv\Controllers\Biddings\PreBidController');
+
 });
 
 /*
@@ -423,6 +436,21 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('delivery-to-coa', '\Revlv\Controllers\Procurements\DeliveryToCoaController@getDatatable')->name('procurements.delivery-to-coa');
     Route::get('delivered-inspections', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@getDatatable')->name('procurements.delivered-inspections');
     Route::get('vouchers', '\Revlv\Controllers\Procurements\VoucherController@getDatatable')->name('procurements.vouchers');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Bidding Routes
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+    Route::get('document-acceptance', '\Revlv\Controllers\Biddings\DocumentAcceptanceController@getDatatable')->name('biddings.document-acceptance');
+    Route::get('itb', '\Revlv\Controllers\Biddings\InvitationToBidController@getDatatable')->name('biddings.itb');
+    Route::get('philgeps', '\Revlv\Controllers\Biddings\PhilGepsController@getDatatable')->name('biddings.philgeps');
+    Route::get('bid-docs', '\Revlv\Controllers\Biddings\BidDocsController@getDatatable')->name('biddings.bid-docs');
+    Route::get('pre-bids', '\Revlv\Controllers\Biddings\PreBidController@getDatatable')->name('biddings.pre-bids');
+    Route::get('bid-openings', '\Revlv\Controllers\Biddings\BidOpeningController@getDatatable')->name('biddings.bid-openings');
 
 });
 
