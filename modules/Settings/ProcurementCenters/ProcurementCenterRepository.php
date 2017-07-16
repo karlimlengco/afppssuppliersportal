@@ -82,10 +82,40 @@ class ProcurementCenterRepository extends BaseRepository
                     END
                     as ongoing_count"),
 
-                DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
+                DB::raw("(select sum(unit_purchase_requests.total_amount)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  = 'public_bidding'
+                    and programs = procurement_centers.programs ) as total_abc"),
 
-                DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
-                DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
+                DB::raw("(select sum(po.bid_amount)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    left join purchase_orders as po
+                    on unit_purchase_requests.id  = po.upr_id
+                    where mode_of_procurement  = 'public_bidding'
+                    and programs = procurement_centers.programs ) as total_bid"),
+
+                DB::raw("( (select sum(unit_purchase_requests.total_amount)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  = 'public_bidding'
+                    and programs = procurement_centers.programs )
+                    -
+                    (select sum(po.bid_amount)
+                                        from unit_purchase_requests
+                                        left join procurement_centers as pc
+                                        on unit_purchase_requests.procurement_office  = pc.id
+                                        left join purchase_orders as po
+                                        on unit_purchase_requests.id  = po.upr_id
+                                        where mode_of_procurement  = 'public_bidding'
+                                        and programs = procurement_centers.programs )
+                    ) as total_residual"),
+                // DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
+                // DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
                 DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
                 DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
                 'procurement_centers.programs',
@@ -141,10 +171,41 @@ class ProcurementCenterRepository extends BaseRepository
                     END
                     as ongoing_count"),
 
-                DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
+                DB::raw("(select sum(unit_purchase_requests.total_amount)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  != 'public_bidding'
+                    and programs = procurement_centers.programs ) as total_abc"),
+                // DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
 
-                DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
-                DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
+                DB::raw("(select sum(po.bid_amount)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    left join purchase_orders as po
+                    on unit_purchase_requests.id  = po.upr_id
+                    where mode_of_procurement  != 'public_bidding'
+                    and programs = procurement_centers.programs ) as total_bid"),
+                // DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
+
+                DB::raw("( (select sum(unit_purchase_requests.total_amount)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  != 'public_bidding'
+                    and programs = procurement_centers.programs )
+                    -
+                    (select sum(po.bid_amount)
+                                        from unit_purchase_requests
+                                        left join procurement_centers as pc
+                                        on unit_purchase_requests.procurement_office  = pc.id
+                                        left join purchase_orders as po
+                                        on unit_purchase_requests.id  = po.upr_id
+                                        where mode_of_procurement  != 'public_bidding'
+                                        and programs = procurement_centers.programs )
+                    ) as total_residual"),
+
                 DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
                 DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
                 'procurement_centers.programs',

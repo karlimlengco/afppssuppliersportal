@@ -78,7 +78,9 @@
                                                                 <td class="has-child" colspan="8">
                                                                     <table class="grand-child-table table-name">
                                                                         <tbody>
-                                                                            <tr  v-for="itemUnitData in itemUnit.data">
+
+                                                                        <template v-for="itemUnitData in itemUnit.data">
+                                                                            <tr  >
                                                                                 <td>
                                                                                     {{itemUnitData.short_code}}
 
@@ -103,6 +105,7 @@
                                                                             <!-- Great Grand -->
 
                                                                             <template v-for="itemProgCent in itemProgramCenters">
+                                                                                <template v-if="itemProgCent.program == itemUnitData.short_code">
                                                                                     <template v-if="itemProgCent.center == itemProgData.name">
                                                                                     <tr>
                                                                                         <td class="has-child" colspan="8">
@@ -131,7 +134,9 @@
                                                                                         </td>
                                                                                     </tr>
                                                                                     </template>
+                                                                                </template>
                                                                             </template>
+                                                                        </template>
                                                                             <!-- Great Grand -->
                                                                         </tbody>
                                                                     </table>
