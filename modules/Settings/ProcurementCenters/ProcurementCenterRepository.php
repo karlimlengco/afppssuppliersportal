@@ -44,19 +44,112 @@ class ProcurementCenterRepository extends BaseRepository
     public function getPrograms($search = null, $type = null)
     {
         $model  =   $this->model;
+        if($type != 'alternative')
+        {
+            $model  =   $model->select([
+                // DB::raw("count(unit_purchase_requests.id) as upr_count"),
+                DB::raw(" (select count(unit_purchase_requests.id) from unit_purchase_requests left join procurement_centers as pc on unit_purchase_requests.procurement_office  = pc.id where mode_of_procurement  = 'public_bidding' and programs = procurement_centers.programs ) as upr_count "),
 
-        $model  =   $model->select([
-            DB::raw("count(unit_purchase_requests.id) as upr_count"),
-            DB::raw("count(unit_purchase_requests.delay_count) as delay_count"),
-            DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
-            DB::raw(" ( count(unit_purchase_requests.id) - count(unit_purchase_requests.completed_at) ) - count(unit_purchase_requests.delay_count) as ongoing_count"),
-            DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
-            DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
-            DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
-            DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
-            DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
-            'procurement_centers.programs',
-        ]);
+
+                DB::raw("(select count(unit_purchase_requests.delay_count)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  = 'public_bidding'
+                    and programs = procurement_centers.programs )
+                    -
+                    (select count(unit_purchase_requests.completed_at)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  = 'public_bidding'
+                    and programs = procurement_centers.programs )
+                    as delay_count"),
+
+                DB::raw("(select count(unit_purchase_requests.completed_at)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  = 'public_bidding'
+                    and programs = procurement_centers.programs ) as completed_count"),
+
+                DB::raw("
+                    CASE WHEN count(unit_purchase_requests.id) = 0 THEN
+                    count(unit_purchase_requests.id) -
+                    ( count(unit_purchase_requests.completed_at) )
+                    ELSE
+                    0
+                    END
+                    as ongoing_count"),
+
+                DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
+
+                DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
+                DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
+                DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
+                DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
+                'procurement_centers.programs',
+            ]);
+        }else
+        {
+
+            $model  =   $model->select([
+                // DB::raw("count(unit_purchase_requests.id) as upr_count"),
+                DB::raw("
+                    (select count(unit_purchase_requests.id)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  != 'public_bidding'
+                    and programs = procurement_centers.programs )
+                    as upr_count"),
+
+
+                DB::raw("(select count(unit_purchase_requests.delay_count)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  != 'public_bidding'
+                    and programs = procurement_centers.programs )
+                    -
+                    (select count(unit_purchase_requests.completed_at)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  != 'public_bidding'
+                    and programs = procurement_centers.programs )
+                    as delay_count"),
+
+                // DB::raw("count(unit_purchase_requests.delay_count) -
+                //     count(unit_purchase_requests.completed_at)
+                //     as delay_count"),
+
+                // DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
+                DB::raw("(select count(unit_purchase_requests.completed_at)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  != 'public_bidding'
+                    and programs = procurement_centers.programs ) as completed_count"),
+
+                DB::raw("
+                    CASE WHEN count(unit_purchase_requests.id) = 0 THEN
+                    count(unit_purchase_requests.id) -
+                    ( count(unit_purchase_requests.completed_at) )
+                    ELSE
+                    0
+                    END
+                    as ongoing_count"),
+
+                DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
+
+                DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
+                DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
+                DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
+                DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
+                'procurement_centers.programs',
+            ]);
+        }
 
         $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.procurement_office', '=', 'procurement_centers.id');
 

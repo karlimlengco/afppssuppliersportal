@@ -21,9 +21,20 @@ trait AnalyticTrait
 
         $model  =   $model->select([
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
+
             DB::raw("count(unit_purchase_requests.delay_count) as delay_count"),
+
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
-            DB::raw(" ( count(unit_purchase_requests.id) - count(unit_purchase_requests.completed_at) ) - count(unit_purchase_requests.delay_count) as ongoing_count"),
+
+            DB::raw("
+                CASE WHEN count(unit_purchase_requests.id) = 0 THEN
+                count(unit_purchase_requests.id) -
+                ( count(unit_purchase_requests.completed_at) )
+                ELSE
+                0
+                END
+                as ongoing_count"),
+
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
@@ -63,9 +74,20 @@ trait AnalyticTrait
 
         $model  =   $model->select([
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
-            DB::raw("count(unit_purchase_requests.delay_count) as delay_count"),
+
+            DB::raw("count(unit_purchase_requests.delay_count)  - count(unit_purchase_requests.completed_at) as delay_count"),
+
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
-            DB::raw(" ( count(unit_purchase_requests.id) - count(unit_purchase_requests.completed_at) ) - count(unit_purchase_requests.delay_count) as ongoing_count"),
+
+            DB::raw("
+                CASE WHEN count(unit_purchase_requests.id) = 0 THEN
+                count(unit_purchase_requests.id) -
+                ( count(unit_purchase_requests.completed_at) )
+                ELSE
+                0
+                END
+                as ongoing_count"),
+
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
@@ -109,9 +131,20 @@ trait AnalyticTrait
 
         $model  =   $model->select([
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
-            DB::raw("count(unit_purchase_requests.delay_count) as delay_count"),
+
+            DB::raw("count(unit_purchase_requests.delay_count) - count(unit_purchase_requests.completed_at) as delay_count"),
+
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
-            DB::raw(" ( count(unit_purchase_requests.id) - count(unit_purchase_requests.completed_at) ) - count(unit_purchase_requests.delay_count) as ongoing_count"),
+
+            DB::raw("
+                CASE WHEN count(unit_purchase_requests.id) = 0 THEN
+                count(unit_purchase_requests.id) -
+                ( count(unit_purchase_requests.completed_at) )
+                ELSE
+                0
+                END
+                as ongoing_count"),
+
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
@@ -161,9 +194,20 @@ trait AnalyticTrait
 
         $model  =   $model->select([
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
-            DB::raw("count(unit_purchase_requests.delay_count) as delay_count"),
+
+            DB::raw("count(unit_purchase_requests.delay_count)- count(unit_purchase_requests.completed_at) as delay_count"),
+
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
-            DB::raw(" ( count(unit_purchase_requests.id) - count(unit_purchase_requests.completed_at) ) - count(unit_purchase_requests.delay_count) as ongoing_count"),
+
+            DB::raw("
+                CASE WHEN count(unit_purchase_requests.id) = 0 THEN
+                count(unit_purchase_requests.id) -
+                ( count(unit_purchase_requests.completed_at) )
+                ELSE
+                0
+                END
+                as ongoing_count"),
+
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
