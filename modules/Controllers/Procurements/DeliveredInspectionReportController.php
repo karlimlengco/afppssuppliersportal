@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use PDF ;
+use Carbon\Carbon;
+use Validator;
 
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
@@ -16,6 +18,7 @@ use \Revlv\Procurements\DeliveryInspection\Issues\IssueRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Settings\Holidays\HolidayRepository;
 
 class DeliveredInspectionReportController extends Controller
 {
@@ -47,6 +50,7 @@ class DeliveredInspectionReportController extends Controller
     protected $issues;
     protected $upr;
     protected $audits;
+    protected $holidays;
 
     /**
      * @param model $model
@@ -123,9 +127,54 @@ class DeliveredInspectionReportController extends Controller
      * @param [type]  $id      [description]
      * @param Request $request [description]
      */
-    public function startInspection($id, Request $request, DeliveryInspectionRepository $model)
+    public function startInspection(
+        $id,
+        Request $request,
+        DeliveryInspectionRepository $model,
+        UnitPurchaseRequestRepository $upr,
+        HolidayRepository $holidays
+        )
     {
-        $result     =   $model->update(['start_date' => $request->start_date, 'status' => 'started', 'started_by' => \Sentinel::getUser()->id], $id);
+        $diir                   =   $model->findById($id);
+        $tiac                   =   $diir->delivery->inspections;
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('start_date') );
+        $tiac_date              =   Carbon::createFromFormat('Y-m-d', $tiac->accepted_date );
+
+        $day_delayed            =   $tiac_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $validator = Validator::make($request->all(),[
+            'start_date'       => 'required'
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Delay
+        $inputs     =   [
+            'start_date'    => $request->start_date,
+            'status'        => 'started',
+            'started_by'    => \Sentinel::getUser()->id,
+            'days'          =>  $day_delayed,
+            'remarks'       =>  $request->remarks
+        ];
+
+        $result     =   $model->update($inputs, $id);
+
+        $upr->update(['status' => 'DIIR Started', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -138,9 +187,53 @@ class DeliveredInspectionReportController extends Controller
      * @param [type]  $id      [description]
      * @param Request $request [description]
      */
-    public function closeInspection($id, Request $request, DeliveryInspectionRepository $model)
+    public function closeInspection(
+        $id,
+        Request $request,
+        DeliveryInspectionRepository $model,
+        UnitPurchaseRequestRepository $upr,
+        HolidayRepository $holidays)
     {
-        $result     =   $model->update(['closed_date' => $request->closed_date, 'status' => 'closed', 'closed_by' => \Sentinel::getUser()->id], $id);
+        $diir                   =   $model->findById($id);
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('closed_date') );
+        $diir_date              =   Carbon::createFromFormat('Y-m-d', $diir->start_date );
+
+        $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $validator = Validator::make($request->all(),[
+            'closed_date'       => 'required'
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('close_remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('close_remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Delay
+
+        $inputs     =   [
+            'closed_date'   => $request->closed_date,
+            'status'        => 'closed',
+            'closed_by'     => \Sentinel::getUser()->id,
+            'close_days'    =>  $day_delayed,
+            'close_remarks' =>  $request->close_remarks
+        ];
+
+        $result     =   $model->update($inputs, $id);
+
+        $upr->update(['status' => 'DIIR Closed', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

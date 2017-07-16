@@ -26,6 +26,14 @@ class NOARequest extends BaseRequest
         'update_remarks',
         'seconded_by',
         'accepted_date',
+
+        'days',
+
+        'approved_remarks',
+        'approved_days',
+
+        'received_remarks',
+        'received_days',
     ];
 
     /**

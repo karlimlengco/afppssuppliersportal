@@ -18,6 +18,8 @@
                         {!! Form::textField('expected_date', 'Expected Delivery Date') !!}
                     </div>
                 </div>
+
+                {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => 3]) !!}
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="_method" type="hidden" value="POST">
             </div>

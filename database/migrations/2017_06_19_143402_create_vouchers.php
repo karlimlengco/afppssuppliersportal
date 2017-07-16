@@ -52,6 +52,23 @@ class CreateVouchers extends Migration
             $table->integer('approver_id')->nullable();
             $table->integer('receiver_id')->nullable();
 
+            $table->integer('days')->nullable();
+            $table->text('remarks')->nullable();
+            $table->integer('preaudit_days')->nullable();
+            $table->text('preaudit_remarks')->nullable();
+            $table->integer('jev_days')->nullable();
+            $table->text('jev_remarks')->nullable();
+            $table->integer('certify_days')->nullable();
+            $table->text('certify_remarks')->nullable();
+            $table->integer('check_days')->nullable();
+            $table->text('check_remarks')->nullable();
+            $table->integer('approved_days')->nullable();
+            $table->text('approved_remarks')->nullable();
+            $table->integer('released_days')->nullable();
+            $table->text('released_remarks')->nullable();
+            $table->integer('received_days')->nullable();
+            $table->text('received_remarks')->nullable();
+            $table->string('amount')->nullable();
 
             $table->timestamps();
         });

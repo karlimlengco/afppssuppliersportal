@@ -13,6 +13,7 @@
                 {!!Form::textField('journal_entry_date', 'Journal Entry Date')!!}
                 {!!Form::textField('journal_entry_number', 'Number')!!}
                 {!!Form::textField('or', 'OR/ Other Documents')!!}
+                {!!Form::textareaField('jev_remarks', 'Remarks', null, ['rows' => 3])!!}
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="_method" type="hidden" value="POST">
             </div>

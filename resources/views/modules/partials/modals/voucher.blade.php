@@ -22,17 +22,26 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="six columns">
+                    <div class="four columns">
+                        {!! Form::textField('amount', 'Amount') !!}
+                    </div>
+                    <div class="four columns">
                         {!! Form::textField('final_tax_amount', 'Final Tax Amount') !!}
                     </div>
-                    <div class="six columns">
-                        {!! Form::textField('ewt_amount', 'Expanded Witholding Tax Amount') !!}
+                    <div class="four columns">
+                        {!! Form::textField('ewt_amount', 'EWT Amount') !!}
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="twelve columns">
                         {!! Form::textareaField('bir_address', 'BIR Address', null, ['rows'=>3]) !!}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="twelve columns">
+                        {!! Form::textareaField('remarks', 'Remarks', null, ['rows'=>3]) !!}
                     </div>
                 </div>
                 @if($data->rfq)

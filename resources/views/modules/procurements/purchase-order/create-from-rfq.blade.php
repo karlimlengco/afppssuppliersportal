@@ -4,7 +4,14 @@ Purchase Order
 
 @section('styles')
 <link rel="stylesheet" href="/vendors/timepicker/timepicker.min.css">
+    <style type="text/css">
+        #item_table td{
+            padding:0;
+
+        }
+    </style>
 @stop
+
 @section('contents')
 {!! Form::open($modelConfig['store']) !!}
 
@@ -16,15 +23,19 @@ Purchase Order
 <div class="row">
     <div class="twelve columns">
         <div class="row">
-            <div class="six columns">
+            <div class="four columns">
                 {!! Form::textField('purchase_date', 'Purchase Date') !!}
             </div>
-            <div class="six columns">
+            <div class="four columns">
                 {!! Form::selectField('payment_term', 'Payment Terms', $term_lists) !!}
             </div>
+            <div class="four columns">
+                {!! Form::numberField('delivery_terms', 'Delivery Terms') !!}
+            </div>
+        </div>
         <div class="row">
-            <div class="six columns">
-                {!! Form::textField('delivery_terms', 'Delivery Terms') !!}
+            <div class="twelve columns">
+                {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => 3]) !!}
             </div>
         </div>
 

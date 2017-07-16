@@ -18,6 +18,7 @@
                         {!! Form::textField('award_accepted_date', 'Date Received') !!}
                     </div>
                 </div>
+                {!! Form::textareaField('accepted_remarks', 'Remarks', null, ['rows' => 3])!!}
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="_method" type="hidden" value="PUT">
             </div>

@@ -33,6 +33,12 @@ Notice Of Delivery
                     {!! Form::textareaField('notes', 'Notes', null, ['rows'=>3]) !!}
                 </div>
             </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('delivery_remarks', 'Remarks', null, ['rows'=>3]) !!}
+                </div>
+            </div>
             <div class="row">
 
 

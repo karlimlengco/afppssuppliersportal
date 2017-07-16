@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use PDF;
+use Carbon\Carbon;
+use Validator;
 
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\NoticeToProceed\NTPRepository;
@@ -17,6 +19,7 @@ use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Settings\Holidays\HolidayRepository;
 
 
 class NoticeToProceedController extends Controller
@@ -42,6 +45,7 @@ class NoticeToProceedController extends Controller
     protected $noa;
     protected $signatories;
     protected $audits;
+    protected $holidays;
 
     /**
      * [$model description]
@@ -136,14 +140,38 @@ class NoticeToProceedController extends Controller
         NTPRepository $model,
         NOARepository $noa,
         UnitPurchaseRequestRepository $upr,
-        PORepository $po)
+        PORepository $po,
+        HolidayRepository $holidays)
     {
         $po_model           =   $po->findById($request->po_id);
         $noa_model          =   $noa->findByRFQ($po_model->rfq_id);
 
-        $this->validate($request, [
-            'preparared_date'   =>  'required'
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('preparared_date') );
+        $po_date                =   Carbon::createFromFormat('Y-m-d', $po_model->coa_approved_date );
+
+        $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $validator = Validator::make($request->all(),[
+            'preparared_date'   => 'required',
         ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Delay
 
         $inputs             =   [
             'po_id'             =>  $request->po_id,
@@ -155,9 +183,12 @@ class NoticeToProceedController extends Controller
             'upr_number'        =>  $po_model->upr_number,
             'proponent_id'      =>  $noa_model->proponent_id,
             'status'            =>  'pending',
+            'days'              =>  $day_delayed,
+            'remarks'           =>  $request->remarks
         ];
 
-        $upr->update(['status' => "NTP Created"], $po_model->upr_id);
+
+        $upr->update(['status' => "NTP Created", 'delay_count' => $day_delayed + $po_model->upr->delay_count], $po_model->upr_id);
 
         $result = $model->save($inputs);
 
@@ -251,22 +282,53 @@ class NoticeToProceedController extends Controller
         RFQProponentRepository $rfq,
         BlankRFQRepository $blank,
         UnitPurchaseRequestRepository $upr,
-        NTPRepository $model
+        NTPRepository $model,
+        HolidayRepository $holidays
         )
     {
-        $this->validate($request, [
+
+        $ntp_model              =   $model->findById($id);
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('award_accepted_date') );
+        $po_date                =   Carbon::createFromFormat('Y-m-d H:i:s', $ntp_model->prepared_date );
+        $po_date                =   Carbon::createFromFormat('Y-m-d', $po_date->format('Y-m-d') );
+
+        $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $validator = Validator::make($request->all(),[
             'received_by'           =>  'required',
             'award_accepted_date'   =>  'required',
         ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('accepted_remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('accepted_remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Delay
 
         $input  =   [
             'received_by'           =>  $request->received_by,
             'award_accepted_date'   =>  $request->award_accepted_date,
             'status'                =>  "Accepted",
+            'accepted_remarks'      =>  $request->accepted_remarks,
+            'accepted_days'         =>  $day_delayed
         ];
 
         $result             =   $model->update($input, $id);
-        $upr->update(['status' => 'NTP Accepted'], $result->upr_id);
+
+        $upr->update(['status' => 'NTP Accepted', 'delay_count' => $day_delayed + $ntp_model->upr->delay_count], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

@@ -23,6 +23,12 @@ class DeliveryOrderRequest extends BaseRequest
         'created_by',
         'notes',
         'update_remarks',
+        'days',
+        'remarks',
+        'delivery_days',
+        'delivery_remarks',
+        'dr_coa_days',
+        'dr_coa_remarks',
     ];
 
     /**

@@ -11,6 +11,7 @@
 
             <div class="modal__dialogue__body">
                 {!! Form::textField('accepted_date', 'Accepted Date') !!}
+                {!! Form::textareaField('accept_remarks', 'Remarks', null, ['rows' => 3]) !!}
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="_method" type="hidden" value="POST">
             </div>

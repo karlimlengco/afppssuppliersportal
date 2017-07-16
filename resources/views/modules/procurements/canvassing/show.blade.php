@@ -8,13 +8,21 @@ Canvassing
 @stop
 
 @section('contents')
+
+<div class="message-box message-box--large message-box--success" role="alert">
+    <span class="message-box__icon"><i class="nc-icon-outline ui-1_check-circle-08"></i></span>
+    <span class="message-box__message">
+    Add signatories first.
+    <br>
+    Click pen icon to edit proponents status, and click award icon to the corresponding proponent to prepare NOA.</span>
+</div>
+
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
         <button class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
 
-                <a href="#"  class=" button__options__item" id="signatory-button">Add Signatories</a>
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
 
@@ -25,6 +33,7 @@ Canvassing
             </div>
         </button>
 
+        <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back">
             <i class="nc-icon-mini arrows-1_tail-left"></i>
         </a>

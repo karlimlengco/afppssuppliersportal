@@ -29,6 +29,10 @@ class CreateNoticeToProceed extends Migration
             $table->text('update_remarks')->nullable();
             $table->text('file')->nullable();
 
+            $table->string('days')->nullable();
+            $table->string('accepted_days')->nullable();
+            $table->text('accepted_remarks')->nullable();
+
             $table->string('received_by')->nullable();
             $table->date('award_accepted_date')->nullable();
             $table->date('accepted_date')->nullable();

@@ -12,6 +12,7 @@
             <div class="modal__dialogue__body">
                 <p>Notice to Proceed will be created for this PO.</p>
                 {!! Form::textField('preparared_date', 'Date Prepared')!!}
+                {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => 3])!!}
                 <input name="po_id" type="hidden" value="{{ $data->id }}">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="_method" type="hidden" value="POST">

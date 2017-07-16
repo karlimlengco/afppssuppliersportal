@@ -135,7 +135,10 @@ class CanvassingController extends Controller
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        $day_delayed            =   $day_delayed - 1;
+        if($day_delayed != 0)
+        {
+            $day_delayed            =   $day_delayed - 1;
+        }
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[

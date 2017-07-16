@@ -10,10 +10,24 @@
             </div>
 
             <div class="modal__dialogue__body">
-                {!!Form::textField('certify_date', 'Certify Date')!!}
-                {!!Form::booleanField('is_cash_avail', 'Cash Available')!!}
-                {!!Form::booleanField('subject_to_authority_to_debit_acc', 'Subject to Authority to Debit Account ')!!}
-                {!!Form::booleanField('documents_completed', 'Supporting documents complete')!!}
+                <div class="row">
+                    <div class="six columns">
+                        {!!Form::textField('certify_date', 'Certify Date')!!}
+                    </div>
+                    <div class="six columns">
+                        {!!Form::booleanField('is_cash_avail', 'Cash Available')!!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="six columns">
+                        {!!Form::booleanField('subject_to_authority_to_debit_acc', 'Subject to Authority to Debit Account ')!!}
+                    </div>
+                    <div class="six columns">
+                        {!!Form::booleanField('documents_completed', 'Supporting documents complete')!!}
+                    </div>
+                </div>
+
+                {!!Form::textareaField('certify_remarks', 'Remarks', null, ['rows' => 3])!!}
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="_method" type="hidden" value="POST">
             </div>

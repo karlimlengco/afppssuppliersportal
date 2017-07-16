@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Auth;
 use DB;
 use PDF;
+use Carbon\Carbon;
+use Validator;
 
 use \Revlv\Procurements\PurchaseOrder\PORepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
@@ -18,6 +20,7 @@ use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Settings\PaymentTerms\PaymentTermRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Settings\Holidays\HolidayRepository;
 
 class PurchaseOrderController extends Controller
 {
@@ -43,6 +46,7 @@ class PurchaseOrderController extends Controller
     protected $proponents;
     protected $signatories;
     protected $audits;
+    protected $holidays;
 
 
     /**
@@ -82,6 +86,79 @@ class PurchaseOrderController extends Controller
         ]);
     }
 
+
+
+    /**
+     * [coaApproved description]
+     *
+     * @param  [type]       $id      [description]
+     * @param  Request      $request [description]
+     * @param  PORepository $model   [description]
+     * @return [type]                [description]
+     */
+    public function coaApproved(
+        $id,
+        Request $request,
+        UnitPurchaseRequestRepository $upr,
+        PORepository $model,
+        HolidayRepository $holidays)
+    {
+        $po                     =   $model->findById($id);
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('coa_approved_date') );
+        $po_date                =   Carbon::createFromFormat('Y-m-d', $po->mfo_received_date );
+
+        // Delay
+        $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $validator = Validator::make($request->all(),[
+            'file'              => 'required',
+            'coa_approved_date' => 'required',
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('coa_remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('coa_remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Delay
+
+        $file       = md5_file($request->file);
+        $file       = $file.".".$request->file->getClientOriginalExtension();
+
+        $data       =   [
+            'coa_file'          =>  $file,
+            'coa_approved_date' =>  $request->coa_approved_date,
+            'coa_approved'      =>  \Sentinel::getUser()->id,
+            'status'            =>  'COA Approved',
+            'coa_remarks'       => $request->coa_remarks,
+            'coa_days'          => $day_delayed,
+        ];
+
+        $result =   $model->update($data, $id);
+
+        if($result)
+        {
+            $path       = $request->file->storeAs('coa-approved-attachments', $file);
+        }
+
+        $upr->update(['status' => 'PO Approved', 'delay_count' => $day_delayed + $po->upr->delay_count], $result->upr_id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Purchase Order has been successfully approved."
+        ]);
+    }
+
     /**
      * [mfoApproved description]
      *
@@ -90,22 +167,56 @@ class PurchaseOrderController extends Controller
      * @param  PORepository $model   [description]
      * @return [type]                [description]
      */
-    public function mfoApproved($id, Request $request, PORepository $model)
+    public function mfoApproved($id,
+        Request $request,
+        PORepository $model,
+        UnitPurchaseRequestRepository $upr,
+        HolidayRepository $holidays)
     {
-        $this->validate($request, [
+        $po                     =   $model->findById($id);
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('mfo_received_date') );
+        $po_date                =   Carbon::createFromFormat('Y-m-d', $po->funding_received_date );
+
+        // Delay
+        $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $validator = Validator::make($request->all(),[
             'mfo_released_date' =>  'required',
             'mfo_received_date' =>  'required',
         ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('mfo_remarks') == null && $day_delayed > 2) {
+                $validator->errors()->add('mfo_remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Delay
 
         $inputs =   [
             'mfo_released_date' => $request->mfo_released_date,
             'mfo_received_date' => $request->mfo_received_date,
             'mfo_remarks'       => $request->mfo_remarks,
+            'mfo_days'          => $day_delayed,
         ];
 
         $result =   $model->update($inputs, $id);
 
         $model->update(['status' => 'MFO Approved'], $id);
+
+
+        $upr->update(['status' => "PO MFO Approved", 'delay_count' => $day_delayed + $po->upr->delay_count], $po->upr_id);
+
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -121,22 +232,52 @@ class PurchaseOrderController extends Controller
      * @param  PORepository $model   [description]
      * @return [type]                [description]
      */
-    public function pccoApproved($id, Request $request, PORepository $model)
+    public function pccoApproved($id,
+        Request $request,
+        PORepository $model,
+        UnitPurchaseRequestRepository $upr,
+        HolidayRepository $holidays)
     {
-        $this->validate($request, [
+        $po                     =   $model->findById($id);
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('funding_received_date') );
+        $po_date                =   Carbon::createFromFormat('Y-m-d', $po->purchase_date );
+
+        // Delay
+        $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $validator = Validator::make($request->all(),[
             'funding_released_date' =>  'required',
             'funding_received_date' =>  'required',
         ]);
 
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('funding_remarks') == null && $day_delayed > 2) {
+                $validator->errors()->add('funding_remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Delay
         $inputs =   [
             'funding_released_date' => $request->funding_released_date,
             'funding_received_date' => $request->funding_received_date,
             'funding_remarks'       => $request->funding_remarks,
+            'funding_days'          => $day_delayed
         ];
 
         $result =   $model->update($inputs, $id);
 
         $model->update(['status' => 'Accounting Approved'], $id);
+        $upr->update(['status' => "PO Funding Approved", 'delay_count' => $day_delayed + $po->upr->delay_count], $po->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -207,26 +348,53 @@ class PurchaseOrderController extends Controller
         ItemRepository $items,
         NOARepository $noa,
         UnitPurchaseRequestRepository $upr,
-        BlankRFQRepository $rfq)
+        BlankRFQRepository $rfq,
+        HolidayRepository $holidays)
     {
+        $noa_model              =   $noa->with('winner')->findByRFQ($id);
+        $award_accepted_date    =   Carbon::createFromFormat('Y-m-d', $noa_model->award_accepted_date);
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('purchase_date') );
 
-        $this->validate($request,[
+
+        // Delay
+        $day_delayed            =   $award_accepted_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $validator = Validator::make($request->all(),[
             'purchase_date'     => 'required',
             'payment_term'      => 'required',
-            'delivery_terms'     => 'required|integer',
+            'delivery_terms'    => 'required|integer',
         ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('remarks') == null && $day_delayed > 2) {
+                $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Delay
 
         $inputs                 =   [
             'purchase_date' =>  $request->purchase_date,
             'payment_term'  =>  $request->payment_term,
-            'delivery_terms' =>  $request->delivery_terms,
+            'delivery_terms'=>  $request->delivery_terms,
+            'remarks'       =>  $request->remarks,
+            'days'          =>  $day_delayed
         ];
 
         $items                  =   $request->only([
             'item_description', 'quantity', 'unit_measurement', 'unit_price', 'total_amount'
         ]);
 
-        $noa_model              =   $noa->with('winner')->findByRFQ($id);
 
         $split_upr              =   explode('-', $noa_model->rfq_number);
         $inputs['po_number']    =  "PO-".$split_upr[1]."-".$split_upr[2]."-".$split_upr[3]."-".$split_upr[4] ;
@@ -259,7 +427,7 @@ class PurchaseOrderController extends Controller
             DB::table('purchase_order_items')->insert($item_datas);
         }
 
-        $upr->update(['status' => "PO Created"], $noa_model->upr_id);
+        $upr->update(['status' => "PO Created", 'delay_count' => $day_delayed + $rfq_model->upr->delay_count], $noa_model->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -565,49 +733,6 @@ class PurchaseOrderController extends Controller
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('po-coa.pdf');
         return $pdf->download('po-coa.pdf');
-    }
-
-    /**
-     * [coaApproved description]
-     *
-     * @param  [type]       $id      [description]
-     * @param  Request      $request [description]
-     * @param  PORepository $model   [description]
-     * @return [type]                [description]
-     */
-    public function coaApproved(
-        $id,
-        Request $request,
-        UnitPurchaseRequestRepository $upr,
-        PORepository $model)
-    {
-        $validator = $this->validate($request, [
-            'file'              => 'required',
-            'coa_approved_date' => 'required',
-        ]);
-
-        $file       = md5_file($request->file);
-        $file       = $file.".".$request->file->getClientOriginalExtension();
-
-        $data       =   [
-            'coa_file'          =>  $file,
-            'coa_approved_date' =>  $request->coa_approved_date,
-            'coa_approved'      =>  \Sentinel::getUser()->id,
-            'status'            =>  'COA Approved'
-        ];
-
-        $result =   $model->update($data, $id);
-
-        if($result)
-        {
-            $path       = $request->file->storeAs('coa-approved-attachments', $file);
-        }
-
-        $upr->update(['status' => 'PO Approved'], $result->upr_id);
-
-        return redirect()->route($this->baseUrl.'show', $id)->with([
-            'success'  => "Purchase Order has been successfully approved."
-        ]);
     }
 
     /**

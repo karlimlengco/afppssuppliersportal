@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Auth;
 use DB;
 use PDF;
+use Carbon\Carbon;
+use Validator;
 
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
@@ -16,6 +18,7 @@ use \Revlv\Procurements\PurchaseOrder\PORepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Settings\Holidays\HolidayRepository;
 
 class DeliveryController extends Controller
 {
@@ -45,6 +48,7 @@ class DeliveryController extends Controller
     protected $upr;
     protected $signatories;
     protected $audits;
+    protected $holidays;
 
     /**
      * @param model $model
@@ -103,15 +107,39 @@ class DeliveryController extends Controller
         Request $request,
         DeliveryOrderRepository $model,
         UnitPurchaseRequestRepository $upr,
-        PORepository $po)
+        PORepository $po,
+        HolidayRepository $holidays)
     {
-        $this->validate($request, [
+        $po_model               =   $po->with(['items'])->findById($id);
+        $ntp                    =   $po_model->ntp;
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
+        $ntp_date               =   Carbon::createFromFormat('Y-m-d', $ntp->award_accepted_date );
+
+        $day_delayed            =   $ntp_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $validator = Validator::make($request->all(),[
             'expected_date'     =>  'required',
             'transaction_date'  =>  'required',
         ]);
 
-        $po_model   =   $po->with(['items'])->findById($id);
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+        });
 
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Delay
         $inputs     =   [
             'expected_date'     =>  $request->expected_date,
             'transaction_date'  =>  $request->transaction_date,
@@ -121,8 +149,11 @@ class DeliveryController extends Controller
             'rfq_number'        =>  $po_model->rfq_number,
             'status'            =>  'ongoing',
             'upr_number'        =>  $po_model->upr_number,
-            'created_by'        =>  \Sentinel::getUser()->id
+            'created_by'        =>  \Sentinel::getUser()->id,
+            'days'              =>  $day_delayed,
+            'remarks'           =>  $request->remarks
         ];
+
 
         $result = $model->save($inputs);
 
@@ -141,7 +172,7 @@ class DeliveryController extends Controller
 
         DB::table('delivery_order_items')->insert($items);
 
-        $upr->update(['status' => 'NOD Created'], $result->upr_id);
+        $upr->update(['status' => 'NOD Created', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -272,9 +303,43 @@ class DeliveryController extends Controller
         $id,
         ItemRepository $items,
         DeliveryOrderRequest $request,
-        DeliveryOrderRepository $model)
+        DeliveryOrderRepository $model,
+        UnitPurchaseRequestRepository $upr,
+        HolidayRepository $holidays)
     {
-        $inputs     =   $request->getData();
+        $inputs                 =   $request->getData();
+
+        $dr_model               =   $model->findById($id);
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('delivery_date') );
+        $dr_date                =   Carbon::createFromFormat('Y-m-d', $dr_model->transaction_date );
+
+        $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $validator = Validator::make($request->all(),[
+            'delivery_date'     =>  'required',
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('delivery_remarks') == null && $day_delayed > 7) {
+                $validator->errors()->add('delivery_remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        $inputs['delivery_days']    =   $day_delayed;
+        $inputs['delivery_remarks'] =   $request->delivery_remarks;
+
+        // Delay
         $item_input =   $request->only(['ids', 'received_quantity']);
 
         for ($i=0; $i < count($item_input['ids']) ; $i++) {
@@ -283,7 +348,10 @@ class DeliveryController extends Controller
                 ], $item_input['ids'][$i]);
         }
         $inputs['received_by']  =   \Sentinel::getUser()->id;
+
         $model->update($inputs, $id);
+
+        $upr->update(['status' => 'Delivery Received', 'delay_count' => $day_delayed + $dr_model->upr->delay_count], $dr_model->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -298,7 +366,9 @@ class DeliveryController extends Controller
      * @param  [type]  $id      [description]
      * @return [type]           [description]
      */
-    public function updateSignatory(Request $request, $id, DeliveryOrderRepository $model)
+    public function updateSignatory(
+        Request $request, $id,
+        DeliveryOrderRepository $model)
     {
         $this->validate($request, [
             'signatory_id'   =>  'required',
@@ -318,17 +388,50 @@ class DeliveryController extends Controller
      * @param  DeliveryOrderRepository $model [description]
      * @return [type]                         [description]
      */
-    public function completeOrder(Request $request, $id, DeliveryOrderRepository $model, UnitPurchaseRequestRepository $upr)
+    public function completeOrder(
+        Request $request, $id,
+        DeliveryOrderRepository $model, UnitPurchaseRequestRepository $upr,
+        HolidayRepository $holidays)
     {
         $date_completed     =   \Carbon\Carbon::now();
 
-        $this->validate($request, [
+        $dr_model               =   $model->findById($id);
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('date_delivered_to_coa') );
+        $dr_date                =   Carbon::createFromFormat('Y-m-d', $dr_model->delivery_date );
+
+        $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $validator = Validator::make($request->all(),[
             'date_delivered_to_coa'   =>  'required',
         ]);
 
-        $result =   $model->update(['date_delivered_to_coa' => $request->date_delivered_to_coa, 'status' => 'completed', 'delivered_to_coa_by' => \Sentinel::getUser()->id], $id);
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('dr_coa_remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('dr_coa_remarks', 'This field is required when your process is delay');
+            }
+        });
 
-        $upr->update(['status' => 'Complete COA Delivery'], $result->upr_id);
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        $inputs['dr_coa_days']          =   $day_delayed;
+        $inputs['dr_coa_remarks']       =   $request->dr_coa_remarks;
+        $inputs['date_delivered_to_coa']=   $request->date_delivered_to_coa;
+        $inputs['delivered_to_coa_by']  =   \Sentinel::getUser()->id;
+        $inputs['status']               =   'completed';
+        // Delay
+
+        $result =   $model->update($inputs, $id);
+
+        $upr->update(['status' => 'Complete COA Delivery', 'delay_count' => $day_delayed + $dr_model->upr->delay_count], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

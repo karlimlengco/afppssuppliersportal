@@ -23,6 +23,10 @@ class InspectionAndAcceptanceRequest extends BaseRequest
         'status',
         'update_remarks',
         'recommendation',
+        'days',
+        'accept_days',
+        'remarks',
+        'accept_remarks',
     ];
 
     /**

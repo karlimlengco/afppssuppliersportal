@@ -12,6 +12,8 @@
             <div class="modal__dialogue__body">
                 {!!Form::textField('accepted_date', 'NOA Approval date')!!}
                 {!!Form::fileField('file', 'Scan copy of NOA')!!}
+                {!!Form::textareaField('approved_remarks', 'Remarks', null, ['rows' => 3])!!}
+
                 <input name="id" type="hidden" value="{{ $data->id }}">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="_method" type="hidden" value="POST">

@@ -27,13 +27,19 @@ Inspection And Acceptance Report
 
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::textField('findings', 'Finding') !!}
+                    {!! Form::textareaField('findings', 'Finding', null, ['rows'=>3]) !!}
                 </div>
             </div>
 
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::textField('recommendation', 'Recommendation') !!}
+                    {!! Form::textareaField('recommendation', 'Recommendation', null, ['rows'=>3]) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('remarks', 'Remarks', null, ['rows'=>3]) !!}
                 </div>
             </div>
     </div>

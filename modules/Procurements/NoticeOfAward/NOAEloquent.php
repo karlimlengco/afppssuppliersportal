@@ -54,6 +54,15 @@ class NOAEloquent extends Model implements  AuditableContract
         'status',
         'award_accepted_date',
         'accepted_date',
+
+
+        'days',
+
+        'approved_remarks',
+        'approved_days',
+
+        'received_remarks',
+        'received_days',
     ];
 
     /**

@@ -26,6 +26,13 @@ Unit Purchase Request
             <div class="button__options">
 
                 @if($data->mode_of_procurement != 'public_bidding')
+                        @if(count($data->diir) != 0)
+                           @if(count($data->voucher) == 0)
+                               <a href="#" id="voucher-button" class="button__options__item">Create Voucher</a>
+                           @else
+                               <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button__options__item">Voucher</a>
+                           @endif
+                       @endif
                         {{-- Process --}}
                         @if($data->status == 'upr_processing')
                             <a class="button__options__item" id="process-button" href="#">Process UPR</a>

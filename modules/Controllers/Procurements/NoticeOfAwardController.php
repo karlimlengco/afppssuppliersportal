@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use PDF;
+use Carbon\Carbon;
+use Validator;
 
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\Canvassing\CanvassingRepository;
@@ -15,6 +17,7 @@ use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Settings\Holidays\HolidayRepository;
 
 class NoticeOfAwardController extends Controller
 {
@@ -38,6 +41,7 @@ class NoticeOfAwardController extends Controller
     protected $signatories;
     protected $proponents;
     protected $audits;
+    protected $holidays;
 
     /**
      * [$model description]
@@ -67,18 +71,42 @@ class NoticeOfAwardController extends Controller
         UnitPurchaseRequestRepository $upr,
         NOARepository $noa,
         $canvasId,
-        $proponentId
+        $proponentId,
+        HolidayRepository $holidays
         )
     {
-        $canvasModel        =   $model->findById($canvasId);
-        $proponent_model    =   $proponents->with('supplier')->findById($proponentId);
-        $supplier_name      =   $proponent_model->supplier->name;
+        $canvasModel            =   $model->findById($canvasId);
+        $canvasDate             =   Carbon::createFromFormat('Y-m-d', $canvasModel->canvass_date);
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('awarded_date') );
 
-        $this->validate($request,[
+        $proponent_model        =   $proponents->with('supplier')->findById($proponentId);
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $supplier_name          =   $proponent_model->supplier->name;
+
+        $day_delayed            =   $canvasDate->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $validator = Validator::make($request->all(),[
             'awarded_date'  =>   'required',
             'awarded_by'    =>   'required',
             'seconded_by'   =>   'required'
         ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $data   =   [
             'canvass_id'    =>  $canvasId,
@@ -90,6 +118,8 @@ class NoticeOfAwardController extends Controller
             'awarded_by'    =>  $request->awarded_by,
             'seconded_by'   =>  $request->seconded_by,
             'awarded_date'  =>  $request->awarded_date,
+            'remarks'       =>  $request->remarks,
+            'days'          =>  $day_delayed,
         ];
 
         $noa->save($data);
@@ -97,7 +127,7 @@ class NoticeOfAwardController extends Controller
         // // Update canvass adjuourned time
         $model->update(['adjourned_time' => \Carbon\Carbon::now()], $canvasId);
         // // update upr
-        $upr->update(['status' => "Awarded To $supplier_name"],  $canvasModel->upr_id);
+        $upr->update(['status' => "Awarded To $supplier_name", 'delay_count' => $day_delayed + $canvasModel->upr->delay_count],  $canvasModel->upr_id);
 
         return redirect()->route('procurements.canvassing.show', $canvasId)->with([
             'success'  => "New record has been successfully added."
@@ -125,25 +155,119 @@ class NoticeOfAwardController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(
+        Request $request,
+        $id,
+        RFQProponentRepository $rfq,
+        BlankRFQRepository $blank,
+        UnitPurchaseRequestRepository $upr,
+        NOARepository $model,
+        HolidayRepository $holidays
+        )
+    {
+
+        $noaModel       =   $model->findById($id);
+        $holiday_lists  =   $holidays->lists('id','holiday_date');
+
+        $accepted_date =   Carbon::createFromFormat('Y-m-d', $noaModel->accepted_date);
+        $award_accepted_date  =   Carbon::createFromFormat('Y-m-d', $request->award_accepted_date);
+
+        $day_delayed    =   $accepted_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $award_accepted_date);
+
+        $validator = Validator::make($request->all(),[
+            'received_by'           =>  'required',
+            'award_accepted_date'   =>  'required',
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('received_remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('received_remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $input  =   [
+            'received_by'           =>  $request->received_by,
+            'award_accepted_date'   =>  $request->award_accepted_date,
+            'status'                =>  'accepted',
+            'received_days'         =>  $day_delayed,
+            'received_remarks'      =>  $request->received_remarks,
+        ];
+
+        $result             =   $model->findById($id);
+
+        $model->update($input, $id);
+        $upr->update(['status' => 'NOA Received', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
      * [acceptNOA description]
      *
      * @param  Request $request [description]
      * @return [type]           [description]
      */
-    public function acceptNOA(Request $request, NOARepository $model)
+    public function acceptNOA(
+        Request $request,
+        NOARepository $model,
+        UnitPurchaseRequestRepository $upr,
+        HolidayRepository $holidays)
     {
-        $id         =   $request->id;
+        $id             =   $request->id;
+        $noaModel       =   $model->findById($id);
+        $holiday_lists  =   $holidays->lists('id','holiday_date');
 
-        $validator = $this->validate($request, [
-            'file'          => 'required',
-            'accepted_date' => 'required',
+        $noa_award_date =   Carbon::createFromFormat('Y-m-d H:i:s', $noaModel->awarded_date)->format('Y-m-d');
+        $noa_award_date =   Carbon::createFromFormat('Y-m-d', $noa_award_date);
+        $accepted_date  =   Carbon::createFromFormat('Y-m-d', $request->accepted_date);
+
+        $day_delayed            =   $noa_award_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $accepted_date);
+
+        $validator = Validator::make($request->all(),[
+            'file'          =>   'required',
+            'accepted_date' =>   'required',
         ]);
 
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('approved_remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('approved_remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $data       =   [
-            'accepted_date' =>  $request->accepted_date,
-            'status'        =>  'approved',
-            'file'          =>  ''
+            'accepted_date'     =>  $request->accepted_date,
+            'status'            =>  'approved',
+            'file'              =>  '',
+            'approved_days'     =>  $day_delayed,
+            'approved_remarks'  =>  $request->approved_remarks,
         ];
 
         if($request->file)
@@ -160,6 +284,10 @@ class NoticeOfAwardController extends Controller
         {
             $path       = $request->file->storeAs('noa-attachments', $file);
         }
+
+         // // update upr
+        $upr->update(['status' => "Approved NOA", 'delay_count' => $day_delayed + $result->upr->delay_count],  $result->upr_id);
+
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "NOA has been successfully accepted."
@@ -249,7 +377,6 @@ class NoticeOfAwardController extends Controller
         $result             =   $noa->with(['winner', 'upr'])->findById($id);
         $canvass            =   $model->findById($result->canvass_id);
         $proponent_awardee  =   $result->winner->supplier;
-
         if(!$proponent_awardee)
         {
             return redirect()->route('procurements.blank-rfq.show', $id)->with([
@@ -340,42 +467,7 @@ class NoticeOfAwardController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(
-        Request $request,
-        $id,
-        RFQProponentRepository $rfq,
-        BlankRFQRepository $blank,
-        UnitPurchaseRequestRepository $upr,
-        NOARepository $model
-        )
-    {
-        $this->validate($request, [
-            'received_by'           =>  'required',
-            'award_accepted_date'   =>  'required',
-        ]);
 
-        $input  =   [
-            'received_by'           =>  $request->received_by,
-            'award_accepted_date'   =>  $request->award_accepted_date,
-            'status'                =>  'accepted',
-        ];
-
-        $result             =   $model->findById($id);
-
-        $model->update($input, $id);
-        $upr->update(['status' => 'NOA Received'], $result->upr_id);
-
-        return redirect()->route($this->baseUrl.'show', $id)->with([
-            'success'  => "Record has been successfully updated."
-        ]);
-    }
 
     /**
      * Remove the specified resource from storage.

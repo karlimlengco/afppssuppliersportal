@@ -21,19 +21,28 @@ class CreateDeliveryOrders extends Migration
             $table->string('upr_number')->nullable();
             $table->integer('po_id');
             $table->date('expected_date');
-            $table->date('delivery_date')->nullable();
             $table->string('delivery_number')->nullable();
             $table->string('status')->nullable();
             $table->string('inspection_status')->nullable();
-            $table->date('transaction_date')->nullable();
             $table->integer('received_by')->nullable();
             $table->integer('prepared_by')->nullable();
             $table->integer('signatory_id')->nullable();
             $table->integer('created_by')->nullable();
             $table->text('notes')->nullable();
             $table->text('update_remarks')->nullable();
+
+            $table->date('transaction_date')->nullable();
+            $table->date('delivery_date')->nullable();
             $table->date('date_completed')->nullable();
             $table->date('date_delivered_to_coa')->nullable();
+
+            $table->integer('days')->nullable();
+            $table->text('remarks')->nullable();
+            $table->integer('delivery_days')->nullable();
+            $table->text('delivery_remarks')->nullable();
+            $table->integer('dr_coa_days')->nullable();
+            $table->text('dr_coa_remarks')->nullable();
+
             $table->integer('delivered_to_coa_by')->nullable();
             $table->timestamps();
         });

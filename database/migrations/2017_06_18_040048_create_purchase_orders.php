@@ -27,6 +27,13 @@ class CreatePurchaseOrders extends Migration
             $table->integer('delivery_date')->nullable();
             $table->integer('prepared_by');
             $table->string('status')->nullable();
+
+            $table->text('remarks')->nullable();
+            $table->integer('days')->nullable();
+            $table->integer('funding_days')->nullable();
+            $table->integer('mfo_days')->nullable();
+            $table->integer('coa_days')->nullable();
+
             $table->date('funding_released_date')->nullable();
             $table->date('funding_received_date')->nullable();
             $table->text('funding_remarks')->nullable();
@@ -34,6 +41,7 @@ class CreatePurchaseOrders extends Migration
             $table->date('mfo_received_date')->nullable();
             $table->date('mfo_released_date')->nullable();
             $table->text('mfo_remarks')->nullable();
+            $table->text('coa_remarks')->nullable();
 
             $table->string('received_by')->nullable();
             $table->string('signatory_id')->nullable();

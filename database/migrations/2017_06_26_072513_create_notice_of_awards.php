@@ -26,7 +26,16 @@ class CreateNoticeOfAwards extends Migration
             $table->integer('seconded_by')->nullable();
             $table->timestamp('awarded_date')->nullable();
             $table->string('status')->default('pending');
+
             $table->text('remarks')->nullable();
+            $table->integer('days')->nullable();
+
+            $table->text('approved_remarks')->nullable();
+            $table->integer('approved_days')->nullable();
+
+            $table->text('received_remarks')->nullable();
+            $table->integer('received_days')->nullable();
+
             $table->text('update_remarks')->nullable();
             $table->text('file')->nullable();
 

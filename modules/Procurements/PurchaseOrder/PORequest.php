@@ -34,6 +34,7 @@ class PORequest extends BaseRequest
         'mfo_released_date',
         'mfo_remarks',
         'update_remarks',
+        'coa_remarks',
     ];
 
     /**

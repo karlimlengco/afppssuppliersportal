@@ -27,6 +27,9 @@ class NTPRequest extends BaseRequest
         'received_by',
         'award_accepted_date',
         'accepted_date',
+        'days',
+        'accepted_days',
+        'accepted_remarks',
     ];
 
     /**
