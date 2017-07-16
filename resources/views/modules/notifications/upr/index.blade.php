@@ -28,7 +28,7 @@ Notifications
            <tbody>
                 @foreach($resources as $data)
                     <tr>
-                        <td>{{$data['upr_number']}}</td>
+                        <td><a target="_blank" href="/procurements/unit-purchase-requests/timelines/{{$data['id']}}">{{$data['upr_number']}}</a></td>
                         <td>{{$data['ref_number']}}</td>
                         <td>{{$data['project_name']}}</td>
                         <td>{{formatPrice($data['total_amount'])}}</td>
