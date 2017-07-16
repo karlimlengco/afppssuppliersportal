@@ -123,7 +123,7 @@
                                     <tr>
                                         <td>{{$key+1}}</td>
                                         <td>{{$item->unit}}</td>
-                                        <td>{{$item->description}}</td>
+                                        <td style="text-align:left">{{$item->description}}</td>
                                         <td>{{$item->quantity}}</td>
                                         <td>{{formatPrice($item->price_unit)}}</td>
                                         <td>{{formatPrice($item->total_amount)}}</td>
@@ -138,9 +138,16 @@
                         </tr>
                     </tbody>
                 </table>
+                <p>Purpose: {{$data['purpose']}}</p>
                 <p>In case of failure to make the full delivery within the time specified above, a penalty of one-tenth (1/10) of one percent (1%) for every day of delay shall be imposed. </p>
                 <p>Very truly yours,</p>
 
+            </div>
+
+            <div class="printable-form">
+
+
+                <div class="printable-form__body">
                 <table class="printable-form__body__table
                               printable-form__body__table--custom
                               printable-form__body__table--borderless">
@@ -259,8 +266,9 @@
                         <td class="signatory align-center" width="40%"></td>
                     </tr>
                 </table>
-            </div>
-
+                </div>
+                </div>
+{{--
             <div class="printable-form__foot">
                 <table class="printable-form__foot__table">
                     <tr>
@@ -279,7 +287,7 @@
                     </tr>
                 </table>
             </div>
-
+ --}}
 
         </div>
     </body>

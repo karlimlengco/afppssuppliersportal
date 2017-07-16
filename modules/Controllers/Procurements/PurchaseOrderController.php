@@ -696,6 +696,7 @@ class PurchaseOrderController extends Controller
         $data['term']               =  $result->terms->name;
         $data['accounts']           =  $upr_model->accounts->new_account_code;
         $data['centers']            =  $upr_model->centers->name;
+        $data['purpose']            =  $upr_model->purpose;
         $data['delivery']           =  $result->delivery;
         $data['delivery_term']      =  $result->delivery_terms;
         $data['items']              =  $result->items;
