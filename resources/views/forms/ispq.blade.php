@@ -48,7 +48,7 @@
                                     <td>{{$key+1}}</td>
                                     <td>{{$quotation->rfq_number}}</td>
                                     <td>@if($quotation->upr) @if($quotation->upr->modes) {{$quotation->upr->modes->name}} @endif @endif</td>
-                                    <td>{{$quotation->description}}</td>
+                                    <td style="text-align:left">{{$quotation->description}}</td>
                                     <td>{{formatPrice($quotation->total_amount)}}</td>
                                     <td>{{$quotation->canvassing_date}} {{$quotation->canvassing_time}}</td>
                                 </tr>

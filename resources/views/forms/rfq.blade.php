@@ -142,7 +142,7 @@
                             <tr>
                                 <td class="signatory align-center v-align-bottom" width="45%" height="30px"></td>
                                 <td class="signatory align-center" width="10%"></td>
-                                <td class="signatory align-center v-align-bottom" width="45%" height="30px">MM/DD/YYYY</td>
+                                <td class="signatory align-center v-align-bottom" width="45%" height="30px"></td>
                             </tr>
                             <tr>
                                 <td class="signatory align-center" width="45%"></td>
