@@ -142,7 +142,8 @@ class CanvassingController extends Controller
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'open_canvass_date'  =>  'required'
+            'open_canvass_date'  =>  'required',
+            'action'            =>  'required_with:remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -166,6 +167,7 @@ class CanvassingController extends Controller
         $inputs['rfq_id']       =   $id;
         $inputs['canvass_date'] =   $request->open_canvass_date;
         $inputs['remarks']      =   $request->remarks;
+        $inputs['action']       =   $request->action;
         $inputs['canvass_time'] =   \Carbon\Carbon::now()->format('H:i:s');
         $inputs['open_by']      =   \Sentinel::getUser()->id;
         $canvass_date           =   $request->open_canvass_date;

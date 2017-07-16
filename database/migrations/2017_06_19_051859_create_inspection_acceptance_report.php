@@ -15,7 +15,7 @@ class CreateInspectionAcceptanceReport extends Migration
     {
         Schema::create('inspection_acceptance_report', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('rfq_id');
+            $table->integer('rfq_id')->nullable();
             $table->integer('upr_id');
             $table->integer('dr_id');
             $table->string('delivery_number')->nullable();
@@ -36,6 +36,8 @@ class CreateInspectionAcceptanceReport extends Migration
             $table->integer('accept_days')->nullable();
             $table->text('remarks')->nullable();
             $table->text('accept_remarks')->nullable();
+            $table->text('action')->nullable();
+            $table->text('accept_action')->nullable();
             $table->timestamps();
         });
     }

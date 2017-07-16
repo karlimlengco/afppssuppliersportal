@@ -25,6 +25,9 @@
                 <div class="row">
                     {!! Form::textareaField('remarks', 'Remarks', null, ['rows'=>3])!!}
                 </div>
+                <div class="row">
+                    {!! Form::textareaField('action', 'Action', null, ['rows'=>3])!!}
+                </div>
 
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="upr_id" type="hidden" value="{{$data->id}}">

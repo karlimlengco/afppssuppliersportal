@@ -30,6 +30,11 @@
 
                 {!! Form::textareaField('released_remarks', 'Remarks', null, ['rows' => 3]) !!}
 
+                <div class="row">
+                    <div class="twelve columns">
+                        {!! Form::textareaField('released_action', 'Action', null, ['rows'=>3]) !!}
+                    </div>
+                </div>
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="_method" type="hidden" value="POST">
             </div>

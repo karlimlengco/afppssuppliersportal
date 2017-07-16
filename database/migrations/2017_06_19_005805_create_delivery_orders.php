@@ -15,7 +15,7 @@ class CreateDeliveryOrders extends Migration
     {
         Schema::create('delivery_orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('rfq_id');
+            $table->integer('rfq_id')->nullable();
             $table->integer('upr_id');
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
@@ -42,6 +42,9 @@ class CreateDeliveryOrders extends Migration
             $table->text('delivery_remarks')->nullable();
             $table->integer('dr_coa_days')->nullable();
             $table->text('dr_coa_remarks')->nullable();
+            $table->text('action')->nullable();
+            $table->text('delivery_action')->nullable();
+            $table->text('dr_coa_action')->nullable();
 
             $table->integer('delivered_to_coa_by')->nullable();
             $table->timestamps();

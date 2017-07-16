@@ -55,7 +55,6 @@ class NOAEloquent extends Model implements  AuditableContract
         'award_accepted_date',
         'accepted_date',
 
-
         'days',
 
         'approved_remarks',
@@ -63,6 +62,10 @@ class NOAEloquent extends Model implements  AuditableContract
 
         'received_remarks',
         'received_days',
+
+        'action',
+        'approved_action',
+        'received_action',
     ];
 
     /**

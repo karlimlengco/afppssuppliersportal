@@ -124,6 +124,7 @@ class DeliveryController extends Controller
         $validator = Validator::make($request->all(),[
             'expected_date'     =>  'required',
             'transaction_date'  =>  'required',
+            'action'  =>  'required_with:remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -151,6 +152,7 @@ class DeliveryController extends Controller
             'upr_number'        =>  $po_model->upr_number,
             'created_by'        =>  \Sentinel::getUser()->id,
             'days'              =>  $day_delayed,
+            'action'           =>  $request->action,
             'remarks'           =>  $request->remarks
         ];
 
@@ -321,6 +323,7 @@ class DeliveryController extends Controller
 
         $validator = Validator::make($request->all(),[
             'delivery_date'     =>  'required',
+            'delivery_action'  =>  'required_with:delivery_remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -338,6 +341,7 @@ class DeliveryController extends Controller
         }
         $inputs['delivery_days']    =   $day_delayed;
         $inputs['delivery_remarks'] =   $request->delivery_remarks;
+        $inputs['delivery_action']  =   $request->delivery_action;
 
         // Delay
         $item_input =   $request->only(['ids', 'received_quantity']);
@@ -407,6 +411,7 @@ class DeliveryController extends Controller
 
         $validator = Validator::make($request->all(),[
             'date_delivered_to_coa'   =>  'required',
+            'dr_coa_action'  =>  'required_with:dr_coa_remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -424,6 +429,7 @@ class DeliveryController extends Controller
         }
         $inputs['dr_coa_days']          =   $day_delayed;
         $inputs['dr_coa_remarks']       =   $request->dr_coa_remarks;
+        $inputs['dr_coa_action']       =   $request->dr_coa_action;
         $inputs['date_delivered_to_coa']=   $request->date_delivered_to_coa;
         $inputs['delivered_to_coa_by']  =   \Sentinel::getUser()->id;
         $inputs['status']               =   'completed';

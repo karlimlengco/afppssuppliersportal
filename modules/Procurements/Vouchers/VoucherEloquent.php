@@ -96,6 +96,16 @@ class VoucherEloquent extends Model implements  AuditableContract
         'released_remarks',
         'received_days',
         'received_remarks',
+
+
+        'action',
+        'preaudit_action',
+        'jev_action',
+        'certify_action',
+        'check_action',
+        'approved_action',
+        'released_action',
+        'received_action',
     ];
 
     /**

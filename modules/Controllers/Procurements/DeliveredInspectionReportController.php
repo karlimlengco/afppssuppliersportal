@@ -147,7 +147,8 @@ class DeliveredInspectionReportController extends Controller
         }, $transaction_date);
 
         $validator = Validator::make($request->all(),[
-            'start_date'       => 'required'
+            'start_date'       => 'required',
+            'action'            => 'required_with:remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -169,6 +170,7 @@ class DeliveredInspectionReportController extends Controller
             'status'        => 'started',
             'started_by'    => \Sentinel::getUser()->id,
             'days'          =>  $day_delayed,
+            'action'       =>  $request->action,
             'remarks'       =>  $request->remarks
         ];
 
@@ -205,7 +207,8 @@ class DeliveredInspectionReportController extends Controller
         }, $transaction_date);
 
         $validator = Validator::make($request->all(),[
-            'closed_date'       => 'required'
+            'closed_date'       => 'required',
+            'close_action'       => 'required_with:close_remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -228,7 +231,8 @@ class DeliveredInspectionReportController extends Controller
             'status'        => 'closed',
             'closed_by'     => \Sentinel::getUser()->id,
             'close_days'    =>  $day_delayed,
-            'close_remarks' =>  $request->close_remarks
+            'close_remarks' =>  $request->close_remarks,
+            'close_action' =>  $request->close_action
         ];
 
         $result     =   $model->update($inputs, $id);

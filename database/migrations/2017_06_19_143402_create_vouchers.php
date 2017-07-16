@@ -16,7 +16,7 @@ class CreateVouchers extends Migration
         Schema::create('vouchers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('upr_id');
-            $table->integer('rfq_id');
+            $table->integer('rfq_id')->nullable();
             $table->integer('prepared_by')->nullable();
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
@@ -70,6 +70,14 @@ class CreateVouchers extends Migration
             $table->text('received_remarks')->nullable();
             $table->string('amount')->nullable();
 
+            $table->text('action')->nullable();
+            $table->text('preaudit_action')->nullable();
+            $table->text('jev_action')->nullable();
+            $table->text('certify_action')->nullable();
+            $table->text('check_action')->nullable();
+            $table->text('approved_action')->nullable();
+            $table->text('released_action')->nullable();
+            $table->text('received_action')->nullable();
             $table->timestamps();
         });
     }

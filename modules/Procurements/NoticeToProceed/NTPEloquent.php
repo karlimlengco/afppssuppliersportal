@@ -49,6 +49,8 @@ class NTPEloquent extends Model implements  AuditableContract
         'status',
         'remarks',
         'update_remarks',
+        'accepted_action',
+        'action',
         'file',
 
         'received_by',

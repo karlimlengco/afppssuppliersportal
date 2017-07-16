@@ -59,6 +59,15 @@ class VoucherRequest extends BaseRequest
         'received_days',
         'received_remarks',
         'amount',
+
+        'action',
+        'preaudit_action',
+        'jev_action',
+        'certify_action',
+        'check_action',
+        'approved_action',
+        'released_action',
+        'received_action',
     ];
 
     /**

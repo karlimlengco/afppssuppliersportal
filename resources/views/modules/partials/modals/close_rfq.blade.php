@@ -13,7 +13,8 @@
                 <p>After closing this Request for Quotation you will not be able to add proponents or update.</p>
 
                 {!! Form::textField('completed_at', 'Close Date', null, ['required']) !!}
-                {!! Form::textareaField('close_remarks', 'Close Remarks') !!}
+                {!! Form::textareaField('close_remarks', 'Close Remarks', null, ['rows'=> 3]) !!}
+                {!! Form::textareaField('close_action', 'Close Action', null, ['rows'=> 3]) !!}
 
             </div>
                 <input name="rfq_id" type="hidden" value="{{ $data->id }}">

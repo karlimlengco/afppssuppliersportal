@@ -119,7 +119,8 @@ class VoucherController extends Controller
         }, $transaction_date);
 
         $validator = Validator::make($request->all(),[
-            'amount'       => 'required'
+            'amount'       => 'required',
+            'action'        =>  'required_with:remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -141,6 +142,7 @@ class VoucherController extends Controller
         $inputs['rfq_number']       =   $rfq_model->rfq_number;
         $inputs['transaction_date'] =   $request->voucher_transaction_date;
         $inputs['remarks']          =   $request->remarks;
+        $inputs['action']          =   $request->action;
         $inputs['days']             =   $day_delayed;
         $inputs['upr_number']       =   $rfq_model->upr_number;
         $inputs['upr_id']           =   $rfq_model->upr_id;
@@ -271,7 +273,8 @@ class VoucherController extends Controller
         }, $transaction_date);
 
         $validator = Validator::make($request->all(),[
-            'preaudit_date'       => 'required'
+            'preaudit_date'       => 'required',
+            'preaudit_action'        =>  'required_with:preaudit_remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -291,6 +294,7 @@ class VoucherController extends Controller
         $inputs     =   [
             'preaudit_date'     => $request->preaudit_date,
             'preaudit_days'     => $day_delayed,
+            'preaudit_action'  => $request->preaudit_action,
             'preaudit_remarks'  => $request->preaudit_remarks,
         ];
 
@@ -328,7 +332,8 @@ class VoucherController extends Controller
         }, $transaction_date);
 
         $validator = Validator::make($request->all(),[
-            'approval_date'       => 'required'
+            'approval_date'       => 'required',
+            'approved_action'        =>  'required_with:approved_remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -349,6 +354,7 @@ class VoucherController extends Controller
             'approval_date'     => $request->approval_date,
             'approved_days'     => $day_delayed,
             'approved_remarks'  => $request->approved_remarks,
+            'approved_action'  => $request->approved_action,
         ];
 
         $result=    $model->update($inputs, $id);
@@ -389,6 +395,7 @@ class VoucherController extends Controller
             'is_cash_avail'                     =>'required',
             'subject_to_authority_to_debit_acc' =>'required',
             'documents_completed'               =>'required',
+            'certify_action'        =>  'required_with:certify_remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -410,6 +417,7 @@ class VoucherController extends Controller
             'subject_to_authority_to_debit_acc' => $request->subject_to_authority_to_debit_acc,
             'documents_completed'               => $request->documents_completed,
             'certify_remarks'                   => $request->certify_remarks,
+            'certify_action'                   => $request->certify_action,
             'certify_days'                              => $day_delayed,
         ];
 
@@ -450,6 +458,7 @@ class VoucherController extends Controller
             'journal_entry_date'    =>'required',
             'journal_entry_number'  =>'required',
             'or'                    =>'required',
+            'jev_action'        =>  'required_with:jev_remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -470,6 +479,7 @@ class VoucherController extends Controller
             'journal_entry_number'  => $request->journal_entry_number,
             'or'                    => $request->or,
             'jev_remarks'           => $request->jev_remarks,
+            'jev_action'           => $request->jev_action,
             'jev_days'              => $day_delayed,
         ];
 
@@ -506,7 +516,8 @@ class VoucherController extends Controller
         }, $transaction_date);
 
         $validator = Validator::make($request->all(),[
-            'payment_release_date'  =>'required'
+            'payment_release_date'  =>'required',
+            'released_action'        =>  'required_with:released_remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -529,6 +540,7 @@ class VoucherController extends Controller
             'bank'                  => $request->bank,
             'process_releaser'      => \Sentinel::getUser()->id,
             'released_remarks'      => $request->released_remarks,
+            'released_action'       => $request->released_action,
             'released_days'         => $day_delayed,
         ];
 
@@ -564,7 +576,8 @@ class VoucherController extends Controller
         }, $transaction_date);
 
         $validator = Validator::make($request->all(),[
-            'payment_received_date'  =>'required'
+            'payment_received_date'  =>'required',
+            'received_action'        =>  'required_with:received_remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -585,7 +598,8 @@ class VoucherController extends Controller
             'payment_received_date' => $request->payment_received_date,
             'payment_receiver'      => \Sentinel::getUser()->id,
             'received_days'         => $day_delayed,
-            'received_remarks'      => $request->received_remarks
+            'received_remarks'      => $request->received_remarks,
+            'received_action'      => $request->received_action
         ];
 
         $result     =   $model->update($inputs, $id);

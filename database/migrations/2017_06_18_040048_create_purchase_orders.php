@@ -15,7 +15,7 @@ class CreatePurchaseOrders extends Migration
     {
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('rfq_id');
+            $table->integer('rfq_id')->nullable();
             $table->integer('upr_id');
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
@@ -33,6 +33,11 @@ class CreatePurchaseOrders extends Migration
             $table->integer('funding_days')->nullable();
             $table->integer('mfo_days')->nullable();
             $table->integer('coa_days')->nullable();
+
+            $table->text('action')->nullable();
+            $table->text('funding_action')->nullable();
+            $table->text('coa_action')->nullable();
+            $table->text('mfo_action')->nullable();
 
             $table->date('funding_released_date')->nullable();
             $table->date('funding_received_date')->nullable();

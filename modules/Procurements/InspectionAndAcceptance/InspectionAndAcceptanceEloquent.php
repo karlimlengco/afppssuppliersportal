@@ -56,6 +56,8 @@ class InspectionAndAcceptanceEloquent extends Model implements  AuditableContrac
         'accept_days',
         'remarks',
         'accept_remarks',
+        'action',
+        'accept_action',
     ];
 
     /**

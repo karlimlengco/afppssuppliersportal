@@ -20,6 +20,7 @@ class CanvassingRequest extends BaseRequest
         'update_remarks',
         'remarks',
         'upr_number',
+        'action',
         'resolution',
         'days',
     ];

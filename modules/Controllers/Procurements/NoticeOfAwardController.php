@@ -91,7 +91,8 @@ class NoticeOfAwardController extends Controller
         $validator = Validator::make($request->all(),[
             'awarded_date'  =>   'required',
             'awarded_by'    =>   'required',
-            'seconded_by'   =>   'required'
+            'seconded_by'   =>   'required',
+            'action'        =>   'required_with:remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -119,6 +120,7 @@ class NoticeOfAwardController extends Controller
             'seconded_by'   =>  $request->seconded_by,
             'awarded_date'  =>  $request->awarded_date,
             'remarks'       =>  $request->remarks,
+            'action'       =>  $request->action,
             'days'          =>  $day_delayed,
         ];
 
@@ -185,6 +187,7 @@ class NoticeOfAwardController extends Controller
         $validator = Validator::make($request->all(),[
             'received_by'           =>  'required',
             'award_accepted_date'   =>  'required',
+            'received_action'       =>   'required_with:received_remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -207,6 +210,7 @@ class NoticeOfAwardController extends Controller
             'status'                =>  'accepted',
             'received_days'         =>  $day_delayed,
             'received_remarks'      =>  $request->received_remarks,
+            'received_action'      =>  $request->received_action,
         ];
 
         $result             =   $model->findById($id);
@@ -246,6 +250,7 @@ class NoticeOfAwardController extends Controller
         $validator = Validator::make($request->all(),[
             'file'          =>   'required',
             'accepted_date' =>   'required',
+            'approved_action'=>   'required_with:approved_remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -268,6 +273,7 @@ class NoticeOfAwardController extends Controller
             'file'              =>  '',
             'approved_days'     =>  $day_delayed,
             'approved_remarks'  =>  $request->approved_remarks,
+            'approved_action'  =>  $request->approved_action,
         ];
 
         if($request->file)

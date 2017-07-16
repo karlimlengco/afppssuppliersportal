@@ -62,6 +62,7 @@ class BlankRFQEloquent extends Model implements  AuditableContract
 
         'status',
         'remarks',
+        'action',
         'processed_by',
 
         'awarded_to',
@@ -73,6 +74,7 @@ class BlankRFQEloquent extends Model implements  AuditableContract
 
         'close_days',
         'close_remarks',
+        'close_action',
     ];
 
     /**

@@ -30,7 +30,6 @@ class CreatePhilgepsPosting extends Migration
             $table->string('action')->nullable();
             $table->integer('days')->nullable();
 
-            $table->string('newspaper')->nullable();
             $table->timestamps();
         });
     }

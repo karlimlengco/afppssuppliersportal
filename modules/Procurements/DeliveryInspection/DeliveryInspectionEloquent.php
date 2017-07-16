@@ -57,6 +57,8 @@ class DeliveryInspectionEloquent extends Model implements  AuditableContract
         'close_days',
         'remarks',
         'close_remarks',
+        'action',
+        'close_action',
     ];
 
     /**

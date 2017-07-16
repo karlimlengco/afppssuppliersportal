@@ -21,6 +21,7 @@ class BlankRFQRequest extends BaseRequest
 
         'status',
         'remarks',
+        'action',
         'processed_by',
 
         'awarded_to',
@@ -31,6 +32,7 @@ class BlankRFQRequest extends BaseRequest
         'days',
         'close_days',
         'close_remarks',
+        'close_action',
     ];
 
     /**

@@ -131,7 +131,8 @@ class BlankRFQController extends Controller
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'transaction_date'  =>  'required'
+            'transaction_date'  =>  'required',
+            'action'            =>  'required_with:remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -282,7 +283,8 @@ class BlankRFQController extends Controller
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'completed_at'  =>  'required'
+            'completed_at'      =>  'required',
+            'close_action'      =>  'required_with:close_remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -312,6 +314,7 @@ class BlankRFQController extends Controller
             'status'        => 'closed',
             'completed_at'  => $request->completed_at,
             'close_remarks' => $request->close_remarks,
+            'close_action'  => $request->close_action,
             'close_days'    => $day_delayed,
             ], $request->rfq_id);
 

@@ -156,6 +156,7 @@ class NoticeToProceedController extends Controller
 
         $validator = Validator::make($request->all(),[
             'preparared_date'   => 'required',
+            'action'   => 'required_with:remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -184,7 +185,8 @@ class NoticeToProceedController extends Controller
             'proponent_id'      =>  $noa_model->proponent_id,
             'status'            =>  'pending',
             'days'              =>  $day_delayed,
-            'remarks'           =>  $request->remarks
+            'remarks'           =>  $request->remarks,
+            'action'           =>  $request->action
         ];
 
 
@@ -301,6 +303,7 @@ class NoticeToProceedController extends Controller
         $validator = Validator::make($request->all(),[
             'received_by'           =>  'required',
             'award_accepted_date'   =>  'required',
+            'accepted_action'   =>  'required_with:accepted_remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -323,6 +326,7 @@ class NoticeToProceedController extends Controller
             'award_accepted_date'   =>  $request->award_accepted_date,
             'status'                =>  "Accepted",
             'accepted_remarks'      =>  $request->accepted_remarks,
+            'accepted_action'       =>  $request->accepted_action,
             'accepted_days'         =>  $day_delayed
         ];
 

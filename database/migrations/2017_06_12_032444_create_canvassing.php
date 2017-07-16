@@ -29,6 +29,7 @@ class CreateCanvassing extends Migration
             $table->string('update_remarks')->nullable();
             $table->integer('days')->nullable();
             $table->text('remarks')->nullable();
+            $table->text('action')->nullable();
             $table->text('resolution')->nullable();
             $table->timestamps();
         });

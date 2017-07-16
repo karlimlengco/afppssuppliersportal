@@ -44,6 +44,7 @@ class ISPQEloquent extends Model implements  AuditableContract
         'prepared_by',
         'update_remarks',
         'remarks',
+        'action',
     ];
 
     /**

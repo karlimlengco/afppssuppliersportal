@@ -17,7 +17,7 @@ class CreateDeliveryInspection extends Migration
             $table->increments('id');
             $table->integer('dr_id');
             $table->integer('upr_id');
-            $table->integer('rfq_id');
+            $table->integer('rfq_id')->nullable();
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
             $table->string('status')->nullable();
@@ -33,6 +33,8 @@ class CreateDeliveryInspection extends Migration
             $table->integer('close_days')->nullable();
             $table->text('remarks')->nullable();
             $table->text('close_remarks')->nullable();
+            $table->text('action')->nullable();
+            $table->text('close_action')->nullable();
 
 
             $table->integer('received_by')->nullable();

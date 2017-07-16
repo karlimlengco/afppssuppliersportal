@@ -40,6 +40,11 @@ Notice Of Delivery
                 </div>
             </div>
             <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('delivery_action', 'Action', null, ['rows'=>3]) !!}
+                </div>
+            </div>
+            <div class="row">
 
 
             </div>

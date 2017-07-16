@@ -134,7 +134,8 @@ class ISPQController extends Controller
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'canvassing_date'  =>  'required'
+            'canvassing_date'  =>  'required',
+            'action'            => 'required_with:remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -172,6 +173,7 @@ class ISPQController extends Controller
             'canvassing_date'   =>  $request->get('canvassing_date'),
             'canvassing_time'   =>  $request->get('canvassing_time'),
             'remarks'           =>  $request->get('remarks'),
+            'action'            =>  $request->get('action'),
         ];
 
         $upr->update(['status' => 'Invitation Created', 'delay_count' => $day_delayed + $upr_model->delay_count], $upr_model->id);

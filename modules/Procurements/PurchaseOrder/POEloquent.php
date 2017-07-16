@@ -82,6 +82,12 @@ class POEloquent extends Model implements  AuditableContract
         'mfo_days',
         'coa_days',
         'coa_remarks',
+
+        'action',
+        'funding_action',
+        'mfo_action',
+        'coa_action',
+
     ];
 
     /**

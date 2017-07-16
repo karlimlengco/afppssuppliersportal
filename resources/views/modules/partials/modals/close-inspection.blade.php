@@ -16,6 +16,7 @@
                     </div>
                 </div>
                 {!! Form::textareaField('close_remarks', 'Remarks', null, ['rows' => 3]) !!}
+                {!! Form::textareaField('close_action', 'Action', null, ['rows' => 3]) !!}
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="_method" type="hidden" value="POST">
             </div>

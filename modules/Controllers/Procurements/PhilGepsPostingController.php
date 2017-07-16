@@ -131,7 +131,8 @@ class PhilGepsPostingController extends Controller
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'transaction_date'  =>  'required'
+            'transaction_date'  =>  'required',
+            'action'            =>  'required_with:remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {

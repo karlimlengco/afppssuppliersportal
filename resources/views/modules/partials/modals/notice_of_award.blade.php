@@ -15,6 +15,7 @@
                 {!! Form::selectField('seconded_by', 'Seconded By', $current_signs)!!}
 
                 {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => '4']) !!}
+                {!! Form::textareaField('action', 'Action', null, ['rows' => '4']) !!}
 
                 {{-- {!! Form::textareaField('resolution', 'Resolution', "That after reading the price quotation submitted of the proponent for RFQ NUMBER  PERSONNEL moved PROPONENT be declared as the winner for having the lowest price among other bidder. PERSONNEL seconded it. Since no objection was raised, the Chairman declared PROPONENT as the winner.", ['rows' => '4']) !!} --}}
 

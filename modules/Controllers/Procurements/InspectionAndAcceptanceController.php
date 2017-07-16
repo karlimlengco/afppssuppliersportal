@@ -85,7 +85,8 @@ class InspectionAndAcceptanceController extends Controller
         }, $transaction_date);
 
         $validator = Validator::make($request->all(),[
-            'accepted_date'       => 'required'
+            'accepted_date'       => 'required',
+            'accept_action'            => 'required_with:accept_remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -107,7 +108,8 @@ class InspectionAndAcceptanceController extends Controller
             'status'            =>  'Accepted',
             'accepted_by'       =>  \Sentinel::getUser()->id,
             'accept_days'       =>  $day_delayed,
-            'accept_remarks'    =>  $request->accept_remarks
+            'accept_remarks'    =>  $request->accept_remarks,
+            'accept_action'    =>  $request->accept_action
         ];
 
         $result =   $model->update($inputs, $id);
@@ -204,7 +206,8 @@ class InspectionAndAcceptanceController extends Controller
         }, $transaction_date);
 
         $validator = Validator::make($request->all(),[
-            'inspection_date'       => 'required'
+            'inspection_date'       => 'required',
+            'action'       => 'required_with:remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -229,6 +232,7 @@ class InspectionAndAcceptanceController extends Controller
             'recommendation'    =>  $request->recommendation,
             'findings'          =>  $request->findings,
             'remarks'           =>  $request->remarks,
+            'action'           =>  $request->action,
             'days'              =>  $day_delayed,
         ];
 

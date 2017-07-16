@@ -116,6 +116,7 @@ class PurchaseOrderController extends Controller
         $validator = Validator::make($request->all(),[
             'file'              => 'required',
             'coa_approved_date' => 'required',
+            'coa_action'        => 'required_with:coa_remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -142,6 +143,7 @@ class PurchaseOrderController extends Controller
             'coa_approved'      =>  \Sentinel::getUser()->id,
             'status'            =>  'COA Approved',
             'coa_remarks'       => $request->coa_remarks,
+            'coa_action'       => $request->coa_action,
             'coa_days'          => $day_delayed,
         ];
 
@@ -186,6 +188,7 @@ class PurchaseOrderController extends Controller
         $validator = Validator::make($request->all(),[
             'mfo_released_date' =>  'required',
             'mfo_received_date' =>  'required',
+            'mfo_action'        =>  'required_with:mfo_remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -207,6 +210,7 @@ class PurchaseOrderController extends Controller
             'mfo_released_date' => $request->mfo_released_date,
             'mfo_received_date' => $request->mfo_received_date,
             'mfo_remarks'       => $request->mfo_remarks,
+            'mfo_action'       => $request->mfo_action,
             'mfo_days'          => $day_delayed,
         ];
 
@@ -251,6 +255,7 @@ class PurchaseOrderController extends Controller
         $validator = Validator::make($request->all(),[
             'funding_released_date' =>  'required',
             'funding_received_date' =>  'required',
+            'funding_action' =>  'required_with:funding_remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -271,6 +276,7 @@ class PurchaseOrderController extends Controller
             'funding_released_date' => $request->funding_released_date,
             'funding_received_date' => $request->funding_received_date,
             'funding_remarks'       => $request->funding_remarks,
+            'funding_action'       => $request->funding_action,
             'funding_days'          => $day_delayed
         ];
 
@@ -366,6 +372,7 @@ class PurchaseOrderController extends Controller
             'purchase_date'     => 'required',
             'payment_term'      => 'required',
             'delivery_terms'    => 'required|integer',
+            'action'            => 'required_with:remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -387,6 +394,7 @@ class PurchaseOrderController extends Controller
             'purchase_date' =>  $request->purchase_date,
             'payment_term'  =>  $request->payment_term,
             'delivery_terms'=>  $request->delivery_terms,
+            'action'       =>  $request->action,
             'remarks'       =>  $request->remarks,
             'days'          =>  $day_delayed
         ];

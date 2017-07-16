@@ -42,6 +42,12 @@ Inspection And Acceptance Report
                     {!! Form::textareaField('remarks', 'Remarks', null, ['rows'=>3]) !!}
                 </div>
             </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('action', 'Action', null, ['rows'=>3]) !!}
+                </div>
+            </div>
     </div>
 </div>
 

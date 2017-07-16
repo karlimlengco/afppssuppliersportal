@@ -12,6 +12,11 @@
             <div class="modal__dialogue__body">
                 {!!Form::textField('preaudit_date', 'PreAudit Date')!!}
                 {!!Form::textareaField('preaudit_remarks', 'Remarks', null, ['rows' => '3'])!!}
+                <div class="row">
+                    <div class="twelve columns">
+                        {!! Form::textareaField('preaudit_action', 'Actions', null, ['rows'=>3]) !!}
+                    </div>
+                </div>
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <input name="_method" type="hidden" value="POST">
             </div>

@@ -65,6 +65,10 @@ class DeliveryOrderEloquent extends Model implements  AuditableContract
         'delivery_remarks',
         'dr_coa_days',
         'dr_coa_remarks',
+
+        'action',
+        'delivery_action',
+        'dr_coa_action',
     ];
 
 

@@ -44,6 +44,11 @@
                         {!! Form::textareaField('remarks', 'Remarks', null, ['rows'=>3]) !!}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="twelve columns">
+                        {!! Form::textareaField('action', 'Action', null, ['rows'=>3]) !!}
+                    </div>
+                </div>
                 @if($data->rfq)
                 <input name="rfq_id" type="hidden" value="{{ $data->rfq->id }}">
                 @endif

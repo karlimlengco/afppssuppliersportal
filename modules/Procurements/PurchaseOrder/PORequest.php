@@ -35,6 +35,9 @@ class PORequest extends BaseRequest
         'mfo_remarks',
         'update_remarks',
         'coa_remarks',
+        'action',
+        'funding_action',
+        'coa_action',
     ];
 
     /**

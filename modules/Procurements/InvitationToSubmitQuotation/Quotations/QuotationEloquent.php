@@ -27,6 +27,7 @@ class QuotationEloquent extends Model
         'description',
         'total_amount',
         'canvassing_date',
+        'action',
         'canvassing_time',
         'upr_number',
         'rfq_number',
