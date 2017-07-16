@@ -4,6 +4,11 @@
         <link rel="stylesheet" href="{{base_path('fonts/Nunito_Sans/css/nunitosans.css')}}">
         <link rel="stylesheet" href="{{base_path('public/css/main.css')}}">
 
+        <style type="text/css">
+            body{
+                margin:0;
+            }
+        </style>
     </head>
 
     <body>
@@ -63,7 +68,7 @@
                                         <td>{{$key+1}}</td>
                                         <td>{{$item->quantity}}</td>
                                         <td>{{$item->unit_measurement}}</td>
-                                        <td>{{$item->item_description}}</td>
+                                        <td style="text-align:left">{{$item->item_description}}</td>
                                         <td></td>
                                         <td></td>
                                     </tr>
@@ -89,7 +94,7 @@
                             <tr>
                                 <td class="signatory align-center v-align-bottom" width="45%" height="10px"></td>
                                 <td class="signatory align-center" width="10%"></td>
-                                <td class="signatory align-center v-align-bottom" width="45%" height="10px">Full Name</td>
+                                <td class="signatory align-center v-align-bottom" width="45%" height="10px"></td>
                             </tr>
                             <tr>
                                 <td class="signatory align-center" width="45%"></td>
@@ -101,7 +106,7 @@
                             <tr>
                                 <td class="signatory align-center v-align-bottom" width="45%" height="30px"></td>
                                 <td class="signatory align-center" width="10%"></td>
-                                <td class="signatory align-center v-align-bottom" width="45%" height="30px">Data</td>
+                                <td class="signatory align-center v-align-bottom" width="45%" height="30px"></td>
                             </tr>
                             <tr>
                                 <td class="signatory align-center" width="45%"></td>
@@ -113,7 +118,7 @@
                             <tr>
                                 <td class="signatory align-center v-align-bottom" width="45%" height="30px"></td>
                                 <td class="signatory align-center" width="10%"></td>
-                                <td class="signatory align-center v-align-bottom" width="45%" height="30px">Data</td>
+                                <td class="signatory align-center v-align-bottom" width="45%" height="30px"></td>
                             </tr>
                             <tr>
                                 <td class="signatory align-center" width="45%"></td>
@@ -125,7 +130,7 @@
                             <tr>
                                 <td class="signatory align-center v-align-bottom" width="45%" height="30px"></td>
                                 <td class="signatory align-center" width="10%"></td>
-                                <td class="signatory align-center v-align-bottom" width="45%" height="30px">XXX-XXXX / XXXX-XXX-XXXX</td>
+                                <td class="signatory align-center v-align-bottom" width="45%" height="30px"></td>
                             </tr>
                             <tr>
                                 <td class="signatory align-center" width="45%"></td>
@@ -149,7 +154,7 @@
                         </table>
                     </div>
                     <!-- form footer -->
-                    <div class="printable-form__foot">
+                  {{--   <div class="printable-form__foot">
                         <table class="printable-form__foot__table">
                             <tr>
                                 <td colspan="2">
@@ -167,7 +172,7 @@
                                 </td>
                             </tr>
                         </table>
-                    </div>
+                    </div> --}}
                 </div>
 
             </div>
