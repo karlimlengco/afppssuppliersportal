@@ -72,3 +72,11 @@ $(document).on('click', '.show-grand-child-table', function(e){
     $(this).parents('tr').next().find('.has-child').first().toggleClass('is-open');
     $(this).parents('tr').next().find('.grand-child-table').toggleClass('is-visible');
 })
+
+
+$(document).on('click', '.show-great-grand-child-table', function(e){
+// $('.show-great-grand-child-table').click(function(){
+    $(this).children('i').toggleClass('ui-1_circle-add ui-1_circle-delete');
+    $(this).parents('tr').next().find('.has-child').first().toggleClass('is-open');
+    $(this).parents('tr').next().find('.great-grand-child-table').toggleClass('is-visible');
+})

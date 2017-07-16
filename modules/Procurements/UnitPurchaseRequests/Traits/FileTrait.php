@@ -77,7 +77,7 @@ trait FileTrait
         $data['charge']             =  $result->charges->name;
         $data['codes']              =  $result->accounts->name;
         $data['fund_validity']      =  $result->fund_validity;
-        $data['terms']              =  $result->terms->name;
+        $data['terms']              =  ($result->terms) ? $result->terms->name : "N/A";
         $data['other_infos']        =  $result->other_infos;
         $data['items']              =  $result->items;
         $data['purpose']            =  $result->purpose;

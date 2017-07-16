@@ -11,6 +11,7 @@ use Auth;
 use \Revlv\Settings\Units\UnitRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
+use \Revlv\Settings\ProcurementCenters\ProcurementCenterRepository;
 
 class UPRController extends Controller
 {
@@ -23,6 +24,7 @@ class UPRController extends Controller
     protected $blankRfq;
     protected $model;
     protected $units;
+    protected $centers;
 
 
     /**
@@ -33,6 +35,32 @@ class UPRController extends Controller
         parent::__construct();
     }
 
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getPrograms(ProcurementCenterRepository $model, $type = null)
+    {
+        return $model->getPrograms(null, $type);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCenters($program, ProcurementCenterRepository $model, $type = null)
+    {
+        $items      =   $model->getCenters($program,  $type);
+
+        $response   = [
+            'program' => $program,
+            'data' => $items
+        ];
+
+        return $response;
+    }
 
     /**
      * Display a listing of the resource.
@@ -60,6 +88,26 @@ class UPRController extends Controller
             'data' => $items
         ];
 
+        return $response;
+    }
+
+    /**
+     * [getUnits description]
+     *
+     * @param  [type]                        $center [description]
+     * @param  UnitPurchaseRequestRepository $model  [description]
+     * @param  [type]                        $type   [description]
+     * @return [type]                                [description]
+     */
+    public function getUnits($programs, $center, UnitPurchaseRequestRepository $model, $type = null)
+    {
+        $items      =   $model->getUnits($center, $programs,  $type);
+
+        $response   = [
+            'program' => $programs,
+            'center'  => $center,
+            'data' => $items
+        ];
         return $response;
     }
 

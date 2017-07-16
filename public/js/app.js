@@ -1825,6 +1825,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var arrayIDs = [];
@@ -1835,6 +1874,7 @@ var array2IDs = [];
             items: [],
             itemProgram: [],
             itemProgramCenters: [],
+            itemUnits: [],
             types: "alternative"
         };
     },
@@ -1852,7 +1892,9 @@ var array2IDs = [];
         fetchUprAnalytics: function fetchUprAnalytics(type) {
             var _this = this;
 
-            axios.get('/reports/upr-programs/' + type).then(function (response) {
+            axios.get('/reports/programs/' + type)
+            // axios.get('/reports/upr-programs/'+type)
+            .then(function (response) {
                 _this.items = response.data;
             }).catch(function (e) {
                 console.log(e);
@@ -1867,11 +1909,21 @@ var array2IDs = [];
                 console.log(e);
             });
         },
-        fetchUPRs: function fetchUPRs(program, center) {
+        fetchUnits: function fetchUnits(program, center) {
             var _this3 = this;
 
+            axios.get('/reports/units/' + program + '/' + center + '/' + this.types).then(function (response) {
+                _this3.itemUnits.push(response.data);
+            }).catch(function (e) {
+                console.log(e);
+            });
+        },
+        fetchUPRs: function fetchUPRs(program, center) {
+            var _this4 = this;
+
             axios.get('/reports/uprs/' + program + '/' + center + '/' + this.types).then(function (response) {
-                _this3.itemProgramCenters.push(response.data);
+                _this4.itemProgramCenters.push(response.data);
+                console.log(_this4.itemProgramCenters);
             }).catch(function (e) {
                 console.log(e);
             });
@@ -1891,13 +1943,16 @@ var array2IDs = [];
             this.fetchUprAnalytics(type);
         },
         clickItemProgramCenter: function clickItemProgramCenter(item) {
-            // if( array2IDs.indexOf(item.programs) == -1 )
+            this.fetchUnits(item.programs, item.name);
+        },
+        clickItemUnit: function clickItemUnit(item) {
+            console.log(item.name);
+            // if( array2IDs.indexOf(item.short_code) == -1 )
             // {
-            // if(array2IDs[item.programs] != item.name)
+            // if(array2IDs[item.short_code] != item.short_code)
             // {
-            console.log('asd');
-            array2IDs[item.programs] = item.name;
-            this.fetchUPRs(item.programs, item.name);
+            array2IDs[item.short_code] = item.short_code;
+            this.fetchUPRs(item.short_code, item.name);
             // }
             // }
         }
@@ -32064,15 +32119,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "tooltip": "Delay"
       }
     }, [_vm._v("(" + _vm._s(item.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (item.avg_delays >= 0) ? _c('td') : _vm._e(), _vm._v(" "), (item.avg_delays < 0) ? _c('td') : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgram), function(itemProg) {
-      return [(itemProg.program == item.programs) ? _vm._l((itemProg.data), function(itemProgData) {
-        return _c('tr', [_c('td', {
-          staticClass: "has-child",
-          attrs: {
-            "colspan": "8"
-          }
-        }, [_c('table', {
-          staticClass: "child-table table-name"
-        }, [_c('tbody', [_c('tr', [_c('td', [_vm._v("\n                                                    " + _vm._s(itemProgData.name) + "\n                                                    "), _c('button', {
+      return [(itemProg.program == item.programs) ? [_c('tr', [_c('td', {
+        staticClass: "has-child",
+        attrs: {
+          "colspan": "8"
+        }
+      }, [_c('table', {
+        staticClass: "child-table table-name"
+      }, [_c('tbody', [_vm._l((itemProg.data), function(itemProgData) {
+        return [_c('tr', [_c('td', [_c('button', {
           staticClass: "show-grand-child-table",
           on: {
             "click": function($event) {
@@ -32081,7 +32136,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }, [_c('i', {
           staticClass: "nc-icon-mini ui-1_circle-add"
-        })])]), _vm._v(" "), _c('td', [_c('span', {
+        })]), _vm._v("\n                                                        " + _vm._s(itemProgData.name) + "\n                                                    ")]), _vm._v(" "), _c('td', [_c('span', {
           attrs: {
             "tooltip": "Total"
           }
@@ -32100,55 +32155,101 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           attrs: {
             "tooltip": "Delay"
           }
-        }, [_vm._v("(" + _vm._s(itemProgData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (itemProgData.avg_delays >= 0) ? _c('td') : _vm._e(), _vm._v(" "), (itemProgData.avg_delays < 0) ? _c('td') : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemProgramCenters), function(itemProgCent) {
-          return [(itemProgCent.program == item.programs) ? [(itemProgCent.center == itemProgData.name) ? [_c('tr', [_c('td', {
+        }, [_vm._v("(" + _vm._s(itemProgData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (itemProgData.avg_delays >= 0) ? _c('td') : _vm._e(), _vm._v(" "), (itemProgData.avg_delays < 0) ? _c('td') : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemUnits), function(itemUnit) {
+          return [(itemUnit.program == item.programs) ? [(itemUnit.center == itemProgData.name) ? [_c('tr', [_c('td', {
             staticClass: "has-child",
             attrs: {
               "colspan": "8"
             }
           }, [_c('table', {
             staticClass: "grand-child-table table-name"
-          }, [_c('tbody', _vm._l((itemProgCent.data), function(itemProgCentData) {
-            return _c('tr', [_c('td', [_vm._v(_vm._s(itemProgCentData.upr_number) + " "), _c('small', {
-              staticStyle: {
-                "display": "block"
+          }, [_c('tbody', [_vm._l((itemUnit.data), function(itemUnitData) {
+            return _c('tr', [_c('td', [_vm._v("\n                                                                                    " + _vm._s(itemUnitData.short_code) + "\n\n                                                                                    "), _c('button', {
+              staticClass: "show-great-grand-child-table",
+              on: {
+                "click": function($event) {
+                  _vm.clickItemUnit(itemUnitData)
+                }
               }
-            }, [_c('a', {
-              attrs: {
-                "target": "_blank",
-                "href": '/procurements/unit-purchase-requests/timelines/' + itemProgCentData.id
-              }
-            }, [_vm._v("(" + _vm._s(itemProgCentData.project_name) + ")")])])]), _vm._v(" "), _c('td', [_c('span', {
+            }, [_c('i', {
+              staticClass: "nc-icon-mini ui-1_circle-add"
+            })])]), _vm._v(" "), _c('td', [_c('span', {
               attrs: {
                 "tooltip": "Total"
               }
-            }, [_vm._v(_vm._s(itemProgCentData.upr_count))]), _vm._v(" "), _c('span', {
-              staticClass: "blue",
+            }, [_vm._v(_vm._s(itemUnitData.upr_count))]), _vm._v(" "), _c('span', {
               attrs: {
                 "tooltip": "Completed"
               }
-            }, [_vm._v("(" + _vm._s(itemProgCentData.completed_count) + ")")]), _vm._v(" "), _c('span', {
+            }, [_vm._v("(" + _vm._s(itemUnitData.completed_count) + ")")]), _vm._v(" "), _c('span', {
               staticClass: "green",
               attrs: {
                 "tooltip": "Ongoing"
               }
-            }, [_vm._v("(" + _vm._s(itemProgCentData.ongoing_count) + ")")]), _vm._v(" "), _c('span', {
+            }, [_vm._v("(" + _vm._s(itemUnitData.ongoing_count) + ")")]), _vm._v(" "), _c('span', {
               staticClass: "red",
               attrs: {
                 "tooltip": "Delay"
               }
-            }, [_vm._v("(" + _vm._s(itemProgCentData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.delay))]), _vm._v(" "), (itemProgCentData.status != 'pending') ? _c('td', {
+            }, [_vm._v("(" + _vm._s(itemUnitData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), (itemUnitData.status != 'pending') ? _c('td', {
               staticStyle: {
                 "text-align": "left"
               }
-            }, [_vm._v(_vm._s(itemProgCentData.status))]) : _c('td', {
+            }) : _c('td', {
               staticStyle: {
                 "text-align": "left"
               }
-            }, [_vm._v("UPR Processing")])])
-          }))])])])] : _vm._e()] : _vm._e()]
-        })], 2)])])])
-      }) : _vm._e()]
+            })])
+          }), _vm._v(" "), _vm._l((_vm.itemProgramCenters), function(itemProgCent) {
+            return [(itemProgCent.center == itemProgData.name) ? [_c('tr', [_c('td', {
+              staticClass: "has-child",
+              attrs: {
+                "colspan": "8"
+              }
+            }, [_c('table', {
+              staticClass: "great-grand-child-table table-name"
+            }, [_c('tbody', _vm._l((itemProgCent.data), function(itemProgCentData) {
+              return _c('tr', [_c('td', [_vm._v(_vm._s(itemProgCentData.upr_number) + " "), _c('small', {
+                staticStyle: {
+                  "display": "block"
+                }
+              }, [_c('a', {
+                attrs: {
+                  "target": "_blank",
+                  "href": '/procurements/unit-purchase-requests/timelines/' + itemProgCentData.id
+                }
+              }, [_vm._v("(" + _vm._s(itemProgCentData.project_name) + ")")])])]), _vm._v(" "), _c('td', [_c('span', {
+                attrs: {
+                  "tooltip": "Total"
+                }
+              }, [_vm._v(_vm._s(itemProgCentData.upr_count))]), _vm._v(" "), _c('span', {
+                staticClass: "blue",
+                attrs: {
+                  "tooltip": "Completed"
+                }
+              }, [_vm._v("(" + _vm._s(itemProgCentData.completed_count) + ")")]), _vm._v(" "), _c('span', {
+                staticClass: "green",
+                attrs: {
+                  "tooltip": "Ongoing"
+                }
+              }, [_vm._v("(" + _vm._s(itemProgCentData.ongoing_count) + ")")]), _vm._v(" "), _c('span', {
+                staticClass: "red",
+                attrs: {
+                  "tooltip": "Delay"
+                }
+              }, [_vm._v("(" + _vm._s(itemProgCentData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.delay))]), _vm._v(" "), (itemProgCentData.status != 'pending') ? _c('td', {
+                staticStyle: {
+                  "text-align": "left"
+                }
+              }, [_vm._v(_vm._s(itemProgCentData.status))]) : _c('td', {
+                staticStyle: {
+                  "text-align": "left"
+                }
+              }, [_vm._v("UPR Processing")])])
+            }))])])])] : _vm._e()]
+          })], 2)])])])] : _vm._e()] : _vm._e()]
+        })]
+      })], 2)])])])] : _vm._e()]
     })]
   })], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;

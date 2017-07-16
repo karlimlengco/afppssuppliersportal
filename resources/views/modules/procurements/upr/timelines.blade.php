@@ -444,6 +444,7 @@ Unit Purchase Request
                     </td>
                     <td>1</td>
                     <td>
+                    @if(isset($ntp_date))
                         @if($data->ntp_award_date != null)
                             {{ $data->ntp_accepted_days }}
                             <?php $totalDays +=  $data->ntp_accepted_days ; ?>
@@ -455,6 +456,7 @@ Unit Purchase Request
 
                             {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ntp_date )}}
                         @endif
+                    @endif
                     </td>
                     <td>{{$data->ntp_accepted_remarks}}</td>
                 </tr>

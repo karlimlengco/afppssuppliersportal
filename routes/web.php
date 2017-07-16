@@ -32,6 +32,9 @@ Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
     Route::get('uprs/{programs}/{centers}/{type}', '\Revlv\Controllers\Reports\UPRController@getUprs')->name('reports.uprs');
     Route::get('upr-centers/{id}/{type}', '\Revlv\Controllers\Reports\UPRController@getUprCenters')->name('reports.upr-centers');
     Route::get('upr-programs/{type}', '\Revlv\Controllers\Reports\UPRController@getUprPrograms')->name('reports.upr-analytics');
+    Route::get('programs/{type}', '\Revlv\Controllers\Reports\UPRController@getPrograms')->name('reports.programs');
+    Route::get('centers/{id}/{type}', '\Revlv\Controllers\Reports\UPRController@getCenters')->name('reports.centers');
+    Route::get('units/{programs}/{id}/{type}', '\Revlv\Controllers\Reports\UPRController@getUnits')->name('reports.units');
 });
 
 /*
