@@ -65,7 +65,7 @@
                             <tbody>
                                 @foreach($data['items'] as $key => $item)
                                     <tr>
-                                        <td>{{$key+1}}</td>
+                                        <td style="text-align:center">{{$key+1}}</td>
                                         <td>{{$item->quantity}}</td>
                                         <td>{{$item->unit_measurement}}</td>
                                         <td style="text-align:left">{{$item->item_description}}</td>
