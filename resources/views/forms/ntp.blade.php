@@ -38,7 +38,8 @@
                 <!-- form content -->
                 <div class="printable-form__body">
                     <span class="printable-form__body__title">Notice to Proceed</span>
-                    <p>{{$data['transaction_date']}}</p>
+                    <p>
+                    {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['transaction_date'])->format('d F Y')}}
                     <p>
                         {{$data['supplier']->owner}}<br>
                         {{$data['supplier']->name}}<br>

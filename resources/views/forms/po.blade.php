@@ -68,7 +68,7 @@
                                         </td>
                                         <td class="align-left" width="25%">
                                             <span class="label">Date</span>
-                                            {{$data['purchase_date']}}
+                                            {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['purchase_date'])->format('d F Y')}}
                                         </td>
                                         <td class="align-left" width="25%">
                                             <span class="label">Proc Mode</span>
@@ -142,6 +142,9 @@
                 <p>In case of failure to make the full delivery within the time specified above, a penalty of one-tenth (1/10) of one percent (1%) for every day of delay shall be imposed. </p>
 
             </div>
+            <br>
+            <br><br>
+            <br>
 
             <div class="printable-form">
 

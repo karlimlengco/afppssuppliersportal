@@ -45,7 +45,8 @@
                                 </td>
                                 <td class="align-left">
                                     <span class="label">Date</span>
-                                    {{$data['transaction_date']}}
+
+                                {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['transaction_date'])->format('d F Y')}}
                                 </td>
                             </tr>
                             <tr>

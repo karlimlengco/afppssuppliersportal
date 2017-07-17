@@ -25,7 +25,7 @@
                         <tr>
                             <td class="align-left" width="20%">
                                 <span class="label">Date</span>
-                                {{$data['inspection_date']}}
+                                {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['inspection_date'])->format('d F Y')}}
                             </td>
                             <td class="align-left" width="20%">
                                 <span class="label">Supplier</span>

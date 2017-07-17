@@ -43,7 +43,7 @@
                                 </td>
                                 <td class="align-left" width="33.333%">
                                     <span class="label">Date Prepared</span>
-                                    {{$data['date_prepared']}}
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['date_prepared'])->format('d F Y') }}
                                 </td>
                             </tr>
                             <tr>
@@ -84,16 +84,16 @@
                                 <td class="has-child" colspan="3">
                                     <table class="child-table">
                                         <tr>
-                                            <td class="head"  width="10%"> Item No </td>
+                                            <td style="text-align:center" class="head"  width="10%"> Item No </td>
                                             <td class="head"  width="30%">Item Description</td>
                                             <td class="head"  width="10%">Quantity</td>
                                             <td class="head"  width="10%">Unit</td>
                                             <td class="head"  width="10%">Unit Price</td>
-                                            <td class="head"  width="10%">Amount</td>
+                                            <td  style="text-align:center" class="head"  width="10%">Amount</td>
                                         </tr>
                                         @foreach($data['items'] as $key => $item)
                                         <tr>
-                                            <td>{{$key + 1}}</td>
+                                            <td style="text-align:center">{{$key + 1}}</td>
                                             <td style="text-align:left">{{$item->item_description}}</td>
                                             <td>{{$item->quantity}}</td>
                                             <td>{{$item->unit_measurement}}</td>

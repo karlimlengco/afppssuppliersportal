@@ -46,7 +46,7 @@
                                 </td>
                                 <td class="align-left" width="33.333%">
                                     <span class="label">Date and Time</span>
-                                    {{$data['date']}}
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['date'])->format('d F Y')}}
                                 </td>
                             </tr>
                             <tr>

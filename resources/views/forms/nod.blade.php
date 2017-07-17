@@ -28,7 +28,9 @@
                 <!-- form content -->
                 <div class="printable-form__body">
                     <span class="printable-form__body__title">Notice of Delivery / Request for Inspection</span>
-                    <p>{{$data['transaction_date']}}</p>
+                    <p>
+
+                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['transaction_date'])->format('d F Y')}}</p>
                     <p>To: All Concerned</p>
                     <ol>
                         <li>Reference: Approved PURCHASE ORDER No.  {{$data['po_number']}}</li>

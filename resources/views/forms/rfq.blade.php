@@ -37,7 +37,7 @@
                         <table class="printable-form__body__table
                                       printable-form__body__table--layout">
                             <tr>
-                                <td class="align-left" width="50%">{{$data['transaction_date']}}</td>
+                                <td class="align-left" width="50%">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['transaction_date'])->format('d F Y')}}</td>
                                 <td class="align-right" width="50%">RFQ No: {{$data['rfq_number']}}</td>
                             </tr>
                         </table>
