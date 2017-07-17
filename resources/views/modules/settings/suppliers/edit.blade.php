@@ -5,6 +5,7 @@ Suppliers
 @section('modal')
     @include('modules.partials.modals.delete')
     @include('modules.partials.modals.accept')
+    @include('modules.partials.modals.blocked')
 @stop
 
 @section('contents')
@@ -28,80 +29,103 @@ Suppliers
         <i class="nc-icon-mini ui-2_disk"></i>
         </button>
 
-        <a href="" class="button" id="delete-button" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
+        <a href="#" class="button" id="delete-button" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
+
+        @if($data->is_blocked == 0)
+            <a href="#" class="button" id="blocked-button" tooltip="Blocked"><i class="nc-icon-mini ui-e_round-e-alert"></i></a>
+        @else
+            <a href="{{route('settings.suppliers.un-blocked', $data->id)}}" class="button" tooltip="Un Blocked"><i class="nc-icon-mini ui-1_check-circle-08"></i></a>
+        @endif
     </div>
 </div>
+
+
+@if($data->is_blocked == 1)
+    <div class="data-panel">
+        <div class="data-panel__section">
+            <ul class="data-panel__list">
+                <li class="data-panel__list__item">
+                    <strong class="data-panel__list__item__label">
+                    Date Blocked :
+                    </strong>
+                    {{$data->date_blocked}}
+                </li>
+                <li class="data-panel__list__item">
+                    <strong class="data-panel__list__item__label">
+                    Remarks :
+                    </strong>
+                    {{$data->blocked_remarks}}
+                </li>
+            </ul>
+        </div>
+    </div>
+@endif
 
 <div class="row">
     <div class="twelve columns">
 
             <div class="row">
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('name', 'Name') !!}
                 </div>
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('owner', 'Owner') !!}
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="six columns">
-                    {!! Form::textField('address', 'Address') !!}
-                </div>
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('tin', 'Tin') !!}
                 </div>
             </div>
 
             <div class="row">
-                <div class="six columns">
+                <div class="twelve columns">
+                    {!! Form::textareaField('address', 'Address', null,['rows'=>2]) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="four columns">
                     {!! Form::selectField('bank_id', 'Bank', $bank_lists) !!}
                 </div>
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('branch', 'Branch') !!}
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('account_number', 'Account Number') !!}
                 </div>
-                <div class="six columns">
-                    {!! Form::textField('account_type', 'Account Type') !!}
-                </div>
             </div>
 
             <div class="row">
-                <div class="six columns">
+                <div class="four columns">
+                    {!! Form::textField('account_type', 'Account Type') !!}
+                </div>
+                <div class="four columns">
                     {!! Form::textField('cell_1', 'Cell #') !!}
                 </div>
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('email_1', 'Email') !!}
                 </div>
             </div>
 
             <div class="row">
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('phone_1', 'Phone #') !!}
                 </div>
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('fax_1', 'Fax') !!}
                 </div>
-            </div>
-            <div class="row">
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('cell_2', 'Secondary Cell #') !!}
-                </div>
-                <div class="six columns">
-                    {!! Form::textField('email_2', 'Secondary Email') !!}
                 </div>
             </div>
 
             <div class="row">
-                <div class="six columns">
+                <div class="four columns">
+                    {!! Form::textField('email_2', 'Secondary Email') !!}
+                </div>
+                <div class="four columns">
                     {!! Form::textField('phone_2', 'Secondary Phone #') !!}
                 </div>
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('fax_2', 'Secondary Fax') !!}
                 </div>
             </div>
@@ -121,6 +145,11 @@ Suppliers
         $('#delete-modal').addClass('is-visible');
     })
 
+    $('#blocked-button').click(function(e){
+        e.preventDefault();
+        $('#blocked-modal').addClass('is-visible');
+    })
+
     $('#accept-button').click(function(e){
         e.preventDefault();
         $('#accept-modal').addClass('is-visible');
@@ -131,6 +160,14 @@ Suppliers
         var supplierId  = "{{$data->id}}";
         var form = document.getElementById('accept-form').action;
         document.getElementById('accept-form').action = "/settings/suppliers/accepts/"+supplierId;
+    });
+    var date_blocked = new Pikaday(
+    {
+        field: document.getElementById('id-field-date_blocked'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
     });
 </script>
 @stop

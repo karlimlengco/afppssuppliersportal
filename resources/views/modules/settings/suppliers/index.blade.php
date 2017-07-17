@@ -40,6 +40,7 @@ Suppliers
                     <th>Name</th>
                     <th>Owner</th>
                     <th>Address</th>
+                    <th>Status</th>
                     <th>Created</th>
                 </tr>
             </thead>
@@ -68,6 +69,7 @@ Suppliers
             {data: 'name', name: 'name'},
             {data: 'owner', name: 'owner'},
             {data: 'address', name: 'address'},
+            {data: 'is_blocked', name: 'is_blocked'},
             {data: 'created_at', name: 'created_at'},
         ],
         "fnInitComplete": function (oSettings, json) {

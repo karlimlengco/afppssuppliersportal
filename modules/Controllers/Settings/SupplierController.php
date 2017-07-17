@@ -197,6 +197,43 @@ class SupplierController extends Controller
     }
 
     /**
+     * [accepts description]
+     *
+     * @param  [type]             $id [description]
+     * @param  SupplierRepository $id [description]
+     * @return [type]                 [description]
+     */
+    public function blockedSupplier($id, Request $request, SupplierRepository $model)
+    {
+        $this->validate($request, [
+            'date_blocked'  => 'required',
+            'blocked_remarks'  => 'required',
+        ]);
+        $model->update(['is_blocked' => '1', 'date_blocked' => $request->date_blocked, 'blocked_remarks' => $request->blocked_remarks], $id);
+
+        return redirect()->route($this->baseUrl.'edit', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
+     * [accepts description]
+     *
+     * @param  [type]             $id [description]
+     * @param  SupplierRepository $id [description]
+     * @return [type]                 [description]
+     */
+    public function unblockedSupplier($id,  SupplierRepository $model)
+    {
+        $model->update(['is_blocked' => '0'], $id);
+
+        return redirect()->route($this->baseUrl.'edit', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

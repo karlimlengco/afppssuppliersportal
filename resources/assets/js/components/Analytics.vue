@@ -1,6 +1,19 @@
 <template>
 <div class=" ">
-    <h1>Procurement Status Monitoring</h1>
+    <div class="row">
+        <div class="six columns">
+            <h1>Procurement Status Monitoring</h1>
+        </div>
+        <div class="six columns align-right" >
+            <h3>UPR count Legends</h3>
+            <p>
+                <small style="border: 1px solid #222;background:#222; color:white; font-weight:800; padding:4px">Total</small>
+                <small style="border: 1px solid rgba(41, 128, 185,1.0);background:rgba(41, 128, 185,1.0); color:white; font-weight:800; padding:4px">Completed</small>
+                <small style="border: 1px solid #1d8147;background:#1d8147; color:white; font-weight:800; padding:4px">Ongoing</small>
+                <small style="border: 1px solid rgba(231, 76, 60,1.0);background:rgba(231, 76, 60,1.0); color:white; font-weight:800; padding:4px">Delay</small>
+            </p>
+        </div>
+    </div>
     <button class='button button-unfocus' v-bind:id="[ isActived  == 'alternative' ? 'button-focus' : '']" v-on:click="changeType('alternative')" >Alternative</button>
     <button class='button button-unfocus'  v-bind:id="[ isActived == 'bidding' ? 'button-focus' : '']" v-on:click="changeType('bidding')" >Bidding</button>
     <div class="table-scroll">
@@ -10,7 +23,7 @@
                     <th></th>
                     <th>
                         # UPR
-                        <small style="display:block " class="background-white"><span class=" black">total</span> <span class="blue ">(cmpltd)</span> <span class="green ">(ongoing)</span> <span class="red ">(delay)</span></small>
+                        <!-- <small style="display:block " class="background-white"><span class=" black">total</span> <span class="blue ">(cmpltd)</span> <span class="green ">(ongoing)</span> <span class="red ">(delay)</span></small> -->
                     </th>
                     <th>Total ABC</th>
                     <th>Approved Contract Amount</th>
@@ -158,6 +171,23 @@
                     <!-- child -->
 
                 </template>
+                <tr>
+                    <td>
+                        Total
+                    </td>
+                    <td>
+                        <span tooltip="Total" >{{total}}</span>
+                        <span tooltip="Completed" class="blue">({{total_completed}})</span>
+                        <span tooltip="Ongoing" class="green">({{total_ongoing}})</span>
+                        <span tooltip="Delay" class="red">({{total_delay}})</span>
+                    </td>
+                    <td>{{formatPrice(total_abc)}}</td>
+                    <td>{{formatPrice(total_bid)}}</td>
+                    <td>{{formatPrice(total_residual)}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
 
             </tbody>
         </table>
@@ -258,11 +288,63 @@ var array2IDs    =   [];
         },
         computed: {
             isActived: function () {
-                // if(this.types = 'alternative'){
-                    // return true;
-                // }
-                // return false;
                 return this.types
+            },
+            total: function(){
+                if(!this.items){
+                    return 0;
+                }
+                return this.items.reduce(function (total, value){
+                    return total +  Number(value.upr_count);
+                },0);
+            },
+            total_completed: function(){
+                if(!this.items){
+                    return 0;
+                }
+                return this.items.reduce(function (total, value){
+                    return total +  Number(value.completed_count);
+                },0);
+            },
+            total_ongoing: function(){
+                if(!this.items){
+                    return 0;
+                }
+                return this.items.reduce(function (total, value){
+                    return total +  Number(value.ongoing_count);
+                },0);
+            },
+            total_delay: function(){
+                if(!this.items){
+                    return 0;
+                }
+                return this.items.reduce(function (total, value){
+                    return total +  Number(value.delay_count);
+                },0);
+            },
+            total_abc: function(){
+                if(!this.items){
+                    return 0;
+                }
+                return this.items.reduce(function (total, value){
+                    return total +  Number(value.total_abc);
+                },0);
+            },
+            total_bid: function(){
+                if(!this.items){
+                    return 0;
+                }
+                return this.items.reduce(function (total, value){
+                    return total +  Number(value.total_bid);
+                },0);
+            },
+            total_residual: function(){
+                if(!this.items){
+                    return 0;
+                }
+                return this.items.reduce(function (total, value){
+                    return total +  Number(value.total_residual);
+                },0);
             }
         }
     }

@@ -11568,6 +11568,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var arrayIDs = [];
@@ -11663,11 +11693,63 @@ var array2IDs = [];
     },
     computed: {
         isActived: function isActived() {
-            // if(this.types = 'alternative'){
-            // return true;
-            // }
-            // return false;
             return this.types;
+        },
+        total: function total() {
+            if (!this.items) {
+                return 0;
+            }
+            return this.items.reduce(function (total, value) {
+                return total + Number(value.upr_count);
+            }, 0);
+        },
+        total_completed: function total_completed() {
+            if (!this.items) {
+                return 0;
+            }
+            return this.items.reduce(function (total, value) {
+                return total + Number(value.completed_count);
+            }, 0);
+        },
+        total_ongoing: function total_ongoing() {
+            if (!this.items) {
+                return 0;
+            }
+            return this.items.reduce(function (total, value) {
+                return total + Number(value.ongoing_count);
+            }, 0);
+        },
+        total_delay: function total_delay() {
+            if (!this.items) {
+                return 0;
+            }
+            return this.items.reduce(function (total, value) {
+                return total + Number(value.delay_count);
+            }, 0);
+        },
+        total_abc: function total_abc() {
+            if (!this.items) {
+                return 0;
+            }
+            return this.items.reduce(function (total, value) {
+                return total + Number(value.total_abc);
+            }, 0);
+        },
+        total_bid: function total_bid() {
+            if (!this.items) {
+                return 0;
+            }
+            return this.items.reduce(function (total, value) {
+                return total + Number(value.total_bid);
+            }, 0);
+        },
+        total_residual: function total_residual() {
+            if (!this.items) {
+                return 0;
+            }
+            return this.items.reduce(function (total, value) {
+                return total + Number(value.total_residual);
+            }, 0);
         }
     }
 });
@@ -45179,7 +45261,7 @@ module.exports = Component.exports
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: " "
-  }, [_c('h1', [_vm._v("Procurement Status Monitoring")]), _vm._v(" "), _c('button', {
+  }, [_vm._m(0), _vm._v(" "), _c('button', {
     staticClass: "button button-unfocus",
     attrs: {
       "id": [_vm.isActived == 'alternative' ? 'button-focus' : '']
@@ -45203,7 +45285,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "table-scroll"
   }, [_c('table', {
     staticClass: "table table--with-border table-name"
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
+  }, [_vm._m(1), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
     return [_c('tr', [_c('td', [_vm._v("\n                            Program " + _vm._s(item.programs) + "\n                            "), _c('button', {
       staticClass: "show-child-table",
       on: {
@@ -45365,22 +45447,68 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         })]
       })], 2)])])])] : _vm._e()]
     })]
-  })], 2)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v("\n                        # UPR\n                        "), _c('small', {
-    staticClass: "background-white",
-    staticStyle: {
-      "display": "block"
+  }), _vm._v(" "), _c('tr', [_c('td', [_vm._v("\n                        Total\n                    ")]), _vm._v(" "), _c('td', [_c('span', {
+    attrs: {
+      "tooltip": "Total"
     }
-  }, [_c('span', {
-    staticClass: " black"
-  }, [_vm._v("total")]), _vm._v(" "), _c('span', {
-    staticClass: "blue "
-  }, [_vm._v("(cmpltd)")]), _vm._v(" "), _c('span', {
-    staticClass: "green "
-  }, [_vm._v("(ongoing)")]), _vm._v(" "), _c('span', {
-    staticClass: "red "
-  }, [_vm._v("(delay)")])])]), _vm._v(" "), _c('th', [_vm._v("Total ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVG Days to Complete")]), _vm._v(" "), _c('th', [_vm._v("Number of Delays")]), _vm._v(" "), _c('th', {
+  }, [_vm._v(_vm._s(_vm.total))]), _vm._v(" "), _c('span', {
+    staticClass: "blue",
+    attrs: {
+      "tooltip": "Completed"
+    }
+  }, [_vm._v("(" + _vm._s(_vm.total_completed) + ")")]), _vm._v(" "), _c('span', {
+    staticClass: "green",
+    attrs: {
+      "tooltip": "Ongoing"
+    }
+  }, [_vm._v("(" + _vm._s(_vm.total_ongoing) + ")")]), _vm._v(" "), _c('span', {
+    staticClass: "red",
+    attrs: {
+      "tooltip": "Delay"
+    }
+  }, [_vm._v("(" + _vm._s(_vm.total_delay) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td')])], 2)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "six columns"
+  }, [_c('h1', [_vm._v("Procurement Status Monitoring")])]), _vm._v(" "), _c('div', {
+    staticClass: "six columns align-right"
+  }, [_c('h3', [_vm._v("UPR count Legends")]), _vm._v(" "), _c('p', [_c('small', {
+    staticStyle: {
+      "border": "1px solid #222",
+      "background": "#222",
+      "color": "white",
+      "font-weight": "800",
+      "padding": "4px"
+    }
+  }, [_vm._v("Total")]), _vm._v(" "), _c('small', {
+    staticStyle: {
+      "border": "1px solid rgba(41, 128, 185,1.0)",
+      "background": "rgba(41, 128, 185,1.0)",
+      "color": "white",
+      "font-weight": "800",
+      "padding": "4px"
+    }
+  }, [_vm._v("Completed")]), _vm._v(" "), _c('small', {
+    staticStyle: {
+      "border": "1px solid #1d8147",
+      "background": "#1d8147",
+      "color": "white",
+      "font-weight": "800",
+      "padding": "4px"
+    }
+  }, [_vm._v("Ongoing")]), _vm._v(" "), _c('small', {
+    staticStyle: {
+      "border": "1px solid rgba(231, 76, 60,1.0)",
+      "background": "rgba(231, 76, 60,1.0)",
+      "color": "white",
+      "font-weight": "800",
+      "padding": "4px"
+    }
+  }, [_vm._v("Delay")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v("\n                        # UPR\n                        ")]), _vm._v(" "), _c('th', [_vm._v("Total ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVG Days to Complete")]), _vm._v(" "), _c('th', [_vm._v("Number of Delays")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "text-align": "center"
     }

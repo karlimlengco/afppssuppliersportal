@@ -337,6 +337,8 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
 
 
     Route::post('suppliers/accepts/{id}', '\Revlv\Controllers\Settings\SupplierController@acceptSupplier')->name('suppliers.accepts');
+    Route::post('suppliers/blocked/{id}', '\Revlv\Controllers\Settings\SupplierController@blockedSupplier')->name('suppliers.blocked');
+    Route::get('suppliers/un-blocked/{id}', '\Revlv\Controllers\Settings\SupplierController@unblockedSupplier')->name('suppliers.un-blocked');
     Route::get('suppliers/drafts', '\Revlv\Controllers\Settings\SupplierController@drafts')->name('suppliers.drafts');
     Route::resource('suppliers', '\Revlv\Controllers\Settings\SupplierController');
     Route::resource('holidays', '\Revlv\Controllers\Settings\HolidayController');

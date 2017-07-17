@@ -37,6 +37,10 @@ class SupplierEloquent extends Model
         'email_1',
         'email_2',
         'status',
+
+        'is_blocked',
+        'date_blocked',
+        'blocked_remarks',
     ];
 
 }
