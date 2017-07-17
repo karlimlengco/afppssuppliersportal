@@ -75,6 +75,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.date_prepared',
             'unit_purchase_requests.state',
             'unit_purchase_requests.total_amount',
+            'unit_purchase_requests.mode_of_procurement',
             'unit_purchase_requests.date_processed',
             'unit_purchase_requests.date_prepared as upr_created_at',
             'unit_purchase_requests.delay_count',

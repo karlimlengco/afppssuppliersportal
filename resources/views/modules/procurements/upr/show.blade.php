@@ -7,7 +7,6 @@ Unit Purchase Request
 @stop
 
 @section('modal')
-    @if($data->mode_of_procurement != 'public_bidding')
     @include('modules.partials.modals.view-attachments')
     @include('modules.partials.modals.request_quotation')
     @include('modules.partials.modals.reject-upr')
@@ -15,12 +14,10 @@ Unit Purchase Request
     @include('modules.partials.modals.terminate')
     @include('modules.partials.modals.voucher')
     @include('modules.partials.modals.upr-signatory')
-    @else
     @include('modules.partials.bid-modals.rfb-process')
     @include('modules.partials.bid-modals.philgeps_posting')
     @include('modules.partials.bid-modals.bid_docs_issue')
     @include('modules.partials.bid-modals.open-bid')
-    @endif
 @stop
 
 @section('contents')

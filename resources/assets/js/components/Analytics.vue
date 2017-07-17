@@ -4,7 +4,7 @@
         <div class="six columns">
             <h1>Procurement Status Monitoring</h1>
         </div>
-        <div class="six columns align-right" >
+       <!--  <div class="six columns align-right" >
             <h3>UPR count Legends</h3>
             <p>
                 <small style="border: 1px solid #222;background:#222; color:white; font-weight:800; padding:4px">Total</small>
@@ -12,7 +12,7 @@
                 <small style="border: 1px solid #1d8147;background:#1d8147; color:white; font-weight:800; padding:4px">Ongoing</small>
                 <small style="border: 1px solid rgba(231, 76, 60,1.0);background:rgba(231, 76, 60,1.0); color:white; font-weight:800; padding:4px">Delay</small>
             </p>
-        </div>
+        </div> -->
     </div>
     <button class='button button-unfocus' v-bind:id="[ isActived  == 'alternative' ? 'button-focus' : '']" v-on:click="changeType('alternative')" >Alternative</button>
     <button class='button button-unfocus'  v-bind:id="[ isActived == 'bidding' ? 'button-focus' : '']" v-on:click="changeType('bidding')" >Bidding</button>
@@ -23,7 +23,7 @@
                     <th></th>
                     <th>
                         # UPR
-                        <!-- <small style="display:block " class="background-white"><span class=" black">total</span> <span class="blue ">(cmpltd)</span> <span class="green ">(ongoing)</span> <span class="red ">(delay)</span></small> -->
+                        <small style="display:block " class="background-white"><span class=" black">total</span> <span class="blue ">(cmpltd)</span> <span class="green ">(ongoing)</span> <span class="red ">(delay)</span></small>
                     </th>
                     <th>Total ABC</th>
                     <th>Approved Contract Amount</th>
@@ -125,7 +125,7 @@
                                                                                             <table class="great-grand-child-table table-name">
                                                                                                 <tbody>
                                                                                                     <tr  v-for="itemProgCentData in itemProgCent.data">
-                                                                                                <td>{{itemProgCentData.upr_number}} <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small></td>
+                                                                                                <td> <i class="green" style="font-family: Verdana;">{{itemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small></td>
                                                                                                 <td>
 
                                                                                                     <span tooltip="Total" >{{itemProgCentData.upr_count}}</span>

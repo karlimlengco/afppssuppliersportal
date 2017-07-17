@@ -40,7 +40,7 @@ Unit Purchase Request
                     <th>Date</th>
                     <th>Allowable Time</th>
                     <th>Day/s</th>
-                    <th>Remarks</th>
+                    <th>Justification/Remarks</th>
                     <th>Action Taken</th>
                     <th>Print</th>
                 </tr>
@@ -60,7 +60,7 @@ Unit Purchase Request
                         </a>
                     </td>
                 </tr>
-
+                @if($data->mode_of_procurement != 'public_bidding')
                 <tr>
                     <td>Create RFQ</td>
                     <td>
@@ -1017,7 +1017,303 @@ Unit Purchase Request
                     <td>{{$data->vou_received_remarks}}</td>
                     <td>{{$data->vou_received_action}}</td>
                     <td></td>
-                </tr>
+                    </tr>
+
+                @else
+                    @if(count($data->documents) != 0)
+                        @foreach($data->documents as $docu)
+                        <tr>
+                            <td>Document Acceptance</td>
+                            <td>
+                                <?php $doc_transaction_date  =  createCarbon('Y-m-d',$docu->transaction_date); ?>
+                                <a target="_blank" href="{{route('biddings.document-acceptance.show', $docu->id)}}">
+                                    {{ $doc_transaction_date->format('d F Y') }}
+                                </a>
+                            </td>
+                            <td >1</td>
+                            <td>
+                                {{ $docu->days }}
+                                <?php $totalDays +=  $docu->days ; ?>
+
+                                @if($docu->days > 1)
+                                    <strong class="red">({{$docu->days - 1}})</strong>
+                                @endif
+                            </td>
+                            <td>{{$docu->remarks}}</td>
+                            <td>{{$docu->action}}</td>
+                            <td></td>
+                        </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td>Invitation To Bid</td>
+                            <td>
+                            </td>
+                            <td >1</td>
+                            <td>
+                                {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $upr_created )}}
+                            </td>
+                            <td></td>
+                            <td>{{$data->rfq_action}}</td>
+                            <td>
+
+                            </td>
+                        </tr>
+                    @endif
+
+                    {{-- ITB --}}
+                    @if($data->itb != null)
+                        <tr>
+                            <td>Invitation To Bid</td>
+                            <td>
+                                <?php $itb_approved_date  =  createCarbon('Y-m-d',$data->itb->approved_date); ?>
+                                    {{ $itb_approved_date->format('d F Y') }}
+                            </td>
+                            <td >1</td>
+                            <td>
+                                    {{ $data->itb->days }}
+                                    <?php $totalDays +=  $data->itb->days ; ?>
+
+                                    @if($data->itb->days > 1)
+                                        <strong class="red">({{$data->itb->days - 1}})</strong>
+                                    @endif
+
+                            </td>
+                            <td>{{$data->itb->remarks}}</td>
+                            <td>{{$data->itb->action}}</td>
+                            <td>
+
+                            </td>
+                        </tr>
+                    @endif
+                    {{-- ITB --}}
+
+                    {{-- Philgeps --}}
+                    @if($data->philgeps != null)
+                    <tr>
+                        <td>PhilGeps Posting</td>
+                        <td>
+                            <?php $philgeps_date  =  createCarbon('Y-m-d',$data->philgeps->transaction_date); ?>
+                            {{ $philgeps_date->format('d F Y') }}
+                        </td>
+                        <td >1</td>
+                        <td>
+                                {{ $data->philgeps->days }}
+                                <?php $totalDays +=  $data->philgeps->days ; ?>
+
+                                @if($data->philgeps->days > 1)
+                                    <strong class="red">({{$data->philgeps->days - 1}})</strong>
+                                @endif
+
+                        </td>
+                        <td>{{$data->philgeps->remarks}}</td>
+                        <td>{{$data->philgeps->action}}</td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    @endif
+                    {{-- Philgeps --}}
+
+                    {{-- Bid Docs Issuance --}}
+                    <tr>
+                        <td>Bid Docs Issuance</td>
+                        <td>
+                            @if($data->rfq_created_at != null)
+                            <?php $rfq_created_at  =  createCarbon('Y-m-d',$data->rfq_created_at); ?>
+                                <a target="_blank" href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}">
+                                    {{ $rfq_created_at->format('d F Y') }}
+                                </a>
+                            @endif
+                        </td>
+                        <td >1</td>
+                        <td>
+                            @if($data->rfq_created_at != null)
+                                {{ $data->rfq_days }}
+                                <?php $totalDays +=  $data->rfq_days ; ?>
+
+                                @if($data->rfq_days > 1)
+                                    <strong class="red">({{$data->rfq_days - 1}})</strong>
+                                @endif
+
+                            @else
+                                {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $upr_created )}}
+                            @endif
+                        </td>
+                        <td>{{$data->rfq_remarks}}</td>
+                        <td>{{$data->rfq_action}}</td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    {{-- Bid Docs Issuance --}}
+
+                    {{-- Pre Bid Conference --}}
+                    <tr>
+                        <td>Pre Bid Conference</td>
+                        <td>
+                            @if($data->rfq_created_at != null)
+                            <?php $rfq_created_at  =  createCarbon('Y-m-d',$data->rfq_created_at); ?>
+                                <a target="_blank" href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}">
+                                    {{ $rfq_created_at->format('d F Y') }}
+                                </a>
+                            @endif
+                        </td>
+                        <td >1</td>
+                        <td>
+                            @if($data->rfq_created_at != null)
+                                {{ $data->rfq_days }}
+                                <?php $totalDays +=  $data->rfq_days ; ?>
+
+                                @if($data->rfq_days > 1)
+                                    <strong class="red">({{$data->rfq_days - 1}})</strong>
+                                @endif
+
+                            @else
+                                {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $upr_created )}}
+                            @endif
+                        </td>
+                        <td>{{$data->rfq_remarks}}</td>
+                        <td>{{$data->rfq_action}}</td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    {{-- Bid Opening --}}
+
+                    {{-- Bid Opening --}}
+                    <tr>
+                        <td>Bid Opening</td>
+                        <td>
+                            @if($data->rfq_created_at != null)
+                            <?php $rfq_created_at  =  createCarbon('Y-m-d',$data->rfq_created_at); ?>
+                                <a target="_blank" href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}">
+                                    {{ $rfq_created_at->format('d F Y') }}
+                                </a>
+                            @endif
+                        </td>
+                        <td >1</td>
+                        <td>
+                            @if($data->rfq_created_at != null)
+                                {{ $data->rfq_days }}
+                                <?php $totalDays +=  $data->rfq_days ; ?>
+
+                                @if($data->rfq_days > 1)
+                                    <strong class="red">({{$data->rfq_days - 1}})</strong>
+                                @endif
+
+                            @else
+                                {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $upr_created )}}
+                            @endif
+                        </td>
+                        <td>{{$data->rfq_remarks}}</td>
+                        <td>{{$data->rfq_action}}</td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    {{-- Bid Opening --}}
+
+                    {{-- Post Qualification --}}
+                    <tr>
+                        <td>Post Qualification</td>
+                        <td>
+                            @if($data->rfq_created_at != null)
+                            <?php $rfq_created_at  =  createCarbon('Y-m-d',$data->rfq_created_at); ?>
+                                <a target="_blank" href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}">
+                                    {{ $rfq_created_at->format('d F Y') }}
+                                </a>
+                            @endif
+                        </td>
+                        <td >1</td>
+                        <td>
+                            @if($data->rfq_created_at != null)
+                                {{ $data->rfq_days }}
+                                <?php $totalDays +=  $data->rfq_days ; ?>
+
+                                @if($data->rfq_days > 1)
+                                    <strong class="red">({{$data->rfq_days - 1}})</strong>
+                                @endif
+
+                            @else
+                                {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $upr_created )}}
+                            @endif
+                        </td>
+                        <td>{{$data->rfq_remarks}}</td>
+                        <td>{{$data->rfq_action}}</td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    {{-- Post Qualification --}}
+
+                    {{-- Finalize Bid Docs --}}
+                    <tr>
+                        <td>Finalize Bid Docs</td>
+                        <td>
+                            @if($data->rfq_created_at != null)
+                            <?php $rfq_created_at  =  createCarbon('Y-m-d',$data->rfq_created_at); ?>
+                                <a target="_blank" href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}">
+                                    {{ $rfq_created_at->format('d F Y') }}
+                                </a>
+                            @endif
+                        </td>
+                        <td >1</td>
+                        <td>
+                            @if($data->rfq_created_at != null)
+                                {{ $data->rfq_days }}
+                                <?php $totalDays +=  $data->rfq_days ; ?>
+
+                                @if($data->rfq_days > 1)
+                                    <strong class="red">({{$data->rfq_days - 1}})</strong>
+                                @endif
+
+                            @else
+                                {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $upr_created )}}
+                            @endif
+                        </td>
+                        <td>{{$data->rfq_remarks}}</td>
+                        <td>{{$data->rfq_action}}</td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    {{-- Finalize Bid Docs --}}
+
+                    {{-- NOA Acceptance --}}
+                    <tr>
+                        <td>NOA Acceptance</td>
+                        <td>
+                            @if($data->rfq_created_at != null)
+                            <?php $rfq_created_at  =  createCarbon('Y-m-d',$data->rfq_created_at); ?>
+                                <a target="_blank" href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}">
+                                    {{ $rfq_created_at->format('d F Y') }}
+                                </a>
+                            @endif
+                        </td>
+                        <td >1</td>
+                        <td>
+                            @if($data->rfq_created_at != null)
+                                {{ $data->rfq_days }}
+                                <?php $totalDays +=  $data->rfq_days ; ?>
+
+                                @if($data->rfq_days > 1)
+                                    <strong class="red">({{$data->rfq_days - 1}})</strong>
+                                @endif
+
+                            @else
+                                {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $upr_created )}}
+                            @endif
+                        </td>
+                        <td>{{$data->rfq_remarks}}</td>
+                        <td>{{$data->rfq_action}}</td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    {{-- NOA Acceptance --}}
+
+                @endif
 
                 <tr>
                     <td>Total</td>

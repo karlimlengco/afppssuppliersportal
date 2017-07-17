@@ -45404,7 +45404,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               }, [_c('table', {
                 staticClass: "great-grand-child-table table-name"
               }, [_c('tbody', _vm._l((itemProgCent.data), function(itemProgCentData) {
-                return _c('tr', [_c('td', [_vm._v(_vm._s(itemProgCentData.upr_number) + " "), _c('small', {
+                return _c('tr', [_c('td', [_c('i', {
+                  staticClass: "green",
+                  staticStyle: {
+                    "font-family": "Verdana"
+                  }
+                }, [_vm._v(_vm._s(itemProgCentData.upr_number))]), _vm._v(" "), _c('small', {
                   staticStyle: {
                     "display": "block"
                   }
@@ -45472,43 +45477,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "six columns"
-  }, [_c('h1', [_vm._v("Procurement Status Monitoring")])]), _vm._v(" "), _c('div', {
-    staticClass: "six columns align-right"
-  }, [_c('h3', [_vm._v("UPR count Legends")]), _vm._v(" "), _c('p', [_c('small', {
-    staticStyle: {
-      "border": "1px solid #222",
-      "background": "#222",
-      "color": "white",
-      "font-weight": "800",
-      "padding": "4px"
-    }
-  }, [_vm._v("Total")]), _vm._v(" "), _c('small', {
-    staticStyle: {
-      "border": "1px solid rgba(41, 128, 185,1.0)",
-      "background": "rgba(41, 128, 185,1.0)",
-      "color": "white",
-      "font-weight": "800",
-      "padding": "4px"
-    }
-  }, [_vm._v("Completed")]), _vm._v(" "), _c('small', {
-    staticStyle: {
-      "border": "1px solid #1d8147",
-      "background": "#1d8147",
-      "color": "white",
-      "font-weight": "800",
-      "padding": "4px"
-    }
-  }, [_vm._v("Ongoing")]), _vm._v(" "), _c('small', {
-    staticStyle: {
-      "border": "1px solid rgba(231, 76, 60,1.0)",
-      "background": "rgba(231, 76, 60,1.0)",
-      "color": "white",
-      "font-weight": "800",
-      "padding": "4px"
-    }
-  }, [_vm._v("Delay")])])])])
+  }, [_c('h1', [_vm._v("Procurement Status Monitoring")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v("\n                        # UPR\n                        ")]), _vm._v(" "), _c('th', [_vm._v("Total ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVG Days to Complete")]), _vm._v(" "), _c('th', [_vm._v("Number of Delays")]), _vm._v(" "), _c('th', {
+  return _c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v("\n                        # UPR\n                        "), _c('small', {
+    staticClass: "background-white",
+    staticStyle: {
+      "display": "block"
+    }
+  }, [_c('span', {
+    staticClass: " black"
+  }, [_vm._v("total")]), _vm._v(" "), _c('span', {
+    staticClass: "blue "
+  }, [_vm._v("(cmpltd)")]), _vm._v(" "), _c('span', {
+    staticClass: "green "
+  }, [_vm._v("(ongoing)")]), _vm._v(" "), _c('span', {
+    staticClass: "red "
+  }, [_vm._v("(delay)")])])]), _vm._v(" "), _c('th', [_vm._v("Total ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVG Days to Complete")]), _vm._v(" "), _c('th', [_vm._v("Number of Delays")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "text-align": "center"
     }

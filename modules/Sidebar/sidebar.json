@@ -34,7 +34,7 @@
                 {
                     "route" :   "biddings.pre-bids.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Pre Bid Conferense"
+                    "name"  :   "Pre Bid Conference"
                 },
                 {
                     "route" :   "biddings.bid-openings.index",

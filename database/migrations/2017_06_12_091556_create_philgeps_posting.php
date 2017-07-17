@@ -15,7 +15,7 @@ class CreatePhilgepsPosting extends Migration
     {
         Schema::create('philgeps_posting', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('rfq_id')->nullalble();
+            $table->integer('rfq_id')->nullable();
             $table->integer('upr_id');
             $table->string('philgeps_number');
             $table->string('upr_number')->nullable();
