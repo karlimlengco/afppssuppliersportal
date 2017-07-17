@@ -39,7 +39,8 @@
                     <table class="printable-form__body__table">
                         <thead>
                             <tr>
-                                <th class="head" width="10%">ITEM NO</th>
+                                <th style="text-align:center" class="head" width="10%">ITEM NO</th>
+                                <th class="head" width="20%">UPR NO</th>
                                 <th class="head" width="20%">RFQ NO</th>
                                 <th class="head" width="10%">MP</th>
                                 <th class="head" width="30%">ITEM DESCRIPTION</th>
@@ -50,7 +51,8 @@
                         <tbody>
                             @foreach($data['quotations'] as $key => $quotation)
                                 <tr>
-                                    <td>{{$key+1}}</td>
+                                    <td style="text-align:center">{{$key+1}}</td>
+                                    <td>{{$quotation->upr_number}}</td>
                                     <td>{{$quotation->rfq_number}}</td>
                                     <td>@if($quotation->upr) @if($quotation->upr->modes) {{$quotation->upr->modes->name}} @endif @endif</td>
                                     <td style="text-align:left">{{$quotation->description}}</td>
