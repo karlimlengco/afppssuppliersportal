@@ -44,14 +44,14 @@
                             <td class="has-child" colspan="4">
                                 <table class="child-table">
                                     <tr>
-                                        <td class="head" width="15%">Item No</td>
+                                        <td style="text-align:center" class="head" width="15%">Item No</td>
                                         <td class="head" width="15%">UON</td>
                                         <td class="head" width="55%">Description</td>
                                         <td class="head" width="15%">Quantity</td>
                                     </tr>
                                     @foreach($data['items'] as $key=>$value)
                                     <tr>
-                                        <td>{{$key + 1}}</td>
+                                        <td style="text-align:center">{{$key + 1}}</td>
                                         <td>{{$value->unit}}</td>
                                         <td style="text-align:left">{{$value->description}}</td>
                                         <td>{{$value->quantity}}</td>
