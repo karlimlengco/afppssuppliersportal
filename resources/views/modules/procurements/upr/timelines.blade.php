@@ -42,6 +42,7 @@ Unit Purchase Request
                     <th>Day/s</th>
                     <th>Remarks</th>
                     <th>Action Taken</th>
+                    <th>Print</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,6 +53,12 @@ Unit Purchase Request
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td>
+                        <a target="_blank"
+                            href="{{route('procurements.unit-purchase-requests.print', $data->id)}}" tooltip="Print">
+                            <i class="nc-icon-mini tech_print"></i>
+                        </a>
+                    </td>
                 </tr>
 
                 <tr>
@@ -80,6 +87,15 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->rfq_remarks}}</td>
                     <td>{{$data->rfq_action}}</td>
+                    <td>
+
+                        @if($data->rfq_created_at != null)
+                        <a target="_blank"
+                            href="{{route('procurements.blank-rfq.print', $data->rfq_id)}}" tooltip="Print">
+                            <i class="nc-icon-mini tech_print"></i>
+                        </a>
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
@@ -108,6 +124,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->rfq_close_remarks}}</td>
                     <td>{{$data->rfq_close_action}}</td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -138,6 +155,15 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->ispq_remarks}}</td>
                     <td>{{$data->ispq_action}}</td>
+
+                    <td>
+                        @if($data->ispq_transaction_date != null)
+                        <a target="_blank"
+                            href="{{route('procurements.ispq.print', $data->ispq_id)}}" tooltip="Print">
+                            <i class="nc-icon-mini tech_print"></i>
+                        </a>
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
@@ -169,6 +195,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->pp_remarks}}</td>
                     <td>{{$data->pp_action}}</td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -199,6 +226,15 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->canvass_remarks}}</td>
                     <td>{{$data->canvass_action}}</td>
+
+                    <td>
+                        @if($data->canvass_start_date != null)
+                        <a target="_blank"
+                            href="{{route('procurements.canvassing.print', $data->canvass_id)}}" tooltip="Print">
+                            <i class="nc-icon-mini tech_print"></i>
+                        </a>
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
@@ -231,6 +267,14 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->noa_remarks}}</td>
                     <td>{{$data->noa_action}}</td>
+                    <td>
+                        @if($data->noa_award_date != null)
+                        <a target="_blank"
+                            href="{{route('procurements.noa.print', $data->noa_id)}}" tooltip="Print">
+                            <i class="nc-icon-mini tech_print"></i>
+                        </a>
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
@@ -263,6 +307,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->noa_approved_remarks}}</td>
                     <td>{{$data->noa_approved_action}}</td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -294,6 +339,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->noa_received_remarks}}</td>
                     <td>{{$data->noa_received_action}}</td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -325,6 +371,14 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->po_remarks}}</td>
                     <td>{{$data->po_action}}</td>
+                    <td>
+                        @if($data->po_create_date != null)
+                        <a target="_blank"
+                            href="{{route('procurements.purchase-orders.print', $data->po_id)}}" tooltip="Print">
+                            <i class="nc-icon-mini tech_print"></i>
+                        </a>
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
@@ -355,6 +409,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->po_funding_remarks}}</td>
                     <td>{{$data->po_funding_action}}</td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -385,6 +440,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->po_mfo_remarks}}</td>
                     <td>{{$data->po_mfo_action}}</td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -415,6 +471,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->po_coa_remarks}}</td>
                     <td>{{$data->po_coa_action}}</td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -445,6 +502,14 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->ntp_remarks}}</td>
                     <td>{{$data->ntp_action}}</td>
+                    <td>
+                        @if($data->ntp_date != null)
+                        <a target="_blank"
+                            href="{{route('procurements.ntp.print', $data->ntp_id)}}" tooltip="Print">
+                            <i class="nc-icon-mini tech_print"></i>
+                        </a>
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
@@ -475,6 +540,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->ntp_accepted_remarks}}</td>
                     <td>{{$data->ntp_accepted_action}}</td>
+                    <td> </td>
                 </tr>
                 <tr>
                     <td>Create Notice Of Delivery</td>
@@ -505,6 +571,14 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->dr_remarks}}</td>
                     <td>{{$data->dr_action}}</td>
+                    <td>
+                        @if($data->dr_date != null)
+                        <a target="_blank"
+                            href="{{route('procurements.delivery-orders.print', $data->dr_id)}}" tooltip="Print">
+                            <i class="nc-icon-mini tech_print"></i>
+                        </a>
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Receive Delivery</td>
@@ -535,6 +609,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->dr_delivery_remarks}}</td>
                     <td>{{$data->dr_delivery_action}}</td>
+                    <td> </td>
                 </tr>
                 <tr>
                     <td>COA Delivery</td>
@@ -565,6 +640,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->dr_dr_coa_remarks}}</td>
                     <td>{{$data->dr_dr_coa_action}}</td>
+                    <td> </td>
                 </tr>
 
                 <tr>
@@ -596,6 +672,14 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->tiac_remarks}}</td>
                     <td>{{$data->tiac_action}}</td>
+                    <td>
+                        @if($data->dr_inspection != null)
+                        <a target="_blank"
+                            href="{{route('procurements.inspection-and-acceptance.print', $data->tiac_id)}}" tooltip="Print">
+                            <i class="nc-icon-mini tech_print"></i>
+                        </a>
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
@@ -627,6 +711,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->tiac_accept_remarks}}</td>
                     <td>{{$data->tiac_accept_action}}</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>DR Inspection Start</td>
@@ -657,6 +742,14 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->diir_remarks}}</td>
                     <td>{{$data->diir_action}}</td>
+                    <td>
+                        @if($data->di_start != null)
+                        <a target="_blank"
+                            href="{{route('procurements.delivered-inspections.print', $data->diir_id)}}" tooltip="Print">
+                            <i class="nc-icon-mini tech_print"></i>
+                        </a>
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
@@ -690,6 +783,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->diir_close_remarks}}</td>
                     <td>{{$data->diir_close_action}}</td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -722,6 +816,14 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->vou_remarks}}</td>
                     <td>{{$data->vou_action}}</td>
+                    <td>
+                        @if($data->v_transaction_date != null)
+                        <a target="_blank"
+                            href="{{route('procurements.vouchers.print', $data->vou_id)}}" tooltip="Print">
+                            <i class="nc-icon-mini tech_print"></i>
+                        </a>
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
@@ -754,6 +856,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->vou_preaudit_remarks}}</td>
                     <td>{{$data->vou_preaudit_action}}</td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -787,6 +890,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->vou_certify_remarks}}</td>
                     <td>{{$data->vou_certify_action}}</td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -818,6 +922,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->vou_jev_remarks}}</td>
                     <td>{{$data->vou_jev_action}}</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Voucher Approval</td>
@@ -848,6 +953,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->vou_approved_remarks}}</td>
                     <td>{{$data->vou_approved_action}}</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Voucher Release</td>
@@ -878,6 +984,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->vou_released_remarks}}</td>
                     <td>{{$data->vou_released_action}}</td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -909,6 +1016,7 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->vou_received_remarks}}</td>
                     <td>{{$data->vou_received_action}}</td>
+                    <td></td>
                 </tr>
 
                 <tr>
