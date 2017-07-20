@@ -508,7 +508,10 @@ class DeliveredInspectionReportController extends Controller
         $data['approver']           =   $result->approver;
         $data['issuer']             =   $result->issuer;
         $data['requestor']          =   $result->requestor;
-        $pdf = PDF::loadView('forms.diir', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
+        $pdf = PDF::loadView('forms.diir', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'))
+            ->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('diir.pdf');
     }

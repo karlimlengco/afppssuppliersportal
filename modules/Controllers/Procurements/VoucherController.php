@@ -719,7 +719,10 @@ class VoucherController extends Controller
         $data['upr']                    =   $noa_model->upr;
         $data['po']                     =   $noa_model->upr->purchase_order;
 
-        $pdf = PDF::loadView('forms.voucher', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
+        $pdf = PDF::loadView('forms.voucher', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'))
+            ->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('voucher.pdf');
     }
