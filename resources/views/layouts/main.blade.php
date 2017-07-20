@@ -24,10 +24,10 @@
         @yield('modal')
         {{-- Modal --}}
         <!-- topbar -->
-        @include('layouts.topbar')
+        {{-- @include('layouts.topbar') --}}
         <!-- topbar -->
         <!-- sidebar -->
-        @include('layouts.sidebar')
+        {{-- @include('layouts.sidebar') --}}
         {{-- sidebar --}}
 
         <!-- content -->

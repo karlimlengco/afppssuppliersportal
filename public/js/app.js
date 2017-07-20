@@ -11601,6 +11601,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 var arrayIDs = [];
+var arrayProgramCenter = [];
 var array2IDs = [];
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -11663,32 +11664,35 @@ var array2IDs = [];
             });
         },
         clickItemProgram: function clickItemProgram(item) {
-
-            // if( arrayIDs.indexOf(item.programs) == -1 )
-            // {
-            arrayIDs.push(item.programs);
-            this.fetchUPRCenters(item.programs);
-            // }
+            if (arrayIDs.indexOf(item.programs) == -1) {
+                arrayIDs.push(item.programs);
+                this.fetchUPRCenters(item.programs);
+            }
         },
         changeType: function changeType(type) {
             this.types = type;
             this.itemProgram = [];
             this.itemProgramCenters = [];
+            arrayIDs = [];
+            arrayProgramCenter = [];
+            array2IDs = [];
             this.fetchUprAnalytics(type);
         },
         clickItemProgramCenter: function clickItemProgramCenter(item) {
-            this.fetchUnits(item.programs, item.name);
+            if (arrayProgramCenter.indexOf(item.name) == -1) {
+                if (arrayProgramCenter[item.name] != item.name) {
+                    arrayProgramCenter[item.name] = item.name;
+                    this.fetchUnits(item.programs, item.name);
+                }
+            }
         },
         clickItemUnit: function clickItemUnit(item) {
-            console.log(item.name);
-            // if( array2IDs.indexOf(item.short_code) == -1 )
-            // {
-            // if(array2IDs[item.short_code] != item.short_code)
-            // {
-            array2IDs[item.short_code] = item.short_code;
-            this.fetchUPRs(item.short_code, item.name);
-            // }
-            // }
+            if (array2IDs.indexOf(item.short_code) == -1) {
+                if (array2IDs[item.short_code] != item.short_code) {
+                    array2IDs[item.short_code] = item.short_code;
+                    this.fetchUPRs(item.short_code, item.name);
+                }
+            }
         }
     },
     computed: {
@@ -45351,7 +45355,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           attrs: {
             "tooltip": "Delay"
           }
-        }, [_vm._v("(" + _vm._s(itemProgData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (itemProgData.avg_delays >= 0) ? _c('td') : _vm._e(), _vm._v(" "), (itemProgData.avg_delays < 0) ? _c('td') : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemUnits), function(itemUnit) {
+        }, [_vm._v("(" + _vm._s(itemProgData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (itemProgData.avg_delays >= 0) ? _c('td', [_vm._v(" ")]) : _vm._e(), _vm._v(" "), (itemProgData.avg_delays < 0) ? _c('td', [_vm._v(" ")]) : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _vm._l((_vm.itemUnits), function(itemUnit) {
           return [(itemUnit.program == item.programs) ? [(itemUnit.center == itemProgData.name) ? [_c('tr', [_c('td', {
             staticClass: "has-child",
             attrs: {
@@ -45387,7 +45391,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               attrs: {
                 "tooltip": "Delay"
               }
-            }, [_vm._v("(" + _vm._s(itemUnitData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), (itemUnitData.status != 'pending') ? _c('td', {
+            }, [_vm._v("(" + _vm._s(itemUnitData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), (itemUnitData.status != 'upr_processing') ? _c('td', {
               staticStyle: {
                 "text-align": "left"
               }
@@ -45395,7 +45399,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               staticStyle: {
                 "text-align": "left"
               }
-            })]), _vm._v(" "), _vm._l((_vm.itemProgramCenters), function(itemProgCent) {
+            }, [_vm._v(" ")])]), _vm._v(" "), _vm._l((_vm.itemProgramCenters), function(itemProgCent) {
               return [(itemProgCent.program == itemUnitData.short_code) ? [(itemProgCent.center == itemProgData.name) ? [_c('tr', [_c('td', {
                 staticClass: "has-child",
                 attrs: {
@@ -45437,7 +45441,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   attrs: {
                     "tooltip": "Delay"
                   }
-                }, [_vm._v("(" + _vm._s(itemProgCentData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.delay))]), _vm._v(" "), (itemProgCentData.status != 'pending') ? _c('td', {
+                }, [_vm._v("(" + _vm._s(itemProgCentData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.delay))]), _vm._v(" "), (itemProgCentData.status != 'upr_processing') ? _c('td', {
                   staticStyle: {
                     "text-align": "left"
                   }

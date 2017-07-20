@@ -79,8 +79,8 @@
                                                     <td>{{formatPrice(itemProgData.total_residual)}}</td>
                                                     <td></td>
 
-                                                    <td v-if="itemProgData.avg_delays >= 0"></td>
-                                                    <td v-if="itemProgData.avg_delays < 0"></td>
+                                                    <td v-if="itemProgData.avg_delays >= 0">&nbsp;</td>
+                                                    <td v-if="itemProgData.avg_delays < 0">&nbsp;</td>
                                                     <td></td>
                                                 </tr>
                                                 <!-- Grand Child -->
@@ -112,8 +112,8 @@
                                                                                 <td></td>
 
                                                                                 <td></td>
-                                                                                <td  style="text-align:left" v-if="itemUnitData.status != 'pending'"></td>
-                                                                                <td  style="text-align:left" v-else></td>
+                                                                                <td  style="text-align:left" v-if="itemUnitData.status != 'upr_processing'"></td>
+                                                                                <td  style="text-align:left" v-else>&nbsp;</td>
                                                                             </tr>
                                                                             <!-- Great Grand -->
 
@@ -139,7 +139,7 @@
                                                                                                 <td>{{itemProgCentData.avg_days}}</td>
 
                                                                                                 <td>{{itemProgCentData.delay}}</td>
-                                                                                                <td  style="text-align:left" v-if="itemProgCentData.status != 'pending'">{{itemProgCentData.status}}</td>
+                                                                                                <td  style="text-align:left" v-if="itemProgCentData.status != 'upr_processing'">{{itemProgCentData.status}}</td>
                                                                                                 <td  style="text-align:left" v-else>UPR Processing</td>
                                                                                             </tr>
                                                                                                 </tbody>
@@ -197,8 +197,9 @@
 
 <script>
 
-var arrayIDs    =   [];
-var array2IDs    =   [];
+var arrayIDs            =   [];
+var arrayProgramCenter  =   [];
+var array2IDs           =   [];
     export default {
         data() {
             return{
@@ -258,32 +259,40 @@ var array2IDs    =   [];
                     })
             },
             clickItemProgram: function(item){
-
-                // if( arrayIDs.indexOf(item.programs) == -1 )
-                // {
+                if( arrayIDs.indexOf(item.programs) == -1 )
+                {
                     arrayIDs.push(item.programs);
                     this.fetchUPRCenters(item.programs)
-                // }
+                }
             },
             changeType: function(type){
                 this.types = type
                 this.itemProgram = []
                 this.itemProgramCenters = []
+                arrayIDs = []
+                arrayProgramCenter = []
+                array2IDs = []
                 this.fetchUprAnalytics(type)
             },
             clickItemProgramCenter: function(item){
-                this.fetchUnits(item.programs, item.name)
+                if( arrayProgramCenter.indexOf(item.name) == -1 )
+                {
+                    if(arrayProgramCenter[item.name] != item.name)
+                    {
+                            arrayProgramCenter[item.name]    =   item.name;
+                        this.fetchUnits(item.programs, item.name)
+                    }
+                }
             },
             clickItemUnit: function(item){
-                console.log(item.name)
-                // if( array2IDs.indexOf(item.short_code) == -1 )
-                // {
-                    // if(array2IDs[item.short_code] != item.short_code)
-                    // {
+                if( array2IDs.indexOf(item.short_code) == -1 )
+                {
+                    if(array2IDs[item.short_code] != item.short_code)
+                    {
                         array2IDs[item.short_code]    =   item.short_code;
                         this.fetchUPRs(item.short_code, item.name)
-                    // }
-                // }
+                    }
+                }
             }
         },
         computed: {
