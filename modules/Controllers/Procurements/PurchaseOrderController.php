@@ -709,7 +709,10 @@ class PurchaseOrderController extends Controller
         $data['coa_approved_date']  =  $result->coa_approved_date;
         $data['funding_release_date']  =  $result->funding_release_date;
 
-        $pdf = PDF::loadView('forms.po', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
+        $pdf = PDF::loadView('forms.po', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'))
+            ->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('po.pdf');
     }

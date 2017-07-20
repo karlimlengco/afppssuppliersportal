@@ -149,11 +149,11 @@
             <div class="printable-form">
 
 
-                <div class="printable-form__body">
+                <div class="printable-form__body" style="page-break-inside:avoid">
                 <p>Very truly yours,</p>
                 <table class="printable-form__body__table
                               printable-form__body__table--custom
-                              printable-form__body__table--borderless">
+                              printable-form__body__table--borderless" >
                     <tr>
                         <td class="v-align-bottom align-center" width="40%" height="50px"></td>
                         <td class="v-align-bottom align-center" width="20%" height="50px"></td>
@@ -165,17 +165,17 @@
                                 <table>
                                     <tr>
                                         <td width="50%"></td>
-                                        <td nowrap>{{$data['approver']->name}}</td>
+                                        <td nowrap>{{($data['approver']) ? $data['approver']->name :""}}</td>
                                         <td width="50%"></td>
                                     </tr>
                                     <tr>
                                         <td width="50%"></td>
-                                        <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['approver']->ranks; ?></pre> </td>
+                                        <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> @if($data['approver'])<?php echo $data['approver']->ranks; ?>@endif</pre> </td>
                                         <td width="50%"></td>
                                     </tr>
                                 </table>
                             </div>
-                            {{$data['approver']->designation}}
+                            {{($data['approver']) ? $data['approver']->designation : ""}}
                         </td>
 
                         <td width="20%"></td>
