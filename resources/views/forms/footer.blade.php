@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Footer</title>
+    <link rel="stylesheet" href="{{base_path('public/css/main.css')}}">
 </head>
 <body>
 <div class="printable-form__foot">
