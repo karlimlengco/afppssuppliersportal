@@ -24,11 +24,11 @@ Purchase Order
             <div class="button__options">
 
                 @if(!$data->funding_released_date)
-                    <a class=" button__options__item" id="pcco-button" href="#">Funding Approval</a>
+                    <a class=" button__options__item" id="pcco-button" href="#">Funding</a>
                 @endif
 
                 @if(!$data->mfo_released_date && $data->funding_released_date)
-                    <a class=" button__options__item" id="mfo-button" href="#">MFO Approval</a>
+                    <a class=" button__options__item" id="mfo-button" href="#">MFO Funding/Obligation</a>
                 @endif
 
                 @if($data->mfo_released_date && $data->funding_released_date && !$data->coa_approved_date)
@@ -114,7 +114,7 @@ Purchase Order
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Funding Remarks :</strong> {{$data->funding_remarks}} </li>
 
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Released Date :</strong> {{$data->mfo_released_date}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Received Date :</strong> {{$data->mfo_received_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Funding/Obligation :</strong> {{$data->mfo_received_date}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Remarks :</strong> {{$data->mfo_remarks}} </li>
         </ul>
     </div>

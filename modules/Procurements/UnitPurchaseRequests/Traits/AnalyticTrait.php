@@ -26,14 +26,7 @@ trait AnalyticTrait
 
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
 
-            DB::raw("
-                CASE WHEN count(unit_purchase_requests.id) = 0 THEN
-                count(unit_purchase_requests.id) -
-                ( count(unit_purchase_requests.completed_at) )
-                ELSE
-                0
-                END
-                as ongoing_count"),
+            DB::raw(" count(unit_purchase_requests.id) -( count(unit_purchase_requests.completed_at) )as ongoing_count"),
 
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
@@ -80,12 +73,8 @@ trait AnalyticTrait
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
 
             DB::raw("
-                CASE WHEN count(unit_purchase_requests.id) = 0 THEN
                 count(unit_purchase_requests.id) -
                 ( count(unit_purchase_requests.completed_at) )
-                ELSE
-                0
-                END
                 as ongoing_count"),
 
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
@@ -137,12 +126,8 @@ trait AnalyticTrait
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
 
             DB::raw("
-                CASE WHEN count(unit_purchase_requests.id) = 0 THEN
                 count(unit_purchase_requests.id) -
                 ( count(unit_purchase_requests.completed_at) )
-                ELSE
-                0
-                END
                 as ongoing_count"),
 
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
@@ -200,12 +185,8 @@ trait AnalyticTrait
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
 
             DB::raw("
-                CASE WHEN count(unit_purchase_requests.id) = 0 THEN
                 count(unit_purchase_requests.id) -
                 ( count(unit_purchase_requests.completed_at) )
-                ELSE
-                0
-                END
                 as ongoing_count"),
 
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),

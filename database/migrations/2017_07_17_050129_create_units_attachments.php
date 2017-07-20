@@ -15,6 +15,12 @@ class CreateUnitsAttachments extends Migration
     {
         Schema::create('unit_attachments', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('unit_id');
+            $table->string('name');
+            $table->string('file_name');
+            $table->integer('user_id');
+            $table->date('validity_date');
+            $table->date('upload_date');
             $table->timestamps();
         });
     }

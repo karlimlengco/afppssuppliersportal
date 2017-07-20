@@ -74,12 +74,13 @@ class ProcurementCenterRepository extends BaseRepository
                     and programs = procurement_centers.programs ) as completed_count"),
 
                 DB::raw("
-                    CASE WHEN count(unit_purchase_requests.id) = 0 THEN
-                    count(unit_purchase_requests.id) -
-                    ( count(unit_purchase_requests.completed_at) )
-                    ELSE
-                    0
-                    END
+                    (select count(unit_purchase_requests.id) from unit_purchase_requests left join procurement_centers as pc on unit_purchase_requests.procurement_office  = pc.id where mode_of_procurement  = 'public_bidding' and programs = procurement_centers.programs ) -
+                    (select count(unit_purchase_requests.completed_at)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  = 'public_bidding'
+                    and programs = procurement_centers.programs )
                     as ongoing_count"),
 
                 DB::raw("(select sum(unit_purchase_requests.total_amount)
@@ -162,13 +163,20 @@ class ProcurementCenterRepository extends BaseRepository
                     where mode_of_procurement  != 'public_bidding'
                     and programs = procurement_centers.programs ) as completed_count"),
 
+
                 DB::raw("
-                    CASE WHEN count(unit_purchase_requests.id) = 0 THEN
-                    count(unit_purchase_requests.id) -
-                    ( count(unit_purchase_requests.completed_at) )
-                    ELSE
-                    0
-                    END
+                    (select count(unit_purchase_requests.id)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  != 'public_bidding'
+                    and programs = procurement_centers.programs ) -
+                    (select count(unit_purchase_requests.completed_at)
+                    from unit_purchase_requests
+                    left join procurement_centers as pc
+                    on unit_purchase_requests.procurement_office  = pc.id
+                    where mode_of_procurement  != 'public_bidding'
+                    and programs = procurement_centers.programs )
                     as ongoing_count"),
 
                 DB::raw("(select sum(unit_purchase_requests.total_amount)

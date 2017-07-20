@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style type="text/css">
-
-</style>
 </head>
 <body>
 <div class="printable-form__foot" style="font-size: 12px; font-weight: 400; color: #545454;">
@@ -16,10 +13,6 @@
         <tr>
             <td style="width: 50%; padding: 0 15px;">
                 <span class="printable-form__foot__ref" style="display: block; width: 100%; font-size: 8px; font-weight: 800; text-transform: uppercase; text-align: left;">11111 1111 11111</span>
-            </td>
-            <td >
-                <span><img  src="http://afpps.revlv.com/user/1/avatar" alt=""></span>
-                {{-- <span><img  src="{{base_path('public/img/barcode.png')}}" alt=""></span> --}}
             </td>
         </tr>
     </table>

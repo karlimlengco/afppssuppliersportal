@@ -382,7 +382,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>PO Fund Release</td>
+                    <td>PO Funding</td>
                     <td>
                         @if($data->funding_received_date != null)
                         <?php $funding_received_date = createCarbon('Y-m-d',$data->funding_received_date); ?>
@@ -413,7 +413,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>PO MFO Release</td>
+                    <td>PO MFO Funding/Obligation</td>
                     <td>
                         @if($data->mfo_received_date != null)
                         <?php $mfo_received_date = createCarbon('Y-m-d',$data->mfo_received_date); ?>
