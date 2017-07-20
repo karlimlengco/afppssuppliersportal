@@ -44,6 +44,28 @@
 </style>
 </head>
 <body>
+<script>
+    function subst() {
+        var vars={};
+        var x=document.location.search.substring(1).split('&');
+        for (var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+        var x=['topage','page'];
+        for (var i in x) {
+            var y = document.getElementsByClassName(x[i]);
+            for (var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+        }
+    }
+</script>
+<table style="width: 100%; border:0; margin: 0;" onload="subst()">
+    <tr>
+        <td style="background: #7D9CA4; color: #FFFFFF; float: left; padding: 10px; font-weight: bold; text-align: center;">
+            <span class="page"></span> of <span class="topage"></span>
+        </td>
+        <td style="color: #000000; float: left; font-weight: bold; padding-top: 10px; text-align: center; width: 85%;">
+            Text block
+        </td>
+    </tr>
+</table>
 <div class="printable-form-wrapper">
     <div class="printable-form">
         <div class="printable-form__foot">
