@@ -354,8 +354,7 @@ class BlankRFQController extends Controller
         $data['deadline']           =  $result->deadline." ".$result->opening_time;
         $data['items']              =  $result->upr->items;
         $pdf = PDF::loadView('forms.rfq', ['data' => $data])
-            ->setOption('margin-bottom', 10)
-            ->setOption('header-html', route('pdf.footer'))
+            ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'))
             ->setPaper('a4');
 
