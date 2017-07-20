@@ -72,6 +72,38 @@
                                         <td></td>
                                         <td></td>
                                     </tr>
+                                    <tr>
+                                        <td style="text-align:center">{{$key+1}}</td>
+                                        <td>{{$item->quantity}}</td>
+                                        <td>{{$item->unit_measurement}}</td>
+                                        <td style="text-align:left">{{$item->item_description}}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">{{$key+1}}</td>
+                                        <td>{{$item->quantity}}</td>
+                                        <td>{{$item->unit_measurement}}</td>
+                                        <td style="text-align:left">{{$item->item_description}}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">{{$key+1}}</td>
+                                        <td>{{$item->quantity}}</td>
+                                        <td>{{$item->unit_measurement}}</td>
+                                        <td style="text-align:left">{{$item->item_description}}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center">{{$key+1}}</td>
+                                        <td>{{$item->quantity}}</td>
+                                        <td>{{$item->unit_measurement}}</td>
+                                        <td style="text-align:left">{{$item->item_description}}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
                                 @endforeach
                                 <tr>
                                     <td class="align-center" colspan="6">*** Nothing Follows ***</td>
@@ -154,7 +186,7 @@
                         </table>
                     </div>
                     <!-- form footer -->
-                  {{--   <div class="printable-form__foot">
+                 {{--    <div class="printable-form__foot">
                         <table class="printable-form__foot__table">
                             <tr>
                                 <td colspan="2">
