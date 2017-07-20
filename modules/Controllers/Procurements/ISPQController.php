@@ -247,7 +247,6 @@ class ISPQController extends Controller
         $pdf = PDF::loadView('forms.ispq', ['data' => $result])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'))
-            ->setOption('margin-bottom', 10)
             ->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('ispq.pdf');

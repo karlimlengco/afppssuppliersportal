@@ -140,24 +140,6 @@
                         </tr>
                     </table>
                 </div>
-                <!-- form footer -->
-             {{--    <div class="printable-form__foot">
-                    <table class="printable-form__foot__table">
-                        <tr>
-                            <td colspan="2">
-                                <p class="printable-form__foot__values">AFP Core Values: Honor, Service, Patriotism</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="printable-form__foot__ref">{{$data['rfq_number']}} {{$data['transaction_date']}}</span>
-                            </td>
-                            <td>
-                                <span class="printable-form__foot__code"><img src="{{base_path('public/img/barcode.png')}}" alt=""></span>
-                            </td>
-                        </tr>
-                    </table>
-                </div> --}}
             </div>
 
         </div>

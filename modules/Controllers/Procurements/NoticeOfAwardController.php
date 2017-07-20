@@ -531,7 +531,12 @@ class NoticeOfAwardController extends Controller
         $data['signatory']          =   $noa_modal->signatory;
         $data['project_name']       =   $upr_model->project_name;
 
-        $pdf = PDF::loadView('forms.noa', ['data' => $data])->setOption('margin-left', 13)->setOption('margin-right', 13)->setOption('margin-bottom', 10)->setPaper('a4');
+        $pdf = PDF::loadView('forms.noa', ['data' => $data])
+            ->setOption('margin-left', 13)
+            ->setOption('margin-right', 13)
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'))
+            ->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('noa.pdf');
     }
