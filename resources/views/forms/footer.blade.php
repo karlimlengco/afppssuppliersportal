@@ -1,7 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{{base_path('public/css/main.css')}}">
+<style type="text/css">
+
+.printable-form__foot {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+.printable-form__foot__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.printable-form__foot__table tr td {
+  width: 50%;
+  padding: 0 15px;
+}
+.printable-form__foot__values {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+.printable-form__foot__ref {
+  display: block;
+  width: 100%;
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: left;
+}
+.printable-form__foot__code {
+  display: block;
+  height: 20px;
+  text-align: right;
+}
+.printable-form__foot__code img {
+  height: 100%;
+}
+</style>
 </head>
 <body>
 <div class="printable-form-wrapper">
