@@ -12,6 +12,8 @@
 */
 Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard.index');
 
+Route::get('pdf/footer', '\Revlv\Controllers\PDFController@getFooter')->name('pdf.footer');
+
 Route::get('chat', function(){
     return view('chat');
 });
