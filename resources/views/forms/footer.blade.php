@@ -18,7 +18,7 @@
                 <span class="printable-form__foot__ref" style="display: block; width: 100%; font-size: 8px; font-weight: 800; text-transform: uppercase; text-align: left;">11111 1111 11111</span>
             </td>
             <td style="width: 50%; padding: 0 15px;">
-                <span class="printable-form__foot__code" style="display: block; height: 20px; text-align: right;"><img style="height: 100px;" src="{{base_path('public/img/barcode.png')}}" alt=""></span>
+                <span class="printable-form__foot__code" ><img style="height: 100%;" src="{{base_path('public/img/barcode.png')}}" alt=""></span>
             </td>
         </tr>
     </table>
