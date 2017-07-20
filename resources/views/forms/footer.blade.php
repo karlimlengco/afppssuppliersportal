@@ -29,7 +29,7 @@
     </tr>
 </table>
  --}}
-<div class="printable-form__foot" style="position: absolute; bottom: 10px;  left: 0; right: 0; width: 100%;font-size: 12px; font-weight: 400; color: #545454;">
+<div class="printable-form__foot" style="font-size: 12px; font-weight: 400; color: #545454;">
     <table class="printable-form__foot__table" style="width: 100%; border-collapse: collapse;">
         <tr>
             <td colspan="2" style="width: 50%; padding: 0 15px;">
