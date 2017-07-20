@@ -150,7 +150,13 @@ class VoucherController extends Controller
 
         $result = $model->save($inputs);
 
-        $upr->update(['status' => 'Voucher Created', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
+        $upr->update([
+            'status' => 'Voucher Created',
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -300,7 +306,13 @@ class VoucherController extends Controller
 
         $result = $model->update($inputs, $id);
 
-        $upr->update(['status' => 'Voucher Preaudit', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
+        $upr->update([
+            'status' => 'Voucher Preaudit',
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $result->upr_id);
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -359,7 +371,13 @@ class VoucherController extends Controller
 
         $result=    $model->update($inputs, $id);
 
-        $upr->update(['status' => 'Voucher Approved', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
+        $upr->update([
+            'status' => 'Voucher Approved',
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $result->upr_id);
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -423,7 +441,13 @@ class VoucherController extends Controller
 
         $result =   $model->update($inputs, $id);
 
-        $upr->update(['status' => 'Voucher Certify', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
+        $upr->update([
+            'status' => 'Voucher Certify',
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -485,7 +509,13 @@ class VoucherController extends Controller
 
         $result =   $model->update($inputs, $id);
 
-        $upr->update(['status' => 'Voucher Journal Entry', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
+        $upr->update([
+            'status' => 'Voucher Journal Entry',
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -546,7 +576,13 @@ class VoucherController extends Controller
 
         $result =   $model->update($inputs, $id);
 
-        $upr->update(['status' => 'Voucher Released', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
+        $upr->update([
+            'status' => 'Voucher Released',
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

@@ -112,6 +112,10 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
 
         'days',
         'delay_count',
+
+        'calendar_days',
+        'last_remarks',
+        'last_action',
     ];
 
     /**

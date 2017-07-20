@@ -190,7 +190,13 @@ class NoticeToProceedController extends Controller
         ];
 
 
-        $upr->update(['status' => "NTP Created", 'delay_count' => $day_delayed + $po_model->upr->delay_count], $po_model->upr_id);
+        $upr->update([
+            'status' => "NTP Created",
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $po_model->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $po_model->upr_id);
 
         $result = $model->save($inputs);
 
@@ -332,7 +338,13 @@ class NoticeToProceedController extends Controller
 
         $result             =   $model->update($input, $id);
 
-        $upr->update(['status' => 'NTP Accepted', 'delay_count' => $day_delayed + $ntp_model->upr->delay_count], $result->upr_id);
+        $upr->update([
+            'status' => 'NTP Accepted',
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $ntp_model->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

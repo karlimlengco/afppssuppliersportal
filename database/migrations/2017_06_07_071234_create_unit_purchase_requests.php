@@ -64,6 +64,9 @@ class CreateUnitPurchaseRequests extends Migration
 
             $table->string('days')->nullable();
             $table->string('delay_count')->nullable();
+            $table->string('calendar_days')->nullable();
+            $table->string('last_remarks')->nullable();
+            $table->string('last_action')->nullable();
 
 
             $table->timestamps();

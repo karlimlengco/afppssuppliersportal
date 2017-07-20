@@ -157,7 +157,12 @@ class PhilGepsPostingController extends Controller
         $inputs['upr_id']       =   $rfq_model->upr_id;
         $inputs['days']         =   $day_delayed;
 
-        $upr->update(['delay_count' => $day_delayed + $rfq_model->upr->delay_count], $rfq_model->upr->id);
+        $upr->update([
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $rfq_model->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $rfq_model->upr->id);
 
         $result = $model->save($inputs);
 

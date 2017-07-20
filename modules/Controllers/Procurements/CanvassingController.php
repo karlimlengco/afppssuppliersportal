@@ -173,7 +173,13 @@ class CanvassingController extends Controller
         $canvass_date           =   $request->open_canvass_date;
         $result = $model->save($inputs);
 
-        $upr->update(['status' => "Open Canvass ($canvass_date)", 'delay_count' => $day_delayed + $rfq_model->upr->delay_count], $rfq_model->upr_id);
+        $upr->update([
+            'status' => "Open Canvass ($canvass_date)",
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $rfq_model->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $rfq_model->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

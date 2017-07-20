@@ -129,7 +129,13 @@ class NoticeOfAwardController extends Controller
         // // Update canvass adjuourned time
         $model->update(['adjourned_time' => \Carbon\Carbon::now()], $canvasId);
         // // update upr
-        $upr->update(['status' => "Awarded To $supplier_name", 'delay_count' => $day_delayed + $canvasModel->upr->delay_count],  $canvasModel->upr_id);
+        $upr->update([
+            'status' => "Awarded To $supplier_name",
+            'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
+            'calendar_days' => $day_delayed + $canvasModel->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ],  $canvasModel->upr_id);
 
         return redirect()->route('procurements.canvassing.show', $canvasId)->with([
             'success'  => "New record has been successfully added."
@@ -216,7 +222,13 @@ class NoticeOfAwardController extends Controller
         $result             =   $model->findById($id);
 
         $model->update($input, $id);
-        $upr->update(['status' => 'NOA Received', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
+        $upr->update([
+            'status' => 'NOA Received',
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -292,7 +304,13 @@ class NoticeOfAwardController extends Controller
         }
 
          // // update upr
-        $upr->update(['status' => "Approved NOA", 'delay_count' => $day_delayed + $result->upr->delay_count],  $result->upr_id);
+        $upr->update([
+            'status' => "Approved NOA",
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ],  $result->upr_id);
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([

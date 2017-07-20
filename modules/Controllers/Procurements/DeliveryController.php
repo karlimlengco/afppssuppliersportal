@@ -174,7 +174,13 @@ class DeliveryController extends Controller
 
         DB::table('delivery_order_items')->insert($items);
 
-        $upr->update(['status' => 'NOD Created', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
+        $upr->update([
+            'status' => 'NOD Created',
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -355,7 +361,13 @@ class DeliveryController extends Controller
 
         $model->update($inputs, $id);
 
-        $upr->update(['status' => 'Delivery Received', 'delay_count' => $day_delayed + $dr_model->upr->delay_count], $dr_model->upr_id);
+        $upr->update([
+            'status' => 'Delivery Received',
+            'delay_count'   => ($day_delayed > 7 )? $day_delayed - 7 : 0,
+            'calendar_days' => $day_delayed + $dr_model->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $dr_model->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -437,7 +449,13 @@ class DeliveryController extends Controller
 
         $result =   $model->update($inputs, $id);
 
-        $upr->update(['status' => 'Complete COA Delivery', 'delay_count' => $day_delayed + $dr_model->upr->delay_count], $result->upr_id);
+        $upr->update([
+            'status' => 'Complete COA Delivery',
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $dr_model->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

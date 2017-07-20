@@ -116,7 +116,13 @@ class InspectionAndAcceptanceController extends Controller
 
         $delivery->update(['status' => 'Accepted'], $result->dr_id);
 
-        $upr->update(['status' => 'Inspection Accepted', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
+        $upr->update([
+            'status' => 'Inspection Accepted',
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $result->upr_id);
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -260,7 +266,13 @@ class InspectionAndAcceptanceController extends Controller
             DB::table('inspection_acceptance_invoices')->insert($invoices);
         }
 
-        $upr->update(['status' => 'Inspection Started', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
+        $upr->update([
+            'status' => 'Inspection Started',
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

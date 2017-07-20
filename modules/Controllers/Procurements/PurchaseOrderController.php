@@ -154,7 +154,13 @@ class PurchaseOrderController extends Controller
             $path       = $request->file->storeAs('coa-approved-attachments', $file);
         }
 
-        $upr->update(['status' => 'PO Approved', 'delay_count' => $day_delayed + $po->upr->delay_count], $result->upr_id);
+        $upr->update([
+            'status' => 'PO Approved',
+            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'calendar_days' => $day_delayed + $po->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Purchase Order has been successfully approved."
@@ -219,7 +225,13 @@ class PurchaseOrderController extends Controller
         $model->update(['status' => 'MFO Approved'], $id);
 
 
-        $upr->update(['status' => "PO MFO Approved", 'delay_count' => $day_delayed + $po->upr->delay_count], $po->upr_id);
+        $upr->update([
+            'status' => "PO MFO Approved",
+            'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
+            'calendar_days' => $day_delayed + $po->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $po->upr_id);
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -283,7 +295,13 @@ class PurchaseOrderController extends Controller
         $result =   $model->update($inputs, $id);
 
         $model->update(['status' => 'Accounting Approved'], $id);
-        $upr->update(['status' => "PO Funding Approved", 'delay_count' => $day_delayed + $po->upr->delay_count], $po->upr_id);
+        $upr->update([
+            'status' => "PO Funding Approved",
+            'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
+            'calendar_days' => $day_delayed + $po->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $po->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -435,7 +453,13 @@ class PurchaseOrderController extends Controller
             DB::table('purchase_order_items')->insert($item_datas);
         }
 
-        $upr->update(['status' => "PO Created", 'delay_count' => $day_delayed + $rfq_model->upr->delay_count], $noa_model->upr_id);
+        $upr->update([
+            'status' => "PO Created",
+            'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
+            'calendar_days' => $day_delayed + $rfq_model->upr->calendar_days,
+            'action'        => $request->action,
+            'remarks'       => $request->remarks
+            ], $noa_model->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
