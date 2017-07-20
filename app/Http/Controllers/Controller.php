@@ -20,7 +20,7 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        $this->middleware('revlv.auth', ['except' => ['login','showImage']]);
+        $this->middleware('revlv.auth', ['except' => ['login','showImage','getFooter']]);
         // $this->middleware('revlv.permissions', ['except' => ['login','showImage','choosePlan','usePlan']]);
     }
 
