@@ -5,6 +5,8 @@ Notice Of Delivery
 @section('modal')
     @include('modules.partials.modals.signatory')
     @include('modules.partials.modals.coa-delivery')
+    @include('modules.partials.modals.view-attachments-nod')
+    @include('modules.partials.modals.dropzone')
 @stop
 
 @section('contents')
@@ -16,6 +18,8 @@ Notice Of Delivery
         <button type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
+                <a class="button__options__item" id="view-attachments-button" href="#">Attachments</a>
+
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
 
                 <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="RFQ"> Request For Quotation</a>
@@ -48,6 +52,8 @@ Notice Of Delivery
         @else
 
         @endif
+
+        <a href="#" id="attachment-button" class="button" tooltip="Attachments"><i class="nc-icon-mini ui-1_attach-86"></i> </a>
 
         <a href="{{route('procurements.delivery-orders.logs', $data->id)}}" class="button" tooltip="Logs">
             <i class="nc-icon-mini files_archive-content"></i>
@@ -97,36 +103,45 @@ Notice Of Delivery
 
 @section('scripts')
 <script type="text/javascript">
+    $('#attachment-button').click(function(e){
+        e.preventDefault();
+        $('#dropzone-modal').addClass('is-visible');
+    })
 
-var delivery_date = new Pikaday(
-{
-    field: document.getElementById('id-field-delivery_date'),
-    firstDay: 1,
-    // minDate: new Date(),
-    maxDate: new Date(2020, 12, 31),
-    yearRange: [2000,2020]
-});
+    $('#view-attachments-button').click(function(e){
+        e.preventDefault();
+        $('#view-attachments-modal').addClass('is-visible');
+    })
 
-var date_delivered_to_coa = new Pikaday(
-{
-    field: document.getElementById('id-field-date_delivered_to_coa'),
-    firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-    // minDate: new Date(),
-    maxDate: new Date(2020, 12, 31),
-    yearRange: [2000,2020]
-});
+    var delivery_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-delivery_date'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
 
-$('#signatory-button').click(function(e){
-    e.preventDefault();
-    $('#signatory-modal').addClass('is-visible');
-})
+    var date_delivered_to_coa = new Pikaday(
+    {
+        field: document.getElementById('id-field-date_delivered_to_coa'),
+        firstDay: 1,
+            defaultDate: new Date(),
+            setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
 
-$('#coa-button').click(function(e){
-    e.preventDefault();
-    $('#coa-modal').addClass('is-visible');
-})
+    $('#signatory-button').click(function(e){
+        e.preventDefault();
+        $('#signatory-modal').addClass('is-visible');
+    })
+
+    $('#coa-button').click(function(e){
+        e.preventDefault();
+        $('#coa-modal').addClass('is-visible');
+    })
 
 
 </script>

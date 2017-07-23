@@ -239,6 +239,12 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::put('delivery-orders/update-signatory/{id}', '\Revlv\Controllers\Procurements\DeliveryController@updateSignatory')->name('delivery-orders.update-signatory');
     Route::post('delivery-orders/create-purchase/{id}', '\Revlv\Controllers\Procurements\DeliveryController@createFromPurchase')->name('delivery-orders.create-purchase');
     Route::post('delivery-orders/completed/{id}', '\Revlv\Controllers\Procurements\DeliveryController@completeOrder')->name('delivery-orders.completed');
+
+
+    Route::post('delivery-orders/attachments/{id}', '\Revlv\Controllers\Procurements\DeliveryController@uploadAttachment')->name('delivery-orders.attachments.store');
+
+    Route::get('delivery-orders/download/{id}', '\Revlv\Controllers\Procurements\DeliveryController@downloadAttachment')->name('delivery-orders.attachments.download');
+
     Route::resource('delivery-orders', '\Revlv\Controllers\Procurements\DeliveryController');
 
     /*

@@ -19,9 +19,11 @@ use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
+use Revlv\Procurements\DeliveryOrder\AttachmentTrait;
 
 class DeliveryController extends Controller
 {
+    use AttachmentTrait;
 
     /**
      * [Base Route of Controller]
@@ -210,6 +212,10 @@ class DeliveryController extends Controller
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update-signatory', $id],
+                    'method'    =>  'PUT'
+                ],
+                'add_attachment' =>  [
+                    'route'     =>  [$this->baseUrl.'attachments.store', $id],
                     'method'    =>  'PUT'
                 ]
             ]

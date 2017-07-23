@@ -174,4 +174,14 @@ class DeliveryOrderEloquent extends Model implements  AuditableContract
     {
         return $this->hasOne('\Revlv\Procurements\DeliveryInspection\DeliveryInspectionEloquent', 'dr_id');
     }
+
+    /**
+     * [attachments description]
+     *
+     * @return [type] [description]
+     */
+    public function attachments()
+    {
+         return $this->hasMany('\Revlv\Procurements\DeliveryOrder\Attachments\AttachmentEloquent', 'nod_id');
+    }
 }
