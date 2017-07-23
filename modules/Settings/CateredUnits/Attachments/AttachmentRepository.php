@@ -1,4 +1,4 @@
-a<?php
+<?php
 
 namespace Revlv\Settings\CateredUnits\Attachments;
 
@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class AttachmentRepository extends BaseRepository
 {
-    use  DatatableTrait;
 
     /**
      * Specify Model class name

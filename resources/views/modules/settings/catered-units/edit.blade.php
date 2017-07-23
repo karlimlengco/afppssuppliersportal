@@ -45,6 +45,29 @@ Units
 </div>
 
 {!! Form::close() !!}
+@if(count($data->attachments) != 0)
+
+    <table class="table">
+         <thead>
+            <tr>
+                <th>Name</th>
+                <th>File Name</th>
+                <th>Uploaded By</th>
+                <th>Upload Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($data->attachments as  $attachment)
+            <tr>
+                <td> <a target="_blank" href="{{route('maintenance.catered-units.attachments.download', $attachment->id)}}"> {{$attachment->name}} </a></td>
+                <td>{{$attachment->file_name}}</td>
+                <td>{{($attachment->users) ? $attachment->users->first_name ." ". $attachment->users->surname :""}}</td>
+                <td>{{$attachment->upload_date}}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+@endif
 
 @stop
 

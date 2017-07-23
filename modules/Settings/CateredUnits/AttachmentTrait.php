@@ -1,6 +1,6 @@
 <?php
 
-namespace Revlv\Settings\CateredUnits\Traits;
+namespace Revlv\Settings\CateredUnits;
 
 use Illuminate\Http\Request;
 use DB;
@@ -40,14 +40,16 @@ trait AttachmentTrait
 
         $validator = \Validator::make($request->all(), [
             'file' => 'required',
+            'name' => 'required',
         ]);
 
         $result     = $attachments->save([
-            'upr_id'        =>  $id,
-            'name'          =>  $request->file->getClientOriginalName(),
+            'unit_id'       =>  $id,
+            'name'          =>  $request->name,
             'file_name'     =>  $file,
             'user_id'       =>  \Sentinel::getUser()->id,
-            'upload_date'   =>  \Carbon\Carbon::now()
+            'upload_date'   =>  \Carbon\Carbon::now(),
+            'validity_date'   =>  \Carbon\Carbon::now()
         ]);
 
         if($result)

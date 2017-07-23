@@ -8,7 +8,7 @@ use Auth;
 
 use \Revlv\Settings\CateredUnits\CateredUnitRepository;
 use \Revlv\Settings\CateredUnits\CateredUnitRequest;
-use \Revlv\Settings\CateredUnits\Attachments\AttachmentTrait;
+use \Revlv\Settings\CateredUnits\AttachmentTrait;
 use \Revlv\Settings\ProcurementCenters\ProcurementCenterRepository;
 
 class CateredUnitController extends Controller
