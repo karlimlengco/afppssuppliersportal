@@ -52,9 +52,9 @@
                     "name"  :   "Finalize Bid Docs"
                 },
                 {
-                    "route" :   "procurements.noa.index",
+                    "route" :   "biddings.noa.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "NOA Acceptance"
+                    "name"  :   "Notice of Award"
                 }
             ]
         }

@@ -70,8 +70,15 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     Route::resource('document-acceptance', '\Revlv\Controllers\Biddings\DocumentAcceptanceController');
     Route::resource('finalize-bid-docs', '\Revlv\Controllers\Biddings\FinalBidDocsController');
     Route::resource('itb', '\Revlv\Controllers\Biddings\InvitationToBidController');
+    Route::post('post-qualifications/failed', '\Revlv\Controllers\Biddings\PostQualificationController@failed')->name('post-qualifications.failed');
+
+    Route::post('award-to/{pq_id}/{proponent_id}', '\Revlv\Controllers\Biddings\NOAController@awardToProponent')->name('notice-of-awards.award-to');
     Route::resource('post-qualifications', '\Revlv\Controllers\Biddings\PostQualificationController');
     Route::resource('pre-bids', '\Revlv\Controllers\Biddings\PreBidController');
+
+    Route::put('noa/update-signatory/{id}', '\Revlv\Controllers\Biddings\NOAController@updateSignatory')->name('noa.update-signatory');
+
+    Route::resource('noa', '\Revlv\Controllers\Biddings\NOAController');
 
 });
 
@@ -309,6 +316,11 @@ Route::group(['as' => 'maintenance.', 'prefix' => 'maintenance'], function () {
     Route::resource('units', '\Revlv\Controllers\Settings\UnitController');
     Route::resource('banks', '\Revlv\Controllers\Settings\BankController');
     Route::resource('announcements', '\Revlv\Controllers\Settings\AnnouncementController');
+
+    Route::post('catered-units/attachments/{id}', '\Revlv\Controllers\Settings\CateredUnitController@uploadAttachment')->name('catered-units.attachments.store');
+
+    Route::get('catered-units/download/{id}', '\Revlv\Controllers\Settings\CateredUnitController@downloadAttachment')->name('catered-units.attachments.download');
+
     Route::resource('catered-units', '\Revlv\Controllers\Settings\CateredUnitController');
     Route::resource('bacsec', '\Revlv\Controllers\Settings\BacSecController');
 
@@ -455,7 +467,10 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('bid-docs', '\Revlv\Controllers\Biddings\BidDocsController@getDatatable')->name('biddings.bid-docs');
     Route::get('pre-bids', '\Revlv\Controllers\Biddings\PreBidController@getDatatable')->name('biddings.pre-bids');
     Route::get('bid-openings', '\Revlv\Controllers\Biddings\BidOpeningController@getDatatable')->name('biddings.bid-openings');
+    Route::get('post-qualifications', '\Revlv\Controllers\Biddings\PostQualificationController@getDatatable')->name('biddings.post-qualifications');
 
+
+    Route::get('noa-biddings', '\Revlv\Controllers\Biddings\NOAController@getDatatable')->name('biddings.noa');
 });
 
 

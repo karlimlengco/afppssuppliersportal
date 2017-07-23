@@ -4,6 +4,7 @@ Units
 
 @section('modal')
     @include('modules.partials.modals.delete')
+    @include('modules.partials.modals.unit_attachments')
 @stop
 
 @section('contents')
@@ -13,6 +14,8 @@ Units
 <div class="row">
     <div class="twelve columns align-left utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+
+        <a href="#" id="attachment-button" class="button" tooltip="Attachments"><i class="nc-icon-mini ui-1_attach-86"></i> </a>
 
         <button type="submit" class="button"  tooltip="Save">
         <i class="nc-icon-mini ui-2_disk"></i>
@@ -43,4 +46,14 @@ Units
 
 {!! Form::close() !!}
 
+@stop
+
+@section('scripts')
+<script type="text/javascript">
+
+    $('#attachment-button').click(function(e){
+        e.preventDefault();
+        $('#unit-attachment-modal').addClass('is-visible');
+    })
+</script>
 @stop

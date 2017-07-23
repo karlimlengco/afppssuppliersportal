@@ -68,4 +68,14 @@ class BidDocsEloquent extends Model implements  AuditableContract
         return $this->belongsTo('\App\User', 'processed_by');
     }
 
+    /**
+     * [supplier description]
+     *
+     * @return [type] [description]
+     */
+    public function supplier()
+    {
+        return $this->belongsTo('\Revlv\Settings\Suppliers\SupplierEloquent', 'proponent_id');
+    }
+
 }

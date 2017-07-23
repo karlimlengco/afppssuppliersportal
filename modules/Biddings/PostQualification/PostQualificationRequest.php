@@ -32,7 +32,7 @@ class PostQualificationRequest extends BaseRequest
     public function rules()
     {
         return [
-            'transaction_date'              => 'required',
+            'pq_transaction_date'              => 'required',
             'failed_remarks'                => 'required_if:is_failed,1',
         ];
     }

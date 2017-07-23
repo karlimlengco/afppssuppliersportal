@@ -1,6 +1,6 @@
 <?php
 
-namespace Revlv\Controllers\Procurements;
+namespace Revlv\Controllers\Biddings;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,17 +9,15 @@ use PDF;
 use Carbon\Carbon;
 use Validator;
 
+use Revlv\Biddings\BidDocs\BidDocsRepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
-use \Revlv\Procurements\Canvassing\CanvassingRepository;
-use \Revlv\Procurements\Canvassing\CanvassingRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
-use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
-use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
+use Revlv\Biddings\PostQualification\PostQualificationRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 
-class NoticeOfAwardController extends Controller
+class NOAController extends Controller
 {
 
     /**
@@ -27,7 +25,7 @@ class NoticeOfAwardController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "procurements.noa.";
+    protected $baseUrl  =   "biddings.noa.";
 
     /**
      * [$blank description]
@@ -36,12 +34,12 @@ class NoticeOfAwardController extends Controller
      */
     protected $blank;
     protected $upr;
-    protected $rfq;
     protected $noa;
+    protected $post_qual;
     protected $signatories;
-    protected $proponents;
     protected $audits;
     protected $holidays;
+    protected $bid_docs;
 
     /**
      * [$model description]
@@ -65,26 +63,25 @@ class NoticeOfAwardController extends Controller
      */
     public function awardToProponent(
         Request $request,
-        CanvassingRepository $model,
-        RFQProponentRepository $proponents,
-        BlankRFQRepository $blank,
+        PostQualificationRepository $model,
         UnitPurchaseRequestRepository $upr,
+        BidDocsRepository $bid_docs,
         NOARepository $noa,
-        $canvasId,
+        $pq_id,
         $proponentId,
         HolidayRepository $holidays
         )
     {
-        $canvasModel            =   $model->findById($canvasId);
-        $canvasDate             =   Carbon::createFromFormat('Y-m-d', $canvasModel->canvass_date);
+        $pq_model               =   $model->findById($pq_id);
+        $pqDate                 =   Carbon::createFromFormat('Y-m-d', $pq_model->transaction_date);
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('awarded_date') );
 
-        $proponent_model        =   $proponents->with('supplier')->findById($proponentId);
+        $proponent_model        =   $bid_docs->findById($proponentId);
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
-        $supplier_name          =   $proponent_model->supplier->name;
+        $supplier_name          =   $proponent_model->proponent_name;
 
-        $day_delayed            =   $canvasDate->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed            =   $pqDate->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
@@ -110,11 +107,9 @@ class NoticeOfAwardController extends Controller
         }
 
         $data   =   [
-            'canvass_id'    =>  $canvasId,
-            'upr_id'        =>  $canvasModel->upr_id,
-            'rfq_id'        =>  $canvasModel->rfq_id,
-            'rfq_number'    =>  $canvasModel->rfq_number,
-            'upr_number'    =>  $canvasModel->upr_number,
+            'canvass_id'    =>  $pq_id,
+            'upr_id'        =>  $pq_model->upr_id,
+            'upr_number'    =>  $pq_model->upr_number,
             'proponent_id'  =>  $proponentId,
             'awarded_by'    =>  $request->awarded_by,
             'seconded_by'   =>  $request->seconded_by,
@@ -124,20 +119,18 @@ class NoticeOfAwardController extends Controller
             'days'          =>  $day_delayed,
         ];
 
-        $noa->save($data);
+        $noaModal   =   $noa->save($data);
 
-        // // Update canvass adjuourned time
-        $model->update(['adjourned_time' => \Carbon\Carbon::now()], $canvasId);
         // // update upr
         $upr->update([
             'status' => "Awarded To $supplier_name",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
-            'calendar_days' => $day_delayed + $canvasModel->upr->calendar_days,
+            'calendar_days' => $day_delayed + $pq_model->upr->calendar_days,
             'action'        => $request->action,
             'remarks'       => $request->remarks
-            ],  $canvasModel->upr_id);
+            ],  $pq_model->upr_id);
 
-        return redirect()->route('procurements.canvassing.show', $canvasId)->with([
+        return redirect()->route('biddings.noa.show', $noaModal->id)->with([
             'success'  => "New record has been successfully added."
         ]);
     }
@@ -149,7 +142,7 @@ class NoticeOfAwardController extends Controller
      */
     public function getDatatable(NOARepository $model)
     {
-        return $model->getDatatable();
+        return $model->getDatatable('bidding');
     }
 
     /**
@@ -159,7 +152,7 @@ class NoticeOfAwardController extends Controller
      */
     public function index()
     {
-        return $this->view('modules.procurements.noa.index');
+        return $this->view('modules.biddings.noa.index');
     }
 
     /**
@@ -172,8 +165,6 @@ class NoticeOfAwardController extends Controller
     public function update(
         Request $request,
         $id,
-        RFQProponentRepository $rfq,
-        BlankRFQRepository $blank,
         UnitPurchaseRequestRepository $upr,
         NOARepository $model,
         HolidayRepository $holidays
@@ -230,7 +221,7 @@ class NoticeOfAwardController extends Controller
             'remarks'       => $request->remarks
             ], $result->upr_id);
 
-        return redirect()->back()->with([
+        return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
         ]);
     }
@@ -313,27 +304,8 @@ class NoticeOfAwardController extends Controller
             ],  $result->upr_id);
 
 
-        return redirect()->back()->with([
+        return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "NOA has been successfully accepted."
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(BlankRFQRepository $rfq)
-    {
-        $rfq_list   =   $rfq->lists('id', 'rfq_number');
-        $this->view('modules.procurements.canvassing.create',[
-            'indexRoute'    =>  $this->baseUrl.'index',
-            'rfq_list'      =>  $rfq_list,
-            'modelConfig'   =>  [
-                'store' =>  [
-                    'route'     =>  $this->baseUrl.'store'
-                ]
-            ]
         ]);
     }
 
@@ -362,64 +334,34 @@ class NoticeOfAwardController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CanvassingRequest $request, CanvassingRepository $model, BlankRFQRepository $rfq)
-    {
-        $rfq_model              =   $rfq->findById($request->rfq_id);
-        $inputs                 =   $request->getData();
-        $inputs['rfq_number']   =   $rfq_model->rfq_number;
-        $inputs['upr_number']   =   $rfq_model->upr_number;
-        $canvass_date           =   $inputs['canvass_date'];
-
-        $rfq->update(['status' => "Canvasing ($canvass_date)"], $rfq_model->id);
-
-        $result = $model->save($inputs);
-
-        return redirect()->route($this->baseUrl.'edit', $result->id)->with([
-            'success'  => "New record has been successfully added."
-        ]);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show(
-        CanvassingRepository $model,
+        PostQualificationRepository $model,
         NOARepository $noa,
         $id,
-        RFQProponentRepository $proponents,
+        BidDocsRepository $proponents,
         SignatoryRepository $signatories,
         UnitPurchaseRequestRepository $upr)
     {
         $result             =   $noa->with(['winner', 'upr'])->findById($id);
-        $canvass            =   $model->findById($result->canvass_id);
-
+        $pq_model           =   $model->findById($result->pq_id);
         $proponent_awardee  =   $result->winner->supplier;
-        if(!$proponent_awardee)
-        {
-            return redirect()->route('procurements.blank-rfq.show', $id)->with([
-                'success'    =>  'Awardee is not yet present. Go to canvassing and select proponent.'
-            ]);
-        }
 
-        $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findByRFQId($proponent_awardee->rfq_id);
+        $upr_model          =   $result->upr;
 
         $signatory_list     =   $signatories->lists('id','name');
 
-        return $this->view('modules.procurements.noa.show',[
+        return $this->view('modules.biddings.noa.show',[
             'data'          =>  $result,
             'upr_model'     =>  $upr_model,
-            'canvass'       =>  $canvass,
+            'pq_model'      =>  $pq_model,
             'supplier'      =>  $proponent_awardee,
             'signatory_list'=>  $signatory_list,
-            'printRoute'    =>  $this->baseUrl.'print',
+            'printRoute'    =>  'procurements.noa.print',
             'indexRoute'    =>  $this->baseUrl.'index',
             'editRoute'     =>  $this->baseUrl.'edit',
             'modelConfig'   =>  [
@@ -454,150 +396,4 @@ class NoticeOfAwardController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function updateDates(
-        Request $request,
-        $id,
-        RFQProponentRepository $rfq,
-        BlankRFQRepository $blank,
-        UnitPurchaseRequestRepository $upr,
-        NOARepository $model
-        )
-    {
-        $this->validate($request, [
-            'awarded_date'              =>  'required',
-            'award_accepted_date'       =>  'required',
-            'accepted_date'             =>  'required',
-        ]);
-
-        $input  =   [
-            'awarded_date'              =>  $request->awarded_date,
-            'award_accepted_date'       =>  $request->award_accepted_date,
-            'accepted_date'             =>  $request->accepted_date,
-            'update_remarks'            =>  $request->update_remarks,
-        ];
-
-        $result             =   $model->findById($id);
-
-        $model->update($input, $id);
-
-        return redirect()->route($this->baseUrl.'show', $id)->with([
-            'success'  => "Record has been successfully updated."
-        ]);
-    }
-
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id, CanvassingRepository $model)
-    {
-        $model->delete($id);
-
-        return redirect()->route($this->baseUrl.'index')->with([
-            'success'  => "Record has been successfully deleted."
-        ]);
-    }
-
-    /**
-     * [viewPrint description]
-     *
-     * @param  [type] $id [description]
-     * @return [type]     [description]
-     */
-    public function viewPrint(
-        $id,
-        CanvassingRepository $model,
-        BlankRFQRepository $blank,
-        NOARepository $noa,
-        UnitPurchaseRequestRepository $upr,
-        RFQProponentRepository $rfq)
-    {
-        $noa_modal                  =   $noa->with(['winner','signatory'])->findById($id);
-
-        if($noa_modal->signatory == null)
-        {
-            return redirect()->back()->with([
-                'error'  => "Please select signatory first"
-            ]);
-        }
-
-        $result                     =   $model->findById($noa_modal->canvass_id);
-        $proponent_awardee          =   $noa_modal->winner->supplier;
-        $rfq_model                  =   $blank->findById($result->rfq_id);
-        $upr_model                  =   $upr->with(['unit'])->findById($rfq_model->upr_id);
-
-        $data['transaction_date']   =   $noa_modal->awarded_date;
-        $data['rfq_date']           =   $rfq_model->transaction_date;
-        $data['supplier']           =   $proponent_awardee;
-        $data['unit']               =   $upr_model->unit->description;
-        $data['rfq_number']         =   $rfq_model->rfq_number;
-        $data['total_amount']       =   $upr_model->total_amount;
-        $data['bid_amount']         =   $noa_modal->winner->bid_amount;
-
-
-        $data['canvass_date']       =   $result->canvass_date;
-        $data['signatory']          =   $noa_modal->signatory;
-        $data['project_name']       =   $upr_model->project_name;
-
-        $pdf = PDF::loadView('forms.noa', ['data' => $data])
-            ->setOption('margin-left', 13)
-            ->setOption('margin-right', 13)
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
-
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('noa.pdf');
-    }
-
-    /**
-     * [downloadCopy description]
-     *
-     * @param  [type] $id [description]
-     * @return [type]     [description]
-     */
-    public function downloadCopy($id, NOARepository $model)
-    {
-        $result         = $model->findById($id);
-
-        $directory      =   storage_path("app/noa-attachments/".$result->file);
-
-        if(!file_exists($directory))
-        {
-            return 'Sorry. File does not exists.';
-        }
-
-        return response()->download($directory);
-    }
-
-    /**
-     * [viewLogs description]
-     *
-     * @param  [type]             $id    [description]
-     * @param  BlankRFQRepository $model [description]
-     * @return [type]                    [description]
-     */
-    public function viewLogs($id, NOARepository $model, AuditLogRepository $logs)
-    {
-
-        $modelType  =   'Revlv\Procurements\NoticeOfAward\NOAEloquent';
-        $result     =   $logs->findByModelAndId($modelType, $id);
-        $data_model =   $model->findById($id);
-
-        return $this->view('modules.procurements.noa.logs',[
-            'indexRoute'    =>  $this->baseUrl."show",
-            'data'          =>  $result,
-            'model'         =>  $data_model
-        ]);
-    }
 }

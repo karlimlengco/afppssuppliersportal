@@ -159,6 +159,26 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
     }
 
     /**
+     * [post_qual description]
+     *
+     * @return [type] [description]
+     */
+    public function bid_open()
+    {
+        return $this->hasOne('\Revlv\Biddings\BidOpening\BidOpeningEloquent',  'upr_id');
+    }
+
+    /**
+     * [post_qual description]
+     *
+     * @return [type] [description]
+     */
+    public function post_qual()
+    {
+        return $this->hasOne('\Revlv\Biddings\PostQualification\PostQualificationEloquent',  'upr_id');
+    }
+
+    /**
      * [document_accept description]
      *
      * @return [type] [description]

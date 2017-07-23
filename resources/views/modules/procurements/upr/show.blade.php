@@ -14,10 +14,14 @@ Unit Purchase Request
     @include('modules.partials.modals.terminate')
     @include('modules.partials.modals.voucher')
     @include('modules.partials.modals.upr-signatory')
+
+    @if($data->mode_of_procurement == 'public_bidding')
     @include('modules.partials.bid-modals.rfb-process')
     @include('modules.partials.bid-modals.philgeps_posting')
     @include('modules.partials.bid-modals.bid_docs_issue')
     @include('modules.partials.bid-modals.open-bid')
+    @include('modules.partials.bid-modals.post_qual')
+    @endif
 @stop
 
 @section('contents')
@@ -63,6 +67,9 @@ Unit Purchase Request
                     @endif
                     @if($data->status == 'Pre Bid Conference')
                         <a class="button__options__item" id="open-bid-button" href="#">Bid Opening</a>
+                    @endif
+                    @if($data->status == 'Bid Open')
+                        <a class="button__options__item" id="post-qual-button" href="#">Post Qualification</a>
                     @endif
                 @endif
 
@@ -216,6 +223,11 @@ Unit Purchase Request
         e.preventDefault();
         $('#terminate-modal').addClass('is-visible');
     })
+    $('#post-qual-button').click(function(e){
+        e.preventDefault();
+        $('#post-qual-modal').addClass('is-visible');
+    })
+
     $('#open-bid-button').click(function(e){
         e.preventDefault();
         $('#open-bid-modal').addClass('is-visible');
@@ -296,6 +308,17 @@ Unit Purchase Request
     var op_transaction_date = new Pikaday(
     {
         field: document.getElementById('id-field-op_transaction_date'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
+    var pq_transaction_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-pq_transaction_date'),
         firstDay: 1,
         defaultDate: new Date(),
         setDefaultDate: new Date(),

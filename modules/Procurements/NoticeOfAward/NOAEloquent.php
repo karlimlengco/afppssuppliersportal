@@ -135,7 +135,12 @@ class NOAEloquent extends Model implements  AuditableContract
      */
     public function winner()
     {
-        return $this->belongsTo('\Revlv\Procurements\RFQProponents\RFQProponentEloquent', 'proponent_id');
+        if(!$this->rfq_id)
+        {
+            return $this->belongsTo('\Revlv\Procurements\RFQProponents\RFQProponentEloquent', 'proponent_id');
+        }
+
+        return $this->belongsTo('\Revlv\Biddings\BidDocs\BidDocsEloquent', 'proponent_id');
     }
 
 }

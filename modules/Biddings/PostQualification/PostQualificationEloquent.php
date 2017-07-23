@@ -23,7 +23,7 @@ class PostQualificationEloquent extends Model implements  AuditableContract
      *
      * @var string
      */
-    protected $table = 'document_acceptance';
+    protected $table = 'post_qualification';
 
     /**
      * The attributes that are mass assignable.

@@ -8,11 +8,12 @@ use Auth;
 
 use \Revlv\Settings\CateredUnits\CateredUnitRepository;
 use \Revlv\Settings\CateredUnits\CateredUnitRequest;
+use \Revlv\Settings\CateredUnits\Attachments\AttachmentTrait;
 use \Revlv\Settings\ProcurementCenters\ProcurementCenterRepository;
 
 class CateredUnitController extends Controller
 {
-
+    use AttachmentTrait;
     /**
      * [Base Route of Controller]
      *
@@ -132,6 +133,9 @@ class CateredUnitController extends Controller
                 'destroy'   => [
                     'route' => [$this->baseUrl.'destroy',$id],
                     'method'=> 'DELETE'
+                ],
+                'add_attachment' =>  [
+                    'route'     =>  [$this->baseUrl.'attachments.store', $id],
                 ]
             ]
         ]);

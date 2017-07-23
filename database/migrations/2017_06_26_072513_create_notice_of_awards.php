@@ -16,6 +16,7 @@ class CreateNoticeOfAwards extends Migration
         Schema::create('notice_of_awards', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('canvass_id')->nullable();
+            $table->integer('post_qual_id')->nullable();
             $table->integer('rfq_id')->nullable();
             $table->integer('upr_id');
             $table->string('rfq_number')->nullable();

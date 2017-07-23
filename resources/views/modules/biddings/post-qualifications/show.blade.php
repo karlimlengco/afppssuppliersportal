@@ -1,11 +1,13 @@
 @section('title')
-Bid Opening
+Post Qualification
 @stop
 
 @section('styles')
 @stop
 
 @section('modal')
+    @include('modules.partials.bid-modals.failed-post-qual')
+    @include('modules.partials.modals.notice_of_award')
 @stop
 
 @section('contents')
@@ -13,17 +15,7 @@ Bid Opening
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
-        <?php $count = count($data->upr->bid_proponents); ?>
-        @foreach($data->upr->bid_proponents as $proponent)
-            @if($proponent->bid_amount != null)
-                <?php $count --; ?>
-            @endif
-        @endforeach
-        @if($count == 0)
-            @if(!$data->closing_date)
-                <a href="{{route('biddings.bid-openings.closed',$data->id)}}" class="button" tooltip="Submit"><i class="nc-icon-mini ui-2_disk"></i></a>
-            @endif
-        @endif
+        <a href="#" class="button" id="fail-pq-button" tooltip="Failed"><i class="nc-icon-mini ui-1_bold-remove"></i></a>
     </div>
 </div>
 
@@ -64,13 +56,15 @@ Bid Opening
             </thead>
             <tbody>
                 @foreach($data->upr->bid_proponents as $proponent)
+                @if($proponent->is_lcb == 1 && $proponent->is_scb == 1)
                 <tr>
                     <td>{{$proponent->proponent_name}}</td>
                     <td>{{$proponent->bid_amount}}</td>
                     <td>{{($proponent->is_lcb == 1) ? "yes" : "no"}}</td>
                     <td>{{($proponent->is_scb == 1) ? "yes" : "no"}}</td>
-                    <td><a href="{{route('biddings.proponents.show',[$data->id,$proponent->id])}}"> <span class="nc-icon-mini design_pen-01"></span></a></td>
+                    <td><a href="#" class="award-button award"  data-id="{{$proponent->id}}" data-name="{{$proponent->proponent_name}}">winner</a></td>
                 </tr>
+                @endif
                 @endforeach
             </tbody>
         </table>
@@ -79,5 +73,38 @@ Bid Opening
 </div>
 @stop
 
-@section('scripts')
+@section('scripts')<script type="text/javascript">
+
+    $('#fail-pq-button').click(function(e){
+        e.preventDefault();
+        $('#fail-pq-modal').addClass('is-visible');
+    })
+
+
+    $('.award-button').click(function(e){
+        e.preventDefault();
+        $('#award-modal').addClass('is-visible');
+    })
+
+    $(document).on('click', '.award', function(e){
+        var name = $(this).data('name');
+        var id  = $(this).data('id');
+        var pq_id  = "{{$data->id}}";
+        $("#proponent").html('');
+        $("#proponent").html(name);
+        var form = document.getElementById('award-form').action;
+        document.getElementById('award-form').action = "/biddings/award-to/"+pq_id+"/"+id;
+    });
+
+    var awarded_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-awarded_date'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+</script>
 @stop

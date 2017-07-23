@@ -27,4 +27,13 @@ class CateredUnitEloquent extends Model
         'coa_address_2',
     ];
 
+    /**
+     * [attachments description]
+     *
+     * @return [type] [description]
+     */
+    public function attachments()
+    {
+         return $this->hasMany('\Revlv\Settings\CateredUnits\Attachments\AttachmentEloquent', 'unit_id');
+    }
 }
