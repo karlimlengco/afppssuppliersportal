@@ -106,7 +106,6 @@ class PhilGepsPostingController extends Controller
         BlankRFQRepository $rfq,
         HolidayRepository $holidays)
     {
-
         $rfq_model              =   $rfq->findById($request->rfq_id);
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
 
@@ -124,6 +123,7 @@ class PhilGepsPostingController extends Controller
         $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+
         if($day_delayed != 0)
         {
             $day_delayed            =   $day_delayed - 1;
@@ -151,18 +151,26 @@ class PhilGepsPostingController extends Controller
         // Validate Remarks when  delay
 
         $inputs                 =   $request->getData();
+        $inputs['opening_time'] =   $request->pp_opening_time;
         $inputs['rfq_number']   =   $rfq_model->rfq_number;
         $inputs['upr_number']   =   $rfq_model->upr_number;
         $inputs['remarks']      =   $request->remarks;
         $inputs['upr_id']       =   $rfq_model->upr_id;
         $inputs['days']         =   $day_delayed;
-
+        $status  = 'Philgeps Approved';
+        if($request->status == 0)
+        {
+            $status  = 'Philgeps Need Repost';
+        }
         $upr->update([
+            'status'        =>  $status,
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $rfq_model->upr->calendar_days,
             'action'        => $request->action,
             'remarks'       => $request->remarks
             ], $rfq_model->upr->id);
+
+
 
         $result = $model->save($inputs);
 

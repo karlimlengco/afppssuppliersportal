@@ -37,6 +37,7 @@ PhilGeps Posting
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ Number :</strong> {{$data->rfq_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR Number :</strong> {{$data->upr_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PhilGeps Number :</strong> {{$data->philgeps_number}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{($data->status == 1) ? "Approved" : "Needs Re-Post"}} </li>
         </ul>
     </div>
     <div class="data-panel__section">

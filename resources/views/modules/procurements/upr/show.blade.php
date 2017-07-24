@@ -17,9 +17,13 @@ Unit Purchase Request
     @include('modules.partials.modals.invitation')
     @include('modules.partials.modals.open_canvass')
 
+    @if($data->status == 'PO Created')
     @include('modules.partials.modals.ntp')
-    @if($data->status == 'NTP Accepted')
     @include('modules.partials.modals.create_delivery')
+    @endif
+
+    @if($data->mode_of_procurement != 'public_bidding')
+    @include('modules.partials.modals.philgeps_posting')
     @endif
 
     @if($data->mode_of_procurement == 'public_bidding')
@@ -48,7 +52,12 @@ Unit Purchase Request
                     @if($data->status == 'Processing RFQ')
                         <a href="#" class="button__options__item" id="invitation-button">Create Invitation</a>
                     @endif
-                    @if($data->status == 'Invitation Created')
+                    @if($data->status == 'Invitation Created' || $data->status == 'Philgeps Need Repost')
+
+                        <a href="#" class="button__options__item" id="philgeps-posting-button">PhilGeps Posting</a>
+
+                    @endif
+                    @if($data->status == 'Philgeps Approved')
                         <a href="#" id="open_canvass-button" class="button__options__item">Open Canvass</a>
                     @endif
                     @if($data->status == 'Open Canvass')
@@ -67,10 +76,10 @@ Unit Purchase Request
                     @if($data->status == 'Document Accepted')
                         <a class="button__options__item" id="itb-button" href="#">Invitation To Bid</a>
                     @endif
-                    @if($data->status == 'ITB Created')
+                    @if($data->status == 'ITB Created' || $data->status == 'Philgeps Need Repost')
                         <a class="button__options__item" id="biddings-philgeps-posting-button" href="#">PhilGeps Posting</a>
                     @endif
-                    @if($data->status == 'Philgeps Posted')
+                    @if($data->status == 'Philgeps Approved')
                         <a class="button__options__item" id="bid-docs-button" href="#">Bid Docs Issuance</a>
                         <a class="button__options__item" href="{{route('biddings.pre-bids.create-by-upr', $data->id)}}">Pre-Bid Conference</a>
                     @endif
@@ -279,6 +288,10 @@ Unit Purchase Request
 <script src="/vendors/timepicker/timepicker.min.js"></script>
 <script type="text/javascript">
 
+    $('#philgeps-posting-button').click(function(e){
+        e.preventDefault();
+        $('#philgeps-posting-modal').addClass('is-visible');
+    })
     $('#terminate-button').click(function(e){
         e.preventDefault();
         $('#terminate-modal').addClass('is-visible');
@@ -354,7 +367,7 @@ Unit Purchase Request
     })
 
 
-    var timepicker = new TimePicker(['id-field-opening_time', 'id-field-canvassing_time'], {
+    var timepicker = new TimePicker(['id-field-opening_time', 'id-field-canvassing_time','id-field-pp_opening_time' ], {
         lang: 'en',
         theme: 'dark'
     });
@@ -365,135 +378,5 @@ Unit Purchase Request
     });
 
     $('.datepicker').pikaday({ firstDay: 1 });
-
-    // var cancelled_at = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-cancelled_at'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-    // var itb_approved_date = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-itb_approved_date'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-    // var op_transaction_date = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-op_transaction_date'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-    // var pq_transaction_date = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-pq_transaction_date'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-
-    // var voucher_transaction_date = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-voucher_transaction_date'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-    // var bid_transaction_date = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-bid_transaction_date'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-    // var rfb_transaction_date = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-rfb_transaction_date'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-
-    // var released_date = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-released_date'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-    // var picker = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-transaction_date'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-    // var pp_transaction_date = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-pp_transaction_date'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-    // var pp_philgeps_posting = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-pp_philgeps_posting'),
-    //     firstDay: 1,
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-    // var picker = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-deadline'),
-    //     firstDay: 1,
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
 </script>
 @stop

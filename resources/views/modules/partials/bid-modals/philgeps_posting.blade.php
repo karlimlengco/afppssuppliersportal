@@ -12,11 +12,14 @@
             <div class="modal__dialogue__body">
                 {!! Form::hidden('rfq_id', $data->id) !!}
                 <div class="row">
-                    <div class="six columns">
+                    <div class="four columns">
                         {!! Form::dateField('pp_transaction_date', 'Transaction Date') !!}
                     </div>
-                    <div class="six columns">
+                    <div class="four columns">
                         {!! Form::textField('newspaper', 'Newspaper') !!}
+                    </div>
+                    <div class="four columns">
+                        {!! Form::selectField('status', 'Status', ['1' => 'Approved', '0' => 'Need Repost']) !!}
                     </div>
                 </div>
 

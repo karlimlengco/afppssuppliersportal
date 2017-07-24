@@ -109,6 +109,7 @@ class PhilGepsController extends Controller
             'pp_transaction_date'        =>  'required',
             'pp_philgeps_posting'        =>  'required',
             'philgeps_number'            =>  'required',
+            'status'                     =>  'required',
             'action'                     =>  'required_with:remarks',
         ]);
 
@@ -131,6 +132,7 @@ class PhilGepsController extends Controller
             'philgeps_posting'   =>  $request->pp_philgeps_posting,
             'philgeps_number'    =>  $request->philgeps_number,
             'remarks'            =>  $request->remarks,
+            'status'             =>  $request->status,
             'action'             =>  $request->action,
             'newspaper'          =>  $request->newspaper,
         ];
@@ -140,7 +142,14 @@ class PhilGepsController extends Controller
 
         $result = $model->save($inputs);
 
-        $upr->update(['status' => 'Philgeps Posted', 'delay_count' => $day_delayed + $upr_model->delay_count], $upr_model->id);
+        $status  = 'Philgeps Approved';
+        if($request->status == 0)
+        {
+            $status  = 'Philgeps Need Repost';
+        }
+
+        $upr->update(['status' =>  $status,
+            'delay_count' => $day_delayed + $upr_model->delay_count], $upr_model->id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

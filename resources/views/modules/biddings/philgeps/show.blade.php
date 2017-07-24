@@ -21,6 +21,7 @@ PhilGeps Posting
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Ref No. :</strong> {{$data->upr->ref_number}} </li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Transaction Date:</strong> {{$data->transaction_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{($data->status == 1) ? "Approved" : "Needs Re-Post"}} </li>
         </ul>
     </div>
     <div class="data-panel__section">

@@ -47,6 +47,7 @@ class PhilGepsPostingEloquent extends Model implements  AuditableContract
         'upr_number',
         'transaction_date',
         'philgeps_posting',
+        'status',
         'newspaper',
         'deadline_rfq',
         'update_remarks',

@@ -23,6 +23,7 @@ class PhilGepsPostingRequest extends BaseRequest
         'remarks',
         'action',
         'days',
+        'status',
     ];
 
     /**
@@ -38,7 +39,8 @@ class PhilGepsPostingRequest extends BaseRequest
             'transaction_date'  => 'required',
             'philgeps_posting'  => 'required',
             'deadline_rfq'      => 'required',
-            'opening_time'      => 'required',
+            'status'            => 'required',
+            'pp_opening_time'      => 'required',
         ];
     }
 }

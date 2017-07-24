@@ -10,10 +10,13 @@
             </div>
 
             <div class="modal__dialogue__body">
-                {!! Form::hidden('rfq_id', $data->id) !!}
+                {!! Form::hidden('rfq_id', $data->rfq->id) !!}
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::textField('transaction_date', 'Transaction Date') !!}
+                        {!! Form::dateField('transaction_date', 'Transaction Date') !!}
+                    </div>
+                    <div class="six columns">
+                        {!! Form::selectField('status', 'Status', ['1' => 'Approved', '0' => 'Need Repost']) !!}
                     </div>
                 </div>
 
@@ -22,16 +25,16 @@
                         {!! Form::textField('philgeps_number', 'PhilGeps number') !!}
                     </div>
                     <div class="six columns">
-                        {!! Form::textField('philgeps_posting', 'PhilGeps From Posting') !!}
+                        {!! Form::dateField('philgeps_posting', 'PhilGeps From Posting') !!}
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::textField('deadline_rfq', 'Deadline To Submit RFQ', $data->deadline) !!}
+                        {!! Form::dateField('deadline_rfq', 'Deadline To Submit RFQ', $data->deadline) !!}
                     </div>
                     <div class="six columns">
-                        {!! Form::textField('opening_time', 'Opening Time', $data->opening_time) !!}
+                        {!! Form::textField('pp_opening_time', 'Opening Time', $data->opening_time) !!}
                     </div>
                 </div>
 
