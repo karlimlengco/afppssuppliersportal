@@ -159,6 +159,16 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
     }
 
     /**
+     * [document_accept description]
+     *
+     * @return [type] [description]
+     */
+    public function bid_issuance()
+    {
+        return $this->hasOne('\Revlv\Biddings\BidDocs\BidDocsEloquent',  'upr_id');
+    }
+
+    /**
      * [post_qual description]
      *
      * @return [type] [description]
@@ -306,6 +316,16 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
     public function diir()
     {
         return $this->hasOne('\Revlv\Procurements\DeliveryInspection\DeliveryInspectionEloquent',  'upr_id');
+    }
+
+    /**
+     * [inspections description]
+     *
+     * @return [type] [description]
+     */
+    public function inspections()
+    {
+        return $this->hasOne('\Revlv\Procurements\InspectionAndAcceptance\InspectionAndAcceptanceEloquent', 'upr_id');
     }
 
     /**

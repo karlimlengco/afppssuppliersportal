@@ -12,7 +12,7 @@
             <div class="modal__dialogue__body">
                 <p>After closing this Request for Quotation you will not be able to add proponents or update.</p>
 
-                {!! Form::textField('completed_at', 'Close Date', null, ['required']) !!}
+                {!! Form::dateField('completed_at', 'Close Date', null, ['required']) !!}
                 {!! Form::textareaField('close_remarks', 'Close Remarks', null, ['rows'=> 3]) !!}
                 {!! Form::textareaField('close_action', 'Close Action', null, ['rows'=> 3]) !!}
 

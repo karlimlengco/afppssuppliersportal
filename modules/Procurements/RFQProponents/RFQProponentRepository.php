@@ -31,6 +31,8 @@ class RFQProponentRepository extends BaseRepository
 
         $model  =   $model->where('rfq_id', '=', $rfq);
 
+        $model  =   $model->orderBy('bid_amount');
+
         return $model->get();
     }
 

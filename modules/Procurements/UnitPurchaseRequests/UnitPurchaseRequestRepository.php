@@ -322,4 +322,36 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         return $model;
     }
+
+    /**
+     * [getInfo description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function getInfo($id)
+    {
+        $model  =    $this->model;
+
+        $model  =   $model->select([
+            'unit_purchase_requests.terms_of_payment',
+            'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.total_amount as abc',
+            'unit_purchase_requests.ref_number',
+            'unit_purchase_requests.purpose',
+            'unit_purchase_request_items.id as item_id',
+            'unit_purchase_request_items.item_description',
+            'unit_purchase_request_items.item_description',
+            'unit_purchase_request_items.quantity',
+            'unit_purchase_request_items.unit_measurement',
+            'unit_purchase_request_items.unit_price',
+            'unit_purchase_request_items.total_amount',
+        ]);
+
+        $model  =   $model->leftJoin('unit_purchase_request_items', 'unit_purchase_request_items.upr_id', '=', 'unit_purchase_requests.id');
+
+        $model  =   $model->where('unit_purchase_requests.id','=', $id);
+
+        return $model->get();
+    }
 }

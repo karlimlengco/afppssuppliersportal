@@ -12,7 +12,7 @@
             <div class="modal__dialogue__body">
                 <div class="row">
                     <div class="twelve columns">
-                        {!! Form::textField('open_canvass_date', 'Canvass Date') !!}
+                        {!! Form::dateField('open_canvass_date', 'Canvass Date') !!}
                     </div>
                 </div>
                 <div class="row">

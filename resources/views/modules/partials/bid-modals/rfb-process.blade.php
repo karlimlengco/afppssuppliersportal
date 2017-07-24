@@ -12,7 +12,7 @@
             <div class="modal__dialogue__body">
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::textField('itb_approved_date', 'Approved Date') !!}
+                        {!! Form::dateField('itb_approved_date', 'Approved Date') !!}
                     </div>
                 </div>
 

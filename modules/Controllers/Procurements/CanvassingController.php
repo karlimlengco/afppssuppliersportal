@@ -116,7 +116,9 @@ class CanvassingController extends Controller
         UnitPurchaseRequestRepository $upr,
         HolidayRepository $holidays)
     {
-        $rfq_model              =   $rfq->with('invitations')->findById($id);
+        $upr_model              =   $upr->findById($id);
+        // $rfq_model              =   $rfq->with('invitations')->findById($id);
+        $rfq_model              =   $upr_model->rfq;
 
         if($rfq_model->invitations == null)
         {
@@ -174,7 +176,7 @@ class CanvassingController extends Controller
         $result = $model->save($inputs);
 
         $upr->update([
-            'status' => "Open Canvass ($canvass_date)",
+            'status' => "Open Canvass",
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $rfq_model->upr->calendar_days,
             'action'        => $request->action,

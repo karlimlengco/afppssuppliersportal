@@ -179,7 +179,7 @@ class BlankRFQRepository extends BaseRepository
 
         $model  =   $model->leftJoin('unit_purchase_request_items', 'unit_purchase_request_items.upr_id', '=', 'request_for_quotations.upr_id');
 
-        $model  =   $model->where('request_for_quotations.id','=', $id);
+        $model  =   $model->where('request_for_quotations.upr_id','=', $id);
 
         return $model->get();
     }

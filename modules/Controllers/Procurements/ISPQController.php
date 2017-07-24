@@ -118,19 +118,23 @@ class ISPQController extends Controller
             'signatory_id'              =>  'required',
             'canvassing_date'           =>  'required',
             'canvassing_time'           =>  'required',
-            'ispq_transaction_dates'    =>  'required',
+            'transaction_dates'         =>  'required',
         ]);
+        $upr_model              =   $upr->findById($id);
+        $rfq_model              =   $upr_model->rfq;
 
-        $rfq_model              =   $rfq->findById($id);
-        $upr_model              =   $rfq_model->upr;
-        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('ispq_transaction_dates') );
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_dates') );
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
         $day_delayed            =   $rfq_model->completed_at->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
-        $day_delayed            =   $day_delayed - 1;
+
+        if($day_delayed != 0)
+        {
+            $day_delayed            =   $day_delayed - 1;
+        }
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
@@ -158,7 +162,7 @@ class ISPQController extends Controller
             'canvassing_time'   =>  $request->get('canvassing_time'),
             'venue'             =>  $request->get('venue'),
             'signatory_id'      =>  $request->get('signatory_id'),
-            'transaction_date'  =>  $request->get('ispq_transaction_dates'),
+            'transaction_date'  =>  $request->get('transaction_dates'),
         ]);
 
         $data           =   [
@@ -185,7 +189,7 @@ class ISPQController extends Controller
 
         $quotations->save($data);
 
-        return redirect()->route('procurements.blank-rfq.show', $rfq_model->id)->with([
+        return redirect()->route('procurements.unit-purchase-requests.show', $upr_model->id)->with([
             'success'  => "New record has been successfully added."
         ]);
     }

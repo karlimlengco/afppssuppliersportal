@@ -12,10 +12,10 @@
             <div class="modal__dialogue__body">
                 <div class="row">
                     <div class="four columns">
-                        {!! Form::textField('transaction_date', 'Transaction Date') !!}
+                        {!! Form::dateField('transaction_date', 'Transaction Date') !!}
                     </div>
                     <div class="four columns">
-                        {!! Form::textField('deadline', 'Deadline to submit') !!}
+                        {!! Form::dateField('deadline', 'Deadline to submit') !!}
                     </div>
                     <div class="four columns">
                         {!! Form::textField('opening_time', 'Opening Time') !!}

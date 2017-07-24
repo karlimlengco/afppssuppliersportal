@@ -144,7 +144,7 @@ class NoticeToProceedController extends Controller
         HolidayRepository $holidays)
     {
         $po_model           =   $po->findById($request->po_id);
-        $noa_model          =   $noa->findByRFQ($po_model->rfq_id);
+        $noa_model          =   $noa->findByUPR($po_model->upr_id);
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('preparared_date') );

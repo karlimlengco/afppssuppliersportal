@@ -12,7 +12,7 @@ a<div class="modal" id="rfb-received-modal">
             <div class="modal__dialogue__body">
                 <div class="row">
                     <div class="twelve columns">
-                        {!! Form::textField('received_date', 'Received Date') !!}
+                        {!! Form::dateField('received_date', 'Received Date') !!}
                     </div>
                 </div>
 

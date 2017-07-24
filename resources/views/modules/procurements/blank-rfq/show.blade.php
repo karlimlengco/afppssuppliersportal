@@ -10,7 +10,7 @@ Request For Quotation
     @include('modules.partials.modals.proponents')
     @include('modules.partials.modals.philgeps_posting')
     @include('modules.partials.modals.close_rfq')
-    @include('modules.partials.modals.invitation')
+    {{-- @include('modules.partials.modals.invitation') --}}
     @include('modules.partials.modals.open_canvass')
 @stop
 
@@ -28,9 +28,9 @@ Request For Quotation
                     <a href="#" class="button__options__item" id="close-button">Close RFQ</a>
                 @else
 
-                    @if(count($data->invitations) == 0)
+                 {{--    @if(count($data->invitations) == 0)
                         <a href="#" class="button__options__item" id="invitation-button">Create Invitation</a>
-                    @endif
+                    @endif --}}
                 @endif
 
                 @if(count($data->philgeps) == 0)
@@ -48,7 +48,7 @@ Request For Quotation
 
 
                     @if(count($data->canvassing) == 0)
-                        <a href="#" id="open_canvass-button" class="button__options__item"><strong>Open Canvass</strong></a>
+                        {{-- <a href="#" id="open_canvass-button" class="button__options__item"><strong>Open Canvass</strong></a> --}}
                     @endif
                 @endif
 
@@ -57,11 +57,11 @@ Request For Quotation
                 @endif
 
                 @if(count($data->noa) != 0)
-                    <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a>
+                    {{-- <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a> --}}
                     @if(count($data->po) == 0)
-                        <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button__options__item">Create PO</a>
+                        {{-- <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button__options__item">Create PO</a> --}}
                     @else
-                        <a href="{{route('procurements.purchase-orders.show', $data->id)}}" class="button__options__item">View PO</a>
+                        {{-- <a href="{{route('procurements.purchase-orders.show', $data->id)}}" class="button__options__item">View PO</a> --}}
                     @endif
                 @endif
 
@@ -174,15 +174,15 @@ Request For Quotation
 @section('scripts')
 <script src="/vendors/timepicker/timepicker.min.js"></script>
 <script type="text/javascript">
-    var timepicker1 = new TimePicker(['id-field-opening_time', 'id-field-canvassing_time'], {
-        lang: 'en',
-        theme: 'dark'
-    });
+    // var timepicker1 = new TimePicker(['id-field-opening_time', 'id-field-canvassing_time'], {
+    //     lang: 'en',
+    //     theme: 'dark'
+    // });
 
-    timepicker1.on('change', function(evt){
-      var value = (evt.hour || '00') + ':' + (evt.minute || '00');
-      evt.element.value = value;
-    });
+    // timepicker1.on('change', function(evt){
+    //   var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+    //   evt.element.value = value;
+    // });
 
     $('#proponent-button').click(function(e){
         e.preventDefault();
@@ -208,88 +208,88 @@ Request For Quotation
     // pickmeup('#id-field-date_processed', {
     //     format  : 'Y-m-d'
     // });
-    var date_processed = new Pikaday(
-    {
-        field: document.getElementById('id-field-date_processed'),
-        firstDay: 1,
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
+    // var date_processed = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-date_processed'),
+    //     firstDay: 1,
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
 
-    var completed_at = new Pikaday(
-    {
-        field: document.getElementById('id-field-completed_at'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
-
-
-    // datepicker
-    var transaction_date = new Pikaday(
-    {
-        field: document.getElementById('id-field-transaction_date'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
+    // var completed_at = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-completed_at'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
 
 
-    // datepicker
-    var ispq_transaction_dates = new Pikaday(
-    {
-        field: document.getElementById('id-field-ispq_transaction_dates'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
+    // // datepicker
+    // var transaction_date = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-transaction_date'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
 
-    // datepicker
-    var open_canvass_date = new Pikaday(
-    {
-        field: document.getElementById('id-field-open_canvass_date'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
 
-    var deadline_rfq = new Pikaday(
-    {
-        field: document.getElementById('id-field-deadline_rfq'),
-        firstDay: 1,
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
-    var canvassing_date = new Pikaday(
-    {
-        field: document.getElementById('id-field-canvassing_date'),
-        firstDay: 1,
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
-    var philgeps_posting = new Pikaday(
-    {
-        field: document.getElementById('id-field-philgeps_posting'),
-        firstDay: 1,
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
+    // // datepicker
+    // var ispq_transaction_dates = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-ispq_transaction_dates'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
+
+    // // datepicker
+    // var open_canvass_date = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-open_canvass_date'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
+
+    // var deadline_rfq = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-deadline_rfq'),
+    //     firstDay: 1,
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
+    // var canvassing_date = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-canvassing_date'),
+    //     firstDay: 1,
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
+    // var philgeps_posting = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-philgeps_posting'),
+    //     firstDay: 1,
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
 
 </script>
 @stop

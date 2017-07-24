@@ -13,20 +13,20 @@
 
                 <div class="row">
                     <div class="four columns">
-                        {!! Form::textField('canvassing_date', 'Canvass Date') !!}
+                        {!! Form::dateField('canvassing_date', 'Canvass Date') !!}
                     </div>
                     <div class="four columns">
                         {!! Form::textField('canvassing_time', 'Canvass Time') !!}
                     </div>
                     <div class="four columns">
-                        {!! Form::textField('ispq_transaction_dates', 'Transaction Date') !!}
+                        {!! Form::dateField('transaction_dates', 'Transaction Date') !!}
                     </div>
                 </div>
 
 
                 <div class="row">
                     <div class="twelve columns">
-                        {!! Form::selectField('signatory_id', 'Signatories', $signatory_lists) !!}
+                        {!! Form::selectField('signatory_id', 'Signatories', $signatory_list) !!}
                     </div>
                 </div>
 

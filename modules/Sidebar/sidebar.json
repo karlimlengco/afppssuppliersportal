@@ -3,8 +3,8 @@
         {
             "name"      : "Competitive Bidding",
             "icon"      : "nc-icon-mini business_hammer",
-            "subname"   : "procurementss",
-            "route"     :   "biddings.index",
+            "subname"   : "biddings",
+            "route"     : "biddings.index",
             "navigation": [
                 {
                     "route" :   "biddings.unit-purchase-requests.index",
@@ -45,11 +45,6 @@
                     "route" :   "biddings.post-qualifications.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Post Qualification"
-                },
-                {
-                    "route" :   "biddings.finalize-bid-docs.index",
-                    "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Finalize Bid Docs"
                 },
                 {
                     "route" :   "biddings.noa.index",

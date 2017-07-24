@@ -13,7 +13,7 @@
                 {!! Form::hidden('rfq_id', $data->id) !!}
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::textField('pq_transaction_date', 'Transaction Date') !!}
+                        {!! Form::dateField('pq_transaction_date', 'Transaction Date') !!}
                     </div>
                 </div>
 

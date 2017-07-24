@@ -124,19 +124,19 @@ Purchase Order
 
         var newRow = "<tr id='row" + table_len + "'>";
             newRow += "<td id='desciption_row"+table_len+"'>";
-            newRow += "<input type='text' name='item_description[]' readonly value='"+entry.item_description+"' class='input'/>"
+            newRow += "<input type='text' name='item_description[]' tabindex='-1' readonly value='"+entry.item_description+"' class='input'/>"
             newRow += "</td>";
             newRow += "<td >";
-            newRow += "<input type='text' id='quantity_row"+table_len+"' name='quantity[]' readonly value='"+entry.quantity+"' class='input'/>";
+            newRow += "<input type='text' id='quantity_row"+table_len+"' tabindex='-1' name='quantity[]' readonly value='"+entry.quantity+"' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='unit_measurement_row"+table_len+"'>";
-            newRow += "<input type='text' name='unit_measurement[]' readonly value='"+entry.unit_measurement+"' class='input'/>";
+            newRow += "<input type='text' name='unit_measurement[]' tabindex='-1' readonly value='"+entry.unit_measurement+"' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='unit_price_row"+table_len+"'>";
             newRow += "<input type='text' name='unit_price[]' id='rows"+table_len+"' class='input unit_price'/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
-            newRow += "<input type='text' id='total_amount"+table_len+"' name='total_amount[]' value='' class='input' readonly/>";
+            newRow += "<input type='text' id='total_amount"+table_len+"' tabindex='-1' name='total_amount[]' value='' class='input' readonly/>";
             newRow += "</td>";
             newRow += "</tr>";
 

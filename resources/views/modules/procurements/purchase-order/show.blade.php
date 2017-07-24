@@ -5,7 +5,7 @@ Purchase Order
 @section('modal')
     @include('modules.partials.modals.mfo')
     @include('modules.partials.modals.pcco')
-    @include('modules.partials.modals.ntp')
+    {{-- @include('modules.partials.modals.ntp') --}}
     @include('modules.partials.modals.po_signatory')
     @include('modules.partials.modals.coa-approval')
 @stop
@@ -37,11 +37,11 @@ Purchase Order
 
                 @if($data->status == 'COA Approved')
 
-                    @if(count($data->ntp) != 0)
+               {{--      @if(count($data->ntp) != 0)
                         <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item"> View Notice To Proceed</a>
                     @else
                         <a href="#" class="button__options__item" id="ntp-button"> Notice To Proceed</a>
-                    @endif
+                    @endif --}}
                 @endif
 
                 <a href="#" class="button__options__item" id="signatory-button"> Signatories</a>

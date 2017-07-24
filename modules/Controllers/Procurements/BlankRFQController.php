@@ -82,9 +82,10 @@ class BlankRFQController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function getInfo($id, BlankRFQRepository $rfq)
+    public function getInfo($id, BlankRFQRepository $rfq, UnitPurchaseRequestRepository $upr)
     {
-        $result =   $rfq->getInfo($id);
+        $result =   $upr->getInfo($id);
+
         return $result;
     }
 

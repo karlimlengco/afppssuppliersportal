@@ -12,7 +12,7 @@
             <div class="modal__dialogue__body">
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::textField('bid_transaction_date', 'Transaction Date') !!}
+                        {!! Form::dateField('bid_transaction_date', 'Transaction Date') !!}
                     </div>
                 </div>
 

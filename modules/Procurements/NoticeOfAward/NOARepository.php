@@ -33,4 +33,20 @@ class NOARepository extends BaseRepository
 
         return $model;
     }
+
+    /**
+     * [findByUPR description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function findByUPR($id)
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->where('upr_id','=', $id);
+
+        $model  =   $model->first();
+
+        return $model;
+    }
 }

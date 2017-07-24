@@ -28,6 +28,8 @@ class CreatePhilgepsPosting extends Migration
             $table->string('remarks')->nullable();
             $table->string('newspaper')->nullable();
             $table->string('action')->nullable();
+            $table->string('status')->nullable();
+            $table->text('status_remarks')->nullable();
             $table->integer('days')->nullable();
 
             $table->timestamps();

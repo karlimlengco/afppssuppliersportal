@@ -375,7 +375,8 @@ class PurchaseOrderController extends Controller
         BlankRFQRepository $rfq,
         HolidayRepository $holidays)
     {
-        $noa_model              =   $noa->with('winner')->findByRFQ($id);
+        $noa_model              =   $noa->with('winner')->findByUPR($id);
+        // dd($noa_model);
         $award_accepted_date    =   Carbon::createFromFormat('Y-m-d', $noa_model->award_accepted_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('purchase_date') );
@@ -391,6 +392,7 @@ class PurchaseOrderController extends Controller
             'payment_term'      => 'required',
             'delivery_terms'    => 'required|integer',
             'action'            => 'required_with:remarks',
+            'unit_price.*'      => 'required',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -422,16 +424,16 @@ class PurchaseOrderController extends Controller
         ]);
 
 
-        $split_upr              =   explode('-', $noa_model->rfq_number);
+        $split_upr              =   explode('-', $noa_model->upr->ref_number);
         $inputs['po_number']    =  "PO-".$split_upr[1]."-".$split_upr[2]."-".$split_upr[3]."-".$split_upr[4] ;
 
-        $rfq_model              =   $rfq->findById($noa_model->rfq_id);
+        $upr_model              =   $noa_model->upr;
 
         $inputs['prepared_by']  =   \Sentinel::getUser()->id;
-        $inputs['rfq_id']       =   $id;
-        $inputs['upr_id']       =   $rfq_model->upr_id;
-        $inputs['upr_number']   =   $rfq_model->upr_number;
-        $inputs['rfq_number']   =   $rfq_model->rfq_number;
+        $inputs['rfq_id']       =   $noa_model->rfq_id;
+        $inputs['upr_id']       =   $upr_model->id;
+        $inputs['upr_number']   =   $upr_model->upr_number;
+        $inputs['rfq_number']   =   $upr_model->rfq_number;
         $inputs['bid_amount']   =   $noa_model->winner->bid_amount;
         $inputs['status']       =   "pending";
 
@@ -445,7 +447,7 @@ class PurchaseOrderController extends Controller
                     'quantity'              =>  $items['quantity'][$i],
                     'unit'                  =>  $items['unit_measurement'][$i],
                     'price_unit'            =>  $items['unit_price'][$i],
-                    'total_amount'           =>  $items['total_amount'][$i],
+                    'total_amount'          =>  $items['total_amount'][$i],
                     'order_id'              =>  $result->id,
                 ];
             }
@@ -456,7 +458,7 @@ class PurchaseOrderController extends Controller
         $upr->update([
             'status' => "PO Created",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
-            'calendar_days' => $day_delayed + $rfq_model->upr->calendar_days,
+            'calendar_days' => $day_delayed + $upr_model->calendar_days,
             'action'        => $request->action,
             'remarks'       => $request->remarks
             ], $noa_model->upr_id);

@@ -5,7 +5,6 @@ Notice To Proceed
 @section('modal')
     @include('modules.partials.modals.signatory')
     @include('modules.partials.modals.ntp_received')
-    @include('modules.partials.modals.create_delivery')
 @stop
 
 @section('contents')
@@ -20,18 +19,15 @@ Notice To Proceed
                 @if(!$data->received_by)
                 <a class="button__options__item" id="proceed-ntp-button" href="#">Received</a>
                 @else
-                    @if(count($data->delivery) == 0)
+                   {{--  @if(count($data->delivery) == 0)
                         <a class="button__options__item" id="create-delivery-button" href="#">Create Notice Of Delivery</a>
                     @else
                         <a class="button__options__item"  href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}">View Notice Of Delivery</a>
-                    @endif
-                @endif
-                @if(count($data->po) != 0)
-                    <a href="{{route('procurements.purchase-orders.show', $data->po->id)}}" class="button__options__item">View PO</a>
+                    @endif --}}
                 @endif
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
-                <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="UPR"> Request For Quotation</a>
-                <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="UPR"> Purchase Order</a>
+                {{-- <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="UPR"> Request For Quotation</a> --}}
+                {{-- <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="UPR"> Purchase Order</a> --}}
 
 
 

@@ -13,7 +13,7 @@
                 {!! Form::hidden('rfq_id', $data->id) !!}
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::textField('pp_transaction_date', 'Transaction Date') !!}
+                        {!! Form::dateField('pp_transaction_date', 'Transaction Date') !!}
                     </div>
                     <div class="six columns">
                         {!! Form::textField('newspaper', 'Newspaper') !!}
@@ -25,7 +25,7 @@
                         {!! Form::textField('philgeps_number', 'PhilGeps number') !!}
                     </div>
                     <div class="six columns">
-                        {!! Form::textField('pp_philgeps_posting', 'PhilGeps From Posting') !!}
+                        {!! Form::dateField('pp_philgeps_posting', 'PhilGeps From Posting') !!}
                     </div>
                 </div>
 

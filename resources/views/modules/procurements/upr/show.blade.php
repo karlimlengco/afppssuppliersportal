@@ -7,13 +7,20 @@ Unit Purchase Request
 @stop
 
 @section('modal')
-    @include('modules.partials.modals.view-attachments')
     @include('modules.partials.modals.request_quotation')
+    @include('modules.partials.modals.view-attachments')
     @include('modules.partials.modals.reject-upr')
     @include('modules.partials.modals.dropzone')
     @include('modules.partials.modals.terminate')
     @include('modules.partials.modals.voucher')
     @include('modules.partials.modals.upr-signatory')
+    @include('modules.partials.modals.invitation')
+    @include('modules.partials.modals.open_canvass')
+
+    @include('modules.partials.modals.ntp')
+    @if($data->status == 'NTP Accepted')
+    @include('modules.partials.modals.create_delivery')
+    @endif
 
     @if($data->mode_of_procurement == 'public_bidding')
     @include('modules.partials.bid-modals.rfb-process')
@@ -32,24 +39,26 @@ Unit Purchase Request
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
 
-                @if($data->mode_of_procurement != 'public_bidding')
-                        @if(count($data->diir) != 0)
-                           @if(count($data->voucher) == 0)
-                               <a href="#" id="voucher-button" class="button__options__item">Create Voucher</a>
-                           @else
-                               <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button__options__item">Voucher</a>
-                           @endif
-                       @endif
-                        {{-- Process --}}
-                        @if($data->status == 'upr_processing')
-                            <a class="button__options__item" id="process-button" href="#">Process UPR</a>
-                            <a class="button__options__item" id="reject-button" href="#">Cancel UPR</a>
-                        @endif
+                {{-- Always shhow --}}
+                @if($data->status != 'pending' && $data->status != 'Cancelled')
+                    <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->id)}}">View Timelines</a>
+                @endif
 
-                        {{-- Always shhow --}}
-                        @if($data->status != 'pending' && $data->status != 'Cancelled')
-                            <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->id)}}">View Timelines</a>
-                        @endif
+                @if($data->mode_of_procurement != 'public_bidding')
+                    @if($data->status == 'Processing RFQ')
+                        <a href="#" class="button__options__item" id="invitation-button">Create Invitation</a>
+                    @endif
+                    @if($data->status == 'Invitation Created')
+                        <a href="#" id="open_canvass-button" class="button__options__item">Open Canvass</a>
+                    @endif
+                    @if($data->status == 'Open Canvass')
+                        <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button__options__item">View Canvass</a>
+                    @endif
+                    {{-- Process --}}
+                    @if($data->status == 'upr_processing')
+                        <a class="button__options__item" id="process-button" href="#">Process UPR</a>
+                        <a class="button__options__item" id="reject-button" href="#">Cancel UPR</a>
+                    @endif
 
                 @else
                     @if($data->status == 'upr_processing')
@@ -71,6 +80,57 @@ Unit Purchase Request
                     @if($data->status == 'Bid Open')
                         <a class="button__options__item" id="post-qual-button" href="#">Post Qualification</a>
                     @endif
+                @endif
+
+
+                @if(strpos($data->status, 'Awarded To') !== false || $data->status == 'Approved NOA')
+                    <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a>
+                @endif
+                @if($data->status == 'NOA Received')
+
+                    <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button__options__item">Create PO</a>
+                @endif
+
+                @if($data->status == 'PO Created' || $data->status == 'PO Funding Approved' || $data->status == 'PO MFO Approved')
+                    <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">View PO</a>
+                @endif
+
+                @if($data->status == 'PO Approved')
+                    <a href="#" class="button__options__item" id="ntp-button"> Notice To Proceed</a>
+                @endif
+
+                @if($data->status == 'NTP Created')
+                    <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item"> View Notice To Proceed</a>
+                @endif
+
+                @if($data->status == 'NTP Accepted')
+
+                    <a class="button__options__item" id="create-delivery-button" href="#">Create Notice Of Delivery</a>
+                @endif
+
+                @if($data->status == 'NOD Created' || $data->status == 'Delivery Received')
+                <a class="button__options__item"  href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}">View Notice Of Delivery</a>
+                @endif
+                @if($data->status == 'Complete COA Delivery')
+
+                    <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.create-from-delivery',$data->delivery_order->id)}}">Technical Inspection</a>
+                @endif
+                @if($data->status == 'Inspection Started')
+
+                    <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.show',$data->inspections->id)}}"> View Technical Inspection</a>
+                @endif
+                @if($data->status == 'Inspection Accepted')
+                    <a class="button__options__item" href="{{route('procurements.delivery-orders.store-by-dr',$data->delivery_order->id)}}">Delivered Items</a>
+                @endif
+                @if( $data->status == 'DIIR Started')
+
+                    <a class="button__options__item" href="{{route('procurements.delivered-inspections.show',$data->diir->id)}}">Delivered Items</a>
+                @endif
+                @if( $data->status == 'DIIR Closed')
+                    <a href="#" id="voucher-button" class="button__options__item">Create Voucher</a>
+                @endif
+                @if( $data->status == 'Voucher Created' || $data->status == 'Voucher Preaudit' || $data->status == 'Voucher Certify'|| $data->status == 'Voucher Journal Entry'|| $data->status == 'Voucher Approved'|| $data->status == 'Voucher Released')
+                   <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button__options__item">View Voucher</a>
                 @endif
 
                 <a class="button__options__item" id="view-attachments-button" href="#">Attachments</a>
@@ -138,7 +198,7 @@ Unit Purchase Request
                 @endif
                 @if($data->status == 'Cancelled')
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Date Cancelled :</strong> {{$data->cancelled_at}} </li>
-                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">cancel reason :</strong> {{$data->cancel_reason}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Cancel reason :</strong> {{$data->cancel_reason}} </li>
                 @endif
             </ul>
     </div>
@@ -273,7 +333,28 @@ Unit Purchase Request
         $('#view-attachments-modal').addClass('is-visible');
     })
 
-    var timepicker = new TimePicker('id-field-opening_time', {
+    $('#invitation-button').click(function(e){
+        e.preventDefault();
+        $('#invitation-modal').addClass('is-visible');
+    })
+
+    $('#open_canvass-button').click(function(e){
+        e.preventDefault();
+        $('#open_canvass-modal').addClass('is-visible');
+    })
+
+    $('#ntp-button').click(function(e){
+        e.preventDefault();
+        $('#ntp-modal').addClass('is-visible');
+    })
+
+    $('#create-delivery-button').click(function(e){
+        e.preventDefault();
+        $('#create-delivery-modal').addClass('is-visible');
+    })
+
+
+    var timepicker = new TimePicker(['id-field-opening_time', 'id-field-canvassing_time'], {
         lang: 'en',
         theme: 'dark'
     });
@@ -283,134 +364,136 @@ Unit Purchase Request
       evt.element.value = value;
     });
 
-    var cancelled_at = new Pikaday(
-    {
-        field: document.getElementById('id-field-cancelled_at'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
+    $('.datepicker').pikaday({ firstDay: 1 });
 
-    var itb_approved_date = new Pikaday(
-    {
-        field: document.getElementById('id-field-itb_approved_date'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
+    // var cancelled_at = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-cancelled_at'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
 
-    var op_transaction_date = new Pikaday(
-    {
-        field: document.getElementById('id-field-op_transaction_date'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
+    // var itb_approved_date = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-itb_approved_date'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
 
-    var pq_transaction_date = new Pikaday(
-    {
-        field: document.getElementById('id-field-pq_transaction_date'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
+    // var op_transaction_date = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-op_transaction_date'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
 
-
-    var voucher_transaction_date = new Pikaday(
-    {
-        field: document.getElementById('id-field-voucher_transaction_date'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
-
-    var bid_transaction_date = new Pikaday(
-    {
-        field: document.getElementById('id-field-bid_transaction_date'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
-
-    var rfb_transaction_date = new Pikaday(
-    {
-        field: document.getElementById('id-field-rfb_transaction_date'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
+    // var pq_transaction_date = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-pq_transaction_date'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
 
 
-    var released_date = new Pikaday(
-    {
-        field: document.getElementById('id-field-released_date'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
+    // var voucher_transaction_date = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-voucher_transaction_date'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
 
-    var picker = new Pikaday(
-    {
-        field: document.getElementById('id-field-transaction_date'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
+    // var bid_transaction_date = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-bid_transaction_date'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
 
-    var pp_transaction_date = new Pikaday(
-    {
-        field: document.getElementById('id-field-pp_transaction_date'),
-        firstDay: 1,
-        defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
+    // var rfb_transaction_date = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-rfb_transaction_date'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
 
-    var pp_philgeps_posting = new Pikaday(
-    {
-        field: document.getElementById('id-field-pp_philgeps_posting'),
-        firstDay: 1,
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
 
-    var picker = new Pikaday(
-    {
-        field: document.getElementById('id-field-deadline'),
-        firstDay: 1,
-        // minDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
-    });
+    // var released_date = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-released_date'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
+
+    // var picker = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-transaction_date'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
+
+    // var pp_transaction_date = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-pp_transaction_date'),
+    //     firstDay: 1,
+    //     defaultDate: new Date(),
+    //     setDefaultDate: new Date(),
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
+
+    // var pp_philgeps_posting = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-pp_philgeps_posting'),
+    //     firstDay: 1,
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
+
+    // var picker = new Pikaday(
+    // {
+    //     field: document.getElementById('id-field-deadline'),
+    //     firstDay: 1,
+    //     // minDate: new Date(),
+    //     maxDate: new Date(2020, 12, 31),
+    //     yearRange: [2000,2020]
+    // });
 </script>
 @stop

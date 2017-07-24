@@ -17,7 +17,7 @@
                 </div>
                 <div class="row">
                     <div class="twelve columns">
-                        {!! Form::textField('date_processed', 'Date Processed') !!}
+                        {!! Form::dateField('date_processed', 'Date Processed') !!}
                     </div>
                 </div>
 

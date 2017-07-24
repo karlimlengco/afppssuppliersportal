@@ -113,17 +113,11 @@ Form::macro('dateRangeNoIconField', function($name, $label = null, $value = null
 
 Form::macro('dateField', function($name, $label = null, $value = null, $attributes = [])
 {
-    $attributes = ['class'=>"datepicker", 'data' => 'date-picker', 'data-date-format' => "YYYY-MM-DD HH:mm:ss"];
+    $attributes = ['class'=>"input datepicker", 'data' => 'date-picker', 'data-date-format' => "YYYY-MM-DD HH:mm:ss"];
+
     $element = Form::text($name, $value, fieldAttributes($name, $attributes));
 
-    $out = '<div class="form-group';
-    $out .= fieldError($name) . '">';
-    $out .= fieldLabel($name, $label);
-    $out .= '<div class="col-md-12 col-sm-12 col-xs-12">';
-    $out .= $element;
-    $out .= '</div>';
-    $out .= fieldMsg($name);
-    $out .= "</div>";
+    return fieldWrapper($name, $label, $element);
 
     return $out;
 });

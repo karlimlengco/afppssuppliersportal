@@ -12,7 +12,7 @@
             <div class="modal__dialogue__body">
                 <div class="row">
                     <div class="four columns">
-                        {!! Form::textField('voucher_transaction_date', 'Transaction Date') !!}
+                        {!! Form::dateField('voucher_transaction_date', 'Transaction Date') !!}
                     </div>
                     <div class="four columns">
                         {!! Form::numberField('final_tax', 'Final Tax') !!}

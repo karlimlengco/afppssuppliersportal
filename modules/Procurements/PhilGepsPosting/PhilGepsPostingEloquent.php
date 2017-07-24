@@ -53,6 +53,8 @@ class PhilGepsPostingEloquent extends Model implements  AuditableContract
         'remarks',
         'days',
         'action',
+        'status',
+        'status_remarks',
         'opening_time',
     ];
 
