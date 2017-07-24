@@ -1,5 +1,5 @@
 @section('title')
-Purchase Order
+Notice Of Delivery
 @stop
 
 @section('contents')
@@ -7,9 +7,6 @@ Purchase Order
 <div class="row">
     <div class="six columns align-left">
         <h3> </h3>
-    </div>
-    <div class="six columns utility utility--align-right" >
-        <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
     </div>
 </div>
 
@@ -29,12 +26,9 @@ Purchase Order
 
             <thead>
                 <tr>
-                    <th>RFQ No.</th>
-                    <th>UPR No.</th>
-                    <th>Purchase Date</th>
-                    <th>Bid Amount</th>
-                    <th>MFO Released</th>
-                    <th>PCCO Released</th>
+                    <th>UPR Number</th>
+                    <th>Expected Delivery Date.</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,18 +47,12 @@ Purchase Order
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.procurements.purchase-orders')}}",
-                // data: function (d) {
-                    // d.search.value = $('#search-table').val();
-                // }
+                url: "{{route('datatables.biddings.delivery-orders')}}",
             },
         columns: [
-            {data: 'rfq_number', name: 'rfq_number'},
             {data: 'upr_number', name: 'upr_number'},
-            {data: 'purchase_date', name: 'purchase_date'},
-            {data: 'bid_amount', name: 'bid_amount'},
-            {data: 'mfo_released_date', name: 'mfo_released_date'},
-            {data: 'funding_released_date', name: 'funding_released_date'},
+            {data: 'expected_date', name: 'expected_date'},
+            {data: 'status', name: 'status'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

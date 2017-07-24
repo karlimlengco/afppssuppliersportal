@@ -29,7 +29,7 @@ Purchase Order
 
             <thead>
                 <tr>
-                    <th>RFQ No.</th>
+                    <th>PO No.</th>
                     <th>UPR No.</th>
                     <th>Purchase Date</th>
                     <th>Bid Amount</th>
@@ -53,13 +53,13 @@ Purchase Order
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.procurements.purchase-orders')}}",
+                url: "{{route('datatables.biddings.purchase-orders')}}",
                 // data: function (d) {
                     // d.search.value = $('#search-table').val();
                 // }
             },
         columns: [
-            {data: 'rfq_number', name: 'rfq_number'},
+            {data: 'po_number', name: 'po_number'},
             {data: 'upr_number', name: 'upr_number'},
             {data: 'purchase_date', name: 'purchase_date'},
             {data: 'bid_amount', name: 'bid_amount'},

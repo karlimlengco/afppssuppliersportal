@@ -1,6 +1,6 @@
 <?php
 
-namespace Revlv\Controllers\Procurements;
+namespace Revlv\Controllers\Biddings;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -28,7 +28,7 @@ class DeliveredInspectionReportController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "procurements.delivered-inspections.";
+    protected $baseUrl  =   "biddings.delivered-inspections.";
 
     /**
      * [$model description]
@@ -264,7 +264,7 @@ class DeliveredInspectionReportController extends Controller
      */
     public function getDatatable(DeliveryInspectionRepository $model)
     {
-        return $model->getDatatable();
+        return $model->getDatatable('bidding');
         // return $model->getInspectionDatatable();
     }
 
@@ -275,7 +275,7 @@ class DeliveredInspectionReportController extends Controller
      */
     public function index()
     {
-        return $this->view('modules.procurements.delivered-inspections.index',[
+        return $this->view('modules.biddings.delivered-inspections.index',[
             'createRoute'   =>  $this->baseUrl."create"
         ]);
     }
@@ -289,7 +289,7 @@ class DeliveredInspectionReportController extends Controller
     {
         $delivery_list      =   $delivery->listNotInspected('id', 'rfq_number');
 
-        $this->view('modules.procurements.delivered-inspections.create',[
+        $this->view('modules.biddings.delivered-inspections.create',[
             'indexRoute'    =>  $this->baseUrl.'index',
             'delivery_list' =>  $delivery_list,
             'modelConfig'   =>  [
@@ -390,7 +390,7 @@ class DeliveredInspectionReportController extends Controller
 
         $signatory_list     =   $signatories->lists('id','name');
 
-        return $this->view('modules.procurements.delivered-inspections.show',[
+        return $this->view('modules.biddings.delivered-inspections.show',[
             'data'          =>  $result,
             'supplier'      =>  $supplier,
             'signatory_list'=>  $signatory_list,
@@ -434,7 +434,7 @@ class DeliveredInspectionReportController extends Controller
     {
         $result   =   $model->findById($id);
 
-        return $this->view('modules.procurements.delivered-inspections.edit',[
+        return $this->view('modules.biddings.delivered-inspections.edit',[
             'data'          =>  $result,
             'showRoute'     =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
@@ -546,7 +546,7 @@ class DeliveredInspectionReportController extends Controller
         $result     =   $logs->findByModelAndId($modelType, $id);
         $data_model =   $model->findById($id);
 
-        return $this->view('modules.procurements.delivered-inspections.logs',[
+        return $this->view('modules.biddings.delivered-inspections.logs',[
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
             'model'         =>  $data_model

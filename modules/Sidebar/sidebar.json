@@ -50,6 +50,36 @@
                     "route" :   "biddings.noa.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Notice of Award"
+                },
+                {
+                    "route" :   "biddings.purchase-orders.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Purchase Orders"
+                },
+                {
+                    "route" :   "biddings.ntp.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Notice To Proceed"
+                },
+                {
+                    "route" :   "biddings.delivery-orders.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Notice Of Delivery"
+                },
+                {
+                    "route" :   "biddings.inspection-and-acceptance.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Inspection And Acceptance"
+                },
+                {
+                    "route" :   "biddings.delivered-inspections.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Delivered Inspection"
+                },
+                {
+                    "route" :   "biddings.vouchers.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Vouchers"
                 }
             ]
         }

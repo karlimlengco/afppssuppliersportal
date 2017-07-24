@@ -15,9 +15,18 @@ trait DatatableTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getDatatable()
+    public function getDatatable($type = 'alternative')
     {
         $model  =   $this->model;
+
+        if($type == 'alternative')
+        {
+            $model  =   $model->whereNotNull('rfq_number');
+        }
+        else
+        {
+            $model  =   $model->whereNull('rfq_number');
+        }
 
         $model  =   $model->orderBy('created_at', 'desc');
 
@@ -37,6 +46,10 @@ trait DatatableTrait
                 $route  =  route( 'procurements.purchase-orders.show',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
             })
+            ->addColumn('po_number', function ($data) {
+                $route  =  route( 'biddings.purchase-orders.show',[$data->id] );
+                return ' <a  href="'.$route.'" > '. $data->po_number .'</a>';
+            })
             ->editColumn('ntp_rfq_number', function ($data) {
                 $route  =  route( 'procurements.ntp.show',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
@@ -44,7 +57,7 @@ trait DatatableTrait
             ->editColumn('bid_amount', function ($data) {
                 return formatPrice($data->bid_amount);
             })
-            ->rawColumns(['rfq_number','ntp_rfq_number'])
+            ->rawColumns(['rfq_number','ntp_rfq_number', 'po_number'])
             ->make(true);
     }
 }

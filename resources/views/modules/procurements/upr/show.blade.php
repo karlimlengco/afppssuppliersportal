@@ -17,7 +17,7 @@ Unit Purchase Request
     @include('modules.partials.modals.invitation')
     @include('modules.partials.modals.open_canvass')
 
-    @if($data->status == 'PO Created')
+    @if($data->status == 'PO Created' ||  $data->status == 'NTP Accepted')
     @include('modules.partials.modals.ntp')
     @include('modules.partials.modals.create_delivery')
     @endif
@@ -131,8 +131,7 @@ Unit Purchase Request
                 @if($data->status == 'Inspection Accepted')
                     <a class="button__options__item" href="{{route('procurements.delivery-orders.store-by-dr',$data->delivery_order->id)}}">Delivered Items</a>
                 @endif
-                @if( $data->status == 'DIIR Started')
-
+                @if( $data->status == 'DIIR Created' || $data->status == 'DIIR Started')
                     <a class="button__options__item" href="{{route('procurements.delivered-inspections.show',$data->diir->id)}}">Delivered Items</a>
                 @endif
                 @if( $data->status == 'DIIR Closed')

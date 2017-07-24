@@ -16,9 +16,18 @@ trait DatatableTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getDatatable()
+    public function getDatatable($type = 'alternative')
     {
         $model  =   $this->model;
+
+        if($type == 'alternative')
+        {
+            $model  =   $model->whereNotNull('rfq_number');
+        }
+        else
+        {
+            $model  =   $model->whereNull('rfq_number');
+        }
 
         $model  =   $model->orderBy('created_at', 'desc');
 

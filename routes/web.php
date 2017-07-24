@@ -80,6 +80,105 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
 
     Route::resource('noa', '\Revlv\Controllers\Biddings\NOAController');
 
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | PO Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::get('purchase-orders/logs/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewLogs')->name('purchase-orders.logs');
+    Route::get('purchase-orders/print/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewPrint')->name('purchase-orders.print');
+    Route::get('purchase-orders/print-terms/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewPrintTerms')->name('purchase-orders.print-terms');
+    Route::get('purchase-orders/print-coa/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewPrintCOA')->name('purchase-orders.print-coa');
+    Route::get('purchase-orders/rfq/{rfq_id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@createFromRfq')->name('purchase-orders.rfq');
+    Route::get('purchase-orders/coa-file/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@downloadCoa')->name('purchase-orders.coa-file');
+    Route::put('purchase-orders/update-dates/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@updateDates')->name('purchase-orders.update-dates');
+    Route::post('purchase-orders/coa-approved/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@coaApproved')->name('purchase-orders.coa-approved');
+    Route::post('purchase-orders/store-from-rfq/{rfq_id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@storeFromRfq')->name('purchase-orders.store-from-rfq');
+    Route::post('purchase-orders/mfo-approved/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@mfoApproved')->name('purchase-orders.mfo-approved');
+    Route::post('purchase-orders/pcco-approved/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@pccoApproved')->name('purchase-orders.pcco-approved');
+    Route::resource('purchase-orders', '\Revlv\Controllers\Biddings\PurchaseOrderController');
+
+    /*
+    |--------------------------------------------------------------------------
+    | NTP Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::get('ntp/logs/{id}', '\Revlv\Controllers\Biddings\NoticeToProceedController@viewLogs')->name('ntp.logs');
+    Route::put('ntp/update-dates/{id}', '\Revlv\Controllers\Biddings\NoticeToProceedController@updateDates')->name('ntp.update-dates');
+    Route::put('ntp/update-signatory/{id}', '\Revlv\Controllers\Biddings\NoticeToProceedController@updateSignatory')->name('ntp.update-signatory');
+    Route::get('ntp/print/{id}', '\Revlv\Controllers\Biddings\NoticeToProceedController@viewPrint')->name('ntp.print');
+    Route::resource('ntp', '\Revlv\Controllers\Biddings\NoticeToProceedController');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Delivery Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::get('delivery-orders/store-by-dr/{id}', '\Revlv\Controllers\Biddings\DeliveredInspectionReportController@storeByDR')->name('delivery-orders.store-by-dr');
+    Route::get('delivery-orders/edit-dates/{id}', '\Revlv\Controllers\Biddings\DeliveryController@editDates')->name('delivery-orders.edit-dates');
+    Route::get('delivery-orders/logs/{id}', '\Revlv\Controllers\Biddings\DeliveryController@viewLogs')->name('delivery-orders.logs');
+    Route::get('delivery-orders/print/{id}', '\Revlv\Controllers\Biddings\DeliveryController@viewPrint')->name('delivery-orders.print');
+    Route::put('delivery-orders/update-dates/{id}', '\Revlv\Controllers\Biddings\DeliveryController@updateDates')->name('delivery-orders.update-dates');
+    Route::put('delivery-orders/update-signatory/{id}', '\Revlv\Controllers\Biddings\DeliveryController@updateSignatory')->name('delivery-orders.update-signatory');
+    Route::post('delivery-orders/create-purchase/{id}', '\Revlv\Controllers\Biddings\DeliveryController@createFromPurchase')->name('delivery-orders.create-purchase');
+    Route::post('delivery-orders/completed/{id}', '\Revlv\Controllers\Biddings\DeliveryController@completeOrder')->name('delivery-orders.completed');
+
+    Route::post('delivery-orders/attachments/{id}', '\Revlv\Controllers\Biddings\DeliveryController@uploadAttachment')->name('delivery-orders.attachments.store');
+
+    Route::get('delivery-orders/download/{id}', '\Revlv\Controllers\Biddings\DeliveryController@downloadAttachment')->name('delivery-orders.attachments.download');
+
+    Route::resource('delivery-orders', '\Revlv\Controllers\Biddings\DeliveryController');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Inspection Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::get('inspection-and-acceptance/logs/{id}', '\Revlv\Controllers\Biddings\InspectionAndAcceptanceController@viewLogs')->name('inspection-and-acceptance.logs');
+    Route::get('inspection-and-acceptance/print/{id}', '\Revlv\Controllers\Biddings\InspectionAndAcceptanceController@viewPrint')->name('inspection-and-acceptance.print');
+    Route::post('inspection-and-acceptance/create-from-delivery/{id}', '\Revlv\Controllers\Biddings\InspectionAndAcceptanceController@storeFromDelivery')->name('inspection-and-acceptance.create-from-delivery.store');
+    Route::get('inspection-and-acceptance/create-from-delivery/{id}', '\Revlv\Controllers\Biddings\InspectionAndAcceptanceController@createFromDelivery')->name('inspection-and-acceptance.create-from-delivery');
+    Route::post('inspection-and-acceptance/accepted/{id}', '\Revlv\Controllers\Biddings\InspectionAndAcceptanceController@acceptOrder')->name('inspection-and-acceptance.accepted');
+    Route::put('inspection-and-acceptance/update-signatory/{id}', '\Revlv\Controllers\Biddings\InspectionAndAcceptanceController@updateSignatory')->name('inspection-and-acceptance.update-signatory');
+    Route::resource('inspection-and-acceptance', '\Revlv\Controllers\Biddings\InspectionAndAcceptanceController');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Delivered Inspection Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::get('delivered-inspections/logs/{id}', '\Revlv\Controllers\Biddings\DeliveredInspectionReportController@viewLogs')->name('delivered-inspections.logs');
+    Route::put('delivered-inspections/update-signatory/{id}', '\Revlv\Controllers\Biddings\DeliveredInspectionReportController@updateSignatory')->name('delivered-inspections.update-signatory');
+    Route::get('delivered-inspections/print/{id}', '\Revlv\Controllers\Biddings\DeliveredInspectionReportController@viewPrint')->name('delivered-inspections.print');
+    Route::post('delivered-inspections/add-issue/{id}', '\Revlv\Controllers\Biddings\DeliveredInspectionReportController@addIssue')->name('delivered-inspections.add-issue');
+    Route::post('delivered-inspections/start-inspection/{id}', '\Revlv\Controllers\Biddings\DeliveredInspectionReportController@startInspection')->name('delivered-inspections.start-inspection');
+    Route::post('delivered-inspections/close-inspection/{id}', '\Revlv\Controllers\Biddings\DeliveredInspectionReportController@closeInspection')->name('delivered-inspections.close-inspection');
+    Route::post('delivered-inspections/corrected/{id}', '\Revlv\Controllers\Biddings\DeliveredInspectionReportController@correctedIssue')->name('delivered-inspections.corrected');
+    Route::resource('delivered-inspections', '\Revlv\Controllers\Biddings\DeliveredInspectionReportController');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Voucher Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::put('vouchers/update-signatories/{id}', '\Revlv\Controllers\Biddings\VoucherController@updateSignatory')->name('vouchers.update-signatories');
+    Route::get('vouchers/print/{id}', '\Revlv\Controllers\Biddings\VoucherController@viewPrint')->name('vouchers.print');
+    Route::get('vouchers/logs/{id}', '\Revlv\Controllers\Biddings\VoucherController@viewLogs')->name('vouchers.logs');
+    Route::post('vouchers/preaudit/{id}', '\Revlv\Controllers\Biddings\VoucherController@preauditVoucher')->name('vouchers.preaudit');
+    Route::post('vouchers/certify/{id}', '\Revlv\Controllers\Biddings\VoucherController@certifyVoucher')->name('vouchers.certify');
+    Route::post('vouchers/journal/{id}', '\Revlv\Controllers\Biddings\VoucherController@journalVoucher')->name('vouchers.journal');
+    Route::post('vouchers/approved/{id}', '\Revlv\Controllers\Biddings\VoucherController@approvedVoucher')->name('vouchers.approved');
+    Route::post('vouchers/released/{id}', '\Revlv\Controllers\Biddings\VoucherController@releasePayment')->name('vouchers.released');
+    Route::post('vouchers/received/{id}', '\Revlv\Controllers\Biddings\VoucherController@receivePayment')->name('vouchers.received');
+    Route::resource('vouchers', '\Revlv\Controllers\Biddings\VoucherController');
 });
 
 /*
@@ -477,6 +576,13 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
 
 
     Route::get('noa-biddings', '\Revlv\Controllers\Biddings\NOAController@getDatatable')->name('biddings.noa');
+    Route::get('purchase-orders-bidding', '\Revlv\Controllers\Biddings\PurchaseOrderController@getDatatable')->name('biddings.purchase-orders');
+    Route::get('ntp-bidding', '\Revlv\Controllers\Biddings\NoticeToProceedController@getDatatable')->name('biddings.ntp');
+    Route::get('delivery-orders-bidding', '\Revlv\Controllers\Biddings\DeliveryController@getDatatable')->name('biddings.delivery-orders');
+    Route::get('inspection-and-acceptance-bidding', '\Revlv\Controllers\Biddings\InspectionAndAcceptanceController@getDatatable')->name('biddings.inspection-and-acceptance');
+
+    Route::get('delivered-inspections-bidding', '\Revlv\Controllers\Biddings\DeliveredInspectionReportController@getDatatable')->name('biddings.delivered-inspections');
+    Route::get('vouchers-bidding', '\Revlv\Controllers\Biddings\VoucherController@getDatatable')->name('biddings.vouchers');
 });
 
 

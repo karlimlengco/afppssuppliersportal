@@ -1,6 +1,6 @@
 <?php
 
-namespace Revlv\Controllers\Procurements;
+namespace Revlv\Controllers\Biddings;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -28,7 +28,7 @@ class VoucherController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "procurements.vouchers.";
+    protected $baseUrl  =   "biddings.vouchers.";
 
     /**
      * [$upr description]
@@ -65,7 +65,7 @@ class VoucherController extends Controller
      */
     public function getDatatable(VoucherRepository $model)
     {
-        return $model->getDatatable();
+        return $model->getDatatable('biddings');
     }
 
     /**
@@ -75,7 +75,7 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        return $this->view('modules.procurements.vouchers.index',[
+        return $this->view('modules.biddings.vouchers.index',[
             'createRoute'   =>  $this->baseUrl."create"
         ]);
     }
@@ -89,7 +89,7 @@ class VoucherController extends Controller
     {
         $rfq_list   =   $rfq->listsDeliveryAccepted('id', 'rfq_number');
 
-        $this->view('modules.procurements.vouchers.create',[
+        $this->view('modules.biddings.vouchers.create',[
             'indexRoute'    =>  $this->baseUrl.'index',
             'rfq_list'      =>  $rfq_list,
             'modelConfig'   =>  [
@@ -175,7 +175,7 @@ class VoucherController extends Controller
         $signatory_lists=   $signatories->lists('id', 'name');
         $bank_list      =   $banks->lists('id', 'code');
 
-        return $this->view('modules.procurements.vouchers.show',[
+        return $this->view('modules.biddings.vouchers.show',[
             'data'              =>  $result,
             'signatory_list'    =>  $signatory_lists,
             'bank_list'         =>  $bank_list  ,
@@ -200,7 +200,7 @@ class VoucherController extends Controller
     {
         $result     =   $model->findById($id);
 
-        return $this->view('modules.procurements.vouchers.edit',[
+        return $this->view('modules.biddings.vouchers.edit',[
             'data'          =>  $result,
             'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
@@ -686,7 +686,7 @@ class VoucherController extends Controller
         $result     =   $logs->findByModelAndId($modelType, $id);
         $data_model =   $model->findById($id);
 
-        return $this->view('modules.procurements.vouchers.logs',[
+        return $this->view('modules.biddings.vouchers.logs',[
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
             'model'         =>  $data_model

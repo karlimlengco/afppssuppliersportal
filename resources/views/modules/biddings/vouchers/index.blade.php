@@ -1,5 +1,5 @@
 @section('title')
-Purchase Order
+Vouchers
 @stop
 
 @section('contents')
@@ -29,12 +29,9 @@ Purchase Order
 
             <thead>
                 <tr>
-                    <th>RFQ No.</th>
-                    <th>UPR No.</th>
-                    <th>Purchase Date</th>
-                    <th>Bid Amount</th>
-                    <th>MFO Released</th>
-                    <th>PCCO Released</th>
+                    <th>UPR Number</th>
+                    <th>Transaction Date</th>
+                    <th>RFQ Number</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,18 +50,12 @@ Purchase Order
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.procurements.purchase-orders')}}",
-                // data: function (d) {
-                    // d.search.value = $('#search-table').val();
-                // }
+                url: "{{route('datatables.biddings.vouchers')}}",
             },
         columns: [
-            {data: 'rfq_number', name: 'rfq_number'},
             {data: 'upr_number', name: 'upr_number'},
-            {data: 'purchase_date', name: 'purchase_date'},
-            {data: 'bid_amount', name: 'bid_amount'},
-            {data: 'mfo_released_date', name: 'mfo_released_date'},
-            {data: 'funding_released_date', name: 'funding_released_date'},
+            {data: 'transaction_date', name: 'transaction_date'},
+            {data: 'rfq_number', name: 'rfq_number'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
