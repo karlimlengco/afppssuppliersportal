@@ -358,8 +358,16 @@ Unit Purchase Request
 
                             @endif
                         </td>
-                        <td>{{$data->bid_issuance->remarks}}</td>
-                        <td>{{$data->bid_issuance->action}}</td>
+                        <td>
+                            @if($data->bid_issuance != null)
+                            {{$data->bid_issuance->remarks}}
+                            @endif
+                        </td>
+                        <td>
+                            @if($data->bid_issuance != null)
+                            {{$data->bid_issuance->action}}
+                            @endif
+                        </td>
                         <td>
 
                         </td>
@@ -390,8 +398,17 @@ Unit Purchase Request
                             @else
                             @endif
                         </td>
-                        <td>{{$data->bid_conference->remarks}}</td>
-                        <td>{{$data->bid_conference->action}}</td>
+                        <td>
+
+                            @if($data->bid_conference != null)
+                                {{$data->bid_conference->remarks}}
+                            @endif
+                        </td>
+                        <td>
+                            @if($data->bid_conference != null)
+                                {{$data->bid_conference->action}}
+                            @endif
+                        </td>
                         <td>
 
                         </td>
@@ -422,8 +439,16 @@ Unit Purchase Request
                             @else
                             @endif
                         </td>
-                        <td>{{$data->bid_open->remarks}}</td>
-                        <td>{{$data->bid_open->action}}</td>
+                        <td>
+                            @if($data->bid_open != null)
+                                {{$data->bid_open->remarks}}
+                            @endif
+                        </td>
+                        <td>
+                            @if($data->bid_open != null)
+                                {{$data->bid_open->action}}
+                            @endif
+                        </td>
                         <td>
 
                         </td>
@@ -454,8 +479,12 @@ Unit Purchase Request
                             @else
                             @endif
                         </td>
-                        <td>{{$data->post_qual->remarks}}</td>
-                        <td>{{$data->post_qual->action}}</td>
+                        <td>
+                            @if($data->post_qual != null) {{$data->post_qual->remarks}} @endif
+                        </td>
+                        <td>
+                            @if($data->post_qual != null) {{$data->post_qual->action}} @endif
+                        </td>
                         <td>
 
                         </td>
