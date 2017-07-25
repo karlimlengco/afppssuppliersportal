@@ -10,16 +10,17 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/guard/auth/broadcasting', '\Revlv\Controllers\ChatController@authenticate')->name('messages.auth');
 Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard.index');
 
 Route::get('pdf/footer', '\Revlv\Controllers\PDFController@getFooter')->name('pdf.footer');
 
-Route::get('chat', function(){
-    return view('chat');
-});
+Route::get('chat', '\Revlv\Controllers\ChatController@index')->name('messages.index');
+Route::post('messages', '\Revlv\Controllers\ChatController@store')->name('messages.store');
 
-Route::get('/messages', function(){
-    return \Revlv\Chats\Message\MessageEloquent::all();
+
+Route::get('messages', function(){
+    return \Revlv\Chats\Message\MessageEloquent::with('user')->get();
 });
 
 Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
@@ -483,7 +484,6 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
 Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
 
     Route::get('audit-logs', '\Revlv\Controllers\Settings\AuditLogController@getDatatable')->name('audit-logs');
-    Route::get('request-for-bids', '\Revlv\Controllers\Biddings\RFBController@getDatatable')->name('biddings.request-for-bids');
     Route::get('noa-acceptance', '\Revlv\Controllers\Biddings\NOAController@getDatatable')->name('biddings.noa-acceptance');
 
     /*

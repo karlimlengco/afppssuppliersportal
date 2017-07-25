@@ -708,7 +708,7 @@ class PurchaseOrderController extends Controller
         $upr_model                  =  $upr->findById($result->upr_id);
         $noa_model                  =  $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
 
-        if($result->coa_signatories == null || $result->requestor == null || $result->accounting == null || $result->approver == null)
+        if($result->coa_signatories == null || $result->requestor == null || $result->accounting == null )
         {
             return redirect()->back()->with(['error' => 'Please add signatories']);
         }

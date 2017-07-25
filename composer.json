@@ -18,6 +18,7 @@
         "maatwebsite/excel": "~2.1.0",
         "mccool/laravel-auto-presenter": "^5.0",
         "owen-it/laravel-auditing": "^4.0",
+        "pusher/pusher-php-server": "~2.6",
         "yajra/laravel-datatables-oracle": "^7.2"
     },
     "require-dev": {

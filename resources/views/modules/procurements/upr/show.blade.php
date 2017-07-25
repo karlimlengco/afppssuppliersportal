@@ -22,8 +22,10 @@ Unit Purchase Request
     @include('modules.partials.modals.create_delivery')
     @endif
 
-    @if($data->mode_of_procurement != 'public_bidding')
-    @include('modules.partials.modals.philgeps_posting')
+    @if($data->mode_of_procurement != 'public_bidding' )
+        @if($data->status == 'Invitation Created' || $data->status == 'Philgeps Need Repost')
+            @include('modules.partials.modals.philgeps_posting')
+        @endif
     @endif
 
     @if($data->mode_of_procurement == 'public_bidding')

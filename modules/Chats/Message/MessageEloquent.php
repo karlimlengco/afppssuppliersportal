@@ -20,8 +20,7 @@ class MessageEloquent extends Model
      * @var array
      */
     protected $fillable = [
-        'message',
-        'user_id',
+        'message'
     ];
 
     /**

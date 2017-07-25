@@ -732,7 +732,6 @@ class VoucherController extends Controller
         $result     =   $model->with(['receiver', 'approver', 'certifier'])->findById($id);
         $noa_model  =   $noa->with(['winner','upr'])->findByRFQ($result->rfq_id);
         $winner     =   $noa_model->winner->supplier;
-
         $data['transaction_date']       =   $result->transaction_date;
         $data['bir_address']            =   $result->bir_address;
         $data['final_tax']              =   $result->final_tax;
@@ -748,6 +747,7 @@ class VoucherController extends Controller
         $data['expanded_witholding_tax']=   $result->expanded_witholding_tax;
         $data['ewt_amount']             =   $result->ewt_amount;
         $data['final_tax_amount']       =   $result->final_tax_amount;
+        $data['amount']                 =   $result->amount;
         $data['payment_no']             =   $result->payment_no;
         $data['payment_date']           =   $result->payment_date;
         $data['payment_bank']           =   $result->banks->code;

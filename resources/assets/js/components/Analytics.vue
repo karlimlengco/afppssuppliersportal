@@ -55,12 +55,12 @@
                         <td></td>
                     </tr>
                     <!-- child -->
-                    <template v-for="itemProg in itemProgram">
-                        <template v-if="itemProg.program == item.programs">
                             <tr>
                                 <td class="has-child" colspan="8">
                                     <table class="child-table table-name">
                                         <tbody>
+                                        <template v-for="itemProg in itemProgram">
+                                            <template v-if="itemProg.program == item.programs">
                                             <template  v-for="itemProgData in itemProg.data">
 
                                                 <tr>
@@ -84,14 +84,14 @@
                                                     <td></td>
                                                 </tr>
                                                 <!-- Grand Child -->
-                                                <template v-for="itemUnit in itemUnits">
-                                                    <template v-if="itemUnit.program == item.programs">
-                                                        <template v-if="itemUnit.center == itemProgData.name">
+
                                                             <tr >
                                                                 <td class="has-child" colspan="8">
                                                                     <table class="grand-child-table table-name">
                                                                         <tbody>
-
+                                                                        <template v-for="itemUnit in itemUnits">
+                                                                            <template v-if="itemUnit.program == item.programs">
+                                                                                <template v-if="itemUnit.center == itemProgData.name">
                                                                         <template v-for="itemUnitData in itemUnit.data">
                                                                             <tr  >
                                                                                 <td>
@@ -117,13 +117,14 @@
                                                                             </tr>
                                                                             <!-- Great Grand -->
 
-                                                                            <template v-for="itemProgCent in itemProgramCenters">
-                                                                                <template v-if="itemProgCent.program == itemUnitData.short_code">
-                                                                                    <template v-if="itemProgCent.center == itemProgData.name">
+
                                                                                     <tr>
                                                                                         <td class="has-child" colspan="8">
                                                                                             <table class="great-grand-child-table table-name">
                                                                                                 <tbody>
+                                                                                                <template v-for="itemProgCent in itemProgramCenters">
+                                                                                                    <template v-if="itemProgCent.program == itemUnitData.short_code">
+                                                                                                        <template v-if="itemProgCent.center == itemProgData.name">
                                                                                                     <tr  v-for="itemProgCentData in itemProgCent.data">
                                                                                                 <td> <i class="green" style="font-family: Verdana;">{{itemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small></td>
                                                                                                 <td>
@@ -142,32 +143,33 @@
                                                                                                 <td  style="text-align:left" v-if="itemProgCentData.status != 'upr_processing'">{{itemProgCentData.status}}</td>
                                                                                                 <td  style="text-align:left" v-else>UPR Processing</td>
                                                                                             </tr>
+                                                                                                    </template>
+                                                                                                </template>
+                                                                                            </template>
                                                                                                 </tbody>
                                                                                             </table>
                                                                                         </td>
                                                                                     </tr>
-                                                                                    </template>
+                                                                        </template>
+                                                                            <!-- Great Grand -->
+
                                                                                 </template>
                                                                             </template>
                                                                         </template>
-                                                                            <!-- Great Grand -->
                                                                         </tbody>
                                                                     </table>
                                                                 </td>
                                                             </tr>
-                                                        </template>
-                                                    </template>
-                                                </template>
                                                 <!-- Grand Child -->
 
                                             </template>
+                                            </template>
+                                        </template>
 
                                         </tbody>
                                     </table>
                                 </td>
                             </tr>
-                        </template>
-                    </template>
                     <!-- child -->
 
                 </template>
@@ -269,6 +271,7 @@ var array2IDs           =   [];
                 this.types = type
                 this.itemProgram = []
                 this.itemProgramCenters = []
+                this.itemUnits = []
                 arrayIDs = []
                 arrayProgramCenter = []
                 array2IDs = []

@@ -83,7 +83,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2"> &nbsp; To remit the following TAX(s) of {{$data['payee']->name}} under Purchase Order number {{$data['po']->po_number}} </td>
-                                <td class="align-center v-align-middle">{{ formatPrice($data['ewt_amount'] + $data['final_tax_amount'])}}</td>
+                                <td class="align-center v-align-middle">{{ formatPrice($data['amount'])}}</td>
                             </tr>
                             <tr>
                                 <td class="has-child" colspan="2">
@@ -103,7 +103,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">Amount Due</td>
-                                <td class="align-center">Php {{ formatPrice($data['ewt_amount'] + $data['final_tax_amount'])}}</td>
+                                <td class="align-center">Php {{ formatPrice($data['amount'])}}</td>
                             </tr>
                             <tr>
                                 <td class="has-child" colspan="3">
@@ -116,7 +116,7 @@
                                             <td class="align-left" colspan="2">
                                                 <span class="checkbox-item">&#9744; Cash Available</span>
                                             </td>
-                                            <td class="align-center v-align-middle" colspan="2" rowspan="3">{{ strtoupper( translateToWords($data['ewt_amount'] + $data['final_tax_amount']) ) }} ({{ formatPrice($data['ewt_amount'] + $data['final_tax_amount'])}})</td>
+                                            <td class="align-center v-align-middle" colspan="2" rowspan="3">{{ strtoupper( translateToWords($data['amount'] ) ) }} (Php {{ formatPrice($data['amount'] )}})</td>
                                         </tr>
                                         <tr>
                                             <td class="align-left" colspan="2">

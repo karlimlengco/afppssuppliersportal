@@ -142,9 +142,7 @@
                 <p>In case of failure to make the full delivery within the time specified above, a penalty of one-tenth (1/10) of one percent (1%) for every day of delay shall be imposed. </p>
 
             </div>
-            <br>
-            <br><br>
-            <br>
+
 
             <div class="printable-form">
 
@@ -160,22 +158,35 @@
                         <td class="v-align-bottom align-center" width="40%" height="50px"></td>
                     </tr>
                     <tr>
+
                         <td class="signatory align-center" width="40%">
                             <div class="signatory-name">
                                 <table>
                                     <tr>
                                         <td width="50%"></td>
-                                        <td nowrap>{{($data['approver']) ? $data['approver']->name :""}}</td>
+                                        <td nowrap>
+
+                                        @if($data['approver'])
+                                        {{($data['approver']) ? $data['approver']->name :""}}
+                                        @endif
+                                        </td>
                                         <td width="50%"></td>
                                     </tr>
                                     <tr>
                                         <td width="50%"></td>
-                                        <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> @if($data['approver'])<?php echo $data['approver']->ranks; ?>@endif</pre> </td>
+                                        <td class="align-justify" style="text-align-last: justify !important; text-align: justify;">
+                                            @if($data['approver'])
+
+                                                <pre style="border:none"> @if($data['approver'])<?php echo $data['approver']->ranks; ?>@endif</pre>
+                                            @endif
+                                        </td>
                                         <td width="50%"></td>
                                     </tr>
                                 </table>
                             </div>
+                            @if($data['approver'])
                             {{($data['approver']) ? $data['approver']->designation : ""}}
+                            @endif
                         </td>
 
                         <td width="20%"></td>

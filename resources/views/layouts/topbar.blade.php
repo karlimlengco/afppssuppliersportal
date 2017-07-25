@@ -25,19 +25,17 @@ $cRoute = explode('.', $currentRoute);
                 <a href="{{route('notifications.index')}}" class="">
                     <button class="topbar__utility__button">
                         @if($delayCounts >= 1)
-                            <i class="red nc-icon-mini ui-1_bell-53"></i>
-                        @else
-                            <i class="nc-icon-mini ui-1_bell-53"></i>
+                            <span class="topbar__utility__button__badge">{{$delayCounts}}</span>
                         @endif
+                            <i class="nc-icon-mini ui-1_bell-53"></i>
                     </button>
                 </a>
                 <a href="{{route('change-logs.index')}}">
                     <button class="topbar__utility__button">
                         @if($logCounts >= 1)
-                            <i class="red nc-icon-mini ui-1_notification-69"></i>
-                        @else
-                            <i class="nc-icon-mini ui-1_notification-69"></i>
+                            <span class="topbar__utility__button__badge">{{$logCounts}}</span>
                         @endif
+                            <i class="nc-icon-mini ui-1_notification-69"></i>
                     </button>
                 </a>
                 <button class="topbar__utility__button topbar__utility__button--chat"><i class="nc-icon-mini ui-2_chat-round"></i></button>

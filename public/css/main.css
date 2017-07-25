@@ -382,6 +382,7 @@ topbar.less
   display: block;
 }
 .topbar__utility__button {
+  position: relative;
   display: inline-block;
   background: none;
   height: 36px;
@@ -394,6 +395,19 @@ topbar.less
   background: #41505d;
   border: none;
   outline: none;
+}
+.topbar__utility__button__badge {
+  position: absolute;
+  top: -5px;
+  right: -2px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: -1px;
+  height: 18px;
+  width: 18px;
+  line-height: 18px;
+  border-radius: 50%;
+  background: #00A1E4;
 }
 .topbar__utility__button:hover {
   background: #56697b;
@@ -429,6 +443,7 @@ topbar.less
   background: #41505d;
 }
 .topbar__user__avatar img {
+  display: block;
   width: 100%;
 }
 .topbar__user__avatar:after {
@@ -1377,6 +1392,20 @@ printable-form.less
   display: inline-block;
   margin-right: 5px;
   font-size: 10px;
+}
+.printable-form__body__table tr td .signatory-rank-justify,
+.printable-form__body__table tr th .signatory-rank-justify {
+  text-align: justify;
+  margin: 0;
+  padding: 0;
+  height: 12px;
+  line-height: 1;
+}
+.printable-form__body__table tr td .signatory-rank-justify span,
+.printable-form__body__table tr th .signatory-rank-justify span {
+  display: inline-block;
+  width: 100%;
+  height: 1px;
 }
 .printable-form__body__table tr td.signatory,
 .printable-form__body__table tr th.signatory {

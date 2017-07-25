@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -19,7 +20,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 class User extends EloquentUser implements AuthenticatableContract, CanResetPasswordContract, AuditableContract
 {
-    use Authenticatable, CanResetPassword, SoftDeletes, Auditable;
+    use Authenticatable, CanResetPassword, SoftDeletes, Auditable, Notifiable;
 
     /**
      * Attributes to include in the Audit.
