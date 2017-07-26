@@ -752,6 +752,7 @@ class VoucherController extends Controller
         $result     =   $model->with(['receiver', 'approver', 'certifier'])->findById($id);
         $noa_model  =   $noa->with(['winner','upr'])->findByRFQ($result->rfq_id);
         $winner     =   $noa_model->winner->supplier;
+
         $data['transaction_date']       =   $result->transaction_date;
         $data['bir_address']            =   $result->bir_address;
         $data['final_tax']              =   $result->final_tax;
@@ -770,11 +771,21 @@ class VoucherController extends Controller
         $data['amount']                 =   $result->amount;
         $data['payment_no']             =   $result->payment_no;
         $data['payment_date']           =   $result->payment_date;
-        $data['payment_bank']           =   $result->banks->code;
+        $data['payment_bank']           =   ($result->banks) ? $result->banks->code : "";
         $data['payee']                  =   $winner;
         $data['upr']                    =   $noa_model->upr;
         $data['po']                     =   $noa_model->upr->purchase_order;
+        $data['delivery_terms']         =   $noa_model->upr->purchase_order->delivery_terms;
+        $data['delivery_date']          =   $noa_model->upr->delivery_order->delivery_date;
+        $data['ntp_date']               =   $noa_model->upr->ntp->award_accepted_date;
 
+        $ntp_date                       =   Carbon::createFromFormat('Y-m-d',$data['ntp_date']);
+        $delivery_date                  =   Carbon::createFromFormat('Y-m-d',$data['delivery_date']);
+        $nr_delay                       =   $ntp_date->diffInDays($delivery_date, false);
+        $penalty                        =   (($result->amount * 0.01) * 0.1) * $nr_delay;
+
+        $data['nr_delay']               =   $nr_delay;
+        $data['penalty']                =   $penalty;
         $pdf = PDF::loadView('forms.voucher', ['data' => $data])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'))

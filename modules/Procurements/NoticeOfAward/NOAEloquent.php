@@ -31,6 +31,8 @@ class NOAEloquent extends Model implements  AuditableContract
      */
     protected $table = 'notice_of_awards';
 
+    protected $with = 'winner';
+
     /**
      * The attributes that are mass assignable.
      *

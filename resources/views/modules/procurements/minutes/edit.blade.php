@@ -24,10 +24,10 @@ Minutes of the Meeting
 @stop
 
 @section('modal')
-    {!! Form::model($data, $modelConfig['update']) !!}
 @stop
 
 @section('contents')
+{!! Form::model($data, $modelConfig['update']) !!}
 
 
 <div class="row">
@@ -44,7 +44,7 @@ Minutes of the Meeting
 
             <div class="row">
                 <div class="six columns">
-                    {!! Form::textField('date_opened', 'Meeting Date') !!}
+                    {!! Form::dateField('date_opened', 'Meeting Date') !!}
                 </div>
                 <div class="six columns">
                     {!! Form::textField('time_opened', 'Meeting Time') !!}
@@ -56,7 +56,7 @@ Minutes of the Meeting
                     {!! Form::textField('time_closed', 'Adjourned Time') !!}
                 </div>
                 <div class="six columns">
-                    {!! Form::selectField('officer_id', 'Presiding Officer') !!}
+                    {!! Form::selectField('officer_id', 'Presiding Officer', $signatory_lists) !!}
                 </div>
             </div>
 
@@ -99,15 +99,6 @@ Minutes of the Meeting
     timepicker1.on('change', function(evt){
       var value = (evt.hour || '00') + ':' + (evt.minute || '00');
       evt.element.value = value;
-    });
-
-    // datepicker
-    var date_opened = new Pikaday(
-    {
-        field: document.getElementById('id-field-date_opened'),
-        firstDay: 1,
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
     });
 
     // end datepicker

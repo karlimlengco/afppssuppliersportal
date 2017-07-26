@@ -66,7 +66,7 @@
                             <tr>
                                 <td class="align-left">
                                     <span class="label">Address</span>
-                                    {{$data['bir_address']}}
+                                    {{$data['payee']->address}}
                                 </td>
                                 <td class="align-left">
                                     <span class="label">Office / Unit / Project</span>
@@ -89,7 +89,7 @@
                                 <td class="has-child" colspan="2">
                                     <table class="child-table">
                                         <tr>
-                                            <td class="head align-center v-align-middle fix-border" rowspan="2" width="10%">Less</td>
+                                            <td class="head align-center v-align-middle fix-border" rowspan="3" width="10%">Less</td>
                                             <td class="align-left" width="70%">{{$data['final_tax']}}% Final Tax</td>
                                             <td width="20%">{{formatPrice($data['final_tax_amount'])}}</td>
                                         </tr>
@@ -97,13 +97,17 @@
                                             <td class="align-left">{{$data['expanded_witholding_tax']}}% EWT</td>
                                             <td> {{formatPrice($data['ewt_amount'])}}</td>
                                         </tr>
+                                        <tr>
+                                            <td class="align-left">Penalty ({{$data['nr_delay']}} Days)</td>
+                                            <td> {{formatPrice($data['penalty'])}}</td>
+                                        </tr>
                                     </table>
                                 </td>
                                 <td class="align-center"></td>
                             </tr>
                             <tr>
                                 <td colspan="2">Amount Due</td>
-                                <td class="align-center">Php {{ formatPrice($data['amount'])}}</td>
+                                <td class="align-center">Php {{ formatPrice( ($data['amount']) - ($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty']) )}}</td>
                             </tr>
                             <tr>
                                 <td class="has-child" colspan="3">
@@ -116,7 +120,7 @@
                                             <td class="align-left" colspan="2">
                                                 <span class="checkbox-item">&#9744; Cash Available</span>
                                             </td>
-                                            <td class="align-center v-align-middle" colspan="2" rowspan="3">{{ strtoupper( translateToWords($data['amount'] ) ) }} (Php {{ formatPrice($data['amount'] )}})</td>
+                                            <td class="align-center v-align-middle" colspan="2" rowspan="3">{{ strtoupper( translateToWords( ($data['amount']) - ($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty']) ) ) }} (Php {{ formatPrice( ($data['amount']) - ($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty']) )}})</td>
                                         </tr>
                                         <tr>
                                             <td class="align-left" colspan="2">
@@ -134,24 +138,24 @@
                                             </td>
                                             <td class="align-left" width="30%">
                                                 <span class="label">Name</span>
-                                                {{$data['certifier']->name}}
+                                                {{($data['certifier']) ? $data['certifier']->name : ""}}
                                             </td>
                                             <td class="align-left fix-border" width="20%" rowspan="3">
                                                 <span class="label"></span>
                                             </td>
                                             <td class="align-left" width="30%">
                                                 <span class="label">Name</span>
-                                                {{$data['approver']->name}}
+                                                {{($data['approver']) ? $data['approver']->name : ""}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="align-left" width="30%">
                                                 <span class="label">Designation</span>
-                                                {{$data['certifier']->designation}}
+                                                {{($data['certifier']) ? $data['certifier']->name : ""}}
                                             </td>
                                             <td class="align-left" width="30%">
                                                 <span class="label">Designation</span>
-                                                {{$data['approver']->designation}}
+                                                {{($data['approver']) ? $data['approver']->name : ""}}
                                             </td>
                                         </tr>
                                         <tr>
@@ -191,7 +195,417 @@
                                                         </td>
                                                         <td class="align-left" width="30%" colspan="2">
                                                             <span class="label">Printed Name</span>
-                                                            {{$data['receiver']->name}}
+                                                            {{($data['receiver']) ? $data['receiver']->name : ""}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-left" width="30%" colspan="2">
+                                                            <span class="label">Date</span>
+                                                            {{$data['payment_received_date']}}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="has-child" colspan="2">
+                                                <table class="child-table">
+                                                    <tr>
+                                                        <td class="align-left" width="30%" colspan="2">
+                                                            <span class="label">Number</span>
+                                                            {{$data['journal_entry_number']}}
+                                                        </td>
+                                                        <td class="align-left" width="30%" colspan="2">
+                                                            <span class="label">Date</span>
+                                                            {{$data['journal_entry_date']}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="head" colspan="4">
+                                                            <span class="label">Official Receipt / Other Documents</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{$data['or']}}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!-- form footer -->
+            </div>
+
+        </div>
+
+        {{-- Final tax --}}
+
+
+
+        <div class="printable-form-wrapper">
+
+            <div class="printable-form">
+                <!-- form header -->
+                <div class="printable-form__head">
+                    <p class="printable-form__head__vision">AFP Vision 2028: A World-class Armed Forces, Source of National Pride</p>
+                </div>
+                <!-- form content -->
+                <div class="printable-form__body no-letterhead">
+                    <span class="printable-form__body__title">Disbursement Voucher</span>
+                    <table class="printable-form__body__table
+                                  printable-form__body__table--layout">
+                        <tr>
+                            <td class="align-right">No. 000-000-000</td>
+                        </tr>
+                    </table>
+                    <table class="printable-form__body__table">
+                        <tbody>
+                            <tr>
+                                <td class="align-left" colspan="2">
+                                    <span class="label">Payment Mode</span>
+                                    <span class="checkbox-item">&#9744; MDS</span>
+                                    <span class="checkbox-item">&#9744; Commercial Check</span>
+                                    <span class="checkbox-item">&#9744; ADA</span>
+                                    <span class="checkbox-item">&#9744; Others</span>
+                                </td>
+                                <td class="align-left">
+                                    <span class="label">Date</span>
+
+                                {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['transaction_date'])->format('d F Y')}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-left" width="40%">
+                                    <span class="label">Payee</span>
+                                    BIR
+                                </td>
+                                <td class="align-left" width="30%">
+                                    <span class="label">TIN No.</span>
+                                </td>
+                                <td class="align-left" width="30%">
+                                    <span class="label">OR/BUR No.</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-left">
+                                    <span class="label">Address</span>
+                                    {{$data['bir_address']}}
+                                </td>
+                                <td class="align-left">
+                                    <span class="label">Office / Unit / Project</span>
+                                </td>
+                                <td class="align-left">
+                                    <span class="label">Code</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="head" colspan="2">Explanation</td>
+                                <td class="head align-center">Amount</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"> Payment of {{$data['final_tax']}}% Vat {{$data['po']->po_number}}</td>
+                                <td class="align-center v-align-middle">{{ formatPrice($data['final_tax_amount'])}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Amount Due</td>
+                                <td class="align-center">Php {{ formatPrice( ($data['final_tax_amount']) )}}</td>
+                            </tr>
+                            <tr>
+                                <td class="has-child" colspan="3">
+                                    <table class="child-table">
+                                        <tr>
+                                            <td class="head align-left" colspan="2">A. Certified</td>
+                                            <td class="head align-left" colspan="2">B. Approved for Payment</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-left" colspan="2">
+                                                <span class="checkbox-item">&#9744; Cash Available</span>
+                                            </td>
+                                            <td class="align-center v-align-middle" colspan="2" rowspan="3">{{ strtoupper( translateToWords( ($data['final_tax_amount'])   ) ) }} (Php {{ formatPrice( ($data['final_tax_amount']) )}})</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-left" colspan="2">
+                                                <span class="checkbox-item">&#9744; Subject to Authority to Debit Account (When applicable)</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-left" colspan="2">
+                                                <span class="checkbox-item">&#9744; Supporting documents complete</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-left fix-border" width="20%" rowspan="3">
+                                                <span class="label"></span>
+                                            </td>
+                                            <td class="align-left" width="30%">
+                                                <span class="label">Name</span>
+                                                {{($data['certifier']) ? $data['certifier']->name : ""}}
+                                            </td>
+                                            <td class="align-left fix-border" width="20%" rowspan="3">
+                                                <span class="label"></span>
+                                            </td>
+                                            <td class="align-left" width="30%">
+                                                <span class="label">Name</span>
+                                                {{($data['approver']) ? $data['approver']->name : ""}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-left" width="30%">
+                                                <span class="label">Designation</span>
+                                                {{($data['certifier']) ? $data['certifier']->name : ""}}
+                                            </td>
+                                            <td class="align-left" width="30%">
+                                                <span class="label">Designation</span>
+                                                {{($data['approver']) ? $data['approver']->name : ""}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-left" width="30%">
+                                                <span class="label">Date</span>
+                                                {{$data['certify_date']}}
+                                            </td>
+                                            <td class="align-left" width="30%">
+                                                <span class="label">Date</span>
+                                                {{$data['approval_date']}}
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="head align-left" colspan="2">C. Received Payment</td>
+                                            <td class="head align-left" colspan="2">D. Journal Entry Voucher</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="has-child" colspan="2">
+                                                <table class="child-table">
+                                                    <tr>
+                                                        <td class="align-left" width="40%">
+                                                            <span class="label">Check / ADA No.</span>
+                                                            {{$data['payment_no']}}
+                                                        </td>
+                                                        <td class="align-left" width="35%">
+                                                            <span class="label">Bank Name</span>
+                                                            {{$data['payment_bank']}}
+                                                        </td>
+                                                        <td class="align-left" width="25%">
+                                                            <span class="label">Date</span>
+                                                            {{$data['payment_date']}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-left fix-border" width="35%" rowspan="2">
+                                                            <span class="label"></span>
+                                                        </td>
+                                                        <td class="align-left" width="30%" colspan="2">
+                                                            <span class="label">Printed Name</span>
+                                                            {{($data['receiver']) ? $data['receiver']->name : ""}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-left" width="30%" colspan="2">
+                                                            <span class="label">Date</span>
+                                                            {{$data['payment_received_date']}}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="has-child" colspan="2">
+                                                <table class="child-table">
+                                                    <tr>
+                                                        <td class="align-left" width="30%" colspan="2">
+                                                            <span class="label">Number</span>
+                                                            {{$data['journal_entry_number']}}
+                                                        </td>
+                                                        <td class="align-left" width="30%" colspan="2">
+                                                            <span class="label">Date</span>
+                                                            {{$data['journal_entry_date']}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="head" colspan="4">
+                                                            <span class="label">Official Receipt / Other Documents</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{$data['or']}}</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!-- form footer -->
+            </div>
+
+        </div>
+
+        {{-- EWT --}}
+
+
+
+
+
+        <div class="printable-form-wrapper">
+
+            <div class="printable-form">
+                <!-- form header -->
+                <div class="printable-form__head">
+                    <p class="printable-form__head__vision">AFP Vision 2028: A World-class Armed Forces, Source of National Pride</p>
+                </div>
+                <!-- form content -->
+                <div class="printable-form__body no-letterhead">
+                    <span class="printable-form__body__title">Disbursement Voucher</span>
+                    <table class="printable-form__body__table
+                                  printable-form__body__table--layout">
+                        <tr>
+                            <td class="align-right">No. 000-000-000</td>
+                        </tr>
+                    </table>
+                    <table class="printable-form__body__table">
+                        <tbody>
+                            <tr>
+                                <td class="align-left" colspan="2">
+                                    <span class="label">Payment Mode</span>
+                                    <span class="checkbox-item">&#9744; MDS</span>
+                                    <span class="checkbox-item">&#9744; Commercial Check</span>
+                                    <span class="checkbox-item">&#9744; ADA</span>
+                                    <span class="checkbox-item">&#9744; Others</span>
+                                </td>
+                                <td class="align-left">
+                                    <span class="label">Date</span>
+
+                                {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['transaction_date'])->format('d F Y')}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-left" width="40%">
+                                    <span class="label">Payee</span>
+                                    BIR
+                                </td>
+                                <td class="align-left" width="30%">
+                                    <span class="label">TIN No.</span>
+                                </td>
+                                <td class="align-left" width="30%">
+                                    <span class="label">OR/BUR No.</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-left">
+                                    <span class="label">Address</span>
+                                    {{$data['bir_address']}}
+                                </td>
+                                <td class="align-left">
+                                    <span class="label">Office / Unit / Project</span>
+                                </td>
+                                <td class="align-left">
+                                    <span class="label">Code</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="head" colspan="2">Explanation</td>
+                                <td class="head align-center">Amount</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"> Payment of {{$data['expanded_witholding_tax']}}% EWT {{$data['po']->po_number}}</td>
+                                <td class="align-center v-align-middle">{{ formatPrice($data['ewt_amount'])}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Amount Due</td>
+                                <td class="align-center">Php {{ formatPrice( ($data['ewt_amount']) )}}</td>
+                            </tr>
+                            <tr>
+                                <td class="has-child" colspan="3">
+                                    <table class="child-table">
+                                        <tr>
+                                            <td class="head align-left" colspan="2">A. Certified</td>
+                                            <td class="head align-left" colspan="2">B. Approved for Payment</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-left" colspan="2">
+                                                <span class="checkbox-item">&#9744; Cash Available</span>
+                                            </td>
+                                            <td class="align-center v-align-middle" colspan="2" rowspan="3">{{ strtoupper( translateToWords( ($data['ewt_amount'])   ) ) }} (Php {{ formatPrice( ($data['ewt_amount']) )}})</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-left" colspan="2">
+                                                <span class="checkbox-item">&#9744; Subject to Authority to Debit Account (When applicable)</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-left" colspan="2">
+                                                <span class="checkbox-item">&#9744; Supporting documents complete</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-left fix-border" width="20%" rowspan="3">
+                                                <span class="label"></span>
+                                            </td>
+                                            <td class="align-left" width="30%">
+                                                <span class="label">Name</span>
+                                                {{($data['certifier']) ? $data['certifier']->name : ""}}
+                                            </td>
+                                            <td class="align-left fix-border" width="20%" rowspan="3">
+                                                <span class="label"></span>
+                                            </td>
+                                            <td class="align-left" width="30%">
+                                                <span class="label">Name</span>
+                                                {{($data['approver']) ? $data['approver']->name : ""}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-left" width="30%">
+                                                <span class="label">Designation</span>
+                                                {{($data['certifier']) ? $data['certifier']->name : ""}}
+                                            </td>
+                                            <td class="align-left" width="30%">
+                                                <span class="label">Designation</span>
+                                                {{($data['approver']) ? $data['approver']->name : ""}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-left" width="30%">
+                                                <span class="label">Date</span>
+                                                {{$data['certify_date']}}
+                                            </td>
+                                            <td class="align-left" width="30%">
+                                                <span class="label">Date</span>
+                                                {{$data['approval_date']}}
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="head align-left" colspan="2">C. Received Payment</td>
+                                            <td class="head align-left" colspan="2">D. Journal Entry Voucher</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="has-child" colspan="2">
+                                                <table class="child-table">
+                                                    <tr>
+                                                        <td class="align-left" width="40%">
+                                                            <span class="label">Check / ADA No.</span>
+                                                            {{$data['payment_no']}}
+                                                        </td>
+                                                        <td class="align-left" width="35%">
+                                                            <span class="label">Bank Name</span>
+                                                            {{$data['payment_bank']}}
+                                                        </td>
+                                                        <td class="align-left" width="25%">
+                                                            <span class="label">Date</span>
+                                                            {{$data['payment_date']}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="align-left fix-border" width="35%" rowspan="2">
+                                                            <span class="label"></span>
+                                                        </td>
+                                                        <td class="align-left" width="30%" colspan="2">
+                                                            <span class="label">Printed Name</span>
+                                                            {{($data['receiver']) ? $data['receiver']->name : ""}}
                                                         </td>
                                                     </tr>
                                                     <tr>
