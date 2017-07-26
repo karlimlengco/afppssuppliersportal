@@ -78,3 +78,22 @@ $(document).on('click', '.show-great-grand-child-table', function(e){
     $(this).parents('tr').next().find('.has-child').first().toggleClass('is-open');
     $(this).parents('tr').next().find('.great-grand-child-table').toggleClass('is-visible');
 })
+
+
+
+
+// open chat
+$('.open-chat').click(function(){
+    $('.chat').addClass('is-visible');
+})
+
+// open chat
+$('.close-chat').click(function(){
+    $('.chat').removeClass('is-visible');
+})
+
+// close notifier
+$('.notifier__close-button').click(function(e){
+    e.preventDefault();
+    $('.notifier').removeClass('is-visible');
+})

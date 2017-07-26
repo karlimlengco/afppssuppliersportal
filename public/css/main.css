@@ -399,7 +399,7 @@ topbar.less
 .topbar__utility__button__badge {
   position: absolute;
   top: -5px;
-  right: -2px;
+  right: -5px;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: -1px;
@@ -979,21 +979,30 @@ chatbox.less
 ------------------------------------------------------------------------- */
 .chat {
   position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: 99;
-  background: rgba(44, 54, 63, 0.85);
-  overflow-y: auto;
+  z-index: 9;
+  bottom: 30px;
+  right: 30px;
+  width: 350px;
+  background: #FFFFFF;
+  border: solid 1px #dfdfdf;
+  -webkit-box-shadow: 0 1px 15px rgba(20, 20, 20, 0.25);
+  -moz-box-shadow: 0 1px 15px rgba(20, 20, 20, 0.25);
+  box-shadow: 0 1px 15px rgba(20, 20, 20, 0.25);
   visibility: hidden;
   zoom: 1;
   filter: alpha(opacity=0);
   -webkit-opacity: 0;
   -moz-opacity: 0;
   opacity: 0;
-  -webkit-transition: all 0.15s linear;
-  -moz-transition: all 0.15s linear;
-  -o-transition: all 0.15s linear;
-  transition: all 0.15s linear;
+  -webkit-transform: translateY(25px);
+  -moz-transform: translateY(25px);
+  -ms-transform: translateY(25px);
+  -o-transform: translateY(25px);
+  transform: translateY(25px);
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .chat.is-visible {
   visibility: visible;
@@ -1002,32 +1011,38 @@ chatbox.less
   -webkit-opacity: 1;
   -moz-opacity: 1;
   opacity: 1;
-  -webkit-transition: all 0.15s linear;
-  -moz-transition: all 0.15s linear;
-  -o-transition: all 0.15s linear;
-  transition: all 0.15s linear;
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
 }
-.chat.is-visible .chat__thread {
-  -webkit-transform: translateX(0);
-  -moz-transform: translateX(0);
-  -ms-transform: translateX(0);
-  -o-transform: translateX(0);
-  transform: translateX(0);
-  -webkit-transition: all 0.15s ease-in-out;
-  -moz-transition: all 0.15s ease-in-out;
-  -o-transition: all 0.15s ease-in-out;
-  transition: all 0.15s ease-in-out;
+.chat__head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 15px 15px;
+  background: #2C363F;
 }
-.chat__close-button {
-  position: absolute;
-  right: 15px;
-  top: 15px;
+.chat__head__title {
+  flex-grow: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+.chat__head__utility {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+}
+.chat__head__utility__button {
+  margin: 0 6px;
+  padding: 0;
   height: auto;
   width: auto;
-  font-size: 20px;
   background: none;
   border: none;
-  color: #7a7a7a;
+  color: #FFFFFF;
   cursor: pointer;
   zoom: 1;
   filter: alpha(opacity=50);
@@ -1035,35 +1050,162 @@ chatbox.less
   -moz-opacity: 0.5;
   opacity: 0.5;
 }
-.chat__close-button:hover {
+.chat__head__utility__button:first-child {
+  margin-left: 0;
+}
+.chat__head__utility__button:last-child {
+  margin-right: 0;
+}
+.chat__head__utility__button:hover {
   zoom: 1;
   filter: alpha(opacity=100);
   -webkit-opacity: 1;
   -moz-opacity: 1;
   opacity: 1;
 }
-.chat__close-button:focus {
+.chat__head__utility__button:focus {
   outline: none;
 }
 .chat__thread {
+  display: block;
+  height: 300px;
+  max-height: 300px;
+  padding: 15px 15px 0 15px;
+}
+.chat__thread__breaker {
+  display: block;
+  position: relative;
+  height: 1px;
+  width: 100%;
+  margin: 25px 0 20px 0;
+  border-top: solid 1px #dfdfdf;
+}
+.chat__thread__breaker__time {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 400px;
-  margin: 0;
-  padding: 50px 30px 30px 30px;
-  border-radius: 0;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  font-weight: 300;
+  padding: 5px 10px;
   background: #FFFFFF;
-  -webkit-transform: translateX(-40px);
-  -moz-transform: translateX(-40px);
-  -ms-transform: translateX(-40px);
-  -o-transform: translateX(-40px);
-  transform: translateX(-40px);
-  -webkit-transition: all 0.15s ease-in-out;
-  -moz-transition: all 0.15s ease-in-out;
-  -o-transition: all 0.15s ease-in-out;
-  transition: all 0.15s ease-in-out;
+  color: #bababa;
+}
+.chat__thread__item {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+}
+.chat__thread__item--you {
+  direction: rtl;
+}
+.chat__thread__item--you .chat__thread__info {
+  margin: 0 8px 0 70px;
+}
+.chat__thread__item--you .chat__thread__message {
+  background: #00A1E4;
+  direction: ltr;
+  text-align: right;
+}
+.chat__thread__item:first-child {
+  margin-top: 0;
+}
+.chat__thread__item:last-child {
+  margin-bottom: 0;
+}
+.chat__thread__avatar {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  font-weight: 700;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #c5c5c5;
+  color: #FFFFFF;
+}
+.chat__thread__avatar img {
+  display: block;
+  width: 100%;
+}
+.chat__thread__info {
+  flex-grow: 1;
+  margin: 0 70px 0 8px;
+}
+.chat__thread__name {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #545454;
+}
+.chat__thread__message {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: .5px;
+  padding: 5px 8px;
+  background: #3BB273;
+  color: #FFFFFF;
+  border-radius: 5px;
+  margin-top: 2px;
+}
+.chat__thread__message:first-child {
+  display: none;
+}
+.chat__compose {
+  display: block;
+  padding: 15px;
+}
+.chat__compose__textarea {
+  font-family: "Nunito Sans";
+  font-size: 16px;
+  color: #7a7a7a;
+  font-weight: 300;
+  width: 100%;
+  padding: 10px;
+  resize: none;
+  border: solid 1px #d2d2d2;
+}
+.chat__compose__textarea:focus {
+  border: solid 1px #b8b8b8;
+  outline: none;
+}
+.chat__compose__utility {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+.chat__compose__options {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: row;
+}
+.chat__compose__options__item {
+  font-family: "Nunito Sans";
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #bababa;
+  margin: 0 4px;
+}
+.chat__compose__options__item:first-child {
+  margin-left: 0;
+}
+.chat__compose__options__item:last-child {
+  margin-right: 0;
+}
+.chat__compose__word-count {
+  flex-grow: 1;
+  font-size: 12px;
+  color: #bababa;
+  font-weight: 300;
+  text-transform: uppercase;
 }
 /*
 login.less
@@ -1203,13 +1345,13 @@ printable-form.less
 .printable-form {
   display: block;
   position: relative;
-  // width: 8.3in;
+  width: 8.3in;
   height: 13in;
   max-height: 13in;
   min-height: 13in;
   padding: 0 15px;
   margin: 30px 0;
-  border: solid 1px transparent;
+  border: solid 1px #cccccc;
   /* for 'long' bond paper prints */
   /* for 'short' bond paper prints */
   /* file name for dev reference only */
@@ -1219,7 +1361,7 @@ printable-form.less
 }
 .printable-form * {
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 600;
   color: #545454;
 }
 .printable-form * strong {
@@ -1494,6 +1636,139 @@ printable-form.less
 }
 .printable-form__foot__code img {
   height: 100%;
+}
+/*
+notifier.less
+------------------------------------------------------------------------- */
+.notifier {
+  position: fixed;
+  z-index: 9;
+  top: 20px;
+  right: 20px;
+  width: 350px;
+  padding: 30px;
+  background: #56697b;
+  -webkit-box-shadow: 0 1px 15px rgba(20, 20, 20, 0.25);
+  -moz-box-shadow: 0 1px 15px rgba(20, 20, 20, 0.25);
+  box-shadow: 0 1px 15px rgba(20, 20, 20, 0.25);
+  visibility: hidden;
+  zoom: 1;
+  filter: alpha(opacity=0);
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+  -webkit-transform: translateY(25px);
+  -moz-transform: translateY(25px);
+  -ms-transform: translateY(25px);
+  -o-transform: translateY(25px);
+  transform: translateY(25px);
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.notifier.is-visible {
+  visibility: visible;
+  zoom: 1;
+  filter: alpha(opacity=100);
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+.notifier__close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: #FFFFFF;
+  zoom: 1;
+  filter: alpha(opacity=50);
+  -webkit-opacity: 0.5;
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+}
+.notifier__close-button i {
+  display: block;
+  font-size: 12px;
+}
+.notifier__close-button:hover {
+  color: #FFFFFF;
+  zoom: 1;
+  filter: alpha(opacity=100);
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+}
+.notifier__title,
+.notifier__message {
+  display: block;
+  font-family: "Nunito Sans";
+  letter-spacing: normal;
+  color: #FFFFFF;
+}
+.notifier__title {
+  font-size: 18px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.notifier__message {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 0;
+  zoom: 1;
+  filter: alpha(opacity=75);
+  -webkit-opacity: 0.75;
+  -moz-opacity: 0.75;
+  opacity: 0.75;
+}
+.notifier__utility {
+  display: block;
+  margin-top: 15px;
+  text-align: right;
+}
+.notifier__utility__item {
+  display: inline-block;
+  font-weight: 400;
+  padding: 7px 10px;
+  border: solid 1px #FFFFFF;
+  color: #FFFFFF;
+  zoom: 1;
+  filter: alpha(opacity=75);
+  -webkit-opacity: 0.75;
+  -moz-opacity: 0.75;
+  opacity: 0.75;
+}
+.notifier__utility__item:first-child {
+  margin-left: 0;
+}
+.notifier__utility__item:last-child {
+  margin-right: 0;
+}
+.notifier__utility__item:hover {
+  background: #FFFFFF;
+  color: inherit;
+  zoom: 1;
+  filter: alpha(opacity=100);
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+}
+.notifier--success {
+  background: #3BB273;
+  color: #3BB273;
+}
+.notifier--warning {
+  background: #FA7921;
+  color: #FA7921;
+}
+.notifier--error {
+  background: #E15554;
+  color: #E15554;
 }
 /*
 form.less

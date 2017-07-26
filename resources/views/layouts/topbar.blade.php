@@ -40,7 +40,7 @@ $cRoute = explode('.', $currentRoute);
                             <i class="nc-icon-mini ui-1_notification-69"></i>
                     </button>
                 </a>
-                <button class="topbar__utility__button topbar__utility__button--chat"><i class="nc-icon-mini ui-2_chat-round"></i></button>
+                <button class="topbar__utility__button topbar__utility__button--chat  open-chat" ><i class="nc-icon-mini ui-2_chat-round"></i></button>
             </div>
             <div class="topbar__user">
                 <div class="topbar__user__info">

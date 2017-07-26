@@ -50,6 +50,19 @@
                 theme:"minimal-dark"
             });
 
+
+            $(".chat__thread").mCustomScrollbar({
+                axis:"y",
+                setTop:0,
+                scrollbarPosition:"inside",
+                scrollInertia:250,
+                autoDraggerLength:true,
+                autoHideScrollbar:true,
+                alwaysShowScrollbar:0,
+                contentTouchScroll:25,
+                theme:"minimal-dark"
+            });
+
         });
     })(jQuery);
 

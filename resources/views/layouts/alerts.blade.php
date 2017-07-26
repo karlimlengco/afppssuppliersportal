@@ -1,4 +1,4 @@
-<div class="row">
+{{-- <div class="row">
     <div class="col-md-12">
 
         @if(Session::has('error'))
@@ -25,4 +25,43 @@
         @endif
 
     </div>
+</div> --}}
+
+<!-- default: gray or
+     add class notifier--error / notifier--warning / notifier--success
+     for different notifications -->
+
+@if(Session::has('error'))
+<div class="notifier notifier--error is-visible">
+    <a href="" class="notifier__close-button"><i class="nc-icon-mini ui-1_simple-remove"></i></a>
+    <h1 class="notifier__title">Oh No!</h1>
+    <p class="notifier__message">{{Session::get('error')}}</p>
+    <div class="notifier__utility">
+        {{-- <a href="" class="notifier__utility__item">Nope</a> --}}
+        <a href="" class="notifier__utility__item">Okay</a>
+    </div>
 </div>
+@endif
+
+@if(Session::has('errors'))
+<div class="notifier notifier--error is-visible">
+    <a href="" class="notifier__close-button"><i class="nc-icon-mini ui-1_simple-remove"></i></a>
+    <h1 class="notifier__title">Oh No!</h1>
+    <p class="notifier__message">{{Session::get('error-msg')}}</p>
+    <div class="notifier__utility">
+        <a href="" class="notifier__utility__item">Okay</a>
+    </div>
+</div>
+@endif
+
+@if(Session::has('success'))
+
+<div class="notifier notifier--success is-visible">
+    <a href="" class="notifier__close-button"><i class="nc-icon-mini ui-1_simple-remove"></i></a>
+    <h1 class="notifier__title">Success</h1>
+    <p class="notifier__message">{{Session::get('success')}}</p>
+    <div class="notifier__utility">
+        <a href="" class="notifier__utility__item">Okay</a>
+    </div>
+</div>
+@endif
