@@ -370,7 +370,7 @@ trait DatatableTrait
             })
 
 
-            ->rawColumns(['upr_number', 'd_blank_rfq', 'd_vou_received', 'd_vou_release', 'd_vou_approval_date', 'd_journal_entry_date', 'd_certify_date', 'd_preaudit_date', 'd_vou_start', 'd_di_close', 'd_di_start', 'd_iar_accepted_date', 'd_dr_inspection', 'd_dr_coa_date', 'd_receive_delivery_date', 'd_delivery_date' , 'd_ntp_award_date', 'd_ntp_date', 'd_coa_approved_date', 'd_mfo_released_date', 'd_fund_po_create_date', 'd_po_create_date', 'd_noa_accepted', 'd_noa_approved', 'd_noa', 'd_canvass', 'd_philgeps', 'd_ispq', 'd_close_blank_rfq'])
+            ->rawColumns(['upr_number', 'public_upr_number', 'd_blank_rfq', 'd_vou_received', 'd_vou_release', 'd_vou_approval_date', 'd_journal_entry_date', 'd_certify_date', 'd_preaudit_date', 'd_vou_start', 'd_di_close', 'd_di_start', 'd_iar_accepted_date', 'd_dr_inspection', 'd_dr_coa_date', 'd_receive_delivery_date', 'd_delivery_date' , 'd_ntp_award_date', 'd_ntp_date', 'd_coa_approved_date', 'd_mfo_released_date', 'd_fund_po_create_date', 'd_po_create_date', 'd_noa_accepted', 'd_noa_approved', 'd_noa', 'd_canvass', 'd_philgeps', 'd_ispq', 'd_close_blank_rfq'])
             ->make(true);
     }
 }
