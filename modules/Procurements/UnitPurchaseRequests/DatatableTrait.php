@@ -140,7 +140,6 @@ trait DatatableTrait
             ->editColumn('d_philgeps', function($data){
                 $days = $data->pp_days;
 
-
                 if($days > 3)
                 {
                     return "<span style='color:red'>".$days."</span>";

@@ -87,9 +87,6 @@ trait TransactionDaysTrait
             'vouchers.approval_date as vou_approval_date',
             'vouchers.payment_release_date as vou_release',
             'vouchers.payment_received_date as vou_received',
-            // DB::raw("(select count(*) from holidays where holiday_date >= unit_purchase_requests.created_at and holiday_date <= NOW()) as holidays"),
-            // DB::raw("datediff(NOW(), unit_purchase_requests.created_at ) as days"),
-            // DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.created_at) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.created_at) + WEEKDAY(NOW()) + 1, 1) as working_days")
         ]);
 
         $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');

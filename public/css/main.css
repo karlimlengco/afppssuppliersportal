@@ -1345,13 +1345,13 @@ printable-form.less
 .printable-form {
   display: block;
   position: relative;
-  width: 8.3in;
+  // width: 8.3in;
   height: 13in;
   max-height: 13in;
   min-height: 13in;
   padding: 0 15px;
   margin: 30px 0;
-  border: solid 1px #cccccc;
+  border: solid 1px transparent;
   /* for 'long' bond paper prints */
   /* for 'short' bond paper prints */
   /* file name for dev reference only */
@@ -1361,7 +1361,7 @@ printable-form.less
 }
 .printable-form * {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 400;
   color: #545454;
 }
 .printable-form * strong {
