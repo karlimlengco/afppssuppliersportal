@@ -391,7 +391,7 @@ class DeliveredInspectionReportController extends Controller
     {
 
         $result             =   $model->with('issues')->findById($id);
-        $supplier           =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+        $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
 
         $signatory_list     =   $signatories->lists('id','name');
 
@@ -534,13 +534,16 @@ class DeliveredInspectionReportController extends Controller
         )
     {
         $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
+
+        $supplier                   =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+
         $data['items']              =   $result->delivery->po->items;
         $data['purpose']            =   $result->upr->purpose;
         $data['place']            =   $result->upr->place_of_delivery;
         $data['centers']            =   $result->upr->centers->name;
         $data['units']              =   $result->upr->unit->short_code;
         $data['ref_number']         =   $result->upr->ref_number;
-        $data['supplier']           =   $result->upr->noa->winner->supplier->name;
+        $data['supplier']           =   $supplier->name;
         $data['date']               =   $result->delivery->delivery_date;
         $data['po_number']          =   $result->delivery->po->po_number;
         $data['po_date']            =   $result->delivery->po->coa_approved_date;
