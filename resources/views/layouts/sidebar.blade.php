@@ -14,7 +14,7 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
 
     <!-- search -->
     <div class="sidebar__search">
-        <input type="text" class="sidebar__search__input" placeholder="Looking for something?">
+        <input type="text" class="sidebar__search__input"  id="newForm" placeholder="Looking for something?">
         <button class="sidebar__search__button"><i class="nc-icon-mini ui-1_zoom"></i></button>
     </div>
 

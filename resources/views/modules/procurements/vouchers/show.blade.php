@@ -2,6 +2,23 @@
 Vouchers
 @stop
 
+
+@section('breadcrumbs')
+
+    @if(isset($breadcrumbs))
+      @foreach($breadcrumbs as $route => $crumb)
+        @if($crumb->hasLink())
+        <a href="{{ $crumb->link() }}" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @else
+        <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @endif
+      @endforeach
+    @else
+    <li><a href="#">Application</a></li>
+    @endif
+
+@stop
+
 @section('modal')
     @include('modules.partials.modals.release-voucher')
     @include('modules.partials.modals.received-voucher')
@@ -20,9 +37,7 @@ Vouchers
         <button  type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
-                <a class="button__options__item" href="#" id='signatory-button'>Signatories</a>
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}">Unit of Purchase Request</a>
-                <a class="button__options__item" href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}">Request For Quotation</a>
 
                 @if($data->approval_date && !$data->payment_release_date)
                     <a href="#" id="release-button" class="button__options__item " tooltip="Release Payment"> Release Payment</a>
@@ -47,6 +62,7 @@ Vouchers
             </div>
         </button>
 
+        <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
         <a target="_blank" href="{{route('procurements.vouchers.print', $data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
         </a>

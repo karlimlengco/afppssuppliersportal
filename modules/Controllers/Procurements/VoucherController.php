@@ -8,6 +8,7 @@ use Auth;
 use PDF;
 use Carbon\Carbon;
 use Validator;
+use \App\Support\Breadcrumb;
 
 
 use \Revlv\Procurements\Vouchers\VoucherRepository;
@@ -76,7 +77,11 @@ class VoucherController extends Controller
     public function index()
     {
         return $this->view('modules.procurements.vouchers.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Voucher'),
+            ]
         ]);
     }
 
@@ -186,6 +191,11 @@ class VoucherController extends Controller
                     'route'     =>  [$this->baseUrl.'update-signatories', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb($result->upr_number, 'procurements.unit-purchase-requests.show', $result->upr_id ),
+                new Breadcrumb('Voucher', 'procurements.vouchers.index'),
             ]
         ]);
     }
@@ -212,6 +222,11 @@ class VoucherController extends Controller
                     'route' => [$this->baseUrl.'destroy',$id],
                     'method'=> 'DELETE'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Voucher', 'procurements.vouchers.show',$result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }
@@ -689,7 +704,12 @@ class VoucherController extends Controller
         return $this->view('modules.procurements.vouchers.logs',[
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
-            'model'         =>  $data_model
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Voucher', 'procurements.vouchers.show',$data_model->id),
+                new Breadcrumb('Logs'),
+            ]
         ]);
     }
 

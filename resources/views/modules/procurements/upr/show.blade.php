@@ -2,6 +2,22 @@
 Unit Purchase Request
 @stop
 
+@section('breadcrumbs')
+
+    @if(isset($breadcrumbs))
+      @foreach($breadcrumbs as $route => $crumb)
+        @if($crumb->hasLink())
+        <a href="{{ $crumb->link() }}" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @else
+        <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @endif
+      @endforeach
+    @else
+    <li><a href="#">Application</a></li>
+    @endif
+
+@stop
+
 @section('styles')
 <link rel="stylesheet" href="/vendors/timepicker/timepicker.min.css">
 @stop
@@ -17,15 +33,13 @@ Unit Purchase Request
     @include('modules.partials.modals.invitation')
     @include('modules.partials.modals.open_canvass')
 
-    @if($data->status == 'PO Created' ||  $data->status == 'NTP Accepted')
+    @if($data->status == 'PO Approved' ||  $data->status == 'NTP Accepted')
     @include('modules.partials.modals.ntp')
     @include('modules.partials.modals.create_delivery')
     @endif
 
     @if($data->mode_of_procurement != 'public_bidding' )
-        @if($data->status == 'Invitation Created' || $data->status == 'Philgeps Need Repost')
-            @include('modules.partials.modals.philgeps_posting')
-        @endif
+        @include('modules.partials.modals.philgeps_posting')
     @endif
 
     @if($data->mode_of_procurement == 'public_bidding')
@@ -144,10 +158,6 @@ Unit Purchase Request
                 @endif
 
                 <a class="button__options__item" id="view-attachments-button" href="#">Attachments</a>
-                @if($data->rfq)
-                <a class="button__options__item" href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}">Request For Quotations</a>
-                @endif
-
             </div>
         </button>
 
@@ -190,7 +200,10 @@ Unit Purchase Request
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Procurement Type :</strong> {{($data->types) ? $data->types->description :""}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Units :</strong>    {{($data->unit) ? $data->unit->short_code :""}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Chargeability :</strong> {{($data->charges) ? $data->charges->name :""}} </li>
-                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Account Code :</strong> {{($data->accounts) ? $data->accounts->new_account_code :""}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Account Code :</strong>
+                    {{($data->accounts) ? $data->accounts->new_account_code  :""}}
+                    {{($data->accounts) ? "(". $data->accounts->old_account_code .")"  :""}}
+                </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Fund Validity :</strong> {{$data->fund_validity}} </li>
             </ul>
     </div>

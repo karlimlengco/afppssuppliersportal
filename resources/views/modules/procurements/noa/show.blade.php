@@ -2,6 +2,23 @@
 Notice Of Award
 @stop
 
+
+@section('breadcrumbs')
+
+    @if(isset($breadcrumbs))
+      @foreach($breadcrumbs as $route => $crumb)
+        @if($crumb->hasLink())
+        <a href="{{ $crumb->link() }}" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @else
+        <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @endif
+      @endforeach
+    @else
+    <li><a href="#">Application</a></li>
+    @endif
+
+@stop
+
 @section('modal')
     @include('modules.partials.modals.signatory')
     @include('modules.partials.modals.accept-noa')
@@ -17,13 +34,6 @@ Notice Of Award
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item">Unit Purchase Request</a>
-
-                <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item">Request For Quotation</a>
-
-                <a href="{{route('procurements.canvassing.show', $data->canvass_id)}}" class="button__options__item">Canvassing</a>
-
-                <a href="#"  id="signatory-button" class="button__options__item">Signatories</a>
-
                 @if($data->status == 'approved')
                     <a href="#"  id="received-button" class="button__options__item">Received</a>
                 @endif
@@ -37,6 +47,8 @@ Notice Of Award
             <a class="button" id="received-button" href="#">Received</a>
         @endif --}}
         <a target="_blank" class="button" href="{{route($printRoute,$data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
+
+        <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
 
 
         <a href="{{route('procurements.noa.logs', $data->id)}}" class="button" tooltip="Logs">

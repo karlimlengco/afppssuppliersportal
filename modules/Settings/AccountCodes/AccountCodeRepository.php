@@ -33,4 +33,22 @@ class AccountCodeRepository extends BaseRepository
 
         return $model->first();
     }
+
+    /**
+     * [listCodes description]
+     *
+     *
+     * @return [type] [description]
+     */
+    public function listOld()
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->select(['id', 'old_account_code']);
+
+        $model  =   $model->where('old_account_code', '<>', "");
+
+        return $model->pluck('old_account_code', 'id')->all();
+
+    }
 }

@@ -8,6 +8,7 @@ use Auth;
 use DB;
 use PDF;
 use Carbon\Carbon;
+use \App\Support\Breadcrumb;
 use Validator;
 
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
@@ -139,7 +140,11 @@ class InspectionAndAcceptanceController extends Controller
     public function index()
     {
         return $this->view('modules.procurements.inspection-acceptance.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('TIAC', 'procurements.inspection-and-acceptance.index')
+            ]
         ]);
     }
 
@@ -178,6 +183,10 @@ class InspectionAndAcceptanceController extends Controller
                 'store' =>  [
                     'route'     =>  [$this->baseUrl.'create-from-delivery.store', $id]
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('TIAC')
             ]
         ]);
     }
@@ -214,6 +223,7 @@ class InspectionAndAcceptanceController extends Controller
         $validator = Validator::make($request->all(),[
             'inspection_date'       => 'required',
             'action'       => 'required_with:remarks',
+            'invoice_number.*' => 'required'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -354,6 +364,11 @@ class InspectionAndAcceptanceController extends Controller
                     'route'     =>  [$this->baseUrl.'update-signatory', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb($result->upr_number, 'procurements.unit-purchase-requests.show', $result->upr_id),
+                new Breadcrumb('TIAC', 'procurements.inspection-and-acceptance.index')
             ]
         ]);
 
@@ -377,6 +392,11 @@ class InspectionAndAcceptanceController extends Controller
                     'route'     =>  [$this->baseUrl.'update', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('TIAC', 'procurements.inspection-and-acceptance.show',$result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }
@@ -502,7 +522,12 @@ class InspectionAndAcceptanceController extends Controller
         return $this->view('modules.procurements.delivery.logs',[
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
-            'model'         =>  $data_model
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('TIAC', 'procurements.inspection-and-acceptance.show',$data_model->id),
+                new Breadcrumb('Logs'),
+            ]
         ]);
     }
 }

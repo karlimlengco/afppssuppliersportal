@@ -8,6 +8,7 @@ use Auth;
 use PDF;
 use Carbon\Carbon;
 use Validator;
+use \App\Support\Breadcrumb;
 
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\Canvassing\CanvassingRepository;
@@ -159,7 +160,12 @@ class NoticeOfAwardController extends Controller
      */
     public function index()
     {
-        return $this->view('modules.procurements.noa.index');
+        return $this->view('modules.procurements.noa.index',[
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Notice Of Award'),
+            ]
+        ]);
     }
 
     /**
@@ -357,6 +363,11 @@ class NoticeOfAwardController extends Controller
                     'route'     =>  [$this->baseUrl.'update-dates', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Notice of Award', 'procurements.noa.show', $result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }
@@ -430,6 +441,11 @@ class NoticeOfAwardController extends Controller
                     'route'     =>  [$this->baseUrl.'update-signatory', $id],
                     'method'    =>  'PUT'
                 ],
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb($result->upr_number, 'procurements.unit-purchase-requests.show', $result->upr_id),
+                new Breadcrumb('Notice Of Award'),
             ]
         ]);
     }
@@ -597,7 +613,12 @@ class NoticeOfAwardController extends Controller
         return $this->view('modules.procurements.noa.logs',[
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
-            'model'         =>  $data_model
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Notice of Award', 'procurements.noa.show', $data_model->id),
+                new Breadcrumb('Update'),
+            ]
         ]);
     }
 }

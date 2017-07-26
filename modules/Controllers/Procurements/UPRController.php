@@ -8,6 +8,7 @@ use Auth;
 use DB;
 use Excel;
 use PDF;
+use \App\Support\Breadcrumb;
 
 use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
@@ -105,7 +106,10 @@ class UPRController extends Controller
     {
         return $this->view('modules.procurements.upr.index',[
             'createRoute'   =>  $this->baseUrl."create",
-            'importRoute'   =>  $this->baseUrl."imports"
+            'importRoute'   =>  $this->baseUrl."imports",
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative')
+            ]
         ]);
     }
 
@@ -145,6 +149,10 @@ class UPRController extends Controller
                 'store' =>  [
                     'route'     =>  $this->baseUrl.'store'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative', 'procurements.unit-purchase-requests.index'),
+                new Breadcrumb('Create'),
             ]
         ]);
     }
@@ -265,6 +273,10 @@ class UPRController extends Controller
                     'route' => [$this->baseUrl.'update-signatories', $id],
                     'method'=> 'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative', 'procurements.unit-purchase-requests.index'),
+                new Breadcrumb($result->upr_number),
             ]
         ]);
     }
@@ -314,6 +326,11 @@ class UPRController extends Controller
                     'route' => [$this->baseUrl.'destroy',$id],
                     'method'=> 'DELETE'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative', 'procurements.unit-purchase-requests.index'),
+                new Breadcrumb($result->upr_number, 'procurements.unit-purchase-requests.show', $result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }
@@ -478,7 +495,12 @@ class UPRController extends Controller
             'data'              =>  $upr_model,
             'h_lists'           =>  $h_lists,
             'upr_list'           =>  $upr_list,
-            'indexRoute'        =>  $this->baseUrl."show"
+            'indexRoute'         =>  $this->baseUrl."show",
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative', 'procurements.unit-purchase-requests.index'),
+                new Breadcrumb($upr_model->upr_number, 'procurements.unit-purchase-requests.show', $upr_model->id),
+                new Breadcrumb('Timelines'),
+            ]
         ]);
     }
 }

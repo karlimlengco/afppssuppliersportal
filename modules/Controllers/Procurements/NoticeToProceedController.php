@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use PDF;
 use Carbon\Carbon;
+use \App\Support\Breadcrumb;
 use Validator;
 
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
@@ -79,7 +80,12 @@ class NoticeToProceedController extends Controller
      */
     public function index()
     {
-        return $this->view('modules.procurements.ntp.index');
+        return $this->view('modules.procurements.ntp.index',[
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Notice to Proceed', 'procurements.purchase-orders.index')
+            ]
+        ]);
     }
 
     /**
@@ -124,6 +130,11 @@ class NoticeToProceedController extends Controller
                     'route'     =>  [$this->baseUrl.'update-signatory', $id],
                     'method'    =>  'PUT'
                 ],
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb($result->upr_number, 'procurements.unit-purchase-requests.show', $result->upr_id),
+                new Breadcrumb('Notice to Proceed', 'procurements.ntp.index')
             ]
 
         ]);
@@ -222,6 +233,11 @@ class NoticeToProceedController extends Controller
                     'route'     =>  [$this->baseUrl.'update-dates', $id],
                     'method'    =>  'PUT'
                 ],
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Notice to Proceed', 'procurements.ntp.show', $data->id),
+                new Breadcrumb('Update')
             ]
 
         ]);
@@ -415,7 +431,12 @@ class NoticeToProceedController extends Controller
         return $this->view('modules.procurements.ntp.logs',[
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
-            'model'         =>  $data_model
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Notice to Proceed', 'procurements.ntp.show', $data_model->id),
+                new Breadcrumb('Log')
+            ]
         ]);
     }
 }

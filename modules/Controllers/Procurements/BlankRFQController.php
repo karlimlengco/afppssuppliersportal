@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use PDF;
 use Auth;
 use Carbon\Carbon;
+use \App\Support\Breadcrumb;
 
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
@@ -72,7 +73,11 @@ class BlankRFQController extends Controller
     public function index()
     {
         return $this->view('modules.procurements.blank-rfq.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative', 'procurements.blank-rfq.index'),
+                new Breadcrumb('Request For Quotations'),
+            ]
         ]);
     }
 
@@ -212,6 +217,11 @@ class BlankRFQController extends Controller
                     'route' => 'procurements.rfq-proponents.store',
                     'method'=> 'DELETE'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb($result->upr_number, 'procurements.unit-purchase-requests.show', $result->upr_id ),
+                new Breadcrumb($result->rfq_number),
             ]
         ]);
     }
@@ -240,6 +250,11 @@ class BlankRFQController extends Controller
                     'route' => [$this->baseUrl.'destroy',$id],
                     'method'=> 'DELETE'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative', 'procurements.blank-rfq.index'),
+                new Breadcrumb($result->rfq_number, 'procurements.blank-rfq.show', $result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }

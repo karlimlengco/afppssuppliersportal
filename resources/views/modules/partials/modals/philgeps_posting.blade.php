@@ -10,7 +10,9 @@
             </div>
 
             <div class="modal__dialogue__body">
+                @if($data->rfq)
                 {!! Form::hidden('rfq_id', $data->rfq->id) !!}
+                @endif
                 <div class="row">
                     <div class="six columns">
                         {!! Form::dateField('transaction_date', 'Transaction Date') !!}

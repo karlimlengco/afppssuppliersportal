@@ -57,6 +57,17 @@ class AccountCodeController extends Controller
     }
 
     /**
+     * [getCode description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function getCode($id)
+    {
+        return $id;
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

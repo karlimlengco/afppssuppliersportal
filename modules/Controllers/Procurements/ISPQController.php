@@ -8,6 +8,7 @@ use Auth;
 use PDF;
 use DB;
 use Carbon\Carbon;
+use \App\Support\Breadcrumb;
 
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\InvitationToSubmitQuotation\ISPQRepository;
@@ -75,7 +76,11 @@ class ISPQController extends Controller
     public function index()
     {
         return $this->view('modules.procurements.ispq.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Invitation to Submit Price Quotation'),
+            ]
         ]);
     }
 
@@ -300,6 +305,10 @@ class ISPQController extends Controller
                     'route' => [$this->baseUrl.'destroy',$id],
                     'method'=> 'DELETE'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Invitation to Submit Price Quotation', 'procurements.ispq.index'),
             ]
         ]);
     }
@@ -353,7 +362,12 @@ class ISPQController extends Controller
         return $this->view('modules.procurements.ispq.logs',[
             'indexRoute'    =>  $this->baseUrl."edit",
             'data'          =>  $result,
-            'model'         =>  $data_model
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Invitation to Submit Price Quotation', 'procurements.ispq.edit', $data_model->id),
+                new Breadcrumb('Logs'),
+            ]
         ]);
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Validator;
 use \Carbon\Carbon;
+use \App\Support\Breadcrumb;
 
 use \Revlv\Procurements\PhilGepsPosting\Attachments\AttachmentRepository;
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRepository;
@@ -70,7 +71,11 @@ class PhilGepsPostingController extends Controller
     public function index()
     {
         return $this->view('modules.procurements.philgeps.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('PhilGeps Posting', 'procurements.philgeps-posting.index'),
+            ]
         ]);
     }
 
@@ -197,6 +202,11 @@ class PhilGepsPostingController extends Controller
                 'add_attachment' =>  [
                     'route'     =>  [$this->baseUrl.'attachments.store', $id]
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb($result->upr_number, 'procurements.unit-purchase-requests.show', $result->upr_id),
+                new Breadcrumb($result->philgeps_number)
             ]
         ]);
     }
@@ -225,6 +235,11 @@ class PhilGepsPostingController extends Controller
                     'route' => [$this->baseUrl.'destroy',$id],
                     'method'=> 'DELETE'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb($result->philgeps_number, 'procurements.philgeps-posting.show', $result->id),
+                new Breadcrumb('Update')
             ]
         ]);
     }
@@ -322,8 +337,8 @@ class PhilGepsPostingController extends Controller
      * [viewLogs description]
      *
      * @param  [type]             $id    [description]
-     * @param  BlankRFQRepository $model [description]
-     * @return [type]                    [description]
+     * @param  BlankRFQRepository $model [description
+]     * @return [type]                    [description]
      */
     public function viewLogs($id, PhilGepsPostingRepository $model, AuditLogRepository $logs)
     {
@@ -335,7 +350,12 @@ class PhilGepsPostingController extends Controller
         return $this->view('modules.procurements.philgeps.logs',[
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
-            'model'         =>  $data_model
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb($data_model->philgeps_number, 'procurements.philgeps-posting.show', $data_model->id),
+                new Breadcrumb('Logs')
+            ]
         ]);
     }
 }

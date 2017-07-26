@@ -9,7 +9,7 @@ $cRoute = explode('.', $currentRoute);
         <div class="topbar__left-panel">
             <h1 class="topbar__page-title">@yield('title')</h1>
             <div class="topbar__breadcrumbs">
-                @foreach($cRoute as $route)
+               {{--  @foreach($cRoute as $route)
                     @if(!in_array($route, ['index', 'edit', 'create', 'show']))
                         @if(route::has($route.".index"))
                             <a href="{{route($route.'.index')}}" class="topbar__breadcrumbs__item">{{$route}}</a>
@@ -17,7 +17,9 @@ $cRoute = explode('.', $currentRoute);
                             <a href="#" class="topbar__breadcrumbs__item">{{$route}}</a>
                         @endif
                     @endif
-                @endforeach
+                @endforeach --}}
+                @yield('breadcrumbs')
+
             </div>
         </div>
         <div class="topbar__right-panel">

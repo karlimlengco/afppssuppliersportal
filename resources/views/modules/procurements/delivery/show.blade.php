@@ -2,6 +2,23 @@
 Notice Of Delivery
 @stop
 
+
+@section('breadcrumbs')
+
+    @if(isset($breadcrumbs))
+      @foreach($breadcrumbs as $route => $crumb)
+        @if($crumb->hasLink())
+        <a href="{{ $crumb->link() }}" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @else
+        <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @endif
+      @endforeach
+    @else
+    <li><a href="#">Application</a></li>
+    @endif
+
+@stop
+
 @section('modal')
     @include('modules.partials.modals.signatory')
     @include('modules.partials.modals.coa-delivery')
@@ -22,35 +39,22 @@ Notice Of Delivery
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
 
-                <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="RFQ"> Request For Quotation</a>
-
-                <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="NTP"> Purchase Order</a>
 
                 @if($data->delivery_date)
                     @if(!$data->date_delivered_to_coa)
                         <a class="button__options__item" href="#" id="coa-button">Complete COA Delivery</a>
-                    @else
-                        @if(count($data->inspections) == 0)
-                        <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.create-from-delivery',$data->id)}}">Technical Inspection</a>
-                        @else
-                            <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.show',$data->inspections->id)}}">Technical Inspection</a>
-                            @if(count($data->diir) == 0)
-                                <a class="button__options__item" href="{{route('procurements.delivery-orders.store-by-dr',$data->id)}}">Delivered Items</a>
-                            @else
-                                <a class="button__options__item" href="{{route('procurements.delivered-inspections.show',$data->diir->id)}}">Delivered Items</a>
-                            @endif
-                        @endif
                     @endif
                 @endif
-                <a target="_blank" class="button__options__item" id="signatory-button" href="#">Signatory</a>
             </div>
         </button>
 
+
+        <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
+
         <a   target="_blank" href="{{route('procurements.delivery-orders.print', $data->id)}}" class="button" tooltip="PRINT"><i class="nc-icon-mini tech_print "></i></a>
+
         @if(!$data->delivery_date)
             <a href="{{route($editRoute, $data->id)}}" class="button" tooltip="Receive"><i class="nc-icon-glyph shopping_delivery lg"></i></a>
-        @else
-
         @endif
 
         <a href="#" id="attachment-button" class="button" tooltip="Attachments"><i class="nc-icon-mini ui-1_attach-86"></i> </a>

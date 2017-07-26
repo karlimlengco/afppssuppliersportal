@@ -2,6 +2,23 @@
 Inspection And Acceptance Report
 @stop
 
+
+@section('breadcrumbs')
+
+    @if(isset($breadcrumbs))
+      @foreach($breadcrumbs as $route => $crumb)
+        @if($crumb->hasLink())
+        <a href="{{ $crumb->link() }}" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @else
+        <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @endif
+      @endforeach
+    @else
+    <li><a href="#">Application</a></li>
+    @endif
+
+@stop
+
 @section('modal')
     @include('modules.partials.modals.iar-signatories')
     @include('modules.partials.modals.iar-accept')
@@ -17,15 +34,11 @@ Inspection And Acceptance Report
         <button class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
-                <a id="signatory-button" href="#" class="button__options__item" > Signatories</a>
-                <a id="signatory-button" href="{{route('procurements.unit-purchase-requests.show', $data->upr->id)}}" class="button__options__item" > Unit Purchase Request</a>
-                @if($data->rfq)
-                <a id="signatory-button" href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button__options__item" > Request For Quotation</a>
-                @endif
-                <a id="signatory-button" href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" > Delivery</a>
-
+                <a  href="{{route('procurements.unit-purchase-requests.show', $data->upr->id)}}" class="button__options__item" > Unit Purchase Request</a>
             </div>
         </button>
+
+        <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
 
         @if(!$data->accepted_date)
             <a class="button" tooltip="Accept" id="accept-button"  href="#"><i class="nc-icon-mini ui-1_check-bold"></i></a>

@@ -245,7 +245,6 @@ abstract class BaseRepository
      */
     public function lists($id = 'id', $value = 'name')
     {
-
         $model =  $this->model;
 
         return $model->pluck($value, $id)->all();

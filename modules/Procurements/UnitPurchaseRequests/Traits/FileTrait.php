@@ -7,6 +7,7 @@ use DB;
 use Datatables;
 use Excel;
 use PDF;
+use \App\Support\Breadcrumb;
 
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
@@ -41,6 +42,11 @@ trait FileTrait
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
             'upr'           =>  $upr_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative', 'procurements.unit-purchase-requests.index'),
+                new Breadcrumb($upr_model->upr_number, 'procurements.unit-purchase-requests.show', $upr_model->id),
+                new Breadcrumb('Logs'),
+            ]
         ]);
     }
 

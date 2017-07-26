@@ -8,6 +8,7 @@ use Auth;
 use DB;
 use PDF;
 use Carbon\Carbon;
+use \App\Support\Breadcrumb;
 use Validator;
 
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
@@ -78,7 +79,11 @@ class DeliveryController extends Controller
     public function index()
     {
         return $this->view('modules.procurements.delivery.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Delivery', 'procurements.delivery-orders.index')
+            ]
         ]);
     }
 
@@ -200,6 +205,7 @@ class DeliveryController extends Controller
         SignatoryRepository $signatories)
     {
         $result             =   $model->with(['items'])->findById($id);
+
         $signatory_list     =   $signatories->lists('id','name');
 
         return $this->view('modules.procurements.delivery.show',[
@@ -218,6 +224,11 @@ class DeliveryController extends Controller
                     'route'     =>  [$this->baseUrl.'attachments.store', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb($result->upr_number, 'procurements.unit-purchase-requests.show', $result->upr_id),
+                new Breadcrumb('Delivery', 'procurements.delivery-orders.index')
             ]
         ]);
     }
@@ -245,6 +256,11 @@ class DeliveryController extends Controller
                     'route' => [$this->baseUrl.'destroy',$id],
                     'method'=> 'DELETE'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Delivery', 'procurements.delivery-orders.show', $result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }
@@ -268,6 +284,11 @@ class DeliveryController extends Controller
                     'route'     =>  [$this->baseUrl.'update-dates', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Delivery', 'procurements.delivery-orders.show', $result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }
@@ -336,6 +357,7 @@ class DeliveryController extends Controller
         $validator = Validator::make($request->all(),[
             'delivery_date'     =>  'required',
             'delivery_action'  =>  'required_with:delivery_remarks',
+            'received_quantity.*' => 'required'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -351,6 +373,7 @@ class DeliveryController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
+
         $inputs['delivery_days']    =   $day_delayed;
         $inputs['delivery_remarks'] =   $request->delivery_remarks;
         $inputs['delivery_action']  =   $request->delivery_action;
@@ -539,7 +562,12 @@ class DeliveryController extends Controller
         return $this->view('modules.procurements.delivery.logs',[
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
-            'model'         =>  $data_model
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Delivery', 'procurements.delivery-orders.show', $data_model->id),
+                new Breadcrumb('Logs'),
+            ]
         ]);
     }
 

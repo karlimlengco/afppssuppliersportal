@@ -21,11 +21,17 @@ trait DatatableTrait
 
         if($type == 'alternative')
         {
-            $model  =   $model->whereNotNull('rfq_number');
+            $model  =   $model->select([
+                'inspection_acceptance_report.*',
+                'request_for_quotations.rfq_number'
+            ]);
+
+            $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.id', '=', 'inspection_acceptance_report.rfq_id');
+            $model  =   $model->whereNotNull('rfq_id');
         }
         else
         {
-            $model  =   $model->whereNull('rfq_number');
+            $model  =   $model->whereNull('rfq_id');
         }
 
         $model  =   $model->orderBy('created_at', 'desc');

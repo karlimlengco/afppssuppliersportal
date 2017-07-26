@@ -8,6 +8,7 @@ use Auth;
 use PDF ;
 use Carbon\Carbon;
 use Validator;
+use \App\Support\Breadcrumb;
 
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
@@ -276,7 +277,11 @@ class DeliveredInspectionReportController extends Controller
     public function index()
     {
         return $this->view('modules.procurements.delivered-inspections.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('DIIR', 'procurements.delivered-inspections.index')
+            ]
         ]);
     }
 
@@ -418,6 +423,11 @@ class DeliveredInspectionReportController extends Controller
                     'route'     =>  [$this->baseUrl.'update-signatory', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb($result->upr_number, 'procurements.unit-purchase-requests.show', $result->upr_id),
+                new Breadcrumb('DIIR', 'procurements.delivered-inspections.index')
             ]
         ]);
     }
@@ -442,6 +452,11 @@ class DeliveredInspectionReportController extends Controller
                     'route'     =>  [$this->baseUrl.'update', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('DIIR', 'procurements.delivered-inspections.show',$result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }
@@ -549,7 +564,12 @@ class DeliveredInspectionReportController extends Controller
         return $this->view('modules.procurements.delivered-inspections.logs',[
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
-            'model'         =>  $data_model
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('DIIR', 'procurements.delivered-inspections.show',$data_model->id),
+                new Breadcrumb('Logs'),
+            ]
         ]);
     }
 }

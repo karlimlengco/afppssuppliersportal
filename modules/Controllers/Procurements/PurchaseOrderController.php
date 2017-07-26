@@ -8,6 +8,7 @@ use Auth;
 use DB;
 use PDF;
 use Carbon\Carbon;
+use \App\Support\Breadcrumb;
 use Validator;
 
 use \Revlv\Procurements\PurchaseOrder\PORepository;
@@ -82,7 +83,11 @@ class PurchaseOrderController extends Controller
     public function index()
     {
         return $this->view('modules.procurements.purchase-order.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Purchase Order', 'procurements.purchase-orders.index'),
+            ]
         ]);
     }
 
@@ -326,6 +331,11 @@ class PurchaseOrderController extends Controller
                 'store' =>  [
                     'route'     =>  [$this->baseUrl.'store-from-rfq',$id]
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Purchase Order', 'procurements.purchase-orders.index'),
+                new Breadcrumb('Create'),
             ]
         ]);
     }
@@ -558,6 +568,11 @@ class PurchaseOrderController extends Controller
                     'route'     =>  [$this->baseUrl.'update', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb($result->upr_number, 'procurements.unit-purchase-requests.show', $result->upr_id),
+                new Breadcrumb('Purchase Order', 'procurements.purchase-orders.index')
             ]
         ]);
     }
@@ -586,6 +601,11 @@ class PurchaseOrderController extends Controller
                     'route' => [$this->baseUrl.'destroy',$id],
                     'method'=> 'DELETE'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Purchase Order', 'procurements.purchase-orders.show', $result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }
@@ -812,7 +832,12 @@ class PurchaseOrderController extends Controller
         return $this->view('modules.procurements.purchase-order.logs',[
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
-            'model'         =>  $data_model
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Purchase Order', 'procurements.purchase-orders.show', $data_model->id),
+                new Breadcrumb('Logs'),
+            ]
         ]);
     }
 }

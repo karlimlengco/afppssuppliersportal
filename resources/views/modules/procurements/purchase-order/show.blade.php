@@ -2,6 +2,23 @@
 Purchase Order
 @stop
 
+
+@section('breadcrumbs')
+
+    @if(isset($breadcrumbs))
+      @foreach($breadcrumbs as $route => $crumb)
+        @if($crumb->hasLink())
+        <a href="{{ $crumb->link() }}" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @else
+        <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @endif
+      @endforeach
+    @else
+    <li><a href="#">Application</a></li>
+    @endif
+
+@stop
+
 @section('modal')
     @include('modules.partials.modals.mfo')
     @include('modules.partials.modals.pcco')
@@ -44,21 +61,15 @@ Purchase Order
                     @endif --}}
                 @endif
 
-                <a href="#" class="button__options__item" id="signatory-button"> Signatories</a>
-                <a target="_blank" href="{{route('procurements.purchase-orders.print-terms', $data->id)}}" class="button__options__item" id="signatory-button"> Print Terms</a>
-                <a target="_blank" href="{{route('procurements.purchase-orders.print-coa', $data->id)}}" class="button__options__item" id="signatory-button"> Print COA Approval</a>
+                <a target="_blank" href="{{route('procurements.purchase-orders.print-terms', $data->id)}}" class="button__options__item" > Print Terms</a>
+                <a target="_blank" href="{{route('procurements.purchase-orders.print-coa', $data->id)}}" class="button__options__item" > Print COA Approval</a>
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
-                <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="RFQ"> Request For Quotation</a>
 
-
-
-                @if(count($data->delivery) != 0)
-                    <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" tooltip="Delivery"> Delivery</a>
-                @endif
             </div>
         </button>
 
+        <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
         <a target="_blank" href="{{route('procurements.purchase-orders.print', $data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
         </a>

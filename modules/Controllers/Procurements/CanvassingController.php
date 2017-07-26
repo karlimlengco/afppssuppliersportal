@@ -8,6 +8,7 @@ use Auth;
 use \Carbon\Carbon;
 use Validator;
 use PDF;
+use \App\Support\Breadcrumb;
 
 use \Revlv\Procurements\Canvassing\CanvassingRepository;
 use \Revlv\Procurements\Canvassing\Signatories\SignatoryRepository as CSignatoryRepository;
@@ -75,7 +76,11 @@ class CanvassingController extends Controller
     public function index()
     {
         return $this->view('modules.procurements.canvassing.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Canvassing', 'procurements.canvassing.index'),
+            ]
         ]);
     }
 
@@ -166,7 +171,7 @@ class CanvassingController extends Controller
         $inputs['upr_number']   =   $rfq_model->upr_number;
         $inputs['upr_id']       =   $rfq_model->upr_id;
         $inputs['days']         =   $day_delayed;
-        $inputs['rfq_id']       =   $id;
+        $inputs['rfq_id']       =   $rfq_model->id;
         $inputs['canvass_date'] =   $request->open_canvass_date;
         $inputs['remarks']      =   $request->remarks;
         $inputs['action']       =   $request->action;
@@ -240,6 +245,11 @@ class CanvassingController extends Controller
             'proponent_list'    =>  $proponent_list,
             'indexRoute'        =>  $this->baseUrl.'index',
             'editRoute'         =>  $this->baseUrl.'edit',
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb($result->upr_number, 'procurements.unit-purchase-requests.show', $result->upr_id),
+                new Breadcrumb('Canvassing'),
+            ]
         ]);
     }
 
@@ -267,6 +277,11 @@ class CanvassingController extends Controller
                     'route' => [$this->baseUrl.'destroy',$id],
                     'method'=> 'DELETE'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Canvassing', 'procurements.canvassing.show', $result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }
@@ -370,10 +385,15 @@ class CanvassingController extends Controller
         $result     =   $logs->findByModelAndId($modelType, $id);
         $data_model =   $model->findById($id);
 
-        return $this->view('modules.procurements.ispq.logs',[
+        return $this->view('modules.procurements.canvassing.logs',[
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
-            'model'         =>  $data_model
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Canvassing', 'procurements.canvassing.show', $data_model->id),
+                new Breadcrumb('Logs'),
+            ]
         ]);
     }
 }

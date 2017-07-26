@@ -194,6 +194,7 @@ trait ImportTrait
         $items              =    session('items');
 
         $account_codes      =    $accounts->lists('id', 'new_account_code');
+        $old_codes          =    $accounts->listOld();
         $charges            =    $chargeability->lists('id', 'name');
         $procurement_modes  =    $modes->lists('id', 'name');
         $procurement_center =    $centers->lists('id', 'name');
@@ -207,6 +208,7 @@ trait ImportTrait
             'data'              =>  $data,
             'items'             =>  $items,
             'account_codes'     =>  $account_codes,
+            'old_codes'         =>  $old_codes,
             'procurement_types' =>  $procurement_types,
             'payment_terms'     =>  $payment_terms,
             'unit'              =>  $unit,

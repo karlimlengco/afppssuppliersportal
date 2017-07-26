@@ -18,6 +18,7 @@ Route::get('pdf/footer', '\Revlv\Controllers\PDFController@getFooter')->name('pd
 Route::get('chat', '\Revlv\Controllers\ChatController@index')->name('messages.index');
 Route::post('messages', '\Revlv\Controllers\ChatController@store')->name('messages.store');
 
+Route::get('api/get/new_code/{id}', '\Revlv\Controllers\Settings\AccountCodeController@getCode')->name('settings.account-codes.get-code');
 
 Route::get('messages', function(){
     return \Revlv\Chats\Message\MessageEloquent::with('user')->get();

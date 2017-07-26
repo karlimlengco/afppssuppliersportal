@@ -14,7 +14,25 @@ Request For Quotation
     @include('modules.partials.modals.open_canvass')
 @stop
 
+@section('breadcrumbs')
+
+    @if(isset($breadcrumbs))
+      @foreach($breadcrumbs as $route => $crumb)
+        @if($crumb->hasLink())
+        <a href="{{ $crumb->link() }}" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @else
+        <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @endif
+      @endforeach
+    @else
+    <li><a href="#">Application</a></li>
+    @endif
+
+@stop
+
+
 @section('contents')
+
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
         <button class="button button--options-trigger" tooltip="Options">
@@ -26,57 +44,9 @@ Request For Quotation
 
                 @if($data->status != 'closed')
                     <a href="#" class="button__options__item" id="close-button">Close RFQ</a>
-                @else
-
-                 {{--    @if(count($data->invitations) == 0)
-                        <a href="#" class="button__options__item" id="invitation-button">Create Invitation</a>
-                    @endif --}}
-                @endif
-
-                @if(count($data->philgeps) == 0)
-                    <a href="#" class="button__options__item" id="philgeps-posting-button">PhilGeps Posting</a>
                 @endif
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
-
-                @if(count($data->philgeps) != 0)
-                    <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" class="button__options__item">PhilGeps Posting</a>
-                @endif
-
-                @if(count($data->invitations) != 0)
-                    <a href="{{route('procurements.ispq.edit', $data->invitations->ispq_id)}}" class="button__options__item">Invitation</a>
-
-
-                    @if(count($data->canvassing) == 0)
-                        {{-- <a href="#" id="open_canvass-button" class="button__options__item"><strong>Open Canvass</strong></a> --}}
-                    @endif
-                @endif
-
-                @if(count($data->canvassing) != 0)
-                    <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button__options__item">View Canvass</a>
-                @endif
-
-                @if(count($data->noa) != 0)
-                    {{-- <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a> --}}
-                    @if(count($data->po) == 0)
-                        {{-- <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button__options__item">Create PO</a> --}}
-                    @else
-                        {{-- <a href="{{route('procurements.purchase-orders.show', $data->id)}}" class="button__options__item">View PO</a> --}}
-                    @endif
-                @endif
-
-                @if(count($data->ntp) != 0)
-                    <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item">View NTP</a>
-                @endif
-
-                @if(count($data->delivery) != 0)
-                    <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item">View Delivery</a>
-                    <a href="{{route('procurements.delivery-to-coa.show', $data->delivery->id)}}" class="button__options__item">View Delivery To COA</a>
-                @endif
-                @if(count($data->diir) != 0)
-                    <a href="{{route('procurements.delivered-inspections.show', $data->diir->id)}}" class="button__options__item">View DIIR</a>
-
-                @endif
 
             </div>
         </button>

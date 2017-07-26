@@ -2,6 +2,23 @@
 Delivered Items Inspection
 @stop
 
+
+@section('breadcrumbs')
+
+    @if(isset($breadcrumbs))
+      @foreach($breadcrumbs as $route => $crumb)
+        @if($crumb->hasLink())
+        <a href="{{ $crumb->link() }}" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @else
+        <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @endif
+      @endforeach
+    @else
+    <li><a href="#">Application</a></li>
+    @endif
+
+@stop
+
 @section('modal')
     @include('modules.partials.modals.add-issue')
     @include('modules.partials.modals.start-inspection')
@@ -18,7 +35,6 @@ Delivered Items Inspection
         <button type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
-                <a class="button__options__item" href="#" id="signatories-button">Signatories</a>
                 @if($data->start_date and !$data->closed_date)
                     <a class="button__options__item" href="#" id="add-issue-button">Add Issue</a>
                     <a class="button__options__item" href="#" id="close-button">Close Inspection</a>
@@ -26,13 +42,12 @@ Delivered Items Inspection
                 @if(!$data->start_date)
                     <a class="button__options__item" href="#" id="start-button">Start Inspection</a>
                 @endif
-                <a id="signatory-button" href="{{route('procurements.unit-purchase-requests.show', $data->upr->id)}}" class="button__options__item" > Unit Purchase Request</a>
-                @if($data->rfq)
-                <a id="signatory-button" href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button__options__item" > Request For Quotation</a>
-                @endif
-                <a id="signatory-button" href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" > Delivery</a>
+                <a href="{{route('procurements.unit-purchase-requests.show', $data->upr->id)}}" class="button__options__item" > Unit Purchase Request</a>
             </div>
         </button>
+
+        <a href="#" id="signatories-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
+
         <a target="_blank" class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
 
         <a href="{{route('procurements.delivered-inspections.logs', $data->id)}}" class="button" tooltip="Logs">

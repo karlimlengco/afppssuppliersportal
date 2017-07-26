@@ -2,6 +2,23 @@
 Notice To Proceed
 @stop
 
+
+@section('breadcrumbs')
+
+    @if(isset($breadcrumbs))
+      @foreach($breadcrumbs as $route => $crumb)
+        @if($crumb->hasLink())
+        <a href="{{ $crumb->link() }}" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @else
+        <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @endif
+      @endforeach
+    @else
+    <li><a href="#">Application</a></li>
+    @endif
+
+@stop
+
 @section('modal')
     @include('modules.partials.modals.signatory')
     @include('modules.partials.modals.ntp_received')
@@ -14,26 +31,19 @@ Notice To Proceed
         <button class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
-                <a id="signatory-button" href="#" class="button__options__item" > Signatories</a>
 
                 @if(!$data->received_by)
                 <a class="button__options__item" id="proceed-ntp-button" href="#">Received</a>
                 @else
-                   {{--  @if(count($data->delivery) == 0)
-                        <a class="button__options__item" id="create-delivery-button" href="#">Create Notice Of Delivery</a>
-                    @else
-                        <a class="button__options__item"  href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}">View Notice Of Delivery</a>
-                    @endif --}}
                 @endif
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
-                {{-- <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class="button__options__item" tooltip="UPR"> Request For Quotation</a> --}}
-                {{-- <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="UPR"> Purchase Order</a> --}}
 
 
 
             </div>
         </button>
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+        <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
 
 
         <a target="_blank" href="{{route($printRoute,$data->id)}}" class="button" tooltip="Print">

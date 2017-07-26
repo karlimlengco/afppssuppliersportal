@@ -4,6 +4,7 @@ namespace Revlv\Controllers\Procurements;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use \App\Support\Breadcrumb;
 use Auth;
 
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
@@ -194,6 +195,10 @@ class RFQProponentController extends Controller
                     'route'     =>  [$this->baseUrl.'update', $id],
                     'method'    => 'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('RFQ Proponent'),
             ]
         ]);
     }
