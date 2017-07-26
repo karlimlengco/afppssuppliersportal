@@ -501,12 +501,14 @@ class DeliveredInspectionReportController extends Controller
         $this->validate($request, [
             'received_by'   => 'required',
             'approved_by'   => 'required',
+            'inspected_by'  => 'required',
             'issued_by'     => 'required',
             'requested_by'  => 'required'
         ]);
 
         $data   =   [
             'received_by'   =>  $request->received_by,
+            'inspected_by'  =>  $request->inspected_by,
             'approved_by'   =>  $request->approved_by,
             'issued_by'     =>  $request->issued_by,
             'requested_by'  =>  $request->requested_by
@@ -531,15 +533,25 @@ class DeliveredInspectionReportController extends Controller
         NOARepository $noa
         )
     {
-        $result                     =   $model->with(['receiver', 'approver','issuer','requestor','upr' ,'delivery'])->findById($id);
-
+        $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
         $data['items']              =   $result->delivery->po->items;
         $data['purpose']            =   $result->upr->purpose;
+        $data['place']            =   $result->upr->place_of_delivery;
+        $data['centers']            =   $result->upr->centers->name;
+        $data['units']              =   $result->upr->unit->short_code;
         $data['ref_number']         =   $result->upr->ref_number;
+        $data['supplier']           =   $result->upr->noa->winner->supplier->name;
+        $data['date']               =   $result->delivery->delivery_date;
+        $data['po_number']          =   $result->delivery->po->po_number;
+        $data['po_date']            =   $result->delivery->po->coa_approved_date;
+        $data['invoice']            =   $result->delivery->inspections->invoices;
+
         $data['receiver']           =   $result->receiver;
+        $data['inspector']          =   $result->inspector;
         $data['approver']           =   $result->approver;
         $data['issuer']             =   $result->issuer;
         $data['requestor']          =   $result->requestor;
+        // dd($data);
         $pdf = PDF::loadView('forms.new-diir', ['data' => $data])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'))

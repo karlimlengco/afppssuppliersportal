@@ -32,6 +32,7 @@ class DeliveryInspectionRequest extends BaseRequest
         'close_remarks',
         'action',
         'close_action',
+        'inspected_by',
     ];
 
     /**

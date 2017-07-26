@@ -52,6 +52,7 @@ class DeliveryInspectionEloquent extends Model implements  AuditableContract
         'approved_by',
         'issued_by',
         'requested_by',
+        'inspected_by',
 
         'days',
         'close_days',
@@ -79,6 +80,16 @@ class DeliveryInspectionEloquent extends Model implements  AuditableContract
     public function approver()
     {
         return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'approved_by');
+    }
+
+    /**
+     * [inspector description]
+     *
+     * @return [type] [description]
+     */
+    public function inspector()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'inspected_by');
     }
 
     /**

@@ -12,22 +12,27 @@
             <div class="modal__dialogue__body">
                 <div class="row">
                     <div class="twelve columns">
-                        {!! Form::selectField('received_by', 'Received By', $signatory_list) !!}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="twelve columns">
-                        {!! Form::selectField('approved_by', 'Approved By', $signatory_list) !!}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="twelve columns">
-                        {!! Form::selectField('issued_by', 'Issued By', $signatory_list) !!}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="twelve columns">
                         {!! Form::selectField('requested_by', 'Requested By', $signatory_list) !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="twelve columns">
+                        {!! Form::selectField('received_by', 'Witness By', $signatory_list) !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="twelve columns">
+                        {!! Form::selectField('approved_by', 'Certify By', $signatory_list) !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="twelve columns">
+                        {!! Form::selectField('issued_by', 'Note By', $signatory_list) !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="twelve columns">
+                        {!! Form::selectField('inspected_by', 'Inspected By', $signatory_list) !!}
                     </div>
                 </div>
             </div>

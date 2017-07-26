@@ -503,6 +503,7 @@ class DeliveredInspectionReportController extends Controller
             'approved_by'   => 'required',
             'issued_by'     => 'required',
             'requested_by'  => 'required'
+            'inspected_by'  => 'required'
         ]);
 
         $data   =   [
@@ -510,6 +511,7 @@ class DeliveredInspectionReportController extends Controller
             'approved_by'   =>  $request->approved_by,
             'issued_by'     =>  $request->issued_by,
             'requested_by'  =>  $request->requested_by
+            'inspected_by'  =>  $request->inspected_by
         ];
 
         $model->update($data, $id);

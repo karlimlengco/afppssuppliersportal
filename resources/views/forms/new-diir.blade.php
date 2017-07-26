@@ -10,8 +10,6 @@
 
         <div class="printable-form-wrapper">
             <div class="printable-form">
-                <!-- for dev reference -->
-                <span class="printable-form__filename">delivered items inspected report p 1/1</span>
                 <!-- form header -->
                 <div class="printable-form__head">
                     <p class="printable-form__head__vision">AFP Vision 2028: A World-class Armed Forces, Source of National Pride</p>
@@ -31,29 +29,33 @@
                             <tr>
                                 <td class="align-left">
                                     <span class="label">Unit</span>
-                                    PNFC
+                                    {{$data['units']}}
                                 </td>
                                 <td class="align-left" colspan="3">
                                     <span class="label">Name of Dealer/Supplier</span>
-                                    T R Parrone Enterprises
+                                    {{$data['supplier']}}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="align-left" width="25%">
                                     <span class="label">Date of Delivery</span>
-                                    June 29, 2017
+                                    {{$data['date']}}
                                 </td>
                                 <td class="align-left" width="25%">
                                     <span class="label">Place of Delivery</span>
-                                    PNFC
+                                    {{$data['place']}}
                                 </td>
                                 <td class="align-left" width="30%">
                                     <span class="label">Sales Invoice/Delivery Receipt Nr</span>
-                                    2464/2415
+                                    @foreach($data['invoice'] as $invoice)
+                                        {{$invoice->invoice_number}} /
+                                    @endforeach
                                 </td>
                                 <td class="align-left" width="20%">
                                     <span class="label">Date of Invoice Receipt</span>
-                                    June 30, 2017
+                                    @foreach($data['invoice'] as $invoice)
+                                        {{$invoice->invoice_date}} /
+                                    @endforeach
                                 </td>
                             </tr>
                             <tr>
@@ -66,37 +68,20 @@
                                             <td class="head" width="20%">Amount Unit Item</td>
                                             <td class="head" width="20%">Total Amount</td>
                                         </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>ea</td>
-                                            <td>Power Supply</td>
-                                            <td>4,230.00</td>
-                                            <td>4,230.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>ea</td>
-                                            <td>PPC Board V5</td>
-                                            <td>29,485.00</td>
-                                            <td>29,485.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>ea</td>
-                                            <td>Ribbon Sensor</td>
-                                            <td>2,600.00</td>
-                                            <td>2,600.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>ea</td>
-                                            <td>Tractor Pair</td>
-                                            <td>5,383.00</td>
-                                            <td>5,383.00</td>
-                                        </tr>
+                                        <?php  $total = 0; ?>
+                                        @foreach($data['items'] as $key=>$item)
+                                            <tr>
+                                                <td style="text-align:center">{{$item->quantity}}</td>
+                                                <td>{{$item->unit}}</td>
+                                                <td style="text-align:left">{{$item->description}}</td>
+                                                <td>{{formatPrice($item->price_unit)}}</td>
+                                                <td>{{formatPrice($item->total_amount)}}</td>
+                                            </tr>
+                                            <?php  $total = $total + $item->total_amount; ?>
+                                        @endforeach
                                         <tr>
                                             <td colspan="4">Total</td>
-                                            <td>41,698.00</td>
+                                            <td>{{formatPrice($total)}}</td>
                                         </tr>
                                         <tr>
                                             <td class="align-center" colspan="5">*** Nothing Follows ***</td>
@@ -107,11 +92,11 @@
                             <tr>
                                 <td class="align-left" colspan="2">
                                     <span class="label">Purchase Order/Contract Nr</span>
-                                    PNCPC-PNFC-RMOM-021-17 dtd 10 May 2017
+                                    {{$data['po_number']}}
                                 </td>
                                 <td class="align-left" colspan="2">
                                     <span class="label">Date of Serving of PO</span>
-                                    January 01, 1975
+                                    {{$data['po_date']}}
                                 </td>
                             </tr>
                         </tbody>
@@ -125,9 +110,9 @@
                             <td class="v-align-bottom align-center" width="45%">Note By:</td>
                         </tr>
                         <tr>
-                            <td class="v-align-bottom align-center" width="45%" height="80px">Signature</td>
+                            <td class="v-align-bottom align-center" width="45%" height="80px"></td>
                             <td class="v-align-bottom align-center" width="10%" height="80px"></td>
-                            <td class="v-align-bottom align-center" width="45%" height="80px">Signature</td>
+                            <td class="v-align-bottom align-center" width="45%" height="80px"></td>
                         </tr>
                         <tr>
                             <td class="signatory align-center v-align-middle" width="45%">
@@ -135,14 +120,14 @@
                                     <table>
                                         <tr>
                                             <td width="50%"></td>
-                                            <td nowrap>Full Name</td>
+                                            <td nowrap>{{$data['requestor']->name}}</td>
                                             <td width="50%"></td>
                                         </tr>
                                         <tr>
                                             <td width="50%"></td>
                                             <td class="align-justify">
                                                 <div class="signatory-rank-justify">
-                                                    <strong>R1 R2 R3</strong>
+                                                    <strong>{{$data['requestor']->ranks}}</strong>
                                                     <span></span>
                                                 </div>
                                             </td>
@@ -150,8 +135,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                                Designation<br>
-                                Date
+                                {{$data['requestor']->designation}}<br>
                             </td>
                             <td width="10%"></td>
                             <td class="signatory align-center v-align-middle" width="45%">
@@ -159,14 +143,14 @@
                                     <table>
                                         <tr>
                                             <td width="50%"></td>
-                                            <td nowrap>Full Name</td>
+                                            <td nowrap>{{$data['issuer']->name}}</td>
                                             <td width="50%"></td>
                                         </tr>
                                         <tr>
                                             <td width="50%"></td>
                                             <td class="align-justify">
                                                 <div class="signatory-rank-justify">
-                                                    <strong>R1 R2 R3</strong>
+                                                    <strong>{{$data['issuer']->ranks}}</strong>
                                                     <span></span>
                                                 </div>
                                             </td>
@@ -174,8 +158,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                                Designation<br>
-                                Date
+                                {{$data['issuer']->designation}}<br>
                             </td>
                         </tr>
                     </table>
@@ -186,7 +169,7 @@
                     </p>
                     <!-- form signatories -->
                     <table class="printable-form__body__table
-                                  printable-form__body__table--borderless">
+                                  printable-form__body__table--borderless" style="page-break-inside:avoid">
                         <tr>
                             <td class="v-align-bottom align-center" width="30%">Inspected By:</td>
                             <td width="5%"></td>
@@ -195,11 +178,11 @@
                             <td class="v-align-bottom align-center" width="30%">Certified By:</td>
                         </tr>
                         <tr>
-                            <td class="v-align-bottom align-center" height="80px">Signature</td>
+                            <td class="v-align-bottom align-center" height="80px"></td>
                             <td></td>
                             <td class="v-align-bottom align-center" height="80px"></td>
                             <td></td>
-                            <td class="v-align-bottom align-center" height="80px">Signature</td>
+                            <td class="v-align-bottom align-center" height="80px"></td>
                         </tr>
                         <tr>
                             <td class="signatory align-center v-align-middle" width="30%">
@@ -207,14 +190,14 @@
                                     <table>
                                         <tr>
                                             <td width="50%"></td>
-                                            <td nowrap>Full Name</td>
+                                            <td nowrap>{{$data['inspector']->name}}</td>
                                             <td width="50%"></td>
                                         </tr>
                                         <tr>
                                             <td width="50%"></td>
                                             <td class="align-justify">
                                                 <div class="signatory-rank-justify">
-                                                    <strong>R1 R2 R3</strong>
+                                                    <strong>{{$data['inspector']->ranks}}</strong>
                                                     <span></span>
                                                 </div>
                                             </td>
@@ -222,8 +205,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                                Designation<br>
-                                Date
+                                {{$data['inspector']->designation}}<br>
                             </td>
                             <td width="5%"></td>
                             <td class="signatory align-center v-align-middle" width="30%">
@@ -231,14 +213,14 @@
                                     <table>
                                         <tr>
                                             <td width="50%"></td>
-                                            <td nowrap>Full Name</td>
+                                            <td nowrap>{{$data['receiver']->name}}</td>
                                             <td width="50%"></td>
                                         </tr>
                                         <tr>
                                             <td width="50%"></td>
                                             <td class="align-justify">
                                                 <div class="signatory-rank-justify">
-                                                    <strong>R1 R2 R3</strong>
+                                                    <strong>{{$data['receiver']->ranks}}</strong>
                                                     <span></span>
                                                 </div>
                                             </td>
@@ -246,8 +228,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                                Designation<br>
-                                Date
+                                {{$data['receiver']->designation}}<br>
                             </td>
                             <td width="5%"></td>
                             <td class="signatory align-center v-align-middle" width="30%">
@@ -255,14 +236,14 @@
                                     <table>
                                         <tr>
                                             <td width="50%"></td>
-                                            <td nowrap>Full Name asjdsajdad</td>
+                                            <td nowrap>{{$data['approver']->name}}</td>
                                             <td width="50%"></td>
                                         </tr>
                                         <tr>
                                             <td width="50%"></td>
                                             <td class="align-justify">
                                                 <div class="signatory-rank-justify">
-                                                    <strong>R1 R2 R3</strong>
+                                                    <strong>{{$data['approver']->ranks}}</strong>
                                                     <span></span>
                                                 </div>
                                             </td>
@@ -270,26 +251,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                                Designation<br>
-                                Date
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <!-- form footer -->
-                <div class="printable-form__foot">
-                    <table class="printable-form__foot__table">
-                        <tr>
-                            <td colspan="2">
-                                <p class="printable-form__foot__values">AFP Core Values: Honor, Service, Patriotism</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="printable-form__foot__ref">302ND-NLC-SPOF-016-15 111685 281033H December 2015</span>
-                            </td>
-                            <td>
-                                <span class="printable-form__foot__code"><img src="src/img/barcode.png" alt=""></span>
+                                {{$data['approver']->designation}}<br>
                             </td>
                         </tr>
                     </table>
