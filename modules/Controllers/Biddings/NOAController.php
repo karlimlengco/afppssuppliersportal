@@ -8,6 +8,7 @@ use Auth;
 use PDF;
 use Carbon\Carbon;
 use Validator;
+use \App\Support\Breadcrumb;
 
 use Revlv\Biddings\BidDocs\BidDocsRepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
@@ -152,7 +153,12 @@ class NOAController extends Controller
      */
     public function index()
     {
-        return $this->view('modules.biddings.noa.index');
+        return $this->view('modules.biddings.noa.index',[
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Notice of Award', 'biddings.noa.index'),
+            ]
+        ]);
     }
 
     /**
@@ -329,6 +335,11 @@ class NOAController extends Controller
                     'route'     =>  [$this->baseUrl.'update-dates', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Notice of Award', 'biddings.noa.show', $result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }
@@ -372,6 +383,11 @@ class NOAController extends Controller
                     'route'     =>  [$this->baseUrl.'update-signatory', $id],
                     'method'    =>  'PUT'
                 ],
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
+                new Breadcrumb('Notice Of Award', 'biddings.noa.index'),
             ]
         ]);
     }

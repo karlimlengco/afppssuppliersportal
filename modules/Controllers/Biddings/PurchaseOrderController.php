@@ -9,6 +9,7 @@ use DB;
 use PDF;
 use Carbon\Carbon;
 use Validator;
+use \App\Support\Breadcrumb;
 
 use \Revlv\Procurements\PurchaseOrder\PORepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
@@ -82,7 +83,11 @@ class PurchaseOrderController extends Controller
     public function index()
     {
         return $this->view('modules.biddings.purchase-order.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Purchase Order', 'biddings.purchase-orders.index'),
+            ]
         ]);
     }
 
@@ -558,6 +563,11 @@ class PurchaseOrderController extends Controller
                     'route'     =>  [$this->baseUrl.'update', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id),
+                new Breadcrumb('Purchase Order', 'biddings.purchase-orders.index')
             ]
         ]);
     }
@@ -586,6 +596,11 @@ class PurchaseOrderController extends Controller
                     'route' => [$this->baseUrl.'destroy',$id],
                     'method'=> 'DELETE'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Purchase Order', 'biddings.purchase-orders.show', $result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }
@@ -812,7 +827,12 @@ class PurchaseOrderController extends Controller
         return $this->view('modules.procurements.purchase-order.logs',[
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
-            'model'         =>  $data_model
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Purchase Order', 'biddings.purchase-orders.show', $data_model->id),
+                new Breadcrumb('Logs'),
+            ]
         ]);
     }
 }

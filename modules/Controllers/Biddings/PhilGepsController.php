@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use PDF;
 use Auth;
 use Carbon\Carbon;
+use \App\Support\Breadcrumb;
 use Validator;
 
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRepository;
@@ -67,7 +68,11 @@ class PhilGepsController extends Controller
     public function index()
     {
         return $this->view('modules.biddings.philgeps.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Philgeps Posting')
+            ]
         ]);
     }
 
@@ -171,6 +176,11 @@ class PhilGepsController extends Controller
         return $this->view('modules.biddings.philgeps.show',[
             'data'              =>  $result,
             'indexRoute'        =>  $this->baseUrl.'index',
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
+                new Breadcrumb('PhilGeps Posting')
+            ]
         ]);
     }
 

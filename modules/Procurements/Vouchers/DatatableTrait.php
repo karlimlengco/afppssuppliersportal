@@ -20,19 +20,22 @@ trait DatatableTrait
     {
         $model  =   $this->model;
 
+        $model  =   $model->select([
+            'vouchers.*',
+            'unit_purchase_requests.id as upr_id',
+            'unit_purchase_requests.mode_of_procurement'
+        ]);
+
+        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id', '=', 'vouchers.upr_id');
+        $model  =   $model->leftJoin('mode_of_procurements', 'mode_of_procurements.id', '=', 'unit_purchase_requests.mode_of_procurement');
+
         if($type == 'alternative')
         {
-            $model  =   $model->select([
-                'vouchers.*',
-                'request_for_quotations.rfq_number'
-            ]);
-
-            $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.id', '=', 'vouchers.rfq_id');
-            $model  =   $model->whereNotNull('rfq_id');
+            $model  =   $model->whereNotNull('mode_of_procurements.name');
         }
         else
         {
-            $model  =   $model->whereNull('rfq_id');
+            $model  =   $model->whereNull('mode_of_procurements.name');
         }
 
         $model  =   $model->orderBy('created_at', 'desc');

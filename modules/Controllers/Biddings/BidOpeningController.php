@@ -8,6 +8,7 @@ use PDF;
 use Auth;
 use Carbon\Carbon;
 use Validator;
+use \App\Support\Breadcrumb;
 
 use Revlv\Biddings\BidOpening\BidOpeningRepository;
 use Revlv\Biddings\BidOpening\BidOpeningRequest;
@@ -69,7 +70,11 @@ class BidOpeningController extends Controller
     public function index()
     {
         return $this->view('modules.biddings.bid-openings.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Bid Opening')
+            ]
         ]);
     }
 
@@ -167,6 +172,11 @@ class BidOpeningController extends Controller
         return $this->view('modules.biddings.bid-openings.show',[
             'data'              =>  $result,
             'indexRoute'        =>  $this->baseUrl.'index',
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->id ),
+                new Breadcrumb('Bid Opening')
+            ]
         ]);
     }
 

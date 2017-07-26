@@ -57,6 +57,18 @@ Route::resource('change-logs', '\Revlv\Controllers\Notifications\ChangeLogsContr
 |
 */
 Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
+    Route::put('unit-purchase-requests/update-signatories/{id}', '\Revlv\Controllers\Procurements\UPRController@updateSignatory')->name('unit-purchase-requests.update-signatories');
+    Route::put('unit-purchase-requests/cancelled/{id}', '\Revlv\Controllers\Procurements\UPRController@cancelled')->name('unit-purchase-requests.cancelled');
+    Route::get('unit-purchase-requests/second-step', '\Revlv\Controllers\Procurements\UPRController@secondStep')->name('unit-purchase-requests.second-step');
+    Route::get('unit-purchase-requests/print/{id}', '\Revlv\Controllers\Procurements\UPRController@viewPrint')->name('unit-purchase-requests.print');
+    Route::post('unit-purchase-requests/terminate/{id}', '\Revlv\Controllers\Procurements\UPRController@terminateUPR')->name('unit-purchase-requests.terminate');
+    Route::post('unit-purchase-requests/attachments/{id}', '\Revlv\Controllers\Procurements\UPRController@uploadAttachment')->name('unit-purchase-requests.attachments.store');
+    Route::get('unit-purchase-requests/timelines/{id}', '\Revlv\Controllers\Procurements\UPRController@timelines')->name('unit-purchase-requests.timelines');
+    Route::get('unit-purchase-requests/download/{id}', '\Revlv\Controllers\Procurements\UPRController@downloadAttachment')->name('unit-purchase-requests.attachments.download');
+    Route::get('unit-purchase-requests/logs/{id}', '\Revlv\Controllers\Procurements\UPRController@viewLogs')->name('unit-purchase-requests.logs');
+    Route::get('unit-purchase-requests/imports', '\Revlv\Controllers\Procurements\UPRController@uploadView')->name('unit-purchase-requests.imports');
+    Route::post('unit-purchase-requests/import-file', '\Revlv\Controllers\Procurements\UPRController@uploadFile')->name('unit-purchase-requests.import-file');
+    Route::post('unit-purchase-requests/save-file', '\Revlv\Controllers\Procurements\UPRController@saveFile')->name('unit-purchase-requests.save-file');
     Route::resource('unit-purchase-requests', '\Revlv\Controllers\Biddings\UPRController');
 
     Route::get('document-acceptance/create/{id}', '\Revlv\Controllers\Biddings\DocumentAcceptanceController@create')->name('document-acceptance.create-by-rfq');
@@ -66,18 +78,82 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
 
     Route::get('proponents/{id}/{proponent}', '\Revlv\Controllers\Biddings\BidDocsController@show')->name('proponents.show');
 
+    /*
+    |--------------------------------------------------------------------------
+    | Philgeps Routes
+    |--------------------------------------------------------------------------
+    |
+    */
     Route::resource('philgeps', '\Revlv\Controllers\Biddings\PhilGepsController');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Issuance BId Docs Routes
+    |--------------------------------------------------------------------------
+    |
+    */
     Route::resource('bid-docs', '\Revlv\Controllers\Biddings\BidDocsController');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Bid Open Routes
+    |--------------------------------------------------------------------------
+    |
+    */
     Route::resource('bid-openings', '\Revlv\Controllers\Biddings\BidOpeningController');
+
+    /*
+    |--------------------------------------------------------------------------
+    | DOcument Accpeptance Routes
+    |--------------------------------------------------------------------------
+    |
+    */
     Route::resource('document-acceptance', '\Revlv\Controllers\Biddings\DocumentAcceptanceController');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Final Bid DOcs Routes
+    |--------------------------------------------------------------------------
+    |
+    */
     Route::resource('finalize-bid-docs', '\Revlv\Controllers\Biddings\FinalBidDocsController');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Invitation TO Bid Routes
+    |--------------------------------------------------------------------------
+    |
+    */
     Route::resource('itb', '\Revlv\Controllers\Biddings\InvitationToBidController');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Post Qual Routes
+    |--------------------------------------------------------------------------
+    |
+    */
     Route::post('post-qualifications/failed', '\Revlv\Controllers\Biddings\PostQualificationController@failed')->name('post-qualifications.failed');
 
     Route::post('award-to/{pq_id}/{proponent_id}', '\Revlv\Controllers\Biddings\NOAController@awardToProponent')->name('notice-of-awards.award-to');
     Route::resource('post-qualifications', '\Revlv\Controllers\Biddings\PostQualificationController');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Prebid Routes
+    |--------------------------------------------------------------------------
+    |
+    */
     Route::resource('pre-bids', '\Revlv\Controllers\Biddings\PreBidController');
 
+    /*
+    |--------------------------------------------------------------------------
+    | NOA Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::put('noa/update-dates/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@updateDates')->name('noa.update-dates');
+    Route::put('noa/update-signatory/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@updateSignatory')->name('noa.update-signatory');
     Route::put('noa/update-signatory/{id}', '\Revlv\Controllers\Biddings\NOAController@updateSignatory')->name('noa.update-signatory');
 
     Route::resource('noa', '\Revlv\Controllers\Biddings\NOAController');

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use DB;
 use PDF;
+use \App\Support\Breadcrumb;
 use Carbon\Carbon;
 use Validator;
 
@@ -78,7 +79,11 @@ class DeliveryController extends Controller
     public function index()
     {
         return $this->view('modules.biddings.delivery.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Delivery', 'biddings.delivery-orders.index')
+            ]
         ]);
     }
 
@@ -218,6 +223,11 @@ class DeliveryController extends Controller
                     'route'     =>  [$this->baseUrl.'attachments.store', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id),
+                new Breadcrumb('Delivery', 'biddings.delivery-orders.index')
             ]
         ]);
     }
@@ -245,6 +255,11 @@ class DeliveryController extends Controller
                     'route' => [$this->baseUrl.'destroy',$id],
                     'method'=> 'DELETE'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Delivery', 'biddings.delivery-orders.show', $result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }

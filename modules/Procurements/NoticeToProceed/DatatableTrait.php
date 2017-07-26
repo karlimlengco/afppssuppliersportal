@@ -25,6 +25,7 @@ trait DatatableTrait
             $model  =   $model->select([
                 'notice_to_proceed.prepared_date',
                 'notice_to_proceed.id',
+                'notice_to_proceed.rfq_id',
                 'request_for_quotations.rfq_number',
                 'notice_to_proceed.upr_number',
                 'purchase_orders.po_number',
@@ -43,13 +44,14 @@ trait DatatableTrait
 
             $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'rfq_proponents.proponents');
 
-            $model  =   $model->whereNotNull('request_for_quotations.rfq_number');
+            $model  =   $model->whereNotNull('request_for_quotations.rfq_id');
         }
         else{
 
             $model  =   $model->select([
                 'notice_to_proceed.prepared_date',
                 'notice_to_proceed.id',
+                'notice_to_proceed.rfq_id',
                 'notice_to_proceed.upr_number',
                 'notice_to_proceed.rfq_number',
                 'purchase_orders.po_number',
@@ -67,7 +69,7 @@ trait DatatableTrait
 
             $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'bid_docs_issuance.proponent_id');
 
-            $model  =   $model->whereNull('notice_to_proceed.rfq_number');
+            $model  =   $model->whereNull('notice_to_proceed.rfq_id');
         }
 
         $model->orderBy('notice_to_proceed.created_at', 'desc');

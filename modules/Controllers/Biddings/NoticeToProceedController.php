@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use PDF;
 use Carbon\Carbon;
+use \App\Support\Breadcrumb;
 use Validator;
 
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
@@ -79,7 +80,12 @@ class NoticeToProceedController extends Controller
      */
     public function index()
     {
-        return $this->view('modules.biddings.ntp.index');
+        return $this->view('modules.biddings.ntp.index',[
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Notice to Proceed', 'biddings.ntp.index')
+            ]
+        ]);
     }
 
     /**
@@ -124,6 +130,11 @@ class NoticeToProceedController extends Controller
                     'route'     =>  [$this->baseUrl.'update-signatory', $id],
                     'method'    =>  'PUT'
                 ],
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id),
+                new Breadcrumb('Notice to Proceed', 'biddings.ntp.index')
             ]
 
         ]);

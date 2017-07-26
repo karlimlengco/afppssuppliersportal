@@ -8,6 +8,7 @@ use Auth;
 use PDF ;
 use Carbon\Carbon;
 use Validator;
+use \App\Support\Breadcrumb;
 
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
@@ -276,7 +277,11 @@ class DeliveredInspectionReportController extends Controller
     public function index()
     {
         return $this->view('modules.biddings.delivered-inspections.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Public Biddings'),
+                new Breadcrumb('DIIR', 'biddings.delivered-inspections.index')
+            ]
         ]);
     }
 
@@ -418,6 +423,11 @@ class DeliveredInspectionReportController extends Controller
                     'route'     =>  [$this->baseUrl.'update-signatory', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Biddings'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id),
+                new Breadcrumb('DIIR', 'biddings.delivered-inspections.index')
             ]
         ]);
     }
@@ -442,6 +452,11 @@ class DeliveredInspectionReportController extends Controller
                     'route'     =>  [$this->baseUrl.'update', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('DIIR', 'biddings.delivered-inspections.show',$result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }

@@ -2,6 +2,23 @@
 Unit Purchase Request
 @stop
 
+
+@section('breadcrumbs')
+
+    @if(isset($breadcrumbs))
+      @foreach($breadcrumbs as $route => $crumb)
+        @if($crumb->hasLink())
+        <a href="{{ $crumb->link() }}" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @else
+        <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @endif
+      @endforeach
+    @else
+    <li><a href="#">Application</a></li>
+    @endif
+
+@stop
+
 @section('contents')
 
 <div class="row">
@@ -59,7 +76,7 @@ Unit Purchase Request
                 // }
             },
         columns: [
-            {data: 'upr_number', name: 'upr_number'},
+            {data: 'public_upr_number', name: 'upr_number'},
             {data: 'ref_number', name: 'ref_number'},
             {data: 'project_name', name: 'project_name'},
             {data: 'total_amount', name: 'total_amount'},

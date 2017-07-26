@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use PDF;
 use Auth;
+use \App\Support\Breadcrumb;
 use Carbon\Carbon;
 use Validator;
 
@@ -71,7 +72,11 @@ class PostQualificationController extends Controller
     public function index()
     {
         return $this->view('modules.biddings.post-qualifications.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Post Qualifications'),
+            ]
         ]);
     }
 
@@ -173,6 +178,11 @@ class PostQualificationController extends Controller
             'data'              =>  $result,
             'current_signs'     =>  $signatory_lists,
             'indexRoute'        =>  $this->baseUrl.'index',
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
+                new Breadcrumb('Post Qualification', 'biddings.post-qualifications.index'),
+            ]
         ]);
     }
 

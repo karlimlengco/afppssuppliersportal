@@ -1,7 +1,6 @@
 @section('title')
-Notice To Proceed
+Unit Purchase Request
 @stop
-
 
 @section('breadcrumbs')
 
@@ -22,13 +21,13 @@ Notice To Proceed
 @section('contents')
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
-        <a href="{{route($indexRoute, $model->id)}}" class="button button--pull-left" tooltip="Back">
+        <a href="{{route($indexRoute, $upr->id)}}" class="button button--pull-left" tooltip="Back">
             <i class="nc-icon-mini arrows-1_tail-left"></i>
         </a>
     </div>
 </div>
 
-<h1>{{$model->rfq_number}}</h1>
+<h1>{{$upr->upr_number}}</h1>
 <div>
     <div>
         <table class='table table--equal-column' id="item_table">
@@ -69,7 +68,11 @@ Notice To Proceed
                                         <tr style="background: #eee">
                                             <td>New</td>
                                             <td>{{$newKey}}</td>
+                                            @if(is_object($newValue))
+                                            <td>{{json_encode($newValue)}}</td>
+                                            @else
                                             <td>{{$newValue}}</td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 {{-- </table> --}}

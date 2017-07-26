@@ -2,6 +2,23 @@
 PhilGeps Posting
 @stop
 
+
+@section('breadcrumbs')
+
+    @if(isset($breadcrumbs))
+      @foreach($breadcrumbs as $route => $crumb)
+        @if($crumb->hasLink())
+        <a href="{{ $crumb->link() }}" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @else
+        <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @endif
+      @endforeach
+    @else
+    <li><a href="#">Application</a></li>
+    @endif
+
+@stop
+
 @section('contents')
 
 <div class="row">
@@ -55,7 +72,7 @@ PhilGeps Posting
             },
         columns: [
             {data: 'upr_number', name: 'upr_number'},
-            {data: 'philgeps_number', name: 'philgeps_number'},
+            {data: 'bid_philgeps_number', name: 'philgeps_number'},
             {data: 'philgeps_posting', name: 'philgeps_posting'},
             {data: 'newspaper', name: 'newspaper'},
         ],

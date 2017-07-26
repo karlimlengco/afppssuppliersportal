@@ -2,6 +2,23 @@
 Delivered Items Inspection
 @stop
 
+
+@section('breadcrumbs')
+
+    @if(isset($breadcrumbs))
+      @foreach($breadcrumbs as $route => $crumb)
+        @if($crumb->hasLink())
+        <a href="{{ $crumb->link() }}" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @else
+        <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
+        @endif
+      @endforeach
+    @else
+    <li><a href="#">Application</a></li>
+    @endif
+
+@stop
+
 @section('modal')
     {!! Form::model($data, $modelConfig['update']) !!}
     @include('modules.partials.modals.edit-remarks')

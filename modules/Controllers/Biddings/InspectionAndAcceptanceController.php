@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use DB;
+use \App\Support\Breadcrumb;
 use PDF;
 use Carbon\Carbon;
 use Validator;
@@ -139,7 +140,11 @@ class InspectionAndAcceptanceController extends Controller
     public function index()
     {
         return $this->view('modules.biddings.inspection-acceptance.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Public Biddings'),
+                new Breadcrumb('TIAC', 'biddings.inspection-and-acceptance.index')
+            ]
         ]);
     }
 
@@ -178,6 +183,10 @@ class InspectionAndAcceptanceController extends Controller
                 'store' =>  [
                     'route'     =>  [$this->baseUrl.'create-from-delivery.store', $id]
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('TIAC')
             ]
         ]);
     }
@@ -354,6 +363,11 @@ class InspectionAndAcceptanceController extends Controller
                     'route'     =>  [$this->baseUrl.'update-signatory', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id),
+                new Breadcrumb('TIAC', 'biddings.inspection-and-acceptance.index')
             ]
         ]);
 

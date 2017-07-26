@@ -8,6 +8,7 @@ use PDF;
 use Auth;
 use Carbon\Carbon;
 use Validator;
+use \App\Support\Breadcrumb;
 
 use Revlv\Biddings\InvitationToBid\InvitationToBidRepository;
 use Revlv\Biddings\InvitationToBid\InvitationToBidRequest;
@@ -69,7 +70,11 @@ class InvitationToBidController extends Controller
     public function index()
     {
         return $this->view('modules.biddings.itb.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Invitation To Bid')
+            ]
         ]);
     }
 
@@ -168,6 +173,11 @@ class InvitationToBidController extends Controller
         return $this->view('modules.biddings.itb.show',[
             'data'              =>  $result,
             'indexRoute'        =>  $this->baseUrl.'index',
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
+                new Breadcrumb('Invitation To Bid', 'biddings.itb.index'),
+            ]
         ]);
     }
 

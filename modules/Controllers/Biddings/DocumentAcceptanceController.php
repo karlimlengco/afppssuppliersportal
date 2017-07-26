@@ -8,6 +8,7 @@ use PDF;
 use Auth;
 use Carbon\Carbon;
 use Validator;
+use \App\Support\Breadcrumb;
 
 use Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceRepository;
 use Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceRequest;
@@ -71,7 +72,11 @@ class DocumentAcceptanceController extends Controller
     public function index()
     {
         return $this->view('modules.biddings.document-acceptance.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Document Acceptance')
+            ]
         ]);
     }
 
@@ -80,9 +85,10 @@ class DocumentAcceptanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id, BacSecRepository $bacs)
+    public function create($id, BacSecRepository $bacs, UnitPurchaseRequestRepository $model)
     {
 
+        $result         =   $model->findById($id);
         $bac_lists      =   $bacs->lists('id', 'name');
         $this->view('modules.biddings.document-acceptance.create',[
             'indexRoute'    =>  $this->baseUrl.'index',
@@ -92,6 +98,12 @@ class DocumentAcceptanceController extends Controller
                 'store' =>  [
                     'route'     =>  $this->baseUrl.'store'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
+                new Breadcrumb('Document Acceptancce'),
+                new Breadcrumb('Create'),
             ]
         ]);
     }
@@ -173,6 +185,11 @@ class DocumentAcceptanceController extends Controller
         return $this->view('modules.biddings.document-acceptance.show',[
             'data'              =>  $result,
             'indexRoute'        =>  $this->baseUrl.'index',
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
+                new Breadcrumb('Document Acceptancce'),
+            ]
         ]);
     }
 

@@ -90,6 +90,10 @@ trait DatatableTrait
                 $route  =  route( 'procurements.unit-purchase-requests.show',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->upr_number .'</a>';
             })
+            ->addColumn('public_upr_number', function ($data) {
+                $route  =  route( 'biddings.unit-purchase-requests.show',[$data->id] );
+                return ' <a  href="'.$route.'" > '. $data->upr_number .'</a>';
+            })
             ->editColumn('total_amount', function($data){
                 return formatPrice($data->total_amount);
             })

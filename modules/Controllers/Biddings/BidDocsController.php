@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use PDF;
 use Auth;
 use Carbon\Carbon;
+use \App\Support\Breadcrumb;
 use Validator;
 
 use Revlv\Biddings\BidDocs\BidDocsRepository;
@@ -71,7 +72,11 @@ class BidDocsController extends Controller
     public function index()
     {
         return $this->view('modules.biddings.bid-docs.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Bid Docs Issuance')
+            ]
         ]);
     }
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use PDF;
 use Auth;
 use Carbon\Carbon;
+use \App\Support\Breadcrumb;
 use Validator;
 
 use Revlv\Biddings\PreBid\PreBidRepository;
@@ -69,7 +70,11 @@ class PreBidController extends Controller
     public function index()
     {
         return $this->view('modules.biddings.pre-bids.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Pre Bid Conference')
+            ]
         ]);
     }
 
@@ -78,8 +83,9 @@ class PreBidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create($id, UnitPurchaseRequestRepository $model)
     {
+        $result =   $model->findById($id);
         $this->view('modules.biddings.pre-bids.create',[
             'indexRoute'    =>  $this->baseUrl.'index',
             'id'            =>  $id,
@@ -87,6 +93,11 @@ class PreBidController extends Controller
                 'store' =>  [
                     'route'     =>  $this->baseUrl.'store'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->id ),
+                new Breadcrumb('Pre Bid Conference')
             ]
         ]);
     }
@@ -168,6 +179,11 @@ class PreBidController extends Controller
         return $this->view('modules.biddings.pre-bids.show',[
             'data'              =>  $result,
             'indexRoute'        =>  $this->baseUrl.'index',
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
+                new Breadcrumb('Pre Bid Conference')
+            ]
         ]);
     }
 

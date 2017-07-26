@@ -8,6 +8,7 @@ use Auth;
 use PDF;
 use Carbon\Carbon;
 use Validator;
+use \App\Support\Breadcrumb;
 
 
 use \Revlv\Procurements\Vouchers\VoucherRepository;
@@ -76,7 +77,11 @@ class VoucherController extends Controller
     public function index()
     {
         return $this->view('modules.biddings.vouchers.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+            'createRoute'   =>  $this->baseUrl."create",
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Voucher'),
+            ]
         ]);
     }
 
@@ -186,6 +191,11 @@ class VoucherController extends Controller
                     'route'     =>  [$this->baseUrl.'update-signatories', $id],
                     'method'    =>  'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Biddings'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
+                new Breadcrumb('Voucher', 'biddings.vouchers.index'),
             ]
         ]);
     }
