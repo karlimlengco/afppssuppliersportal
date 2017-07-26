@@ -57,7 +57,13 @@
                                         </tr>
                                         <tr>
                                             <td width="50%"></td>
-                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['signatory']->ranks; ?></pre> </td>
+
+                                            <td class="align-justify">
+                                                <div class="signatory-rank-justify">
+                                                    <strong>{{$data['signatory']->ranks}}</strong>
+                                                    <span></span>
+                                                </div>
+                                            </td>
                                             <td width="50%"></td>
                                         </tr>
                                     </table>

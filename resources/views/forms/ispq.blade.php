@@ -77,8 +77,8 @@
                         </tr>
                         <tr>
                             <td class="signatory align-left v-align-middle" width="45%"></td>
-                            <td width="10%"></td>
-                            <td class="signatory align-center v-align-middle" width="45%">
+                            <td width="5%"></td>
+                            <td class="signatory align-center v-align-middle" width="30%">
                                 <div class="signatory-name">
                                     <table>
                                         <tr>
@@ -88,12 +88,18 @@
                                         </tr>
                                         <tr>
                                             <td width="50%"></td>
-                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['signatories']->ranks; ?></pre> </td>
+                                            <td class="align-justify">
+                                                <div class="signatory-rank-justify">
+                                                    <strong>{{$data['signatories']->ranks}}</strong>
+                                                    <span></span>
+                                                </div>
+                                            </td>
                                             <td width="50%"></td>
                                         </tr>
                                     </table>
                                 </div>
-                                {{$data['signatories']->designation}}</td>
+                                {{$data['signatories']->designation}}<br>
+                            </td>
                         </tr>
                     </table>
                 </div>

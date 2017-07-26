@@ -125,7 +125,7 @@
                             <td class="v-align-bottom align-center" width="45%" height="80px"></td>
                         </tr>
                         <tr>
-                            <td class="signatory align-center v-align-middle" width="45%">
+                            <td class="signatory align-center v-align-middle" width="30%">
                                 <div class="signatory-name">
                                     <table>
                                         <tr>
@@ -135,7 +135,13 @@
                                         </tr>
                                         <tr>
                                             <td width="50%"></td>
-                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['signatories'][0]->signatory->ranks; ?></pre> </td>
+
+                                            <td class="align-justify">
+                                                <div class="signatory-rank-justify">
+                                                    <strong>{{$data['signatories'][0]->signatory->ranks}}</strong>
+                                                    <span></span>
+                                                </div>
+                                            </td>
                                             <td width="50%"></td>
                                         </tr>
                                     </table>
@@ -164,7 +170,13 @@
                                         </tr>
                                         <tr>
                                             <td width="50%"></td>
-                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['signatories'][1]->signatory->ranks; ?></pre> </td>
+
+                                            <td class="align-justify">
+                                                <div class="signatory-rank-justify">
+                                                    <strong>{{$data['signatories'][1]->signatory->ranks}}</strong>
+                                                    <span></span>
+                                                </div>
+                                            </td>
                                             <td width="50%"></td>
                                         </tr>
                                     </table>
@@ -183,7 +195,12 @@
                                         </tr>
                                         <tr>
                                             <td width="50%"></td>
-                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['signatories'][2]->signatory->ranks; ?></pre> </td>
+                                            <td class="align-justify">
+                                                <div class="signatory-rank-justify">
+                                                    <strong>{{$data['signatories'][2]->signatory->ranks}}</strong>
+                                                    <span></span>
+                                                </div>
+                                            </td>
                                             <td width="50%"></td>
                                         </tr>
                                     </table>
@@ -210,7 +227,12 @@
                                         </tr>
                                         <tr>
                                             <td width="50%"></td>
-                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['signatories'][3]->signatory->ranks; ?></pre> </td>
+                                            <td class="align-justify">
+                                                <div class="signatory-rank-justify">
+                                                    <strong>{{$data['signatories'][3]->signatory->ranks}}</strong>
+                                                    <span></span>
+                                                </div>
+                                            </td>
                                             <td width="50%"></td>
                                         </tr>
                                     </table>
@@ -228,7 +250,13 @@
                                         </tr>
                                         <tr>
                                             <td width="50%"></td>
-                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['signatories'][4]->signatory->ranks; ?></pre> </td>
+
+                                            <td class="align-justify">
+                                                <div class="signatory-rank-justify">
+                                                    <strong>{{$data['signatories'][4]->signatory->ranks}}</strong>
+                                                    <span></span>
+                                                </div>
+                                            </td>
                                             <td width="50%"></td>
                                         </tr>
                                     </table>

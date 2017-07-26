@@ -174,11 +174,14 @@
                                     </tr>
                                     <tr>
                                         <td width="50%"></td>
-                                        <td class="align-justify" style="text-align-last: justify !important; text-align: justify;">
-                                            @if($data['approver'])
 
-                                                <pre style="border:none"> @if($data['approver'])<?php echo $data['approver']->ranks; ?>@endif</pre>
+                                        <td class="align-justify">
+                                            <div class="signatory-rank-justify">
+                                            @if($data['approver'])
+                                                <strong>{{$data['approver']->ranks}}</strong>
+                                                <span></span>
                                             @endif
+                                            </div>
                                         </td>
                                         <td width="50%"></td>
                                     </tr>
