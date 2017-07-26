@@ -121,7 +121,7 @@ class NoticeOfAwardController extends Controller
             'seconded_by'   =>  $request->seconded_by,
             'awarded_date'  =>  $request->awarded_date,
             'remarks'       =>  $request->remarks,
-            'action'       =>  $request->action,
+            'action'        =>  $request->action,
             'days'          =>  $day_delayed,
         ];
 
@@ -134,8 +134,8 @@ class NoticeOfAwardController extends Controller
             'status' => "Awarded To $supplier_name",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
             'calendar_days' => $day_delayed + $canvasModel->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ],  $canvasModel->upr_id);
 
         return redirect()->route('procurements.canvassing.show', $canvasId)->with([
@@ -232,8 +232,8 @@ class NoticeOfAwardController extends Controller
             'status' => 'NOA Received',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
         return redirect()->back()->with([
@@ -314,8 +314,8 @@ class NoticeOfAwardController extends Controller
             'status' => "Approved NOA",
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ],  $result->upr_id);
 
 

@@ -127,8 +127,8 @@ class NOAController extends Controller
             'status' => "Awarded To $supplier_name",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
             'calendar_days' => $day_delayed + $pq_model->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ],  $pq_model->upr_id);
 
         return redirect()->route('biddings.noa.show', $noaModal->id)->with([
@@ -223,8 +223,8 @@ class NOAController extends Controller
             'status' => 'NOA Received',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -305,8 +305,8 @@ class NOAController extends Controller
             'status' => "Approved NOA",
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ],  $result->upr_id);
 
 

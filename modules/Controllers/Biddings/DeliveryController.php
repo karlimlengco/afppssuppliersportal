@@ -185,8 +185,8 @@ class DeliveryController extends Controller
             'status' => 'NOD Created',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
@@ -386,8 +386,8 @@ class DeliveryController extends Controller
             'status' => 'Delivery Received',
             'delay_count'   => ($day_delayed > 7 )? $day_delayed - 7 : 0,
             'calendar_days' => $day_delayed + $dr_model->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $dr_model->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -474,8 +474,8 @@ class DeliveryController extends Controller
             'status' => 'Complete COA Delivery',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $dr_model->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([

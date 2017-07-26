@@ -171,8 +171,8 @@ class PhilGepsPostingController extends Controller
             'status'        =>  $status,
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $rfq_model->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $rfq_model->upr->id);
 
 

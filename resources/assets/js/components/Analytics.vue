@@ -38,7 +38,7 @@
                     <tr>
                         <td>
                             Program {{item.programs}}
-                            <button  v-on:click="clickItemProgram(item)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
+                            <button v-if="item.upr_count > 0" v-on:click="clickItemProgram(item)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                         </td>
                         <td>
                             <span tooltip="Total" >{{item.upr_count}}</span>

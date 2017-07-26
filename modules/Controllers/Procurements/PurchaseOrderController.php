@@ -163,8 +163,8 @@ class PurchaseOrderController extends Controller
             'status' => 'PO Approved',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $po->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -234,8 +234,8 @@ class PurchaseOrderController extends Controller
             'status' => "PO MFO Approved",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
             'calendar_days' => $day_delayed + $po->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $po->upr_id);
 
 
@@ -304,8 +304,8 @@ class PurchaseOrderController extends Controller
             'status' => "PO Funding Approved",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
             'calendar_days' => $day_delayed + $po->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $po->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -469,8 +469,8 @@ class PurchaseOrderController extends Controller
             'status' => "PO Created",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
             'calendar_days' => $day_delayed + $upr_model->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $noa_model->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([

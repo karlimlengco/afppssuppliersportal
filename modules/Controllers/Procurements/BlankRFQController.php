@@ -173,8 +173,8 @@ class BlankRFQController extends Controller
             'processed_by'  => \Sentinel::getUser()->id,
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks,
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $upr_model->id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([

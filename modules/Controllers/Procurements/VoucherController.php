@@ -159,8 +159,8 @@ class VoucherController extends Controller
             'status' => 'Voucher Created',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
@@ -325,8 +325,8 @@ class VoucherController extends Controller
             'status' => 'Voucher Preaudit',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
 
@@ -390,8 +390,8 @@ class VoucherController extends Controller
             'status' => 'Voucher Approved',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
 
@@ -460,8 +460,8 @@ class VoucherController extends Controller
             'status' => 'Voucher Certify',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -528,8 +528,8 @@ class VoucherController extends Controller
             'status' => 'Voucher Journal Entry',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -595,8 +595,8 @@ class VoucherController extends Controller
             'status' => 'Voucher Released',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([

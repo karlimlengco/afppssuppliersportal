@@ -188,8 +188,8 @@ class ISPQController extends Controller
         $upr->update(['status' => 'Invitation Created',
             'delay_count'   => $day_delayed,
             'calendar_days' => $day_delayed + $upr_model->calendar_days,
-            'action'        => $request->action,
-            'remarks'       => $request->remarks
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
             ], $upr_model->id);
 
         $quotations->save($data);

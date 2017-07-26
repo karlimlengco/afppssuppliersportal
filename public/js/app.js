@@ -50736,7 +50736,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('table', {
     staticClass: "table table--with-border table-name"
   }, [_vm._m(1), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
-    return [_c('tr', [_c('td', [_vm._v("\n                            Program " + _vm._s(item.programs) + "\n                            "), _c('button', {
+    return [_c('tr', [_c('td', [_vm._v("\n                            Program " + _vm._s(item.programs) + "\n                            "), (item.upr_count > 0) ? _c('button', {
       staticClass: "show-child-table",
       on: {
         "click": function($event) {
@@ -50745,7 +50745,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "nc-icon-mini ui-1_circle-add"
-    })])]), _vm._v(" "), _c('td', [_c('span', {
+    })]) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', {
       attrs: {
         "tooltip": "Total"
       }
