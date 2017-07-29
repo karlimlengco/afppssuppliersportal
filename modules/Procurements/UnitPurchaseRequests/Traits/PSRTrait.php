@@ -15,11 +15,11 @@ trait PSRTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getPSR($request, $search = null)
+    public function getPSR($request = null, $search = null)
     {
         $model  =   $this->model;
 
-        if($request->has('type') == null)
+        if($request != null && $request->has('type') == null)
         {
             $model  =   $model->select([
                 'procurement_centers.name as unit_name',
@@ -124,14 +124,27 @@ trait PSRTrait
         // $model  =   $model->leftJoin('bid_opening', 'bid_opening.upr_id', '=', 'unit_purchase_requests.id');
         // $model  =   $model->leftJoin('post_qualification', 'post_qualification.upr_id', '=', 'unit_purchase_requests.id');
 
+        if($request != null)
+        {
 
-        if($request->has('type') == null)
-        {
-            $model      =   $model->where('mode_of_procurement','!=', 'public_bidding');
-        }
-        else
-        {
-            $model      =   $model->where('mode_of_procurement','=', 'public_bidding');
+            if($request->has('date_from') != null)
+            {
+                $model  =   $model->where('unit_purchase_requests.date_prepared', '>=', $request->get('date_from'));
+            }
+
+            if($request->has('date_to') != null)
+            {
+                $model  =   $model->where('unit_purchase_requests.date_prepared', '<=', $request->get('date_to'));
+            }
+
+            if($request->has('type') == null)
+            {
+                $model      =   $model->where('mode_of_procurement','!=', 'public_bidding');
+            }
+            else
+            {
+                $model      =   $model->where('mode_of_procurement','=', 'public_bidding');
+            }
         }
 
         $model  =   $model->groupBy([
@@ -148,7 +161,7 @@ trait PSRTrait
      * @param  [type] $search [description]
      * @return [type]         [description]
      */
-    public function getPSRUnits($request, $search = null)
+    public function getPSRUnits($request = null, $search = null)
     {
         $model  =   $this->model;
 
@@ -208,13 +221,17 @@ trait PSRTrait
         $model  =   $model->leftJoin('bid_opening', 'bid_opening.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('post_qualification', 'post_qualification.upr_id', '=', 'unit_purchase_requests.id');
 
-        if($request->has('type') == null)
+        if($request != null)
         {
-            $model      =   $model->where('mode_of_procurement','!=', 'public_bidding');
-        }
-        else
-        {
-            $model      =   $model->where('mode_of_procurement','=', 'public_bidding');
+
+            if($request->has('type') == null)
+            {
+                $model      =   $model->where('mode_of_procurement','!=', 'public_bidding');
+            }
+            else
+            {
+                $model      =   $model->where('mode_of_procurement','=', 'public_bidding');
+            }
         }
 
         $model  =   $model->groupBy([

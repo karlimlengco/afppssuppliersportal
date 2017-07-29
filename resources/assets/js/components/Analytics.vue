@@ -116,8 +116,6 @@
                                                                                 <td  style="text-align:left" v-else>&nbsp;</td>
                                                                             </tr>
                                                                             <!-- Great Grand -->
-
-
                                                                                     <tr>
                                                                                         <td class="has-child" colspan="8">
                                                                                             <table class="great-grand-child-table table-name">
@@ -288,12 +286,15 @@ var array2IDs           =   [];
                 }
             },
             clickItemUnit: function(item){
-                if( array2IDs.indexOf(item.short_code) == -1 )
+                if( arrayProgramCenter.indexOf(item.name) == -1 && arrayProgramCenter[item.name] == item.name)
                 {
-                    if(array2IDs[item.short_code] != item.short_code)
+                    if( array2IDs.indexOf(item.short_code) == -1 )
                     {
-                        array2IDs[item.short_code]    =   item.short_code;
-                        this.fetchUPRs(item.short_code, item.name)
+                        if(array2IDs[item.name] != item.short_code)
+                        {
+                            array2IDs[item.name]    =   item.short_code;
+                            this.fetchUPRs(item.short_code, item.name)
+                        }
                     }
                 }
             }

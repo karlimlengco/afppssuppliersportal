@@ -16053,8 +16053,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 var arrayIDs = [];
@@ -16145,10 +16143,12 @@ var array2IDs = [];
             }
         },
         clickItemUnit: function clickItemUnit(item) {
-            if (array2IDs.indexOf(item.short_code) == -1) {
-                if (array2IDs[item.short_code] != item.short_code) {
-                    array2IDs[item.short_code] = item.short_code;
-                    this.fetchUPRs(item.short_code, item.name);
+            if (arrayProgramCenter.indexOf(item.name) == -1 && arrayProgramCenter[item.name] == item.name) {
+                if (array2IDs.indexOf(item.short_code) == -1) {
+                    if (array2IDs[item.name] != item.short_code) {
+                        array2IDs[item.name] = item.short_code;
+                        this.fetchUPRs(item.short_code, item.name);
+                    }
                 }
             }
         }

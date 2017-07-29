@@ -213,6 +213,17 @@ trait TransactionDaysTrait
             'vouchers.payment_received_date',
         ]);
 
+
+        if($request->has('date_from') != null)
+        {
+            $model  =   $model->where('unit_purchase_requests.date_prepared', '>=', $request->get('date_from'));
+        }
+
+        if($request->has('date_to') != null)
+        {
+            $model  =   $model->where('unit_purchase_requests.date_prepared', '<=', $request->get('date_to'));
+        }
+
         if($request->has('type') == null)
         {
             $model      =   $model->where('mode_of_procurement','!=', 'public_bidding');

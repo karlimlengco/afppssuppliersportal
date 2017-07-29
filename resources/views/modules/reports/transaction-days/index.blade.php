@@ -17,8 +17,24 @@ Transaction Days Report
 
 {{-- <a href="#" id="printme" class="button" style="margin-bottom:10px">Excel</a> --}}
 
-<button class='button' id='alternative'>Alternative</button>
-<button class='button button-unfocus' id='bidding'>Bidding</button>
+
+<div class="row">
+    <div class="six columns align-left">
+        <button class='button button-tab' id='alternative'>Alternative</button>
+        <button class='button button-tab button-unfocus' id='bidding'>Bidding</button>
+    </div>
+    <div class="six columns align-right">
+        <div style="display: inline-block">
+            <input type="text" id="start" name="date_from" class="input" placeholder="Start Date">
+        </div>
+
+        <div style="display: inline-block">
+            <input type="text" id="end" name="date_to" class="input" placeholder="End Date">
+        </div>
+        <button class="button" id="dateSearch"><span class="nc-icon-mini ui-1_zoom"></span></button>
+    </div>
+</div>
+
 <div class="table-scroll alternative">
     <table id="datatable-responsive" class="table table--with-border ">
         <thead>
@@ -112,6 +128,10 @@ Transaction Days Report
         serverSide: true,
         ajax: {
                 url: "{{route('datatables.reports.transaction-days')}}",
+                    data: function(d) {
+                        d.date_from = $('input[name=date_from]').val();
+                        d.date_to = $('input[name=date_to]').val();
+                    }
                 // data: function (d) {
                     // d.search.value = $('#search-table').val();
                 // }
@@ -157,12 +177,16 @@ Transaction Days Report
         }
     });
 
-    table = $('#table-bidding').DataTable({
+    table2 = $('#table-bidding').DataTable({
         "bLengthChange": false,
         processing: true,
         serverSide: true,
         ajax: {
                 url: "{{route('datatables.reports.transaction-days','type=bidding')}}",
+                    data: function(d) {
+                        d.date_from = $('input[name=date_from]').val();
+                        d.date_to = $('input[name=date_to]').val();
+                    }
             },
         columns: [
             {data: 'upr_number', name: 'upr_number'},
@@ -209,7 +233,13 @@ Transaction Days Report
     // overide datatable filter for custom css
     $('#newForm').keyup(function(){
         table.search($(this).val ()).draw() ;
+        table2.search($(this).val ()).draw() ;
     })
+
+    $('#dateSearch').on('click', function() {
+        table.draw();
+        table2.draw();
+    });
 
     $('#printme').on('click', function(e){
         e.preventDefault();
@@ -221,17 +251,58 @@ Transaction Days Report
 
     $('#alternative').on('click', function(e){
         e.preventDefault();
-        $('.button').toggleClass('button-unfocus')
+        $('.button-tab').toggleClass('button-unfocus')
         $('.alternative').show()
         $('.bidding').hide()
     });
 
     $('#bidding').on('click', function(e){
         e.preventDefault();
-        $('.button').toggleClass('button-unfocus')
+        $('.button-tab').toggleClass('button-unfocus')
         $('.alternative').hide()
         $('.bidding').removeClass('hidden')
         $('.bidding').show()
     });
+
+    var startDate,
+        endDate,
+        updateStartDate = function() {
+            startPicker.setStartRange(startDate);
+            endPicker.setStartRange(startDate);
+            endPicker.setMinDate(startDate);
+        },
+        updateEndDate = function() {
+            startPicker.setEndRange(endDate);
+            startPicker.setMaxDate(endDate);
+            endPicker.setEndRange(endDate);
+        },
+        startPicker = new Pikaday({
+            field: document.getElementById('start'),
+            minDate: new Date(2012, 12, 31),
+            onSelect: function() {
+                startDate = this.getDate();
+                updateStartDate();
+            }
+        }),
+        endPicker = new Pikaday({
+            field: document.getElementById('end'),
+            minDate: new Date(2012, 12, 31),
+            onSelect: function() {
+                endDate = this.getDate();
+                updateEndDate();
+            }
+        }),
+        _startDate = startPicker.getDate(),
+        _endDate = endPicker.getDate();
+
+        if (_startDate) {
+            startDate = _startDate;
+            updateStartDate();
+        }
+
+        if (_endDate) {
+            endDate = _endDate;
+            updateEndDate();
+        }
 </script>
 @stop
