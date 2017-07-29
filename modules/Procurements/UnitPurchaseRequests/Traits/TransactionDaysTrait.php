@@ -15,7 +15,7 @@ trait TransactionDaysTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getTransactionDay($search = null)
+    public function getTransactionDay($request)
     {
         $model  =    $this->model;
 
@@ -29,14 +29,31 @@ trait TransactionDaysTrait
             'unit_purchase_requests.state',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.date_processed',
+            'unit_purchase_requests.calendar_days',
             'unit_purchase_requests.date_prepared as upr_created_at',
+            'unit_purchase_requests.date_prepared as upr_created_at',
+            'document_acceptance.days as doc_days',
+            'document_acceptance.transaction_date as doc_date',
+            'invitation_to_bid.days as itb_days',
+            'invitation_to_bid.transaction_date as itb_date',
+            'pre_bid_conferences.days as prebid_days',
+            'pre_bid_conferences.transaction_date as prebid_date',
+            'bid_opening.days as bid_days',
+            'bid_opening.transaction_date as bid_date',
+            'post_qualification.days as pq_days',
+            'post_qualification.transaction_date as pq_date',
             'request_for_quotations.days as rfq_days',
             'request_for_quotations.close_days as rfq_close_days',
             'request_for_quotations.transaction_date as rfq_created_at',
             'request_for_quotations.completed_at as rfq_completed_at',
             'invitation_for_quotation.transaction_date as ispq_transaction_date',
-            'philgeps_posting.philgeps_posting as pp_completed_at',
-            'philgeps_posting.days as pp_days',
+            // 'philgeps_posting.philgeps_posting as pp_completed_at',
+            // 'philgeps_posting.days as pp_days',
+
+            DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id order by philgeps_posting.created_at desc limit 1) as pp_days "),
+
+            DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
+
             'canvassing.canvass_date as canvass_start_date',
             'canvassing.days as canvass_days',
             'notice_of_awards.days as noa_days',
@@ -89,7 +106,15 @@ trait TransactionDaysTrait
             'vouchers.payment_received_date as vou_received',
         ]);
 
-        $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
+        // $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
+
+        // $model  =   $model->leftJoin('philgeps_posting', function ($q) {
+        //   $q->on('philgeps_posting.upr_id', '=', 'unit_purchase_requests.id')
+        //   // ->groupBy('unit_purchase_requests.id');
+        //     ->where('philgeps_posting.created_at', '=', DB::raw("(select max(`created_at`) from philgeps_posting)"))
+        //     ->groupBy('unit_purchase_requests.id');
+        // });
+
         $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('ispq_quotations', 'ispq_quotations.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('invitation_for_quotation', 'invitation_for_quotation.id', '=', 'ispq_quotations.ispq_id');
@@ -102,6 +127,13 @@ trait TransactionDaysTrait
         $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
 
+        // Biddings
+        $model  =   $model->leftJoin('document_acceptance', 'document_acceptance.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('invitation_to_bid', 'invitation_to_bid.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('pre_bid_conferences', 'pre_bid_conferences.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('bid_opening', 'bid_opening.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('post_qualification', 'post_qualification.upr_id', '=', 'unit_purchase_requests.id');
+
         $model  =   $model->groupBy([
             'unit_purchase_requests.id',
             'unit_purchase_requests.project_name',
@@ -111,13 +143,24 @@ trait TransactionDaysTrait
             'unit_purchase_requests.state',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.date_processed',
+            'unit_purchase_requests.calendar_days',
+            'document_acceptance.days',
+            'document_acceptance.transaction_date',
+            'invitation_to_bid.days',
+            'invitation_to_bid.transaction_date',
+            'bid_opening.days',
+            'bid_opening.transaction_date',
+            'post_qualification.days',
+            'post_qualification.transaction_date',
+            'pre_bid_conferences.days',
+            'pre_bid_conferences.transaction_date',
             'request_for_quotations.days',
             'request_for_quotations.close_days',
             'request_for_quotations.transaction_date',
             'request_for_quotations.completed_at',
             'invitation_for_quotation.transaction_date',
-            'philgeps_posting.philgeps_posting',
-            'philgeps_posting.days',
+            // 'philgeps_posting.philgeps_posting',
+            // 'philgeps_posting.days',
             'canvassing.canvass_date',
             'canvassing.days',
             'notice_of_awards.days',
@@ -170,7 +213,29 @@ trait TransactionDaysTrait
             'vouchers.payment_received_date',
         ]);
 
+        if($request->has('type') == null)
+        {
+            $model      =   $model->where('mode_of_procurement','!=', 'public_bidding');
+        }
+        else
+        {
+            $model      =   $model->where('mode_of_procurement','=', 'public_bidding');
+        }
+
         return $model->get();
+    }
+
+    /**
+     * [getProcurementDatatable description]
+     *
+     * @param  [type] $request [description]
+     * @return [type]          [description]
+     */
+    public function getProcurementDatatable($request)
+    {
+        $model      =   $this->getTransactionDay($request);
+
+        return $this->dataTable($model);
     }
 
     /**
@@ -178,9 +243,9 @@ trait TransactionDaysTrait
      *
      * @return [type] [description]
      */
-    public function getTransactionDayDatatable()
+    public function getTransactionDayDatatable($request)
     {
-        $model      =   $this->getTransactionDay();
+        $model      =   $this->getTransactionDay($request);
 
         return $this->dataTable($model);
     }

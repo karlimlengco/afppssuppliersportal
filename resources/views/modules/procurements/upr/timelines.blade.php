@@ -280,21 +280,6 @@ Unit Purchase Request
                             <td></td>
                         </tr>
                         @endforeach
-                    @else
-                        <tr>
-                            <td>Invitation To Bid</td>
-                            <td>
-                            </td>
-                            <td >1</td>
-                            <td>
-                                {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $upr_created )}}
-                            </td>
-                            <td></td>
-                            <td>{{$data->rfq_action}}</td>
-                            <td>
-
-                            </td>
-                        </tr>
                     @endif
 
                     {{-- ITB --}}

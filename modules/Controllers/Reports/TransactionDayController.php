@@ -45,9 +45,9 @@ class TransactionDayController extends Controller
      *
      * @return [type]            [description]
      */
-    public function getDatatable(UnitPurchaseRequestRepository $model)
+    public function getDatatable(UnitPurchaseRequestRepository $model, Request $request)
     {
-        return $model->getTransactionDayDatatable();
+        return $model->getTransactionDayDatatable($request);
     }
 
 

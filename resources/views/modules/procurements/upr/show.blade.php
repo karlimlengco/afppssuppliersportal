@@ -107,7 +107,6 @@ Unit Purchase Request
                     @endif
                 @endif
 
-
                 @if(strpos($data->status, 'Awarded To') !== false || $data->status == 'Approved NOA')
                     <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a>
                 @endif

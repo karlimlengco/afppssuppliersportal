@@ -25,11 +25,17 @@ Route::get('messages', function(){
 });
 
 Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
+
     Route::get('psr/download/{search_at?}', '\Revlv\Controllers\Reports\PSRController@download')->name('reports.psr-transactions.download');
+
     Route::resource('psr-transactions', '\Revlv\Controllers\Reports\PSRController');
 
+    Route::resource('psr', '\Revlv\Controllers\Reports\PSRReportController');
+
+    Route::get('transaction-days/download/{search_at?}/{type?}', '\Revlv\Controllers\Reports\TransactionDayController@download')->name('reports.transaction-days.download');
+
     Route::get('transaction-days/download/{search_at?}', '\Revlv\Controllers\Reports\TransactionDayController@download')->name('reports.transaction-days.download');
-    Route::get('transaction-days/download/{search_at?}', '\Revlv\Controllers\Reports\TransactionDayController@download')->name('reports.transaction-days.download');
+
     Route::resource('transaction-days', '\Revlv\Controllers\Reports\TransactionDayController');
 
     Route::resource('suppliers', '\Revlv\Controllers\Reports\TransactionDayController');
@@ -592,6 +598,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     |
     */
     Route::get('psr-transactions', '\Revlv\Controllers\Reports\PSRController@getDatatable')->name('reports.psr-transactions');
+    Route::get('psr', '\Revlv\Controllers\Reports\PSRController@getPSRDatatable')->name('reports.psr');
     Route::get('transaction-days', '\Revlv\Controllers\Reports\TransactionDayController@getDatatable')->name('reports.transaction-days');
 
     /*

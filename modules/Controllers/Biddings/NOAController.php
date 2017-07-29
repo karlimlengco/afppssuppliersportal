@@ -360,7 +360,31 @@ class NOAController extends Controller
     {
         $result             =   $noa->with(['winner', 'upr'])->findById($id);
         $pq_model           =   $model->findById($result->pq_id);
-        $proponent_awardee  =   $result->winner->supplier;
+
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $proponent_awardee  =   $result->biddingWinner->supplier;
+
+            if(!$result->biddingWinner)
+            {
+                return redirect()->route('procurements.blank-rfq.show', $id)->with([
+                    'success'    =>  'Awardee is not yet present. Go to canvassing and select proponent.'
+                ]);
+            }
+
+        }
+        else
+        {
+            $proponent_awardee  =   $result->winner->supplier;
+
+            if(!$result->winner)
+            {
+                return redirect()->route('procurements.blank-rfq.show', $id)->with([
+                    'success'    =>  'Awardee is not yet present. Go to canvassing and select proponent.'
+                ]);
+            }
+
+        }
 
         $upr_model          =   $result->upr;
 

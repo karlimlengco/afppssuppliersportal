@@ -108,6 +108,7 @@ class PhilGepsController extends Controller
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
+        if($day_delayed != 0)
         $day_delayed            =   $day_delayed - 1;
 
         $validator = Validator::make($request->all(),[

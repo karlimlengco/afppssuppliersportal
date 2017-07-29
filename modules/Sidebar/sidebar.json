@@ -227,6 +227,11 @@
             "route"     :   "settings.index",
             "navigation": [
                 {
+                    "route" :   "reports.psr.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "PSR"
+                },
+                {
                     "route" :   "reports.psr-transactions.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Transactions Summary"

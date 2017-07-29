@@ -120,6 +120,11 @@ trait DatatableTrait
                 }
                 return $days;
             })
+            ->editColumn('psr_date_prepared', function($data){
+                if(!$data->date_prepared)
+                return 0;
+                return $data->date_prepared->format('d F Y');
+            })
             ->editColumn('d_ispq', function($data){
                 $days = 0;
                 if($data->ispq_transaction_date != null)
@@ -362,6 +367,42 @@ trait DatatableTrait
             ->editColumn('d_vou_received', function($data){
                 $days = $data->vou_received_days;
                 if($days > 1)
+                {
+                    return "<span style='color:red'>".$days."</span>";
+                }
+                return $days;
+            })
+
+            ->editColumn('doc_days', function($data){
+                $days = $data->doc_days;
+                return $days;
+            })
+            ->editColumn('prebid_days', function($data){
+                $days = $data->prebid_days;
+                return $days;
+            })
+
+            ->editColumn('itb_days', function($data){
+                $days = $data->itb_days;
+                if($days > 1)
+                {
+                    return "<span style='color:red'>".$days."</span>";
+                }
+                return $days;
+            })
+
+            ->editColumn('bid_days', function($data){
+                $days = $data->bid_days;
+                if($days > 1)
+                {
+                    return "<span style='color:red'>".$days."</span>";
+                }
+                return $days;
+            })
+
+            ->editColumn('pq_days', function($data){
+                $days = $data->pq_days;
+                if($days > 30)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }

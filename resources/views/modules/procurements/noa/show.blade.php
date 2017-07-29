@@ -63,6 +63,7 @@ Notice Of Award
 </div>
 <div class="data-panel">
     <div class="data-panel__section">
+        @if($canvass)
         <h3>Details</h3>
         <ul  class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR No. :</strong> {{$canvass->upr_number}} </li>
@@ -76,12 +77,23 @@ Notice Of Award
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Seconded By :</strong> {{($data->seconder) ? $data->seconder->name : ""}} </li>
             @endif
         </ul>
+
+        @else
+
+        <ul  class="data-panel__list">
+            @if($data->awarded_date  )
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award Date :</strong> {{$data->awarded_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award By :</strong> {{($data->awarder) ? $data->awarder->name : ""}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Seconded By :</strong> {{($data->seconder) ? $data->seconder->name : ""}} </li>
+            @endif
+        </ul>
+        @endif
     </div>
     <div class="data-panel__section">
         <h3></h3>
         <ul  class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">ABC :</strong> {{formatPrice($data->upr->total_amount)}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">BID Amount :</strong> {{formatPrice($data->winner->bid_amount)}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">BID Amount :</strong> @if($data->winner) {{formatPrice($data->winner->bid_amount)}} @endif</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Date :</strong> {{$data->accepted_date}} &nbsp;</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Copy :</strong> <a target="_blank" href="{{route('procurements.noa.download',$data->id)}}">{{$data->file}}</a> &nbsp;</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received By :</strong> {{$data->received_by}}&nbsp; </li>

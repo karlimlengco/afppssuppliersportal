@@ -412,12 +412,29 @@ class NoticeOfAwardController extends Controller
         $result             =   $noa->with(['winner', 'upr'])->findById($id);
         $canvass            =   $model->findById($result->canvass_id);
 
-        $proponent_awardee  =   $result->winner->supplier;
-        if(!$proponent_awardee)
+        if($result->upr->mode_of_procurement == 'public_bidding')
         {
-            return redirect()->route('procurements.blank-rfq.show', $id)->with([
-                'success'    =>  'Awardee is not yet present. Go to canvassing and select proponent.'
-            ]);
+            $proponent_awardee  =   $result->biddingWinner->supplier;
+
+            if(!$result->biddingWinner)
+            {
+                return redirect()->route('procurements.blank-rfq.show', $id)->with([
+                    'success'    =>  'Awardee is not yet present. Go to canvassing and select proponent.'
+                ]);
+            }
+
+        }
+        else
+        {
+            $proponent_awardee  =   $result->winner->supplier;
+
+            if(!$result->winner)
+            {
+                return redirect()->route('procurements.blank-rfq.show', $id)->with([
+                    'success'    =>  'Awardee is not yet present. Go to canvassing and select proponent.'
+                ]);
+            }
+
         }
 
         $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findByRFQId($proponent_awardee->rfq_id);
@@ -548,21 +565,34 @@ class NoticeOfAwardController extends Controller
             ]);
         }
 
-        $result                     =   $model->findById($noa_modal->canvass_id);
-        $proponent_awardee          =   $noa_modal->winner->supplier;
-        $rfq_model                  =   $blank->findById($result->rfq_id);
-        $upr_model                  =   $upr->with(['unit'])->findById($rfq_model->upr_id);
+
+        if($noa_modal->upr->mode_of_procurement == 'public_bidding')
+        {
+            $proponent_awardee  =   $noa_modal->biddingWinner->supplier;
+            $bidamount          =   $noa_modal->biddingWinner->bid_amount;
+
+        }
+        else
+        {
+            $proponent_awardee  =   $noa_modal->winner->supplier;
+            $bidamount          =   $noa_modal->winner->bid_amount;
+            $result                     =   $model->findById($noa_modal->canvass_id);
+
+            $rfq_model                  =   $blank->findById($result->rfq_id);
+            $data['rfq_date']           =   $rfq_model->transaction_date;
+
+            $data['rfq_number']         =   $rfq_model->rfq_number;
+
+        }
+        $upr_model                  =   $upr->with(['unit'])->findById($noa_modal->upr_id);
 
         $data['transaction_date']   =   $noa_modal->awarded_date;
-        $data['rfq_date']           =   $rfq_model->transaction_date;
         $data['supplier']           =   $proponent_awardee;
         $data['unit']               =   $upr_model->unit->description;
-        $data['rfq_number']         =   $rfq_model->rfq_number;
         $data['total_amount']       =   $upr_model->total_amount;
-        $data['bid_amount']         =   $noa_modal->winner->bid_amount;
+        $data['bid_amount']         =   $bidamount;
 
 
-        $data['canvass_date']       =   $result->canvass_date;
         $data['signatory']          =   $noa_modal->signatory;
         $data['project_name']       =   $upr_model->project_name;
 

@@ -31,7 +31,7 @@ class NOAEloquent extends Model implements  AuditableContract
      */
     protected $table = 'notice_of_awards';
 
-    protected $with = 'winner';
+    // protected $with = 'winner';
 
     /**
      * The attributes that are mass assignable.
@@ -137,11 +137,11 @@ class NOAEloquent extends Model implements  AuditableContract
      */
     public function winner()
     {
-        if(!$this->rfq_id)
-        {
-            return $this->belongsTo('\Revlv\Procurements\RFQProponents\RFQProponentEloquent', 'proponent_id');
-        }
+        return $this->belongsTo('\Revlv\Procurements\RFQProponents\RFQProponentEloquent', 'proponent_id');
+    }
 
+    public function biddingWinner()
+    {
         return $this->belongsTo('\Revlv\Biddings\BidDocs\BidDocsEloquent', 'proponent_id');
     }
 
