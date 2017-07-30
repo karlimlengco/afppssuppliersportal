@@ -81,6 +81,7 @@ Request For Quotation
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Closed At :</strong> {{ $data->completed_at }} </li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Closed Remarks :</strong> {{ $data->close_remarks }} </li>
             @endif
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Working Days :</strong> {{ $data->days }} </li>
         </ul>
     </div>
     <div class="data-panel__section">

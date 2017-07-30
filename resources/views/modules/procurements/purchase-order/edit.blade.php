@@ -42,6 +42,16 @@ Purchase Order
 
 
             <div class="row">
+                <div class="six columns">
+                    {!! Form::selectField('payment_term', 'Payment Terms', $term_lists) !!}
+                </div>
+                <div class="six columns">
+                    {!! Form::numberField('delivery_terms', 'Delivery Terms') !!}
+                </div>
+            </div>
+
+
+            <div class="row">
                 <div class="four columns">
                     {!! Form::textField('purchase_date', 'Purchase Date') !!}
                 </div>

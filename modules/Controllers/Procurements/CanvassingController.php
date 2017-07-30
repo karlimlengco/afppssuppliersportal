@@ -19,6 +19,8 @@ use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
+use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Users\UserRepository;
 
 class CanvassingController extends Controller
 {
@@ -42,6 +44,8 @@ class CanvassingController extends Controller
     protected $audits;
     protected $proponents;
     protected $holidays;
+    protected $users;
+    protected $userLogs;
 
     /**
      * [$model description]
@@ -293,9 +297,57 @@ class CanvassingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CanvassingRequest $request, $id, CanvassingRepository $model)
+    public function update(
+        CanvassingRequest $request,
+        $id,
+        UnitPurchaseRequestRepository $upr,
+        AuditLogRepository $audits,
+        HolidayRepository $holidays,
+        UserLogRepository $userLogs,
+        UserRepository $users,
+        CanvassingRepository $model)
     {
-        $model->update($request->getData(), $id);
+
+        $result                 =   $model->update($request->getData(), $id);
+
+        $upr_model              =   $upr->findById($result->id);
+        // $rfq_model              =   $rfq->with('invitations')->findById($id);
+        $rfq_model              =   $upr_model->rfq;
+
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d',$request->canvass_date);
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+        $ispq_transaction_date  = Carbon::createFromFormat('Y-m-d', $rfq_model->invitations->ispq->transaction_date);
+
+        $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        if($day_delayed != 0)
+        {
+            $day_delayed            =   $day_delayed - 1;
+        }
+
+        if($day_delayed != $result->days)
+        {
+            $model->update(['days' => $day_delayed], $id);
+        }
+
+        $modelType  =   'Revlv\Procurements\Canvassing\CanvassingEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
+
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

@@ -28,6 +28,7 @@ class POEloquent extends Model implements  AuditableContract
         'award_accepted_date',
         'coa_approved_date',
         'update_remarks',
+        'delivery_terms',
     ];
 
     /**

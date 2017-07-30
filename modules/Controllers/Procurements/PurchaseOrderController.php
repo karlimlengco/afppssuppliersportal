@@ -22,6 +22,8 @@ use \Revlv\Settings\PaymentTerms\PaymentTermRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
+use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Users\UserRepository;
 
 class PurchaseOrderController extends Controller
 {
@@ -48,6 +50,8 @@ class PurchaseOrderController extends Controller
     protected $signatories;
     protected $audits;
     protected $holidays;
+    protected $users;
+    protected $userLogs;
 
 
     /**
@@ -585,12 +589,15 @@ class PurchaseOrderController extends Controller
      */
     public function edit(
         $id,
+        PaymentTermRepository $terms,
         PORepository $model)
     {
+        $term_lists =   $terms->lists('id','name');
         $result     =   $model->findById($id);
 
         return $this->view('modules.procurements.purchase-order.edit',[
             'data'          =>  $result,
+            'term_lists'    =>  $term_lists,
             'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
                 'update' =>  [
@@ -651,21 +658,19 @@ class PurchaseOrderController extends Controller
         $id,
         RFQProponentRepository $rfq,
         BlankRFQRepository $blank,
+        UnitPurchaseRequestRepository $upr,
+        AuditLogRepository $audits,
+        HolidayRepository $holidays,
+        UserLogRepository $userLogs,
+        UserRepository $users,
+        NOARepository $noa,
         PORepository $model
         )
     {
 
-        $this->validate($request, [
-            'update_remarks',
-            'purchase_date',
-            'funding_released_date',
-            'funding_received_date',
-            'mfo_released_date',
-            'mfo_received_date',
-            'coa_approved_date',
-        ]);
-
         $input  =   [
+            'payment_term'        =>  $request->payment_term,
+            'delivery_terms'        =>  $request->delivery_terms,
             'update_remarks'        =>  $request->update_remarks,
             'purchase_date'         =>  $request->purchase_date,
             'funding_released_date' =>  $request->funding_released_date,
@@ -675,7 +680,36 @@ class PurchaseOrderController extends Controller
             'coa_approved_date'     =>  $request->coa_approved_date,
         ];
 
-        $model->update($input, $id);
+        $result =   $model->update($input, $id);
+
+        $noa_model              =   $noa->with('winner')->findByUPR($result->upr_id);
+        $award_accepted_date    =   Carbon::createFromFormat('Y-m-d', $noa_model->award_accepted_date);
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('purchase_date') );
+        // Delay
+        $day_delayed            =   $award_accepted_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        if($day_delayed != $result->days)
+        {
+            $model->update(['days' => $day_delayed], $id);
+        }
+
+        $modelType  =   'Revlv\Procurements\PurchaseOrder\POEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
+
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

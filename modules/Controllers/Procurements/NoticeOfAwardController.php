@@ -19,6 +19,8 @@ use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
+use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Users\UserRepository;
 
 class NoticeOfAwardController extends Controller
 {
@@ -43,6 +45,8 @@ class NoticeOfAwardController extends Controller
     protected $proponents;
     protected $audits;
     protected $holidays;
+    protected $users;
+    protected $userLogs;
 
     /**
      * [$model description]
@@ -497,26 +501,65 @@ class NoticeOfAwardController extends Controller
     public function updateDates(
         Request $request,
         $id,
-        RFQProponentRepository $rfq,
-        BlankRFQRepository $blank,
         UnitPurchaseRequestRepository $upr,
+        AuditLogRepository $audits,
+        HolidayRepository $holidays,
+        UserLogRepository $userLogs,
+        UserRepository $users,
         NOARepository $model
         )
     {
-        $this->validate($request, [
-            'awarded_date'              =>  'required',
-            'award_accepted_date'       =>  'required',
-            'accepted_date'             =>  'required',
-        ]);
+
+        $result             =   $model->findById($id);
+
+        if($result->rfq_id)
+        {
+            $canvasModel            =   $result->canvass;
+            $canvasDate             =   Carbon::createFromFormat('Y-m-d', $canvasModel->canvass_date);
+            $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('awarded_date') );
+
+            $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+            $day_delayed            =   $canvasDate->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+                return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+            }, $transaction_date);
+        }
+        else
+        {
+            $pq_model               =   $result->pq;
+            $pqDate                 =   Carbon::createFromFormat('Y-m-d', $pq_model->transaction_date);
+            $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('awarded_date') );
+
+            $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+            $day_delayed            =   $pqDate->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+                return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+            }, $transaction_date);
+        }
+
+        $modelType  =   'Revlv\Procurements\NoticeOfAward\NOAEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
+
 
         $input  =   [
             'awarded_date'              =>  $request->awarded_date,
             'award_accepted_date'       =>  $request->award_accepted_date,
             'accepted_date'             =>  $request->accepted_date,
             'update_remarks'            =>  $request->update_remarks,
+            'days' => $day_delayed
         ];
 
-        $result             =   $model->findById($id);
 
         $model->update($input, $id);
 

@@ -37,19 +37,19 @@
     <h1 class="notifier__title">Oh No!</h1>
     <p class="notifier__message">{{Session::get('error')}}</p>
     <div class="notifier__utility">
-        {{-- <a href="" class="notifier__utility__item">Nope</a> --}}
-        <a href="" class="notifier__utility__item">Okay</a>
+        {{-- <a href="#" class="notifier__utility__item">Nope</a> --}}
+        {{-- <a href="#" class="notifier__utility__item notifier__close-button">Okay</a> --}}
     </div>
 </div>
 @endif
 
-@if(Session::has('errors'))
+@if(Session::has('errors') && !Session::has('error'))
 <div class="notifier notifier--error is-visible">
     <a href="" class="notifier__close-button"><i class="nc-icon-mini ui-1_simple-remove"></i></a>
-    <h1 class="notifier__title">Oh No!</h1>
+    <h1 class="notifier__title">Oh No!!</h1>
     <p class="notifier__message">{{Session::get('error-msg')}}</p>
     <div class="notifier__utility">
-        <a href="" class="notifier__utility__item">Okay</a>
+        {{-- <a href="#" class="notifier__utility__item notifier__close-button">Okay</a> --}}
     </div>
 </div>
 @endif
@@ -61,7 +61,7 @@
     <h1 class="notifier__title">Success</h1>
     <p class="notifier__message">{{Session::get('success')}}</p>
     <div class="notifier__utility">
-        <a href="" class="notifier__utility__item">Okay</a>
+        {{-- <a href="#" class="notifier__utility__item notifier__close-button">Okay</a> --}}
     </div>
 </div>
 @endif

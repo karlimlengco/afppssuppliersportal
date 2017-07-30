@@ -16,6 +16,7 @@ use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 use Validator;
 
@@ -39,6 +40,7 @@ class BlankRFQController extends Controller
     protected $signatories;
     protected $audits;
     protected $holidays;
+    protected $userLogs;
 
     /**
      * [$model description]
@@ -132,8 +134,6 @@ class BlankRFQController extends Controller
         $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
-
-        $day_delayed            =   $day_delayed - 1;
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
@@ -266,9 +266,49 @@ class BlankRFQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, $id, BlankRFQRepository $model)
+    public function update(
+        UpdateRequest $request,
+        $id,
+        UnitPurchaseRequestRepository $upr,
+        \Revlv\Users\UserRepository $users,
+        AuditLogRepository $audits,
+        HolidayRepository $holidays,
+        UserLogRepository $userLogs,
+        BlankRFQRepository $model)
     {
-        $model->update($request->getData(), $id);
+
+        $result                 =   $model->update($request->getData(), $id);
+
+        $upr_model              =   $upr->findById($result->upr_id);
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+        $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        if($day_delayed != 0)
+        {
+            $day_delayed            =   $day_delayed - 1;
+        }
+        if($day_delayed != $result->days)
+        {
+            $model->update(['days' => $day_delayed], $id);
+        }
+
+        $modelType  =   'Revlv\Procurements\BlankRequestForQuotation\BlankRFQEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

@@ -18,6 +18,8 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\InvitationToSubmitQuotation\Quotations\QuotationRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Users\UserRepository;
 use Validator;
 use \Revlv\Settings\Holidays\HolidayRepository;
 
@@ -42,6 +44,8 @@ class ISPQController extends Controller
     protected $quotations;
     protected $audits;
     protected $holidays;
+    protected $users;
+    protected $userLogs;
 
     /**
      * [$model description]
@@ -320,9 +324,56 @@ class ISPQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, $id, ISPQRepository $model)
+    public function update(
+        UpdateRequest $request,
+        $id,
+        UnitPurchaseRequestRepository $upr,
+        \Revlv\Users\UserRepository $users,
+        AuditLogRepository $audits,
+        HolidayRepository $holidays,
+        UserLogRepository $userLogs,
+        ISPQRepository $model
+        )
     {
-        $model->update($request->getData(), $id);
+        $result =   $model->update($request->getData(), $id);
+
+        foreach($result->quotations as $quote)
+        {
+            $upr_model              =   $upr->findById($quote->upr_id);
+            $rfq_model              =   $upr_model->rfq;
+
+            $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
+
+            $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+            $day_delayed            =   $rfq_model->completed_at->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+                return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+            }, $transaction_date);
+
+            if($day_delayed != 0)
+            {
+                $day_delayed            =   $day_delayed - 1;
+            }
+
+            if($day_delayed != $result->days)
+            {
+                $model->update(['days' => $day_delayed], $id);
+            }
+        }
+
+        $modelType  =   'Revlv\Procurements\InvitationToSubmitQuotation\ISPQEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
 
         return redirect()->route($this->baseUrl.'edit', $id)->with([
             'success'  => "Record has been successfully updated."
