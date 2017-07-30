@@ -21,7 +21,6 @@
 <body>
 
     <div id="app">
-        <example></example>
         {{-- <chat-message></chat-message> --}}
         <chat-log :messages="messages"></chat-log>
         <chat-composer v-on:messagesent="addMessage"></chat-composer>

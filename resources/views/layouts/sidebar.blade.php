@@ -7,6 +7,8 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
 ?>
 
 <div class="sidebar">
+    <a href="" class="sidebar__toggle-button"></a>
+
     <!-- logo -->
     <div class="sidebar__logo">
         <span class="sidebar__logo__icon"><img src="/img/logo.png" alt=""></span>

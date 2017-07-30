@@ -201,6 +201,8 @@ trait AnalyticTrait
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.id',
             'unit_purchase_requests.status',
+            'unit_purchase_requests.last_remarks',
+            'unit_purchase_requests.last_action',
             'catered_units.short_code',
         ]);
 
@@ -228,6 +230,8 @@ trait AnalyticTrait
             'unit_purchase_requests.delay_count',
             'unit_purchase_requests.status',
             'catered_units.short_code',
+            'unit_purchase_requests.last_remarks',
+            'unit_purchase_requests.last_action',
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.id',
         ]);

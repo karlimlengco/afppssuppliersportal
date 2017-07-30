@@ -20,7 +20,11 @@ class MessageEloquent extends Model
      * @var array
      */
     protected $fillable = [
-        'message'
+        'message',
+        'chat_id',
+        'status',
+        'seen_by',
+        'is_seen'
     ];
 
     /**

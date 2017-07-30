@@ -33,12 +33,14 @@ $('.modal__close-button').click(function(){
 
 
 // show chatbox
-$('.topbar__utility__button--chat').click(function(){
+$(document).on('click', '.topbar__utility__button--chat', function(e){
+// $('.topbar__utility__button--chat').click(function(){
     $('.chat').addClass('is-visible');
 })
 
 //close chatbox
-$('.chat__close-button').click(function(){
+$(document).on('click', '.close-chat', function(e){
+// $('.chat__close-button').click(function(){
     $('.chat').removeClass('is-visible');
 })
 
@@ -96,4 +98,12 @@ $('.close-chat').click(function(){
 $('.notifier__close-button').click(function(e){
     e.preventDefault();
     $('.notifier').removeClass('is-visible');
+})
+
+// togglesidebar
+$('.sidebar__toggle-button').click(function(e){
+    e.preventDefault();
+    $('.sidebar').toggleClass('was-minimized');
+    $('.topbar').toggleClass('was-extended');
+    $('.content').toggleClass('was-extended');
 })

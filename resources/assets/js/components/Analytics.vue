@@ -7,7 +7,7 @@
        <!--  <div class="six columns align-right" >
             <h3>UPR count Legends</h3>
             <p>
-                <small style="border: 1px solid #222;background:#222; color:white; font-weight:800; padding:4px">Total</small>
+                <small style="border: 1px solid #222;background:#222; color:white; font-weight:900; padding:4px">Total</small>
                 <small style="border: 1px solid rgba(41, 128, 185,1.0);background:rgba(41, 128, 185,1.0); color:white; font-weight:800; padding:4px">Completed</small>
                 <small style="border: 1px solid #1d8147;background:#1d8147; color:white; font-weight:800; padding:4px">Ongoing</small>
                 <small style="border: 1px solid rgba(231, 76, 60,1.0);background:rgba(231, 76, 60,1.0); color:white; font-weight:800; padding:4px">Delay</small>
@@ -30,6 +30,7 @@
                     <th>Residual Amount</th>
                     <th>AVG Days to Complete</th>
                     <th>Number of Delays</th>
+                    <th style="text-align:center">Status</th>
                     <th style="text-align:center">Remarks</th>
                 </tr>
             </thead>
@@ -50,13 +51,13 @@
                         <td>{{formatPrice(item.total_bid)}}</td>
                         <td>{{formatPrice(item.total_residual)}}</td>
                         <td></td>
-                        <td v-if="item.avg_delays >= 0" ></td>
-                        <td v-if="item.avg_delays < 0"></td>
+                        <td></td>
+                        <td></td>
                         <td></td>
                     </tr>
                     <!-- child -->
                             <tr>
-                                <td class="has-child" colspan="8">
+                                <td class="has-child" colspan="9">
                                     <table class="child-table table-name">
                                         <tbody>
                                         <template v-for="itemProg in itemProgram">
@@ -79,14 +80,14 @@
                                                     <td>{{formatPrice(itemProgData.total_residual)}}</td>
                                                     <td></td>
 
-                                                    <td v-if="itemProgData.avg_delays >= 0">&nbsp;</td>
-                                                    <td v-if="itemProgData.avg_delays < 0">&nbsp;</td>
+                                                    <td></td>
+                                                    <td></td>
                                                     <td></td>
                                                 </tr>
                                                 <!-- Grand Child -->
 
                                                             <tr >
-                                                                <td class="has-child" colspan="8">
+                                                                <td class="has-child" colspan="9">
                                                                     <table class="grand-child-table table-name">
                                                                         <tbody>
                                                                         <template v-for="itemUnit in itemUnits">
@@ -114,10 +115,11 @@
                                                                                 <td></td>
                                                                                 <td  style="text-align:left" v-if="itemUnitData.status != 'upr_processing'"></td>
                                                                                 <td  style="text-align:left" v-else>&nbsp;</td>
+                                                                                <td></td>
                                                                             </tr>
                                                                             <!-- Great Grand -->
                                                                                     <tr>
-                                                                                        <td class="has-child" colspan="8">
+                                                                                        <td class="has-child" colspan="9">
                                                                                             <table class="great-grand-child-table table-name">
                                                                                                 <tbody>
                                                                                                 <template v-for="itemProgCent in itemProgramCenters">
@@ -140,6 +142,7 @@
                                                                                                 <td>{{itemProgCentData.delay}}</td>
                                                                                                 <td  style="text-align:left" v-if="itemProgCentData.status != 'upr_processing'">{{itemProgCentData.status}}</td>
                                                                                                 <td  style="text-align:left" v-else>UPR Processing</td>
+                                                                                                <td>{{itemProgCentData.last_remarks}}</td>
                                                                                             </tr>
                                                                                                     </template>
                                                                                                 </template>
@@ -184,6 +187,7 @@
                     <td>{{formatPrice(total_abc)}}</td>
                     <td>{{formatPrice(total_bid)}}</td>
                     <td>{{formatPrice(total_residual)}}</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

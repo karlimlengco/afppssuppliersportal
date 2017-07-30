@@ -3,6 +3,7 @@
 <!-- Bootstrap -->
 {{-- <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script> --}}
 
+<script src="/js/app.js"></script>
 
 <!-- bootstrap-daterangepicker -->
 <script src="/js/moment/moment.min.js"></script>

@@ -9,7 +9,7 @@
                 {
                     "route" :   "biddings.unit-purchase-requests.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Unit Purchase Reqeust"
+                    "name"  :   "Unit Purchase Request"
                 },
                 {
                     "route" :   "biddings.document-acceptance.index",

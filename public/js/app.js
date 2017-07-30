@@ -16053,6 +16053,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 var arrayIDs = [];
@@ -16265,6 +16269,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['messages']
@@ -16276,6 +16281,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -50764,10 +50789,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "tooltip": "Delay"
       }
-    }, [_vm._v("(" + _vm._s(item.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (item.avg_delays >= 0) ? _c('td') : _vm._e(), _vm._v(" "), (item.avg_delays < 0) ? _c('td') : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _c('tr', [_c('td', {
+    }, [_vm._v("(" + _vm._s(item.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td')]), _vm._v(" "), _c('tr', [_c('td', {
       staticClass: "has-child",
       attrs: {
-        "colspan": "8"
+        "colspan": "9"
       }
     }, [_c('table', {
       staticClass: "child-table table-name"
@@ -50801,10 +50826,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           attrs: {
             "tooltip": "Delay"
           }
-        }, [_vm._v("(" + _vm._s(itemProgData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (itemProgData.avg_delays >= 0) ? _c('td', [_vm._v(" ")]) : _vm._e(), _vm._v(" "), (itemProgData.avg_delays < 0) ? _c('td', [_vm._v(" ")]) : _vm._e(), _vm._v(" "), _c('td')]), _vm._v(" "), _c('tr', [_c('td', {
+        }, [_vm._v("(" + _vm._s(itemProgData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td')]), _vm._v(" "), _c('tr', [_c('td', {
           staticClass: "has-child",
           attrs: {
-            "colspan": "8"
+            "colspan": "9"
           }
         }, [_c('table', {
           staticClass: "grand-child-table table-name"
@@ -50845,10 +50870,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               staticStyle: {
                 "text-align": "left"
               }
-            }, [_vm._v(" ")])]), _vm._v(" "), _c('tr', [_c('td', {
+            }, [_vm._v(" ")]), _vm._v(" "), _c('td')]), _vm._v(" "), _c('tr', [_c('td', {
               staticClass: "has-child",
               attrs: {
-                "colspan": "8"
+                "colspan": "9"
               }
             }, [_c('table', {
               staticClass: "great-grand-child-table table-name"
@@ -50895,7 +50920,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   staticStyle: {
                     "text-align": "left"
                   }
-                }, [_vm._v("UPR Processing")])])
+                }, [_vm._v("UPR Processing")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.last_remarks))])])
               }) : _vm._e()] : _vm._e()]
             })], 2)])])])]
           })] : _vm._e()] : _vm._e()]
@@ -50921,7 +50946,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "tooltip": "Delay"
     }
-  }, [_vm._v("(" + _vm._s(_vm.total_delay) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td')])], 2)])])])
+  }, [_vm._v("(" + _vm._s(_vm.total_delay) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td')])], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
@@ -50943,6 +50968,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("(ongoing)")]), _vm._v(" "), _c('span', {
     staticClass: "red "
   }, [_vm._v("(delay)")])])]), _vm._v(" "), _c('th', [_vm._v("Total ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVG Days to Complete")]), _vm._v(" "), _c('th', [_vm._v("Number of Delays")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("Status")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "text-align": "center"
     }
@@ -51070,9 +51099,40 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "chat-message"
-  }, [_c('p', [_vm._v(_vm._s(_vm.message.message))]), _vm._v(" "), _c('small', [_vm._v(_vm._s(_vm.message.user.first_name))])])
-},staticRenderFns: []}
+    staticClass: "chat chat-message"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "chat__thread"
+  }, [_c('div', {
+    staticClass: "chat__thread__item"
+  }, [_vm._m(1), _vm._v(" "), _c('span', {
+    staticClass: "chat__thread__info"
+  }, [_c('span', {
+    staticClass: "chat__thread__name"
+  }, [_vm._v(_vm._s(_vm.message.user.first_name))]), _vm._v(" "), _c('span', {
+    staticClass: "chat__thread__message"
+  }, [_vm._v(_vm._s(_vm.message.message))])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "chat__head"
+  }, [_c('div', {
+    staticClass: "chat__head__title"
+  }, [_vm._v("Super Chat")]), _vm._v(" "), _c('div', {
+    staticClass: "chat__head__utility"
+  }, [_c('button', {
+    staticClass: "chat__head__utility__button close-chat"
+  }, [_c('i', {
+    staticClass: "nc-icon-mini ui-1_simple-remove"
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "chat__thread__avatar"
+  }, [_c('img', {
+    attrs: {
+      "src": "src/img/avatar.jpg",
+      "alt": ""
+    }
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
