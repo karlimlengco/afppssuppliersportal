@@ -31,22 +31,22 @@ Document Acceptance
     </div>
 </div>
 
-<div class="row">
-    <div class="six columns">
-        {!! Form::selectField('bac_id', 'BacSec', $bac_lists) !!}
+    <div class="row">
+        <div class="six columns">
+            {!! Form::selectField('bac_id', 'BacSec', $bac_lists) !!}
+        </div>
+        <div class="six columns">
+            {!! Form::textField('transaction_date', 'Transaction Date') !!}
+        </div>
     </div>
-    <div class="six columns">
-        {!! Form::textField('transaction_date', 'Transaction Date') !!}
+    <div class="row">
+        <div class="six columns">
+            {!! Form::textField('approved_date', 'Approved Date') !!}
+        </div>
+        <div class="six columns">
+            {!! Form::textField('resched_date', 'Re-Sched Date') !!}
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="six columns">
-        {!! Form::textField('approved_date', 'Approved Date') !!}
-    </div>
-    <div class="six columns">
-        {!! Form::textField('resched_date', 'Re-Sched Date') !!}
-    </div>
-</div>
         {!! Form::textareaField('resched_remarks', 'Re-Sched Remarks', null,['rows'=>3]) !!}
         {!! Form::textareaField('remarks', 'Remarks', null,['rows'=>3]) !!}
         {!! Form::textareaField('action', 'Action Taken', null,['rows'=>3]) !!}

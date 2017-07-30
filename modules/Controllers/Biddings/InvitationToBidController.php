@@ -16,6 +16,8 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
+use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Users\UserRepository;
 
 class InvitationToBidController extends Controller
 {
@@ -36,6 +38,8 @@ class InvitationToBidController extends Controller
     protected $suppliers;
     protected $audits;
     protected $holidays;
+    protected $users;
+    protected $userLogs;
 
     /**
      * [$model description]
@@ -117,7 +121,8 @@ class InvitationToBidController extends Controller
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        $day_delayed            =   $day_delayed;
+        if($day_delayed != 0)
+        $day_delayed            =   $day_delayed - 1;
 
         $validator = Validator::make($request->all(),[
             'itb_approved_date'  =>  'required',
@@ -191,7 +196,25 @@ class InvitationToBidController extends Controller
         InvitationToBidRepository $model,
         UnitPurchaseRequestRepository $upr)
     {
-        //
+
+        $result =   $model->findById($id);
+
+        $this->view('modules.biddings.itb.edit',[
+            'indexRoute'    =>  $this->baseUrl.'index',
+            'data'          =>  $result,
+            'modelConfig'   =>  [
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update', $id],
+                    'method'    =>  'PUT'
+                ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
+                new Breadcrumb('Document Acceptancce'),
+                new Breadcrumb('Update'),
+            ]
+        ]);
     }
 
     /**
@@ -203,10 +226,46 @@ class InvitationToBidController extends Controller
      */
     public function update(
         $id,
-        InvitationToBidRequest $request,
+        AuditLogRepository $audits,
+        UserLogRepository $userLogs,
+        UserRepository $users,
+        HolidayRepository $holidays,
+        UnitPurchaseRequestRepository $upr,
+        Request $request,
         InvitationToBidRepository $model)
     {
-        $model->update($request->getData(), $id);
+        $result     =   $model->update(['approved_date' => $request->approved_date, 'update_remarks' => $request->update_remarks], $id);
+
+        $upr_model              =   $result->upr;
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->approved_date);
+        $document_accept        =   Carbon::createFromFormat('Y-m-d', $upr_model->document_accept->approved_date);
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+        $day_delayed            =   $document_accept->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        if($day_delayed != 0)
+        $day_delayed            =   $day_delayed - 1;
+
+        if($day_delayed != $result->days)
+        {
+            $model->update(['days' => $day_delayed], $id);
+        }
+
+        $modelType  =   'Revlv\Biddings\InvitationToBid\InvitationToBidEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -225,6 +284,33 @@ class InvitationToBidController extends Controller
 
         return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "Record has been successfully deleted."
+        ]);
+    }
+
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, InvitationToBidRepository $model, AuditLogRepository $audits)
+    {
+
+        $modelType  =   'Revlv\Biddings\InvitationToBid\InvitationToBidEloquent';
+        $result     =   $audits->findByModelAndId($modelType, $id);
+        $rfq_model  =   $model->findById($id);
+
+        return $this->view('modules.biddings.itb.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'rfq'           =>  $rfq_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($rfq_model->upr_number, 'biddings.unit-purchase-requests.show', $rfq_model->upr_id ),
+                new Breadcrumb('Invitation To Bid'),
+                new Breadcrumb('Logs'),
+            ]
         ]);
     }
 

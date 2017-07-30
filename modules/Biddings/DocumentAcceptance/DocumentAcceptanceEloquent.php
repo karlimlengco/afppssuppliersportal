@@ -16,7 +16,16 @@ class DocumentAcceptanceEloquent extends Model implements  AuditableContract
      *
      * @var array
      */
-    protected $auditInclude = [];
+    protected $auditInclude = [
+        'bac_id',
+        'update_remarks',
+        'transaction_date',
+        'approved_date',
+        'resched_date',
+        'resched_remarks',
+        'remarks',
+        'action',
+    ];
 
     /**
      * The database table used by the model.

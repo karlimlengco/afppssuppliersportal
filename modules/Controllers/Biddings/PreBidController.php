@@ -16,6 +16,9 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
+use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Users\UserRepository;
+
 
 class PreBidController extends Controller
 {
@@ -36,6 +39,8 @@ class PreBidController extends Controller
     protected $suppliers;
     protected $holidays;
     protected $audits;
+    protected $users;
+    protected $userLogs;
 
     /**
      * [$model description]
@@ -123,6 +128,7 @@ class PreBidController extends Controller
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
+        if($day_delayed != 0)
         $day_delayed            =   $day_delayed - 1;
 
         $validator = Validator::make($request->all(),[
@@ -197,6 +203,23 @@ class PreBidController extends Controller
         PreBidRepository $model,
         UnitPurchaseRequestRepository $upr)
     {
+        $result     =   $model->findById($id);
+
+        return $this->view('modules.biddings.pre-bids.edit',[
+            'data'          =>  $result,
+            'indexRoute'    =>  $this->baseUrl.'show',
+            'modelConfig'   =>  [
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update', $id],
+                    'method'    =>  'PUT'
+                ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Pre Bid Conference', 'biddings.pre-bids.show', $result->id),
+                new Breadcrumb('Update')
+            ]
+        ]);
     }
 
     /**
@@ -209,9 +232,45 @@ class PreBidController extends Controller
     public function update(
         $id,
         PreBidRequest $request,
+        UserRepository $users,
+        UnitPurchaseRequestRepository $upr,
+        AuditLogRepository $audits,
+        HolidayRepository $holidays,
+        UserLogRepository $userLogs,
         PreBidRepository $model)
     {
-        $model->update($request->getData(), $id);
+        $result =   $model->update($request->getData(), $id);
+
+        $upr_model              =   $result->upr;
+        $philgeps               =   Carbon::createFromFormat('Y-m-d',$upr_model->philgeps->transaction_date);
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+        $day_delayed            =   $philgeps->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        if($day_delayed != 0)
+        $day_delayed            =   $day_delayed - 1;
+
+        if($day_delayed != $result->days)
+        {
+            $model->update(['days' => $day_delayed], $id);
+        }
+
+        $modelType  =   'Revlv\Biddings\PreBid\PreBidEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -230,6 +289,32 @@ class PreBidController extends Controller
 
         return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "Record has been successfully deleted."
+        ]);
+    }
+
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, PreBidRepository $model, AuditLogRepository $logs)
+    {
+
+        $modelType  =   'Revlv\Biddings\PreBid\PreBidEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.biddings.pre-bids.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Pre Bid Conference', 'biddings.pre-bids.show', $data_model->id),
+                new Breadcrumb('Logs')
+            ]
         ]);
     }
 

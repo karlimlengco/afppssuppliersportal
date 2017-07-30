@@ -21,6 +21,8 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 use Revlv\Procurements\DeliveryOrder\AttachmentTrait;
+use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Users\UserRepository;
 
 class DeliveryController extends Controller
 {
@@ -52,6 +54,8 @@ class DeliveryController extends Controller
     protected $signatories;
     protected $audits;
     protected $holidays;
+    protected $users;
+    protected $userLogs;
 
     /**
      * @param model $model
@@ -295,13 +299,22 @@ class DeliveryController extends Controller
      * @param  [type]  $id      [description]
      * @return [type]           [description]
      */
-    public function updateDates(Request $request, $id, DeliveryOrderRepository $model)
+    public function updateDates(
+        Request $request,
+        UnitPurchaseRequestRepository $upr,
+        AuditLogRepository $audits,
+        HolidayRepository $holidays,
+        UserLogRepository $userLogs,
+        UserRepository $users,
+        PORepository $po,
+        $id,
+        DeliveryOrderRepository $model)
     {
 
         $this->validate($request, [
             "update_remarks"        => 'required',
             "expected_date"         => 'required',
-            "delivery_date"         => 'required',
+            // "delivery_date"         => 'required',
             "transaction_date"      => 'required',
             // "date_delivered_to_coa" => 'required',
         ]);
@@ -314,7 +327,42 @@ class DeliveryController extends Controller
             // "date_delivered_to_coa" =>  $request->date_delivered_to_coa,
         ];
 
-        $model->update($input, $id);
+        $result = $model->update($input, $id);
+
+        $po_model               =   $po->with(['items'])->findById($result->po_id);
+        $ntp                    =   $po_model->ntp;
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
+        $ntp_date               =   Carbon::createFromFormat('Y-m-d', $ntp->award_accepted_date );
+
+        $day_delayed            =   $ntp_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        if($day_delayed != 0)
+        {
+            $day_delayed = $day_delayed - 1;
+        }
+
+        if($day_delayed != $result->days)
+        {
+            $model->update(['days' => $day_delayed], $id);
+        }
+
+        $modelType  =   'Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

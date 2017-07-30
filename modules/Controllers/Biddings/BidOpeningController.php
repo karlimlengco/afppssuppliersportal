@@ -16,6 +16,8 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Users\UserRepository;
 
 class BidOpeningController extends Controller
 {
@@ -36,6 +38,8 @@ class BidOpeningController extends Controller
     protected $holidays;
     protected $suppliers;
     protected $audits;
+    protected $users;
+    protected $userLogs;
 
     /**
      * [$model description]
@@ -190,7 +194,24 @@ class BidOpeningController extends Controller
         BidOpeningRepository $model,
         UnitPurchaseRequestRepository $upr)
     {
-        //
+
+        $result     =   $model->findById($id);
+
+        return $this->view('modules.biddings.bid-openings.edit',[
+            'data'          =>  $result,
+            'indexRoute'    =>  $this->baseUrl.'show',
+            'modelConfig'   =>  [
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update', $id],
+                    'method'    =>  'PUT'
+                ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Bid Opening', 'biddings.bid-openings.show', $result->id),
+                new Breadcrumb('Update')
+            ]
+        ]);
     }
 
     /**
@@ -202,10 +223,49 @@ class BidOpeningController extends Controller
      */
     public function update(
         $id,
-        BidOpeningRequest $request,
+        Request $request,
+        UserRepository $users,
+        UnitPurchaseRequestRepository $upr,
+        AuditLogRepository $audits,
+        HolidayRepository $holidays,
+        UserLogRepository $userLogs,
         BidOpeningRepository $model)
     {
-        $model->update($request->getData(), $id);
+        $result     =   $model->update(['transaction_date' => $request->transaction_date, 'closing_date' => $request->closing_date,'update_remarks' => $request->update_remarks, ], $id);
+
+        $upr_model              =   $result->upr;
+        $pre_bid                =   Carbon::createFromFormat('Y-m-d',$upr_model->bid_conference->transaction_date);
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+        $day_delayed            =   $pre_bid->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        if($day_delayed < 0)
+        {
+            $day_delayed            =   $day_delayed - 1;
+        }
+
+        if($day_delayed != $result->days)
+        {
+            $model->update(['days' => $day_delayed], $id);
+        }
+
+        $modelType  =   'Revlv\Biddings\BidOpening\BidOpeningEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
+
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -243,4 +303,29 @@ class BidOpeningController extends Controller
         ]);
     }
 
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, BidOpeningRepository $model, AuditLogRepository $logs)
+    {
+
+        $modelType  =   'Revlv\Biddings\BidOpening\BidOpeningEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.biddings.bid-openings.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Bid Opening', 'biddings.bid-openings.show', $data_model->id),
+                new Breadcrumb('Logs')
+            ]
+        ]);
+    }
 }

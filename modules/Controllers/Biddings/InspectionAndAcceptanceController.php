@@ -20,6 +20,8 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
+use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Users\UserRepository;
 
 class InspectionAndAcceptanceController extends Controller
 {
@@ -50,6 +52,8 @@ class InspectionAndAcceptanceController extends Controller
     protected $rfq;
     protected $audits;
     protected $holidays;
+    protected $users;
+    protected $userLogs;
 
     /**
      * @param model $model
@@ -402,11 +406,19 @@ class InspectionAndAcceptanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, InspectionAndAcceptanceRepository $model)
+    public function update(
+        Request $request,
+        $id,
+        UnitPurchaseRequestRepository $upr,
+        AuditLogRepository $audits,
+        HolidayRepository $holidays,
+        UserLogRepository $userLogs,
+        UserRepository $users,
+        InspectionAndAcceptanceRepository $model)
     {
         $this->validate($request, [
             "update_remarks"    => 'required',
-            "accepted_date"     => 'required',
+            // "accepted_date"     => 'required',
             "inspection_date"   => 'required',
         ]);
         $input  =[
@@ -415,7 +427,41 @@ class InspectionAndAcceptanceController extends Controller
             "inspection_date"   => $request->inspection_date,
         ];
 
-        $model->update($input, $id);
+        $result     =   $model->update($input, $id);
+
+        $dr_model               =   $result->delivery;
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('inspection_date') );
+        $dr_date                =   Carbon::createFromFormat('Y-m-d', $dr_model->date_delivered_to_coa );
+
+        $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        if($day_delayed != 0)
+        {
+            $day_delayed = $day_delayed - 1;
+        }
+
+        if($day_delayed != $result->days)
+        {
+            $model->update(['days' => $day_delayed], $id);
+        }
+
+        $modelType  =   'Revlv\Procurements\InspectionAndAcceptance\InspectionAndAcceptanceEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

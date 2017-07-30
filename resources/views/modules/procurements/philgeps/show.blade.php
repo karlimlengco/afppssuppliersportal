@@ -41,7 +41,6 @@ PhilGeps Posting
             <i class="nc-icon-mini files_archive-content"></i>
         </a>
 
-
         <a class="button" href="{{route($editRoute,$data->id)}}">
             <i class="nc-icon-mini design_pen-01"></i></a>
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>

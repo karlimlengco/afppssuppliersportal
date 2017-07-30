@@ -16,7 +16,7 @@ class InvitationToBidEloquent extends Model implements  AuditableContract
      *
      * @var array
      */
-    protected $auditInclude = [];
+    protected $auditInclude = ['approved_date', 'update_remarks'];
 
     /**
      * The database table used by the model.

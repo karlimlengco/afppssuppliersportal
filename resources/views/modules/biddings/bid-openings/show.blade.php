@@ -40,6 +40,15 @@ Bid Opening
                 <a href="{{route('biddings.bid-openings.closed',$data->id)}}" class="button" tooltip="Submit"><i class="nc-icon-mini ui-2_disk"></i></a>
             @endif
         @endif
+
+
+        <a href="{{route('biddings.bid-openings.logs', $data->id)}}" class="button" tooltip="Logs">
+            <i class="nc-icon-mini files_archive-content"></i>
+        </a>
+
+        <a href="{{route('biddings.bid-openings.edit',$data->id)}}" class="button" tooltip="Edit">
+            <i class="nc-icon-mini design_pen-01"></i>
+        </a>
     </div>
 </div>
 

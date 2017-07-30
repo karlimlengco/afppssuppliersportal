@@ -23,8 +23,6 @@ use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Users\UserRepository;
-use \Revlv\Users\Logs\UserLogRepository;
-use \Revlv\Users\UserRepository;
 
 class NoticeToProceedController extends Controller
 {

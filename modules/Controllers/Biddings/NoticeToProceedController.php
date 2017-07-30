@@ -21,6 +21,8 @@ use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
+use \Revlv\Users\UserRepository;
+use \Revlv\Users\Logs\UserLogRepository;
 
 
 class NoticeToProceedController extends Controller
@@ -47,6 +49,8 @@ class NoticeToProceedController extends Controller
     protected $signatories;
     protected $audits;
     protected $holidays;
+    protected $users;
+    protected $userLogs;
 
     /**
      * [$model description]
@@ -267,12 +271,21 @@ class NoticeToProceedController extends Controller
      * @param  NTPRepository $model   [description]
      * @return [type]                 [description]
      */
-    public function updateDates($id, Request $request, NTPRepository $model)
+    public function updateDates(
+        $id,
+        Request $request,
+        NTPRepository $model,
+        UnitPurchaseRequestRepository $upr,
+        AuditLogRepository $audits,
+        HolidayRepository $holidays,
+        PORepository $po,
+        NOARepository $noa,
+        UserLogRepository $userLogs,
+        UserRepository $users)
     {
         $this->validate($request, [
             'prepared_date'         =>  'required',
             'update_remarks'        =>  'required',
-            'award_accepted_date'   =>  'required',
         ]);
 
         $input  =   [
@@ -281,7 +294,37 @@ class NoticeToProceedController extends Controller
             'award_accepted_date'   =>  $request->award_accepted_date,
         ];
 
-        $result             =   $model->update($input, $id);
+        $result                 =   $model->update($input, $id);
+
+        $po_model               =   $po->findById($result->po_id);
+        $noa_model              =   $noa->findByUPR($po_model->upr_id);
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('prepared_date') );
+        $po_date                =   Carbon::createFromFormat('Y-m-d', $po_model->coa_approved_date );
+
+        $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        if($day_delayed != $result->days)
+        {
+            $model->update(['days' => $day_delayed], $id);
+        }
+
+        $modelType  =   'Revlv\Procurements\NoticeToProceed\NTPEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

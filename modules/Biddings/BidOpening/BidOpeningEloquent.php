@@ -16,7 +16,15 @@ class BidOpeningEloquent extends Model implements  AuditableContract
      *
      * @var array
      */
-    protected $auditInclude = [];
+    protected $auditInclude = [
+        'action',
+        'transaction_date',
+        'update_remarks',
+        'closing_date',
+        'is_completed',
+        'days',
+        'remarks',
+    ];
 
     /**
      * The database table used by the model.

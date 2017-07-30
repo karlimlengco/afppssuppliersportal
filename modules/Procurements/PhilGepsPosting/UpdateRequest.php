@@ -36,8 +36,8 @@ class UpdateRequest extends BaseRequest
             'philgeps_number'   => 'required',
             'transaction_date'  => 'required',
             'philgeps_posting'  => 'required',
-            'deadline_rfq'      => 'required',
-            'opening_time'      => 'required',
+            'deadline_rfq'      => 'required_without:newspaper',
+            'opening_time'      => 'required_without:newspaper',
         ];
     }
 }

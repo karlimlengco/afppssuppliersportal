@@ -90,6 +90,7 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('philgeps/logs/{id}', '\Revlv\Controllers\Biddings\PhilGepsController@viewLogs')->name('philgeps.logs');
     Route::resource('philgeps', '\Revlv\Controllers\Biddings\PhilGepsController');
 
     /*
@@ -106,6 +107,7 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('bid-openings/logs/{id}', '\Revlv\Controllers\Biddings\BidOpeningController@viewLogs')->name('bid-openings.logs');
     Route::resource('bid-openings', '\Revlv\Controllers\Biddings\BidOpeningController');
 
     /*
@@ -114,6 +116,8 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     |--------------------------------------------------------------------------
     |
     */
+
+    Route::get('document-acceptance/logs/{id}', '\Revlv\Controllers\Biddings\DocumentAcceptanceController@viewLogs')->name('document-acceptance.logs');
     Route::resource('document-acceptance', '\Revlv\Controllers\Biddings\DocumentAcceptanceController');
 
 
@@ -131,6 +135,7 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('itb/logs/{id}', '\Revlv\Controllers\Biddings\InvitationToBidController@viewLogs')->name('itb.logs');
     Route::resource('itb', '\Revlv\Controllers\Biddings\InvitationToBidController');
 
     /*
@@ -139,6 +144,7 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('post-qualifications/logs/{id}', '\Revlv\Controllers\Biddings\PostQualificationController@viewLogs')->name('post-qualifications.logs');
     Route::post('post-qualifications/failed', '\Revlv\Controllers\Biddings\PostQualificationController@failed')->name('post-qualifications.failed');
 
     Route::post('award-to/{pq_id}/{proponent_id}', '\Revlv\Controllers\Biddings\NOAController@awardToProponent')->name('notice-of-awards.award-to');
@@ -150,6 +156,7 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('pre-bids/logs/{id}', '\Revlv\Controllers\Biddings\PreBidController@viewLogs')->name('pre-bids.logs');
     Route::resource('pre-bids', '\Revlv\Controllers\Biddings\PreBidController');
 
     /*

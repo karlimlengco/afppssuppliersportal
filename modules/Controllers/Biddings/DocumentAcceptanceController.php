@@ -12,11 +12,14 @@ use \App\Support\Breadcrumb;
 
 use Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceRepository;
 use Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceRequest;
+use Revlv\Biddings\DocumentAcceptance\UpdateRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 use Revlv\Settings\BacSec\BacSecRepository;
+use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Users\UserRepository;
 
 class DocumentAcceptanceController extends Controller
 {
@@ -38,6 +41,8 @@ class DocumentAcceptanceController extends Controller
     protected $holidays;
     protected $audits;
     protected $bacs;
+    protected $users;
+    protected $userLogs;
 
     /**
      * [$model description]
@@ -128,6 +133,7 @@ class DocumentAcceptanceController extends Controller
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
+        if($day_delayed != 0)
         $day_delayed            =   $day_delayed - 1;
 
         $validator = Validator::make($request->all(),[
@@ -185,6 +191,7 @@ class DocumentAcceptanceController extends Controller
         return $this->view('modules.biddings.document-acceptance.show',[
             'data'              =>  $result,
             'indexRoute'        =>  $this->baseUrl.'index',
+            'editRoute'        =>  $this->baseUrl.'edit',
             'breadcrumbs' => [
                 new Breadcrumb('Public Bidding'),
                 new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
@@ -201,9 +208,29 @@ class DocumentAcceptanceController extends Controller
      */
     public function edit($id,
         DocumentAcceptanceRepository $model,
+        BacSecRepository $bacs,
         UnitPurchaseRequestRepository $upr)
     {
-        //
+        $result =   $model->findById($id);
+
+        $bac_lists      =   $bacs->lists('id', 'name');
+        $this->view('modules.biddings.document-acceptance.edit',[
+            'indexRoute'    =>  $this->baseUrl.'index',
+            'data'          =>  $result,
+            'bac_lists'     =>  $bac_lists,
+            'modelConfig'   =>  [
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update', $id],
+                    'method'    =>  'PUT'
+                ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
+                new Breadcrumb('Document Acceptancce'),
+                new Breadcrumb('Update'),
+            ]
+        ]);
     }
 
     /**
@@ -215,10 +242,45 @@ class DocumentAcceptanceController extends Controller
      */
     public function update(
         $id,
-        DocumentAcceptanceRequest $request,
+        UpdateRequest $request,
+        AuditLogRepository $audits,
+        UserLogRepository $userLogs,
+        UserRepository $users,
+        HolidayRepository $holidays,
+        UnitPurchaseRequestRepository $upr,
         DocumentAcceptanceRepository $model)
     {
-        $model->update($request->getData(), $id);
+        $result = $model->update($request->getData(), $id);
+
+        $upr_model              =   $result->upr;
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+        $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        if($day_delayed != 0)
+        $day_delayed            =   $day_delayed - 1;
+
+        if($day_delayed != $result->days)
+        {
+            $model->update(['days' => $day_delayed], $id);
+        }
+
+        $modelType  =   'Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -240,4 +302,30 @@ class DocumentAcceptanceController extends Controller
         ]);
     }
 
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, DocumentAcceptanceRepository $model, AuditLogRepository $audits)
+    {
+
+        $modelType  =   'Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceEloquent';
+        $result     =   $audits->findByModelAndId($modelType, $id);
+        $rfq_model  =   $model->findById($id);
+
+        return $this->view('modules.biddings.document-acceptance.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'rfq'           =>  $rfq_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($rfq_model->upr_number, 'biddings.unit-purchase-requests.show', $rfq_model->upr_id ),
+                new Breadcrumb('Document Acceptancce'),
+                new Breadcrumb('Logs'),
+            ]
+        ]);
+    }
 }

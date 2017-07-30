@@ -29,6 +29,12 @@ PhilGeps Posting
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+        <a href="{{route('biddings.philgeps.logs', $data->id)}}" class="button" tooltip="Logs">
+            <i class="nc-icon-mini files_archive-content"></i>
+        </a>
+
+        <a class="button" href="{{route('biddings.philgeps.edit',$data->id)}}">
+            <i class="nc-icon-mini design_pen-01"></i></a>
     </div>
 </div>
 

@@ -16,7 +16,15 @@ class PostQualificationEloquent extends Model implements  AuditableContract
      *
      * @var array
      */
-    protected $auditInclude = [];
+    protected $auditInclude = [
+        'update_remarks',
+        'action',
+        'transaction_date',
+        'approved_date',
+        'resched_date',
+        'resched_remarks',
+        'remarks',
+    ];
 
     /**
      * The database table used by the model.

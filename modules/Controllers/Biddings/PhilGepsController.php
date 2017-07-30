@@ -12,9 +12,13 @@ use Validator;
 
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRepository;
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRequest;
+use \Revlv\Procurements\PhilGepsPosting\UpdateRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
+use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
+use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Users\UserRepository;
 
 class PhilGepsController extends Controller
 {
@@ -34,6 +38,8 @@ class PhilGepsController extends Controller
     protected $upr;
     protected $holidays;
     protected $audits;
+    protected $users;
+    protected $userLogs;
 
     /**
      * [$model description]
@@ -195,7 +201,27 @@ class PhilGepsController extends Controller
         PhilGepsPostingRepository $model,
         UnitPurchaseRequestRepository $upr)
     {
-        //
+        $result     =   $model->findById($id);
+
+        return $this->view('modules.biddings.philgeps.edit',[
+            'data'          =>  $result,
+            'indexRoute'    =>  $this->baseUrl.'show',
+            'modelConfig'   =>  [
+                'update' =>  [
+                    'route'     =>  [$this->baseUrl.'update', $id],
+                    'method'    =>  'PUT'
+                ],
+                'destroy'   => [
+                    'route' => [$this->baseUrl.'destroy',$id],
+                    'method'=> 'DELETE'
+                ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($result->philgeps_number, 'biddings.philgeps.show', $result->id),
+                new Breadcrumb('Update')
+            ]
+        ]);
     }
 
     /**
@@ -206,13 +232,76 @@ class PhilGepsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(
+        UpdateRequest $request,
         $id,
-        Request $request,
+        \Revlv\Users\UserRepository $users,
+        UnitPurchaseRequestRepository $upr,
+        BlankRFQRepository $rfq,
+        AuditLogRepository $audits,
+        HolidayRepository $holidays,
+        UserLogRepository $userLogs,
         PhilGepsPostingRepository $model)
     {
-        $model->update($request->getData(), $id);
+        $result                 =   $model->update($request->getData(), $id);
+        if($result->rfq_id)
+        {
 
-        return redirect()->route($this->baseUrl.'show', $id)->with([
+            $rfq_model              =   $rfq->findById($result->rfq_id);
+            $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
+
+            if($invitation = $rfq_model->invitations)
+            {
+                $ispq_transaction_date   = Carbon::createFromFormat('Y-m-d', $invitation->ispq->transaction_date);
+            }
+            else
+            {
+                $ispq_transaction_date   = $rfq_model->completed_at;
+            }
+
+            $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+            $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+                return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+            }, $transaction_date);
+        }
+        else
+        {
+            $upr_model              =   $upr->findById($result->upr_id);
+            $invitation             =   Carbon::createFromFormat('Y-m-d',$upr_model->itb->approved_date);
+            $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
+            $holiday_lists          =   $holidays->lists('id','holiday_date');
+
+            $day_delayed            =   $invitation->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+                return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+            }, $transaction_date);
+
+        }
+
+        if($day_delayed != 0)
+        {
+            $day_delayed            =   $day_delayed - 1;
+        }
+
+        if($day_delayed != $result->days)
+        {
+            $model->update(['days' => $day_delayed], $id);
+        }
+
+        $modelType  =   'Revlv\Procurements\PhilGepsPosting\PhilGepsPostingEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
+
+        return redirect()->route($this->baseUrl.'edit', $id)->with([
             'success'  => "Record has been successfully updated."
         ]);
     }
@@ -232,4 +321,29 @@ class PhilGepsController extends Controller
         ]);
     }
 
+    /**
+     * [viewLogs description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function viewLogs($id, PhilGepsPostingRepository $model, AuditLogRepository $logs)
+    {
+
+        $modelType  =   'Revlv\Procurements\PhilGepsPosting\PhilGepsPostingEloquent';
+        $result     =   $logs->findByModelAndId($modelType, $id);
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.biddings.philgeps.logs',[
+            'indexRoute'    =>  $this->baseUrl."show",
+            'data'          =>  $result,
+            'model'         =>  $data_model,
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb($data_model->philgeps_number, 'biddings.philgeps.show', $data_model->id),
+                new Breadcrumb('Logs')
+            ]
+        ]);
+    }
 }

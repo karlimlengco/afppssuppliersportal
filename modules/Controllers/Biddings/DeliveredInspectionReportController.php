@@ -20,6 +20,8 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
+use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Users\UserRepository;
 
 class DeliveredInspectionReportController extends Controller
 {
@@ -52,6 +54,8 @@ class DeliveredInspectionReportController extends Controller
     protected $upr;
     protected $audits;
     protected $holidays;
+    protected $users;
+    protected $userLogs;
 
     /**
      * @param model $model
@@ -468,11 +472,19 @@ class DeliveredInspectionReportController extends Controller
      * @param  [type]  $id      [description]
      * @return [type]           [description]
      */
-    public function update(Request $request, $id, DeliveryInspectionRepository $model)
+    public function update(
+        Request $request,
+        $id,
+        UnitPurchaseRequestRepository $upr,
+        AuditLogRepository $audits,
+        HolidayRepository $holidays,
+        UserLogRepository $userLogs,
+        UserRepository $users,
+        DeliveryInspectionRepository $model)
     {
         $this->validate($request, [
             'start_date'    => 'required',
-            'closed_date'   => 'required',
+            // 'closed_date'   => 'required',
             'update_remarks'=> 'required',
         ]);
 
@@ -482,7 +494,40 @@ class DeliveredInspectionReportController extends Controller
             'update_remarks'=>  $request->update_remarks,
         ];
 
-        $model->update($data, $id);
+        $result =   $model->update($data, $id);
+        $tiac                   =   $result->delivery->inspections;
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('start_date') );
+        $tiac_date              =   Carbon::createFromFormat('Y-m-d', $tiac->accepted_date );
+
+        $day_delayed            =   $tiac_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        if($day_delayed != 0)
+        {
+            $day_delayed = $day_delayed - 1;
+        }
+
+        if($day_delayed != $result->days)
+        {
+            $model->update(['days' => $day_delayed], $id);
+        }
+
+        $modelType  =   'Revlv\Procurements\DeliveryInspection\DeliveryInspectionEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

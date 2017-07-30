@@ -20,6 +20,8 @@ use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Banks\BankRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
+use \Revlv\Users\Logs\UserLogRepository;
+use \Revlv\Users\UserRepository;
 
 class VoucherController extends Controller
 {
@@ -43,6 +45,8 @@ class VoucherController extends Controller
     protected $signatories;
     protected $banks;
     protected $holidays;
+    protected $users;
+    protected $userLogs;
 
     /**
      * [$model description]
@@ -233,17 +237,25 @@ class VoucherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, VoucherRepository $model)
+    public function update(
+        Request $request,
+        $id,
+        UnitPurchaseRequestRepository $upr,
+        AuditLogRepository $audits,
+        HolidayRepository $holidays,
+        UserLogRepository $userLogs,
+        UserRepository $users,
+        VoucherRepository $model)
     {
         $this->validate($request, [
             'update_remarks'        =>  'required',
             'transaction_date'      =>  'required',
-            'payment_release_date'  =>  'required',
-            'payment_received_date' =>  'required',
-            'preaudit_date'         =>  'required',
-            'certify_date'          =>  'required',
-            'journal_entry_date'    =>  'required',
-            'approval_date'         =>  'required'
+            // 'payment_release_date'  =>  'required',
+            // 'payment_received_date' =>  'required',
+            // 'preaudit_date'         =>  'required',
+            // 'certify_date'          =>  'required',
+            // 'journal_entry_date'    =>  'required',
+            // 'approval_date'         =>  'required'
         ]);
 
         $data   =   [
@@ -257,7 +269,41 @@ class VoucherController extends Controller
             'approval_date'         =>  $request->approval_date
         ];
 
-        $model->update($data, $id);
+        $result                 =   $model->update($data, $id);
+
+        $rfq_model              =   $result->upr;
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
+        $diir_date              =   Carbon::createFromFormat('Y-m-d', $rfq_model->diir->closed_date );
+
+        $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        if($day_delayed != 0)
+        {
+            $day_delayed = $day_delayed - 1;
+        }
+
+        if($day_delayed != $result->days)
+        {
+            $model->update(['days' => $day_delayed], $id);
+        }
+
+        $modelType  =   'Revlv\Procurements\Vouchers\VoucherEloquent';
+        $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
+
+        $userAdmins =   $users->getAllAdmins();
+
+        foreach($userAdmins as $admin)
+        {
+            if($admin->hasRole('Admin'))
+            {
+                $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
+                $x = $userLogs->save($data);
+            }
+        }
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

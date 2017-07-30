@@ -33,6 +33,15 @@ Post Qualification
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
         <a href="#" class="button" id="fail-pq-button" tooltip="Failed"><i class="nc-icon-mini ui-1_bold-remove"></i></a>
+
+
+        <a href="{{route('biddings.post-qualifications.logs', $data->id)}}" class="button" tooltip="Logs">
+            <i class="nc-icon-mini files_archive-content"></i>
+        </a>
+
+        <a href="{{route('biddings.post-qualifications.edit',$data->id)}}" class="button" tooltip="Edit">
+            <i class="nc-icon-mini design_pen-01"></i>
+        </a>
     </div>
 </div>
 

@@ -16,7 +16,17 @@ class PreBidEloquent extends Model implements  AuditableContract
      *
      * @var array
      */
-    protected $auditInclude = [];
+    protected $auditInclude = [
+        'update_remarks',
+        'action',
+        'transaction_date',
+        'is_scb_issue',
+        'is_resched',
+        'bid_opening_date',
+        'resched_date',
+        'resched_remarks',
+        'remarks',
+    ];
 
     /**
      * The database table used by the model.
