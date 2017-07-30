@@ -6,6 +6,7 @@ namespace Revlv\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Sentinel;
 
 
 use \Revlv\Settings\Units\UnitRepository;
@@ -41,6 +42,28 @@ class DashboardController extends Controller
      */
     public function index(BlankRFQRepository $blankRfq, UnitRepository $units, UnitPurchaseRequestRepository $model)
     {
+        if(!Sentinel::getUser()->hasRole('Admin'))
+        {
+            $results    =   $model->findTimelineByUnit(Sentinel::getUser()->unit_id,[
+                'rfq',
+                'philgeps',
+                'invitations',
+                'noa',
+                'purchase_order',
+                'ntp',
+                'delivery_order',
+                'inspections',
+                'diir',
+                'voucher',
+                'itb',
+                'bid_conference',
+                'document_accept',
+            ]);
+
+            return $this->view('modules.user-dash',[
+                'results'   =>   $results
+            ]);
+        }
         // $analytics  =   $model->getAnalytics();
 
         $result     =   $model->getPSR();

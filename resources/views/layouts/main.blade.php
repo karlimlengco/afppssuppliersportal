@@ -38,7 +38,20 @@
             </div>
             <!-- content -->
 
-            <chat-log :messages="messages"></chat-log>
+            <div class="chat">
+                <chat-log :messages="messages"></chat-log>
+                <div class="chat__compose">
+                    <textarea class="chat__compose__textarea" name="" id="" cols="30" rows="3" placeholder="Write your message here"></textarea>
+                    <div class="chat__compose__utility">
+                        <span class="chat__compose__word-count">350</span>
+                        <span class="chat__compose__options">
+                            <a href="" class="chat__compose__options__item">Option A</a>
+                            <a href="" class="chat__compose__options__item">Option B</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
