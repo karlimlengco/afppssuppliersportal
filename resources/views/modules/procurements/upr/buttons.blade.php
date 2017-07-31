@@ -91,7 +91,7 @@
         @endif
 
         <span >View NOA</span>
-        <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button" id="post-qual-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         {{-- <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a> --}}
     @endif
 
