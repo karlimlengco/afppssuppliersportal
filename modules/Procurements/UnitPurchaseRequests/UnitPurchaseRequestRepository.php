@@ -254,8 +254,10 @@ class UnitPurchaseRequestRepository extends BaseRepository
      */
     public function getDelays()
     {
-        $model  =   $this->model;
+        $user   =   \Sentinel::getUser();
+        $unit_id= $user->unit_id;
 
+        $model  =   $this->model;
 
         $model  =   $model->select([
             'unit_purchase_requests.id',
@@ -317,6 +319,11 @@ class UnitPurchaseRequestRepository extends BaseRepository
         $model  =   $model->leftJoin('inspection_acceptance_report', 'inspection_acceptance_report.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
+
+        if(!$user->hasRole('Admin'))
+        {
+            $model  =   $model->where('unit_purchase_requests.units','=',$unit_id);
+        }
 
         $model  =   $model->get();
 

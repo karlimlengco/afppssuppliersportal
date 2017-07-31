@@ -26,7 +26,12 @@ Unit Purchase Request
         <h3></h3>
     </div>
     <div class="six columns utility utility--align-right" >
-
+        <button class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                <a href="{{route('procurements.unit-purchase-requests.imports')}}" class="button__options__item">Import UPR</a>
+            </div>
+        </button>
     </div>
 </div>
 

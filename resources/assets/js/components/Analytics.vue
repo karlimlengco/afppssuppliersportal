@@ -23,7 +23,7 @@
                     <th></th>
                     <th>
                         # UPR
-                        <small style="display:block " class="background-white"><span class=" black">total</span> <span class="blue ">(cmpltd)</span> <span class="green ">(ongoing)</span> <span class="red ">(delay)</span></small>
+                        <!-- <small style="display:block " class="background-white"><span class=" black">total</span> <span class="blue ">(cmpltd)</span> <span class="green ">(ongoing)</span> <span class="red ">(delay)</span></small> -->
                     </th>
                     <th>Total ABC</th>
                     <th>Approved Contract Amount</th>

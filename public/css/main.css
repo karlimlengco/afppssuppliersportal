@@ -3576,6 +3576,7 @@ table-custom.less
 .table-name tr th:first-child,
 .table-name tr td:first-child {
   width: 300px !important;
+  min-width: 300px !important;
 }
 .table-name tr th.has-child .child-table tr th,
 .table-name tr td.has-child .child-table tr th,

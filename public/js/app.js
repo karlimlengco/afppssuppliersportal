@@ -50954,20 +50954,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "six columns"
   }, [_c('h1', [_vm._v("Procurement Status Monitoring")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v("\n                        # UPR\n                        "), _c('small', {
-    staticClass: "background-white",
-    staticStyle: {
-      "display": "block"
-    }
-  }, [_c('span', {
-    staticClass: " black"
-  }, [_vm._v("total")]), _vm._v(" "), _c('span', {
-    staticClass: "blue "
-  }, [_vm._v("(cmpltd)")]), _vm._v(" "), _c('span', {
-    staticClass: "green "
-  }, [_vm._v("(ongoing)")]), _vm._v(" "), _c('span', {
-    staticClass: "red "
-  }, [_vm._v("(delay)")])])]), _vm._v(" "), _c('th', [_vm._v("Total ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVG Days to Complete")]), _vm._v(" "), _c('th', [_vm._v("Number of Delays")]), _vm._v(" "), _c('th', {
+  return _c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v("\n                        # UPR\n                        ")]), _vm._v(" "), _c('th', [_vm._v("Total ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVG Days to Complete")]), _vm._v(" "), _c('th', [_vm._v("Number of Delays")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "text-align": "center"
     }
