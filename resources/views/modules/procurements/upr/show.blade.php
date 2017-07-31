@@ -188,7 +188,8 @@ Unit Purchase Request
             <a href="{{route('biddings.unit-purchase-requests.index')}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
         @endif
     </div>
-
+    <hr>
+    <br>
     @include('modules.procurements.upr.buttons')
 </div>
 

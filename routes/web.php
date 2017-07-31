@@ -20,6 +20,9 @@ Route::post('messages', '\Revlv\Controllers\ChatController@store')->name('messag
 
 Route::get('api/get/new_code/{id}', '\Revlv\Controllers\Settings\AccountCodeController@getCode')->name('settings.account-codes.get-code');
 
+
+Route::get('timelines/print/{id}', '\Revlv\Controllers\Reports\UPRController@downloadTimeline')->name('settings.account-codes.get-code');
+
 Route::get('messages', function(){
     return \Revlv\Chats\Message\MessageEloquent::with('user')->get();
 });
@@ -35,6 +38,8 @@ Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
     Route::get('transaction-days/download/{search_at?}/{type?}', '\Revlv\Controllers\Reports\TransactionDayController@download')->name('reports.transaction-days.download');
 
     Route::get('transaction-days/download/{search_at?}', '\Revlv\Controllers\Reports\TransactionDayController@download')->name('reports.transaction-days.download');
+
+    Route::get('transaction-psr/download/{search_at?}', '\Revlv\Controllers\Reports\TransactionDayController@downloadPSR')->name('reports.transaction-psr.download');
 
     Route::resource('transaction-days', '\Revlv\Controllers\Reports\TransactionDayController');
 

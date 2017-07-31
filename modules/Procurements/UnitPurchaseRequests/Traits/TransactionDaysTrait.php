@@ -15,7 +15,7 @@ trait TransactionDaysTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getTransactionDay($request)
+    public function getTransactionDay($request, $search = null)
     {
         $model  =    $this->model;
 
@@ -23,6 +23,7 @@ trait TransactionDaysTrait
         $model  =   $model->select([
             'unit_purchase_requests.id',
             'unit_purchase_requests.project_name',
+            'unit_purchase_requests.mode_of_procurement',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.date_prepared',
@@ -138,6 +139,7 @@ trait TransactionDaysTrait
             'unit_purchase_requests.id',
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.mode_of_procurement',
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.date_prepared',
             'unit_purchase_requests.state',
@@ -232,6 +234,12 @@ trait TransactionDaysTrait
         {
             $model      =   $model->where('mode_of_procurement','=', 'public_bidding');
         }
+
+        if($search != null)
+        {
+            $model  =   $model->where('unit_purchase_requests.upr_number', 'LIKE', "%$search%");
+        }
+
 
         return $model->get();
     }

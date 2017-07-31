@@ -136,11 +136,12 @@ class PSRController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Respons e
      */
-    public function download($search = null, UnitPurchaseRequestRepository $model)
+    public function download($search = null, UnitPurchaseRequestRepository $model, Request $request)
     {
-        $result     =   $model->getPSR($search);
 
-        $this->downloadExcel($result);
+        $result     =   $model->getPSR($request, $search);
+
+        $this->downloadExcel($result, $request->date_from, $request->date_to);
 
     }
 
@@ -150,15 +151,20 @@ class PSRController extends Controller
      * @param  [type] $result [description]
      * @return [type]         [description]
      */
-    public function downloadExcel($result)
+    public function downloadExcel($result, $from ,$to)
     {
-        Excel::create("PSR Transactions", function($excel)use ($result) {
-            $excel->sheet('Page1', function($sheet)use ($result) {
+        Excel::create("PSR Transactions", function($excel)use ($result, $from ,$to) {
+            $excel->sheet('Page1', function($sheet)use ($result, $from ,$to) {
+                if($from != null)
+                $from = \Carbon\Carbon::createFromFormat('Y-m-d', $from)->format('d F Y');
+
+                if($to != null)
+                $to = \Carbon\Carbon::createFromFormat('Y-m-d', $to)->format('d F Y');
 
                 $count = 6;
                 $sheet->row(1, ['TRANSACTION SUMMARY OF PROCUREMENT CENTER']);
-                $sheet->row(2, ["ALTERNATIVE METHOD OF PROCUREMENT "]);
-                $sheet->row(3, ['(Period Covered: 01 January to 17 March 2017)']);
+                $sheet->row(2, ["ALTERNATIVE METHOD OF PROCUREMENT"]);
+                $sheet->row(3, ["(Period Covered: $from to $to)"]);
 
                 $sheet->cells('A3:AA3', function($cells) {
                     $cells->setAlignment('center');

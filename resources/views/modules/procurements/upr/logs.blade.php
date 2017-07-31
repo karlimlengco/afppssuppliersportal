@@ -34,7 +34,7 @@ Unit Purchase Request
             <thead>
                 <tr>
                     <th>User</th>
-                    <th>Event</th>
+                    <th>Action</th>
                     <th>Date</th>
                 </tr>
             </thead>

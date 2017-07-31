@@ -17,12 +17,12 @@ Transaction Summary
 
 @section('contents')
 
-{{-- <a href="#" id="printme" class="button" style="margin-bottom:10px">Excel</a> --}}
 
 <div class="row">
     <div class="six columns align-left">
         <button class='button button-tab' id='alternative'>Alternative</button>
         <button class='button button-tab button-unfocus' id='bidding'>Bidding</button>
+        <a href="#" id="printme" class="button" style="margin-bottom:10px">Download</a>
     </div>
     <div class="six columns align-right">
         <div style="display: inline-block">
@@ -115,6 +115,7 @@ Transaction Summary
 
 @section('scripts')
 <script type="text/javascript">
+    var ptype = '';
 
     table = $('#datatable-responsive').DataTable({
         "bLengthChange": false,
@@ -205,7 +206,6 @@ Transaction Summary
 
     });
 
-
     // overide datatable filter for custom css
     $('#newForm').keyup(function(){
         table.search($(this).val ()).draw() ;
@@ -219,10 +219,10 @@ Transaction Summary
 
     $('#printme').on('click', function(e){
         e.preventDefault();
-        date_from    =   $('input[name=date_from]').val();
-        date_to      =   $('input[name=date_to]').val();
-        table_search      =   $('input[name=table_search]').val();
-        window.open('/reports/psr/download/'+table_search);
+        date_from       =   $('input[name=date_from]').val();
+        date_to         =   $('input[name=date_to]').val();
+        table_search    =   $('input[name=table_search]').val();
+        window.open('/reports/psr/download/'+table_search+'?type='+ptype+'&&date_from='+date_from+'&&date_to='+date_to);
     });
 
     $('#alternative').on('click', function(e){
@@ -230,6 +230,7 @@ Transaction Summary
         $('.button').toggleClass('button-unfocus')
         $('.alternative').show()
         $('.bidding').hide()
+        ptype = '';
     });
 
     $('#bidding').on('click', function(e){
@@ -238,6 +239,7 @@ Transaction Summary
         $('.alternative').hide()
         $('.bidding').removeClass('hidden')
         $('.bidding').show()
+        ptype = 'bidding';
     });
 
 

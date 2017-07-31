@@ -25,11 +25,20 @@ Unit Purchase Request
         <a href="{{route($indexRoute,$data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
     </div>
     <div class="six columns utility"  style="margin-bottom:0px; text-align: left" >
-        {!! Form::selectField('upr_number', '', $upr_list, ['id'=>'upr_id'])!!}
+        <div class="eleven columns">{!! Form::selectField('upr_number', '', $upr_list, ['id'=>'upr_id'])!!}</div>
+        <div class="one columns">
+            <a href="#" id="printme" class="button" style="margin-top:5px"> <i class="nc-icon-mini arrows-2_square-download"></i></a>
+        </div>
+
     </div>
 </div>
 
 <div class="data-panel" style="padding:10px; margin-bottom:10px">
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label" style="font-weight:800; text-transform:capitalize">Ref No :</strong> {{$data->ref_number}} </li>
+        </ul>
+    </div>
     <div class="data-panel__section">
         <ul class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label" style="font-weight:800; text-transform:capitalize">UPR No :</strong> {{$data->upr_number}} </li>
@@ -1298,6 +1307,12 @@ $(document).on('change', '#id-field-upr_number', function(e){
     var val = $("#id-field-upr_number").val();
     window.location.href = "/procurements/unit-purchase-requests/timelines/"+val;
 
+});
+
+$('#printme').on('click', function(e){
+e.preventDefault();
+var id = "{{$data->id}}";
+window.open("/timelines/print/"+id);
 });
 </script>
 @stop

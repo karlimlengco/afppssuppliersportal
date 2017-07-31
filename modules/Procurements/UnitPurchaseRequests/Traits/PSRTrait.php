@@ -18,7 +18,6 @@ trait PSRTrait
     public function getPSR($request = null, $search = null)
     {
         $model  =   $this->model;
-
         if($request != null && $request->has('type') == null)
         {
             $model  =   $model->select([
@@ -145,6 +144,11 @@ trait PSRTrait
             {
                 $model      =   $model->where('mode_of_procurement','=', 'public_bidding');
             }
+        }
+
+        if($search != null)
+        {
+            $model  =   $model->where('procurement_centers.name', 'LIKE', "%$search%");
         }
 
         $model  =   $model->groupBy([

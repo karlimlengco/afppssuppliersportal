@@ -23,6 +23,7 @@ Procurement Status Report
     <div class="six columns align-left">
         <button class='button button-tab' id='alternative'>Alternative</button>
         <button class='button button-tab button-unfocus' id='bidding'>Bidding</button>
+        <a href="#" id="printme" class="button">Download</a>
     </div>
     <div class="six columns align-right">
         <div style="display: inline-block">
@@ -130,6 +131,7 @@ Procurement Status Report
 
 @section('scripts')
 <script type="text/javascript">
+    var ptype = '';
 
     table = $('#datatable-responsive').DataTable({
         "bLengthChange": false,
@@ -257,10 +259,10 @@ Procurement Status Report
 
     $('#printme').on('click', function(e){
         e.preventDefault();
-        date_from    =   $('input[name=date_from]').val();
-        date_to      =   $('input[name=date_to]').val();
-        table_search      =   $('input[name=table_search]').val();
-        window.open('/reports/transaction-days/download/'+table_search);
+        date_from       =   $('input[name=date_from]').val();
+        date_to         =   $('input[name=date_to]').val();
+        table_search    =   $('input[name=table_search]').val();
+        window.open('/reports/transaction-psr/download/'+table_search+'?type='+ptype+'&&date_from='+date_from+'&&date_to='+date_to);
     });
 
     $('#alternative').on('click', function(e){
@@ -268,6 +270,7 @@ Procurement Status Report
         $('.button').toggleClass('button-unfocus')
         $('.alternative').show()
         $('.bidding').hide()
+        ptype = '';
     });
 
     $('#bidding').on('click', function(e){
@@ -276,6 +279,7 @@ Procurement Status Report
         $('.alternative').hide()
         $('.bidding').removeClass('hidden')
         $('.bidding').show()
+        ptype = 'bidding';
     });
 
     var startDate,
