@@ -82,7 +82,7 @@
 
     @if(strpos($data->status, 'Awarded To') !== false || $data->status == 'Approved NOA')
 
-        @if($data->mode_of_procurement != 'public_bidding')
+        @if($data->mode_of_procurement == 'public_bidding')
             <a href="{{route('biddings.post-qualifications.show', $data->post_qual->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
         @else
