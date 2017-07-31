@@ -32,16 +32,6 @@ Canvassing
 
 <div class="row">
     <div class="twelve columns">
-        <div class="form-group">
-            <div class="input-group
-                        input-group--has-icon
-                        input-group--solid-icon
-                        input-group--right-icon">
-                <span class="input-group__icon"><i class="nc-icon-outline ui-1_zoom"></i></span>
-                <input type="text" class="input" placeholder="Search" id="newForm">
-            </div>
-        </div>
-
         <table id="datatable-responsive" class="table" >
 
             <thead>
@@ -50,7 +40,7 @@ Canvassing
                     <th>RFQ Number</th>
                     <th>UPR Number</th>
                     <th>Canvassing Date</th>
-                    <th>Adjourned Time</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,7 +66,7 @@ Canvassing
             {data: 'rfq_number', name: 'rfq_number'},
             {data: 'upr_number', name: 'upr_number'},
             {data: 'canvass_date', name: 'canvass_date'},
-            {data: 'adjourned_time', name: 'adjourned_time'},
+            {data: 'is_failed', name: 'is_failed'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

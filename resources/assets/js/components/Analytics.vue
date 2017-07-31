@@ -20,7 +20,7 @@
         <table class="table table--with-border table-name">
             <thead>
                 <tr>
-                    <th></th>
+                    <th style="text-align:center">UNITS</th>
                     <th>
                         # UPR
                         <!-- <small style="display:block " class="background-white"><span class=" black">total</span> <span class="blue ">(cmpltd)</span> <span class="green ">(ongoing)</span> <span class="red ">(delay)</span></small> -->
@@ -29,9 +29,10 @@
                     <th>Approved Contract Amount</th>
                     <th>Residual Amount</th>
                     <th>AVG Days to Complete</th>
-                    <th>Number of Delays</th>
-                    <th style="text-align:center">Status</th>
-                    <th style="text-align:center">Remarks</th>
+                    <th>Number of Days Delay</th>
+                    <th style="text-align:center">Current Status</th>
+                    <th style="text-align:center">Justification</th>
+                    <th style="text-align:center">Action Taken</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,18 +55,24 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
                     </tr>
                     <!-- child -->
                             <tr>
-                                <td class="has-child" colspan="9">
+                                <td class="has-child" colspan="10">
                                     <table class="child-table table-name">
+                                      <!--   <thead>
+                                            <tr>
+                                                <th style="text-align:center">Head</th>
+                                            </tr>
+                                        </thead> -->
                                         <tbody>
                                         <template v-for="itemProg in itemProgram">
                                             <template v-if="itemProg.program == item.programs">
                                             <template  v-for="itemProgData in itemProg.data">
 
                                                 <tr>
-                                                    <td>
+                                                    <td >
                                                         <button  v-on:click="clickItemProgramCenter(itemProgData)" class="show-grand-child-table" ><i class="nc-icon-mini ui-1_circle-add"></i></button>
                                                         {{itemProgData.name}}
                                                     </td>
@@ -83,11 +90,12 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
+                                                    <td></td>
                                                 </tr>
                                                 <!-- Grand Child -->
 
                                                             <tr >
-                                                                <td class="has-child" colspan="9">
+                                                                <td class="has-child" colspan="10">
                                                                     <table class="grand-child-table table-name">
                                                                         <tbody>
                                                                         <template v-for="itemUnit in itemUnits">
@@ -116,10 +124,11 @@
                                                                                 <td  style="text-align:left" v-if="itemUnitData.status != 'upr_processing'"></td>
                                                                                 <td  style="text-align:left" v-else>&nbsp;</td>
                                                                                 <td></td>
+                                                                                <td></td>
                                                                             </tr>
                                                                             <!-- Great Grand -->
                                                                                     <tr>
-                                                                                        <td class="has-child" colspan="9">
+                                                                                        <td class="has-child" colspan="10">
                                                                                             <table class="great-grand-child-table table-name">
                                                                                                 <tbody>
                                                                                                 <template v-for="itemProgCent in itemProgramCenters">
@@ -143,6 +152,7 @@
                                                                                                 <td  style="text-align:left" v-if="itemProgCentData.status != 'upr_processing'">{{itemProgCentData.status}}</td>
                                                                                                 <td  style="text-align:left" v-else>UPR Processing</td>
                                                                                                 <td>{{itemProgCentData.last_remarks}}</td>
+                                                                                                <td>{{itemProgCentData.last_action}}</td>
                                                                                             </tr>
                                                                                                     </template>
                                                                                                 </template>
@@ -187,6 +197,7 @@
                     <td>{{formatPrice(total_abc)}}</td>
                     <td>{{formatPrice(total_bid)}}</td>
                     <td>{{formatPrice(total_residual)}}</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

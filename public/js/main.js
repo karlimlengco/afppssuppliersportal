@@ -26,6 +26,13 @@ $('.topbar__utility__button--modal').click(function(){
     $('.modal').addClass('is-visible');
 })
 
+$(document).keydown(function(e) {
+    // ESCAPE key pressed
+    if (e.keyCode == 27) {
+        $('.notifier').removeClass('is-visible');
+    }
+});
+
 //close modal
 $('.modal__close-button').click(function(){
     $('.modal').removeClass('is-visible');

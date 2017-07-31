@@ -67,7 +67,7 @@ Unit Purchase Request
                     {!! Form::selectField('procurement_office', 'Procurement Office', $procurement_center) !!}
                 </div>
                 <div class="four columns">
-                    {!! Form::selectField('mode_of_procurement', 'Mode of Procurement', ['public_bidding' => 'Public Bidding']+$procurement_modes) !!}
+                    {!! Form::selectField('mode_of_procurement', 'Mode of Procurement', ['public_bidding' => 'Public Bidding'] + $procurement_modes) !!}
                 </div>
                 <div class="four columns">
                     {!! Form::selectField('chargeability', 'Chargeability', $charges) !!}
@@ -75,13 +75,28 @@ Unit Purchase Request
             </div>
 
             <div class="row">
-                <div class="four columns">
-                    {!! Form::selectField('new_account_code', 'New Account Code', $account_codes) !!}
+                <div class="six columns">
+                    <div class="form-group">
+                        <label>Old Account Code</label>
+
+                    {!! Form::select('old_account_code', $old_codes, null, ['id' => 'id-field-old_account_code', 'data-selectize' => 'selectField']) !!}
+                    </div>
                 </div>
-                <div class="four columns">
+                <div class="six columns">
+                    {{-- {!! Form::selectField('new_account_code', 'New Account Code', $account_codes) !!} --}}
+
+                    <div class="form-group">
+                        <label>New Account Code</label>
+
+                    {!! Form::select('new_account_code', $account_codes, null, ['id' => 'id-field-new_account_code', 'data-selectize' => 'selectField']) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
                     {!! Form::textField('fund_validity', 'Fund Validity') !!}
                 </div>
-                <div class="four columns">
+                <div class="six columns">
                     {!! Form::selectField('terms_of_payment', 'Terms of Payment', $payment_terms) !!}
                 </div>
             </div>
@@ -262,5 +277,25 @@ Unit Purchase Request
         console.log(no);
          document.getElementById("row"+no+"").outerHTML="";
     }
+
+
+    var xhr;
+    var select_state, $select_state;
+    var select_city, $select_city;
+    $select_state = $('#id-field-old_account_code').selectize({
+        onChange: function(value) {
+            select_city.addItem(value, false);
+        }
+    });
+
+    $select_city = $('#id-field-new_account_code').selectize({
+        onChange: function(value) {
+            select_state.addItem(value, false);
+        }
+    });
+
+    select_city  = $select_city[0].selectize;
+    select_state = $select_state[0].selectize;
+
 </script>
 @stop

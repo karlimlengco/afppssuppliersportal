@@ -7,6 +7,7 @@ use DB;
 use Datatables;
 use Excel;
 use PDF;
+use \App\Support\Breadcrumb;
 
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\AccountCodes\AccountCodeRepository;
@@ -76,9 +77,10 @@ trait ImportTrait
         $data           =   [];
         $reader         =   Excel::load($path, function($reader) {});
         // $reader->formatDates(true, 'd F Y');
-        $fields         =   $reader->limitColumns(5)->limitRows(10)->get();
-        $items          =   $reader->skipRows(12)->limitColumns(5)->get();
-
+        // $fields         =   $reader->limitColumns(10)->get();
+        $fields         =   $reader->limitColumns(10)->limitRows(10)->get();
+        $items          =   $reader->skipRows(12)->limitColumns(10)->get();
+        // dd($fields);
         $array          =   [];
         $itemArray      =   [];
 
@@ -215,6 +217,9 @@ trait ImportTrait
             'charges'           =>  $charges,
             'procurement_modes' =>  $procurement_modes,
             'procurement_center'=>  $procurement_center,
+            'breadcrumbs' => [
+                new Breadcrumb('Unit Purchase Request Import')
+            ]
         ]);
     }
 

@@ -108,7 +108,7 @@ class UPRController extends Controller
             'createRoute'   =>  $this->baseUrl."create",
             'importRoute'   =>  $this->baseUrl."imports",
             'breadcrumbs' => [
-                new Breadcrumb('Alternative')
+                new Breadcrumb('Unit Purchase Request')
             ]
         ]);
     }
@@ -135,10 +135,12 @@ class UPRController extends Controller
         $payment_terms      =    $terms->lists('id', 'name');
         $procurement_types  =    $types->lists('id', 'code');
         $unit               =    $units->lists('id', 'short_code');
+        $old_codes          =    $accounts->listOld();
         // $this->permissions->lists('permission','description')
         $this->view('modules.procurements.upr.create',[
             'indexRoute'        =>  $this->baseUrl.'index',
             'account_codes'     =>  $account_codes,
+            'old_codes'         =>  $old_codes,
             'procurement_types' =>  $procurement_types,
             'payment_terms'     =>  $payment_terms,
             'unit'              =>  $unit,
@@ -151,7 +153,7 @@ class UPRController extends Controller
                 ]
             ],
             'breadcrumbs' => [
-                new Breadcrumb('Alternative', 'procurements.unit-purchase-requests.index'),
+                new Breadcrumb('Unit Purchase Request', 'procurements.unit-purchase-requests.index'),
                 new Breadcrumb('Create'),
             ]
         ]);
@@ -275,7 +277,7 @@ class UPRController extends Controller
                 ]
             ],
             'breadcrumbs' => [
-                new Breadcrumb('Alternative', 'procurements.unit-purchase-requests.index'),
+                new Breadcrumb('Unit Purchase Request', 'procurements.unit-purchase-requests.index'),
                 new Breadcrumb($result->upr_number),
             ]
         ]);
@@ -328,7 +330,7 @@ class UPRController extends Controller
                 ]
             ],
             'breadcrumbs' => [
-                new Breadcrumb('Alternative', 'procurements.unit-purchase-requests.index'),
+                new Breadcrumb('Unit Purchase Request', 'procurements.unit-purchase-requests.index'),
                 new Breadcrumb($result->upr_number, 'procurements.unit-purchase-requests.show', $result->id),
                 new Breadcrumb('Update'),
             ]
@@ -497,7 +499,7 @@ class UPRController extends Controller
             'upr_list'           =>  $upr_list,
             'indexRoute'         =>  $this->baseUrl."show",
             'breadcrumbs' => [
-                new Breadcrumb('Alternative', 'procurements.unit-purchase-requests.index'),
+                new Breadcrumb('Unit Purchase Request', 'procurements.unit-purchase-requests.index'),
                 new Breadcrumb($upr_model->upr_number, 'procurements.unit-purchase-requests.show', $upr_model->id),
                 new Breadcrumb('Timelines'),
             ]

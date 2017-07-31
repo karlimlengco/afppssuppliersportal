@@ -65,6 +65,19 @@ Unit Purchase Request
                 @endif
 
                 @if($data->mode_of_procurement != 'public_bidding')
+                    @if($data->status == 'upr_processing')
+                        <a class="button__options__item" id="process-button" href="#">Process UPR</a>
+                        <a class="button__options__item" id="reject-button" href="#">Cancel UPR</a>
+                    @endif
+                @else
+
+                    @if($data->status == 'Philgeps Approved')
+                        <a class="button__options__item" id="bid-docs-button" href="#">Bid Docs Issuance</a>
+                        <a class="button__options__item" href="{{route('biddings.pre-bids.create-by-upr', $data->id)}}">Pre-Bid Conference</a>
+                    @endif
+                @endif
+
+                {{-- @if($data->mode_of_procurement != 'public_bidding')
                     @if($data->status == 'Processing RFQ')
                         <a href="#" class="button__options__item" id="invitation-button">Create Invitation</a>
                     @endif
@@ -79,7 +92,6 @@ Unit Purchase Request
                     @if($data->status == 'Open Canvass')
                         <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button__options__item">View Canvass</a>
                     @endif
-                    {{-- Process --}}
                     @if($data->status == 'upr_processing')
                         <a class="button__options__item" id="process-button" href="#">Process UPR</a>
                         <a class="button__options__item" id="reject-button" href="#">Cancel UPR</a>
@@ -106,7 +118,6 @@ Unit Purchase Request
                         <a class="button__options__item" id="post-qual-button" href="#">Post Qualification</a>
                     @endif
                 @endif
-
 
                 @if(strpos($data->status, 'Awarded To') !== false || $data->status == 'Approved NOA')
                     <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a>
@@ -155,7 +166,7 @@ Unit Purchase Request
                 @endif
                 @if( $data->status == 'Voucher Created' || $data->status == 'Voucher Preaudit' || $data->status == 'Voucher Certify'|| $data->status == 'Voucher Journal Entry'|| $data->status == 'Voucher Approved'|| $data->status == 'Voucher Released')
                    <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button__options__item">View Voucher</a>
-                @endif
+                @endif --}}
 
                 <a class="button__options__item" id="view-attachments-button" href="#">Attachments</a>
             </div>
@@ -176,6 +187,8 @@ Unit Purchase Request
             <a href="{{route('biddings.unit-purchase-requests.index')}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
         @endif
     </div>
+
+    @include('modules.procurements.upr.buttons')
 </div>
 
 

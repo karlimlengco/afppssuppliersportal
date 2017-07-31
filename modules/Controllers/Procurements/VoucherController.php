@@ -796,8 +796,16 @@ class VoucherController extends Controller
     public function viewPrint($id, VoucherRepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr)
     {
         $result     =   $model->with(['receiver', 'approver', 'certifier'])->findById($id);
-        $noa_model  =   $noa->with(['winner','upr'])->findByRFQ($result->rfq_id);
-        $winner     =   $noa_model->winner->supplier;
+        $noa_model  =   $noa->with(['winner','upr'])->findByUPR($result->upr_id);
+
+        if($noa_model->upr->mode_of_procurement != 'public_bidding')
+        {
+            $winner     =   $noa_model->winner->supplier;
+        }
+        else
+        {
+            $winner     =   $noa_model->biddingWinner->supplier;
+        }
 
         $data['transaction_date']       =   $result->transaction_date;
         $data['bir_address']            =   $result->bir_address;

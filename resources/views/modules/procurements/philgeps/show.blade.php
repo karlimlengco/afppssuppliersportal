@@ -33,7 +33,7 @@ PhilGeps Posting
             <div class="button__options">
                 <a href="#" class=" topbar__utility__button--modal button__options__item">Add Attachment</a>
                 <a href="{{route('procurements.unit-purchase-requests.show',$data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
-                <a href="{{route('procurements.blank-rfq.show',$data->rfq_id)}}" class=" button__options__item">Request For Quotation</a>
+                {{-- <a href="{{route('procurements.blank-rfq.show',$data->rfq_id)}}" class=" button__options__item">Request For Quotation</a> --}}
             </div>
         </button>
 
@@ -60,6 +60,7 @@ PhilGeps Posting
         <ul class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Transaction Date :</strong> {{$data->transaction_date}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PhilGeps Posting Date :</strong> {{$data->philgeps_posting}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Working Days :</strong> {{$data->days}} day(s) </li>
         </ul>
     </div>
     <div class="data-panel__section">
@@ -67,6 +68,7 @@ PhilGeps Posting
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ Submition Deadline :</strong> {{$data->deadline_rfq}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Canvas Opening Time :</strong> {{$data->opening_time}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Remarks :</strong> {{$data->remarks}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Action :</strong> {{$data->action}} </li>
         </ul>
     </div>
 </div>

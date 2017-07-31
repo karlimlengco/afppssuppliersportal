@@ -47,12 +47,15 @@ PhilGeps Posting
     <div class="twelve columns">
 
 
+            {!! Form::hidden('rfq_id') !!}
             <div class="row">
-                <div class="six columns">
-                    {!! Form::selectField('rfq_id', 'RFQ Number', $rfq_list) !!}
-                </div>
+                {{-- <div class="four columns"> --}}
+                {{-- </div> --}}
                 <div class="six columns">
                     {!! Form::textField('transaction_date', 'Transaction Date') !!}
+                </div>
+                <div class="six columns">
+                    {!! Form::selectField('status', 'Status', ['1' => 'Approved', '0' => 'Need Repost']) !!}
                 </div>
             </div>
 

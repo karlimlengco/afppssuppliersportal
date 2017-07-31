@@ -768,6 +768,7 @@ class PurchaseOrderController extends Controller
         }
 
         $data['po_number']          =  $result->po_number;
+        $data['remarks']            =  $result->remarks;
         $data['purchase_date']      =  $result->purchase_date;
         $data['transaction_date']   =  $result->rfq->transaction_date;
         $data['winner']             =  $noa_model;

@@ -85,7 +85,7 @@
                         <tr>
                             <td colspan="3">
                                 <span class="label">Remarks</span>
-                                Madam, Please furnish this office the following articles subject to the terms and conditions contained herein:
+                                {{$data['remarks']}}
                             </td>
                         </tr>
                         <tr>

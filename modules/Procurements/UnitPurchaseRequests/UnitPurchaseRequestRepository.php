@@ -208,11 +208,21 @@ class UnitPurchaseRequestRepository extends BaseRepository
             // DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.created_at) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.created_at) + WEEKDAY(NOW()) + 1, 1) as working_days")
         ]);
 
-        $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model ->leftJoin('philgeps_posting', function ($q) {
+                       $q->on('philgeps_posting.upr_id', '=', 'unit_purchase_requests.id')
+                         ->where('philgeps_posting.status', '=', 1);
+                 });
+        // $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('ispq_quotations', 'ispq_quotations.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('invitation_for_quotation', 'invitation_for_quotation.id', '=', 'ispq_quotations.ispq_id');
-        $model  =   $model->leftJoin('canvassing', 'canvassing.upr_id', '=', 'unit_purchase_requests.id');
+        // $model  =   $model->leftJoin('canvassing', 'canvassing.upr_id', '=', 'unit_purchase_requests.id');
+
+        $model  =   $model ->leftJoin('canvassing', function ($q) {
+                       $q->on('canvassing.upr_id', '=', 'unit_purchase_requests.id')
+                         ->whereNULL('canvassing.is_failed');
+                 });
+
         $model  =   $model->leftJoin('notice_of_awards', 'notice_of_awards.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('notice_to_proceed', 'notice_to_proceed.upr_id', '=', 'unit_purchase_requests.id');
@@ -267,13 +277,16 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.date_prepared',
             'unit_purchase_requests.state',
             'unit_purchase_requests.total_amount',
+            'unit_purchase_requests.mode_of_procurement',
             'unit_purchase_requests.date_processed',
             'unit_purchase_requests.date_prepared as upr_created_at',
             'request_for_quotations.transaction_date as rfq_created_at',
             'request_for_quotations.completed_at as rfq_completed_at',
             'invitation_for_quotation.transaction_date as ispq_transaction_date',
             'philgeps_posting.philgeps_posting as pp_completed_at',
+            'philgeps_posting.status as pp_status',
             'canvassing.canvass_date as canvass_start_date',
+            'canvassing.is_failed as canvass_is_failed',
             'notice_of_awards.awarded_date as noa_award_date',
             'notice_of_awards.accepted_date as noa_approved_date',
             'notice_of_awards.award_accepted_date as noa_award_accepted_date',

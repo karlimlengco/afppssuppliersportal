@@ -584,7 +584,7 @@ class DeliveredInspectionReportController extends Controller
 
         $data['items']              =   $result->delivery->po->items;
         $data['purpose']            =   $result->upr->purpose;
-        $data['place']            =   $result->upr->place_of_delivery;
+        $data['place']             =   $result->upr->place_of_delivery;
         $data['centers']            =   $result->upr->centers->name;
         $data['units']              =   $result->upr->unit->short_code;
         $data['ref_number']         =   $result->upr->ref_number;
@@ -593,6 +593,7 @@ class DeliveredInspectionReportController extends Controller
         $data['po_number']          =   $result->delivery->po->po_number;
         $data['po_date']            =   $result->delivery->po->coa_approved_date;
         $data['invoice']            =   $result->delivery->inspections->invoices;
+        $data['issues']             =   $result->delivery->diir->issues;
 
         $data['receiver']           =   $result->receiver;
         $data['inspector']          =   $result->inspector;

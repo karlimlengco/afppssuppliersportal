@@ -51,14 +51,10 @@ class ProcurementCenterRepository extends BaseRepository
                 DB::raw(" (select count(unit_purchase_requests.id) from unit_purchase_requests left join procurement_centers as pc on unit_purchase_requests.procurement_office  = pc.id where mode_of_procurement  = 'public_bidding' and programs = procurement_centers.programs ) as upr_count "),
 
 
-                DB::raw("(select count(unit_purchase_requests.delay_count)
-                    from unit_purchase_requests
-                    left join procurement_centers as pc
-                    on unit_purchase_requests.procurement_office  = pc.id
-                    where mode_of_procurement  = 'public_bidding'
-                    and programs = procurement_centers.programs )
-                    -
-                    (select count(unit_purchase_requests.completed_at)
+                DB::raw("(select SUM(CASE
+                     WHEN unit_purchase_requests.delay_count != 0 and unit_purchase_requests.state != 'completed' THEN 1
+                     ELSE 0
+                   END)
                     from unit_purchase_requests
                     left join procurement_centers as pc
                     on unit_purchase_requests.procurement_office  = pc.id
@@ -136,14 +132,10 @@ class ProcurementCenterRepository extends BaseRepository
                     as upr_count"),
 
 
-                DB::raw("(select count(unit_purchase_requests.delay_count)
-                    from unit_purchase_requests
-                    left join procurement_centers as pc
-                    on unit_purchase_requests.procurement_office  = pc.id
-                    where mode_of_procurement  != 'public_bidding'
-                    and programs = procurement_centers.programs )
-                    -
-                    (select count(unit_purchase_requests.completed_at)
+                DB::raw("(select SUM(CASE
+                     WHEN unit_purchase_requests.delay_count != 0 and unit_purchase_requests.state != 'completed' THEN 1
+                     ELSE 0
+                   END)
                     from unit_purchase_requests
                     left join procurement_centers as pc
                     on unit_purchase_requests.procurement_office  = pc.id

@@ -242,6 +242,7 @@ class PhilGepsController extends Controller
         UserLogRepository $userLogs,
         PhilGepsPostingRepository $model)
     {
+        $old                    =   $model->findById($id);
         $result                 =   $model->update($request->getData(), $id);
         if($result->rfq_id)
         {
@@ -299,6 +300,15 @@ class PhilGepsController extends Controller
                 $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
                 $x = $userLogs->save($data);
             }
+        }
+
+        if($old->status == 1 && $result->status == 0)
+        {
+            $upr->update([
+            'status'        =>  'Philgeps Need Repost',
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
+            ], $result->upr->id);
         }
 
         return redirect()->route($this->baseUrl.'edit', $id)->with([

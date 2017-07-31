@@ -345,6 +345,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('canvassing/print/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewPrint')->name('canvassing.print');
     Route::post('canvassing/signatories/{id}', '\Revlv\Controllers\Procurements\CanvassingController@addSignatories')->name('canvassing.signatories');
     Route::post('canvassing/opening/{id}', '\Revlv\Controllers\Procurements\CanvassingController@openCanvass')->name('canvassing.opening');
+    Route::post('canvassing/failed', '\Revlv\Controllers\Procurements\CanvassingController@failedCanvass')->name('canvassing.failed');
     Route::resource('canvassing', '\Revlv\Controllers\Procurements\CanvassingController');
 
     /*

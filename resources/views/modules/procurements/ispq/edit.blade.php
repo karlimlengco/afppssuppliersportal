@@ -82,6 +82,7 @@ Invitation to Submit Price Quotation
                 <thead>
 
                     <tr>
+                        <th>UPR Number</th>
                         <th>RFQ Number</th>
                         <th>Description</th>
                         <th>ABC</th>
@@ -93,6 +94,7 @@ Invitation to Submit Price Quotation
                 <tbody>
                     @foreach($data->quotations as $quotation)
                     <tr>
+                        <td><a href="{{route('procurements.unit-purchase-requests.show',$quotation->upr_id)}}">{{$quotation->upr_number}}</a></td>
                         <td>{{$quotation->rfq_number}}</td>
                         <td>{{$quotation->description}}</td>
                         <td>{{$quotation->total_amount}}</td>

@@ -42,6 +42,13 @@ trait DatatableTrait
                 $route  =  route( 'procurements.noa.show',[$data->canvass_id] );
                 return ' <a  href="'.$route.'" > '. ucfirst($data->canvass_rfq) .'</a>';
             })
+            ->editColumn('is_failed', function($data){
+                if($data->is_failed == 1)
+                {
+                    return "Failed";
+                }
+                return "Passed";
+            })
             ->rawColumns(['id', 'canvass_rfq'])
             ->make(true);
     }

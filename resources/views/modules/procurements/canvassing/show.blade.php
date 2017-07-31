@@ -22,6 +22,7 @@ Canvassing
 @section('modal')
     @include('modules.partials.modals.notice_of_award')
     @include('modules.partials.modals.signatories')
+    @include('modules.partials.modals.failed-canvass')
 @stop
 
 @section('contents')
@@ -43,9 +44,10 @@ Canvassing
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
 
-                <a href="{{route('procurements.blank-rfq.show', $data->rfq_id)}}" class=" button__options__item">Request For Quotation</a>
-                @if(count($data->winners) != 0)
-                <a href="{{route('procurements.noa.show', $data->winners->id)}}" class=" button__options__item">View NOA</a>
+                @if(count($data->winners) == 0)
+                    @if($data->is_failed != 1)
+                    <a href="#" id="failed-button" class=" button__options__item">Failed Bid</a>
+                    @endif
                 @endif
             </div>
         </button>
@@ -87,6 +89,7 @@ Canvassing
     </div>
     <div class="data-panel__section">
         <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{($data->is_failed) ? "Failed" : ""}} </li>
             @if($data->opens != null)
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Opening By :</strong> {{$data->opens->first_name}} {{$data->opens->surname}} </li>
             @endif
@@ -118,7 +121,7 @@ Canvassing
                 <tr>
                     <td>{{($proponent->supplier) ? $proponent->supplier->name :""}}</td>
                     <td>{{$proponent->date_processed}}</td>
-                    <td>{{formatPrice($proponent->bid_amount)}}</td>
+                    <td>{{($proponent->bid_amount) ? formatPrice($proponent->bid_amount) : ""}}</td>
                     <td>{{formatPrice($data->upr->total_amount - $proponent->bid_amount)}}</td>
                     <td>{{$proponent->status}} </td>
                     <td>{{ $proponent->note }}</td>
@@ -128,8 +131,10 @@ Canvassing
                             @if($data->adjourned_time == null)
                             <a href="#" class="award-button award" data-id="{{$proponent->id}}" data-name="{{$proponent->supplier->name}}" tooltip="Award"> <span class="nc-icon-glyph business_award-48"></span> </a>
                             @endif
-                            @if($data->winners != null && $data->winners->proponent_id == $proponent->id )
-                                <a href="#" class=" award" tooltip="Winner"> <span class="nc-icon-glyph business_award-48"></span> </a>
+                            @if($data->is_failed != 1)
+                                @if($data->winners != null && $data->winners->proponent_id == $proponent->id )
+                                    <a href="#" class=" award" tooltip="Winner"> <span class="nc-icon-glyph business_award-48"></span> </a>
+                                @endif
                             @endif
                         @endif
                     </td>
@@ -152,6 +157,11 @@ $('#signatory-button').click(function(e){
 $('.award-button').click(function(e){
     e.preventDefault();
     $('#award-modal').addClass('is-visible');
+})
+
+$('#failed-button').click(function(e){
+    e.preventDefault();
+    $('#failed-modal').addClass('is-visible');
 })
 
 // click award

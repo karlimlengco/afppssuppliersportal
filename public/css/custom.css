@@ -175,11 +175,14 @@
 }
 
 #button-focus {
-  background: #00A1E4!important;
+  background: #a0a0a0!important;
+  border:none;
   outline: none;
   color: #ffffff;
 }
 .button-unfocus{
   background: #a8cfe0!important;
+  border:none;
+  outline: none;
   color:#969587;
 }

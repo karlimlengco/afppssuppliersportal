@@ -198,6 +198,38 @@ class CanvassingController extends Controller
     }
 
     /**
+     * [failedCanvass description]
+     *
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function failedCanvass(
+        Request $request,
+        CanvassingRepository $model,
+        RFQProponentRepository $proponents,
+        UnitPurchaseRequestRepository $upr)
+    {
+
+        $upr->update([
+            'status' => "Failed Bid",
+            'last_remarks'  => $request->failed_remarks
+            ], $request->upr_id);
+
+        $result =   $model->update(['is_failed'=> 1, 'date_failed'=>$request->date_failed, 'failed_remarks'=>$request->failed_remarks], $request->id);
+
+
+        $proponent_list =   $proponents->findByRFQId($result->rfq_id);
+        foreach($proponent_list as $props)
+        {
+            $proponents->update(['bid_amount' => 0, 'status' => Null], $props->id);
+        }
+
+        return redirect()->route($this->baseUrl.'show', $result->id)->with([
+            'success'  => "New record has been successfully added."
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

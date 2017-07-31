@@ -61,8 +61,37 @@ class NotificationController extends Controller
         {
             $upr_created    = Carbon::createFromFormat('Y-m-d', $item->upr_created_at);
 
+            //UPR to Document acceptance
+            if($item->mode_of_procurement == 'public_bidding' && $item->document_accept == null && $item->pp_status == 0 && $today->gte($upr_created) )
+            {
+                // Count working days
+                $days = $today->diffInDaysFiltered(function (Carbon $date) use ($h_lists) {
+                    return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
+                }, $upr_created);
+
+                $data   =   [
+                    'id'                =>  $item->id,
+                    'project_name'      =>  $item->project_name,
+                    'upr_number'        =>  $item->upr_number,
+                    'ref_number'        =>  $item->ref_number,
+                    'total_amount'      =>  $item->total_amount,
+                    'date_prepared'     =>  $item->date_prepared,
+                    'state'             =>  $item->state,
+                    'event'             =>  "Document Acceptance",
+                    'status'            =>  "Delay",
+                    'days'              =>  $days,
+                    'transaction_date'  =>  $upr_created->format('Y-m-d'),
+                ];
+
+                if($days >= 1)
+                {
+                    $newCollection->push($data);
+                }
+            }
+            //UPR to Document acceptance
+
             //UPR to RFQ Count
-            if($item->rfq_created_at == null && $today->gte($upr_created) )
+            if($item->mode_of_procurement != 'public_bidding' && $item->rfq_created_at == null && $today->gte($upr_created) )
             {
                 // Count working days
                 $days = $today->diffInDaysFiltered(function (Carbon $date) use ($h_lists) {
@@ -186,7 +215,7 @@ class NotificationController extends Controller
 
 
             // Canvass posting
-            if($item->pp_completed_at != null && $item->canvass_start_date == null )
+            if($item->pp_completed_at != null && $item->pp_status != 0 && $item->canvass_start_date == null )
             {
                 $pp_completed_at    = Carbon::createFromFormat('Y-m-d', $item->pp_completed_at);
                 // Count working days
@@ -217,7 +246,7 @@ class NotificationController extends Controller
             // Canvass posting
 
             // Awarding
-            if($item->canvass_start_date != null && $item->noa_award_date == null )
+            if($item->canvass_is_failed != 1 && $item->canvass_start_date != null && $item->noa_award_date == null )
             {
                 $canvass_start_date    = Carbon::createFromFormat('Y-m-d', $item->canvass_start_date);
                 // Count working days

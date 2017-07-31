@@ -165,7 +165,9 @@
 
                     <p><strong>Section B: Report of Inspection and Action Taken</strong></p>
                     <p><strong>Findings/Observation:</strong><br>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta harum, ea quae qui odit nostrum optio, quaerat impedit accusamus rem, repudiandae nam illum. Quia expedita pariatur ipsa perspiciatis, amet ab totam asperiores consequuntur ipsum? Tempora asperiores dolorem, commodi laboriosam reiciendis similique quo molestiae doloremque iure, eius quos cupiditate quam laborum.
+                    @foreach($data['issues'] as $issue)
+                        <p>{{$issue->issue}} / {{$issue->remarks}}</p>
+                    @endforeach
                     </p>
                     <!-- form signatories -->
                     <table class="printable-form__body__table

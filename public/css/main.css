@@ -3571,12 +3571,14 @@ table-custom.less
 }
 .table-name tr th,
 .table-name tr td {
-  width: 100px !important;
+  width: 120px !important;
+  min-width: 120px !important;
 }
 .table-name tr th:first-child,
 .table-name tr td:first-child {
   width: 300px !important;
   min-width: 300px !important;
+  max-width: 300px !important;
 }
 .table-name tr th.has-child .child-table tr th,
 .table-name tr td.has-child .child-table tr th,

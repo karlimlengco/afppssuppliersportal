@@ -136,7 +136,7 @@ class PhilGepsPostingController extends Controller
 
         if($day_delayed != 0)
         {
-            $day_delayed            =   $day_delayed - 1;
+            $day_delayed            =   $day_delayed - 3;
         }
 
         // Validate Remarks when  delay
@@ -174,7 +174,7 @@ class PhilGepsPostingController extends Controller
         }
         $upr->update([
             'status'        =>  $status,
-            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'delay_count'   => ($day_delayed > 3 )? $day_delayed - 3 : 0,
             'calendar_days' => $day_delayed + $rfq_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
@@ -267,6 +267,7 @@ class PhilGepsPostingController extends Controller
         UserLogRepository $userLogs,
         PhilGepsPostingRepository $model)
     {
+        $old                    =   $model->findById($id);
         $result                 =   $model->update($request->getData(), $id);
         if($result->rfq_id)
         {
@@ -324,6 +325,15 @@ class PhilGepsPostingController extends Controller
                 $data   =   ['audit_id' => $resultLog->id, 'admin_id' => $admin->id];
                 $x = $userLogs->save($data);
             }
+        }
+
+        if($old->status == 1 && $result->status == 0)
+        {
+            $upr->update([
+            'status'        =>  'Philgeps Need Repost',
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
+            ], $result->upr->id);
         }
 
         return redirect()->route($this->baseUrl.'edit', $id)->with([

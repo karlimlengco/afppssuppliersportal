@@ -107,6 +107,7 @@ Delivered Items Inspection
                     <th>Issues</th>
                     <th>Created By</th>
                     <th>Status</th>
+                    <th>Remarks</th>
                     <th></th>
                 </tr>
             </thead>
@@ -116,6 +117,7 @@ Delivered Items Inspection
                         <td>{{$issue->issue}}</td>
                         <td>{{($issue->prepared) ? $issue->prepared->first_name .' '. $issue->prepared->surname : ""}}</td>
                         <td>{{($issue->is_corrected == 1) ? "Corrected" : ""}}</td>
+                        <td>{{$issue->remarks}}</td>
                         <td>
                             @if(!$issue->is_corrected == 1)
                             <a href="#" id="correct-issue-button" class="corrected" data-id="{{$issue->id}}"> <span class="nc-icon-mini ui-1_check-square-09"></span> </a>

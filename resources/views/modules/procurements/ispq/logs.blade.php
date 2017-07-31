@@ -41,41 +41,37 @@ Invitation to Submit Price Quotation
             </thead>
             <tbody>
                 @foreach($data as $log)
-                    @if($log->event != 'created' )
-                        @if($log->old_values != "[]" && $log->new_values != "[]" )
-                        <tr>
-                            <td>{{($log->user) ? $log->user->first_name  ." ". $log->user->surname :" "}}</td>
-                            <td>{{$log->event}}</td>
-                            <td >{{$log->created_at}}</td>
-                            {{-- <td> --}}
-                              {{--   <table class="table table--with-border">
-                                    <tr>
-                                        <th></th>
-                                        <th>Field</th>
-                                        <th>Value</th>
-                                    </tr> --}}
-                                    @foreach( json_decode($log->old_values) as $oldKey => $oldValue )
-                                        @if($oldKey != 'update_remarks')
-                                        <tr style="background: #eee">
-                                            <td>Old</td>
-                                            <td>{{$oldKey}}</td>
-                                            <td>{{$oldValue}}</td>
-                                        </tr>
-                                        @endif
-                                    @endforeach
-                                {{-- </table> --}}
-                                {{-- <table class="table table--with-border"> --}}
-                                    @foreach( json_decode($log->new_values) as $newKey => $newValue )
-                                        <tr style="background: #eee">
-                                            <td>New</td>
-                                            <td>{{$newKey}}</td>
-                                            <td>{{$newValue}}</td>
-                                        </tr>
-                                    @endforeach
-                                {{-- </table> --}}
-                            {{-- </td> --}}
-                        </tr>
+
+                    @if($log->event == 'created' ||  $log->old_values != "[]" && $log->new_values != "[]" )
+                    <tr>
+                        <td>{{($log->user) ? $log->user->first_name  ." ". $log->user->surname :" "}}</td>
+                        <td>{{$log->event}}</td>
+                        <td >{{$log->created_at}}</td>
+
+                        @if($log->event != 'created' )
+                        @foreach( json_decode($log->old_values) as $oldKey => $oldValue )
+                            @if($oldKey != 'update_remarks')
+                            <tr style="background: #e74c3c; ">
+                                <td style="color:white!important">Old</td>
+                                <td style="color:white!important">{{$oldKey}}</td>
+                                <td style="color:white!important">{{$oldValue}}</td>
+                            </tr>
+                            @endif
+                        @endforeach
+
+                        @foreach( json_decode($log->new_values) as $newKey => $newValue )
+                            <tr style="background: #2ecc71;">
+                                <td style="color:white!important">New</td>
+                                <td style="color:white!important">{{$newKey}}</td>
+                                @if(is_object($newValue))
+                                <td style="color:white!important">{{json_encode($newValue)}}</td>
+                                @else
+                                <td style="color:white!important">{{$newValue}}</td>
+                                @endif
+                            </tr>
+                        @endforeach
                         @endif
+                    </tr>
                     @endif
                 @endforeach
             </tbody>

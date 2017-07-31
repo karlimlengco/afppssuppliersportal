@@ -18,4 +18,23 @@ class SignatoryRepository extends BaseRepository
     {
         return SignatoryEloquent::class;
     }
+
+    /**
+     * Return the model by its key valued pair
+     *
+     * @param string $id
+     * @param string $value
+     * @return mixed
+     */
+    public function lists($id = 'id', $value = 'name')
+    {
+        $model =  $this->model;
+
+        $model =  $model->select([
+            \DB::raw("CONCAT(name, ' (', designation,')') AS name"),
+            'id'
+        ]);
+
+        return $model->pluck($value, $id)->all();
+    }
 }

@@ -92,7 +92,10 @@ trait FileTrait
         $data['funder']             =  $result->funders;
         $data['approver']           =  $result->approver;
 
-        $pdf = PDF::loadView('forms.upr', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
+        $pdf = PDF::loadView('forms.upr', ['data' => $data])
+        ->setOption('margin-bottom', 30)
+        ->setOption('footer-html', route('pdf.footer'))
+        ->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('upr.pdf');
     }

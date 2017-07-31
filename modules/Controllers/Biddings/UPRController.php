@@ -108,7 +108,7 @@ class UPRController extends Controller
             'createRoute'   =>  $this->baseUrl."create",
             'importRoute'   =>  $this->baseUrl."imports",
             'breadcrumbs' => [
-                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Unit Purhcase Request'),
                 new Breadcrumb('Unit Purhcase Request')
             ]
         ]);
@@ -152,7 +152,7 @@ class UPRController extends Controller
                 ]
             ],
             'breadcrumbs' => [
-                new Breadcrumb('Public Bidding', 'biddings.unit-purchase-requests.index'),
+                new Breadcrumb('Unit Purhcase Request', 'biddings.unit-purchase-requests.index'),
                 new Breadcrumb('Create'),
             ]
         ]);
@@ -276,7 +276,7 @@ class UPRController extends Controller
                 ]
             ],
             'breadcrumbs' => [
-                new Breadcrumb('Public Bidding', 'biddings.unit-purchase-requests.index'),
+                new Breadcrumb('Unit Purhcase Request', 'biddings.unit-purchase-requests.index'),
                 new Breadcrumb($result->upr_number),
             ]
         ]);
@@ -329,7 +329,7 @@ class UPRController extends Controller
                 ]
             ],
             'breadcrumbs' => [
-                new Breadcrumb('Public Bidding', 'biddings.unit-purchase-requests.index'),
+                new Breadcrumb('Unit Purhcase Request', 'biddings.unit-purchase-requests.index'),
                 new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->id),
                 new Breadcrumb('Update'),
             ]
@@ -498,7 +498,7 @@ class UPRController extends Controller
             'upr_list'           =>  $upr_list,
             'indexRoute'         =>  $this->baseUrl."show",
             'breadcrumbs' => [
-                new Breadcrumb('Public Bidding', 'biddings.unit-purchase-requests.index'),
+                new Breadcrumb('Unit Purhcase Request', 'biddings.unit-purchase-requests.index'),
                 new Breadcrumb($upr_model->upr_number, 'biddings.unit-purchase-requests.show', $upr_model->id),
                 new Breadcrumb('Timelines'),
             ]

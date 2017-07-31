@@ -41,36 +41,36 @@ Unit Purchase Request
             <tbody>
                 @foreach($data as $log)
 
-                    @if($log->event != 'created' )
-                        @if($log->old_values != "[]" && $log->new_values != "[]" )
-                        <tr>
-                            <td>{{($log->user) ? $log->user->first_name  ." ". $log->user->surname :" "}}</td>
-                            <td>{{$log->event}}</td>
-                            <td >{{$log->created_at}}</td>
+                    @if($log->event == 'created' ||  $log->old_values != "[]" && $log->new_values != "[]" )
+                    <tr>
+                        <td>{{($log->user) ? $log->user->first_name  ." ". $log->user->surname :" "}}</td>
+                        <td>{{$log->event}}</td>
+                        <td >{{$log->created_at}}</td>
 
-                            @foreach( json_decode($log->old_values) as $oldKey => $oldValue )
-                                @if($oldKey != 'update_remarks')
-                                <tr style="background: #e74c3c; ">
-                                    <td style="color:white!important">Old</td>
-                                    <td style="color:white!important">{{$oldKey}}</td>
-                                    <td style="color:white!important">{{$oldValue}}</td>
-                                </tr>
+                        @if($log->event != 'created' )
+                        @foreach( json_decode($log->old_values) as $oldKey => $oldValue )
+                            @if($oldKey != 'update_remarks')
+                            <tr style="background: #e74c3c; ">
+                                <td style="color:white!important">Old</td>
+                                <td style="color:white!important">{{$oldKey}}</td>
+                                <td style="color:white!important">{{$oldValue}}</td>
+                            </tr>
+                            @endif
+                        @endforeach
+
+                        @foreach( json_decode($log->new_values) as $newKey => $newValue )
+                            <tr style="background: #2ecc71;">
+                                <td style="color:white!important">New</td>
+                                <td style="color:white!important">{{$newKey}}</td>
+                                @if(is_object($newValue))
+                                <td style="color:white!important">{{json_encode($newValue)}}</td>
+                                @else
+                                <td style="color:white!important">{{$newValue}}</td>
                                 @endif
-                            @endforeach
-
-                            @foreach( json_decode($log->new_values) as $newKey => $newValue )
-                                <tr style="background: #2ecc71;">
-                                    <td style="color:white!important">New</td>
-                                    <td style="color:white!important">{{$newKey}}</td>
-                                    @if(is_object($newValue))
-                                    <td style="color:white!important">{{json_encode($newValue)}}</td>
-                                    @else
-                                    <td style="color:white!important">{{$newValue}}</td>
-                                    @endif
-                                </tr>
-                            @endforeach
-                        </tr>
+                            </tr>
+                        @endforeach
                         @endif
+                    </tr>
                     @endif
                 @endforeach
             </tbody>

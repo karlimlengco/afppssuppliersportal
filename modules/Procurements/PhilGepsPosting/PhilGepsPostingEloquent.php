@@ -25,6 +25,7 @@ class PhilGepsPostingEloquent extends Model implements  AuditableContract
         'update_remarks',
         'remarks',
         'newspaper',
+        'status',
     ];
 
 

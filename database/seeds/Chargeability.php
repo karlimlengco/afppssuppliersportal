@@ -14,7 +14,8 @@ class Chargeability extends Seeder
     {
 
         $datas = collect([
-            new ChargeabilityEloquent(["name" => 'MOOE', "description"   => 'Lorem Ipsum']),
+            new ChargeabilityEloquent(["name" => 'MOOE', "description"   => 'Maintenance and Other Operating Expenses']),
+            new ChargeabilityEloquent(["name" => 'CO', "description"   => 'Capital Outlay']),
         ]);
 
         $datas->each(function($data) {

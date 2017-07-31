@@ -22,7 +22,12 @@ trait AnalyticTrait
         $model  =   $model->select([
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
 
-            DB::raw("count(unit_purchase_requests.delay_count) as delay_count"),
+            // DB::raw("count(unit_purchase_requests.delay_count) as delay_count"),
+
+            DB::raw("SUM(CASE
+             WHEN unit_purchase_requests.delay_count != 0 and unit_purchase_requests.state != 'completed' THEN 1
+             ELSE 0
+           END) as delay_count"),
 
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
 
@@ -68,7 +73,11 @@ trait AnalyticTrait
         $model  =   $model->select([
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
 
-            DB::raw("count(unit_purchase_requests.delay_count)  - count(unit_purchase_requests.completed_at) as delay_count"),
+            DB::raw("SUM(CASE
+             WHEN unit_purchase_requests.delay_count != 0 and unit_purchase_requests.state != 'completed' THEN 1
+             ELSE 0
+           END) as delay_count"),
+            // DB::raw("count(unit_purchase_requests.delay_count)  - count(unit_purchase_requests.completed_at) as delay_count"),
 
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
 
@@ -121,7 +130,11 @@ trait AnalyticTrait
         $model  =   $model->select([
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
 
-            DB::raw("count(unit_purchase_requests.delay_count) - count(unit_purchase_requests.completed_at) as delay_count"),
+            // DB::raw("count(unit_purchase_requests.delay_count) - count(unit_purchase_requests.completed_at) as delay_count"),
+            DB::raw("SUM(CASE
+             WHEN unit_purchase_requests.delay_count != 0 and unit_purchase_requests.state != 'completed' THEN 1
+             ELSE 0
+           END) as delay_count"),
 
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
 
@@ -180,7 +193,11 @@ trait AnalyticTrait
         $model  =   $model->select([
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
 
-            DB::raw("count(unit_purchase_requests.delay_count)- count(unit_purchase_requests.completed_at) as delay_count"),
+            // DB::raw("count(unit_purchase_requests.delay_count)- count(unit_purchase_requests.completed_at) as delay_count"),
+            DB::raw("SUM(CASE
+             WHEN unit_purchase_requests.delay_count != 0 and unit_purchase_requests.state != 'completed' THEN 1
+             ELSE 0
+           END) as delay_count"),
 
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
 
