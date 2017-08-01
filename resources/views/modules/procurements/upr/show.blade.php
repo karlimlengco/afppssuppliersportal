@@ -202,7 +202,7 @@ Unit Purchase Request
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Reference No. :</strong> {{$data->ref_number}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Date Prepared :</strong> {{$data->date_prepared}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Prepared by :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname :""}} </li>
-                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Procurement Centers :</strong> {{($data->centers) ? $data->centers->name :""}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Procurement Centers/ Contracting Office :</strong> {{($data->centers) ? $data->centers->name :""}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Mode of Procurement :</strong> {{($data->modes) ? $data->modes->name :  "Public Bidding" }} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Place Of Delivery :</strong> {{$data->place_of_delivery}} </li>
             </ul>

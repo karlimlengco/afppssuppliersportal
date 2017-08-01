@@ -175,14 +175,36 @@
 }
 
 #button-focus {
-  background: #a0a0a0!important;
+  background: #100642!important;
+  // background: #a0a0a0!important;
   border:none;
   outline: none;
   color: #ffffff;
+  font-weight: 800;
 }
+.button-unfocus:hover{
+    border:none!important;
+    color:#222222;
+}
+
+
 .button-unfocus{
-  background: #a8cfe0!important;
+  // background: #a8cfe0!important;
+  background: #eee!important;
   border:none;
   outline: none;
-  color:#969587;
+  color:#222222;
+}
+
+.alternative#button-focus{
+  background: #C68400!important;
+  border:none;
+}
+
+#alternative thead tr th {
+  background: #C68400!important;
+  // background: #a0a0a0;
+  color: #FFFFFF;
+  font-weight: 700;
+  border-top:none
 }

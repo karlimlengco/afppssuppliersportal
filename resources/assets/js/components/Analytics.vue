@@ -14,10 +14,12 @@
             </p>
         </div> -->
     </div>
-    <button class='button button-unfocus' v-bind:id="[ isActived  == 'alternative' ? 'button-focus' : '']" v-on:click="changeType('alternative')" >Alternative</button>
     <button class='button button-unfocus'  v-bind:id="[ isActived == 'bidding' ? 'button-focus' : '']" v-on:click="changeType('bidding')" >Bidding</button>
+
+    <button class='button button-unfocus alternative' v-bind:id="[ isActived  == 'alternative' ? 'button-focus' : '']" v-on:click="changeType('alternative')" >Alternative</button>
+
     <div class="table-scroll">
-        <table class="table table--with-border table-name">
+        <table class="table table--with-border table-name" v-bind:id="types">
             <thead>
                 <tr>
                     <th style="text-align:center">UNITS</th>
@@ -222,7 +224,7 @@ var array2IDs           =   [];
                 itemProgram: [],
                 itemProgramCenters:[],
                 itemUnits:[],
-                types:"alternative",
+                types:"bidding",
             }
         },
 

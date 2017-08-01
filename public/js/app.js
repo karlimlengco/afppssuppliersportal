@@ -16068,6 +16068,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 var arrayIDs = [];
@@ -16080,7 +16082,7 @@ var array2IDs = [];
             itemProgram: [],
             itemProgramCenters: [],
             itemUnits: [],
-            types: "alternative"
+            types: "bidding"
         };
     },
     mounted: function mounted() {
@@ -50750,16 +50752,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._m(0), _vm._v(" "), _c('button', {
     staticClass: "button button-unfocus",
     attrs: {
-      "id": [_vm.isActived == 'alternative' ? 'button-focus' : '']
-    },
-    on: {
-      "click": function($event) {
-        _vm.changeType('alternative')
-      }
-    }
-  }, [_vm._v("Alternative")]), _vm._v(" "), _c('button', {
-    staticClass: "button button-unfocus",
-    attrs: {
       "id": [_vm.isActived == 'bidding' ? 'button-focus' : '']
     },
     on: {
@@ -50767,10 +50759,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.changeType('bidding')
       }
     }
-  }, [_vm._v("Bidding")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Bidding")]), _vm._v(" "), _c('button', {
+    staticClass: "button button-unfocus alternative",
+    attrs: {
+      "id": [_vm.isActived == 'alternative' ? 'button-focus' : '']
+    },
+    on: {
+      "click": function($event) {
+        _vm.changeType('alternative')
+      }
+    }
+  }, [_vm._v("Alternative")]), _vm._v(" "), _c('div', {
     staticClass: "table-scroll"
   }, [_c('table', {
-    staticClass: "table table--with-border table-name"
+    staticClass: "table table--with-border table-name",
+    attrs: {
+      "id": _vm.types
+    }
   }, [_vm._m(1), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
     return [_c('tr', [_c('td', [_vm._v("\n                            Program " + _vm._s(item.programs) + "\n                            "), (item.upr_count > 0) ? _c('button', {
       staticClass: "show-child-table",
