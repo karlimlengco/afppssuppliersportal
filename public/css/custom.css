@@ -187,6 +187,10 @@
     color:#222222;
 }
 
+.button {
+  border:none!important;
+  background: #100642!important;
+}
 
 .button-unfocus{
   // background: #a8cfe0!important;
