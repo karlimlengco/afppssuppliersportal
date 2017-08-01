@@ -208,3 +208,10 @@
   font-weight: 700;
   border-top:none
 }
+
+#bidding thead tr th {
+  background: #100642;
+  color: #FFFFFF;
+  font-weight: 700;
+  border-top:none
+}
