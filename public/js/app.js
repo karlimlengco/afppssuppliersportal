@@ -16069,7 +16069,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 var arrayIDs = [];
@@ -50974,7 +50973,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                        # UPR\n                        ")]), _vm._v(" "), _c('th', [_vm._v("Total ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVG Days to Complete")]), _vm._v(" "), _c('th', [_vm._v("Number of Days Delay")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                        # UPR\n                    ")]), _vm._v(" "), _c('th', [_vm._v("Total ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVG Days to Complete")]), _vm._v(" "), _c('th', [_vm._v("Number of Days Delay")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "text-align": "center"
     }

@@ -175,8 +175,8 @@
 }
 
 #button-focus {
-  background: #100642!important;
-  // background: #a0a0a0!important;
+  // background: #100642!important;
+  background: #a0a0a0!important;
   border:none;
   outline: none;
   color: #ffffff;
@@ -189,33 +189,38 @@
 
 .button {
   border:none!important;
-  background: #100642!important;
+  // background: #100642!important;
 }
 
 .button-unfocus{
-  // background: #a8cfe0!important;
-  background: #eee!important;
+  background: #a8cfe0!important;
+  // background: #eee!important;
   border:none;
   outline: none;
   color:#222222;
 }
 
 .alternative#button-focus{
-  background: #C68400!important;
+  // background: #C68400!important;
   border:none;
 }
 
 #alternative thead tr th {
-  background: #C68400!important;
-  // background: #a0a0a0;
+  // background: #C68400!important;
+  background: #a0a0a0;
   color: #FFFFFF;
   font-weight: 700;
   border-top:none
 }
 
 #bidding thead tr th {
-  background: #100642;
+  // background: #100642;
   color: #FFFFFF;
   font-weight: 700;
   border-top:none
 }
+
+// #alternative td:nth-child(n+7), #bidding td:nth-child(n+7), #alternative th:nth-child(n+7), #bidding th:nth-child(n+7){
+//     display:none;
+//     border:none;
+// }

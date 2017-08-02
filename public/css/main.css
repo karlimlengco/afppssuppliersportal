@@ -2922,8 +2922,8 @@ table.less
   border-bottom: none;
 }
 .table--with-border thead tr th {
-  background: #100642;
-  // background: #a0a0a0;
+  // background: #100642;
+  background: #a0a0a0;
   color: #FFFFFF;
   font-weight: 700;
 }

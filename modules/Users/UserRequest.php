@@ -56,8 +56,8 @@ class UserRequest extends BaseRequest
     public function rules()
     {
         return [
-            'unit_id'            => 'required',
-            'designation'            => 'required',
+            'unit_id'               => 'required',
+            'designation'           => 'required',
             'first_name'            => 'required',
             'middle_name'           => 'required',
             'surname'               => 'required',
