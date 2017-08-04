@@ -129,10 +129,18 @@ class DeliveryController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
         $ntp_date               =   Carbon::createFromFormat('Y-m-d', $ntp->award_accepted_date );
+        $cd                     =   $ntp_date->diffInDays($transaction_date);
 
         $day_delayed            =   $ntp_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+        if($day_delayed > 1)
+        {
+            $day_delayed  =  $day_delayed - 1;
+        }
+
 
         $validator = Validator::make($request->all(),[
             'expected_date'     =>  'required',
@@ -164,7 +172,7 @@ class DeliveryController extends Controller
             'status'            =>  'ongoing',
             'upr_number'        =>  $po_model->upr_number,
             'created_by'        =>  \Sentinel::getUser()->id,
-            'days'              => ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'days'              => $wd,
             'action'           =>  $request->action,
             'remarks'           =>  $request->remarks
         ];
@@ -188,9 +196,13 @@ class DeliveryController extends Controller
         DB::table('delivery_order_items')->insert($items);
 
         $upr->update([
-            'status' => 'NOD Created',
-            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
-            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'next_allowable'=> $po_model->delivery_terms,
+            'next_step'     => 'Receive Delivery',
+            'next_due'      => $transaction_date->addDays($po_model->delivery_terms),
+            'last_date'     => $transaction_date,
+            'status'        => 'NOD Created',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
@@ -399,20 +411,29 @@ class DeliveryController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('delivery_date') );
         $dr_date                =   Carbon::createFromFormat('Y-m-d', $dr_model->transaction_date );
+        $cd                     =   $dr_date->diffInDays($transaction_date);
 
         $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+        if($day_delayed > $dr_model->po->delivery_terms)
+        {
+            $day_delayed = $day_delayed - $dr_model->po->delivery_terms;
+        }
+
         $validator = Validator::make($request->all(),[
             'delivery_date'     =>  'required',
-            'delivery_action'  =>  'required_with:delivery_remarks',
             'received_quantity.*' => 'required'
         ]);
 
-        $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('delivery_remarks') == null && $day_delayed > 7) {
+        $validator->after(function ($validator)use($day_delayed, $request, $dr_model) {
+            if ( $request->get('delivery_remarks') == null && $day_delayed > $dr_model->po->delivery_terms) {
                 $validator->errors()->add('delivery_remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('delivery_action') == null && $day_delayed > $dr_model->po->delivery_terms) {
+                $validator->errors()->add('delivery_action', 'This field is required when your process is delay');
             }
         });
 
@@ -424,7 +445,7 @@ class DeliveryController extends Controller
                         ->withInput();
         }
 
-        $inputs['delivery_days']    =   $day_delayed;
+        $inputs['delivery_days']    =   $wd;
         $inputs['delivery_remarks'] =   $request->delivery_remarks;
         $inputs['delivery_action']  =   $request->delivery_action;
 
@@ -441,9 +462,13 @@ class DeliveryController extends Controller
         $model->update($inputs, $id);
 
         $upr->update([
+            'next_allowable'=> 1,
+            'next_step'     => 'COA Delivery',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
             'status' => 'Delivery Received',
-            'delay_count'   => ($day_delayed > 7 )? $day_delayed - 7 : 0,
-            'calendar_days' => $day_delayed + $dr_model->upr->calendar_days,
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $dr_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $dr_model->upr_id);
@@ -495,19 +520,28 @@ class DeliveryController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('date_delivered_to_coa') );
         $dr_date                =   Carbon::createFromFormat('Y-m-d', $dr_model->delivery_date );
+        $cd                     =   $dr_date->diffInDays($transaction_date);
 
         $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+        if($day_delayed > 1)
+        {
+            $day_delayed = $day_delayed - 1;
+        }
+
         $validator = Validator::make($request->all(),[
             'date_delivered_to_coa'   =>  'required',
-            'dr_coa_action'  =>  'required_with:dr_coa_remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('dr_coa_remarks') == null && $day_delayed > 1) {
                 $validator->errors()->add('dr_coa_remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('dr_coa_action') == null && $day_delayed > 1) {
+                $validator->errors()->add('dr_coa_action', 'This field is required when your process is delay');
             }
         });
 
@@ -518,9 +552,9 @@ class DeliveryController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        $inputs['dr_coa_days']          =   $day_delayed;
+        $inputs['dr_coa_days']          =   $wd;
         $inputs['dr_coa_remarks']       =   $request->dr_coa_remarks;
-        $inputs['dr_coa_action']       =   $request->dr_coa_action;
+        $inputs['dr_coa_action']        =   $request->dr_coa_action;
         $inputs['date_delivered_to_coa']=   $request->date_delivered_to_coa;
         $inputs['delivered_to_coa_by']  =   \Sentinel::getUser()->id;
         $inputs['status']               =   'completed';
@@ -529,9 +563,13 @@ class DeliveryController extends Controller
         $result =   $model->update($inputs, $id);
 
         $upr->update([
-            'status' => 'Complete COA Delivery',
-            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
-            'calendar_days' => $day_delayed + $dr_model->upr->calendar_days,
+            'next_allowable'=> 1,
+            'next_step'     => 'Technical Inspection',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => 'Complete COA Delivery',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $dr_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);

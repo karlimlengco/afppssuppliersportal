@@ -38,9 +38,9 @@ Request For Quotation
         <button class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
-                @if($data->status != 'closed')
+                {{-- @if($data->status != 'closed') --}}
                 <a href="#" class="button__options__item" id="proponent-button">Add Proponents</a>
-                @endif
+                {{-- @endif --}}
 
                 @if($data->status != 'closed')
                     <a href="#" class="button__options__item" id="close-button">Close RFQ</a>
@@ -128,9 +128,9 @@ Request For Quotation
                     <td>
                         <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="attachments"> <span class="nc-icon-glyph ui-1_attach-87"></span> </a>
 
-                        @if($data->status != 'closed')
+                        {{-- @if($data->status != 'closed') --}}
                         <a href="{{route('procurements.rfq-proponents.delete',$proponent->id)}}" tooltip="remove"> <span class="nc-icon-glyph ui-1_trash-simple"></span> </a>
-                        @endif
+                        {{-- @endif --}}
                     </td>
                 </tr>
                 @endforeach

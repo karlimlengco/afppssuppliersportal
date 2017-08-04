@@ -1,6 +1,6 @@
 <div class="twelve columns align-right utility utility--align-right">
     @if($data->mode_of_procurement != 'public_bidding')
-        @if($data->status == 'Processing RFQ')
+        @if($data->status == 'Close RFQ')
             {{-- <a href="#" class="button__options__item" id="invitation-button">Create Invitation</a> --}}
             <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
@@ -97,7 +97,7 @@
 
     @if($data->status == 'NOA Received')
         <span >Create PO</span>
-        <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button" id="post-qual-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         {{-- <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button__options__item">Create PO</a> --}}
     @endif
 
@@ -105,18 +105,24 @@
         {{-- <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">View PO</a> --}}
 
         <span >View PO</span>
-        <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button" id="post-qual-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button"  tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
     @endif
 
     @if($data->status == 'PO Approved')
         {{-- <a href="#" class="button__options__item" id="ntp-button"> Notice To Proceed</a> --}}
 
-        <span >Post Qualification</span>
+        <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
+
+        <span >Prepare NTP</span>
         <a href="#" class="button" id="ntp-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
     @endif
 
     @if($data->status == 'NTP Created')
         {{-- <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item"> View Notice To Proceed</a> --}}
+
+        <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
 
         <span >View Notice To Proceed</span>
         <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button"  tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
@@ -124,12 +130,18 @@
 
     @if($data->status == 'NTP Accepted')
 
+        <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
+
         <span >Create Notice Of Delivery</span>
         <a href="#" class="button" id="create-delivery-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         {{-- <a class="button__options__item" id="create-delivery-button" href="#">Create Notice Of Delivery</a> --}}
     @endif
 
     @if($data->status == 'NOD Created' || $data->status == 'Delivery Received')
+
+        <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
 
         <span >View Notice Of Delivery</span>
         <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>

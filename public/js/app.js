@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 65);
+/******/ 	return __webpack_require__(__webpack_require__.s = 67);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -555,7 +555,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(49)))
 
 /***/ }),
 /* 4 */
@@ -633,7 +633,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(63)
+var listToStyles = __webpack_require__(65)
 
 /*
 type StyleObject = {
@@ -14949,6 +14949,11 @@ module.exports = Vue$3;
 __webpack_require__(38);
 
 window.Vue = __webpack_require__(12);
+/**
+ * Include directives
+ */
+__webpack_require__(40);
+__webpack_require__(39);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -14956,11 +14961,11 @@ window.Vue = __webpack_require__(12);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(54));
-Vue.component('analytics', __webpack_require__(50));
-Vue.component('chat-message', __webpack_require__(53));
-Vue.component('chat-log', __webpack_require__(52));
-Vue.component('chat-composer', __webpack_require__(51));
+Vue.component('example', __webpack_require__(56));
+Vue.component('analytics', __webpack_require__(52));
+Vue.component('chat-message', __webpack_require__(55));
+Vue.component('chat-log', __webpack_require__(54));
+Vue.component('chat-composer', __webpack_require__(53));
 
 var app = new Vue({
     el: '#app',
@@ -16067,8 +16072,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 var arrayIDs = [];
@@ -16081,7 +16084,8 @@ var array2IDs = [];
             itemProgram: [],
             itemProgramCenters: [],
             itemUnits: [],
-            types: "bidding"
+            types: "bidding",
+            show: false
         };
     },
     mounted: function mounted() {
@@ -16159,6 +16163,24 @@ var array2IDs = [];
             }
         },
         clickItemUnit: function clickItemUnit(item) {
+
+            // var tds = document.getElementsByTagName("td");
+            // var th = document.getElementsByTagName("th");
+
+            // for(var i = 0; i < th.length; i++) {
+            //    th[i].style.display="table-cell";
+            // }
+
+            // for(var i = 0; i < tds.length; i++) {
+            //    tds[i].style.display="table-cell";
+            // }
+            //
+            if (this.show == false) {
+                this.show = true;
+            } else {
+                this.show = false;
+            }
+
             if (arrayProgramCenter.indexOf(item.name) == -1 && arrayProgramCenter[item.name] == item.name) {
                 if (array2IDs.indexOf(item.short_code) == -1) {
                     if (array2IDs[item.name] != item.short_code) {
@@ -16362,14 +16384,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_tooltip__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_tooltip__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_tooltip___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_v_tooltip__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_pusher_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_laravel_echo__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_laravel_echo__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_laravel_echo__);
 
-window._ = __webpack_require__(45);
+window._ = __webpack_require__(47);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -16378,9 +16400,9 @@ window._ = __webpack_require__(45);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(43);
+  window.$ = window.jQuery = __webpack_require__(45);
 
-  __webpack_require__(39);
+  __webpack_require__(41);
 } catch (e) {}
 
 
@@ -16432,6 +16454,70 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_3_laravel_echo___default.a({
 
 /***/ }),
 /* 39 */
+/***/ (function(module, exports) {
+
+Vue.directive('form-check', {
+  bind: function bind(el, _ref) {
+    var value = _ref.value,
+        rawName = _ref.rawName,
+        expression = _ref.expression;
+
+    var isSubmitting = false;
+
+    var submitForm = function submitForm() {
+      isSubmitting = true;
+    };
+
+    el.addEventListener('submit', submitForm);
+
+    window.onbeforeunload = function () {
+      if (!isSubmitting) {
+        return 'Are you sure you want to navigate away from this page?';
+      }
+    };
+  }
+});
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+Vue.directive('link', {
+  bind: function bind(el, _ref) {
+    var modifiers = _ref.modifiers,
+        value = _ref.value;
+
+    var isClicking = true;
+    var clickTimeout;
+
+    handleClick = function handleClick(e) {
+      isClicking = false;
+    };
+
+    el.addEventListener('mousedown', function (e) {
+      clickTimeout = setTimeout(handleClick, 400, e);
+    });
+
+    el.addEventListener('mouseup', function (e) {
+      clearInterval(clickTimeout);
+
+      if (isClicking) {
+        e.stopPropagation();
+
+        if (modifiers.blank) {
+          window.open(value);
+          return;
+        }
+        window.location.href = value;
+      }
+
+      isClicking = true;
+    });
+  }
+});
+
+/***/ }),
+/* 41 */
 /***/ (function(module, exports) {
 
 /*!
@@ -18814,28 +18900,28 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
 exports.push([module.i, "\n.chat-log .chat-message:nth-child(even) {\n    background-color: #ccc;\n}\n.empty {\n    padding: 1rem;\n    text-align: center;\n}\n", ""]);
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
 exports.push([module.i, "\n.chat-composer {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.chat-composer input {\n    -webkit-box-flex: 1;\n        -ms-flex: 1 auto;\n            flex: 1 auto;\n    padding: .5rem 1rem;\n}\n.chat-composer button {\n    border-radius: 0;\n}\n", ""]);
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
 exports.push([module.i, "\n.chat-message {\n    padding: 1rem;\n}\n.chat-message > p {\n    margin-bottom: .5rem;\n}\n", ""]);
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -29095,7 +29181,7 @@ return jQuery;
 
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports) {
 
 var asyncGenerator = function () {
@@ -29868,7 +29954,7 @@ var Echo = function () {
 module.exports = Echo;
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -46957,10 +47043,10 @@ module.exports = Echo;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(64)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(66)(module)))
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49392,7 +49478,7 @@ Popper.Defaults = Defaults;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -49582,12 +49668,12 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_popper_js__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_popper_js__ = __webpack_require__(48);
 
 
 /**
@@ -50091,7 +50177,7 @@ var _initialiseProps = function _initialiseProps() {
 
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports =
@@ -50505,7 +50591,7 @@ function replaceClasses(el, newClasses, oldClasses) {
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(48);
+module.exports = __webpack_require__(50);
 
 /***/ }),
 /* 3 */
@@ -50560,14 +50646,14 @@ if (GlobalVue) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(33),
   /* template */
-  __webpack_require__(55),
+  __webpack_require__(57),
   /* scopeId */
   null,
   /* cssModules */
@@ -50594,18 +50680,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(61)
+__webpack_require__(63)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(34),
   /* template */
-  __webpack_require__(58),
+  __webpack_require__(60),
   /* scopeId */
   null,
   /* cssModules */
@@ -50632,18 +50718,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(60)
+__webpack_require__(62)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(35),
   /* template */
-  __webpack_require__(56),
+  __webpack_require__(58),
   /* scopeId */
   null,
   /* cssModules */
@@ -50670,18 +50756,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(62)
+__webpack_require__(64)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(36),
   /* template */
-  __webpack_require__(59),
+  __webpack_require__(61),
   /* scopeId */
   null,
   /* cssModules */
@@ -50708,14 +50794,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(37),
   /* template */
-  __webpack_require__(57),
+  __webpack_require__(59),
   /* scopeId */
   null,
   /* cssModules */
@@ -50742,7 +50828,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -50775,7 +50861,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": _vm.types
     }
-  }, [_vm._m(1), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
+  }, [_c('thead', [_c('tr', [_c('th', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                        # UPR\n                    ")]), _vm._v(" "), _c('th', [_vm._v("Total ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVG Days to Complete")]), _vm._v(" "), (_vm.show) ? _c('th', [_vm._v("Number of Days Delay")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("Current Status")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("Justification")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("Action Taken")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
     return [_c('tr', [_c('td', [_vm._v("\n                            Program " + _vm._s(item.programs) + "\n                            "), (item.upr_count > 0) ? _c('button', {
       staticClass: "show-child-table",
       on: {
@@ -50804,7 +50906,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "tooltip": "Delay"
       }
-    }, [_vm._v("(" + _vm._s(item.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td')]), _vm._v(" "), _c('tr', [_c('td', {
+    }, [_vm._v("(" + _vm._s(item.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
       staticClass: "has-child",
       attrs: {
         "colspan": "10"
@@ -50841,7 +50943,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           attrs: {
             "tooltip": "Delay"
           }
-        }, [_vm._v("(" + _vm._s(itemProgData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td')]), _vm._v(" "), _c('tr', [_c('td', {
+        }, [_vm._v("(" + _vm._s(itemProgData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
           staticClass: "has-child",
           attrs: {
             "colspan": "10"
@@ -50877,15 +50979,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               attrs: {
                 "tooltip": "Delay"
               }
-            }, [_vm._v("(" + _vm._s(itemUnitData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), (itemUnitData.status != 'upr_processing') ? _c('td', {
+            }, [_vm._v("(" + _vm._s(itemUnitData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
               staticStyle: {
                 "text-align": "left"
               }
-            }) : _c('td', {
-              staticStyle: {
-                "text-align": "left"
-              }
-            }, [_vm._v(" ")]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td')]), _vm._v(" "), _c('tr', [_c('td', {
+            }) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
               staticClass: "has-child",
               attrs: {
                 "colspan": "10"
@@ -50927,15 +51025,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   attrs: {
                     "tooltip": "Delay"
                   }
-                }, [_vm._v("(" + _vm._s(itemProgCentData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.delay))]), _vm._v(" "), (itemProgCentData.status != 'upr_processing') ? _c('td', {
+                }, [_vm._v("(" + _vm._s(itemProgCentData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), (_vm.show) ? _c('td', [_vm._v(" " + _vm._s(itemProgCentData.delay))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
                   staticStyle: {
                     "text-align": "left"
                   }
-                }, [_vm._v(_vm._s(itemProgCentData.status))]) : _c('td', {
-                  staticStyle: {
-                    "text-align": "left"
-                  }
-                }, [_vm._v("UPR Processing")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.last_remarks))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.last_action))])])
+                }, [_vm._v(_vm._s(itemProgCentData.status))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', [_vm._v(" " + _vm._s(itemProgCentData.last_remarks))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', [_vm._v(" " + _vm._s(itemProgCentData.last_action))]) : _vm._e()])
               }) : _vm._e()] : _vm._e()]
             })], 2)])])])]
           })] : _vm._e()] : _vm._e()]
@@ -50961,31 +51055,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "tooltip": "Delay"
     }
-  }, [_vm._v("(" + _vm._s(_vm.total_delay) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td'), _vm._v(" "), _c('td')])], 2)])])])
+  }, [_vm._v("(" + _vm._s(_vm.total_delay) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()])], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "six columns"
   }, [_c('h1', [_vm._v("Procurement Status Monitoring")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', {
-    staticStyle: {
-      "text-align": "center"
-    }
-  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                        # UPR\n                    ")]), _vm._v(" "), _c('th', [_vm._v("Total ABC")]), _vm._v(" "), _c('th', [_vm._v("Approved Contract Amount")]), _vm._v(" "), _c('th', [_vm._v("Residual Amount")]), _vm._v(" "), _c('th', [_vm._v("AVG Days to Complete")]), _vm._v(" "), _c('th', [_vm._v("Number of Days Delay")]), _vm._v(" "), _c('th', {
-    staticStyle: {
-      "text-align": "center"
-    }
-  }, [_vm._v("Current Status")]), _vm._v(" "), _c('th', {
-    staticStyle: {
-      "text-align": "center"
-    }
-  }, [_vm._v("Justification")]), _vm._v(" "), _c('th', {
-    staticStyle: {
-      "text-align": "center"
-    }
-  }, [_vm._v("Action Taken")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -50996,7 +51072,7 @@ if (false) {
 }
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -51028,7 +51104,7 @@ if (false) {
 }
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -51057,7 +51133,7 @@ if (false) {
 }
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -51104,7 +51180,7 @@ if (false) {
 }
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -51150,13 +51226,13 @@ if (false) {
 }
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(40);
+var content = __webpack_require__(42);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -51176,13 +51252,13 @@ if(false) {
 }
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(41);
+var content = __webpack_require__(43);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -51202,13 +51278,13 @@ if(false) {
 }
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(42);
+var content = __webpack_require__(44);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -51228,7 +51304,7 @@ if(false) {
 }
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(module, exports) {
 
 /**
@@ -51261,7 +51337,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -51289,7 +51365,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);

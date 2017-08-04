@@ -120,19 +120,25 @@ class BidOpeningController extends Controller
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        if($day_delayed < 0)
+        $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+
+        if($day_delayed >= 1)
         {
             $day_delayed            =   $day_delayed - 1;
         }
 
         $validator = Validator::make($request->all(),[
             'op_transaction_date'  =>  'required',
-            'action'                =>  'required_with:remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('remarks') == null && $day_delayed >= 1) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('action') == null && $day_delayed >= 1) {
+                $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
 
@@ -150,11 +156,23 @@ class BidOpeningController extends Controller
         $inputs['upr_number']       =   $upr_model->upr_number;
         $inputs['upr_id']           =   $upr_model->id;
         $inputs['ref_number']       =   $upr_model->ref_number;
-        $inputs['days']             =   $day_delayed;
+        $inputs['days']             =   $wd;
 
         $result = $model->save($inputs);
 
-        $upr->update(['status' => 'Bid Open', 'delay_count' => $day_delayed + $upr_model->delay_count], $upr_model->id);
+        $upr->update([
+            'status' => 'Bid Open',
+            'next_allowable'=> 1,
+            'next_step'     => 'Post Qualification',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'date_processed'=> \Carbon\Carbon::now(),
+            'processed_by'  => \Sentinel::getUser()->id,
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd,
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
+        ], $upr_model->id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

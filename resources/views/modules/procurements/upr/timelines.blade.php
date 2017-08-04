@@ -56,6 +56,7 @@ Unit Purchase Request
         $today          =   \Carbon\Carbon::now()->format('Y-m-d');
         $today          =   createCarbon('Y-m-d', $today);
         $upr_created    =   $data->date_prepared;
+        $next_date      =   createCarbon('Y-m-d',$data->next_due);
     ?>
 
         <table class="table">
@@ -143,7 +144,9 @@ Unit Purchase Request
                             @endif
 
                         @else
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $upr_created )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ) ;?>
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
 
                     </td>
@@ -156,8 +159,9 @@ Unit Purchase Request
                     <td>RFQ Create Invitation</td>
                     <td>
                         @if($data->ispq_transaction_date != null)
-                            <?php $ispq_transaction_date = createCarbon('Y-m-d',$data->ispq_transaction_date); ?>
-                        <a target="_blank" href="{{route('procurements.ispq.edit', $data->ispq_id)}}">{{$ispq_transaction_date->format('d F Y')}}</a>
+                            <a target="_blank" href="{{route('procurements.ispq.edit', $data->ispq_id)}}">
+                            {{createCarbon('Y-m-d',$data->ispq_transaction_date)->format('d F Y')}}
+                            </a>
                         @endif
                     </td>
                     <td>0</td>
@@ -173,7 +177,10 @@ Unit Purchase Request
                             @endif
 
                         @else
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$data->rfq_completed_at) )}}
+
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
 
@@ -203,7 +210,6 @@ Unit Purchase Request
                     </td>
                     <td>3</td>
                     <td>
-                    @if(isset($ispq_transaction_date))
                         @if($data->pp_completed_at != null)
                             {{ $data->pp_days }}
                             <?php $totalDays +=  $data->pp_days ; ?>
@@ -213,10 +219,11 @@ Unit Purchase Request
                             @endif
 
                         @else
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ispq_transaction_date )}}
                         @endif
-                    @endif
                     </td>
                     <td>{{$data->pp_remarks}}</td>
                     <td>{{$data->pp_action}}</td>
@@ -235,8 +242,7 @@ Unit Purchase Request
                     </td>
                     <td>1</td>
                     <td>
-                    @if(isset($ispq_transaction_date))
-                        @if($data->canvass_start_date != null)
+                        @if(isset($canvass_start_date))
                             {{ $data->canvass_days }}
                             <?php $totalDays +=  $data->canvass_days ; ?>
 
@@ -245,9 +251,10 @@ Unit Purchase Request
                             @endif
 
                         @else
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ispq_transaction_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
-                    @endif
                     </td>
                     <td>{{$data->canvass_remarks}}</td>
                     <td>{{$data->canvass_action}}</td>
@@ -315,6 +322,10 @@ Unit Purchase Request
 
                             </td>
                         </tr>
+                    @else
+                        <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                        {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                        {{$d}}
                     @endif
                     {{-- ITB --}}
 
@@ -345,44 +356,6 @@ Unit Purchase Request
                     @endif
                     {{-- Philgeps --}}
 
-                    {{-- Bid Docs Issuance --}}
-                    <tr>
-                        <td>Bid Docs Issuance</td>
-                        <td>
-                            @if($data->bid_issuance != null)
-                            <?php $rfq_created_at  =  createCarbon('Y-m-d',$data->bid_issuance->transaction_date); ?>
-                                <a target="_blank" href="{{route('biddings.itb.show', $data->bid_issuance->id)}}">
-                                    {{ $rfq_created_at->format('d F Y') }}
-                                </a>
-                            @endif
-                        </td>
-                        <td >1</td>
-                        <td>
-                            @if($data->bid_issuance != null)
-                                {{ $data->bid_issuance->days }}
-                                <?php $totalDays +=  $data->rfq_days ; ?>
-
-                                @if($data->bid_issuance->days > 1)
-                                    <strong class="red">({{ $data->bid_issuance->days - 1}})</strong>
-                                @endif
-
-                            @endif
-                        </td>
-                        <td>
-                            @if($data->bid_issuance != null)
-                            {{$data->bid_issuance->remarks}}
-                            @endif
-                        </td>
-                        <td>
-                            @if($data->bid_issuance != null)
-                            {{$data->bid_issuance->action}}
-                            @endif
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    {{-- Bid Docs Issuance --}}
 
                     {{-- Pre Bid Conference --}}
                     <tr>
@@ -406,6 +379,9 @@ Unit Purchase Request
                                 @endif
 
                             @else
+                                    <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                                    {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                    {{$d}}
                             @endif
                         </td>
                         <td>
@@ -447,6 +423,9 @@ Unit Purchase Request
                                 @endif
 
                             @else
+                                    <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                                    {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                    {{$d}}
                             @endif
                         </td>
                         <td>
@@ -487,6 +466,9 @@ Unit Purchase Request
                                 @endif
 
                             @else
+                                    <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                                    {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                    {{$d}}
                             @endif
                         </td>
                         <td>
@@ -529,8 +511,17 @@ Unit Purchase Request
 
 
                         @else
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $canvass_start_date )}}
+                                <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                                {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                {{$d}}
                         @endif
+                    @else
+                                <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                                {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                {{$d}}
+
                     @endif
                     </td>
                     <td>{{$data->noa_remarks}}</td>
@@ -569,7 +560,10 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $noa_award_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -601,7 +595,11 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $noa_approved_date )}}
+
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -632,8 +630,10 @@ Unit Purchase Request
                             @endif
 
                         @else
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $noa_award_accepted_date )}}
                         @endif
                     @endif
                     </td>
@@ -671,7 +671,10 @@ Unit Purchase Request
                             @endif
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $po_create_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -702,7 +705,11 @@ Unit Purchase Request
 
                         @else
                             @if(isset($funding_received_date) )
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $funding_received_date )}}
+
+                                <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                                {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                {{$d}}
                             @endif
                         @endif
                     </td>
@@ -733,7 +740,10 @@ Unit Purchase Request
                                 @endif
                             @else
 
-                                {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $mfo_received_date )}}
+                                <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                                {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                {{$d}}
                             @endif
                         @endif
                     </td>
@@ -764,7 +774,10 @@ Unit Purchase Request
                             @endif
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $coa_approved_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -792,7 +805,6 @@ Unit Purchase Request
                     </td>
                     <td>1</td>
                     <td>
-                    @if(isset($ntp_date))
                         @if($data->ntp_award_date != null)
                             {{ $data->ntp_accepted_days }}
                             <?php $totalDays +=  $data->ntp_accepted_days ; ?>
@@ -802,9 +814,10 @@ Unit Purchase Request
                             @endif
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ntp_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
-                    @endif
                     </td>
                     <td>{{$data->ntp_accepted_remarks}}</td>
                     <td>{{$data->ntp_accepted_action}}</td>
@@ -822,7 +835,6 @@ Unit Purchase Request
                     </td>
                     <td>1</td>
                     <td>
-                    @if(isset($ntp_award_date))
                         @if($data->dr_date != null)
                             {{ $data->dr_days }}
                             <?php $totalDays +=  $data->dr_days ; ?>
@@ -830,12 +842,11 @@ Unit Purchase Request
                             @if($data->dr_days > 1)
                                 <strong class="red">({{$data->dr_days - 1}})</strong>
                             @endif
-
                         @else
-
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $ntp_award_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
-                    @endif
                     </td>
                     <td>{{$data->dr_remarks}}</td>
                     <td>{{$data->dr_action}}</td>
@@ -858,20 +869,23 @@ Unit Purchase Request
                         </a>
                         @endif
                     </td>
-                    <td>7</td>
+                    <td>{{$data->delivery_terms}}</td>
                     <td>
                     @if(isset($dr_date))
                         @if($data->delivery_date != null)
                             {{ $data->dr_delivery_days }}
                             <?php $totalDays +=  $data->dr_delivery_days ; ?>
 
-                            @if($data->dr_delivery_days > 7)
-                                <strong class="red">({{$data->dr_delivery_days - 7}})</strong>
+                            @if($data->dr_delivery_days > $data->delivery_terms)
+                                <strong class="red">({{$data->dr_delivery_days - $data->delivery_terms}})</strong>
                             @endif
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $dr_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -902,7 +916,10 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $delivery_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -912,7 +929,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Delivery Inspection</td>
+                    <td>Technical Inspection</td>
                     <td>
                         @if($data->dr_inspection != null)
                         <?php $dr_inspection = createCarbon('Y-m-d',$data->dr_inspection); ?>
@@ -934,7 +951,10 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $dr_coa_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -973,7 +993,10 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $dr_inspection )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -1004,7 +1027,10 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $iar_accepted_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -1045,7 +1071,10 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $di_start )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -1078,7 +1107,10 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $di_close )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -1118,7 +1150,10 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $v_transaction_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -1152,7 +1187,10 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $preaudit_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -1184,7 +1222,10 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $certify_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -1215,7 +1256,10 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $journal_entry_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -1246,7 +1290,10 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $vou_approval_date )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>
@@ -1278,7 +1325,10 @@ Unit Purchase Request
 
                         @else
 
-                            {{ $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $vou_release )}}
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
                         @endif
                     @endif
                     </td>

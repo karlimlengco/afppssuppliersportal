@@ -83,9 +83,21 @@ $(document).on('click', '.show-grand-child-table', function(e){
 
 $(document).on('click', '.show-great-grand-child-table', function(e){
 // $('.show-great-grand-child-table').click(function(){
+
+    // var tds = document.getElementsByTagName("td");
+    // var th = document.getElementsByTagName("th");
+
+    // for(var i = 0; i < th.length; i++) {
+    //    th[i].style.display="table-cell";
+    // }
+
+    // for(var i = 0; i < tds.length; i++) {
+    //    tds[i].style.display="table-cell";
+    // }
     $(this).children('i').toggleClass('ui-1_circle-add ui-1_circle-delete');
     $(this).parents('tr').next().find('.has-child').first().toggleClass('is-open');
     $(this).parents('tr').next().find('.great-grand-child-table').toggleClass('is-visible');
+
 })
 
 

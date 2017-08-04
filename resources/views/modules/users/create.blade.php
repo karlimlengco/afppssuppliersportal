@@ -4,7 +4,7 @@ Users
 
 @section('contents')
 
-{!! Form::open(['route'=>'settings.users.store']) !!}
+{!! Form::open(['route'=>'settings.users.store', 'v-form-check']) !!}
 
 <div class="row">
     <div class="twelve columns align-left utility utility--align-right">
@@ -60,11 +60,11 @@ Users
     </div>
 </div>
 
-<row class="">
+<div class="row">
     <div class="twelve columns">
         {!! Form::textareaField('address', 'Address', null, ['rows'=>4]) !!}
     </div>
-</row>
+</div>
 
 {!! Form::close() !!}
 

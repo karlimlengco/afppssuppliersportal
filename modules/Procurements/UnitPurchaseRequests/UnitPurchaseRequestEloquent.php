@@ -116,6 +116,11 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
         'calendar_days',
         'last_remarks',
         'last_action',
+
+
+        'next_allowable',
+        'next_due',
+        'next_step',
     ];
 
     /**

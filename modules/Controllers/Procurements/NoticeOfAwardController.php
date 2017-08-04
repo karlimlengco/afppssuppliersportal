@@ -88,21 +88,30 @@ class NoticeOfAwardController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $supplier_name          =   $proponent_model->supplier->name;
+        $cd                     =   $canvasDate->diffInDays($transaction_date);
 
         $day_delayed            =   $canvasDate->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+        if($day_delayed > 2)
+        {
+            $day_delayed = $day_delayed - 2;
+        }
 
         $validator = Validator::make($request->all(),[
             'awarded_date'  =>   'required',
             'awarded_by'    =>   'required',
             'seconded_by'   =>   'required',
-            'action'        =>   'required_with:remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed > 1) {
+            if ( $request->get('remarks') == null && $day_delayed > 2 ) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('action') == null && $day_delayed > 2) {
+                $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
 
@@ -126,7 +135,7 @@ class NoticeOfAwardController extends Controller
             'awarded_date'  =>  $request->awarded_date,
             'remarks'       =>  $request->remarks,
             'action'        =>  $request->action,
-            'days'          =>  $day_delayed,
+            'days'          =>  $wd,
         ];
 
         $noa->save($data);
@@ -135,9 +144,13 @@ class NoticeOfAwardController extends Controller
         $model->update(['adjourned_time' => \Carbon\Carbon::now()], $canvasId);
         // // update upr
         $upr->update([
-            'status' => "Awarded To $supplier_name",
-            'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
-            'calendar_days' => $day_delayed + $canvasModel->upr->calendar_days,
+            'next_allowable'=> 1,
+            'next_step'     => 'Approved NOA',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'calendar_days' => $cd + $canvasModel->upr->calendar_days,
+            'status'        => "Awarded To $supplier_name",
+            'delay_count'   => $day_delayed,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ],  $canvasModel->upr_id);
@@ -196,9 +209,17 @@ class NoticeOfAwardController extends Controller
         $accepted_date =   Carbon::createFromFormat('Y-m-d', $noaModel->accepted_date);
         $award_accepted_date  =   Carbon::createFromFormat('Y-m-d', $request->award_accepted_date);
 
+        $cd                     =   $accepted_date->diffInDays($award_accepted_date);
+
         $day_delayed    =   $accepted_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $award_accepted_date);
+
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+        if($day_delayed > 1)
+        {
+            $day_delayed = $day_delayed - 1;
+        }
 
         $validator = Validator::make($request->all(),[
             'received_by'           =>  'required',
@@ -224,18 +245,22 @@ class NoticeOfAwardController extends Controller
             'received_by'           =>  $request->received_by,
             'award_accepted_date'   =>  $request->award_accepted_date,
             'status'                =>  'accepted',
-            'received_days'         =>  $day_delayed,
+            'received_days'         =>  $wd,
             'received_remarks'      =>  $request->received_remarks,
-            'received_action'      =>  $request->received_action,
+            'received_action'       =>  $request->received_action,
         ];
 
         $result             =   $model->findById($id);
 
         $model->update($input, $id);
         $upr->update([
-            'status' => 'NOA Received',
-            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
-            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'next_allowable'=> 2,
+            'next_step'     => 'Create PO',
+            'next_due'      => $award_accepted_date->addDays(2),
+            'last_date'     => $award_accepted_date,
+            'status'        => 'NOA Received',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
@@ -264,20 +289,28 @@ class NoticeOfAwardController extends Controller
         $noa_award_date =   Carbon::createFromFormat('Y-m-d H:i:s', $noaModel->awarded_date)->format('Y-m-d');
         $noa_award_date =   Carbon::createFromFormat('Y-m-d', $noa_award_date);
         $accepted_date  =   Carbon::createFromFormat('Y-m-d', $request->accepted_date);
-
+        $cd                     =   $noa_award_date->diffInDays($accepted_date);
         $day_delayed            =   $noa_award_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $accepted_date);
 
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+        if($day_delayed > 1)
+        {
+            $day_delayed = $day_delayed - 1;
+        }
+
         $validator = Validator::make($request->all(),[
             'file'          =>   'required',
             'accepted_date' =>   'required',
-            'approved_action'=>   'required_with:approved_remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('approved_remarks') == null && $day_delayed > 1) {
                 $validator->errors()->add('approved_remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('approved_action') == null && $day_delayed > 1) {
+                $validator->errors()->add('approved_action', 'This field is required when your process is delay');
             }
         });
 
@@ -293,7 +326,7 @@ class NoticeOfAwardController extends Controller
             'accepted_date'     =>  $request->accepted_date,
             'status'            =>  'approved',
             'file'              =>  '',
-            'approved_days'     =>  $day_delayed,
+            'approved_days'     =>  $wd,
             'approved_remarks'  =>  $request->approved_remarks,
             'approved_action'  =>  $request->approved_action,
         ];
@@ -314,10 +347,15 @@ class NoticeOfAwardController extends Controller
         }
 
          // // update upr
+
         $upr->update([
-            'status' => "Approved NOA",
-            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
-            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'next_allowable'=> 1,
+            'next_step'     => 'Recieved NOA',
+            'next_due'      => $accepted_date->addDays(1),
+            'last_date'     => $accepted_date,
+            'status'        => "Approved NOA",
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ],  $result->upr_id);

@@ -146,19 +146,29 @@ class DeliveredInspectionReportController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('start_date') );
         $tiac_date              =   Carbon::createFromFormat('Y-m-d', $tiac->accepted_date );
+        $cd                     =   $tiac_date->diffInDays($transaction_date);
 
         $day_delayed            =   $tiac_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+
+        if($day_delayed > 1)
+        {
+            $day_delayed = $day_delayed - 1;
+        }
 
         $validator = Validator::make($request->all(),[
             'start_date'       => 'required',
-            'action'            => 'required_with:remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('remarks') == null && $day_delayed > 1) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('action') == null && $day_delayed > 1) {
+                $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
 
@@ -174,7 +184,7 @@ class DeliveredInspectionReportController extends Controller
             'start_date'    => $request->start_date,
             'status'        => 'started',
             'started_by'    => \Sentinel::getUser()->id,
-            'days'          =>  ($day_delayed > 1 )? $day_delayed - 1 : 0,
+            'days'          =>  $wd,
             'action'       =>  $request->action,
             'remarks'       =>  $request->remarks
         ];
@@ -182,9 +192,13 @@ class DeliveredInspectionReportController extends Controller
         $result     =   $model->update($inputs, $id);
 
         $upr->update([
-            'status' => 'DIIR Started',
-            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
-            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'next_allowable'=> 1,
+            'next_step'     => 'Close Inspection',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => 'DIIR Started',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
@@ -212,19 +226,29 @@ class DeliveredInspectionReportController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('closed_date') );
         $diir_date              =   Carbon::createFromFormat('Y-m-d', $diir->start_date );
+        $cd                     =   $diir_date->diffInDays($transaction_date);
 
         $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+        if($day_delayed > 1)
+        {
+            $day_delayed = $day_delayed - 1;
+        }
+
 
         $validator = Validator::make($request->all(),[
             'closed_date'       => 'required',
-            'close_action'       => 'required_with:close_remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('close_remarks') == null && $day_delayed > 1) {
                 $validator->errors()->add('close_remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('close_action') == null && $day_delayed > 1) {
+                $validator->errors()->add('close_action', 'This field is required when your process is delay');
             }
         });
 
@@ -241,7 +265,7 @@ class DeliveredInspectionReportController extends Controller
             'closed_date'   => $request->closed_date,
             'status'        => 'closed',
             'closed_by'     => \Sentinel::getUser()->id,
-            'close_days'    =>  $day_delayed,
+            'close_days'    =>  $wd,
             'close_remarks' =>  $request->close_remarks,
             'close_action' =>  $request->close_action
         ];
@@ -249,10 +273,13 @@ class DeliveredInspectionReportController extends Controller
         $result     =   $model->update($inputs, $id);
 
         $upr->update([
-
+            'next_allowable'=> 1,
+            'next_step'     => 'Create Voucher',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
             'status' => 'DIIR Closed',
-            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
-            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);

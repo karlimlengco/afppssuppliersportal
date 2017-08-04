@@ -163,19 +163,27 @@ class NoticeToProceedController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('preparared_date') );
         $po_date                =   Carbon::createFromFormat('Y-m-d', $po_model->coa_approved_date );
+        $cd                     =   $po_date->diffInDays($transaction_date);
 
         $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+        if($day_delayed > 1 ){
+            $day_delayed = $day_delayed - 1;
+        }
 
         $validator = Validator::make($request->all(),[
             'preparared_date'   => 'required',
-            'action'   => 'required_with:remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('remarks') == null && $day_delayed > 1) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('action') == null && $day_delayed > 1) {
+                $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
 
@@ -198,16 +206,20 @@ class NoticeToProceedController extends Controller
             'upr_number'        =>  $po_model->upr_number,
             'proponent_id'      =>  $noa_model->proponent_id,
             'status'            =>  'pending',
-            'days'              =>  $day_delayed,
+            'days'              =>  $wd,
             'remarks'           =>  $request->remarks,
             'action'           =>  $request->action
         ];
 
 
         $upr->update([
-            'status' => "NTP Created",
-            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
-            'calendar_days' => $day_delayed + $po_model->upr->calendar_days,
+            'next_allowable'=> 1,
+            'next_step'     => 'Receive NTP',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => "NTP Created",
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $po_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $po_model->upr_id);
@@ -359,20 +371,28 @@ class NoticeToProceedController extends Controller
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('award_accepted_date') );
         $po_date                =   Carbon::createFromFormat('Y-m-d H:i:s', $ntp_model->prepared_date );
         $po_date                =   Carbon::createFromFormat('Y-m-d', $po_date->format('Y-m-d') );
+        $cd                     =   $po_date->diffInDays($transaction_date);
 
         $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+        if($day_delayed > 1 ){
+            $day_delayed = $day_delayed - 1;
+        }
+
         $validator = Validator::make($request->all(),[
             'received_by'           =>  'required',
             'award_accepted_date'   =>  'required',
-            'accepted_action'   =>  'required_with:accepted_remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('accepted_remarks') == null && $day_delayed > 1) {
                 $validator->errors()->add('accepted_remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('accepted_action') == null && $day_delayed > 1) {
+                $validator->errors()->add('accepted_action', 'This field is required when your process is delay');
             }
         });
 
@@ -391,15 +411,19 @@ class NoticeToProceedController extends Controller
             'status'                =>  "Accepted",
             'accepted_remarks'      =>  $request->accepted_remarks,
             'accepted_action'       =>  $request->accepted_action,
-            'accepted_days'         =>  $day_delayed
+            'accepted_days'         =>  $wd
         ];
 
         $result             =   $model->update($input, $id);
 
         $upr->update([
-            'status' => 'NTP Accepted',
-            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
-            'calendar_days' => $day_delayed + $ntp_model->upr->calendar_days,
+            'next_allowable'=> 1,
+            'next_step'     => 'Prepare NOD',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => 'NTP Accepted',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $ntp_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);

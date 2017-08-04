@@ -211,7 +211,7 @@ trait AnalyticTrait
             DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
             DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
             DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
-            DB::raw(" unit_purchase_requests.delay_count as delay"),
+            // DB::raw(" unit_purchase_requests.delay_count as delay"),
             'procurement_centers.name',
             'procurement_centers.programs',
             'unit_purchase_requests.upr_number',
@@ -221,6 +221,10 @@ trait AnalyticTrait
             'unit_purchase_requests.last_remarks',
             'unit_purchase_requests.last_action',
             'catered_units.short_code',
+
+            // DB::raw("(select count(*) from holidays where holiday_date >= unit_purchase_requests.created_at and holiday_date <= NOW()) as holidays"),
+            // DB::raw("datediff(NOW(), unit_purchase_requests.next_due ) as delay"),
+            DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) as delay")
         ]);
 
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
@@ -242,6 +246,7 @@ trait AnalyticTrait
 
         $model  =   $model->groupBy([
             'procurement_centers.name',
+            'unit_purchase_requests.next_due',
             'procurement_centers.programs',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.delay_count',

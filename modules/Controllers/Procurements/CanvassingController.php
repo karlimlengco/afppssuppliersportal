@@ -140,11 +140,22 @@ class CanvassingController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
-        $ispq_transaction_date  = Carbon::createFromFormat('Y-m-d', $rfq_model->invitations->ispq->transaction_date);
+        if(!$upr_model->philgeps)
+        {
+            $ispq_transaction_date  = Carbon::createFromFormat('Y-m-d', $rfq_model->invitations->ispq->transaction_date);
+        }
+        else
+        {
+            $ispq_transaction_date  = Carbon::createFromFormat('Y-m-d', $upr_model->philgeps->transaction_date);
+        }
+
+        $cd                     = $ispq_transaction_date->diffInDays($transaction_date);
 
         $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
         if($day_delayed != 0)
         {
@@ -154,7 +165,7 @@ class CanvassingController extends Controller
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
             'open_canvass_date'  =>  'required',
-            'action'            =>  'required_with:remarks',
+            'action'             =>  'required_with:remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -174,7 +185,7 @@ class CanvassingController extends Controller
         $inputs['rfq_number']   =   $rfq_model->rfq_number;
         $inputs['upr_number']   =   $rfq_model->upr_number;
         $inputs['upr_id']       =   $rfq_model->upr_id;
-        $inputs['days']         =   $day_delayed;
+        $inputs['days']         =   $wd;
         $inputs['rfq_id']       =   $rfq_model->id;
         $inputs['canvass_date'] =   $request->open_canvass_date;
         $inputs['remarks']      =   $request->remarks;
@@ -185,9 +196,13 @@ class CanvassingController extends Controller
         $result = $model->save($inputs);
 
         $upr->update([
+            'next_allowable'=> 2,
+            'next_step'     => 'NOA',
+            'next_due'      => $transaction_date->addDays(2),
+            'last_date'     => $transaction_date,
             'status' => "Open Canvass",
-            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
-            'calendar_days' => $day_delayed + $rfq_model->upr->calendar_days,
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $rfq_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $rfq_model->upr_id);

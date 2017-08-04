@@ -128,12 +128,14 @@ class PreBidController extends Controller
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        if($day_delayed != 0)
+        $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+        if($day_delayed >= 1)
         $day_delayed            =   $day_delayed - 1;
 
         $validator = Validator::make($request->all(),[
             'transaction_date'  =>  'required',
-            'action'            =>  'required_with:remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -141,6 +143,9 @@ class PreBidController extends Controller
             {
                 if ( $request->get('remarks') == null && $day_delayed >= 1) {
                     $validator->errors()->add('remarks', 'This field is required when your process is delay');
+                }
+                if ( $request->get('action') == null && $day_delayed >= 1) {
+                    $validator->errors()->add('action', 'This field is required when your process is delay');
                 }
             }
         });
@@ -156,13 +161,25 @@ class PreBidController extends Controller
         $inputs['processed_by']     =   \Sentinel::getUser()->id;
         $inputs['upr_number']       =   $upr_model->upr_number;
         $inputs['ref_number']       =   $upr_model->ref_number;
-        $inputs['days']             =   $day_delayed;
+        $inputs['days']             =   $wd;
 
         $result = $model->save($inputs);
 
         if($request->resched_date == null)
         {
-            $upr->update(['status' => 'Pre Bid Conference', 'delay_count' => $day_delayed + $result->upr->delay_count], $result->upr_id);
+            $upr->update([
+                'status' => 'Pre Bid Conference',
+                'next_allowable'=> 1,
+                'next_step'     => 'Bid Opening',
+                'next_due'      => $transaction_date->addDays(1),
+                'last_date'     => $transaction_date,
+                'date_processed'=> \Carbon\Carbon::now(),
+                'processed_by'  => \Sentinel::getUser()->id,
+                'delay_count'   => $day_delayed,
+                'calendar_days' => $cd,
+                'last_action'   => $request->action,
+                'last_remarks'  => $request->remarks
+            ], $result->upr_id);
         }
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([

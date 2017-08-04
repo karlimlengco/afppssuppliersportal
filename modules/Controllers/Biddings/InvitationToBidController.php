@@ -121,17 +121,23 @@ class InvitationToBidController extends Controller
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        if($day_delayed != 0)
+
+        $cd                     =   $document_accept->diffInDays($transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+        if($day_delayed > 1)
         $day_delayed            =   $day_delayed - 1;
 
         $validator = Validator::make($request->all(),[
             'itb_approved_date'  =>  'required',
-            'action'             =>  'required_with:remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('remarks') == null && $day_delayed > 1) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('action') == null && $day_delayed > 1) {
+                $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
 
@@ -146,7 +152,7 @@ class InvitationToBidController extends Controller
             'upr_id'            =>  $upr_model->id,
             'upr_number'        =>  $upr_model->upr_number,
             'ref_number'        =>  $upr_model->ref_number,
-            'days'              =>  $day_delayed,
+            'days'              =>  $wd,
             'remarks'           =>  $request->remarks,
             'action'            =>  $request->action,
             'approved_date'     =>  $request->itb_approved_date,
@@ -156,7 +162,19 @@ class InvitationToBidController extends Controller
 
         $result = $model->save($inputs);
 
-        $upr->update(['status' => 'ITB Created', 'delay_count' => $day_delayed + $upr_model->delay_count], $upr_model->id);
+        $upr->update([
+            'status' => 'ITB Created',
+            'next_allowable'=> 3,
+            'next_step'     => 'PhilGeps POsting',
+            'next_due'      => $transaction_date->addDays(3),
+            'last_date'     => $transaction_date,
+            'date_processed'=> \Carbon\Carbon::now(),
+            'processed_by'  => \Sentinel::getUser()->id,
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd,
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
+             ], $upr_model->id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

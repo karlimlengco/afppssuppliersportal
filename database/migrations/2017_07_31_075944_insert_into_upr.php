@@ -15,7 +15,9 @@ class InsertIntoUpr extends Migration
     {
         Schema::table('unit_purchase_requests', function($table)
         {
+            $table->string('next_allowable')->nullable();
             $table->date('next_due')->nullable();
+            $table->date('last_date')->nullable();
             $table->text('next_step')->nullable();
         });
 

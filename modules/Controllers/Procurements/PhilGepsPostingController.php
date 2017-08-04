@@ -129,12 +129,14 @@ class PhilGepsPostingController extends Controller
         }
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $cd                     =   $ispq_transaction_date->diffInDays($transaction_date);
 
         $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        if($day_delayed != 0)
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+        if($day_delayed >= 3)
         {
             $day_delayed            =   $day_delayed - 3;
         }
@@ -166,16 +168,22 @@ class PhilGepsPostingController extends Controller
         $inputs['upr_number']   =   $rfq_model->upr_number;
         $inputs['remarks']      =   $request->remarks;
         $inputs['upr_id']       =   $rfq_model->upr_id;
-        $inputs['days']         =   $day_delayed;
+        $inputs['days']         =   $wd;
         $status  = 'Philgeps Approved';
+
         if($request->status == 0)
         {
             $status  = 'Philgeps Need Repost';
         }
+
         $upr->update([
-            'status'        =>  $status,
-            'delay_count'   => ($day_delayed > 3 )? $day_delayed - 3 : 0,
-            'calendar_days' => $day_delayed + $rfq_model->upr->calendar_days,
+            'next_allowable'=> 1,
+            'next_step'     => 'Canvassing',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => $status,
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $rfq_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $rfq_model->upr->id);
@@ -303,9 +311,9 @@ class PhilGepsPostingController extends Controller
 
         }
 
-        if($day_delayed != 0)
+        if($day_delayed >= 3)
         {
-            $day_delayed            =   $day_delayed - 1;
+            $day_delayed            =   $day_delayed - 3;
         }
 
         if($day_delayed != $result->days)

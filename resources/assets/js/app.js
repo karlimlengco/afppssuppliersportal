@@ -8,6 +8,12 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+/**
+ * Include directives
+ */
+require('./directives/v-link')
+require('./directives/v-form-check')
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

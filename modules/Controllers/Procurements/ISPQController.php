@@ -135,10 +135,12 @@ class ISPQController extends Controller
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_dates') );
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $cd                     =   $rfq_model->completed_at->diffInDays($transaction_date);
 
         $day_delayed            =   $rfq_model->completed_at->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
         if($day_delayed != 0)
         {
@@ -190,8 +192,13 @@ class ISPQController extends Controller
         ];
 
         $upr->update(['status' => 'Invitation Created',
+            'next_allowable'=> 3,
+            'next_step'     => 'PhilGeps Posting',
+            'state'         => 'On-Going',
+            'next_due'      => $transaction_date->addDays(3),
+            'last_date'     => $transaction_date,
             'delay_count'   => $day_delayed,
-            'calendar_days' => $day_delayed + $upr_model->calendar_days,
+            'calendar_days' => $cd + $upr_model->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $upr_model->id);

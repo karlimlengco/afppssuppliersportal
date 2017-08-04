@@ -30,10 +30,10 @@
                     <th>Approved Contract Amount</th>
                     <th>Residual Amount</th>
                     <th>AVG Days to Complete</th>
-                    <th>Number of Days Delay</th>
-                    <th style="text-align:center">Current Status</th>
-                    <th style="text-align:center">Justification</th>
-                    <th style="text-align:center">Action Taken</th>
+                    <th v-if="show" >Number of Days Delay</th>
+                    <th style="text-align:center" v-if="show" >Current Status</th>
+                    <th style="text-align:center" v-if="show" >Justification</th>
+                    <th style="text-align:center" v-if="show" >Action Taken</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,10 +53,10 @@
                         <td>{{formatPrice(item.total_bid)}}</td>
                         <td>{{formatPrice(item.total_residual)}}</td>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td v-if="show"></td>
+                        <td v-if="show"></td>
+                        <td v-if="show"></td>
+                        <td v-if="show"></td>
                     </tr>
                     <!-- child -->
                             <tr>
@@ -88,10 +88,10 @@
                                                     <td>{{formatPrice(itemProgData.total_residual)}}</td>
                                                     <td></td>
 
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td v-if="show" ></td>
+                                                    <td v-if="show" ></td>
+                                                    <td v-if="show" ></td>
+                                                    <td v-if="show" ></td>
                                                 </tr>
                                                 <!-- Grand Child -->
 
@@ -121,11 +121,10 @@
                                                                                 <td>{{formatPrice(itemUnitData.total_residual)}}</td>
                                                                                 <td></td>
 
-                                                                                <td></td>
-                                                                                <td  style="text-align:left" v-if="itemUnitData.status != 'upr_processing'"></td>
-                                                                                <td  style="text-align:left" v-else>&nbsp;</td>
-                                                                                <td></td>
-                                                                                <td></td>
+                                                                                <td v-if="show" ></td>
+                                                                                <td v-if="show"   style="text-align:left"></td>
+                                                                                <td v-if="show" ></td>
+                                                                                <td v-if="show" ></td>
                                                                             </tr>
                                                                             <!-- Great Grand -->
                                                                                     <tr>
@@ -149,11 +148,10 @@
                                                                                                 <td>{{formatPrice(itemProgCentData.total_residual)}}</td>
                                                                                                 <td>{{itemProgCentData.avg_days}}</td>
 
-                                                                                                <td>{{itemProgCentData.delay}}</td>
-                                                                                                <td  style="text-align:left" v-if="itemProgCentData.status != 'upr_processing'">{{itemProgCentData.status}}</td>
-                                                                                                <td  style="text-align:left" v-else>UPR Processing</td>
-                                                                                                <td>{{itemProgCentData.last_remarks}}</td>
-                                                                                                <td>{{itemProgCentData.last_action}}</td>
+                                                                                                <td v-if="show"> {{itemProgCentData.delay}}</td>
+                                                                                                <td v-if="show"  style="text-align:left">{{itemProgCentData.status}}</td>
+                                                                                                <td v-if="show"> {{itemProgCentData.last_remarks}}</td>
+                                                                                                <td v-if="show"> {{itemProgCentData.last_action}}</td>
                                                                                             </tr>
                                                                                                     </template>
                                                                                                 </template>
@@ -199,10 +197,10 @@
                     <td>{{formatPrice(total_bid)}}</td>
                     <td>{{formatPrice(total_residual)}}</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td v-if="show" ></td>
+                    <td v-if="show" ></td>
+                    <td v-if="show" ></td>
+                    <td v-if="show" ></td>
                 </tr>
 
             </tbody>
@@ -224,6 +222,7 @@ var array2IDs           =   [];
                 itemProgramCenters:[],
                 itemUnits:[],
                 types:"bidding",
+                show:false
             }
         },
 
@@ -302,6 +301,25 @@ var array2IDs           =   [];
                 }
             },
             clickItemUnit: function(item){
+
+                // var tds = document.getElementsByTagName("td");
+                // var th = document.getElementsByTagName("th");
+
+                // for(var i = 0; i < th.length; i++) {
+                //    th[i].style.display="table-cell";
+                // }
+
+                // for(var i = 0; i < tds.length; i++) {
+                //    tds[i].style.display="table-cell";
+                // }
+                //
+                if(this.show == false){
+                    this.show = true;
+                }else{
+                    this.show = false;
+                }
+
+
                 if( arrayProgramCenter.indexOf(item.name) == -1 && arrayProgramCenter[item.name] == item.name)
                 {
                     if( array2IDs.indexOf(item.short_code) == -1 )
