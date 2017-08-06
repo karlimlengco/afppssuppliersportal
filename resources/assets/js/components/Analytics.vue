@@ -4,15 +4,18 @@
         <div class="six columns">
             <h1>Procurement Status Monitoring</h1>
         </div>
-       <!--  <div class="six columns align-right" >
-            <h3>UPR count Legends</h3>
-            <p>
-                <small style="border: 1px solid #222;background:#222; color:white; font-weight:900; padding:4px">Total</small>
-                <small style="border: 1px solid rgba(41, 128, 185,1.0);background:rgba(41, 128, 185,1.0); color:white; font-weight:800; padding:4px">Completed</small>
-                <small style="border: 1px solid #1d8147;background:#1d8147; color:white; font-weight:800; padding:4px">Ongoing</small>
-                <small style="border: 1px solid rgba(231, 76, 60,1.0);background:rgba(231, 76, 60,1.0); color:white; font-weight:800; padding:4px">Delay</small>
-            </p>
-        </div> -->
+
+        <div class="six columns align-right">
+            <div style="display: inline-block">
+                <input v-model="startDate" type="date" format="yyyy-MM-dd" id="start" name="date_from" class="input" placeholder="Start Date">
+            </div>
+
+            <div style="display: inline-block">
+                <input v-model="endDate" type="date" format="yyyy-MM-dd" id="end" name="date_to" class="input" placeholder="End Date">
+            </div>
+            <button class="button" @click.prevent="search()" id="dateSearch"><span class="nc-icon-mini ui-1_zoom"></span></button>
+        </div>
+
     </div>
     <button class='button button-unfocus'  v-bind:id="[ isActived == 'bidding' ? 'button-focus' : '']" v-on:click="changeType('bidding')" >Bidding</button>
 
@@ -222,7 +225,9 @@ var array2IDs           =   [];
                 itemProgramCenters:[],
                 itemUnits:[],
                 types:"bidding",
-                show:false
+                show:false,
+                endDate: "",
+                startDate: ""
             }
         },
 
@@ -236,7 +241,7 @@ var array2IDs           =   [];
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             },
             fetchUprAnalytics: function(type) {
-                axios.get('/reports/programs/'+type)
+                axios.get('/reports/programs/'+type+'?date_from='+this.startDate+'&&date_to='+this.endDate)
                 // axios.get('/reports/upr-programs/'+type)
                     .then(response => {
                         this.items = response.data
@@ -288,6 +293,11 @@ var array2IDs           =   [];
                 arrayIDs = []
                 arrayProgramCenter = []
                 array2IDs = []
+
+                $('i').removeClass('ui-1_circle-delete');
+                $('.table-name').removeClass('is-visible');
+                $('i').addClass('ui-1_circle-add');
+                this.show = false;
                 this.fetchUprAnalytics(type)
             },
             clickItemProgramCenter: function(item){
@@ -301,18 +311,6 @@ var array2IDs           =   [];
                 }
             },
             clickItemUnit: function(item){
-
-                // var tds = document.getElementsByTagName("td");
-                // var th = document.getElementsByTagName("th");
-
-                // for(var i = 0; i < th.length; i++) {
-                //    th[i].style.display="table-cell";
-                // }
-
-                // for(var i = 0; i < tds.length; i++) {
-                //    tds[i].style.display="table-cell";
-                // }
-                //
                 if(this.show == false){
                     this.show = true;
                 }else{
@@ -331,6 +329,10 @@ var array2IDs           =   [];
                         }
                     }
                 }
+            },
+            search: function()
+            {
+                this.fetchUprAnalytics(this.types)
             }
         },
         computed: {
@@ -395,4 +397,6 @@ var array2IDs           =   [];
             }
         }
     }
+
 </script>
+<!-- date range -->

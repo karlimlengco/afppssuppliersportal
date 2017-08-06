@@ -41,9 +41,9 @@ class UPRController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getPrograms(ProcurementCenterRepository $model, $type = null)
+    public function getPrograms(Request $request, ProcurementCenterRepository $model, $type = null)
     {
-        return $model->getPrograms(null, $type);
+        return $model->getPrograms(null, $type, $request);
     }
     /**
      * Display a listing of the resource.

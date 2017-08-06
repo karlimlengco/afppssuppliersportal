@@ -19,7 +19,6 @@ Transaction Days Report
     <div class="six columns align-left">
         <button class='button button-tab' id='alternative'>Alternative</button>
         <button class='button button-tab button-unfocus' id='bidding'>Bidding</button>
-        <a href="#" id="printme" class="button" style="margin-bottom:10px">Download</a>
     </div>
     <div class="six columns align-right">
         <div style="display: inline-block">
@@ -30,6 +29,7 @@ Transaction Days Report
             <input type="text" id="end" name="date_to" class="input" placeholder="End Date">
         </div>
         <button class="button" id="dateSearch"><span class="nc-icon-mini ui-1_zoom"></span></button>
+        <a href="#" id="printme" class="button" style="margin-bottom:10px"><span class="nc-icon-mini arrows-e_archive-e-download"></span></a>
     </div>
 </div>
 
