@@ -1,5 +1,36 @@
 <template>
 <div class=" ">
+
+    <div class="modal" id="vue-modal">
+        <div class="modal__dialogue modal__dialogue--round-corner">
+                <button type="button" class="modal__close-button">
+                    <i class="nc-icon-outline ui-1_simple-remove"></i>
+                </button>
+
+
+                <div class="moda__dialogue__head">
+                    <h1 class="modal__title">Justification for {{uprName}} </h1>
+                </div>
+
+                <div class="modal__dialogue__body">
+                    <div class="row">
+                        <label>Justification</label>
+                        <textarea class="textarea" v-model="model.remarks"></textarea>
+                    </div>
+                    <div class="row">
+                        <label>Action Taken</label>
+                        <textarea class="textarea" v-model="model.action"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal__dialogue__foot">
+                    <button class="button" @click.prevent="updateModel()" >Proceed</button>
+                </div>
+
+        </div>
+    </div>
+
+
     <div class="row">
         <div class="six columns">
             <h1>Delay Notifications</h1>
@@ -20,6 +51,7 @@
                    <th>Next Step</th>
                    <th>Expected Date</th>
                    <th>Number of Delays</th>
+                   <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -32,6 +64,7 @@
                         <td>{{item.next_step}}</td>
                         <td>{{item.next_due}}</td>
                         <td>{{item.delay}}</td>
+                        <td @click.prevent="showModal(item)" style="cursor:pointer" tooltip="Justification" position="left"> <span class="nc-icon-mini education_notepad"></span></td>
                     </tr>
                 </template>
 
@@ -60,7 +93,18 @@
 </div>
 </template>
 
+<style>
+    #vue-modal{
+        left:0;
+        top:0;
+        bottom:0;
+        right:0;
+    }
+</style>
+
 <script>
+
+    var csrf_token = $('meta[name="csrf-token"]').attr('content');
 
     export default {
         data() {
@@ -74,7 +118,14 @@
                     current_page: 1
                 },
                 offset: 4,
-                search:""
+                search:"",
+                uprName:"",
+                model: {
+                    remarks: '',
+                    action: '',
+                    _token: csrf_token
+                },
+                upr_id : "",
             }
         },
         computed: {
@@ -128,6 +179,18 @@
                     }
                 });
             },
+            showModal(item){
+                this.upr_id  = item.id
+                this.uprName = item.upr_number
+                $('.modal').addClass('is-visible');
+            },
+            updateModel(){
+                axios.put('/unit-purchase-requests/justification/' + this.upr_id, this.model)
+                $('.modal').removeClass('is-visible');
+                // this.model.remarks = ""
+                // this.model.action = ""
+            }
+
         }
     }
 </script>

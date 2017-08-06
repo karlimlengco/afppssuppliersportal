@@ -1345,13 +1345,13 @@ printable-form.less
 .printable-form {
   display: block;
   position: relative;
-  // width: 8.3in;
+  width: 8.3in;
   height: 13in;
   max-height: 13in;
   min-height: 13in;
   padding: 0 15px;
   margin: 30px 0;
-  border: solid 1px transparent;
+  border: solid 1px #cccccc;
   /* for 'long' bond paper prints */
   /* for 'short' bond paper prints */
   /* file name for dev reference only */
@@ -1361,7 +1361,7 @@ printable-form.less
 }
 .printable-form * {
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 600;
   color: #545454;
 }
 .printable-form * strong {
@@ -2922,8 +2922,8 @@ table.less
   border-bottom: none;
 }
 .table--with-border thead tr th {
-  background: #100642;
   // background: #a0a0a0;
+  background: #100642;
   color: #FFFFFF;
   font-weight: 700;
 }
@@ -3572,14 +3572,13 @@ table-custom.less
 }
 .table-name tr th,
 .table-name tr td {
-  width: 120px !important;
-  min-width: 120px !important;
+  width: 100px !important;
+  min-width: 100px !important;
 }
 .table-name tr th:first-child,
 .table-name tr td:first-child {
   width: 300px !important;
   min-width: 300px !important;
-  max-width: 300px !important;
 }
 .table-name tr th.has-child .child-table tr th,
 .table-name tr td.has-child .child-table tr th,
@@ -3594,6 +3593,7 @@ table-custom.less
 .table-name tr th.has-child .great-grand-child-table tr td,
 .table-name tr td.has-child .great-grand-child-table tr td {
   width: 100px !important;
+  min-width: 100px !important;
 }
 .table-name tr th.has-child .child-table tr th:first-child,
 .table-name tr td.has-child .child-table tr th:first-child,
@@ -3607,7 +3607,8 @@ table-custom.less
 .table-name tr td.has-child .grand-child-table tr td:first-child,
 .table-name tr th.has-child .great-grand-child-table tr td:first-child,
 .table-name tr td.has-child .great-grand-child-table tr td:first-child {
-  width: 300px !important;
+  width: 299px !important;
+  min-width: 299px !important;
 }
 /*
 plugins

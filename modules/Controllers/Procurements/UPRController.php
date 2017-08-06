@@ -476,6 +476,28 @@ class UPRController extends Controller
     }
 
     /**
+     * [addJustification description]
+     *
+     * @param [type]                        $id      [description]
+     * @param Request                       $request [description]
+     * @param UnitPurchaseRequestRepository $model   [description]
+     */
+    public function addJustification($id, Request $request, UnitPurchaseRequestRepository $model)
+    {
+        $this->validate($request, [
+            'remarks'      => 'required',
+            'action'       => 'required',
+        ]);
+
+        $response = $model->update([
+            'last_remarks'  =>  $request->remarks,
+            'last_action' =>  $request->action,
+        ], $id);
+
+        return response()->json($response, 200);
+    }
+
+    /**
      * [timelines description]
      *
      * @param  [type]                        $id    [description]

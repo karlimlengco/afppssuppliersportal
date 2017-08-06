@@ -30,6 +30,7 @@ $(document).keydown(function(e) {
     // ESCAPE key pressed
     if (e.keyCode == 27) {
         $('.notifier').removeClass('is-visible');
+        $('.modal').removeClass('is-visible');
     }
 });
 

@@ -66,6 +66,7 @@ Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
 |
 */
 
+Route::put('/unit-purchase-requests/justification/{id}', '\Revlv\Controllers\Procurements\UPRController@addJustification')->name('upr-delays');
 Route::get('/upr-delays/api', '\Revlv\Controllers\Notifications\NotificationController@getItems')->name('upr-delays');
 Route::resource('notifications', '\Revlv\Controllers\Notifications\NotificationController');
 Route::resource('change-logs', '\Revlv\Controllers\Notifications\ChangeLogsController');
