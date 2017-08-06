@@ -264,7 +264,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
      *
      * @return [type] [description]
      */
-    public function getDelays($paginate = 20)
+    public function getDelays($paginate = 20, $request = null)
     {
         $user   =   \Sentinel::getUser();
         $unit_id= $user->unit_id;
@@ -321,6 +321,14 @@ class UnitPurchaseRequestRepository extends BaseRepository
         // $model  =   $model->leftJoin('inspection_acceptance_report', 'inspection_acceptance_report.upr_id', '=', 'unit_purchase_requests.id');
         // $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
         // $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
+        if($request && $request->has('search') && $request->search != null)
+        {
+            $search =   $request->search;
+            $model  =   $model->where('unit_purchase_requests.upr_number','LIKE', "%$search%");
+            $model  =   $model->orWhere('unit_purchase_requests.ref_number','LIKE', "%$search%");
+            $model  =   $model->orWhere('unit_purchase_requests.project_name','LIKE', "%$search%");
+            $model  =   $model->orWhere('unit_purchase_requests.next_step','LIKE', "%$search%");
+        }
 
         if(!$user->hasRole('Admin'))
         {

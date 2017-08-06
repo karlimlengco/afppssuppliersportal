@@ -4,6 +4,9 @@
         <div class="six columns">
             <h1>Delay Notifications</h1>
         </div>
+        <div class="six columns">
+            <input type="text" v-model="search" @keyup.enter="searching" class="input" placeholder="Search UPR">
+        </div>
     </div>
 
     <div class="table-scroll">
@@ -71,6 +74,7 @@
                     current_page: 1
                 },
                 offset: 4,
+                search:""
             }
         },
         computed: {
@@ -100,10 +104,13 @@
         },
 
         mounted() {
-            this.fetchItems(this.pagination.current_page);
+            this.fetchItems(this.pagination.current_page, this.search);
         },
 
         methods: {
+            searching(){
+                this.fetchItems(this.pagination.current_page, this.search);
+            },
             formatPrice(value) {
                 let val = (value/1).toFixed(2).replace('.', ',')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
@@ -112,9 +119,9 @@
                 this.pagination.current_page = page;
                 this.fetchItems(this.pagination.current_page);
             },
-            fetchItems(page) {
+            fetchItems(page, value) {
                 $.ajax({
-                    url: '/upr-delays/api?page='+page,
+                    url: '/upr-delays/api?page='+page+'&&search='+value,
                     success: (response) => {
                        this.items = response.data.data
                        this.pagination = response.pagination

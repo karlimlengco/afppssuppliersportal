@@ -43,7 +43,7 @@ class NotificationController extends Controller
      */
     public function getItems(Request $request, UnitPurchaseRequestRepository $model)
     {
-        $items  =   $model->getDelays();
+        $items  =   $model->getDelays(20, $request);
 
         $response = [
             'pagination' => [
