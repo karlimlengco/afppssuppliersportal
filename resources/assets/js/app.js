@@ -22,30 +22,53 @@ require('./directives/v-form-check')
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('delay-table', require('./components/Delays.vue'));
 Vue.component('analytics', require('./components/Analytics.vue'));
 Vue.component('chat-message', require('./components/ChatMessage.vue'));
+Vue.component('chat-head', require('./components/ChatHead.vue'));
 Vue.component('chat-log', require('./components/ChatLog.vue'));
 Vue.component('chat-composer', require('./components/ChatComposer.vue'));
+Vue.component('admin-messages', require('./components/AdminMessage.vue'));
 
 const app = new Vue({
     el: '#app',
     data: {
         messages: [],
-        usersInRoom: []
+        usersInRoom: [],
+        chatId:""
     },
     methods: {
         addMessage(message) {
+            newMessage = {
+                message: message.message,
+                user: {
+                    first_name: "You",
+                    surname: ""
+                },
+                chatId : this.chatId
+            };
             // Add to existing messages
-            this.messages.push(message);
-
+            this.messages.push(newMessage);
             // Persist to the database etc
-            axios.post('/messages', message).then(response => {
+            axios.post('/messages', newMessage).then(response => {
                 // Do whatever;
             })
         }
     },
     created() {
+        this.$on('getmessage', (item) =>{
+            this.chatId = item.message.id
+            axios.get('/messages/'+item.message.sender_id).then(response => {
+                this.messages = response.data;
+            });
+        })
         axios.get('/messages').then(response => {
+            if(is_admin == false){
+                if( Object.keys(response.data).length > 1)
+                {
+                    this.chatId = response.data[0].chat_id;
+                }
+            }
             this.messages = response.data;
         });
 

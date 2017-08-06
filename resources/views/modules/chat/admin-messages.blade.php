@@ -1,9 +1,9 @@
 @section('title')
-Notifications
+Messages
 @stop
 
 @section('contents')
- <delay-table></delay-table>
+ <admin-messages ></admin-messages>
 @stop
 
 @section('scripts')

@@ -40,7 +40,11 @@ $cRoute = explode('.', $currentRoute);
                             <i class="nc-icon-mini ui-1_notification-69"></i>
                     </button>
                 </a>
-                <button type="button" class="topbar__utility__button topbar__utility__button--chat  open-chat" ><i class="nc-icon-mini ui-2_chat-round"></i></button>
+                @if(!Sentinel::getUser()->hasRole('Admin'))
+                    <button type="button" class="topbar__utility__button topbar__utility__button--chat open-chat" ><i class="nc-icon-mini ui-2_chat-round"></i></button>
+                @else
+                    <button v-link="'{{route('messages.admin')}}'" type="button" class="topbar__utility__button " ><i class="nc-icon-mini ui-2_chat-round"></i></button>
+                @endif
             </div>
             <div class="topbar__user">
                 <div class="topbar__user__info">

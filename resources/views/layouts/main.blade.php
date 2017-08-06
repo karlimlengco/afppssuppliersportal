@@ -39,17 +39,23 @@
             <!-- content -->
 
             <div class="chat">
-                <chat-log :messages="messages"></chat-log>
-                <div class="chat__compose">
-                    <textarea class="chat__compose__textarea" name="" id="" cols="30" rows="3" placeholder="Write your message here"></textarea>
-                    <div class="chat__compose__utility">
-                        <span class="chat__compose__word-count">350</span>
-                        <span class="chat__compose__options">
-                            <a href="" class="chat__compose__options__item">Option A</a>
-                            <a href="" class="chat__compose__options__item">Option B</a>
-                        </span>
+                <div class="chat__head">
+                    <div class="chat__head__title" id="chatHead">Admin</div>
+                    <div class="chat__head__utility">
+                        <!-- <button class="chat__head__utility__button minimize-chat">
+                            <i class="nc-icon-mini ui-1_simple-delete"></i>
+                        </button> -->
+                        <button class="chat__head__utility__button close-chat">
+                            <i class="nc-icon-mini ui-1_simple-remove"></i>
+                        </button>
                     </div>
                 </div>
+
+                <div class="chat__thread">
+                    <chat-log :messages="messages" ></chat-log>
+                </div>
+                <chat-composer v-on:messagesent="addMessage"></chat-composer>
+
             </div>
 
         </div>

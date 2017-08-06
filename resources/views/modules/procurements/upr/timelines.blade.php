@@ -56,7 +56,11 @@ Unit Purchase Request
         $today          =   \Carbon\Carbon::now()->format('Y-m-d');
         $today          =   createCarbon('Y-m-d', $today);
         $upr_created    =   $data->date_prepared;
-        $next_date      =   createCarbon('Y-m-d',$data->next_due);
+        $next_date      =   $data->date_prepared;
+        if($data->next_due)
+        {
+            $next_date      =   createCarbon('Y-m-d', $data->next_due);
+        }
     ?>
 
         <table class="table">

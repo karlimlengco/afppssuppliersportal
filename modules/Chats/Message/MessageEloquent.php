@@ -14,12 +14,15 @@ class MessageEloquent extends Model
      */
     protected $table = 'messages';
 
+    protected $with  = 'user';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'message',
         'chat_id',
         'status',

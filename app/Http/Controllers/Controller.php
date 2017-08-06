@@ -33,6 +33,10 @@ class Controller extends BaseController
      */
     public function view($path, $data = [])
     {
+        \JavaScript::put([
+            'currentUser'   => \Sentinel::getUser(),
+            'is_admin'      => \Sentinel::getUser()->is_admin()
+        ]);
         $this->layout->content = view($path, $data);
     }
 

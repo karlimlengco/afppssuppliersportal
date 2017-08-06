@@ -45,7 +45,6 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
      * @var string
      */
     protected $table = 'users';
-    // protected $with  = 'units';
 
     /**
      * The attributes that are mass assignable.
@@ -112,6 +111,16 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
     public function messages()
     {
         return $this->hasMany('\Revlv\Chats\Message\MessageEloquent');
+    }
+
+    /**
+     * [is_admin description]
+     *
+     * @return boolean [description]
+     */
+    public function is_admin()
+    {
+        return $this->hasRole('Admin');
     }
 
 

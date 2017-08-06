@@ -17,4 +17,16 @@ class MessageRepository extends BaseRepository
         return MessageEloquent::class;
     }
 
+    /**
+     * [findByChatId description]
+     * @return [type] [description]
+     */
+    public function findByChatId($chat)
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->where('chat_id', '=', $chat);
+
+        return $model->get();
+    }
 }

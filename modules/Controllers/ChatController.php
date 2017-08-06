@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 
 use \Revlv\Chats\Message\MessageRepository;
+use \Revlv\Chats\ChatRepository;
 use \Revlv\Settings\Units\UnitRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
@@ -22,7 +23,8 @@ class ChatController extends Controller
      */
     protected $blankRfq;
     protected $model;
-    protected $message;
+    protected $messages;
+    protected $chats;
     protected $units;
 
 
@@ -43,36 +45,6 @@ class ChatController extends Controller
     public function index()
     {
         return view('chat');
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $user = \Sentinel::getUser();
-
-        $message = $user->messages()->create([
-            'message' => $request->get('message')
-        ]);
-        // Announce that a new message has been posted
-        broadcast(new \App\Events\MessagePosted($message, $user))->toOthers();
-
-        return ['status' => 'OK'];
     }
 
     /**

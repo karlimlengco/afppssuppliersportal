@@ -16,16 +16,23 @@ Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard
 Route::get('pdf/footer', '\Revlv\Controllers\PDFController@getFooter')->name('pdf.footer');
 
 Route::get('chat', '\Revlv\Controllers\ChatController@index')->name('messages.index');
-Route::post('messages', '\Revlv\Controllers\ChatController@store')->name('messages.store');
+Route::post('messages', '\Revlv\Controllers\Chat\MessageController@store')->name('messages.store');
+
+Route::get('messages', '\Revlv\Controllers\Chat\MessageController@getMessage')->name('messages.index');
+Route::get('admin-messages-view', '\Revlv\Controllers\Chat\MessageController@getAdminMessage')->name('messages.admin');
+Route::get('admin-messages/api', '\Revlv\Controllers\Chat\MessageController@getAdminMessageAPI')->name('messages.admin.api');
+Route::get('messages/{sender}', '\Revlv\Controllers\Chat\MessageController@showChat')->name('messages.show');
 
 Route::get('api/get/new_code/{id}', '\Revlv\Controllers\Settings\AccountCodeController@getCode')->name('settings.account-codes.get-code');
 
 
+
+
 Route::get('timelines/print/{id}', '\Revlv\Controllers\Reports\UPRController@downloadTimeline')->name('settings.account-codes.get-code');
 
-Route::get('messages', function(){
-    return \Revlv\Chats\Message\MessageEloquent::with('user')->get();
-});
+// Route::get('messages', function(){
+//     return \Revlv\Chats\Message\MessageEloquent::with('user')->get();
+// });
 
 Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
 
@@ -58,6 +65,8 @@ Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
 |--------------------------------------------------------------------------
 |
 */
+
+Route::get('/upr-delays/api', '\Revlv\Controllers\Notifications\NotificationController@getItems')->name('upr-delays');
 Route::resource('notifications', '\Revlv\Controllers\Notifications\NotificationController');
 Route::resource('change-logs', '\Revlv\Controllers\Notifications\ChangeLogsController');
 
