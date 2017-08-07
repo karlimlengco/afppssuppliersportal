@@ -301,6 +301,9 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
 */
 Route::group(['as' => 'library.', 'prefix' => 'library'], function () {
     Route::resource('catalogs', '\Revlv\Controllers\Library\CatalogController');
+
+    Route::get('file/download/{id}', '\Revlv\Controllers\Library\FileController@downloadFile')->name('file.download');
+    Route::resource('files', '\Revlv\Controllers\Library\FileController');
 });
 
 /*
@@ -608,6 +611,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('audit-logs', '\Revlv\Controllers\Settings\AuditLogController@getDatatable')->name('audit-logs');
     Route::get('noa-acceptance', '\Revlv\Controllers\Biddings\NOAController@getDatatable')->name('biddings.noa-acceptance');
     Route::get('catalogs', '\Revlv\Controllers\Library\CatalogController@getDatatable')->name('library.catalogs');
+    Route::get('files', '\Revlv\Controllers\Library\FileController@getDatatable')->name('library.files');
 
     /*
     |--------------------------------------------------------------------------

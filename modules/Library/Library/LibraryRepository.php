@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LibraryRepository extends BaseRepository
 {
+    use DatatableTrait;
     /**
      * Specify Model class name
      *
