@@ -244,6 +244,26 @@
             ]
         }
     ],
+    "Library": [
+        {
+            "name"      : "Library",
+            "icon"      : "nc-icon-mini files_drawer",
+            "subname"   : "library",
+            "route"     :   "settings.index",
+            "navigation": [
+                {
+                    "route" :   "library.catalogs.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Catalogs"
+                },
+                {
+                    "route" :   "reports.psr.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Files"
+                }
+            ]
+        }
+    ],
     "Settings": [
         {
             "name"      : "Settings",

@@ -295,6 +295,16 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
 
 /*
 |--------------------------------------------------------------------------
+| Library Routes
+|--------------------------------------------------------------------------
+|
+*/
+Route::group(['as' => 'library.', 'prefix' => 'library'], function () {
+    Route::resource('catalogs', '\Revlv\Controllers\Library\CatalogController');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Procurements Routes
 |--------------------------------------------------------------------------
 |
@@ -597,6 +607,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
 
     Route::get('audit-logs', '\Revlv\Controllers\Settings\AuditLogController@getDatatable')->name('audit-logs');
     Route::get('noa-acceptance', '\Revlv\Controllers\Biddings\NOAController@getDatatable')->name('biddings.noa-acceptance');
+    Route::get('catalogs', '\Revlv\Controllers\Library\CatalogController@getDatatable')->name('library.catalogs');
 
     /*
     |--------------------------------------------------------------------------
