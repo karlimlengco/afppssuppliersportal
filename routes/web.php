@@ -57,6 +57,12 @@ Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
     Route::get('programs/{type}', '\Revlv\Controllers\Reports\UPRController@getPrograms')->name('reports.programs');
     Route::get('centers/{id}/{type}', '\Revlv\Controllers\Reports\UPRController@getCenters')->name('reports.centers');
     Route::get('units/{programs}/{id}/{type}', '\Revlv\Controllers\Reports\UPRController@getUnits')->name('reports.units');
+
+    Route::get('uprs/timeline/{programs}/{centers}/{type}', '\Revlv\Controllers\Reports\UPRController@getPSRUprs')->name('reports.uprs-timeline');
+    Route::get('units/timeline/{programs}/{id}/{type}', '\Revlv\Controllers\Reports\UPRController@getPSRUnits')->name('reports.unit-timelines');
+    Route::get('upr-centers/timeline/{id}/{type}', '\Revlv\Controllers\Reports\UPRController@getPSRUprCenters')->name('reports.timeline-upr-centers');
+    Route::get('timeline/{type}', '\Revlv\Controllers\Reports\UPRController@getPSR')->name('reports.timelines');
+    Route::get('program/timeline/{type}', '\Revlv\Controllers\Reports\UPRController@getPSRPrograms')->name('reports.psr-timelines');
 });
 
 /*

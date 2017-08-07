@@ -278,5 +278,242 @@ trait AnalyticTrait
         return $model->get();
     }
 
+    /**
+     * [getPSRUprCenters description]
+     *
+     * @param  [type] $program [description]
+     * @param  [type] $type    [description]
+     * @return [type]          [description]
+     */
+    public function getPSRUprCenters($program, $type = null)
+    {
+        $model  =   $this->model;
 
+        $model  =   $model->select([
+            'procurement_centers.name',
+            'procurement_centers.programs',
+            DB::raw("COUNT(unit_purchase_requests.id) AS upr"),
+            DB::raw("COUNT(request_for_quotations.id) AS rfq"),
+            DB::raw("COUNT(invitation_for_quotation.id) AS ispq"),
+            DB::raw("COUNT(philgeps_posting.id) AS philgeps"),
+            DB::raw("COUNT(canvassing.id) AS canvass"),
+            DB::raw("COUNT(notice_of_awards.id) AS noa"),
+            DB::raw("COUNT(purchase_orders.id) AS po"),
+            DB::raw("COUNT(notice_to_proceed.id) AS ntp"),
+            DB::raw("COUNT(delivery_orders.id) AS do"),
+            DB::raw("COUNT(inspection_acceptance_report.id) AS tiac"),
+            DB::raw("COUNT(delivery_inspection.id) AS diir"),
+            DB::raw("COUNT(vouchers.id) AS voucher"),
+            DB::raw("COUNT(document_acceptance.id) as doc"),
+            DB::raw("COUNT(invitation_to_bid.id) as itb"),
+            DB::raw("COUNT(pre_bid_conferences.id) as prebid"),
+            DB::raw("COUNT(bid_opening.id) as bidop"),
+            DB::raw("COUNT(post_qualification.id) as pq"),
+        ]);
+
+        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
+
+        $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('ispq_quotations', 'ispq_quotations.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('canvassing', 'canvassing.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('notice_of_awards', 'notice_of_awards.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('invitation_for_quotation', 'invitation_for_quotation.id', '=', 'ispq_quotations.ispq_id');
+        $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('notice_to_proceed', 'notice_to_proceed.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('delivery_orders', 'delivery_orders.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('inspection_acceptance_report', 'inspection_acceptance_report.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
+
+
+        $model  =   $model->leftJoin('document_acceptance', 'document_acceptance.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('invitation_to_bid', 'invitation_to_bid.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('pre_bid_conferences', 'pre_bid_conferences.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('bid_opening', 'bid_opening.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('post_qualification', 'post_qualification.upr_id', '=', 'unit_purchase_requests.id');
+
+        $model  =   $model->where('procurement_centers.programs', '=', $program);
+
+        if($type != 'psr-alternative')
+        {
+            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
+        }
+        else
+        {
+            $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
+        }
+
+        $model  =   $model->groupBy([
+            'procurement_centers.programs',
+            'procurement_centers.name',
+        ]);
+
+        return $model->get();
+    }
+
+    /**
+     * [getDatatable description]
+     *
+     * @param  [int]    $company_id ['company id ']
+     * @return [type]               [description]
+     */
+    public function getPSRUnit($name, $programs, $type=null)
+    {
+        $model  =   $this->model;
+
+
+        $model  =   $model->select([
+            'procurement_centers.name',
+            'procurement_centers.programs',
+            'catered_units.short_code',
+            DB::raw("COUNT(unit_purchase_requests.id) AS upr"),
+            DB::raw("COUNT(request_for_quotations.id) AS rfq"),
+            DB::raw("COUNT(invitation_for_quotation.id) AS ispq"),
+            DB::raw("COUNT(philgeps_posting.id) AS philgeps"),
+            DB::raw("COUNT(canvassing.id) AS canvass"),
+            DB::raw("COUNT(notice_of_awards.id) AS noa"),
+            DB::raw("COUNT(purchase_orders.id) AS po"),
+            DB::raw("COUNT(notice_to_proceed.id) AS ntp"),
+            DB::raw("COUNT(delivery_orders.id) AS do"),
+            DB::raw("COUNT(inspection_acceptance_report.id) AS tiac"),
+            DB::raw("COUNT(delivery_inspection.id) AS diir"),
+            DB::raw("COUNT(vouchers.id) AS voucher"),
+            DB::raw("COUNT(document_acceptance.id) as doc"),
+            DB::raw("COUNT(invitation_to_bid.id) as itb"),
+            DB::raw("COUNT(pre_bid_conferences.id) as prebid"),
+            DB::raw("COUNT(bid_opening.id) as bidop"),
+            DB::raw("COUNT(post_qualification.id) as pq"),
+        ]);
+
+        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
+
+        $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('ispq_quotations', 'ispq_quotations.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('canvassing', 'canvassing.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('notice_of_awards', 'notice_of_awards.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('invitation_for_quotation', 'invitation_for_quotation.id', '=', 'ispq_quotations.ispq_id');
+        $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('notice_to_proceed', 'notice_to_proceed.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('delivery_orders', 'delivery_orders.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('inspection_acceptance_report', 'inspection_acceptance_report.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
+
+
+        $model  =   $model->leftJoin('document_acceptance', 'document_acceptance.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('invitation_to_bid', 'invitation_to_bid.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('pre_bid_conferences', 'pre_bid_conferences.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('bid_opening', 'bid_opening.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('post_qualification', 'post_qualification.upr_id', '=', 'unit_purchase_requests.id');
+
+
+        $model  =   $model->where('procurement_centers.name', '=', $name);
+        $model  =   $model->where('procurement_centers.programs', '=', $programs);
+        $model  =   $model->leftJoin('catered_units', 'catered_units.id', '=', 'unit_purchase_requests.units');
+
+        if($type != 'psr-alternative')
+        {
+            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
+        }
+        else
+        {
+            $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
+        }
+
+        $model  =   $model->groupBy([
+            'procurement_centers.name',
+            'procurement_centers.programs',
+            // 'unit_purchase_requests.delay_count',
+            'catered_units.short_code',
+        ]);
+
+
+        return $model->get();
+
+    }
+
+    /**
+     * [getDatatable description]
+     *
+     * @param  [int]    $company_id ['company id ']
+     * @return [type]               [description]
+     */
+    public function getPSRUprs($name, $programs, $type=null)
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->select([
+            'unit_purchase_requests.id',
+            'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.project_name',
+            'procurement_centers.name',
+            'procurement_centers.programs',
+            'catered_units.short_code',
+            DB::raw("COUNT(unit_purchase_requests.id) AS upr"),
+            DB::raw("COUNT(request_for_quotations.id) AS rfq"),
+            DB::raw("COUNT(invitation_for_quotation.id) AS ispq"),
+            DB::raw("COUNT(philgeps_posting.id) AS philgeps"),
+            DB::raw("COUNT(canvassing.id) AS canvass"),
+            DB::raw("COUNT(notice_of_awards.id) AS noa"),
+            DB::raw("COUNT(purchase_orders.id) AS po"),
+            DB::raw("COUNT(notice_to_proceed.id) AS ntp"),
+            DB::raw("COUNT(delivery_orders.id) AS do"),
+            DB::raw("COUNT(inspection_acceptance_report.id) AS tiac"),
+            DB::raw("COUNT(delivery_inspection.id) AS diir"),
+            DB::raw("COUNT(vouchers.id) AS voucher"),
+            DB::raw("COUNT(document_acceptance.id) as doc"),
+            DB::raw("COUNT(invitation_to_bid.id) as itb"),
+            DB::raw("COUNT(pre_bid_conferences.id) as prebid"),
+            DB::raw("COUNT(bid_opening.id) as bidop"),
+            DB::raw("COUNT(post_qualification.id) as pq"),
+        ]);
+
+        $model  =   $model->leftJoin('catered_units', 'catered_units.id', '=', 'unit_purchase_requests.units');
+        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
+
+        $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('ispq_quotations', 'ispq_quotations.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('canvassing', 'canvassing.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('notice_of_awards', 'notice_of_awards.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('invitation_for_quotation', 'invitation_for_quotation.id', '=', 'ispq_quotations.ispq_id');
+        $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('notice_to_proceed', 'notice_to_proceed.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('delivery_orders', 'delivery_orders.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('inspection_acceptance_report', 'inspection_acceptance_report.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
+
+
+        $model  =   $model->leftJoin('document_acceptance', 'document_acceptance.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('invitation_to_bid', 'invitation_to_bid.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('pre_bid_conferences', 'pre_bid_conferences.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('bid_opening', 'bid_opening.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('post_qualification', 'post_qualification.upr_id', '=', 'unit_purchase_requests.id');
+
+        $model  =   $model->where('procurement_centers.name', '=', $name);
+        $model  =   $model->where('catered_units.short_code', '=', $programs);
+
+        if($type != 'psr-alternative')
+        {
+            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
+        }
+        else
+        {
+            $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
+        }
+
+        $model  =   $model->groupBy([
+            'procurement_centers.name',
+            'procurement_centers.programs',
+            'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.project_name',
+            'unit_purchase_requests.id',
+            'catered_units.short_code',
+        ]);
+
+        return $model->get();
+    }
 }

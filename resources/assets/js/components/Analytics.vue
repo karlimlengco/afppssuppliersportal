@@ -14,201 +14,382 @@
                 <input v-model="endDate" type="date" format="yyyy-MM-dd" id="end" name="date_to" class="input" placeholder="End Date">
             </div>
             <button class="button" @click.prevent="search()" id="dateSearch"><span class="nc-icon-mini ui-1_zoom"></span></button>
+            <button tooltip="change overview" class="button" @click.prevent="changeOverview()" id="dateSearch"><span class="nc-icon-mini arrows-1_refresh-69"></span></button>
         </div>
 
     </div>
-    <button class='button button-unfocus'  v-bind:id="[ isActived == 'bidding' ? 'button-focus' : '']" v-on:click="changeType('bidding')" >Bidding</button>
+    <div  id="programs">
+        <button class='button button-unfocus'  v-bind:id="[ isActived == 'bidding' ? 'button-focus' : '']" v-on:click="changeType('bidding')" >Bidding</button>
 
-    <button class='button button-unfocus alternative' v-bind:id="[ isActived  == 'alternative' ? 'button-focus' : '']" v-on:click="changeType('alternative')" >Alternative</button>
+        <button class='button button-unfocus alternative' v-bind:id="[ isActived  == 'alternative' ? 'button-focus' : '']" v-on:click="changeType('alternative')" >Alternative</button>
 
-    <div class="table-scroll">
-        <table class="table table--with-border table-name" v-bind:id="types">
-            <thead>
-                <tr>
-                    <th style="text-align:center">UNITS</th>
-                    <th>
-                        # UPR
-                    </th>
-                    <th>Total ABC</th>
-                    <th>Approved Contract Amount</th>
-                    <th>Residual Amount</th>
-                    <th>AVG Days to Complete</th>
-                    <th v-if="show" >Number of Days Delay</th>
-                    <th style="text-align:center" v-if="show" >Current Status</th>
-                    <th style="text-align:center" v-if="show" >Justification</th>
-                    <th style="text-align:center" v-if="show" >Action Taken</th>
-                </tr>
-            </thead>
-            <tbody>
-                <template v-for="(item, index) in items">
+        <div class="table-scroll">
+            <table class="table table--with-border table-name" v-bind:id="types">
+                <thead>
                     <tr>
-                        <td>
-                            Program {{item.programs}}
-                            <button v-if="item.upr_count > 0" v-on:click="clickItemProgram(item)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
-                        </td>
-                        <td>
-                            <span tooltip="Total" >{{item.upr_count}}</span>
-                            <span tooltip="Completed" class="blue">({{item.completed_count}})</span>
-                            <span tooltip="Ongoing" class="green">({{item.ongoing_count}})</span>
-                            <span tooltip="Delay" class="red">({{item.delay_count}})</span>
-                        </td>
-                        <td>{{formatPrice(item.total_abc)}}</td>
-                        <td>{{formatPrice(item.total_bid)}}</td>
-                        <td>{{formatPrice(item.total_residual)}}</td>
-                        <td></td>
-                        <td v-if="show"></td>
-                        <td v-if="show"></td>
-                        <td v-if="show"></td>
-                        <td v-if="show"></td>
+                        <th style="text-align:center">UNITS</th>
+                        <th>
+                            # UPR
+                        </th>
+                        <th>Total ABC</th>
+                        <th>Approved Contract Amount</th>
+                        <th>Residual Amount</th>
+                        <th>AVG Days to Complete</th>
+                        <th v-if="show" >Number of Days Delay</th>
+                        <th style="text-align:center" v-if="show" >Current Status</th>
+                        <th style="text-align:center" v-if="show" >Justification</th>
+                        <th style="text-align:center" v-if="show" >Action Taken</th>
                     </tr>
-                    <!-- child -->
-                            <tr>
-                                <td class="has-child" colspan="10">
-                                    <table class="child-table table-name">
-                                      <!--   <thead>
-                                            <tr>
-                                                <th style="text-align:center">Head</th>
-                                            </tr>
-                                        </thead> -->
-                                        <tbody>
-                                        <template v-for="itemProg in itemProgram">
-                                            <template v-if="itemProg.program == item.programs">
-                                            <template  v-for="itemProgData in itemProg.data">
-
+                </thead>
+                <tbody>
+                    <template v-for="(item, index) in items">
+                        <tr>
+                            <td>
+                                Program {{item.programs}}
+                                <button v-if="item.upr_count > 0" v-on:click="clickItemProgram(item)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
+                            </td>
+                            <td>
+                                <span tooltip="Total" >{{item.upr_count}}</span>
+                                <span tooltip="Completed" class="blue">({{item.completed_count}})</span>
+                                <span tooltip="Ongoing" class="green">({{item.ongoing_count}})</span>
+                                <span tooltip="Delay" class="red">({{item.delay_count}})</span>
+                            </td>
+                            <td>{{formatPrice(item.total_abc)}}</td>
+                            <td>{{formatPrice(item.total_bid)}}</td>
+                            <td>{{formatPrice(item.total_residual)}}</td>
+                            <td></td>
+                            <td v-if="show"></td>
+                            <td v-if="show"></td>
+                            <td v-if="show"></td>
+                            <td v-if="show"></td>
+                        </tr>
+                        <!-- child -->
+                                <tr>
+                                    <td class="has-child" colspan="10">
+                                        <table class="child-table table-name">
+                                          <!--   <thead>
                                                 <tr>
-                                                    <td >
-                                                        <button  v-on:click="clickItemProgramCenter(itemProgData)" class="show-grand-child-table" ><i class="nc-icon-mini ui-1_circle-add"></i></button>
-                                                        {{itemProgData.name}}
-                                                    </td>
-                                                    <td>
-                                                        <span tooltip="Total" >{{itemProgData.upr_count}}</span>
-                                                        <span tooltip="Completed" class="blue">({{itemProgData.completed_count}})</span>
-                                                        <span tooltip="Ongoing" class="green">({{itemProgData.ongoing_count}})</span>
-                                                        <span tooltip="Delay" class="red">({{itemProgData.delay_count}})</span>
-                                                    </td>
-                                                    <td>{{formatPrice(itemProgData.total_abc)}}</td>
-                                                    <td>{{formatPrice(itemProgData.total_bid)}}</td>
-                                                    <td>{{formatPrice(itemProgData.total_residual)}}</td>
-                                                    <td></td>
-
-                                                    <td v-if="show" ></td>
-                                                    <td v-if="show" ></td>
-                                                    <td v-if="show" ></td>
-                                                    <td v-if="show" ></td>
+                                                    <th style="text-align:center">Head</th>
                                                 </tr>
-                                                <!-- Grand Child -->
+                                            </thead> -->
+                                            <tbody>
+                                            <template v-for="itemProg in itemProgram">
+                                                <template v-if="itemProg.program == item.programs">
+                                                <template  v-for="itemProgData in itemProg.data">
 
-                                                            <tr >
-                                                                <td class="has-child" colspan="10">
-                                                                    <table class="grand-child-table table-name">
-                                                                        <tbody>
-                                                                        <template v-for="itemUnit in itemUnits">
-                                                                            <template v-if="itemUnit.program == item.programs">
-                                                                                <template v-if="itemUnit.center == itemProgData.name">
-                                                                        <template v-for="itemUnitData in itemUnit.data">
-                                                                            <tr  >
-                                                                                <td>
-                                                                                    {{itemUnitData.short_code}}
+                                                    <tr>
+                                                        <td >
+                                                            <button  v-on:click="clickItemProgramCenter(itemProgData)" class="show-grand-child-table" ><i class="nc-icon-mini ui-1_circle-add"></i></button>
+                                                            {{itemProgData.name}}
+                                                        </td>
+                                                        <td>
+                                                            <span tooltip="Total" >{{itemProgData.upr_count}}</span>
+                                                            <span tooltip="Completed" class="blue">({{itemProgData.completed_count}})</span>
+                                                            <span tooltip="Ongoing" class="green">({{itemProgData.ongoing_count}})</span>
+                                                            <span tooltip="Delay" class="red">({{itemProgData.delay_count}})</span>
+                                                        </td>
+                                                        <td>{{formatPrice(itemProgData.total_abc)}}</td>
+                                                        <td>{{formatPrice(itemProgData.total_bid)}}</td>
+                                                        <td>{{formatPrice(itemProgData.total_residual)}}</td>
+                                                        <td></td>
 
-                                                                                    <button  v-on:click="clickItemUnit(itemUnitData)" class="show-great-grand-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
-                                                                                </td>
-                                                                                <td>
+                                                        <td v-if="show" ></td>
+                                                        <td v-if="show" ></td>
+                                                        <td v-if="show" ></td>
+                                                        <td v-if="show" ></td>
+                                                    </tr>
+                                                    <!-- Grand Child -->
 
-                                                                                    <span tooltip="Total" >{{itemUnitData.upr_count}}</span>
-                                                                                    <span tooltip="Completed" >({{itemUnitData.completed_count}})</span>
-                                                                                    <span tooltip="Ongoing" class="green">({{itemUnitData.ongoing_count}})</span>
-                                                                                    <span tooltip="Delay" class="red">({{itemUnitData.delay_count}})</span>
-                                                                                </td>
-                                                                                <td>{{formatPrice(itemUnitData.total_abc)}}</td>
-                                                                                <td>{{formatPrice(itemUnitData.total_bid)}}</td>
-                                                                                <td>{{formatPrice(itemUnitData.total_residual)}}</td>
-                                                                                <td></td>
+                                                                <tr >
+                                                                    <td class="has-child" colspan="10">
+                                                                        <table class="grand-child-table table-name">
+                                                                            <tbody>
+                                                                            <template v-for="itemUnit in itemUnits">
+                                                                                <template v-if="itemUnit.program == item.programs">
+                                                                                    <template v-if="itemUnit.center == itemProgData.name">
+                                                                            <template v-for="itemUnitData in itemUnit.data">
+                                                                                <tr  >
+                                                                                    <td>
+                                                                                        {{itemUnitData.short_code}}
 
-                                                                                <td v-if="show" ></td>
-                                                                                <td v-if="show"   style="text-align:left"></td>
-                                                                                <td v-if="show" ></td>
-                                                                                <td v-if="show" ></td>
-                                                                            </tr>
-                                                                            <!-- Great Grand -->
-                                                                                    <tr>
-                                                                                        <td class="has-child" colspan="10">
-                                                                                            <table class="great-grand-child-table table-name">
-                                                                                                <tbody>
-                                                                                                <template v-for="itemProgCent in itemProgramCenters">
-                                                                                                    <template v-if="itemProgCent.program == itemUnitData.short_code">
-                                                                                                        <template v-if="itemProgCent.center == itemProgData.name">
-                                                                                                    <tr  v-for="itemProgCentData in itemProgCent.data">
-                                                                                                <td> <i class="green" style="font-family: Verdana;">{{itemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small></td>
-                                                                                                <td>
+                                                                                        <button  v-on:click="clickItemUnit(itemUnitData)" class="show-great-grand-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
+                                                                                    </td>
+                                                                                    <td>
 
-                                                                                                    <span tooltip="Total" >{{itemProgCentData.upr_count}}</span>
-                                                                                                    <span tooltip="Completed" class="blue">({{itemProgCentData.completed_count}})</span>
-                                                                                                    <span tooltip="Ongoing" class="green">({{itemProgCentData.ongoing_count}})</span>
-                                                                                                    <span tooltip="Delay" class="red">({{itemProgCentData.delay_count}})</span>
-                                                                                                </td>
-                                                                                                <td>{{formatPrice(itemProgCentData.total_abc)}}</td>
-                                                                                                <td>{{formatPrice(itemProgCentData.total_bid)}}</td>
-                                                                                                <td>{{formatPrice(itemProgCentData.total_residual)}}</td>
-                                                                                                <td>{{itemProgCentData.avg_days}}</td>
+                                                                                        <span tooltip="Total" >{{itemUnitData.upr_count}}</span>
+                                                                                        <span tooltip="Completed" >({{itemUnitData.completed_count}})</span>
+                                                                                        <span tooltip="Ongoing" class="green">({{itemUnitData.ongoing_count}})</span>
+                                                                                        <span tooltip="Delay" class="red">({{itemUnitData.delay_count}})</span>
+                                                                                    </td>
+                                                                                    <td>{{formatPrice(itemUnitData.total_abc)}}</td>
+                                                                                    <td>{{formatPrice(itemUnitData.total_bid)}}</td>
+                                                                                    <td>{{formatPrice(itemUnitData.total_residual)}}</td>
+                                                                                    <td></td>
 
-                                                                                                <td v-if="show"> {{itemProgCentData.delay}}</td>
-                                                                                                <td v-if="show"  style="text-align:left">{{itemProgCentData.status}}</td>
-                                                                                                <td v-if="show"> {{itemProgCentData.last_remarks}}</td>
-                                                                                                <td v-if="show"> {{itemProgCentData.last_action}}</td>
-                                                                                            </tr>
+                                                                                    <td v-if="show" ></td>
+                                                                                    <td v-if="show"   style="text-align:left"></td>
+                                                                                    <td v-if="show" ></td>
+                                                                                    <td v-if="show" ></td>
+                                                                                </tr>
+                                                                                <!-- Great Grand -->
+                                                                                        <tr>
+                                                                                            <td class="has-child" colspan="10">
+                                                                                                <table class="great-grand-child-table table-name">
+                                                                                                    <tbody>
+                                                                                                    <template v-for="itemProgCent in itemProgramCenters">
+                                                                                                        <template v-if="itemProgCent.program == itemUnitData.short_code">
+                                                                                                            <template v-if="itemProgCent.center == itemProgData.name">
+                                                                                                        <tr  v-for="itemProgCentData in itemProgCent.data">
+                                                                                                    <td> <i class="green" style="font-family: Verdana;">{{itemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small></td>
+                                                                                                    <td>
+
+                                                                                                        <span tooltip="Total" >{{itemProgCentData.upr_count}}</span>
+                                                                                                        <span tooltip="Completed" class="blue">({{itemProgCentData.completed_count}})</span>
+                                                                                                        <span tooltip="Ongoing" class="green">({{itemProgCentData.ongoing_count}})</span>
+                                                                                                        <span tooltip="Delay" class="red">({{itemProgCentData.delay_count}})</span>
+                                                                                                    </td>
+                                                                                                    <td>{{formatPrice(itemProgCentData.total_abc)}}</td>
+                                                                                                    <td>{{formatPrice(itemProgCentData.total_bid)}}</td>
+                                                                                                    <td>{{formatPrice(itemProgCentData.total_residual)}}</td>
+                                                                                                    <td>{{itemProgCentData.avg_days}}</td>
+
+                                                                                                    <td v-if="show"> {{itemProgCentData.delay}}</td>
+                                                                                                    <td v-if="show"  style="text-align:left">{{itemProgCentData.status}}</td>
+                                                                                                    <td v-if="show"> {{itemProgCentData.last_remarks}}</td>
+                                                                                                    <td v-if="show"> {{itemProgCentData.last_action}}</td>
+                                                                                                </tr>
+                                                                                                        </template>
                                                                                                     </template>
                                                                                                 </template>
-                                                                                            </template>
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                        </template>
-                                                                            <!-- Great Grand -->
+                                                                                                    </tbody>
+                                                                                                </table>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                            </template>
+                                                                                <!-- Great Grand -->
 
+                                                                                    </template>
                                                                                 </template>
                                                                             </template>
-                                                                        </template>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                    <!-- Grand Child -->
+
+                                                </template>
+                                                </template>
+                                            </template>
+
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                        <!-- child -->
+
+                    </template>
+                    <tr>
+                        <td>
+                            Total
+                        </td>
+                        <td>
+                            <span tooltip="Total" >{{total}}</span>
+                            <span tooltip="Completed" class="blue">({{total_completed}})</span>
+                            <span tooltip="Ongoing" class="green">({{total_ongoing}})</span>
+                            <span tooltip="Delay" class="red">({{total_delay}})</span>
+                        </td>
+                        <td>{{formatPrice(total_abc)}}</td>
+                        <td>{{formatPrice(total_bid)}}</td>
+                        <td>{{formatPrice(total_residual)}}</td>
+                        <td></td>
+                        <td v-if="show" ></td>
+                        <td v-if="show" ></td>
+                        <td v-if="show" ></td>
+                        <td v-if="show" ></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+
+    <div id="psr"  style="display:none" >
+        <button class='button button-unfocus'  v-bind:id="[ isPSRActived == 'psr-bidding' ? 'button-focus' : '']" v-on:click="changePSRType('psr-bidding')" >Bidding</button>
+
+        <button class='button button-unfocus alternative' v-bind:id="[ isPSRActived  == 'psr-alternative' ? 'button-focus' : '']" v-on:click="changePSRType('psr-alternative')" >Alternative</button>
+        <div class="table-scroll" >
+            <!-- PSR -->
+            <table  class="table table--with-border table-name" id="psr-bidding">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">UNITS</th>
+                        <th># UPR</th>
+                        <th>Document Acceptance</th>
+                        <th>ITB</th>
+                        <th>PRE Bid</th>
+                        <th>Bid Opening</th>
+                        <th>Post Qual</th>
+                        <th>RFQ</th>
+                        <th>PhilGeps</th>
+                        <th>ISPQ</th>
+                        <th>Canvass</th>
+                        <th>NOA</th>
+                        <th>PO</th>
+                        <th>NTP</th>
+                        <th>Delivery</th>
+                        <th>TIAC</th>
+                        <th>DIIR</th>
+                        <th>Voucher</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template v-for="(tItem, index) in timelineItem">
+                        <tr>
+                            <td>
+                                Program {{tItem.programs}}
+                                <button v-if="tItem.upr > 0" v-on:click="clickTimelineItemProgram(tItem)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
+                            </td>
+                            <td>{{tItem.upr}}</td>
+                            <td>{{tItem.doc}}</td>
+                            <td>{{tItem.itb}}</td>
+                            <td>{{tItem.prebid}}</td>
+                            <td>{{tItem.bidop}}</td>
+                            <td>{{tItem.pq}}</td>
+                            <td>{{tItem.rfq}}</td>
+                            <td>{{tItem.philgeps}}</td>
+                            <td>{{tItem.ispq}}</td>
+                            <td>{{tItem.canvass}}</td>
+                            <td>{{tItem.noa}}</td>
+                            <td>{{tItem.po}}</td>
+                            <td>{{tItem.ntp}}</td>
+                            <td>{{tItem.do}}</td>
+                            <td>{{tItem.tiac}}</td>
+                            <td>{{tItem.diir}}</td>
+                            <td>{{tItem.voucher}}</td>
+                        </tr>
+                        <tr>
+                            <td class="has-child" colspan="18">
+                                <table class="child-table table-name">
+                                    <tbody>
+                                        <template v-for="tItemProg in timelineItemProgram">
+                                        <template v-if="tItemProg.program == tItem.programs">
+                                        <template  v-for="tItemProgData in tItemProg.data">
+
+                                            <tr>
+                                                <td >
+                                                    <button  v-on:click="clickTimelineItemProgramCenter(tItemProgData)" class="show-grand-child-table" ><i class="nc-icon-mini ui-1_circle-add"></i></button>
+                                                    {{tItemProgData.name}}
+                                                </td>
+                                                <td>{{tItemProgData.upr}}</td>
+                                                <td>{{tItemProgData.doc}}</td>
+                                                <td>{{tItemProgData.itb}}</td>
+                                                <td>{{tItemProgData.prebid}}</td>
+                                                <td>{{tItemProgData.bidop}}</td>
+                                                <td>{{tItemProgData.pq}}</td>
+                                                <td>{{tItemProgData.rfq}}</td>
+                                                <td>{{tItemProgData.philgeps}}</td>
+                                                <td>{{tItemProgData.ispq}}</td>
+                                                <td>{{tItemProgData.canvass}}</td>
+                                                <td>{{tItemProgData.noa}}</td>
+                                                <td>{{tItemProgData.po}}</td>
+                                                <td>{{tItemProgData.ntp}}</td>
+                                                <td>{{tItemProgData.do}}</td>
+                                                <td>{{tItemProgData.tiac}}</td>
+                                                <td>{{tItemProgData.diir}}</td>
+                                                <td>{{tItemProgData.voucher}}</td>
+                                            </tr>
+                                            <tr >
+                                                <td class="has-child" colspan="18">
+                                                    <table class="grand-child-table table-name">
+                                                        <tbody>
+                                                            <template v-for="tItemUnit in timelineitemUnits">
+                                                            <template v-if="tItemUnit.program == tItem.programs">
+                                                            <template v-if="tItemUnit.center == tItemProgData.name">
+                                                            <template v-for="tItemUnitData in tItemUnit.data">
+                                                            <tr  >
+                                                                <td>
+                                                                    {{tItemUnitData.short_code}}
+
+                                                                    <button  v-on:click="clickTimelineItemUnit(tItemUnitData)" class="show-great-grand-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
+                                                                </td>
+                                                                <td>{{tItemUnitData.upr}}</td>
+                                                                <td>{{tItemUnitData.doc}}</td>
+                                                                <td>{{tItemUnitData.itb}}</td>
+                                                                <td>{{tItemUnitData.prebid}}</td>
+                                                                <td>{{tItemUnitData.bidop}}</td>
+                                                                <td>{{tItemUnitData.pq}}</td>
+                                                                <td>{{tItemUnitData.rfq}}</td>
+                                                                <td>{{tItemUnitData.philgeps}}</td>
+                                                                <td>{{tItemUnitData.ispq}}</td>
+                                                                <td>{{tItemUnitData.canvass}}</td>
+                                                                <td>{{tItemUnitData.noa}}</td>
+                                                                <td>{{tItemUnitData.po}}</td>
+                                                                <td>{{tItemUnitData.ntp}}</td>
+                                                                <td>{{tItemUnitData.do}}</td>
+                                                                <td>{{tItemUnitData.tiac}}</td>
+                                                                <td>{{tItemUnitData.diir}}</td>
+                                                                <td>{{tItemUnitData.voucher}}</td>
+                                                            </tr>
+                                                            <!-- Great Grand -->
+                                                            <tr>
+                                                                <td class="has-child" colspan="18">
+                                                                    <table class="great-grand-child-table table-name">
+                                                                        <tbody>
+                                                                            <template v-for="tItemProgCent in timelineitemProgramCenters">
+                                                                            <template v-if="tItemProgCent.program == tItemUnitData.short_code">
+                                                                            <template v-if="tItemProgCent.center == tItemProgData.name">
+                                                                            <tr  v-for="tItemProgCentData in tItemProgCent.data">
+                                                                                <td> <i class="green" style="font-family: Verdana;">{{tItemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+tItemProgCentData.id ">({{tItemProgCentData.project_name}})</a></small></td>
+                                                                                <td>{{tItemProgCentData.upr}}</td>
+                                                                                <td>{{tItemProgCentData.doc}}</td>
+                                                                                <td>{{tItemProgCentData.itb}}</td>
+                                                                                <td>{{tItemProgCentData.prebid}}</td>
+                                                                                <td>{{tItemProgCentData.bidop}}</td>
+                                                                                <td>{{tItemProgCentData.pq}}</td>
+                                                                                <td>{{tItemProgCentData.rfq}}</td>
+                                                                                <td>{{tItemProgCentData.philgeps}}</td>
+                                                                                <td>{{tItemProgCentData.ispq}}</td>
+                                                                                <td>{{tItemProgCentData.canvass}}</td>
+                                                                                <td>{{tItemProgCentData.noa}}</td>
+                                                                                <td>{{tItemProgCentData.po}}</td>
+                                                                                <td>{{tItemProgCentData.ntp}}</td>
+                                                                                <td>{{tItemProgCentData.do}}</td>
+                                                                                <td>{{tItemProgCentData.tiac}}</td>
+                                                                                <td>{{tItemProgCentData.diir}}</td>
+                                                                                <td>{{tItemProgCentData.voucher}}</td>
+                                                                            </tr>
+
+                                                                            </template>
+                                                                            </template>
+                                                                            </template>
                                                                         </tbody>
                                                                     </table>
                                                                 </td>
                                                             </tr>
-                                                <!-- Grand Child -->
-
-                                            </template>
-                                            </template>
+                                                            </template>
+                                                            </template>
+                                                            </template>
+                                                            </template>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
                                         </template>
+                                        </template>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
 
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                    <!-- child -->
-
-                </template>
-                <tr>
-                    <td>
-                        Total
-                    </td>
-                    <td>
-                        <span tooltip="Total" >{{total}}</span>
-                        <span tooltip="Completed" class="blue">({{total_completed}})</span>
-                        <span tooltip="Ongoing" class="green">({{total_ongoing}})</span>
-                        <span tooltip="Delay" class="red">({{total_delay}})</span>
-                    </td>
-                    <td>{{formatPrice(total_abc)}}</td>
-                    <td>{{formatPrice(total_bid)}}</td>
-                    <td>{{formatPrice(total_residual)}}</td>
-                    <td></td>
-                    <td v-if="show" ></td>
-                    <td v-if="show" ></td>
-                    <td v-if="show" ></td>
-                    <td v-if="show" ></td>
-                </tr>
-
-            </tbody>
-        </table>
+                    </template>
+                </tbody>
+            </table>
+        </div>
     </div>
+
 </div>
 </template>
 
@@ -217,14 +398,23 @@
 var arrayIDs            =   [];
 var arrayProgramCenter  =   [];
 var array2IDs           =   [];
+
+var tarrayIDs            =   [];
+var tarrayProgramCenter  =   [];
+var tarray2IDs           =   [];
     export default {
         data() {
             return{
                 items: [],
+                timelineItem: [],
+                timelineItemProgram: [],
+                timelineitemUnits: [],
+                timelineitemProgramCenters:[],
                 itemProgram: [],
                 itemProgramCenters:[],
                 itemUnits:[],
                 types:"bidding",
+                psrTypes:"psr-bidding",
                 show:false,
                 endDate: "",
                 startDate: ""
@@ -233,6 +423,7 @@ var array2IDs           =   [];
 
         mounted() {
             this.fetchUprAnalytics(this.types);
+            this.fetchTimeline(this.psrTypes);
         },
 
         methods: {
@@ -242,7 +433,6 @@ var array2IDs           =   [];
             },
             fetchUprAnalytics: function(type) {
                 axios.get('/reports/programs/'+type+'?date_from='+this.startDate+'&&date_to='+this.endDate)
-                // axios.get('/reports/upr-programs/'+type)
                     .then(response => {
                         this.items = response.data
                     })
@@ -285,21 +475,6 @@ var array2IDs           =   [];
                     this.fetchUPRCenters(item.programs)
                 }
             },
-            changeType: function(type){
-                this.types = type
-                this.itemProgram = []
-                this.itemProgramCenters = []
-                this.itemUnits = []
-                arrayIDs = []
-                arrayProgramCenter = []
-                array2IDs = []
-
-                $('i').removeClass('ui-1_circle-delete');
-                $('.table-name').removeClass('is-visible');
-                $('i').addClass('ui-1_circle-add');
-                this.show = false;
-                this.fetchUprAnalytics(type)
-            },
             clickItemProgramCenter: function(item){
                 if( arrayProgramCenter.indexOf(item.name) == -1 )
                 {
@@ -330,14 +505,118 @@ var array2IDs           =   [];
                     }
                 }
             },
+            changeType: function(type){
+                this.types = type
+                this.itemProgram = []
+                this.itemProgramCenters = []
+                this.itemUnits = []
+                arrayIDs = []
+                arrayProgramCenter = []
+                array2IDs = []
+
+                $('i').removeClass('ui-1_circle-delete');
+                $('.table-name').removeClass('is-visible');
+                $('i').addClass('ui-1_circle-add');
+                this.show = false;
+                this.fetchUprAnalytics(type)
+            },
+            fetchTimeline: function(type) {
+                axios.get('/reports/program/timeline/'+type+'?date_from='+this.startDate+'&&date_to='+this.endDate)
+                    .then(response => {
+                        this.timelineItem = response.data
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            fetchTimelineUPRCenters: function(program){
+                axios.get('/reports/upr-centers/timeline/'+program+'/'+this.psrTypes)
+                    .then(response => {
+                        this.timelineItemProgram.push(response.data)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            fetchTimelineUnits: function(program,center){
+                axios.get('/reports/units/timeline/'+program+'/'+center+'/'+this.psrTypes)
+                    .then(response => {
+                        this.timelineitemUnits.push(response.data)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            fetchPSRUPRs: function(program, center){
+                axios.get('/reports/uprs/timeline/'+program+'/'+center+'/'+this.psrTypes)
+                    .then(response => {
+                        this.timelineitemProgramCenters.push(response.data)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            clickTimelineItemProgram: function(item){
+                if( tarrayIDs.indexOf(item.programs) == -1 )
+                {
+                    tarrayIDs.push(item.programs);
+                    this.fetchTimelineUPRCenters(item.programs)
+                }
+            },
+            clickTimelineItemProgramCenter: function(item){
+                if( tarrayProgramCenter.indexOf(item.name) == -1 )
+                {
+                    if(tarrayProgramCenter[item.name] != item.name)
+                    {
+                        tarrayProgramCenter[item.name]    =   item.name;
+                        this.fetchTimelineUnits(item.programs, item.name)
+                    }
+                }
+            },
+            clickTimelineItemUnit: function(item){
+                if( tarrayProgramCenter.indexOf(item.name) == -1 && tarrayProgramCenter[item.name] == item.name)
+                {
+                    if( tarray2IDs.indexOf(item.short_code) == -1 )
+                    {
+                        if(tarray2IDs[item.name] != item.short_code)
+                        {
+                            tarray2IDs[item.name]    =   item.short_code;
+                            this.fetchPSRUPRs(item.short_code, item.name)
+                        }
+                    }
+                }
+            },
+            changePSRType: function(type){
+                this.psrTypes = type
+                this.timelineItemProgram = []
+                this.timelineitemProgramCenters = []
+                this.timelineitemUnits = []
+                tarrayIDs = []
+                tarrayProgramCenter = []
+                tarray2IDs = []
+
+                $('i').removeClass('ui-1_circle-delete');
+                $('.table-name').removeClass('is-visible');
+                $('i').addClass('ui-1_circle-add');
+                this.show = false;
+                this.fetchTimeline(type)
+            },
             search: function()
             {
                 this.fetchUprAnalytics(this.types)
+            },
+            changeOverview: function()
+            {
+                $("#programs").toggle();
+                $("#psr").toggle();
             }
         },
         computed: {
             isActived: function () {
                 return this.types
+            },
+            isPSRActived: function () {
+                return this.psrTypes
             },
             total: function(){
                 if(!this.items){

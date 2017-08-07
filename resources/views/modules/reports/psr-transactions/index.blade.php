@@ -48,8 +48,8 @@ Transaction Summary
                         <th>UPR</th>
                         <th>RFQ</th>
                         <th>RFQ Closed</th>
-                        <th>PhilGeps</th>
                         <th>ISPQ</th>
+                        <th>PhilGeps</th>
                         <th>Canvass</th>
                         <th>NOA</th>
                         <th>NOAA</th>
@@ -134,8 +134,8 @@ Transaction Summary
             {data: 'upr', name: 'upr'},
             {data: 'rfq', name: 'rfq'},
             {data: 'rfq_close', name: 'rfq_close'},
-            {data: 'philgeps', name: 'philgeps'},
             {data: 'ispq', name: 'ispq'},
+            {data: 'philgeps', name: 'philgeps'},
             {data: 'canvass', name: 'canvass'},
             {data: 'noa', name: 'noa'},
             {data: 'noaa', name: 'noaa'},

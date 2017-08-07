@@ -378,7 +378,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function findTimelineByUnit($unit, $with = [])
+    public function findTimelineByUnit($request, $type, $with = [])
     {
         $model  =    $this->model;
 
@@ -398,21 +398,11 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.delay_count',
         ]);
 
-        // $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('ispq_quotations', 'ispq_quotations.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('invitation_for_quotation', 'invitation_for_quotation.id', '=', 'ispq_quotations.ispq_id');
-        // $model  =   $model->leftJoin('canvassing', 'canvassing.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('notice_of_awards', 'notice_of_awards.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('notice_to_proceed', 'notice_to_proceed.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('delivery_orders', 'delivery_orders.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('inspection_acceptance_report', 'inspection_acceptance_report.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
+        if(!\Sentinel::getUser()->hasRole("Admin")){
 
+            $model  =   $model->where('unit_purchase_requests.units', '=', \Sentinel::getUser()->unit_id);
+        }
 
-        $model  =   $model->where('unit_purchase_requests.units', '=', $unit);
         $model  =   $model->groupBy([
             'unit_purchase_requests.id',
             'unit_purchase_requests.project_name',

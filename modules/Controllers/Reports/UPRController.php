@@ -41,6 +41,94 @@ class UPRController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getPSRPrograms(Request $request, ProcurementCenterRepository $model, $type = null)
+    {
+        return $model->getPSRPrograms($type, $request);
+    }
+
+    /**
+     * [getUprCenters description]
+     *
+     * @param  [type]                        $id    [description]
+     * @param  UnitPurchaseRequestRepository $model [description]
+     * @return [type]                               [description]
+     */
+    public function getPSRUprCenters($program, UnitPurchaseRequestRepository $model, $type = null)
+    {
+        $items      =   $model->getPSRUprCenters($program,  $type);
+
+        $response   = [
+            'program' => $program,
+            'data' => $items
+        ];
+
+        return $response;
+    }
+
+    /**
+     * [getUnits description]
+     *
+     * @param  [type]                        $center [description]
+     * @param  UnitPurchaseRequestRepository $model  [description]
+     * @param  [type]                        $type   [description]
+     * @return [type]                                [description]
+     */
+    public function getPSRUnits($programs, $center, UnitPurchaseRequestRepository $model, $type = null)
+    {
+        $items      =   $model->getPSRUnit($center, $programs,  $type);
+
+        $response   = [
+            'program' => $programs,
+            'center'  => $center,
+            'data' => $items
+        ];
+        return $response;
+    }
+
+    /**
+     * [getUprs description]
+     *
+     * @param  [type]                        $id    [description]
+     * @param  UnitPurchaseRequestRepository $model [description]
+     * @return [type]                               [description]
+     */
+    public function getPSRUprs($programs, $center, UnitPurchaseRequestRepository $model, $type = null)
+    {
+        $items      =   $model->getPSRUprs($center, $programs,  $type);
+
+        $response   = [
+            'program' => $programs,
+            'center'  => $center,
+            'data' => $items
+        ];
+
+        return $response;
+    }
+
+    /**
+     * [getPSR description]
+     *
+     * @param  [type]                        $type    [description]
+     * @param  Request                       $request [description]
+     * @param  UnitPurchaseRequestRepository $upr     [description]
+     * @return [type]                                 [description]
+     */
+    public function getPSR($type, Request $request, UnitPurchaseRequestRepository $upr)
+    {
+        $result     =   $upr->findTimelineByUnit($request, $type, ['document_accept', 'itb', 'bid_conference', 'bid_open', 'post_qual', 'rfq', 'philgeps', 'invitations','noa', 'purchase_order', 'ntp', 'delivery_order', 'inspections', 'diir', 'voucher']);
+
+        $response   = [
+            'data' => $result
+        ];
+
+        return $response;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getPrograms(Request $request, ProcurementCenterRepository $model, $type = null)
     {
         return $model->getPrograms(null, $type, $request);

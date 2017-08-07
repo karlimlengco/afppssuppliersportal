@@ -1,7 +1,7 @@
 {
     "Bidding": [
         {
-            "name"      : "Competitive Bidding",
+            "name"      : "Public Bidding",
             "icon"      : "nc-icon-mini business_hammer",
             "subname"   : "biddings",
             "route"     : "biddings.index",
