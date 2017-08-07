@@ -51766,7 +51766,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('table', {
     staticClass: "table table--with-border table-name",
     attrs: {
-      "id": "psr-bidding"
+      "id": _vm.psrTypes
     }
   }, [_vm._m(1), _vm._v(" "), _c('tbody', [_vm._l((_vm.timelineItem), function(tItem, index) {
     return [_c('tr', [_c('td', [_vm._v("\n                                Program " + _vm._s(tItem.programs) + "\n                                "), (tItem.upr > 0) ? _c('button', {

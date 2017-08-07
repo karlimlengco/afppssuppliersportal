@@ -201,12 +201,14 @@
 }
 
 .alternative#button-focus{
-  background: #C68400!important;
+  background: #128614!important;
+  // background: #C68400!important;
   border:none;
 }
 
-#alternative thead tr th {
-  background: #C68400!important;
+#alternative thead tr th, #psr-alternative thead tr th {
+  background: #128614!important;
+  // background: #C68400!important;
   // background: #a0a0a0;
   color: #FFFFFF;
   font-weight: 700;

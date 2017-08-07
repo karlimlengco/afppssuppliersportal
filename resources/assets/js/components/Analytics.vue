@@ -221,7 +221,7 @@
         <button class='button button-unfocus alternative' v-bind:id="[ isPSRActived  == 'psr-alternative' ? 'button-focus' : '']" v-on:click="changePSRType('psr-alternative')" >Alternative</button>
         <div class="table-scroll" >
             <!-- PSR -->
-            <table  class="table table--with-border table-name" id="psr-bidding">
+            <table  class="table table--with-border table-name" v-bind:id="psrTypes">
                 <thead>
                     <tr>
                         <th style="text-align:center">UNITS</th>
