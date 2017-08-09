@@ -647,7 +647,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     |
     */
     Route::get('psr-transactions', '\Revlv\Controllers\Reports\PSRController@getDatatable')->name('reports.psr-transactions');
-    Route::get('psr', '\Revlv\Controllers\Reports\PSRController@getPSRDatatable')->name('reports.psr');
+    Route::post('psr', '\Revlv\Controllers\Reports\PSRController@getPSRDatatable')->name('reports.psr');
     Route::get('transaction-days', '\Revlv\Controllers\Reports\TransactionDayController@getDatatable')->name('reports.transaction-days');
 
     /*

@@ -144,7 +144,10 @@ Procurement Status Report
                         d.date_from = $('input[name=date_from]').val();
                         d.date_to = $('input[name=date_to]').val();
                     },
-                method: 'POST'
+                method: 'POST',
+                'headers': {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
                 // data: function (d) {
                     // d.search.value = $('#search-table').val();
                 // }
@@ -200,7 +203,11 @@ Procurement Status Report
                     data: function(d) {
                         d.date_from = $('input[name=date_from]').val();
                         d.date_to = $('input[name=date_to]').val();
-                    }
+                    },
+                method: 'POST',
+                'headers': {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
             },
         columns: [
             {data: 'upr_number', name: 'upr_number'},
