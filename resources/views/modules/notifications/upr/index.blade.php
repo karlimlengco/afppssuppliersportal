@@ -3,7 +3,7 @@ Notifications
 @stop
 
 @section('contents')
- <delay-table></delay-table>
+ <delay-table  v-on:searchingText="searching"></delay-table>
 @stop
 
 @section('scripts')

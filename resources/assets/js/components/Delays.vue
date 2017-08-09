@@ -35,9 +35,6 @@
         <div class="six columns">
             <h1>Delay Notifications</h1>
         </div>
-        <div class="six columns">
-            <input type="text" v-model="search" @keyup.enter="searching" class="input" placeholder="Search UPR">
-        </div>
     </div>
 
     <div class="table-scroll">
@@ -107,6 +104,7 @@
     var csrf_token = $('meta[name="csrf-token"]').attr('content');
 
     export default {
+
         data() {
             return{
                 items: [],
@@ -153,6 +151,11 @@
                 return pagesArray;
             }
         },
+        created() {
+            this.$root.$on('searchingText', (item) =>{
+                this.fetchItems(this.pagination.current_page, this.$root.searchText);
+            })
+        },
 
         mounted() {
             this.fetchItems(this.pagination.current_page, this.search);
@@ -160,6 +163,7 @@
 
         methods: {
             searching(){
+                alert(this.$root.searchText);
                 this.fetchItems(this.pagination.current_page, this.search);
             },
             formatPrice(value) {

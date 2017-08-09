@@ -4,34 +4,12 @@ Users
 
 @section('contents')
 
-<div class="row">
-    <div class="six columns align-left">
-        <h3> </h3>
-    </div>
-    <div class="six columns utility utility--align-right" >
 
-        <button class="button button--options-trigger" tooltip="Options">
-            <i class="nc-icon-mini ui-2_menu-dots"></i>
-            <div class="button__options">
-                <a href="{{route('settings.users.archives')}}" class="button__options__item">Archives</a>
-            </div>
-        </button>
 
-        <a class="button" href="{{route('settings.users.create')}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
-    </div>
-</div>
+<user-lists  v-on:searchingText="searching"></user-lists>
 
-<div class="row">
+{{-- <div class="row">
     <div class="twelve columns">
-        <div class="form-group">
-            <div class="input-group
-                        input-group--has-icon
-                        input-group--solid-icon
-                        input-group--right-icon">
-                <span class="input-group__icon"><i class="nc-icon-outline ui-1_zoom"></i></span>
-                <input type="text" class="input" placeholder="Search" id="newForm">
-            </div>
-        </div>
 
         <table id="datatable-responsive" class="table" >
             <thead>
@@ -49,7 +27,7 @@ Users
             </tbody>
         </table>
     </div>
-</div>
+</div> --}}
 
 
 @stop

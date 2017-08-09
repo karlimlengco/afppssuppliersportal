@@ -231,3 +231,7 @@
 .great-grand-child-table .is-visible{
 
 }
+
+.pointer{
+    cursor: pointer;
+}

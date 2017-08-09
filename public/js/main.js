@@ -34,6 +34,15 @@ $(document).keydown(function(e) {
     }
 });
 
+$(document).keydown(function(e) {
+    // f2 key pressed
+    if (e.keyCode == 113) {
+        $('.sidebar').toggleClass('was-minimized');
+        $('.topbar').toggleClass('was-extended');
+        $('.content').toggleClass('was-extended');
+    }
+});
+
 //close modal
 $('.modal__close-button').click(function(){
     $('.modal').removeClass('is-visible');

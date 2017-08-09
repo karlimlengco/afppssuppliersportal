@@ -19,10 +19,10 @@
 
     <body>
 
-    <div class="container">
+    <div class="container"  id="app">
         @yield('modal')
         @include('layouts.sidebar')
-        <div id="app">
+        <div >
             @include('layouts.topbar')
             {{-- sidebar --}}
 
@@ -61,6 +61,7 @@
         </div>
     </div>
 
+    @include('layouts.footer')
     @include('layouts.scripts')
     @yield('scripts')
     <script type="text/javascript">

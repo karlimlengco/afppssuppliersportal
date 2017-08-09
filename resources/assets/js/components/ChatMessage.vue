@@ -1,17 +1,20 @@
 <template lang="html">
 
 <!-- chat support -->
-        <div>
-            <div v-bind:class="computedUser">
-                <span class="chat__thread__avatar">
-                    <img  v-bind:src="computedAvatar" alt="">
-                </span>
-                <span class="chat__thread__info">
-                    <span class="chat__thread__name">{{ computedName }}</span>
-                    <span class="chat__thread__message">{{ message.message }}</span>
-                </span>
+            <div>
+                <div v-bind:class="computedUser">
+                    <span class="chat__thread__avatar">
+                        <img  v-bind:src="computedAvatar" alt="">
+                    </span>
+                    <span class="chat__thread__info">
+                        <span class="chat__thread__name">{{ computedName }}</span>
+                        <span class="chat__thread__message">{{ message.message }}</span>
+                    </span>
+                </div>
+                <div class="chat__thread__breaker">
+                    <span class="chat__thread__breaker__time">{{message.created_at}}</span>
+                </div>
             </div>
-        </div>
 </template>
 
 <script>

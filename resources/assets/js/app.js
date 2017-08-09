@@ -28,13 +28,16 @@ Vue.component('chat-head', require('./components/ChatHead.vue'));
 Vue.component('chat-log', require('./components/ChatLog.vue'));
 Vue.component('chat-composer', require('./components/ChatComposer.vue'));
 Vue.component('admin-messages', require('./components/AdminMessage.vue'));
+Vue.component('user-lists', require('./components/UserLists.vue'));
 
 const app = new Vue({
     el: '#app',
     data: {
         messages: [],
         usersInRoom: [],
-        chatId:""
+        chatId:"",
+        receiverId:"",
+        searchText:""
     },
     methods: {
         addMessage(message) {
@@ -44,7 +47,9 @@ const app = new Vue({
                     first_name: "You",
                     surname: ""
                 },
-                chatId : this.chatId
+                chatId : this.chatId,
+                receiverId : this.receiverId
+
             };
             // Add to existing messages
             this.messages.push(newMessage);
@@ -52,11 +57,18 @@ const app = new Vue({
             axios.post('/messages', newMessage).then(response => {
                 // Do whatever;
             })
-        }
+        },
+        searching(){
+            console.log('asdsad');
+            this.$emit('searchingText', {
+                searchText: this.searchText,
+            });
+        },
     },
     created() {
         this.$on('getmessage', (item) =>{
             this.chatId = item.message.id
+            this.receiverId = item.message.receiver_id
             axios.get('/messages/'+item.message.sender_id).then(response => {
                 this.messages = response.data;
             });

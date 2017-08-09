@@ -70,6 +70,25 @@ class MessageController extends Controller
     }
 
     /**
+     * [getMessage description]
+     *
+     * @param  MessageRepository $messages [description]
+     * @param  ChatRepository    $chats    [description]
+     * @return [type]                      [description]
+     */
+    public function getChatMessageBySender($sender, MessageRepository $messages, ChatRepository $chats)
+    {
+        $chat       =   $chats->findBySender($sender);
+        $chatId     = 0;
+        if($chat)
+        {
+            $chatId =   $chat->id;
+        }
+
+        return $chatId;
+    }
+
+    /**
      * [showChat description]
      *
      * @param  [type]            $senderId [description]
@@ -80,8 +99,12 @@ class MessageController extends Controller
     public function showChat($senderId, ChatRepository $chats, MessageRepository $messages)
     {
         $chat       =   $chats->findBySender($senderId);
+        if($chat)
+        {
+            return $chat->messages;
+        }
+        return [];
 
-        return $chat->messages;
     }
 
     /**
@@ -96,6 +119,13 @@ class MessageController extends Controller
         return $this->view('modules.chat.admin-messages');
     }
 
+    /**
+     * [getAdminMessageAPI description]
+     *
+     * @param  Request        $request [description]
+     * @param  ChatRepository $chats   [description]
+     * @return [type]                  [description]
+     */
     public function getAdminMessageAPI(Request $request,  ChatRepository $chats)
     {
         $items   =   $chats->getAllAdmin();
@@ -124,6 +154,7 @@ class MessageController extends Controller
     public function store(Request $request, ChatRepository $chats, MessageRepository $messages)
     {
         $user   =   \Sentinel::getUser();
+        $chat   = null;
 
         if($request->has('chatId') && $request->chatId != null)
         {
@@ -131,12 +162,22 @@ class MessageController extends Controller
         }
         else
         {
-            $chat   =   $chats->findBySender($user->id);
+            if(!$user->hasRole('Admin'))
+            {
+                $chat   =   $chats->findBySender($user->id);
+            }
         }
 
-        if($chat == null)
+        if($chat == null )
         {
-            $chat = $chats->save(['sender_id' => $user->id]);
+            if(!$user->hasRole('Admin'))
+            {
+                $chat = $chats->save(['sender_id' => $user->id]);
+            }
+            else
+            {
+                $chat = $chats->save(['sender_id' => $request->receiverId]);
+            }
         }
 
         $message = $user->messages()->create([

@@ -294,4 +294,28 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * [userLists description]
+     *
+     * @return [type] [description]
+     */
+    public function userLists(Request $request)
+    {
+        $result =   $this->userRepository->getLists($request, 20);
+
+        $response = [
+            'pagination' => [
+                'total' => $result->total(),
+                'per_page' => $result->perPage(),
+                'current_page' => $result->currentPage(),
+                'last_page' => $result->lastPage(),
+                'from' => $result->firstItem(),
+                'to' => $result->lastItem()
+            ],
+            'data' => $result
+        ];
+
+        return  $response;
+    }
+
 }

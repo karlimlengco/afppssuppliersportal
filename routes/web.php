@@ -30,6 +30,11 @@ Route::get('api/get/new_code/{id}', '\Revlv\Controllers\Settings\AccountCodeCont
 
 Route::get('timelines/print/{id}', '\Revlv\Controllers\Reports\UPRController@downloadTimeline')->name('settings.account-codes.get-code');
 
+Route::group(['as' => 'api.', 'prefix' => 'api'], function () {
+    Route::get('users', '\Revlv\Controllers\Sentinel\UserController@userLists')->name('users');
+    Route::get('user-message/{id}', '\Revlv\Controllers\Chat\MessageController@getChatMessageBySender')->name('users');
+
+});
 // Route::get('messages', function(){
 //     return \Revlv\Chats\Message\MessageEloquent::with('user')->get();
 // });

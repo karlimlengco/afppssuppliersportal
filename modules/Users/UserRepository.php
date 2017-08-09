@@ -299,4 +299,55 @@ class UserRepository extends BaseRepository
 
         return $model;
     }
+
+
+    /**
+     * [getLists description]
+     *
+     * @param  integer $limit    [description]
+     *
+     * @param  boolean $paginate [description]
+     *
+     * @return [type]            [description]
+     */
+    public function getLists($request, $paginate = 20)
+    {
+        $model  =   $this->model;
+
+        $model  = $model->select(
+            'users.username',
+            'users.designation',
+            'users.email',
+            'users.contact_number',
+            'users.gender',
+            'users.id',
+            'users.created_at',
+            \DB::raw("CONCAT(users.first_name,' ', users.surname) AS full_name"),
+            'catered_units.description as unit_name'
+            );
+
+        $model  = $model->leftJoin('catered_units', 'catered_units.id', '=', 'users.unit_id');
+
+        if($request->has('trash') && $request->trash == 'trash')
+        {
+            $model  =   $model->onlyTrashed();
+        }
+
+        if($request->has('search') && $request->search != null)
+        {
+            $search =   $request->search;
+            $model  =   $model->where(function ($query) use($search) {
+                            $query->where('users.username', 'LIKE', "%$search%")
+                                    ->orWhere('users.email', 'LIKE', "%$search%")
+                                    ->orWhere('users.contact_number', 'LIKE', "%$search%")
+                                    ->orWhere('users.gender', 'LIKE', "%$search%")
+                                    ->orWhere('users.first_name', 'LIKE', "%$search%")
+                                    ->orWhere('users.surname', 'LIKE', "%$search%")
+                                    ->orWhere('catered_units.description', 'LIKE', "%$search%")
+                                    ->orWhere('users.designation', 'LIKE', "%$search%");
+                        });
+        }
+
+        return $model->paginate($paginate);
+    }
 }
