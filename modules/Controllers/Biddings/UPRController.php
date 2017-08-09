@@ -88,11 +88,11 @@ class UPRController extends Controller
     public function getDatatable(UnitPurchaseRequestRepository $model)
     {
         $user   =   \Sentinel::getUser();
-        if(array_key_exists("superuser", $user->permissions) || array_key_exists("admin", $user->permissions))
+        if($user->hasRole('Admin'))
         {
             return $model->getDatatable(null, 'bidding');
         }
-        return $model->getDatatable($user->id);
+        return $model->getDatatable($user->unit_id, 'bidding');
     }
 
 

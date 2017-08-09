@@ -27,7 +27,7 @@ class LibraryRequest extends BaseRequest
         return [
             'name'                 => 'required',
             'catalog_id'           => 'required',
-            'file_name'            => 'required',
+            'file_name'            => 'required|mimes:pdf',
         ];
     }
 }

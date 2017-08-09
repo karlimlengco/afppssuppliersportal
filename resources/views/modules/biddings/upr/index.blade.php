@@ -22,20 +22,6 @@ Unit Purchase Request
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
-    </div>
-    <div class="six columns utility utility--align-right" >
-        <button class="button button--options-trigger" tooltip="Options">
-            <i class="nc-icon-mini ui-2_menu-dots"></i>
-            <div class="button__options">
-                <a href="{{route('procurements.unit-purchase-requests.imports')}}" class="button__options__item">Import UPR</a>
-            </div>
-        </button>
-    </div>
-</div>
-
-<div class="row">
     <div class="twelve columns">
         <div class="form-group">
             <div class="input-group input-group--has-icon input-group--solid-icon input-group--right-icon">
@@ -91,8 +77,12 @@ Unit Purchase Request
             {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {
-            $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
-            $("#datatable-responsive_next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+            $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
+            $(".next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+        },
+        "drawCallback": function(oSettings, json) {
+            $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
+            $(".next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
         }
 
     });

@@ -44,7 +44,7 @@ trait DatatableTrait
 
             $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'rfq_proponents.proponents');
 
-            $model  =   $model->whereNotNull('request_for_quotations.rfq_id');
+            $model  =   $model->whereNotNull('request_for_quotations.id');
         }
         else{
 

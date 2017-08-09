@@ -547,7 +547,7 @@ class DeliveredInspectionReportController extends Controller
             'received_by'   => 'required',
             'approved_by'   => 'required',
             'issued_by'     => 'required',
-            'requested_by'  => 'required'
+            'requested_by'  => 'required',
             'inspected_by'  => 'required'
         ]);
 
@@ -555,7 +555,7 @@ class DeliveredInspectionReportController extends Controller
             'received_by'   =>  $request->received_by,
             'approved_by'   =>  $request->approved_by,
             'issued_by'     =>  $request->issued_by,
-            'requested_by'  =>  $request->requested_by
+            'requested_by'  =>  $request->requested_by,
             'inspected_by'  =>  $request->inspected_by
         ];
 

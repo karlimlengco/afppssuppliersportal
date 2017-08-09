@@ -78,6 +78,10 @@ Notice To Proceed
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
             $("#datatable-responsive_next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+        },
+        "drawCallback": function(oSettings, json) {
+            $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
+            $(".next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
         }
 
     });
