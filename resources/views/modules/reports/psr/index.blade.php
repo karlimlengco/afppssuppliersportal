@@ -143,7 +143,8 @@ Procurement Status Report
                     data: function(d) {
                         d.date_from = $('input[name=date_from]').val();
                         d.date_to = $('input[name=date_to]').val();
-                    }
+                    },
+                method: 'POST'
                 // data: function (d) {
                     // d.search.value = $('#search-table').val();
                 // }
