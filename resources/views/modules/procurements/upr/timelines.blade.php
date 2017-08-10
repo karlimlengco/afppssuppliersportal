@@ -26,9 +26,9 @@ Unit Purchase Request
     </div>
     <div class="six columns utility"  style="margin-bottom:0px; text-align: left" >
         <div class="eleven columns">{!! Form::selectField('upr_number', '', $upr_list, ['id'=>'upr_id'])!!}</div>
-        <div class="one columns">
+       {{--  <div class="one columns">
             <a href="#" id="printme" class="button" style="margin-top:5px"> <i class="nc-icon-mini arrows-2_square-download"></i></a>
-        </div>
+        </div> --}}
 
     </div>
 </div>
