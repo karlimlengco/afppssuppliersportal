@@ -303,15 +303,17 @@ Unit Purchase Request
                     @endif
 
                     {{-- ITB --}}
-                    @if($data->itb != null)
                         <tr>
                             <td>Invitation To Bid</td>
                             <td>
-                                <?php $itb_approved_date  =  createCarbon('Y-m-d',$data->itb->approved_date); ?>
-                                    {{ $itb_approved_date->format('d F Y') }}
+                                @if($data->itb != null)
+                                    <?php $itb_approved_date  =  createCarbon('Y-m-d',$data->itb->approved_date); ?>
+                                        {{ $itb_approved_date->format('d F Y') }}
+                                @endif
                             </td>
                             <td >1</td>
                             <td>
+                                @if($data->itb != null)
                                     {{ $data->itb->days }}
                                     <?php $totalDays +=  $data->itb->days ; ?>
 
@@ -319,18 +321,21 @@ Unit Purchase Request
                                         <strong class="red">({{$data->itb->days - 1}})</strong>
                                     @endif
 
+                                    @else
+                                    <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                                    {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                    {{$d}}
+                                @endif
+
                             </td>
-                            <td>{{$data->itb->remarks}}</td>
-                            <td>{{$data->itb->action}}</td>
+                            <td>
+                                @if($data->itb != null){{$data->itb->remarks}}@endif</td>
+                            <td>
+                                @if($data->itb != null){{$data->itb->action}}@endif</td>
                             <td>
 
                             </td>
                         </tr>
-                    @else
-                        <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
-                        {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                        {{$d}}
-                    @endif
                     {{-- ITB --}}
 
                     {{-- Philgeps --}}
@@ -374,6 +379,7 @@ Unit Purchase Request
                         </td>
                         <td >1</td>
                         <td>
+                        @if($data->itb != null)
                             @if($data->bid_conference != null)
                                 {{ $data->bid_conference->days }}
                                 <?php $totalDays +=  $data->bid_conference->days ; ?>
@@ -387,6 +393,7 @@ Unit Purchase Request
                                     {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                                     {{$d}}
                             @endif
+                        @endif
                         </td>
                         <td>
 
@@ -418,6 +425,7 @@ Unit Purchase Request
                         </td>
                         <td >1</td>
                         <td>
+                        @if($data->bid_conference != null)
                             @if($data->bid_open != null)
                                 {{ $data->bid_open->days }}
                                 <?php $totalDays +=  $data->bid_open->days ; ?>
@@ -431,6 +439,7 @@ Unit Purchase Request
                                     {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                                     {{$d}}
                             @endif
+                        @endif
                         </td>
                         <td>
                             @if($data->bid_open != null)
@@ -461,18 +470,20 @@ Unit Purchase Request
                         </td>
                         <td >1</td>
                         <td>
-                            @if($data->post_qual != null)
-                                {{ $data->post_qual->days }}
-                                <?php $totalDays +=  $data->post_qual->days ; ?>
+                            @if($data->bid_open != null)
+                                @if($data->post_qual != null)
+                                    {{ $data->post_qual->days }}
+                                    <?php $totalDays +=  $data->post_qual->days ; ?>
 
-                                @if($data->post_qual->days > 1)
-                                    <strong class="red">({{$data->post_qual->days - 1}})</strong>
+                                    @if($data->post_qual->days > 1)
+                                        <strong class="red">({{$data->post_qual->days - 1}})</strong>
+                                    @endif
+
+                                @else
+                                        <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                                        {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                        {{$d}}
                                 @endif
-
-                            @else
-                                    <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
-                                    {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                                    {{$d}}
                             @endif
                         </td>
                         <td>
@@ -521,11 +532,14 @@ Unit Purchase Request
                                 {{$d}}
                         @endif
                     @else
+
+                            @if($data->post_qual != null)
                                 <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
 
                                 {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                                 {{$d}}
 
+                            @endif
                     @endif
                     </td>
                     <td>{{$data->noa_remarks}}</td>
@@ -809,6 +823,7 @@ Unit Purchase Request
                     </td>
                     <td>1</td>
                     <td>
+                    @if($data->ntp_date)
                         @if($data->ntp_award_date != null)
                             {{ $data->ntp_accepted_days }}
                             <?php $totalDays +=  $data->ntp_accepted_days ; ?>
@@ -822,6 +837,7 @@ Unit Purchase Request
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
                         @endif
+                    @endif
                     </td>
                     <td>{{$data->ntp_accepted_remarks}}</td>
                     <td>{{$data->ntp_accepted_action}}</td>
@@ -839,6 +855,7 @@ Unit Purchase Request
                     </td>
                     <td>1</td>
                     <td>
+                    @if($data->ntp_award_date != null)
                         @if($data->dr_date != null)
                             {{ $data->dr_days }}
                             <?php $totalDays +=  $data->dr_days ; ?>
@@ -851,6 +868,7 @@ Unit Purchase Request
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
                         @endif
+                    @endif
                     </td>
                     <td>{{$data->dr_remarks}}</td>
                     <td>{{$data->dr_action}}</td>
