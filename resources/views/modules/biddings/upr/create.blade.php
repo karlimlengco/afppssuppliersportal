@@ -64,7 +64,7 @@ Unit Purchase Request
 
             <div class="row">
                 <div class="four columns">
-                    {!! Form::selectField('procurement_office', 'Procurement Office', $procurement_center) !!}
+                    {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center) !!}
                 </div>
                 <div class="four columns">
                     {!! Form::selectField('mode_of_procurement', 'Mode of Procurement', ['public_bidding' => 'Public Bidding']+$procurement_modes) !!}

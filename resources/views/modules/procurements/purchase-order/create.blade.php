@@ -37,7 +37,7 @@ Purchase Order
                 {!! Form::selectField('rfq_id', 'RFQ Number', $rfq_list) !!}
             </div>
             <div class="six columns">
-                {!! Form::textField('purchase_date', 'Purchase Date') !!}
+                {!! Form::textField('purchase_date', 'Purchase Order Date') !!}
             </div>
         </div>
 

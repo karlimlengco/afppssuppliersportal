@@ -26,22 +26,22 @@ $('.topbar__utility__button--modal').click(function(){
     $('.modal').addClass('is-visible');
 })
 
-$(document).keydown(function(e) {
-    // ESCAPE key pressed
-    if (e.keyCode == 27) {
-        $('.notifier').removeClass('is-visible');
-        $('.modal').removeClass('is-visible');
-    }
-});
+// $(document).keydown(function(e) {
+//     // ESCAPE key pressed
+//     if (e.keyCode == 27) {
+//         $('.notifier').removeClass('is-visible');
+//         $('.modal').removeClass('is-visible');
+//     }
+// });
 
-$(document).keydown(function(e) {
-    // f2 key pressed
-    if (e.keyCode == 113) {
-        $('.sidebar').toggleClass('was-minimized');
-        $('.topbar').toggleClass('was-extended');
-        $('.content').toggleClass('was-extended');
-    }
-});
+// $(document).keydown(function(e) {
+//     // f2 key pressed
+//     if (e.keyCode == 113) {
+//         $('.sidebar').toggleClass('was-minimized');
+//         $('.topbar').toggleClass('was-extended');
+//         $('.content').toggleClass('was-extended');
+//     }
+// });
 
 //close modal
 $('.modal__close-button').click(function(){
