@@ -73,4 +73,5 @@ class DeliveryOrderRepository extends BaseRepository
 
         return $model->pluck($value, $id)->all();
     }
+
 }

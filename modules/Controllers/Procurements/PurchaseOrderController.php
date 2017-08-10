@@ -486,6 +486,8 @@ class PurchaseOrderController extends Controller
         $split_upr              =   explode('-', $noa_model->upr->ref_number);
         $inputs['po_number']    =  "PO-".$split_upr[1]."-".$split_upr[2]."-".$split_upr[3]."-".$split_upr[4] ;
 
+
+
         $upr_model              =   $noa_model->upr;
 
         $inputs['prepared_by']  =   \Sentinel::getUser()->id;
@@ -493,7 +495,14 @@ class PurchaseOrderController extends Controller
         $inputs['upr_id']       =   $upr_model->id;
         $inputs['upr_number']   =   $upr_model->upr_number;
         $inputs['rfq_number']   =   $upr_model->rfq_number;
-        $inputs['bid_amount']   =   $noa_model->winner->bid_amount;
+        if($upr_model->mode_of_procurement == 'public_bidding')
+        {
+            $inputs['bid_amount']   =   $noa_model->biddingWinner->bid_amount;
+        }
+        else
+        {
+            $inputs['bid_amount']   =   $noa_model->winner->bid_amount;
+        }
         $inputs['status']       =   "pending";
 
         $result = $model->save($inputs);

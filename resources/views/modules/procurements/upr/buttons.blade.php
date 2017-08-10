@@ -138,7 +138,7 @@
         {{-- <a class="button__options__item" id="create-delivery-button" href="#">Create Notice Of Delivery</a> --}}
     @endif
 
-    @if($data->status == 'NOD Created' || $data->status == 'Delivery Received')
+    @if($data->status == 'NOD Created' || $data->status == 'Delivery Received' || $data->status == 'Delivery Incomplete')
 
         <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
         <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>

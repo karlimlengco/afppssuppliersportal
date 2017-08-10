@@ -421,17 +421,34 @@ class DeliveryController extends Controller
         // Delay
         $item_input =   $request->only(['ids', 'received_quantity']);
 
+        $errcount = 0;
         for ($i=0; $i < count($item_input['ids']) ; $i++) {
+            $item_model =  $items->getById($item_input['ids'][$i]);
+            if($item_model->quantity != $item_input['received_quantity'][$i])
+            {
+                $errcount ++;
+            }
+
             $items->update([
                 'received_quantity' => $item_input['received_quantity'][$i]
                 ], $item_input['ids'][$i]);
         }
+
         $inputs['received_by']  =   \Sentinel::getUser()->id;
 
         $model->update($inputs, $id);
 
+        if($errcount == 0)
+        {
+            $status =   'Delivery Received';
+        }
+        else
+        {
+            $status =   'Delivery Incomplete';
+        }
+
         $upr->update([
-            'status' => 'Delivery Received',
+            'status' =>     => $status,
             'delay_count'   => ($day_delayed > 7 )? $day_delayed - 7 : 0,
             'calendar_days' => $day_delayed + $dr_model->upr->calendar_days,
             'last_action'   => $request->action,

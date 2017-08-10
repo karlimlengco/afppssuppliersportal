@@ -16,4 +16,20 @@ class ItemRepository extends BaseRepository
     {
         return ItemEloquent::class;
     }
+
+    /**
+     * Return the model by its key valued pair
+     *
+     * @param string $id
+     * @param string $value
+     * @return mixed
+     */
+    public function getById($id)
+    {
+        $model =    $this->model;
+
+        $model  =   $model->whereId($id);
+
+        return $model->first();
+    }
 }

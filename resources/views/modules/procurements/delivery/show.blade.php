@@ -53,9 +53,9 @@ Notice Of Delivery
 
         <a   target="_blank" href="{{route('procurements.delivery-orders.print', $data->id)}}" class="button" tooltip="PRINT"><i class="nc-icon-mini tech_print "></i></a>
 
-        @if(!$data->delivery_date)
+        {{-- @if(!$data->status == 'Delivery Recieved') --}}
             <a href="{{route($editRoute, $data->id)}}" class="button" tooltip="Receive"><i class="nc-icon-glyph shopping_delivery lg"></i></a>
-        @endif
+        {{-- @endif --}}
 
         <a href="#" id="attachment-button" class="button" tooltip="Attachments"><i class="nc-icon-mini ui-1_attach-86"></i> </a>
 

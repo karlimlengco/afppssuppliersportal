@@ -425,7 +425,7 @@ class DeliveryController extends Controller
 
         $validator = Validator::make($request->all(),[
             'delivery_date'     =>  'required',
-            'received_quantity.*' => 'required'
+            // 'received_quantity.*' => 'required'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request, $dr_model) {
@@ -433,14 +433,14 @@ class DeliveryController extends Controller
                 $validator->errors()->add('delivery_remarks', 'This field is required when your process is delay');
             }
             if ( $request->get('delivery_action') == null && $day_delayed > $dr_model->po->delivery_terms) {
-                $validator->errors()->add('delivery_action', 'This field is required when your process is delay');
+                $validator->errors()->add('delivery_action', 'This action is required when your process is delay');
             }
         });
 
         if ($validator->fails()){
             return redirect()
                         ->back()
-                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->with(['error' => 'Check all your fields'])
                         ->withErrors($validator)
                         ->withInput();
         }
@@ -452,21 +452,38 @@ class DeliveryController extends Controller
         // Delay
         $item_input =   $request->only(['ids', 'received_quantity']);
 
+        $errcount = 0;
         for ($i=0; $i < count($item_input['ids']) ; $i++) {
+            $item_model =  $items->getById($item_input['ids'][$i]);
+            if($item_model->quantity != $item_input['received_quantity'][$i])
+            {
+                $errcount ++;
+            }
+
             $items->update([
                 'received_quantity' => $item_input['received_quantity'][$i]
                 ], $item_input['ids'][$i]);
         }
+
         $inputs['received_by']  =   \Sentinel::getUser()->id;
 
         $model->update($inputs, $id);
+
+        if($errcount == 0)
+        {
+            $status =   'Delivery Received';
+        }
+        else
+        {
+            $status =   'Delivery Incomplete';
+        }
 
         $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'COA Delivery',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'status' => 'Delivery Received',
+            'status'        => $status,
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $dr_model->upr->calendar_days,
             'last_action'   => $request->action,
