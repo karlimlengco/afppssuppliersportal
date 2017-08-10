@@ -448,7 +448,7 @@ class DeliveryController extends Controller
         }
 
         $upr->update([
-            'status' =>     => $status,
+            'status'    => $status,
             'delay_count'   => ($day_delayed > 7 )? $day_delayed - 7 : 0,
             'calendar_days' => $day_delayed + $dr_model->upr->calendar_days,
             'last_action'   => $request->action,
