@@ -58,7 +58,7 @@ Unit Purchase Request
                     {!! Form::selectField('units', 'Units', $unit) !!}
                 </div>
                 <div class="four columns">
-                    {!! Form::selectField('procurement_type', 'Procurement Type', $procurement_types) !!}
+                    {!! Form::selectField('procurement_type', 'Procurement Program/Project', $procurement_types) !!}
                 </div>
             </div>
 
