@@ -326,6 +326,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('unit-purchase-requests/view-cancelled', '\Revlv\Controllers\Procurements\UPRController@viewCancelled')->name('unit-purchase-requests.view-cancel');
     Route::put('unit-purchase-requests/update-signatories/{id}', '\Revlv\Controllers\Procurements\UPRController@updateSignatory')->name('unit-purchase-requests.update-signatories');
     Route::put('unit-purchase-requests/cancelled/{id}', '\Revlv\Controllers\Procurements\UPRController@cancelled')->name('unit-purchase-requests.cancelled');
     Route::get('unit-purchase-requests/second-step', '\Revlv\Controllers\Procurements\UPRController@secondStep')->name('unit-purchase-requests.second-step');
@@ -586,6 +587,10 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
     Route::resource('user/groups', '\Revlv\Controllers\Sentinel\UserGroupController');
 
 
+    Route::post('suppliers/attachments/{id}', '\Revlv\Controllers\Settings\SupplierController@uploadAttachment')->name('suppliers.attachments.store');
+
+    Route::get('suppliers/download/{id}', '\Revlv\Controllers\Settings\SupplierController@downloadAttachment')->name('suppliers.attachments.download');
+
     Route::post('suppliers/accepts/{id}', '\Revlv\Controllers\Settings\SupplierController@acceptSupplier')->name('suppliers.accepts');
     Route::post('suppliers/blocked/{id}', '\Revlv\Controllers\Settings\SupplierController@blockedSupplier')->name('suppliers.blocked');
     Route::get('suppliers/un-blocked/{id}', '\Revlv\Controllers\Settings\SupplierController@unblockedSupplier')->name('suppliers.un-blocked');
@@ -675,6 +680,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     |
     */
     Route::get('procurements.unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController@getDatatable')->name('procurements.unit-purchase-request');
+    Route::get('procurements/unit-purchase-requests/cancelled', '\Revlv\Controllers\Procurements\UPRController@getCancelledDatatable')->name('procurements.unit-purchase-request.cancelled');
     Route::get('biddings.unit-purchase-requests', '\Revlv\Controllers\Biddings\UPRController@getDatatable')->name('biddings.unit-purchase-request');
     Route::get('blank-rfq', '\Revlv\Controllers\Procurements\BlankRFQController@getDatatable')->name('procurements.blank-rfq');
     Route::get('philgeps-posting', '\Revlv\Controllers\Procurements\PhilGepsPostingController@getDatatable')->name('procurements.philgeps-posting');

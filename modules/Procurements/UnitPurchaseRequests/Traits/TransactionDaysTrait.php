@@ -96,7 +96,7 @@ trait TransactionDaysTrait
             'vouchers.check_days as vou_check_days',
             'vouchers.approved_days as vou_approved_days',
             'vouchers.released_days as vou_released_days',
-            'vouchers.received_days as vou_received_days',
+            // 'vouchers.received_days as vou_received_days',
             'vouchers.created_at as vou_start',
             'vouchers.transaction_date as v_transaction_date',
             'vouchers.preaudit_date as preaudit_date',
@@ -104,7 +104,7 @@ trait TransactionDaysTrait
             'vouchers.journal_entry_date as journal_entry_date',
             'vouchers.approval_date as vou_approval_date',
             'vouchers.payment_release_date as vou_release',
-            'vouchers.payment_received_date as vou_received',
+            // 'vouchers.payment_received_date as vou_received',
         ]);
 
         // $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
@@ -212,7 +212,7 @@ trait TransactionDaysTrait
             'vouchers.journal_entry_date',
             'vouchers.approval_date',
             'vouchers.payment_release_date',
-            'vouchers.payment_received_date',
+            // 'vouchers.payment_received_date',
         ]);
 
 

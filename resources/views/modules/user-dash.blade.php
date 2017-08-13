@@ -15,7 +15,7 @@ Overview
                 <th>Document Acceptance</th>
                 <th>ITB</th>
                 <th>PRE Bid</th>
-                <th>Bid Opening</th>
+                <th>SOBE</th>
                 <th>Post Qual</th>
                 <th>RFQ</th>
                 <th>RFQ Closed</th>

@@ -44,8 +44,8 @@ class BlankRFQRequest extends BaseRequest
     {
         return [
             'upr_id'                => 'required',
-            'deadline'              => 'required',
-            'opening_time'          => 'required',
+            // 'deadline'              => 'required',
+            // 'opening_time'          => 'required',
             'transaction_date'      => 'required',
         ];
     }

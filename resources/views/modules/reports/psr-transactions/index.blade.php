@@ -84,7 +84,7 @@ Transaction Summary
                         <th>Invitation To Bid</th>
                         <th>Philgeps</th>
                         <th>Pre Bid</th>
-                        <th>Bid Opening</th>
+                        <th>SOBE</th>
                         <th>Post Qual</th>
                         <th>NOA</th>
                         <th>NOAA</th>

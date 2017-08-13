@@ -32,6 +32,7 @@ class SupplierRepository extends BaseRepository
         $model =  $this->model;
 
         $model =  $model->where('is_blocked','=',0);
+        $model =  $model->where('status','=','accepted');
 
         return $model->pluck($value, $id)->all();
     }

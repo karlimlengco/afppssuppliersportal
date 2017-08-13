@@ -170,7 +170,7 @@ class PreBidController extends Controller
             $upr->update([
                 'status' => 'Pre Bid Conference',
                 'next_allowable'=> 1,
-                'next_step'     => 'Bid Opening',
+                'next_step'     => 'SOBE',
                 'next_due'      => $transaction_date->addDays(1),
                 'last_date'     => $transaction_date,
                 'date_processed'=> \Carbon\Carbon::now(),
@@ -228,7 +228,8 @@ class PreBidController extends Controller
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
-                    'method'    =>  'PUT'
+                    'method'    =>  'PUT',
+                    'novalidate'=>  'novalidate'
                 ]
             ],
             'breadcrumbs' => [

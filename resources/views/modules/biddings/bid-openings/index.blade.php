@@ -1,5 +1,5 @@
 @section('title')
-Bid Opening
+SOBE
 @stop
 
 @section('breadcrumbs')

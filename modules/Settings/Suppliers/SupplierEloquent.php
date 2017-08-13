@@ -43,4 +43,14 @@ class SupplierEloquent extends Model
         'blocked_remarks',
     ];
 
+    /**
+     * [attachments description]
+     *
+     * @return [type] [description]
+     */
+    public function attachments()
+    {
+         return $this->hasMany('\Revlv\Settings\Suppliers\Attachments\AttachmentEloquent', 'supplier_id');
+    }
+
 }

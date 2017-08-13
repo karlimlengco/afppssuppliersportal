@@ -235,7 +235,8 @@ class VoucherController extends Controller
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
-                    'method'    =>  'PUT'
+                    'method'    =>  'PUT',
+                    'novalidate'=>  'novalidate'
                 ],
                 'destroy'   => [
                     'route' => [$this->baseUrl.'destroy',$id],
@@ -715,17 +716,18 @@ class VoucherController extends Controller
 
         $result =   $model->update($inputs, $id);
 
+
         $upr->update([
-            'next_allowable'=> 1,
-            'next_step'     => 'Received Voucher',
-            'next_due'      => $transaction_date->addDays(1),
+            'next_allowable'=> 0,
+            'next_step'     => 'Complete',
+            'next_due'      => $transaction_date,
             'last_date'     => $transaction_date,
-            'status'        => 'Voucher Released',
-            'delay_count'   => $day_delayed,
-            'calendar_days' => $cd + $result->upr->calendar_days,
-            'last_action'   => $request->action,
-            'last_remarks'  => $request->remarks
-            ], $result->upr_id);
+            'status'        => 'completed',
+            'state'         => 'completed',
+            'completed_at'  => $request->payment_release_date,
+            'delay_count'   => $cd + $result->upr->delay_count,
+            'days'          => $wd],
+       $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

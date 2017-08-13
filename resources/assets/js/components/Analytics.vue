@@ -226,15 +226,16 @@
                     <tr>
                         <th style="text-align:center">UNITS</th>
                         <th># UPR</th>
-                        <th>Document Acceptance</th>
-                        <th>ITB</th>
-                        <th>PRE Bid</th>
-                        <th>Bid Opening</th>
-                        <th>Post Qual</th>
-                        <th>RFQ</th>
-                        <th>PhilGeps</th>
-                        <th>ISPQ</th>
-                        <th>Canvass</th>
+                        <th v-if="show2" >Document Acceptance</th>
+                        <th v-if="show2" >ITB</th>
+                        <th v-if="show2" >PhilGeps</th>
+                        <th v-if="show2" >PRE Bid</th>
+                        <th v-if="show2" >SOBE</th>
+                        <th v-if="show2" >Post Qual</th>
+                        <th v-if="show3" >RFQ</th>
+                        <th v-if="show3" >PhilGeps</th>
+                        <th v-if="show3" >ISPQ</th>
+                        <th v-if="show3" >Canvass</th>
                         <th>NOA</th>
                         <th>PO</th>
                         <th>NTP</th>
@@ -252,15 +253,16 @@
                                 <button v-if="tItem.upr > 0" v-on:click="clickTimelineItemProgram(tItem)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                             </td>
                             <td>{{tItem.upr}}</td>
-                            <td>{{tItem.doc}}</td>
-                            <td>{{tItem.itb}}</td>
-                            <td>{{tItem.prebid}}</td>
-                            <td>{{tItem.bidop}}</td>
-                            <td>{{tItem.pq}}</td>
-                            <td>{{tItem.rfq}}</td>
-                            <td>{{tItem.philgeps}}</td>
-                            <td>{{tItem.ispq}}</td>
-                            <td>{{tItem.canvass}}</td>
+                            <td v-if="show2" >{{tItem.doc}}</td>
+                            <td v-if="show2" >{{tItem.itb}}</td>
+                            <td v-if="show2" >{{tItem.philgeps}}</td>
+                            <td v-if="show2" >{{tItem.prebid}}</td>
+                            <td v-if="show2" >{{tItem.bidop}}</td>
+                            <td v-if="show2" >{{tItem.pq}}</td>
+                            <td v-if="show3" >{{tItem.rfq}}</td>
+                            <td v-if="show3" >{{tItem.philgeps}}</td>
+                            <td v-if="show3" >{{tItem.ispq}}</td>
+                            <td v-if="show3" >{{tItem.canvass}}</td>
                             <td>{{tItem.noa}}</td>
                             <td>{{tItem.po}}</td>
                             <td>{{tItem.ntp}}</td>
@@ -283,15 +285,16 @@
                                                     {{tItemProgData.name}}
                                                 </td>
                                                 <td>{{tItemProgData.upr}}</td>
-                                                <td>{{tItemProgData.doc}}</td>
-                                                <td>{{tItemProgData.itb}}</td>
-                                                <td>{{tItemProgData.prebid}}</td>
-                                                <td>{{tItemProgData.bidop}}</td>
-                                                <td>{{tItemProgData.pq}}</td>
-                                                <td>{{tItemProgData.rfq}}</td>
-                                                <td>{{tItemProgData.philgeps}}</td>
-                                                <td>{{tItemProgData.ispq}}</td>
-                                                <td>{{tItemProgData.canvass}}</td>
+                                                <td v-if="show2">{{tItemProgData.doc}}</td>
+                                                <td v-if="show2">{{tItemProgData.philgeps}}</td>
+                                                <td v-if="show2">{{tItemProgData.itb}}</td>
+                                                <td v-if="show2">{{tItemProgData.prebid}}</td>
+                                                <td v-if="show2">{{tItemProgData.bidop}}</td>
+                                                <td v-if="show2">{{tItemProgData.pq}}</td>
+                                                <td v-if="show3" >{{tItemProgData.rfq}}</td>
+                                                <td v-if="show3" >{{tItemProgData.philgeps}}</td>
+                                                <td v-if="show3" >{{tItemProgData.ispq}}</td>
+                                                <td v-if="show3" >{{tItemProgData.canvass}}</td>
                                                 <td>{{tItemProgData.noa}}</td>
                                                 <td>{{tItemProgData.po}}</td>
                                                 <td>{{tItemProgData.ntp}}</td>
@@ -315,15 +318,16 @@
                                                                     <button  v-on:click="clickTimelineItemUnit(tItemUnitData)" class="show-great-grand-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                                                                 </td>
                                                                 <td>{{tItemUnitData.upr}}</td>
-                                                                <td>{{tItemUnitData.doc}}</td>
-                                                                <td>{{tItemUnitData.itb}}</td>
-                                                                <td>{{tItemUnitData.prebid}}</td>
-                                                                <td>{{tItemUnitData.bidop}}</td>
-                                                                <td>{{tItemUnitData.pq}}</td>
-                                                                <td>{{tItemUnitData.rfq}}</td>
-                                                                <td>{{tItemUnitData.philgeps}}</td>
-                                                                <td>{{tItemUnitData.ispq}}</td>
-                                                                <td>{{tItemUnitData.canvass}}</td>
+                                                                <td v-if="show2" >{{tItemUnitData.doc}}</td>
+                                                                <td v-if="show2" >{{tItemUnitData.philgeps}}</td>
+                                                                <td v-if="show2" >{{tItemUnitData.itb}}</td>
+                                                                <td v-if="show2" >{{tItemUnitData.prebid}}</td>
+                                                                <td v-if="show2" >{{tItemUnitData.bidop}}</td>
+                                                                <td v-if="show2" >{{tItemUnitData.pq}}</td>
+                                                                <td v-if="show3" >{{tItemUnitData.rfq}}</td>
+                                                                <td v-if="show3" >{{tItemUnitData.philgeps}}</td>
+                                                                <td v-if="show3" >{{tItemUnitData.ispq}}</td>
+                                                                <td v-if="show3" >{{tItemUnitData.canvass}}</td>
                                                                 <td>{{tItemUnitData.noa}}</td>
                                                                 <td>{{tItemUnitData.po}}</td>
                                                                 <td>{{tItemUnitData.ntp}}</td>
@@ -343,15 +347,16 @@
                                                                             <tr  v-for="tItemProgCentData in tItemProgCent.data">
                                                                                 <td> <i class="green" style="font-family: Verdana;">{{tItemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+tItemProgCentData.id ">({{tItemProgCentData.project_name}})</a></small></td>
                                                                                 <td>{{tItemProgCentData.upr}}</td>
-                                                                                <td>{{tItemProgCentData.doc}}</td>
-                                                                                <td>{{tItemProgCentData.itb}}</td>
-                                                                                <td>{{tItemProgCentData.prebid}}</td>
-                                                                                <td>{{tItemProgCentData.bidop}}</td>
-                                                                                <td>{{tItemProgCentData.pq}}</td>
-                                                                                <td>{{tItemProgCentData.rfq}}</td>
-                                                                                <td>{{tItemProgCentData.philgeps}}</td>
-                                                                                <td>{{tItemProgCentData.ispq}}</td>
-                                                                                <td>{{tItemProgCentData.canvass}}</td>
+                                                                                <td v-if="show2" >{{tItemProgCentData.doc}}</td>
+                                                                                <td v-if="show2" >{{tItemProgCentData.philgeps}}</td>
+                                                                                <td v-if="show2" >{{tItemProgCentData.itb}}</td>
+                                                                                <td v-if="show2" >{{tItemProgCentData.prebid}}</td>
+                                                                                <td v-if="show2" >{{tItemProgCentData.bidop}}</td>
+                                                                                <td v-if="show2" >{{tItemProgCentData.pq}}</td>
+                                                                                <td v-if="show3" >{{tItemProgCentData.rfq}}</td>
+                                                                                <td v-if="show3" >{{tItemProgCentData.philgeps}}</td>
+                                                                                <td v-if="show3" >{{tItemProgCentData.ispq}}</td>
+                                                                                <td v-if="show3" >{{tItemProgCentData.canvass}}</td>
                                                                                 <td>{{tItemProgCentData.noa}}</td>
                                                                                 <td>{{tItemProgCentData.po}}</td>
                                                                                 <td>{{tItemProgCentData.ntp}}</td>
@@ -416,6 +421,8 @@ var tarray2IDs           =   [];
                 types:"bidding",
                 psrTypes:"psr-bidding",
                 show:false,
+                show2:true,
+                show3:false,
                 endDate: "",
                 startDate: ""
             }
@@ -486,11 +493,11 @@ var tarray2IDs           =   [];
                 }
             },
             clickItemUnit: function(item){
-                if(this.show == false){
+                // if(this.show == false){
                     this.show = true;
-                }else{
-                    this.show = false;
-                }
+                // }else{
+                    // this.show = false;
+                // }
 
 
                 if( arrayProgramCenter.indexOf(item.name) == -1 && arrayProgramCenter[item.name] == item.name)
@@ -513,7 +520,7 @@ var tarray2IDs           =   [];
                 arrayIDs = []
                 arrayProgramCenter = []
                 array2IDs = []
-
+                console.log(type)
                 $('i').removeClass('ui-1_circle-delete');
                 $('.table-name').removeClass('is-visible');
                 $('i').addClass('ui-1_circle-add');
@@ -600,6 +607,18 @@ var tarray2IDs           =   [];
                 $('i').addClass('ui-1_circle-add');
                 this.show = false;
                 this.fetchTimeline(type)
+                console.log(type)
+
+                if(type == 'psr-bidding')
+                {
+                    this.show2 = true;
+                    this.show3 = false;
+                }
+                else
+                {
+                    this.show3 = true;
+                    this.show2 = false;
+                }
             },
             search: function()
             {

@@ -77,7 +77,7 @@ class BidOpeningController extends Controller
             'createRoute'   =>  $this->baseUrl."create",
             'breadcrumbs' => [
                 new Breadcrumb('Public Bidding'),
-                new Breadcrumb('Bid Opening')
+                new Breadcrumb('SOBE')
             ]
         ]);
     }
@@ -197,7 +197,7 @@ class BidOpeningController extends Controller
             'breadcrumbs' => [
                 new Breadcrumb('Public Bidding'),
                 new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->id ),
-                new Breadcrumb('Bid Opening')
+                new Breadcrumb('SOBE')
             ]
         ]);
     }
@@ -221,12 +221,13 @@ class BidOpeningController extends Controller
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
-                    'method'    =>  'PUT'
+                    'method'    =>  'PUT',
+                    'novalidate'=>  'novalidate'
                 ]
             ],
             'breadcrumbs' => [
                 new Breadcrumb('Public Bidding'),
-                new Breadcrumb('Bid Opening', 'biddings.bid-openings.show', $result->id),
+                new Breadcrumb('SOBE', 'biddings.bid-openings.show', $result->id),
                 new Breadcrumb('Update')
             ]
         ]);
@@ -341,7 +342,7 @@ class BidOpeningController extends Controller
             'model'         =>  $data_model,
             'breadcrumbs' => [
                 new Breadcrumb('Public Bidding'),
-                new Breadcrumb('Bid Opening', 'biddings.bid-openings.show', $data_model->id),
+                new Breadcrumb('SOBE', 'biddings.bid-openings.show', $data_model->id),
                 new Breadcrumb('Logs')
             ]
         ]);

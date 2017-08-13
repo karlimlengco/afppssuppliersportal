@@ -127,6 +127,8 @@ class BlankRFQController extends Controller
         UnitPurchaseRequestRepository $upr,
         HolidayRepository $holidays)
     {
+
+        // dd($request->getData());
         $upr_model              =   $upr->findById($request->upr_id);
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
@@ -260,7 +262,8 @@ class BlankRFQController extends Controller
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
-                    'method'    =>  'PUT'
+                    'method'    =>  'PUT',
+                    'novalidate'=>  'novalidate'
                 ],
                 'destroy'   => [
                     'route' => [$this->baseUrl.'destroy',$id],

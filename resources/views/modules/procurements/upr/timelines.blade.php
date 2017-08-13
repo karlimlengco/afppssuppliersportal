@@ -410,11 +410,11 @@ Unit Purchase Request
 
                         </td>
                     </tr>
-                    {{-- Bid Opening --}}
+                    {{-- SOBE --}}
 
-                    {{-- Bid Opening --}}
+                    {{-- SOBE --}}
                     <tr>
-                        <td>Bid Opening</td>
+                        <td>SOBE</td>
                         <td>
                             @if($data->bid_open != null)
                             <?php $bid_open  =  createCarbon('Y-m-d',$data->bid_open->transaction_date); ?>
@@ -455,7 +455,7 @@ Unit Purchase Request
 
                         </td>
                     </tr>
-                    {{-- Bid Opening --}}
+                    {{-- SOBE --}}
 
                     {{-- Post Qualification --}}
                     <tr>

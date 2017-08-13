@@ -12,7 +12,7 @@
             <div class="modal__dialogue__body">
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::textField('received_by', 'Received by') !!}
+                        {!! Form::textField('received_by', 'Conforme') !!}
                     </div>
                     <div class="six columns">
                         {!! Form::textField('award_accepted_date', 'Date Received') !!}

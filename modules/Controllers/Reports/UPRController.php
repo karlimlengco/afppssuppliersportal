@@ -302,7 +302,7 @@ class UPRController extends Controller
                     'JEV',
                     'Voucher Approval',
                     'Release Payment',
-                    'Received Payment',
+                    // 'Received Payment',
                 ]);
 
                 foreach($result as $data)

@@ -75,7 +75,7 @@ Procurement Status Report
                 <th>Stage 26</th>
                 <th>Stage 27</th>
                 <th>Stage 28</th>
-                <th>Stage 29</th>
+                {{-- <th>Stage 29</th> --}}
                 <th>Total CD</th>
             </tr>
         </thead>
@@ -120,7 +120,7 @@ Procurement Status Report
                 <th>Stage 27</th>
                 <th>Stage 28</th>
                 <th>Stage 29</th>
-                <th>Stage 30</th>
+                {{-- <th>Stage 30</th> --}}
                 <th>Total CD</th>
             </tr>
         </thead>
@@ -184,7 +184,7 @@ Procurement Status Report
             {data: 'd_journal_entry_date', name: 'd_journal_entry_date'},
             {data: 'd_vou_approval_date', name: 'd_vou_approval_date'},
             {data: 'd_vou_release', name: 'd_vou_release'},
-            {data: 'd_vou_received', name: 'd_vou_received'},
+            // {data: 'd_vou_received', name: 'd_vou_received'},
             {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {
@@ -242,7 +242,7 @@ Procurement Status Report
             {data: 'd_journal_entry_date', name: 'd_journal_entry_date'},
             {data: 'd_vou_approval_date', name: 'd_vou_approval_date'},
             {data: 'd_vou_release', name: 'd_vou_release'},
-            {data: 'd_vou_received', name: 'd_vou_received'},
+            // {data: 'd_vou_received', name: 'd_vou_received'},
             {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {

@@ -65,9 +65,9 @@
             <a href="{{route('biddings.pre-bids.show', $data->bid_conference->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
 
-            <span >Bid Opening</span>
+            <span >SOBE</span>
             <a href="#" class="button" id="open-bid-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
-            {{-- <a class="button__options__item" id="open-bid-button" href="#">Bid Opening</a> --}}
+            {{-- <a class="button__options__item" id="open-bid-button" href="#">SOBE</a> --}}
         @endif
         @if($data->status == 'Bid Open')
 

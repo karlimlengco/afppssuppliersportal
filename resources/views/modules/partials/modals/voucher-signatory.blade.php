@@ -22,7 +22,7 @@
                 </div>
                 <div class="row">
                     <div class="twelve columns">
-                        {!! Form::selectField('receiver_id', 'Received By', $signatory_list) !!}
+                        {!! Form::selectField('receiver_id', 'Conforme', $signatory_list) !!}
                     </div>
                 </div>
             </div>

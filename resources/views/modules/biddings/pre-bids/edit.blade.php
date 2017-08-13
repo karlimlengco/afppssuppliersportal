@@ -52,7 +52,7 @@ Pre Bid Conference
         </div>
         <div class="row">
             <div class="six columns">
-                {!! Form::textField('bid_opening_date', 'Bid Opening Date') !!}
+                {!! Form::textField('bid_opening_date', 'SOBE Date') !!}
             </div>
             <div class="six columns">
                 {!! Form::textField('resched_date', 'Re-Sched Date') !!}

@@ -97,6 +97,36 @@ class UPRController extends Controller
         return $model->getDatatable($user->unit_id);
     }
 
+    /**
+     * [getCancelledDatatable description]
+     *
+     * @return [type]            [description]
+     */
+    public function getCancelledDatatable(UnitPurchaseRequestRepository $model)
+    {
+        $user   =   \Sentinel::getUser();
+
+        if($user->hasRole('Admin'))
+        {
+            return $model->getDatatable(null, null, 'Cancelled');
+        }
+
+        return $model->getDatatable($user->unit_id, null, 'Cancelled');
+    }
+
+    /**
+     * [viewCancelled description]
+     *
+     * @return [type] [description]
+     */
+    public function viewCancelled()
+    {
+        return $this->view('modules.procurements.upr.cancelled',[
+            'breadcrumbs' => [
+                new Breadcrumb('Unit Purchase Request Cancelled')
+            ]
+        ]);
+    }
 
 
     /**

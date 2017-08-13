@@ -43,9 +43,9 @@ Vouchers
                     <a href="#" id="release-button" class="button__options__item " tooltip="Release Payment"> Release Payment</a>
                 @endif
 
-                @if(!$data->payment_received_date and $data->payment_release_date)
+         {{--        @if(!$data->payment_received_date and $data->payment_release_date)
                     <a href="#" id="received-button" class="button__options__item" tooltip="Received Payment"> Received Payment</a>
-                @endif
+                @endif --}}
 
                 @if(!$data->preaudit_date )
                     <a href="#" id="preaudit-button" class="button__options__item" tooltip="Received Payment"> Conduct Preaudit</a>

@@ -6,7 +6,7 @@
             </button>
 
             <div class="moda__dialogue__head">
-                <h1 class="modal__title">LDDAP Payment Release Date</h1>
+                <h1 class="modal__title">LDDAP-ADA Payment Release Date</h1>
             </div>
 
             <div class="modal__dialogue__body">

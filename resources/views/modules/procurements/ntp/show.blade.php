@@ -74,7 +74,7 @@ Notice To Proceed
 
             @if($data->received_by)
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received Date :</strong> {{$data->award_accepted_date}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received by :</strong> {{$data->received_by}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Conforme :</strong> {{$data->received_by}} </li>
             @endif
 
         </ul>

@@ -333,7 +333,8 @@ class NOAController extends Controller
             'modelConfig'       =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update-dates', $id],
-                    'method'    =>  'PUT'
+                    'method'    =>  'PUT',
+                    'novalidate'=>  'novalidate'
                 ]
             ],
             'breadcrumbs' => [

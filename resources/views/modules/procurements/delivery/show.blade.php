@@ -97,7 +97,7 @@ Notice Of Delivery
 
             @if($data->delivery_date)
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Delivery Note :</strong> {{$data->notes}} </li>
-                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Received by :</strong> {{($data->receiver) ? $data->receiver->first_name ." ". $data->receiver->surname : ""}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Conforme :</strong> {{($data->receiver) ? $data->receiver->first_name ." ". $data->receiver->surname : ""}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">COA Completed Date :</strong> {{$data->date_delivered_to_coa}} </li>
             @endif
         </ul>

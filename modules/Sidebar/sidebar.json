@@ -39,7 +39,7 @@
                 {
                     "route" :   "biddings.bid-openings.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Bid Opening"
+                    "name"  :   "SOBE"
                 },
                 {
                     "route" :   "biddings.post-qualifications.index",
@@ -54,7 +54,7 @@
                 {
                     "route" :   "biddings.purchase-orders.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Purchase Orders"
+                    "name"  :   "Purchase Order"
                 },
                 {
                     "route" :   "biddings.ntp.index",
@@ -129,7 +129,7 @@
                 {
                     "route" :   "procurements.purchase-orders.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Purchase Orders"
+                    "name"  :   "Purchase Order"
                 },
                 {
                     "route" :   "procurements.ntp.index",

@@ -268,7 +268,8 @@ class DeliveryController extends Controller
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
-                    'method'    =>  'PUT'
+                    'method'    =>  'PUT',
+                    'novalidate'=>  'novalidate'
                 ],
                 'destroy'   => [
                     'route' => [$this->baseUrl.'destroy',$id],
@@ -511,7 +512,7 @@ class DeliveryController extends Controller
             'signatory_id'   =>  'required',
         ]);
 
-        $model->update(['signatory_id' =>$request->signatory_id], $id);
+        $model->update(['signatory_id' => $request->signatory_id], $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

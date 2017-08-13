@@ -219,7 +219,7 @@ class TransactionDayController extends Controller
                         'Prepare Certificate of Inspection',
                         'Preparation of Voucher',
                         'Release Payment',
-                        'Received Payment',
+                        // 'Received Payment',
                     ]);
                 }
                 else
@@ -232,7 +232,7 @@ class TransactionDayController extends Controller
                         'Invitation To Bid',
                         'Philgeps',
                         'Pre Bid',
-                        'Bid Opening',
+                        'SOBE',
                         'Post Qual',
                         'NOA',
                         'NOA Approved',
@@ -250,7 +250,7 @@ class TransactionDayController extends Controller
                         'Prepare Certificate of Inspection',
                         'Preparation of Voucher',
                         'Release Payment',
-                        'Received Payment',
+                        // 'Received Payment',
                     ]);
                 }
 
@@ -463,13 +463,13 @@ class TransactionDayController extends Controller
                         $d_vou_release       = $dt->diffInDays($upr_create);
                     }
 
-                    $d_vou_received = 0;
-                    if($data->vou_received)
-                    {
-                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_received);
-                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_release);
-                        $days       = $dt->diffInDays($upr_create);
-                    }
+                    // $d_vou_received = 0;
+                    // if($data->vou_received)
+                    // {
+                    //     $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_received);
+                    //     $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_release);
+                    //     $days       = $dt->diffInDays($upr_create);
+                    // }
 
                     $count ++;
 
@@ -497,7 +497,7 @@ class TransactionDayController extends Controller
                             $d_di_close,
                             $d_vou_start,
                             $d_vou_release,
-                            $d_vou_received,
+                            // $d_vou_received,
                         ];
                     }
                     else
@@ -526,7 +526,7 @@ class TransactionDayController extends Controller
                             $d_di_close,
                             $d_vou_start,
                             $d_vou_release,
-                            $d_vou_received,
+                            // $d_vou_received,
                         ];
                     }
 
@@ -614,7 +614,7 @@ class TransactionDayController extends Controller
                         'Stage 26',
                         'Stage 27',
                         'Stage 28',
-                        'Stage 29',
+                        // 'Stage 29',
                         'Total CD',
                     ]);
                 }
@@ -655,7 +655,7 @@ class TransactionDayController extends Controller
                         'Stage 27',
                         'Stage 28',
                         'Stage 29',
-                        'Stage 30',
+                        // 'Stage 30',
                         'Total CD',
                     ]);
                 }
@@ -869,13 +869,13 @@ class TransactionDayController extends Controller
                         $d_vou_release       = $dt->diffInDays($upr_create);
                     }
 
-                    $d_vou_received = 0;
-                    if($data->vou_received)
-                    {
-                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_received);
-                        $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_release);
-                        $days       = $dt->diffInDays($upr_create);
-                    }
+                    // $d_vou_received = 0;
+                    // if($data->vou_received)
+                    // {
+                    //     $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_received);
+                    //     $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_release);
+                    //     $days       = $dt->diffInDays($upr_create);
+                    // }
 
                     $count ++;
 
@@ -906,7 +906,7 @@ class TransactionDayController extends Controller
                             $d_di_close,
                             $d_vou_start,
                             $d_vou_release,
-                            $d_vou_received,
+                            // $d_vou_received,
                         ];
                     }
                     else
@@ -938,7 +938,7 @@ class TransactionDayController extends Controller
                             $d_di_close,
                             $d_vou_start,
                             $d_vou_release,
-                            $d_vou_received,
+                            // $d_vou_received,
                         ];
                     }
 

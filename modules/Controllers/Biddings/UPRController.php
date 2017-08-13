@@ -321,7 +321,8 @@ class UPRController extends Controller
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
-                    'method'    =>  'PUT'
+                    'method'    =>  'PUT',
+                    'novalidate'=>  'novalidate'
                 ],
                 'destroy'   => [
                     'route' => [$this->baseUrl.'destroy',$id],

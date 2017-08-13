@@ -96,7 +96,7 @@ Notice Of Award
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">BID Amount :</strong> @if($data->winner) {{formatPrice($data->winner->bid_amount)}} @endif</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Date :</strong> {{$data->accepted_date}} &nbsp;</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Copy :</strong> <a target="_blank" href="{{route('procurements.noa.download',$data->id)}}">{{$data->file}}</a> &nbsp;</li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received By :</strong> {{$data->received_by}}&nbsp; </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Conforme :</strong> {{$data->received_by}}&nbsp; </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received Date :</strong> {{$data->award_accepted_date}} &nbsp;</li>
         </ul>
     </div>

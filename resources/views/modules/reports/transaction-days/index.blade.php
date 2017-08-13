@@ -65,7 +65,7 @@ Transaction Days Report
                 <th>JEV</th>
                 <th>Voucher Approval</th>
                 <th>Release Payment</th>
-                <th>Received Payment</th>
+                {{-- <th>Received Payment</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -83,7 +83,7 @@ Transaction Days Report
                 <th>Invitation To Bid</th>
                 <th>Philgeps</th>
                 <th>Pre Bid</th>
-                <th>Bid Opening</th>
+                <th>SOBE</th>
                 <th>Post Qual</th>
                 <th>NOA</th>
                 <th>NOA Approved</th>
@@ -107,7 +107,7 @@ Transaction Days Report
                 <th>JEV</th>
                 <th>Voucher Approval</th>
                 <th>Release Payment</th>
-                <th>Received Payment</th>
+                {{-- <th>Received Payment</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -165,7 +165,7 @@ Transaction Days Report
             {data: 'd_journal_entry_date', name: 'd_journal_entry_date'},
             {data: 'd_vou_approval_date', name: 'd_vou_approval_date'},
             {data: 'd_vou_release', name: 'd_vou_release'},
-            {data: 'd_vou_received', name: 'd_vou_received'},
+            // {data: 'd_vou_received', name: 'd_vou_received'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
@@ -218,7 +218,7 @@ Transaction Days Report
             {data: 'd_journal_entry_date', name: 'd_journal_entry_date'},
             {data: 'd_vou_approval_date', name: 'd_vou_approval_date'},
             {data: 'd_vou_release', name: 'd_vou_release'},
-            {data: 'd_vou_received', name: 'd_vou_received'},
+            // {data: 'd_vou_received', name: 'd_vou_received'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

@@ -21,7 +21,7 @@ Vouchers
 
 @section('modal')
     @include('modules.partials.modals.release-voucher')
-    @include('modules.partials.modals.received-voucher')
+    {{-- @include('modules.partials.modals.received-voucher') --}}
     @include('modules.partials.modals.preaudit-voucher')
     @include('modules.partials.modals.certify-voucher')
     @include('modules.partials.modals.approval-voucher')
@@ -44,10 +44,10 @@ Vouchers
                 @if($data->approval_date && !$data->payment_release_date)
                     <a href="#" id="release-button" class="button__options__item " tooltip="Release Payment"> Release Payment</a>
                 @endif
-
+{{--
                 @if(!$data->payment_received_date and $data->payment_release_date)
                     <a href="#" id="received-button" class="button__options__item" tooltip="Received Payment"> Received Payment</a>
-                @endif
+                @endif --}}
 
                 @if(!$data->preaudit_date )
                     <a href="#" id="preaudit-button" class="button__options__item" tooltip="Received Payment"> Conduct Preaudit</a>

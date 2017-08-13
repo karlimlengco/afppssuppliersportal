@@ -17,7 +17,7 @@ trait DatatableTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getDatatable($id = null, $mode = null)
+    public function getDatatable($id = null, $mode = null, $status = null)
     {
         $model  =   $this->model;
 
@@ -72,6 +72,15 @@ trait DatatableTrait
         else
         {
             $model  =   $model->whereNotNull('mode_of_procurements.name');
+        }
+
+        if($status == null)
+        {
+            $model  =   $model->where('unit_purchase_requests.status', '!=', 'Cancelled');
+        }
+        else
+        {
+            $model  =   $model->where('unit_purchase_requests.status', '=', "$status");
         }
 
         return $this->dataTable($model->get());
@@ -364,14 +373,14 @@ trait DatatableTrait
                 return $days;
             })
 
-            ->editColumn('d_vou_received', function($data){
-                $days = $data->vou_received_days;
-                if($days > 1)
-                {
-                    return "<span style='color:red'>".$days."</span>";
-                }
-                return $days;
-            })
+            // ->editColumn('d_vou_received', function($data){
+            //     $days = $data->vou_received_days;
+            //     if($days > 1)
+            //     {
+            //         return "<span style='color:red'>".$days."</span>";
+            //     }
+            //     return $days;
+            // })
 
             ->editColumn('doc_days', function($data){
                 $days = $data->doc_days;

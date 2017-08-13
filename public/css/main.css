@@ -1552,6 +1552,7 @@ printable-form.less
 .printable-form__body__table tr td.signatory,
 .printable-form__body__table tr th.signatory {
   padding: 0 0 4px 0 !important;
+  padding: 0 0 4px 0 !important;
 }
 .printable-form__body__table tr td.signatory .signatory-name,
 .printable-form__body__table tr th.signatory .signatory-name {

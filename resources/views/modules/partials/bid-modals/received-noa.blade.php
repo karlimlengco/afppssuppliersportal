@@ -20,7 +20,7 @@
                         {!! Form::textField('received_noa', 'Received Date') !!}
                     </div>
                     <div class="six columns">
-                        {!! Form::textField('received_by', 'Received By') !!}
+                        {!! Form::textField('received_by', 'Conforme') !!}
                     </div>
                 </div>
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">

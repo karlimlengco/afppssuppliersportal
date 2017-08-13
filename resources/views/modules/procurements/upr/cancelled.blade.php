@@ -1,7 +1,6 @@
 @section('title')
-Pre-Bid Conference
+Unit Purchase Request
 @stop
-
 
 @section('breadcrumbs')
 
@@ -22,41 +21,32 @@ Pre-Bid Conference
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3> </h3>
-    </div>
-    <div class="six columns utility utility--align-right" >
-        <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
+
+    <div class="twelve columns align-right utility utility--align-right">
+        <a href="{{route('procurements.unit-purchase-requests.index')}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
     </div>
 </div>
 
 <div class="row">
     <div class="twelve columns">
-        <div class="form-group">
-            <div class="input-group
-                        input-group--has-icon
-                        input-group--solid-icon
-                        input-group--right-icon">
-                <span class="input-group__icon"><i class="nc-icon-outline ui-1_zoom"></i></span>
-                <input type="text" class="input" placeholder="Search" id="newForm">
-            </div>
-        </div>
-
-        <table id="datatable-responsive" class="table" >
-
+        {{-- <div class="table-scroll"> --}}
+            <table id="datatable-responsive" class="table ">
             <thead>
                 <tr>
                     <th>UPR No.</th>
                     <th>Ref No.</th>
-                    <th>Transaction Date</th>
-                    <th>SOBE</th>
-                    <th>Re-Sched Date</th>
-                    <th>Re-Sched Remarks</th>
+                    <th>Project</th>
+                    <th>ABC</th>
+                    <th>TYPE</th>
+                    <th>Status</th>
+                    {{-- <th>State</th> --}}
+                    <th>Calendar Days</th>
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
+        {{-- </div> --}}
     </div>
 </div>
 
@@ -70,15 +60,20 @@ Pre-Bid Conference
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.biddings.pre-bids')}}",
+                url: "{{route('datatables.procurements.unit-purchase-request.cancelled')}}",
+                // data: function (d) {
+                    // d.search.value = $('#search-table').val();
+                // }
             },
         columns: [
             {data: 'upr_number', name: 'upr_number'},
             {data: 'ref_number', name: 'ref_number'},
-            {data: 'transaction_date', name: 'transaction_date'},
-            {data: 'bid_opening_date', name: 'bid_opening_date'},
-            {data: 'resched_date', name: 'resched_date'},
-            {data: 'resched_remarks', name: 'resched_remarks'},
+            {data: 'project_name', name: 'project_name'},
+            {data: 'total_amount', name: 'total_amount'},
+            {data: 'type', name: 'type'},
+            {data: 'status', name: 'status'},
+            // {data: 'state', name: 'state'},
+            {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

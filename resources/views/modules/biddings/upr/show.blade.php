@@ -112,7 +112,7 @@ Unit Purchase Request
                         <a class="button__options__item" href="{{route('biddings.pre-bids.create-by-upr', $data->id)}}">Pre-Bid Conference</a>
                     @endif
                     @if($data->status == 'Pre Bid Conference')
-                        <a class="button__options__item" id="open-bid-button" href="#">Bid Opening</a>
+                        <a class="button__options__item" id="open-bid-button" href="#">SOBE</a>
                     @endif
                     @if($data->status == 'Bid Open')
                         <a class="button__options__item" id="post-qual-button" href="#">Post Qualification</a>

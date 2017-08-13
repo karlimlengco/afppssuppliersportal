@@ -221,7 +221,8 @@ class RFQProponentController extends Controller
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
-                    'method'    =>  'PUT'
+                    'method'    =>  'PUT',
+                    'novalidate'=>  'novalidate'
                 ],
                 'destroy'   => [
                     'route' => [$this->baseUrl.'destroy',$id],
@@ -240,7 +241,7 @@ class RFQProponentController extends Controller
      */
     public function update(Request $request, $id, RFQProponentRepository $model)
     {
-        $this->validate($request, ['bid_amount' => 'required', 'status' => 'required']);
+        $this->validate($request, ['bid_amount' => 'required', 'status' => 'required', 'remarks' => 'required_if:status,failed']);
         $model->update(['remarks' => $request->remarks, 'bid_amount' => $request->bid_amount, 'status' => $request->status], $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([

@@ -7,11 +7,14 @@ use App\Http\Controllers\Controller;
 use Auth;
 
 use \Revlv\Settings\Suppliers\SupplierRepository;
+use \Revlv\Settings\Suppliers\AttachmentTrait;
 use \Revlv\Settings\Banks\BankRepository;
 use \Revlv\Settings\Suppliers\SupplierRequest;
 
 class SupplierController extends Controller
 {
+
+    use AttachmentTrait;
 
     /**
      * [Base Route of Controller]
@@ -159,6 +162,9 @@ class SupplierController extends Controller
                 'destroy'   => [
                     'route' => [$this->baseUrl.'destroy',$id],
                     'method'=> 'DELETE'
+                ],
+                'add_attachment' =>  [
+                    'route'     =>  [$this->baseUrl.'attachments.store', $id],
                 ]
             ]
         ]);

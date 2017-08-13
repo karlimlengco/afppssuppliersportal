@@ -30,6 +30,7 @@ Unit Purchase Request
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 <a href="{{route($importRoute)}}" class="button__options__item">Import UPR</a>
+                <a href="{{route('procurements.unit-purchase-requests.view-cancel')}}" class="button__options__item">View All Cancelled</a>
             </div>
         </button>
 

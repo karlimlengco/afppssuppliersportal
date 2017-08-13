@@ -6,6 +6,7 @@ Suppliers
     @include('modules.partials.modals.delete')
     @include('modules.partials.modals.accept')
     @include('modules.partials.modals.blocked')
+    @include('modules.partials.modals.supplier_attachments')
 @stop
 
 @section('contents')
@@ -24,6 +25,8 @@ Suppliers
                 </div>
             </button>
         @endif
+
+        <a href="#" id="attachment-button" class="button" tooltip="Attachments"><i class="nc-icon-mini ui-1_attach-86"></i> </a>
 
         <button type="submit" class="button "  tooltip="Save">
         <i class="nc-icon-mini ui-2_disk"></i>
@@ -130,6 +133,31 @@ Suppliers
                 </div>
             </div>
 
+            @if(count($data->attachments) != 0)
+
+                <table class="table">
+                     <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>File Name</th>
+                            <th>Uploaded By</th>
+                            <th>Validity Date</th>
+                            <th>Upload Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($data->attachments as  $attachment)
+                        <tr>
+                            <td> <a target="_blank" href="{{route('settings.suppliers.attachments.download', $attachment->id)}}"> {{$attachment->name}} </a></td>
+                            <td>{{$attachment->file_name}}</td>
+                            <td>{{($attachment->users) ? $attachment->users->first_name ." ". $attachment->users->surname :""}}</td>
+                            <td>{{$attachment->validity_date}}</td>
+                            <td>{{$attachment->upload_date}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
     </div>
 </div>
 
@@ -153,6 +181,10 @@ Suppliers
     $('#accept-button').click(function(e){
         e.preventDefault();
         $('#accept-modal').addClass('is-visible');
+    })
+    $('#attachment-button').click(function(e){
+        e.preventDefault();
+        $('#unit-attachment-modal').addClass('is-visible');
     })
     // end datepicker
 

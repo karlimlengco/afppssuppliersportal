@@ -16430,6 +16430,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 var arrayIDs = [];
@@ -16453,6 +16458,8 @@ var tarray2IDs = [];
             types: "bidding",
             psrTypes: "psr-bidding",
             show: false,
+            show2: true,
+            show3: false,
             endDate: "",
             startDate: ""
         };
@@ -16521,11 +16528,12 @@ var tarray2IDs = [];
             }
         },
         clickItemUnit: function clickItemUnit(item) {
-            if (this.show == false) {
-                this.show = true;
-            } else {
-                this.show = false;
-            }
+            // if(this.show == false){
+            this.show = true;
+            // }else{
+            // this.show = false;
+            // }
+
 
             if (arrayProgramCenter.indexOf(item.name) == -1 && arrayProgramCenter[item.name] == item.name) {
                 if (array2IDs.indexOf(item.short_code) == -1) {
@@ -16544,7 +16552,7 @@ var tarray2IDs = [];
             arrayIDs = [];
             arrayProgramCenter = [];
             array2IDs = [];
-
+            console.log(type);
             $('i').removeClass('ui-1_circle-delete');
             $('.table-name').removeClass('is-visible');
             $('i').addClass('ui-1_circle-add');
@@ -16625,6 +16633,15 @@ var tarray2IDs = [];
             $('i').addClass('ui-1_circle-add');
             this.show = false;
             this.fetchTimeline(type);
+            console.log(type);
+
+            if (type == 'psr-bidding') {
+                this.show2 = true;
+                this.show3 = false;
+            } else {
+                this.show3 = true;
+                this.show2 = false;
+            }
         },
         search: function search() {
             this.fetchUprAnalytics(this.types);
@@ -52313,7 +52330,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": _vm.psrTypes
     }
-  }, [_vm._m(1), _vm._v(" "), _c('tbody', [_vm._l((_vm.timelineItem), function(tItem, index) {
+  }, [_c('thead', [_c('tr', [_c('th', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("# UPR")]), _vm._v(" "), (_vm.show2) ? _c('th', [_vm._v("Document Acceptance")]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('th', [_vm._v("ITB")]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('th', [_vm._v("PhilGeps")]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('th', [_vm._v("PRE Bid")]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('th', [_vm._v("SOBE")]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('th', [_vm._v("Post Qual")]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('th', [_vm._v("RFQ")]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('th', [_vm._v("PhilGeps")]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('th', [_vm._v("ISPQ")]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('th', [_vm._v("Canvass")]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v("NOA")]), _vm._v(" "), _c('th', [_vm._v("PO")]), _vm._v(" "), _c('th', [_vm._v("NTP")]), _vm._v(" "), _c('th', [_vm._v("Delivery")]), _vm._v(" "), _c('th', [_vm._v("TIAC")]), _vm._v(" "), _c('th', [_vm._v("DIIR")]), _vm._v(" "), _c('th', [_vm._v("Voucher")])])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.timelineItem), function(tItem, index) {
     return [_c('tr', [_c('td', [_vm._v("\n                                Program " + _vm._s(tItem.programs) + "\n                                "), (tItem.upr > 0) ? _c('button', {
       staticClass: "show-child-table",
       on: {
@@ -52323,7 +52344,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "nc-icon-mini ui-1_circle-add"
-    })]) : _vm._e()]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.upr))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.doc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.itb))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.prebid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.bidop))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.pq))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.rfq))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.philgeps))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.ispq))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.canvass))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.noa))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.po))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.ntp))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.do))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.tiac))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.diir))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.voucher))])]), _vm._v(" "), _c('tr', [_c('td', {
+    })]) : _vm._e()]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.upr))]), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.doc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.itb))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.prebid))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.bidop))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.pq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItem.rfq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItem.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItem.ispq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItem.canvass))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.noa))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.po))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.ntp))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.do))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.tiac))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.diir))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.voucher))])]), _vm._v(" "), _c('tr', [_c('td', {
       staticClass: "has-child",
       attrs: {
         "colspan": "18"
@@ -52341,7 +52362,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }, [_c('i', {
           staticClass: "nc-icon-mini ui-1_circle-add"
-        })]), _vm._v("\n                                                    " + _vm._s(tItemProgData.name) + "\n                                                ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.upr))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.doc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.itb))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.prebid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.bidop))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.pq))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.rfq))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.philgeps))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.ispq))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.canvass))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.noa))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.po))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.ntp))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.do))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.tiac))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.diir))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.voucher))])]), _vm._v(" "), _c('tr', [_c('td', {
+        })]), _vm._v("\n                                                    " + _vm._s(tItemProgData.name) + "\n                                                ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.upr))]), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.doc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.itb))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.prebid))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.bidop))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.pq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgData.rfq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgData.ispq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgData.canvass))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.noa))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.po))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.ntp))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.do))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.tiac))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.diir))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.voucher))])]), _vm._v(" "), _c('tr', [_c('td', {
           staticClass: "has-child",
           attrs: {
             "colspan": "18"
@@ -52359,7 +52380,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               }
             }, [_c('i', {
               staticClass: "nc-icon-mini ui-1_circle-add"
-            })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.upr))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.doc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.itb))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.prebid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.bidop))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.pq))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.rfq))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.philgeps))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.ispq))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.canvass))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.noa))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.po))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.ntp))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.do))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.tiac))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.diir))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.voucher))])]), _vm._v(" "), _c('tr', [_c('td', {
+            })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.upr))]), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.doc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.itb))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.prebid))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.bidop))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.pq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemUnitData.rfq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemUnitData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemUnitData.ispq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemUnitData.canvass))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.noa))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.po))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.ntp))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.do))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.tiac))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.diir))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.voucher))])]), _vm._v(" "), _c('tr', [_c('td', {
               staticClass: "has-child",
               attrs: {
                 "colspan": "18"
@@ -52382,7 +52403,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                     "target": "_blank",
                     "href": '/procurements/unit-purchase-requests/timelines/' + tItemProgCentData.id
                   }
-                }, [_vm._v("(" + _vm._s(tItemProgCentData.project_name) + ")")])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.upr))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.doc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.itb))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.prebid))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.bidop))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.pq))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.rfq))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.philgeps))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.ispq))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.canvass))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.noa))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.po))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.ntp))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.do))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.tiac))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.diir))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.voucher))])])
+                }, [_vm._v("(" + _vm._s(tItemProgCentData.project_name) + ")")])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.upr))]), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.doc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.itb))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.prebid))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.bidop))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.pq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.rfq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.ispq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.canvass))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.noa))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.po))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.ntp))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.do))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.tiac))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.diir))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.voucher))])])
               }) : _vm._e()] : _vm._e()]
             })], 2)])])])]
           })] : _vm._e()] : _vm._e()]
@@ -52394,12 +52415,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "six columns"
   }, [_c('h1', [_vm._v("Procurement Status Monitoring")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', {
-    staticStyle: {
-      "text-align": "center"
-    }
-  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("# UPR")]), _vm._v(" "), _c('th', [_vm._v("Document Acceptance")]), _vm._v(" "), _c('th', [_vm._v("ITB")]), _vm._v(" "), _c('th', [_vm._v("PRE Bid")]), _vm._v(" "), _c('th', [_vm._v("Bid Opening")]), _vm._v(" "), _c('th', [_vm._v("Post Qual")]), _vm._v(" "), _c('th', [_vm._v("RFQ")]), _vm._v(" "), _c('th', [_vm._v("PhilGeps")]), _vm._v(" "), _c('th', [_vm._v("ISPQ")]), _vm._v(" "), _c('th', [_vm._v("Canvass")]), _vm._v(" "), _c('th', [_vm._v("NOA")]), _vm._v(" "), _c('th', [_vm._v("PO")]), _vm._v(" "), _c('th', [_vm._v("NTP")]), _vm._v(" "), _c('th', [_vm._v("Delivery")]), _vm._v(" "), _c('th', [_vm._v("TIAC")]), _vm._v(" "), _c('th', [_vm._v("DIIR")]), _vm._v(" "), _c('th', [_vm._v("Voucher")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

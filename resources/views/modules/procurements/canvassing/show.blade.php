@@ -79,7 +79,7 @@ Canvassing
     <div class="data-panel__section">
         <ul class="data-panel__list">
 
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Canvass Date :</strong> {{$data->canvass_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Transaction Date :</strong> {{$data->transaction_date}} </li>
 
             @if($data->canvass_time)
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Opening Date :</strong> {{$data->canvass_date}}  {{$data->canvass_time}}</li>

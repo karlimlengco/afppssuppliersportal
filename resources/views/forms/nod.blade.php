@@ -34,7 +34,7 @@
                     <p>To: All Concerned</p>
                     <ol>
                         <li>Reference: Approved PURCHASE ORDER No.  {{$data['po_number']}}</li>
-                        <li>Per reference above, {{$data['winner']}} will be delivering {{$data['project_name']}} only at {{$data['center']}} on {{$data['expected_date']}} in the {{translateToWords($data['bid_amount'])}} (Php{{formatPrice($data['bid_amount'])}}) ONLY. </li>
+                        <li>Per reference above, {{$data['winner']}} will be delivering {{$data['project_name']}} only at {{$data['center']}} on {{$data['expected_date']}} in the amount of {{translateToWords($data['bid_amount'])}} (Php{{formatPrice($data['bid_amount'])}}) ONLY. </li>
                         <li>Request acknowledge receipt. </li>
                     </ol>
                     <!-- form signatories -->

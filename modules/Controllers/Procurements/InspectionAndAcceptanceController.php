@@ -421,7 +421,8 @@ class InspectionAndAcceptanceController extends Controller
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
-                    'method'    =>  'PUT'
+                    'method'    =>  'PUT',
+                    'novalidate'=>  'novalidate'
                 ]
             ],
             'breadcrumbs' => [
