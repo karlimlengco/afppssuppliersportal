@@ -26,6 +26,7 @@ class PreBidEloquent extends Model implements  AuditableContract
         'resched_date',
         'resched_remarks',
         'remarks',
+        'sbb_date',
     ];
 
     /**
@@ -49,6 +50,7 @@ class PreBidEloquent extends Model implements  AuditableContract
         'transaction_date',
         'is_scb_issue',
         'is_resched',
+        'sbb_date',
         'bid_opening_date',
         'resched_date',
         'resched_remarks',

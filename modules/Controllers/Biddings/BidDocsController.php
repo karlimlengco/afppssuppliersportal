@@ -176,8 +176,9 @@ class BidDocsController extends Controller
         BidDocsRepository $model)
     {
         $this->validate($request, [
-            'bid_amount'    =>  'required'
+            'bid_amount'    =>  'required',
         ]);
+
         $model->update(['bid_amount' => $request->bid_amount, 'is_lcb' => $request->is_lcb, 'is_scb' => $request->is_scb], $id);
 
         return redirect()->back()->with([

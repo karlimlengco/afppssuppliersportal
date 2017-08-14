@@ -128,7 +128,7 @@ class InvitationToBidController extends Controller
         $day_delayed            =   $day_delayed - 1;
 
         $validator = Validator::make($request->all(),[
-            'itb_approved_date'  =>  'required|after_or_equal:'.$preproc,
+            'itb_approved_date'  =>  'required|after_or_equal:'.$upr_model->preproc->pre_proc_date,
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -271,7 +271,7 @@ class InvitationToBidController extends Controller
         $day_delayed            =   $day_delayed - 1;
 
         $validator = Validator::make($request->all(),[
-            'approved_date'  =>  'required|after_or_equal:'.$preproc,
+            'approved_date'  =>  'required|after_or_equal:'.$upr_model->preproc->pre_proc_date,
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {

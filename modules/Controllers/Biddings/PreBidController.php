@@ -91,6 +91,15 @@ class PreBidController extends Controller
     public function create($id, UnitPurchaseRequestRepository $model)
     {
         $result =   $model->findById($id);
+
+        if($result->bid_issuance == null)
+        {
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'No Bid Issuance. Click Option and add Bid Issuance'])
+                        ->withInput();
+        }
+
         $this->view('modules.biddings.pre-bids.create',[
             'indexRoute'    =>  $this->baseUrl.'index',
             'id'            =>  $id,
@@ -135,7 +144,8 @@ class PreBidController extends Controller
         $day_delayed            =   $day_delayed - 1;
 
         $validator = Validator::make($request->all(),[
-            'transaction_date'  =>  'required',
+            'transaction_date'  =>  'required_without:return_date|after_or_equal:'.$upr_model->philgeps->transaction_date,
+            'bid_opening_date'  =>  'after:transaction_date',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -175,7 +185,7 @@ class PreBidController extends Controller
                 'last_date'     => $transaction_date,
                 'date_processed'=> \Carbon\Carbon::now(),
                 'processed_by'  => \Sentinel::getUser()->id,
-                'delay_count'   => $day_delayed,
+                'delay_count'   => $wd,
                 'calendar_days' => $cd,
                 'last_action'   => $request->action,
                 'last_remarks'  => $request->remarks

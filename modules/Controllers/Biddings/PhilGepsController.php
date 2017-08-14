@@ -122,8 +122,8 @@ class PhilGepsController extends Controller
         $day_delayed            =   $day_delayed - 1;
 
         $validator = Validator::make($request->all(),[
-            'pp_transaction_date'        =>  'required|after_or_equal:'.$invitation,
-            'pp_philgeps_posting'        =>  'required|after_or_equal:'.$invitation,
+            'pp_transaction_date'        =>  'required|after_or_equal:'.$upr_model->itb->approved_date,
+            'pp_philgeps_posting'        =>  'required|after_or_equal:'.$upr_model->itb->approved_date,
             'philgeps_number'            =>  'required',
             'status'                     =>  'required',
         ]);
@@ -296,8 +296,8 @@ class PhilGepsController extends Controller
             }, $transaction_date);
 
             $validator = Validator::make($request->all(),[
-                'transaction_date'        =>  'required|after_or_equal:'.$invitation,
-                'philgeps_posting'        =>  'required|after_or_equal:'.$invitation,
+                'transaction_date'        =>  'required|after_or_equal:'.$upr_model->itb->approved_date,
+                'philgeps_posting'        =>  'required|after_or_equal:'.$upr_model->itb->approved_date,
                 'philgeps_number'         =>  'required',
             ]);
 

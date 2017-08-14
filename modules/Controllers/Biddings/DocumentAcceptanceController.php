@@ -175,7 +175,6 @@ class DocumentAcceptanceController extends Controller
         $inputs['processed_by']     =   \Sentinel::getUser()->id;
         $inputs['upr_number']       =   $upr_model->upr_number;
         $inputs['ref_number']       =   $upr_model->ref_number;
-        $inputs['transaction_date'] =   $request->approved_date;
         $inputs['days']             =   $wd;
 
         $result = $model->save($inputs);

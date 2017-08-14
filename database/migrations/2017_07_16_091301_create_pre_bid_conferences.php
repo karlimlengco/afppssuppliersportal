@@ -21,6 +21,7 @@ class CreatePreBidConferences extends Migration
             $table->date('transaction_date');
             $table->text('update_remarks')->nullable();
             $table->integer('is_scb_issue')->nullable();
+            $table->date('sbb_date')->nullable();
             $table->integer('is_resched')->nullable();
             $table->text('action')->nullable();
             $table->date('bid_opening_date')->nullable();

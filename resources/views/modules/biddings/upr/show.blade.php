@@ -74,7 +74,7 @@ Unit Purchase Request
 
                     @if($data->status == 'Philgeps Approved')
                         <a class="button__options__item" id="bid-docs-button" href="#">Bid Docs Issuance</a>
-                        <a class="button__options__item" href="{{route('biddings.pre-bids.create-by-upr', $data->id)}}">Pre-Bid Conference</a>
+                        {{-- <a class="button__options__item" href="{{route('biddings.pre-bids.create-by-upr', $data->id)}}">Pre-Bid Conference</a> --}}
                     @endif
                 @endif
 

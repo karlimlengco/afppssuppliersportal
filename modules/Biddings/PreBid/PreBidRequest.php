@@ -23,6 +23,7 @@ class PreBidRequest extends BaseRequest
         'update_remarks',
         'days',
         'processed_by',
+        'sbb_date',
         'action',
     ];
 
@@ -35,9 +36,9 @@ class PreBidRequest extends BaseRequest
     {
         return [
             'transaction_date'              => 'required',
-            'is_scb_issue'                  => 'required_without:is_resched',
+            'sbb_date'                      => 'required_without:is_resched',
             'is_resched'                    => 'required_without:is_scb_issue',
-            'bid_opening_date'              => 'required_if:is_scb_issue,1',
+            'bid_opening_date'              => 'required_if:is_resched,0',
             'resched_date'                  => 'required_if:is_resched,1',
             'resched_remarks'               => 'required_with:resched_date',
         ];

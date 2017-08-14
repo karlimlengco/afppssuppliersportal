@@ -69,6 +69,13 @@
             <span >PhilGeps Posting</span>
             <a href="#" class="button" id="biddings-philgeps-posting-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif
+        @if($data->status == 'Philgeps Approved')
+            <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+            <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
+
+            <span >Pre-Bid Conference</span>
+            <a href="{{route('biddings.pre-bids.create-by-upr', $data->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif
         @if($data->status == 'Pre Bid Conference')
 
             <a href="{{route('biddings.pre-bids.show', $data->bid_conference->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
