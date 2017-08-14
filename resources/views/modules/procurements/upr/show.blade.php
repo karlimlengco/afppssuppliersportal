@@ -34,8 +34,8 @@ Unit Purchase Request
     @include('modules.partials.modals.open_canvass')
 
     @if($data->status == 'PO Approved' ||  $data->status == 'NTP Accepted')
-    @include('modules.partials.modals.ntp')
-    @include('modules.partials.modals.create_delivery')
+        @include('modules.partials.modals.ntp')
+        @include('modules.partials.modals.create_delivery')
     @endif
 
     {{-- @if($data->mode_of_procurement != 'public_bidding' ) --}}
@@ -44,6 +44,7 @@ Unit Purchase Request
 
     @if($data->mode_of_procurement == 'public_bidding')
     @include('modules.partials.bid-modals.rfb-process')
+    @include('modules.partials.bid-modals.preproc')
     @include('modules.partials.bid-modals.philgeps_posting')
     @include('modules.partials.bid-modals.bid_docs_issue')
     @include('modules.partials.bid-modals.open-bid')
@@ -358,6 +359,11 @@ Unit Purchase Request
     $('#itb-button').click(function(e){
         e.preventDefault();
         $('#itb-button-modal').addClass('is-visible');
+    })
+
+    $('#preproc-button').click(function(e){
+        e.preventDefault();
+        $('#preproc-modal').addClass('is-visible');
     })
 
     $('#process-button').click(function(e){

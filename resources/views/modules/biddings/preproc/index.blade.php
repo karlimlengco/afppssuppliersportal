@@ -32,17 +32,14 @@ Document Acceptance
 
 <div class="row">
     <div class="twelve columns">
-
         <table id="datatable-responsive" class="table" >
-
             <thead>
                 <tr>
                     <th>UPR No.</th>
                     <th>Ref No.</th>
-                    <th>Transaction Date</th>
                     <th>Approved Date</th>
-                    <th>Return Date</th>
-                    <th>Return Remarks</th>
+                    <th>ReSched Date</th>
+                    <th>ReSched Remarks</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,15 +58,14 @@ Document Acceptance
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.biddings.document-acceptance')}}",
+                url: "{{route('datatables.biddings.preproc')}}",
             },
         columns: [
             {data: 'upr_number', name: 'upr_number'},
             {data: 'ref_number', name: 'ref_number'},
             {data: 'pre_proc_date', name: 'pre_proc_date'},
-            {data: 'approved_date', name: 'approved_date'},
-            {data: 'return_date', name: 'return_date'},
-            {data: 'return_remarks', name: 'return_remarks'},
+            {data: 'resched_date', name: 'resched_date'},
+            {data: 'resched_remarks', name: 'resched_remarks'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

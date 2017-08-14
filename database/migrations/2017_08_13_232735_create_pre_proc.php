@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDocumentAcceptance extends Migration
+class CreatePreProc extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateDocumentAcceptance extends Migration
      */
     public function up()
     {
-        Schema::create('document_acceptance', function (Blueprint $table) {
+        Schema::create('pre_proc', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('upr_id');
-            $table->integer('bac_id');
             $table->string('upr_number')->nullable();
             $table->string('ref_number')->nullable();
             $table->date('pre_proc_date')->nullable();
-            $table->date('approved_date')->nullable();
-            $table->date('return_date')->nullable();
-            $table->text('return_remarks')->nullable();
+            $table->date('resched_date')->nullable();
+            $table->text('resched_remarks')->nullable();
             $table->text('remarks')->nullable();
             $table->text('action')->nullable();
             $table->text('update_remarks')->nullable();
@@ -39,6 +37,6 @@ class CreateDocumentAcceptance extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('document_acceptance');
+        Schema::dropIfExists('pre_proc');
     }
 }

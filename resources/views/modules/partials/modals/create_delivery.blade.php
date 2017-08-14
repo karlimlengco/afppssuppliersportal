@@ -1,3 +1,4 @@
+@if($data->purchase_order)
 <div class="modal" id="create-delivery-modal">
     <div class="modal__dialogue modal__dialogue--round-corner">
         <form method="POST" id="delete-form"  action="{{ route('procurements.delivery-orders.create-purchase', $data->purchase_order->id) }}" accept-charset="UTF-8">
@@ -32,3 +33,4 @@
         </form>
     </div>
 </div>
+@endif

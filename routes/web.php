@@ -166,6 +166,15 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
 
     /*
     |--------------------------------------------------------------------------
+    | PreProc Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::get('preproc/logs/{id}', '\Revlv\Controllers\Biddings\PreProcController@viewLogs')->name('preproc.logs');
+    Route::resource('preproc', '\Revlv\Controllers\Biddings\PreProcController');
+
+    /*
+    |--------------------------------------------------------------------------
     | Post Qual Routes
     |--------------------------------------------------------------------------
     |
@@ -706,6 +715,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     |
     */
     Route::get('document-acceptance', '\Revlv\Controllers\Biddings\DocumentAcceptanceController@getDatatable')->name('biddings.document-acceptance');
+    Route::get('preproc', '\Revlv\Controllers\Biddings\PreProcController@getDatatable')->name('biddings.preproc');
     Route::get('itb', '\Revlv\Controllers\Biddings\InvitationToBidController@getDatatable')->name('biddings.itb');
     Route::get('philgeps', '\Revlv\Controllers\Biddings\PhilGepsController@getDatatable')->name('biddings.philgeps');
     Route::get('bid-docs', '\Revlv\Controllers\Biddings\BidDocsController@getDatatable')->name('biddings.bid-docs');

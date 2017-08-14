@@ -11,18 +11,19 @@ class DocumentAcceptanceRequest extends BaseRequest
      */
     protected $whitelist = [
         'upr_id',
+        'bac_id',
         'upr_number',
         'ref_number',
         'transaction_date',
+        'pre_proc_date',
         'approved_date',
-        'resched_date',
-        'resched_remarks',
+        'return_date',
+        'return_remarks',
         'remarks',
         'action',
-        'days',
         'update_remarks',
+        'days',
         'processed_by',
-        'bac_id',
     ];
 
     /**
@@ -35,10 +36,10 @@ class DocumentAcceptanceRequest extends BaseRequest
         return [
             'bac_id'                        => 'required',
             'upr_id'                        => 'required',
-            'transaction_date'              => 'required',
-            'approved_date'                 => 'required_without:resched_date',
-            'resched_date'                  => 'required_without:approved_date',
-            'resched_remarks'               => 'required_with:resched_date',
+            'approved_date'                 => 'required_without:return_date',
+            'pre_proc_date'                 => 'required_without:return_date',
+            'return_date'                   => 'required_without:approved_date',
+            'return_remarks'                => 'required_with:return_date',
         ];
     }
 }

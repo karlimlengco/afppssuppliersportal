@@ -102,7 +102,7 @@ class NOAController extends Controller
         if ($validator->fails()){
             return redirect()
                         ->back()
-                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->with(['error' => 'Please Check Your Fields.'])
                         ->withErrors($validator)
                         ->withInput();
         }
@@ -202,7 +202,7 @@ class NOAController extends Controller
         if ($validator->fails()){
             return redirect()
                         ->back()
-                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->with(['error' => 'Please Check Your Fields.'])
                         ->withErrors($validator)
                         ->withInput();
         }
@@ -271,7 +271,7 @@ class NOAController extends Controller
         if ($validator->fails()){
             return redirect()
                         ->back()
-                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->with(['error' => 'Please Check Your Fields.'])
                         ->withErrors($validator)
                         ->withInput();
         }

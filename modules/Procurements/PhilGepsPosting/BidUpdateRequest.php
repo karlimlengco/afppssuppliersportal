@@ -4,7 +4,7 @@ namespace Revlv\Procurements\PhilGepsPosting;
 
 use Revlv\BaseRequest;
 
-class UpdateRequest extends BaseRequest
+class BidUpdateRequest extends BaseRequest
 {
     /**
      * @var array
@@ -36,8 +36,6 @@ class UpdateRequest extends BaseRequest
             'philgeps_number'   => 'required',
             'transaction_date'  => 'required',
             'philgeps_posting'  => 'required',
-            'deadline_rfq'      => 'required',
-            'opening_time'      => 'required',
         ];
     }
 }

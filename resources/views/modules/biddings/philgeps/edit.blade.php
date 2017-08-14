@@ -86,15 +86,6 @@ PhilGeps Posting
         $('#edit-modal').addClass('is-visible');
     })
 
-    var timepicker = new TimePicker('id-field-opening_time', {
-        lang: 'en',
-        theme: 'dark'
-    });
-
-    timepicker.on('change', function(evt){
-      var value = (evt.hour || '00') + ':' + (evt.minute || '00');
-      evt.element.value = value;
-    });
 
     var picker = new Pikaday(
     {

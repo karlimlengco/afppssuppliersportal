@@ -48,6 +48,15 @@
             <a href="{{route('biddings.document-acceptance.show', $data->document_accept->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
 
+            <span >Pre Proc</span>
+            <a href="#" class="button" id="preproc-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif
+        @if($data->status == 'PreProc Conference')
+            {{-- <a class="button__options__item" id="itb-button" href="#">Invitation To Bid</a> --}}
+
+            <a href="{{route('biddings.preproc.show', $data->preproc->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+            <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
+
             <span >Invitation To Bid</span>
             <a href="#" class="button" id="itb-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif

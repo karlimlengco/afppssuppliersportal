@@ -13,6 +13,7 @@ use Validator;
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRepository;
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRequest;
 use \Revlv\Procurements\PhilGepsPosting\UpdateRequest;
+use \Revlv\Procurements\PhilGepsPosting\BidUpdateRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
@@ -121,8 +122,8 @@ class PhilGepsController extends Controller
         $day_delayed            =   $day_delayed - 1;
 
         $validator = Validator::make($request->all(),[
-            'pp_transaction_date'        =>  'required',
-            'pp_philgeps_posting'        =>  'required',
+            'pp_transaction_date'        =>  'required|after_or_equal:'.$invitation,
+            'pp_philgeps_posting'        =>  'required|after_or_equal:'.$invitation,
             'philgeps_number'            =>  'required',
             'status'                     =>  'required',
         ]);
@@ -139,7 +140,7 @@ class PhilGepsController extends Controller
         if ($validator->fails()){
             return redirect()
                         ->back()
-                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
+                        ->with(['error' => 'Please Check Your Fields.'])
                         ->withErrors($validator)
                         ->withInput();
         }
@@ -165,7 +166,6 @@ class PhilGepsController extends Controller
             $status  = 'Philgeps Need Repost';
         }
 
-
         $upr->update([
             'status'        => $status,
             'next_allowable'=> 1,
@@ -174,7 +174,7 @@ class PhilGepsController extends Controller
             'last_date'     => $transaction_date,
             'date_processed'=> \Carbon\Carbon::now(),
             'processed_by'  => \Sentinel::getUser()->id,
-            'delay_count'   => $day_delayed,
+            'delay_count'   => $wd,
             'calendar_days' => $cd,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
@@ -250,7 +250,7 @@ class PhilGepsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(
-        UpdateRequest $request,
+        BidUpdateRequest $request,
         $id,
         \Revlv\Users\UserRepository $users,
         UnitPurchaseRequestRepository $upr,
@@ -262,6 +262,7 @@ class PhilGepsController extends Controller
     {
         $old                    =   $model->findById($id);
         $result                 =   $model->update($request->getData(), $id);
+
         if($result->rfq_id)
         {
 
@@ -294,16 +295,32 @@ class PhilGepsController extends Controller
                 return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
             }, $transaction_date);
 
+            $validator = Validator::make($request->all(),[
+                'transaction_date'        =>  'required|after_or_equal:'.$invitation,
+                'philgeps_posting'        =>  'required|after_or_equal:'.$invitation,
+                'philgeps_number'         =>  'required',
+            ]);
+
+            if ($validator->fails()){
+                return redirect()
+                            ->back()
+                            ->with(['error' => 'Please Check Your Fields.'])
+                            ->withErrors($validator)
+                            ->withInput();
+            }
         }
+
+        $cd                     =   $invitation->diffInDays($transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
         if($day_delayed != 0)
         {
             $day_delayed            =   $day_delayed - 1;
         }
 
-        if($day_delayed != $result->days)
+        if($wd != $result->days)
         {
-            $model->update(['days' => $day_delayed], $id);
+            $model->update(['days' => $wd], $id);
         }
 
         $modelType  =   'Revlv\Procurements\PhilGepsPosting\PhilGepsPostingEloquent';

@@ -1,12 +1,12 @@
 <?php
 
-namespace Revlv\Biddings\DocumentAcceptance;
+namespace Revlv\Biddings\PreProc;
 
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class DocumentAcceptanceEloquent extends Model implements  AuditableContract
+class PreProcEloquent extends Model implements  AuditableContract
 {
 
     use Auditable;
@@ -18,14 +18,11 @@ class DocumentAcceptanceEloquent extends Model implements  AuditableContract
      */
     protected $auditInclude = [
         'upr_id',
-        'bac_id',
         'upr_number',
         'ref_number',
-        'transaction_date',
         'pre_proc_date',
-        'approved_date',
-        'return_date',
-        'return_remarks',
+        'resched_date',
+        'resched_remarks',
         'remarks',
         'action',
         'update_remarks',
@@ -38,7 +35,7 @@ class DocumentAcceptanceEloquent extends Model implements  AuditableContract
      *
      * @var string
      */
-    protected $table = 'document_acceptance';
+    protected $table = 'pre_proc';
 
     /**
      * The attributes that are mass assignable.
@@ -47,30 +44,17 @@ class DocumentAcceptanceEloquent extends Model implements  AuditableContract
      */
     protected $fillable = [
         'upr_id',
-        'bac_id',
         'upr_number',
         'ref_number',
-        'transaction_date',
         'pre_proc_date',
-        'approved_date',
-        'return_date',
-        'return_remarks',
+        'resched_date',
+        'resched_remarks',
         'remarks',
         'action',
         'update_remarks',
         'days',
         'processed_by',
     ];
-
-    /**
-     * [upr description]
-     *
-     * @return [type] [description]
-     */
-    public function bacsec()
-    {
-        return $this->belongsTo('\Revlv\Settings\BacSec\BacSecEloquent', 'bac_id');
-    }
 
     /**
      * [upr description]

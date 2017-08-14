@@ -38,28 +38,26 @@ Document Acceptance
 
 <div class="row">
     <div class="twelve columns">
-
-
-            <div class="row">
-                <div class="six columns">
-                    {!! Form::selectField('bac_id', 'BacSec', $bac_lists) !!}
-                </div>
-
-                <div class="six columns">
-                    {!! Form::textField('pre_proc_date', 'Pre Proc Schedule Date') !!}
-                </div>
+        <div class="row">
+            <div class="six columns">
+                {!! Form::textField('pre_proc_date', 'Pre Proc Date') !!}
             </div>
-            <div class="row">
-                <div class="six columns">
-                    {!! Form::textField('approved_date', 'Approved Date') !!}
-                </div>
-                <div class="six columns">
-                    {!! Form::textField('return_date', 'Return Date') !!}
-                </div>
+            <div class="six columns">
+                {!! Form::textField('resched_date', 'Re-Sched Date') !!}
             </div>
-            {!! Form::textareaField('return_remarks', 'Return Remarks', null,['rows'=>3]) !!}
-            {!! Form::textareaField('remarks', 'Remarks', null,['rows'=>3]) !!}
-            {!! Form::textareaField('action', 'Action Taken', null,['rows'=>3]) !!}
+        </div>
+
+        <div class="row">
+            {!! Form::textareaField('resched_remarks', 'Re-Sched Remarks', null, ['rows'=>3])!!}
+        </div>
+
+        <div class="row">
+            {!! Form::textareaField('remarks', 'Remarks', null, ['rows'=>3])!!}
+        </div>
+
+        <div class="row">
+            {!! Form::textareaField('action', 'Action', null, ['rows'=>3])!!}
+        </div>
 
         {!! Form::close() !!}
     </div>

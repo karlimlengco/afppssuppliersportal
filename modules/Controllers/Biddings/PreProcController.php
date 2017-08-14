@@ -10,8 +10,9 @@ use Carbon\Carbon;
 use Validator;
 use \App\Support\Breadcrumb;
 
-use Revlv\Biddings\InvitationToBid\InvitationToBidRepository;
-use Revlv\Biddings\InvitationToBid\InvitationToBidRequest;
+use Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceRepository;
+use Revlv\Biddings\PreProc\PreProcRepository;
+use Revlv\Biddings\PreProc\PreProcRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
@@ -19,7 +20,7 @@ use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Users\UserRepository;
 
-class InvitationToBidController extends Controller
+class PreProcController extends Controller
 {
 
     /**
@@ -27,7 +28,7 @@ class InvitationToBidController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "biddings.itb.";
+    protected $baseUrl  =   "biddings.preproc.";
 
     /**
      * [$upr description]
@@ -35,9 +36,10 @@ class InvitationToBidController extends Controller
      * @var [type]
      */
     protected $upr;
+    protected $docs;
     protected $suppliers;
-    protected $audits;
     protected $holidays;
+    protected $audits;
     protected $users;
     protected $userLogs;
 
@@ -61,7 +63,7 @@ class InvitationToBidController extends Controller
      *
      * @return [type]            [description]
      */
-    public function getDatatable(InvitationToBidRepository $model)
+    public function getDatatable(PreProcRepository $model)
     {
         return $model->getDatatable();
     }
@@ -73,11 +75,11 @@ class InvitationToBidController extends Controller
      */
     public function index()
     {
-        return $this->view('modules.biddings.itb.index',[
+        return $this->view('modules.biddings.preproc.index',[
             'createRoute'   =>  $this->baseUrl."create",
             'breadcrumbs' => [
                 new Breadcrumb('Public Bidding'),
-                new Breadcrumb('Invitation To Bid')
+                new Breadcrumb('Pre Proc Conference')
             ]
         ]);
     }
@@ -87,16 +89,9 @@ class InvitationToBidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id,  UnitPurchaseRequestRepository $model)
     {
-        $this->view('modules.biddings.itb.create',[
-            'indexRoute'    =>  $this->baseUrl.'index',
-            'modelConfig'   =>  [
-                'store' =>  [
-                    'route'     =>  $this->baseUrl.'store'
-                ]
-            ]
-        ]);
+//
     }
 
     /**
@@ -106,39 +101,31 @@ class InvitationToBidController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(
-        InvitationToBidRequest $request,
-        InvitationToBidRepository $model,
+        PreProcRequest $request,
+        PreProcRepository $model,
         HolidayRepository $holidays,
         UnitPurchaseRequestRepository $upr)
     {
-
         $upr_model              =   $upr->findById($request->upr_id);
-        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->itb_approved_date);
-        $preproc                =   Carbon::createFromFormat('Y-m-d', $upr_model->preproc->pre_proc_date);
+        $doc_accept             =   $upr_model->document_accept;
+
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->pre_proc_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
-        $day_delayed            =   $preproc->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed            =   Carbon::createFromFormat('Y-m-d', $doc_accept->approved_date)->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        $cd                     =   $preproc->diffInDays($transaction_date);
+        $cd                     =   Carbon::createFromFormat('Y-m-d', $doc_accept->approved_date)->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed > 1)
+
+        if($day_delayed >= 1)
         $day_delayed            =   $day_delayed - 1;
 
         $validator = Validator::make($request->all(),[
-            'itb_approved_date'  =>  'required|after_or_equal:'.$preproc,
+            'pre_proc_date'  =>  'required|after_or_equal:'.$upr_model->document_accept->approved_date,
         ]);
-
-        $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed > 1) {
-                $validator->errors()->add('remarks', 'This field is required when your process is delay');
-            }
-            if ( $request->get('action') == null && $day_delayed > 1) {
-                $validator->errors()->add('action', 'This field is required when your process is delay');
-            }
-        });
 
         if ($validator->fails()){
             return redirect()
@@ -148,33 +135,32 @@ class InvitationToBidController extends Controller
                         ->withInput();
         }
 
-        $inputs     =   [
-            'upr_id'            =>  $upr_model->id,
-            'upr_number'        =>  $upr_model->upr_number,
-            'ref_number'        =>  $upr_model->ref_number,
-            'days'              =>  $wd,
-            'remarks'           =>  $request->remarks,
-            'action'            =>  $request->action,
-            'approved_date'     =>  $request->itb_approved_date,
-            'transaction_date'  =>  $request->itb_approved_date,
-            'approved_by'       =>  \Sentinel::getUser()->id
-        ];
+        $inputs                     =   $request->getData();
+        $inputs['processed_by']     =   \Sentinel::getUser()->id;
+        $inputs['upr_number']       =   $upr_model->upr_number;
+        $inputs['ref_number']       =   $upr_model->ref_number;
+        $inputs['transaction_date'] =   $request->pre_proc_date;
+        $inputs['days']             =   $wd;
 
         $result = $model->save($inputs);
 
-        $upr->update([
-            'status' => 'ITB Created',
-            'next_allowable'=> 3,
-            'next_step'     => 'PhilGeps POsting',
-            'next_due'      => $transaction_date->addDays(3),
-            'last_date'     => $transaction_date,
-            'date_processed'=> \Carbon\Carbon::now(),
-            'processed_by'  => \Sentinel::getUser()->id,
-            'delay_count'   => $wd,
-            'calendar_days' => $cd,
-            'last_action'   => $request->action,
-            'last_remarks'  => $request->remarks
-             ], $upr_model->id);
+        if($request->resched_date == null)
+        {
+            $upr->update([
+                'status'        => 'PreProc Conference',
+                'next_allowable'=> 1,
+                'next_step'     => 'Invitation To Bid',
+                'state'         => 'On-Going',
+                'next_due'      => $transaction_date->addDays(1),
+                'last_date'     => $transaction_date,
+                'date_processed'=> $transaction_date,
+                'processed_by'  => \Sentinel::getUser()->id,
+                'delay_count'   => $wd,
+                'calendar_days' => $cd,
+                'last_action'   => $request->action,
+                'last_remarks'  => $request->remarks
+            ], $result->upr_id);
+        }
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -189,17 +175,18 @@ class InvitationToBidController extends Controller
      */
     public function show(
         $id,
-        InvitationToBidRepository $model)
+        PreProcRepository $model)
     {
-        $result     =   $model->findById($id);
+        $result =   $model->findById($id);
 
-        return $this->view('modules.biddings.itb.show',[
+        return $this->view('modules.biddings.preproc.show',[
             'data'              =>  $result,
             'indexRoute'        =>  $this->baseUrl.'index',
+            'editRoute'         =>  $this->baseUrl.'edit',
             'breadcrumbs' => [
                 new Breadcrumb('Public Bidding'),
                 new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
-                new Breadcrumb('Invitation To Bid', 'biddings.itb.index'),
+                new Breadcrumb('PreProc Conference'),
             ]
         ]);
     }
@@ -211,13 +198,12 @@ class InvitationToBidController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id,
-        InvitationToBidRepository $model,
+        PreProcRepository $model,
         UnitPurchaseRequestRepository $upr)
     {
-
         $result =   $model->findById($id);
 
-        $this->view('modules.biddings.itb.edit',[
+        $this->view('modules.biddings.preproc.edit',[
             'indexRoute'    =>  $this->baseUrl.'index',
             'data'          =>  $result,
             'modelConfig'   =>  [
@@ -230,7 +216,7 @@ class InvitationToBidController extends Controller
             'breadcrumbs' => [
                 new Breadcrumb('Public Bidding'),
                 new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
-                new Breadcrumb('Document Acceptancce'),
+                new Breadcrumb('PreProc Conference'),
                 new Breadcrumb('Update'),
             ]
         ]);
@@ -245,58 +231,37 @@ class InvitationToBidController extends Controller
      */
     public function update(
         $id,
+        PreProcRequest $request,
         AuditLogRepository $audits,
         UserLogRepository $userLogs,
         UserRepository $users,
         HolidayRepository $holidays,
         UnitPurchaseRequestRepository $upr,
-        Request $request,
-        InvitationToBidRepository $model)
+        PreProcRepository $model)
     {
-        $result     =   $model->update(['approved_date' => $request->approved_date, 'update_remarks' => $request->update_remarks], $id);
+        $result = $model->update($request->getData(), $id);
 
         $upr_model              =   $result->upr;
-        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->approved_date);
-        $preproc                =   Carbon::createFromFormat('Y-m-d', $upr_model->preproc->pre_proc_date);
+        $doc_accept             =   $upr_model->document_accept;
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->pre_proc_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
-        $day_delayed            =   $preproc->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed            =   Carbon::createFromFormat('Y-m-d', $doc_accept->approved_date)->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        $cd                     =   $preproc->diffInDays($transaction_date);
+        $cd                     =   Carbon::createFromFormat('Y-m-d', $doc_accept->approved_date)->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
         if($day_delayed != 0)
         $day_delayed            =   $day_delayed - 1;
-
-        $validator = Validator::make($request->all(),[
-            'approved_date'  =>  'required|after_or_equal:'.$preproc,
-        ]);
-
-        $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed > 1) {
-                $validator->errors()->add('remarks', 'This field is required when your process is delay');
-            }
-            if ( $request->get('action') == null && $day_delayed > 1) {
-                $validator->errors()->add('action', 'This field is required when your process is delay');
-            }
-        });
-
-        if ($validator->fails()){
-            return redirect()
-                        ->back()
-                        ->with(['error' => 'Please Check Your Fields.'])
-                        ->withErrors($validator)
-                        ->withInput();
-        }
 
         if($wd != $result->days)
         {
             $model->update(['days' => $wd], $id);
         }
 
-        $modelType  =   'Revlv\Biddings\InvitationToBid\InvitationToBidEloquent';
+        $modelType  =   'Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceEloquent';
         $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
 
         $userAdmins =   $users->getAllAdmins();
@@ -321,7 +286,7 @@ class InvitationToBidController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, InvitationToBidRepository $model)
+    public function destroy($id, PreProcRepository $model)
     {
         $model->delete($id);
 
@@ -337,24 +302,23 @@ class InvitationToBidController extends Controller
      * @param  BlankRFQRepository $model [description]
      * @return [type]                    [description]
      */
-    public function viewLogs($id, InvitationToBidRepository $model, AuditLogRepository $audits)
+    public function viewLogs($id, PreProcRepository $model, AuditLogRepository $audits)
     {
 
-        $modelType  =   'Revlv\Biddings\InvitationToBid\InvitationToBidEloquent';
+        $modelType  =   'Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceEloquent';
         $result     =   $audits->findByModelAndId($modelType, $id);
         $rfq_model  =   $model->findById($id);
 
-        return $this->view('modules.biddings.itb.logs',[
+        return $this->view('modules.biddings.preproc.logs',[
             'indexRoute'    =>  $this->baseUrl."show",
             'data'          =>  $result,
             'rfq'           =>  $rfq_model,
             'breadcrumbs' => [
                 new Breadcrumb('Public Bidding'),
                 new Breadcrumb($rfq_model->upr_number, 'biddings.unit-purchase-requests.show', $rfq_model->upr_id ),
-                new Breadcrumb('Invitation To Bid'),
+                new Breadcrumb('PreProc Conference'),
                 new Breadcrumb('Logs'),
             ]
         ]);
     }
-
 }

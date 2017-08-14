@@ -148,6 +148,16 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      *
      * @return [type] [description]
      */
+    public function preproc()
+    {
+        return $this->hasOne('\Revlv\Biddings\PreProc\PreProcEloquent',  'upr_id')->whereNull('resched_date');
+    }
+
+    /**
+     * [document_accept description]
+     *
+     * @return [type] [description]
+     */
     public function documents()
     {
         return $this->hasMany('\Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceEloquent',  'upr_id');

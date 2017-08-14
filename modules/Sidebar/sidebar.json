@@ -17,6 +17,11 @@
                     "name"  :   "Document Acceptance"
                 },
                 {
+                    "route" :   "biddings.preproc.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "PreProc Conference"
+                },
+                {
                     "route" :   "biddings.itb.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Invitation To Bid"

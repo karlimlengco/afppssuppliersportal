@@ -33,19 +33,20 @@ Unit Purchase Request
     @include('modules.partials.modals.invitation')
     @include('modules.partials.modals.open_canvass')
 
-    @if($data->status == 'PO Approved' ||  $data->status == 'NTP Accepted')
+    {{-- @if($data->status == 'PO Approved' ||  $data->status == 'NTP Accepted') --}}
     @include('modules.partials.modals.ntp')
     @include('modules.partials.modals.create_delivery')
-    @endif
+    {{-- @endif --}}
 
-    @if($data->mode_of_procurement != 'public_bidding' )
+    {{-- @if($data->mode_of_procurement != 'public_bidding' ) --}}
         @include('modules.partials.modals.philgeps_posting')
-    @endif
+    {{-- @endif --}}
 
     @if($data->mode_of_procurement == 'public_bidding')
     @include('modules.partials.bid-modals.rfb-process')
+    @include('modules.partials.bid-modals.preproc')
     @include('modules.partials.bid-modals.philgeps_posting')
-    @include('modules.partials.bid-modals.bid_docs_issue')
+    @include('modules.partials.bid-modals.bid_docs_issue')v
     @include('modules.partials.bid-modals.open-bid')
     @include('modules.partials.bid-modals.post_qual')
     @endif
@@ -358,6 +359,11 @@ Unit Purchase Request
         $('#itb-button-modal').addClass('is-visible');
     })
 
+    $('#preproc-button').click(function(e){
+        e.preventDefault();
+        $('#preproc-modal').addClass('is-visible');
+    })
+
     $('#process-button').click(function(e){
         e.preventDefault();
         $('#process-modal').addClass('is-visible');
@@ -405,5 +411,15 @@ Unit Purchase Request
     });
 
     $('.datepicker').pikaday({ firstDay: 1 });
+
+
+    var resched_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-resched_date'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
 </script>
 @stop

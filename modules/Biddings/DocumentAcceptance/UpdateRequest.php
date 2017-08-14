@@ -14,8 +14,8 @@ class UpdateRequest extends BaseRequest
         'ref_number',
         'transaction_date',
         'approved_date',
-        'resched_date',
-        'resched_remarks',
+        'return_date',
+        'return_remarks',
         'remarks',
         'action',
         'days',
@@ -33,10 +33,10 @@ class UpdateRequest extends BaseRequest
     {
         return [
             'bac_id'                        => 'required',
-            'transaction_date'              => 'required',
-            'approved_date'                 => 'required_without:resched_date',
-            'resched_date'                  => 'required_without:approved_date',
-            'resched_remarks'               => 'required_with:resched_date',
+            'pre_proc_date'                 => 'required',
+            'approved_date'                 => 'required_without:return_date',
+            'return_date'                   => 'required_without:approved_date',
+            'return_remarks'                => 'required_with:return_date',
         ];
     }
 }

@@ -36,7 +36,7 @@ Document Acceptance
             {!! Form::selectField('bac_id', 'BacSec', $bac_lists) !!}
         </div>
         <div class="six columns">
-            {!! Form::textField('transaction_date', 'Transaction Date') !!}
+            {!! Form::textField('pre_proc_date', 'Pre Proc Schedule Date') !!}
         </div>
     </div>
     <div class="row">
@@ -44,10 +44,10 @@ Document Acceptance
             {!! Form::textField('approved_date', 'Approved Date') !!}
         </div>
         <div class="six columns">
-            {!! Form::textField('resched_date', 'Re-Sched Date') !!}
+            {!! Form::textField('return_date', 'Return Date') !!}
         </div>
     </div>
-        {!! Form::textareaField('resched_remarks', 'Re-Sched Remarks', null,['rows'=>3]) !!}
+        {!! Form::textareaField('return_remarks', 'Return Remarks', null,['rows'=>3]) !!}
         {!! Form::textareaField('remarks', 'Remarks', null,['rows'=>3]) !!}
         {!! Form::textareaField('action', 'Action Taken', null,['rows'=>3]) !!}
         <input type="hidden" name="upr_id" value="{{$id}}">
@@ -76,9 +76,17 @@ Document Acceptance
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]
     });
-    var resched_date = new Pikaday(
+    var return_date = new Pikaday(
     {
-        field: document.getElementById('id-field-resched_date'),
+        field: document.getElementById('id-field-return_date'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+    var pre_proc_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-pre_proc_date'),
         firstDay: 1,
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),

@@ -126,7 +126,14 @@ class DocumentAcceptanceController extends Controller
         UnitPurchaseRequestRepository $upr)
     {
         $upr_model              =   $upr->findById($request->upr_id);
-        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
+        if($request->approved_date == null)
+        {
+            $transaction_date       =   Carbon::now();
+        }
+        else
+        {
+            $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->approved_date);
+        }
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
         $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -139,50 +146,52 @@ class DocumentAcceptanceController extends Controller
         if($day_delayed >= 1)
         $day_delayed            =   $day_delayed - 1;
 
-        $validator = Validator::make($request->all(),[
-            'transaction_date'  =>  'required',
-        ]);
+        if($request->return_date == null)
+        {
+            $validator = Validator::make($request->all(),[
+                'approved_date'  =>  'required_without:return_date|after_or_equal:'.$upr_model->date_prepared,
+            ]);
 
-        $validator->after(function ($validator)use($day_delayed, $request) {
-            if($request->resched_date == null)
-            {
-                if ( $request->get('remarks') == null && $day_delayed >= 1) {
-                    $validator->errors()->add('remarks', 'This field is required when your process is delay');
-                }
-                if ( $request->get('action') == null && $day_delayed >= 1) {
-                    $validator->errors()->add('action', 'This field is required when your process is delay');
-                }
+            $validator->after(function ($validator)use($day_delayed, $request) {
+
+                    if ( $request->get('remarks') == null && $day_delayed >= 1) {
+                        $validator->errors()->add('remarks', 'This field is required when your process is delay');
+                    }
+                    if ( $request->get('action') == null && $day_delayed >= 1) {
+                        $validator->errors()->add('action', 'This field is required when your process is delay');
+                    }
+            });
+
+            if ($validator->fails()){
+                return redirect()
+                            ->back()
+                            ->with(['error' => 'Please Check Your Fields.'])
+                            ->withErrors($validator)
+                            ->withInput();
             }
-        });
-
-        if ($validator->fails()){
-            return redirect()
-                        ->back()
-                        ->with(['error' => 'Your process is delay. Please add remarks to continue.'])
-                        ->withErrors($validator)
-                        ->withInput();
         }
 
         $inputs                     =   $request->getData();
         $inputs['processed_by']     =   \Sentinel::getUser()->id;
         $inputs['upr_number']       =   $upr_model->upr_number;
         $inputs['ref_number']       =   $upr_model->ref_number;
+        $inputs['transaction_date'] =   $request->approved_date;
         $inputs['days']             =   $wd;
 
         $result = $model->save($inputs);
 
-        if($request->resched_date == null)
+        if($request->return_date == null)
         {
             $upr->update([
-                'status' => 'Document Accepted',
+                'status'        => 'Document Accepted',
                 'next_allowable'=> 1,
-                'next_step'     => 'Invitation To Bid',
+                'next_step'     => 'PreProc Conference',
                 'state'         => 'On-Going',
                 'next_due'      => $transaction_date->addDays(1),
                 'last_date'     => $transaction_date,
-                'date_processed'=> \Carbon\Carbon::now(),
+                'date_processed'=> $transaction_date,
                 'processed_by'  => \Sentinel::getUser()->id,
-                'delay_count'   => $day_delayed,
+                'delay_count'   => $wd,
                 'calendar_days' => $cd,
                 'last_action'   => $request->action,
                 'last_remarks'  => $request->remarks
@@ -272,19 +281,22 @@ class DocumentAcceptanceController extends Controller
         $result = $model->update($request->getData(), $id);
 
         $upr_model              =   $result->upr;
-        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->approved_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
         $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
+        $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
         if($day_delayed != 0)
         $day_delayed            =   $day_delayed - 1;
 
-        if($day_delayed != $result->days)
+        if($wd != $result->days)
         {
-            $model->update(['days' => $day_delayed], $id);
+            $model->update(['days' => $wd], $id);
         }
 
         $modelType  =   'Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceEloquent';
