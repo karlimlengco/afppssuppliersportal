@@ -13,9 +13,9 @@ class Supplier extends Seeder
     public function run()
     {
         $datas = collect([
-            new SupplierEloquent(["name" => 'ACS DEVELOPMENT & PROPERTY MANAGERS INC', "owner" => 'Timotei Martin C. Santiago', "address" => '30 Muralla St., New Intramuros Village', 'status' => 'draft']),
-            new SupplierEloquent(["name" => '2174 Catering Service', "owner" => 'Mercy Bapruga Agbayani', "address" => '2174 Sobriedad Extension Sampaloc 053', 'status' => 'draft']),
-            new SupplierEloquent(["name" => '3 R Trading', "owner" => 'Josefina Emberga Repalpa', "address" => '715 Kalayaan St. San Antonio Cavite City', 'status' => 'draft']),
+            new SupplierEloquent(["name" => 'ACS DEVELOPMENT & PROPERTY MANAGERS INC', "owner" => 'Timotei Martin C. Santiago', "address" => '30 Muralla St., New Intramuros Village', 'status' => 'accepted']),
+            new SupplierEloquent(["name" => '2174 Catering Service', "owner" => 'Mercy Bapruga Agbayani', "address" => '2174 Sobriedad Extension Sampaloc 053', 'status' => 'accepted']),
+            new SupplierEloquent(["name" => '3 R Trading', "owner" => 'Josefina Emberga Repalpa', "address" => '715 Kalayaan St. San Antonio Cavite City', 'status' => 'accepted']),
         ]);
 
         $datas->each(function($data) {

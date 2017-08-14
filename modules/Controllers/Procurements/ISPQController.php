@@ -135,27 +135,29 @@ class ISPQController extends Controller
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_dates') );
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
-        $cd                     =   $rfq_model->completed_at->diffInDays($transaction_date);
+        $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
 
-        $day_delayed            =   $rfq_model->completed_at->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed != 0)
+        if($day_delayed  > 0)
         {
             $day_delayed            =   $day_delayed - 1;
         }
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'canvassing_date'  =>  'required',
-            'action'            => 'required_with:remarks'
+            'canvassing_date'  =>  'required|after_or_equal:'.$upr_model->date_prepared,
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('remarks') == null && $day_delayed >= 1) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('action') == null && $day_delayed >= 1) {
+                $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
 
@@ -184,7 +186,7 @@ class ISPQController extends Controller
             'total_amount'      =>  $rfq_model->upr->total_amount,
             'upr_number'        =>  $rfq_model->upr_number,
             'rfq_number'        =>  $rfq_model->rfq_number,
-            'delay_count'       =>  $day_delayed,
+            'delay_count'       =>  $wd,
             'canvassing_date'   =>  $request->get('canvassing_date'),
             'canvassing_time'   =>  $request->get('canvassing_time'),
             'remarks'           =>  $request->get('remarks'),
@@ -193,11 +195,10 @@ class ISPQController extends Controller
 
         $upr->update(['status' => 'Invitation Created',
             'next_allowable'=> 3,
-            'next_step'     => 'PhilGeps Posting',
-            'state'         => 'On-Going',
+            'next_step'     => 'Close RFQ',
             'next_due'      => $transaction_date->addDays(3),
             'last_date'     => $transaction_date,
-            'delay_count'   => $day_delayed,
+            'delay_count'   => $wd,
             'calendar_days' => $cd + $upr_model->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks

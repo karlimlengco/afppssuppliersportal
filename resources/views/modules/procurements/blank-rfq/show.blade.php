@@ -8,7 +8,6 @@ Request For Quotation
 
 @section('modal')
     @include('modules.partials.modals.proponents')
-    @include('modules.partials.modals.philgeps_posting')
     @include('modules.partials.modals.close_rfq')
     {{-- @include('modules.partials.modals.invitation') --}}
     @include('modules.partials.modals.open_canvass')
@@ -126,10 +125,12 @@ Request For Quotation
                     <td>{{($proponent->users) ? $proponent->users->first_name ." ". $proponent->users->surname :""}} </td>
                     <td>{{$proponent->note}}</td>
                     <td>
-                        <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="attachments"> <span class="nc-icon-glyph ui-1_attach-87"></span> </a>
+                        <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="Attachments"> <span class="nc-icon-glyph ui-1_attach-87"></span> </a>
 
                         {{-- @if($data->status != 'closed') --}}
-                        <a href="{{route('procurements.rfq-proponents.delete',$proponent->id)}}" tooltip="remove"> <span class="nc-icon-glyph ui-1_trash-simple"></span> </a>
+                        <a href="{{route('procurements.rfq-proponents.delete',$proponent->id)}}" tooltip="Remove"> <span class="nc-icon-glyph ui-1_trash-simple"></span> </a>
+
+                        <a target="_blank" href="{{route('procurements.rfq-proponents.print',$proponent->id)}}" tooltip="Print"> <span class="nc-icon-glyph tech_print"></span> </a>
                         {{-- @endif --}}
                     </td>
                 </tr>
@@ -175,92 +176,5 @@ Request For Quotation
         e.preventDefault();
         $('#invitation-modal').addClass('is-visible');
     })
-    // datepicker
-    // pickmeup('#id-field-date_processed', {
-    //     format  : 'Y-m-d'
-    // });
-    // var date_processed = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-date_processed'),
-    //     firstDay: 1,
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-    // var completed_at = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-completed_at'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-
-    // // datepicker
-    // var transaction_date = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-transaction_date'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-
-    // // datepicker
-    // var ispq_transaction_dates = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-ispq_transaction_dates'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-    // // datepicker
-    // var open_canvass_date = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-open_canvass_date'),
-    //     firstDay: 1,
-    //     defaultDate: new Date(),
-    //     setDefaultDate: new Date(),
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
-    // var deadline_rfq = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-deadline_rfq'),
-    //     firstDay: 1,
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-    // var canvassing_date = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-canvassing_date'),
-    //     firstDay: 1,
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-    // var philgeps_posting = new Pikaday(
-    // {
-    //     field: document.getElementById('id-field-philgeps_posting'),
-    //     firstDay: 1,
-    //     // minDate: new Date(),
-    //     maxDate: new Date(2020, 12, 31),
-    //     yearRange: [2000,2020]
-    // });
-
 </script>
 @stop

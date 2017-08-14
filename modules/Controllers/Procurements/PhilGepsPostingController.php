@@ -117,25 +117,18 @@ class PhilGepsPostingController extends Controller
         HolidayRepository $holidays)
     {
         $rfq_model              =   $rfq->findById($request->rfq_id);
+        $upr_model              =   $rfq_model->upr;
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
 
-        if($invitation = $rfq_model->invitations)
-        {
-            $ispq_transaction_date   = Carbon::createFromFormat('Y-m-d', $invitation->ispq->transaction_date);
-        }
-        else
-        {
-            $ispq_transaction_date   = $rfq_model->completed_at;
-        }
-
         $holiday_lists          =   $holidays->lists('id','holiday_date');
-        $cd                     =   $ispq_transaction_date->diffInDays($transaction_date);
+        $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
 
-        $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
         if($day_delayed >= 3)
         {
             $day_delayed            =   $day_delayed - 3;
@@ -143,13 +136,15 @@ class PhilGepsPostingController extends Controller
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'transaction_date'  =>  'required',
-            'action'            =>  'required_with:remarks'
+            'transaction_date'  =>  'required|after_or_equal:'.$upr_model->date_prepared,
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('remarks') == null && $day_delayed > 3) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('action') == null && $day_delayed > 3) {
+                $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
 
@@ -178,11 +173,11 @@ class PhilGepsPostingController extends Controller
 
         $upr->update([
             'next_allowable'=> 1,
-            'next_step'     => 'Canvassing',
+            'next_step'     => 'ISPQ',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
             'status'        => $status,
-            'delay_count'   => $day_delayed,
+            'delay_count'   => $wd,
             'calendar_days' => $cd + $rfq_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks

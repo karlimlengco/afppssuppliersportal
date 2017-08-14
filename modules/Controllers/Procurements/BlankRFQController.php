@@ -146,7 +146,7 @@ class BlankRFQController extends Controller
         }
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'transaction_date'  =>  'required',
+            'transaction_date'  =>  'required|after_or_equal:'.$upr_model->date_prepared,
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -295,7 +295,6 @@ class BlankRFQController extends Controller
         UserLogRepository $userLogs,
         BlankRFQRepository $model)
     {
-
         $old                    =   $model->findById($id);
         $result                 =   $model->update($request->getData(), $id);
 
@@ -367,12 +366,14 @@ class BlankRFQController extends Controller
 
         $completed_at       =   createCarbon('Y-m-d',$request->completed_at);
 
+        $ispq_transaction_date   = Carbon::createFromFormat('Y-m-d', $rfq->invitations->ispq->transaction_date);
+
         $holiday_lists      =   $holidays->lists('id','holiday_date');
-        $day_delayed        =   $rfq->transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed        =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $completed_at);
 
-        $cd                     =   $rfq->transaction_date->diffInDays($completed_at);
+        $cd                     =   $ispq_transaction_date->diffInDays($completed_at);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
         if($day_delayed >= 1)
@@ -382,7 +383,7 @@ class BlankRFQController extends Controller
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'completed_at'      =>  'required',
+            'completed_at'      =>  'required|after_or_equal:'. $rfq->invitations->ispq->transaction_date,
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -420,7 +421,7 @@ class BlankRFQController extends Controller
         $upr->update([
             'status'        => 'Close RFQ',
             'next_allowable'=> 1,
-            'next_step'     => 'Create Invitation',
+            'next_step'     => 'Canvassing',
             'next_due'      => $completed_at->addDays(1),
             'last_date'     => $completed_at,
             'calendar_days' => $cd + $rfq->upr->calendar_days,

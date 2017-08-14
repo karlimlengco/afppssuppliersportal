@@ -68,7 +68,7 @@ Unit Purchase Request
                 <a class="button__options__item" id="reject-button" href="#">Cancel UPR</a>
                 @if($data->mode_of_procurement != 'public_bidding')
                     @if($data->status == 'upr_processing')
-                        <a class="button__options__item" id="process-button" href="#">Process UPR</a>
+                        {{-- <a class="button__options__item" id="process-button" href="#">Process UPR</a> --}}
                     @endif
                 @else
 

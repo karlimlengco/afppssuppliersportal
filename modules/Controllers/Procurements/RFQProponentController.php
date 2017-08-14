@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \App\Support\Breadcrumb;
 use Auth;
+use PDF;
 
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRequest;
@@ -278,5 +279,34 @@ class RFQProponentController extends Controller
         return redirect()->route('procurements.blank-rfq.show',$result->rfq_id)->with([
             'success'  => "Record has been successfully deleted."
         ]);
+    }
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint($id, RFQProponentRepository $model)
+    {
+        $result     =   $model->findById($id);
+        $supplier   =   $result->supplier;
+        $rfq        =   $result->rfq;
+
+        $data['total_amount']       =  $rfq->upr->total_amount;
+        $data['transaction_date']   =  $rfq->transaction_date;
+        $data['rfq_number']         =  $rfq->rfq_number;
+        $data['deadline']           =  $rfq->deadline." ".$rfq->opening_time;
+        $data['items']              =  $rfq->upr->items;
+        $data['supplier']           =  $supplier;
+        $pdf = PDF::loadView('forms.rfq-proponents', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'))
+            ->setPaper('a4');
+
+        return $pdf
+            ->setOption('page-width', '8.27in')
+            ->setOption('page-height', '11.69in')
+            ->inline('rfq.pdf');
     }
 }

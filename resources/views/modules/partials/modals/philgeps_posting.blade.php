@@ -33,10 +33,10 @@
 
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::dateField('deadline_rfq', 'Deadline To Submit RFQ', $data->deadline) !!}
+                        {!! Form::dateField('deadline_rfq', 'Deadline To Submit RFQ', ($data->rfq) ? $data->rfq->deadline : "") !!}
                     </div>
                     <div class="six columns">
-                        {!! Form::textField('pp_opening_time', 'Opening Time', $data->opening_time) !!}
+                        {!! Form::textField('pp_opening_time', 'Opening Time', ($data->rfq) ? $data->rfq->opening_time : "") !!}
                     </div>
                 </div>
 

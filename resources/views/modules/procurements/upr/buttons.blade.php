@@ -1,6 +1,12 @@
 <div class="twelve columns align-right utility utility--align-right">
     @if($data->mode_of_procurement != 'public_bidding')
-        @if($data->status == 'Close RFQ')
+        @if($data->status == 'upr_processing')
+            <span >Process &amp; Create RFQ</span>
+            <a href="#" class="button" id="process-button" tooltip="Next Stage">
+                <i class="nc-icon-mini arrows-1_bold-right"></i>
+            </a>
+        @endif
+        @if($data->status == 'Philgeps Approved')
             {{-- <a href="#" class="button__options__item" id="invitation-button">Create Invitation</a> --}}
             <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
@@ -8,16 +14,30 @@
             <span >Create Invitation</span>
             <a href="#" class="button" id="invitation-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif
-        @if($data->status == 'Invitation Created' || $data->status == 'Philgeps Need Repost' || $data->status == 'Failed Bid')
-            <a href="{{route('procurements.ispq.edit', $data->invitations->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        @if($data->status == 'Processing RFQ' || $data->status == 'Philgeps Need Repost' || $data->status == 'Failed Bid')
+            <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
 
             {{-- <a href="#" class="button__options__item" id="philgeps-posting-button">PhilGeps Posting</a> --}}
             <span >PhilGeps Posting</span>
             <a href="#" class="button" id="philgeps-posting-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif
-        @if($data->status == 'Philgeps Approved')
-            <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        @if($data->status == 'Invitation Created')
+            <a href="{{route('procurements.ispq.edit', $data->invitations->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+            <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
+
+             <span >Close RFQ</span>
+            <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button"  tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif
+        {{-- @if($data->status == 'Invitation Created' || $data->status == 'Philgeps Need Repost' || $data->status == 'Failed Bid')
+            <a href="{{route('procurements.ispq.edit', $data->invitations->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+            <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
+
+             <span >PhilGeps Posting</span>
+            <a href="#" class="button" id="philgeps-posting-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif --}}
+        @if($data->status == 'Close RFQ')
+            <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
 
             {{-- <a href="#" id="open_canvass-button" class="button__options__item">Open Canvass</a> --}}
