@@ -86,16 +86,26 @@ class NOAController extends Controller
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
+        $cd                     =   $pqDate->diffInDays($transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+        if($day_delayed  > 0)
+        {
+            $day_delayed = $day_delayed - 2;
+        }
+
         $validator = Validator::make($request->all(),[
-            'awarded_date'  =>   'required',
+            'awarded_date'  =>   'required_without:return_date|after_or_equal:'.$pq_model->transaction_date,
             'awarded_by'    =>   'required',
             'seconded_by'   =>   'required',
-            'action'        =>   'required_with:remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed > 1) {
+            if ( $request->get('remarks') == null && $day_delayed > 2) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('action') == null && $day_delayed > 2) {
+                $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
 
@@ -117,16 +127,20 @@ class NOAController extends Controller
             'awarded_date'  =>  $request->awarded_date,
             'remarks'       =>  $request->remarks,
             'action'       =>  $request->action,
-            'days'          =>  $day_delayed,
+            'days'          =>  $wd,
         ];
 
         $noaModal   =   $noa->save($data);
 
         // // update upr
         $upr->update([
-            'status' => "Awarded To $supplier_name",
-            'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
-            'calendar_days' => $day_delayed + $pq_model->upr->calendar_days,
+            'next_allowable'=> 1,
+            'next_step'     => 'Approved NOA',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => "Awarded To $supplier_name",
+            'delay_count'   => $wd,
+            'calendar_days' => $cd + $noaModal->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ],  $pq_model->upr_id);

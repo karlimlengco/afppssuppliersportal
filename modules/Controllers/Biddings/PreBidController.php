@@ -185,7 +185,7 @@ class PreBidController extends Controller
                 'last_date'     => $transaction_date,
                 'processed_by'  => \Sentinel::getUser()->id,
                 'delay_count'   => $wd,
-                'calendar_days' => $cd,
+                'calendar_days' => $cd + $result->upr->calendar_days,
                 'last_action'   => $request->action,
                 'last_remarks'  => $request->remarks
             ], $result->upr_id);
