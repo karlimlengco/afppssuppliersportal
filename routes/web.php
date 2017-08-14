@@ -133,6 +133,7 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     |--------------------------------------------------------------------------
     |
     */
+    Route::post('bid-openings/failed', '\Revlv\Controllers\Biddings\BidOpeningController@failed')->name('bid-openings.failed');
     Route::get('bid-openings/logs/{id}', '\Revlv\Controllers\Biddings\BidOpeningController@viewLogs')->name('bid-openings.logs');
     Route::resource('bid-openings', '\Revlv\Controllers\Biddings\BidOpeningController');
 

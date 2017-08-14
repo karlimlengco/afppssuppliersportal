@@ -82,7 +82,7 @@ Post Qualification
             </thead>
             <tbody>
                 @foreach($data->upr->bid_proponents as $proponent)
-                @if($proponent->is_lcb == 1 && $proponent->is_scb == 1)
+                @if($proponent->is_lcb == 1 || $proponent->is_scb == 1)
                 <tr>
                     <td>{{$proponent->proponent_name}}</td>
                     <td>{{$proponent->bid_amount}}</td>

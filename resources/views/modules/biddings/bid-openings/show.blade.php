@@ -22,6 +22,7 @@ SOBE
 @stop
 
 @section('modal')
+    @include('modules.partials.bid-modals.failed-sobe')
 @stop
 
 @section('contents')
@@ -35,12 +36,17 @@ SOBE
                 <?php $count --; ?>
             @endif
         @endforeach
+
         @if($count == 0)
             @if(!$data->closing_date)
                 <a href="{{route('biddings.bid-openings.closed',$data->id)}}" class="button" tooltip="Submit"><i class="nc-icon-mini ui-2_disk"></i></a>
             @endif
         @endif
 
+
+        @if(!$data->closing_date)
+        <a href="#" class="button" id="fail-pq-button" tooltip="Failed"><i class="nc-icon-mini ui-1_bold-remove"></i></a>
+        @endif
 
         <a href="{{route('biddings.bid-openings.logs', $data->id)}}" class="button" tooltip="Logs">
             <i class="nc-icon-mini files_archive-content"></i>
@@ -105,4 +111,12 @@ SOBE
 @stop
 
 @section('scripts')
+<script type="text/javascript">
+
+$('#fail-pq-button').click(function(e){
+    e.preventDefault();
+    $('#fail-pq-modal').addClass('is-visible');
+})
+</script>
+
 @stop

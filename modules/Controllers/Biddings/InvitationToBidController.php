@@ -168,7 +168,6 @@ class InvitationToBidController extends Controller
             'next_step'     => 'PhilGeps POsting',
             'next_due'      => $transaction_date->addDays(3),
             'last_date'     => $transaction_date,
-            'date_processed'=> \Carbon\Carbon::now(),
             'processed_by'  => \Sentinel::getUser()->id,
             'delay_count'   => $wd,
             'calendar_days' => $cd,

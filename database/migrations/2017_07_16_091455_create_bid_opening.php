@@ -22,6 +22,8 @@ class CreateBidOpening extends Migration
             $table->text('update_remarks')->nullable();
             $table->date('closing_date')->nullable();
             $table->text('action')->nullable();
+            $table->date('failed_date')->nullable();
+            $table->text('failed_remarks')->nullable();
             $table->integer('is_completed')->nullable();
             $table->integer('days')->nullable();
             $table->text('remarks')->nullable();

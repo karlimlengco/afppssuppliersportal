@@ -172,7 +172,6 @@ class PhilGepsController extends Controller
             'next_step'     => 'Pre Bid',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'date_processed'=> \Carbon\Carbon::now(),
             'processed_by'  => \Sentinel::getUser()->id,
             'delay_count'   => $wd,
             'calendar_days' => $cd,

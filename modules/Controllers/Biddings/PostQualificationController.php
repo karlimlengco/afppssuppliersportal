@@ -133,12 +133,15 @@ class PostQualificationController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'action'                =>  'required_with:remarks',
+            'pq_transaction_date'  =>  'required_without:return_date|after_or_equal:'.$upr_model->bid_open->closing_date,
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('remarks') == null && $day_delayed >= 1) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('action') == null && $day_delayed >= 1) {
+                $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
 
@@ -167,9 +170,8 @@ class PostQualificationController extends Controller
             'next_step'     => 'Prepare NOA',
             'next_due'      => $transaction_date->addDays(2),
             'last_date'     => $transaction_date,
-            'date_processed'=> \Carbon\Carbon::now(),
             'processed_by'  => \Sentinel::getUser()->id,
-            'delay_count'   => $day_delayed,
+            'delay_count'   => $wd,
             'calendar_days' => $cd,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks

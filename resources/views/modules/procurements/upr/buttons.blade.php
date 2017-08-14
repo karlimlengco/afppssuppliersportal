@@ -38,11 +38,10 @@
     @else
         @if($data->status == 'upr_processing')
         {{-- <a class="button__options__item"  href="{{route('biddings.document-acceptance.create-by-rfq', $data->id)}}">Document Acceptance</a> --}}
-
             <span >Document Acceptance</span>
             <a href="{{route('biddings.document-acceptance.create-by-rfq', $data->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif
-        @if($data->status == 'Document Accepted')
+        @if($data->status == 'Document Accepted'  || $data->status == 'Failed Post Qualification'|| $data->status == 'Failed SOBE')
             {{-- <a class="button__options__item" id="itb-button" href="#">Invitation To Bid</a> --}}
 
             <a href="{{route('biddings.document-acceptance.show', $data->document_accept->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
@@ -70,7 +69,7 @@
             <a href="#" class="button" id="biddings-philgeps-posting-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif
         @if($data->status == 'Philgeps Approved')
-            <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+            <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-ico  n-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
 
             <span >Pre-Bid Conference</span>
@@ -85,7 +84,16 @@
             <a href="#" class="button" id="open-bid-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
             {{-- <a class="button__options__item" id="open-bid-button" href="#">SOBE</a> --}}
         @endif
-        @if($data->status == 'Bid Open')
+        @if($data->status == 'SOBE OPEN')
+
+            <a href="{{route('biddings.pre-bids.show', $data->bid_conference->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+            <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
+            {{-- <a class="button__options__item" id="post-qual-button" href="#">Post Qualification</a> --}}
+
+            <span >SOBE</span>
+            <a href="{{route('biddings.bid-openings.show', $data->bid_open->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif
+        @if($data->status == 'SOBE Closed')
 
             <a href="{{route('biddings.bid-openings.show', $data->bid_open->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>

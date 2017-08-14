@@ -123,14 +123,13 @@ class BidOpeningController extends Controller
         $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-
-        if($day_delayed >= 1)
+        if($day_delayed > 0)
         {
             $day_delayed            =   $day_delayed - 1;
         }
 
         $validator = Validator::make($request->all(),[
-            'op_transaction_date'  =>  'required',
+            'op_transaction_date'  =>  'required_without:return_date|after_or_equal:'.$upr_model->bid_conference->transaction_date,
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -161,14 +160,13 @@ class BidOpeningController extends Controller
         $result = $model->save($inputs);
 
         $upr->update([
-            'status' => 'Bid Open',
+            'status' => 'SOBE OPEN',
             'next_allowable'=> 1,
-            'next_step'     => 'Post Qualification',
+            'next_step'     => 'Closed SOBE',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'date_processed'=> \Carbon\Carbon::now(),
             'processed_by'  => \Sentinel::getUser()->id,
-            'delay_count'   => $day_delayed,
+            'delay_count'   => $wd,
             'calendar_days' => $cd,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
@@ -196,7 +194,7 @@ class BidOpeningController extends Controller
             'indexRoute'        =>  $this->baseUrl.'index',
             'breadcrumbs' => [
                 new Breadcrumb('Public Bidding'),
-                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->id ),
+                new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->upr_id ),
                 new Breadcrumb('SOBE')
             ]
         ]);
@@ -298,9 +296,20 @@ class BidOpeningController extends Controller
      * @return [type]     [description]
      */
     public function closed($id,
-        BidOpeningRepository $model)
+        BidOpeningRepository $model,
+        UnitPurchaseRequestRepository $upr)
     {
-        $model->update(['closing_date' => Carbon::now()], $id);
+        $result =   $model->update(['closing_date' => Carbon::now()], $id);
+        $transaction_date   =   Carbon::createFromFormat('Y-m-d',$result->transaction_date);
+        $upr_model  = $result->upr;
+
+        $upr->update([
+            'status' => 'SOBE Closed',
+            'next_allowable'=> 1,
+            'next_step'     => 'Post Qualification',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+        ], $upr_model->id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -345,6 +354,35 @@ class BidOpeningController extends Controller
                 new Breadcrumb('SOBE', 'biddings.bid-openings.show', $data_model->id),
                 new Breadcrumb('Logs')
             ]
+        ]);
+    }
+
+    /**
+     *
+     *
+     * @param  Request                       $request [description]
+     * @param  PostQualificationRepository   $model   [description]
+     * @param  UnitPurchaseRequestRepository $upr     [description]
+     * @return [type]                                 [description]
+     */
+    public function failed(
+        Request $request,
+        BidOpeningRepository $model,
+        UnitPurchaseRequestRepository $upr)
+    {
+
+        $this->validate($request,[
+            'failed_date'       =>  'required',
+            'failed_remarks'    =>  'required'
+        ]);
+
+        $result     =   $model->update(['failed_remarks' => $request->failed_remarks, 'failed_date' => $request->failed_date],$request->id);
+
+        $upr_model  =   $result->upr;
+        $upr->update(['status' => 'Failed SOBE'], $upr_model->id);
+
+        return redirect()->route($this->baseUrl.'show', $result->id)->with([
+            'success'  => "New record has been successfully added."
         ]);
     }
 }
