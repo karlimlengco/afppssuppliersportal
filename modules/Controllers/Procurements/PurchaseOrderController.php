@@ -870,7 +870,7 @@ class PurchaseOrderController extends Controller
         $data['accounting']         =  $result->accounting;
         $data['approver']           =  $result->approver;
         $data['coa_signatories']    =  $result->coa_signatories;
-        $data['mfo_release_date']   =  $result->mfo_release_date;
+        $data['mfo_release_date']   =  $result->mfo_released_date;
         $data['coa_approved_date']  =  $result->coa_approved_date;
         $data['funding_release_date']  =  $result->funding_release_date;
 
