@@ -893,7 +893,7 @@ class PurchaseOrderController extends Controller
         $result                     =  $model->with(['coa_signatories','rfq','upr'])->findById($id);
         // $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
 
-        if($upr_model->mode_of_procurement == 'public_bidding')
+        if($result->upr->mode_of_procurement == 'public_bidding')
         {
             $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
         }
@@ -909,11 +909,12 @@ class PurchaseOrderController extends Controller
 
         $data['transaction_date']   =  $result->coa_approved_date;
         $data['rfq_number']         =  $result->rfq_number;
-        $data['po_number']         =  $result->po_number;
+        $data['po_number']          =  $result->po_number;
         $data['bid_amount']         =  $result->bid_amount;
         $data['project_name']       =  $result->upr->project_name;
         $data['winner']             =  $noa_model->name;
         $data['coa_signatory']      =  $result->coa_signatories;
+        $data['items']              =  $result->upr->items;
 
         $pdf = PDF::loadView('forms.po-coa', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
 

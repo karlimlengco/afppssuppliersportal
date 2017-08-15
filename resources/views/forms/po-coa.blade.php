@@ -28,58 +28,62 @@
                 <!-- form content -->
                 <div class="printable-form__body">
                     <span class="printable-form__body__title">APPROVED PURCHASE ORDER/WORK ORDER/JOB ORDER</span>
-                    <p>{{$data['transaction_date']}}</p>
+                    <p>28 December 2015</p>
                     <p>
                         Resident Auditor <br>
-                        Commission on Audit
+                        Commission on Audit<br>
                     </p>
-                    <p>Dear Sir / Madame,</p>
+                    <p>Dear Sir/Madame,</p>
                     <p>This is in reference to COA Circular No. 2009-001 dated February 12, 2009 regarding submission of approved purchase order, work order and job order.</p>
                     <p>In compliance with the above reference, submitted herewith is the approved PO/WO/JO of 302nd on.</p>
-                    <table class="printable-form__body__table">
-                        <thead>
-                            <tr>
-                                <th class="head" width="20%">PO/WO/JO No.</th>
-                                <th class="head" width="40%">Nomenclature</th>
-                                <th class="head" width="10%">Amount</th>
-                                <th class="head" width="30%">Supplier</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <table class="printable-form__body__table classic">
+                        <tr>
+                            <td width="25%">PO/WO/JO No.</td>
+                            <td width="30%">Nomenclature</td>
+                            <td width="20%">Amount</td>
+                            <td width="25%">Supplier</td>
+                        </tr>
+                        <tr>
                             <tr>
                                 <td>{{$data['po_number']}}</td>
-                                <td>{{$data['project_name']}}</td>
+                                <td>{{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) < 1) and {{count($data['items']) - 1}} @endif</td>
                                 <td>{{formatPrice($data['bid_amount'])}}</td>
                                 <td>{{$data['winner']}}</td>
                             </tr>
-                        </tbody>
+                        </tr>
                     </table>
                     <p>Very truly yours;</p>
                     <!-- form signatories -->
                     <table class="printable-form__body__table
                                   printable-form__body__table--borderless">
                         <tr>
-                            <td class="v-align-bottom align-center" width="40%" height="80px"></td>
-                            <td class="v-align-bottom align-center" width="20%" height="80px"></td>
-                            <td class="v-align-bottom align-center" width="40%" height="80px"></td>
+                            <td width="40%" height="80px"></td>
+                            <td width="20%" height="80px"></td>
+                            <td width="40%" height="80px"></td>
                         </tr>
                         <tr>
                             <td class="signatory align-center v-align-middle" width="45%">
                                 <div class="signatory-name">
                                     <table>
                                         <tr>
-                                            <td width="50%"></td>
-                                            <td nowrap>{{$data['coa_signatory']->name}}</td>
-                                            <td width="50%"></td>
+                                            <td nowrap><strong>{{$data['coa_signatory']->name}}</strong></td>
+                                            <td width="100%"></td>
                                         </tr>
                                         <tr>
-                                            <td width="50%"></td>
-                                            <td class="align-justify" style="text-align-last: justify !important; text-align: justify;"> <pre style="border:none"> <?php echo $data['coa_signatory']->ranks; ?></pre> </td>
-                                            <td width="50%"></td>
+                                            <td class="align-justify">
+                                                <div class="signatory-rank-justify">
+                                                    <strong>{{$data['coa_signatory']->ranks}}</strong>
+                                                    <span></span>
+                                                </div>
+                                            </td>
+                                            <td width="100%"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="v-align-bottom" height="20px">{{$data['coa_signatory']->designation}}</td>
+                                            <td width="100%" height="20px"></td>
                                         </tr>
                                     </table>
                                 </div>
-                                {{$data['coa_signatory']->designation}}
                             </td>
                             <td width="10%"></td>
                             <td class="signatory align-left v-align-middle" width="45%"></td>
@@ -87,23 +91,6 @@
                     </table>
                 </div>
                 <!-- form footer -->
-                <div class="printable-form__foot">
-                    <table class="printable-form__foot__table">
-                        <tr>
-                            <td colspan="2">
-                                <p class="printable-form__foot__values">AFP Core Values: Honor, Service, Patriotism</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="printable-form__foot__ref">{{$data['po_number']}} {{$data['transaction_date']}}</span>
-                            </td>
-                            <td>
-                                <span class="printable-form__foot__code"><img src="{{base_path('public/img/barcode.png')}}" alt=""></span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
             </div>
 
         </div>
