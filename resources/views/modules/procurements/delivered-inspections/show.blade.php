@@ -43,6 +43,11 @@ Delivered Items Inspection
                     <a class="button__options__item" href="#" id="start-button">Start Inspection</a>
                 @endif
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr->id)}}" class="button__options__item" > Unit Purchase Request</a>
+
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-ris', $data->id)}}" class="button__options__item" > PRINT  RIS</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-ris2', $data->id)}}" class="button__options__item" > PRINT  RIS2</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-rsmi', $data->id)}}" class="button__options__item" > PRINT  RSMI</a>
+
             </div>
         </button>
 
@@ -65,7 +70,6 @@ Delivered Items Inspection
         <h3>Inspection Details</h3>
         <ul class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ No. :</strong> {{$data->rfq_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Delivery No. :</strong> {{$data->delivery_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{ucfirst($data->status)}} </li>
         </ul>

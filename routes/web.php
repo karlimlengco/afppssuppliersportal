@@ -522,6 +522,9 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('delivered-inspections/logs/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewLogs')->name('delivered-inspections.logs');
     Route::put('delivered-inspections/update-signatory/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@updateSignatory')->name('delivered-inspections.update-signatory');
     Route::get('delivered-inspections/print/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrint')->name('delivered-inspections.print');
+    Route::get('delivered-inspections/print-ris/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRIS')->name('delivered-inspections.print-ris');
+    Route::get('delivered-inspections/print-ris2/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRIS2')->name('delivered-inspections.print-ris2');
+    Route::get('delivered-inspections/print-rsmi/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRSMI')->name('delivered-inspections.print-rsmi');
     Route::post('delivered-inspections/add-issue/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@addIssue')->name('delivered-inspections.add-issue');
     Route::post('delivered-inspections/start-inspection/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@startInspection')->name('delivered-inspections.start-inspection');
     Route::post('delivered-inspections/close-inspection/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@closeInspection')->name('delivered-inspections.close-inspection');
