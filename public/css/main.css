@@ -1344,6 +1344,8 @@ printable-form.less
 /* default for 'a4' bond paper prints */
 .printable-form {
   display: block;
+  font-family: 'Arial';
+  font-weight: 200;
   position: relative;
   // width: 8.3in;
   height: 13in;
@@ -1365,7 +1367,9 @@ printable-form.less
   color: #545454;
 }
 .printable-form * strong {
-  font-weight: 800;
+  font-family: 'Arial';
+  font-weight: 700;
+  font-size: 10px;
 }
 .printable-form__filename {
   position: absolute;
@@ -1387,6 +1391,7 @@ printable-form.less
   text-align: center;
   padding: 0;
   margin: 0 0 30px 0;
+  font-style: italic;
 }
 .printable-form__head__letterhead {
   display: block;
@@ -1399,7 +1404,13 @@ printable-form.less
 }
 .printable-form__head__letterhead__details {
   display: block;
+  font-weight: 400;
   margin-top: 10px;
+}
+.printable-form__head__letterhead__details.inside {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 30px;
 }
 .printable-form__body {
   display: block;
@@ -1408,17 +1419,44 @@ printable-form.less
   margin-bottom: 110px;
 }
 .printable-form__body.no-letterhead {
-  margin-top: 100px;
+  margin-top: 80px;
+}
+.printable-form__body.boxed {
+  padding-top: 30px;
+  border: solid 1px #cccccc;
+}
+.printable-form__body.boxed .printable-form__body__table {
+  margin-bottom: 0;
 }
 .printable-form__body table,
 .printable-form__body p,
 .printable-form__body ol,
 .printable-form__body ul {
+  font-family: 'Arial';
+  font-weight: 400;
   margin-bottom: 20px;
+}
+.printable-form__body table.indent,
+.printable-form__body p.indent,
+.printable-form__body ol.indent,
+.printable-form__body ul.indent {
+  padding-left: 50px;
+}
+.printable-form__body table.indent-first-line,
+.printable-form__body p.indent-first-line,
+.printable-form__body ol.indent-first-line,
+.printable-form__body ul.indent-first-line {
+  text-indent: 50px;
+}
+.printable-form__body table.indent {
+  margin-left: 50px;
+}
+.printable-form__body table.indent td {
+  padding: 4px 0;
 }
 .printable-form__body__title {
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 20px;
@@ -1438,6 +1476,13 @@ printable-form.less
   /* used for positioning signatories */
   /* used for layouting complex content */
 }
+.printable-form__body__table.classic tr td {
+  padding: 4px;
+  text-align: left;
+}
+.printable-form__body__table.classic tr td:last-child {
+  text-align: left;
+}
 .printable-form__body__table thead tr th {
   font-weight: 800;
   text-transform: uppercase;
@@ -1446,6 +1491,7 @@ printable-form.less
 .printable-form__body__table tr td,
 .printable-form__body__table tr th {
   font-size: 10px;
+  font-weight: 400;
   padding: 8px;
   vertical-align: top;
   text-align: center;
@@ -1488,6 +1534,22 @@ printable-form.less
 .printable-form__body__table tr td.fix-border,
 .printable-form__body__table tr th.fix-border {
   border-bottom: none !important;
+}
+.printable-form__body__table tr td.no-border-top,
+.printable-form__body__table tr th.no-border-top {
+  border-top: none !important;
+}
+.printable-form__body__table tr td.no-border-right,
+.printable-form__body__table tr th.no-border-right {
+  border-right: none !important;
+}
+.printable-form__body__table tr td.no-border-bottom,
+.printable-form__body__table tr th.no-border-bottom {
+  border-bottom: none !important;
+}
+.printable-form__body__table tr td.no-border-left,
+.printable-form__body__table tr th.no-border-left {
+  border-left: none !important;
 }
 .printable-form__body__table tr td .child-table,
 .printable-form__body__table tr th .child-table {
@@ -1552,13 +1614,17 @@ printable-form.less
 .printable-form__body__table tr td.signatory,
 .printable-form__body__table tr th.signatory {
   padding: 0 0 4px 0 !important;
-  padding: 0 0 4px 0 !important;
 }
 .printable-form__body__table tr td.signatory .signatory-name,
 .printable-form__body__table tr th.signatory .signatory-name {
   display: block;
   width: 100%;
-  padding-top: 4px;
+}
+.printable-form__body__table tr td.signatory .signatory-name.bordered,
+.printable-form__body__table tr th.signatory .signatory-name.bordered {
+  padding-top: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
   border-top: solid 1px #adadad;
 }
 .printable-form__body__table tr td.signatory .signatory-name table,
@@ -1569,17 +1635,22 @@ printable-form.less
 }
 .printable-form__body__table tr td.signatory .signatory-name table tr td,
 .printable-form__body__table tr th.signatory .signatory-name table tr td {
-  font-weight: 800;
   padding: 0;
-  text-transform: uppercase;
 }
 .printable-form__body__table tr td.signatory .conforme-label,
 .printable-form__body__table tr th.signatory .conforme-label {
   display: block;
+  font-size: 10px;
+  font-style: italic;
   width: 100%;
-  font-weight: 800;
+  font-weight: 400;
   padding-top: 4px;
   border-top: solid 1px #adadad;
+}
+.printable-form__body__table tr td.signatory .conforme-label.move,
+.printable-form__body__table tr th.signatory .conforme-label.move {
+  margin-left: 5px;
+  margin-bottom: -15px;
 }
 .printable-form__body__table tr td:last-child,
 .printable-form__body__table tr th:last-child {
@@ -1621,14 +1692,15 @@ printable-form.less
   text-align: center;
   padding: 0;
   margin: 0 0 20px 0;
+  font-style: italic;
 }
 .printable-form__foot__ref {
   display: block;
   width: 100%;
-  font-size: 8px;
-  font-weight: 800;
-  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 400;
   text-align: left;
+  font-style: italic;
 }
 .printable-form__foot__code {
   display: block;
@@ -2923,8 +2995,7 @@ table.less
   border-bottom: none;
 }
 .table--with-border thead tr th {
-  // background: #a0a0a0;
-  background: #100642;
+  background: #a0a0a0;
   color: #FFFFFF;
   font-weight: 700;
 }
@@ -3573,8 +3644,8 @@ table-custom.less
 }
 .table-name tr th,
 .table-name tr td {
-  width: 120px !important;
-  min-width: 120px !important;
+  width: 100px !important;
+  min-width: 100px !important;
 }
 .table-name tr th:first-child,
 .table-name tr td:first-child {
@@ -3593,8 +3664,8 @@ table-custom.less
 .table-name tr td.has-child .grand-child-table tr td,
 .table-name tr th.has-child .great-grand-child-table tr td,
 .table-name tr td.has-child .great-grand-child-table tr td {
-  width: 120px !important;
-  min-width: 120px !important;
+  width: 100px !important;
+  min-width: 100px !important;
 }
 .table-name tr th.has-child .child-table tr th:first-child,
 .table-name tr td.has-child .child-table tr th:first-child,

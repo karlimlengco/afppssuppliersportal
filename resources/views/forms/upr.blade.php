@@ -16,20 +16,147 @@
             <!-- third-upr.xps -->
             <div class="printable-form">
                 <!-- form header -->
+
                 <div class="printable-form__head">
                     <p class="printable-form__head__vision">AFP Vision 2028: A World-class Armed Forces, Source of National Pride</p>
-                    <div class="printable-form__head__letterhead">
-                        <span class="printable-form__head__letterhead__logo">
-                        </span>
-                        <span class="printable-form__head__letterhead__details">
-                            HEADQUARTERS<br>
-                            <strong>CAMP GEN EMILIO AGUINALDO</strong><br>
-                            Quezon City, Metro Manila, Philippines
-                        </span>
-                    </div>
                 </div>
                 <!-- form content -->
-                <div class="printable-form__body">
+
+                <div class="printable-form__body no-letterhead boxed">
+                    <span class="printable-form__head__letterhead__details inside">
+                        HEADQUARTERS<br>
+                        CAMP GEN EMILIO AGUINALDO<br>
+                        QUEZON CITY<br>
+                        METRO MANILA<br>
+                        PHILIPPINES
+                    </span>
+                    <!-- <span class="printable-form__body__title">Unit Purchase Request</span> -->
+                    <table class="printable-form__body__table classic">
+                        <tr>
+                            <td class="align-center" colspan="3" width="65%"><strong>UNIT PURCHASE REQUEST</strong></td>
+                            <td class="no-border-bottom" width="35%">UPR NO:</td>
+                        </tr>
+                        <tr>
+                            <td class="no-border-top no-border-right no-border-bottom" colspan="3"></td>
+                            <td class="align-center v-align-middle no-border-top" rowspan="2">{{$data['upr_number']}}</td>
+                        </tr>
+                        <tr>
+                            <td class="no-border-top no-border-right no-border-bottom" width="150px" nowrap>PLACE OF DELIVERY</td>
+                            <td class="no-border-top no-border-right no-border-left" width="350px">{{$data['center']}}</td>
+                            <td class="no-border-top no-border-bottom no-border-left" width="10%"></td>
+                        </tr>
+                        <tr>
+                            <td class="no-border-top no-border-right no-border-bottom" width="150px" nowrap>MODE OF PROCUREMENT</td>
+                            <td class="no-border-top no-border-right no-border-left" width="350px">{{$data['mode']}}</td>
+                            <td class="no-border-top no-border-bottom no-border-left" width="10%"></td>
+                            <td class="no-border-bottom">AFPPS REF NO:</td>
+                        </tr>
+                        <tr>
+                            <td class="no-border-top no-border-right no-border-bottom" width="150px" nowrap>CHARGEABILITY</td>
+                            <td class="no-border-top no-border-right no-border-left" width="350px">{{$data['charge']}}</td>
+                            <td class="no-border-top no-border-bottom no-border-left" width="10%"></td>
+                            <td class="align-center v-align-middle no-border-top" rowspan="2">{{$data['ref_number']}}</td>
+                        </tr>
+                        <tr>
+                            <td class="no-border-top no-border-right no-border-bottom" width="150px" nowrap>ACCOUNT CODE</td>
+                            <td class="no-border-top no-border-right no-border-left" width="350px">{{$data['codes']}}</td>
+                            <td class="no-border-top no-border-bottom no-border-left" width="10%"></td>
+                        </tr>
+                        <tr>
+                            <td class="no-border-top no-border-right no-border-bottom" width="150px" nowrap>FUND VALIDITY</td>
+                            <td class="no-border-top no-border-right no-border-left" width="350px">{{$data['fund_validity']}}</td>
+                            <td class="no-border-top no-border-bottom no-border-left" width="10%"></td>
+                            <td class="no-border-bottom">Date Prepared:</td>
+                        </tr>
+                        <tr>
+                            <td class="no-border-top no-border-right no-border-bottom" width="150px" nowrap>TERMS OF PAYMENT</td>
+                            <td class="no-border-top no-border-right no-border-left" width="350px">{{$data['terms']}}</td>
+                            <td class="no-border-top no-border-bottom no-border-left" width="10%"></td>
+                            <td class="align-center v-align-middle no-border-top" rowspan="3">
+                                {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['date_prepared'])->format('d F Y') }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="no-border-top no-border-right no-border-bottom" width="150px" nowrap>OTHER ESSENTIAL INFO</td>
+                            <td class="no-border-top no-border-right no-border-left" width="350px">{{$data['other_infos']}}</td>
+                            <td class="no-border-top no-border-bottom no-border-left" width="10%"></td>
+                        </tr>
+                        <tr>
+                            <td class="no-border-top no-border-right" colspan="3"></td>
+                        </tr>
+                    </table>
+                    <table class="printable-form__body__table classic">
+                        <tr>
+                            <td class="no-border-top" width="10%">ITEM NO</td>
+                            <td class="no-border-top" width="40%">ITEM DESCRIPTION</td>
+                            <td class="no-border-top" width="10%">QTY</td>
+                            <td class="no-border-top" width="10%">UNIT</td>
+                            <td class="no-border-top" width="15%">UNIT PRICE</td>
+                            <td class="no-border-top" width="15%">AMOUNT</td>
+                        </tr>
+
+                        @foreach($data['items'] as $key => $item)
+                        <tr>
+                            <td style="text-align:center">{{$key + 1}}</td>
+                            <td style="text-align:left">{{$item->item_description}}</td>
+                            <td>{{$item->quantity}}</td>
+                            <td>{{$item->unit_measurement}}</td>
+                            <td>{{formatPrice($item->unit_price)}}</td>
+                            <td>{{formatPrice($item->total_amount)}}</td>
+                        </tr>
+                        @endforeach
+                        <tr>
+                            <td class="align-center" colspan="6"><strong>x-x-x-x-x Nothing Follows x-x-x-x-x</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">FOR THE USE OF {{$data['center']}}</td>
+                        </tr>
+                        <tr>
+                            <td class="align-right" colspan="4"><strong>Total Amount PhP</strong></td>
+                            <td colspan="2"><strong>{{formatPrice($data['total_amount'])}}</strong></td>
+                        </tr>
+                    </table>
+                    <table class="printable-form__body__table classic">
+                        <tr>
+                            <td class="no-border-bottom no-border-top" width="33%">STOCKS REQUESTED ARE CERTIFIED TO BE WITHIN APPROVED APP/PPMP</td>
+                            <td class="no-border-bottom no-border-top" width="33%">FUNDS CERTIFIED AVAILABLE:</td>
+                            <td class="no-border-bottom no-border-top" width="33%">APPROVED:</td>
+                        </tr>
+                        <tr>
+                            <td class="v-align-bottom no-border-top" height="60px"><strong>{{$data['approver']->name}}</strong></td>
+                            <td class="v-align-bottom no-border-top" height="60px"><strong>{{$data['funder']->name}}</strong></td>
+                            <td class="v-align-bottom no-border-top" height="60px"><strong>{{$data['requestor']->name}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="align-justify">
+                                <div class="signatory-rank-justify">
+                                    <strong>{{$data['approver']->ranks}}</strong>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td class="align-justify">
+                                <div class="signatory-rank-justify">
+                                    <strong>{{$data['funder']->ranks}}</strong>
+                                    <span></span>
+                                </div>
+                            </td>
+                            <td class="align-justify">
+                                <div class="signatory-rank-justify">
+                                    <strong>{{$data['requestor']->ranks}}</strong>
+                                    <span></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-center">{{$data['approver']->designation}}</td>
+                            <td class="align-center">{{$data['funder']->designation}}</td>
+                            <td class="align-center">{{$data['requestor']->designation}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+
+                {{-- <div class="printable-form__body">
                     <span class="printable-form__body__title">Unit Purchase Request</span>
                     <table class="printable-form__body__table">
                         <tbody>
@@ -151,7 +278,7 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
                 <!-- form footer -->
                 {{-- <div class="printable-form__foot">
                     <table class="printable-form__foot__table">
