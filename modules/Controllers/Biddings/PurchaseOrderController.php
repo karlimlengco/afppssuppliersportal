@@ -10,6 +10,7 @@ use PDF;
 use Carbon\Carbon;
 use Validator;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use \Revlv\Procurements\PurchaseOrder\PORepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
@@ -163,13 +164,15 @@ class PurchaseOrderController extends Controller
             $path       = $request->file->storeAs('coa-approved-attachments', $file);
         }
 
-        $upr->update([
+        $upr_result  = $upr->update([
             'status' => 'PO Approved',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $po->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." PO Approved"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Purchase Order has been successfully approved."
@@ -234,13 +237,16 @@ class PurchaseOrderController extends Controller
         $model->update(['status' => 'MFO Approved'], $id);
 
 
-        $upr->update([
+        $upr_result  = $upr->update([
             'status' => "PO MFO Approved",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
             'calendar_days' => $day_delayed + $po->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $po->upr_id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number." MFO Approved"));
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -304,13 +310,16 @@ class PurchaseOrderController extends Controller
         $result =   $model->update($inputs, $id);
 
         $model->update(['status' => 'Accounting Approved'], $id);
-        $upr->update([
+
+        $upr_result  = $upr->update([
             'status' => "PO Funding Approved",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
             'calendar_days' => $day_delayed + $po->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $po->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." Funding Approved"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -471,13 +480,16 @@ class PurchaseOrderController extends Controller
             DB::table('purchase_order_items')->insert($item_datas);
         }
 
-        $upr->update([
+        $upr_result  = $upr->update([
             'status' => "PO Created",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
             'calendar_days' => $day_delayed + $upr_model->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $noa_model->upr_id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number." PO Created"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -551,9 +563,9 @@ class PurchaseOrderController extends Controller
         UnitPurchaseRequestRepository $upr)
     {
         $result             =   $model->findById($id);
-        $noa_model          =   $noa->with('winner')->findByRFQ($result->rfq_id);
+        $noa_model          =   $noa->with('winner')->findByUPR($result->upr_id);
 
-        if($upr_model->mode_of_procurement == 'public_bidding')
+        if($result->upr->mode_of_procurement == 'public_bidding')
         {
                 $supplier           =   $noa_model->biddingWinner->supplier;
         }
@@ -771,11 +783,11 @@ class PurchaseOrderController extends Controller
 
         if($upr_model->mode_of_procurement == 'public_bidding')
         {
-            $noa_model                  =  $noa->with('winner')->findByRFQ($result->rfq_id)->biddingWinner->supplier;
+            $noa_model                  =  $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
         }
         else
         {
-            $noa_model                  =  $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+            $noa_model                  =  $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
         if($result->coa_signatories == null || $result->requestor == null || $result->accounting == null )
@@ -825,11 +837,11 @@ class PurchaseOrderController extends Controller
 
         if($upr_model->mode_of_procurement == 'public_bidding')
         {
-            $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->biddingWinner->supplier;
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
         }
         else
         {
-            $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
         if($result->coa_signatories == null)

@@ -108,7 +108,16 @@ class NoticeToProceedController extends Controller
     {
         $result             =   $model->with(['winner'])->findById($id);
         $po_model           =   $po->with(['items'])->findById($result->po_id);
-        $supplier           =   $result->winner->supplier;
+
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $result->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $result->winner->supplier;
+        }
+
         $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findById($result->rfq_id);
 
         $signatory_list     =   $signatories->lists('id','name');

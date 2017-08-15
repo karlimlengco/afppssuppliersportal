@@ -9,6 +9,7 @@ use Auth;
 use Carbon\Carbon;
 use Validator;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceRepository;
 use Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceRequest;
@@ -181,7 +182,7 @@ class DocumentAcceptanceController extends Controller
 
         if($request->return_date == null)
         {
-            $upr->update([
+            $upr_result = $upr->update([
                 'status'        => 'Document Accepted',
                 'next_allowable'=> 1,
                 'next_step'     => 'PreProc Conference',
@@ -195,6 +196,14 @@ class DocumentAcceptanceController extends Controller
                 'last_action'   => $request->action,
                 'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+
+            event(new Event($upr_result, $upr_result->ref_number." Document Accepted"));
+        }
+        else
+        {
+
+            event(new Event($result->upr, $result->upr->ref_number." Document Return"));
         }
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([

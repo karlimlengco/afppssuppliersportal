@@ -9,6 +9,7 @@ use Auth;
 use \App\Support\Breadcrumb;
 use Carbon\Carbon;
 use Validator;
+use App\Events\Event;
 
 use Revlv\Biddings\PostQualification\PostQualificationRepository;
 use Revlv\Biddings\PostQualification\PostQualificationRequest;
@@ -164,7 +165,7 @@ class PostQualificationController extends Controller
 
         $result = $model->save($inputs);
 
-        $upr->update([
+        $upr_result = $upr->update([
             'status' => 'Post Qualification',
             'next_allowable'=> 2,
             'next_step'     => 'Prepare NOA',
@@ -176,6 +177,8 @@ class PostQualificationController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
         ], $upr_model->id);
+
+        event(new Event($upr_result, $upr_result->ref_number." Post Qualification"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

@@ -431,9 +431,17 @@ class DeliveredInspectionReportController extends Controller
     {
 
         $result             =   $model->with('issues')->findById($id);
-        $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        // $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
 
-        $signatory_list     =   $signatories->lists('id','name');
+         $signatory_list     =   $signatories->lists('id','name');
 
         return $this->view('modules.procurements.delivered-inspections.show',[
             'data'          =>  $result,

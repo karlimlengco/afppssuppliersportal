@@ -255,6 +255,8 @@ class CanvassingController extends Controller
 
 
         $proponent_list =   $proponents->findByRFQId($result->rfq_id);
+
+
         foreach($proponent_list as $props)
         {
             $proponents->update(['bid_amount' => 0, 'status' => Null], $props->id);

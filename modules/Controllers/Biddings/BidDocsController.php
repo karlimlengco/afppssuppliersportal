@@ -9,6 +9,7 @@ use Auth;
 use Carbon\Carbon;
 use \App\Support\Breadcrumb;
 use Validator;
+use App\Events\Event;
 
 use Revlv\Biddings\BidDocs\BidDocsRepository;
 use Revlv\Biddings\BidDocs\BidDocsRequest;
@@ -17,6 +18,7 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
+
 
 class BidDocsController extends Controller
 {
@@ -117,6 +119,8 @@ class BidDocsController extends Controller
         ];
 
         $result = $model->save($inputs);
+
+        event(new Event($upr_model, $upr_model->ref_number." Bid Docs Issuance"));
 
         return redirect()->back()->with([
             'success'  => "New record has been successfully added."

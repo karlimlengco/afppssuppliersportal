@@ -9,6 +9,7 @@ use Auth;
 use Carbon\Carbon;
 use \App\Support\Breadcrumb;
 use Validator;
+use App\Events\Event;
 
 use Revlv\Biddings\PreBid\PreBidRepository;
 use Revlv\Biddings\PreBid\PreBidRequest;
@@ -177,7 +178,7 @@ class PreBidController extends Controller
 
         if($request->resched_date == null)
         {
-            $upr->update([
+            $upr_result  = $upr->update([
                 'status' => 'Pre Bid Conference',
                 'next_allowable'=> 1,
                 'next_step'     => 'SOBE',
@@ -189,6 +190,12 @@ class PreBidController extends Controller
                 'last_action'   => $request->action,
                 'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+            event(new Event($upr_result, $upr_result->ref_number." Pre Bid Conference"));
+        }
+        else
+        {
+            event(new Event($result->upr, $result->upr->ref_number." Re-Sched Pre Bid Conference"));
         }
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([

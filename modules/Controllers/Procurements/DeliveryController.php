@@ -212,7 +212,7 @@ class DeliveryController extends Controller
             'next_due'      => $transaction_date->addDays($po_model->delivery_terms),
             'last_date'     => $transaction_date,
             'status'        => 'NOD Created',
-            'delay_count'   => $day_delayed,
+            'delay_count'   => $wd,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
@@ -694,7 +694,18 @@ class DeliveryController extends Controller
             ]);
         }
 
-        $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+        // $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+
+
+        if($upr_model->mode_of_procurement == 'public_bidding')
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
+
         $data['transaction_date']   =  $result->delivery_date;
         $data['po_number']          =  $result->po->po_number;
         $data['bid_amount']         =  $result->po->bid_amount;

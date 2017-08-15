@@ -10,6 +10,7 @@ use \App\Support\Breadcrumb;
 use PDF;
 use Carbon\Carbon;
 use Validator;
+use App\Events\Event;
 
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
@@ -85,17 +86,27 @@ class InspectionAndAcceptanceController extends Controller
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('accepted_date') );
         $tiac_date              =   Carbon::createFromFormat('Y-m-d', $tiac->inspection_date );
 
+        $cd                     =   $tiac_date->diffInDays($transaction_date);
+
         $day_delayed            =   $tiac_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+        if($day_delayed > 1)
+        {
+            $day_delayed = $day_delayed - 1;
+        }
 
         $validator = Validator::make($request->all(),[
             'accepted_date'       => 'required',
-            'accept_action'            => 'required_with:accept_remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('accept_remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('accept_remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('accept_action') == null && $day_delayed > 1) {
                 $validator->errors()->add('accept_remarks', 'This field is required when your process is delay');
             }
         });
@@ -112,7 +123,7 @@ class InspectionAndAcceptanceController extends Controller
             'accepted_date'     =>  $request->accepted_date,
             'status'            =>  'Accepted',
             'accepted_by'       =>  \Sentinel::getUser()->id,
-            'accept_days'       =>  $day_delayed,
+            'accept_days'       =>  $wd,
             'accept_remarks'    =>  $request->accept_remarks,
             'accept_action'    =>  $request->accept_action
         ];
@@ -121,13 +132,19 @@ class InspectionAndAcceptanceController extends Controller
 
         $delivery->update(['status' => 'Accepted'], $result->dr_id);
 
-        $upr->update([
-            'status' => 'Inspection Accepted',
-            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
-            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+        $upr_result  =  $upr->update([
+            'next_allowable'=> 1,
+            'next_step'     => 'DIIR',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => 'Inspection Accepted',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." Inspection Accepted"));
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -220,18 +237,30 @@ class InspectionAndAcceptanceController extends Controller
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('inspection_date') );
         $dr_date                =   Carbon::createFromFormat('Y-m-d', $dr_model->date_delivered_to_coa );
 
+        $cd                     =   $dr_date->diffInDays($transaction_date);
+
         $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+        if($day_delayed > 1)
+        {
+            $day_delayed = $day_delayed - 1;
+        }
+
 
         $validator = Validator::make($request->all(),[
             'inspection_date'       => 'required',
-            'action'       => 'required_with:remarks',
+            'invoice_number.*' => 'required'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('remarks') == null && $day_delayed > 1) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('action') == null && $day_delayed > 1) {
+                $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
 
@@ -252,7 +281,7 @@ class InspectionAndAcceptanceController extends Controller
             'findings'          =>  $request->findings,
             'remarks'           =>  $request->remarks,
             'action'           =>  $request->action,
-            'days'              =>  $day_delayed,
+            'days'              =>  $wd,
         ];
 
         $inputs['dr_id']            =   $dr_model->id;
@@ -279,13 +308,20 @@ class InspectionAndAcceptanceController extends Controller
             DB::table('inspection_acceptance_invoices')->insert($invoices);
         }
 
-        $upr->update([
-            'status' => 'Inspection Started',
-            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
-            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+        $upr_result = $upr->update([
+            'next_allowable'=> 1,
+            'next_step'     => 'Inspection Acceptance',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => 'Inspection Started',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number." Inspection Started"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -351,7 +387,16 @@ class InspectionAndAcceptanceController extends Controller
     {
         $result             =   $model->with('invoices')->findById($id);
 
-        $supplier           =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
+
         $signatory_list     =   $signatories->lists('id','name');
 
         return $this->view('modules.biddings.inspection-acceptance.show',[
@@ -505,7 +550,15 @@ class InspectionAndAcceptanceController extends Controller
 
         $result                     =  $delivery->with(['upr', 'po'])->findById($model->dr_id);
 
-        $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+        // $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $noa_model           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $noa_model           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
         $data['po_number']          =  $result->po->po_number;
         $data['purchase_date']      =  $result->po->purchase_date;
         $data['bid_amount']         =  $result->po->bid_amount;

@@ -616,8 +616,15 @@ class PurchaseOrderController extends Controller
         UnitPurchaseRequestRepository $upr)
     {
         $result             =   $model->findById($id);
-        $noa_model          =   $noa->with('winner')->findByRFQ($result->rfq_id);
-        $supplier           =   $noa_model->winner->supplier;
+        $noa_model          =   $noa->with('winner')->findByUPR($result->upr_id);
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $noa_model->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $noa_model->winner->supplier;
+        }
 
         $signatory_list     =   $signatories->lists('id','name');
         return $this->view('modules.procurements.purchase-order.show',[
@@ -828,7 +835,16 @@ class PurchaseOrderController extends Controller
     {
         $result                     =  $model->with(['terms','delivery','rfq','items'])->findById($id);
         $upr_model                  =  $upr->findById($result->upr_id);
-        $noa_model                  =  $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+
+
+        if($upr_model->mode_of_procurement == 'public_bidding')
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        } ;
 
         if($result->coa_signatories == null || $result->requestor == null || $result->accounting == null )
         {
@@ -875,7 +891,16 @@ class PurchaseOrderController extends Controller
     public function viewPrintCOA($id, PORepository $model, NOARepository $noa)
     {
         $result                     =  $model->with(['coa_signatories','rfq','upr'])->findById($id);
-        $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+        // $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+
+        if($upr_model->mode_of_procurement == 'public_bidding')
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
 
         if($result->coa_signatories == null)
         {

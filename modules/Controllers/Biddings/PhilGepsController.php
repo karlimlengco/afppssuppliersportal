@@ -9,6 +9,7 @@ use Auth;
 use Carbon\Carbon;
 use \App\Support\Breadcrumb;
 use Validator;
+use App\Events\Event;
 
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRepository;
 use \Revlv\Procurements\PhilGepsPosting\PhilGepsPostingRequest;
@@ -166,7 +167,7 @@ class PhilGepsController extends Controller
             $status  = 'Philgeps Need Repost';
         }
 
-        $upr->update([
+        $upr_result = $upr->update([
             'status'        => $status,
             'next_allowable'=> 1,
             'next_step'     => 'Pre Bid',
@@ -178,6 +179,8 @@ class PhilGepsController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
              ], $upr_model->id);
+
+        event(new Event($upr_result, $upr_result->ref_number." ". $status));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

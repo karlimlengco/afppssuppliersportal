@@ -132,4 +132,9 @@ class NTPEloquent extends Model implements  AuditableContract
         return $this->belongsTo('\Revlv\Procurements\RFQProponents\RFQProponentEloquent', 'proponent_id');
     }
 
+
+    public function biddingWinner()
+    {
+        return $this->belongsTo('\Revlv\Biddings\BidDocs\BidDocsEloquent', 'proponent_id');
+    }
 }

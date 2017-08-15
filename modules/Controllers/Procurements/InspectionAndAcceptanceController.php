@@ -384,7 +384,17 @@ class InspectionAndAcceptanceController extends Controller
     {
         $result             =   $model->with('invoices')->findById($id);
 
-        $supplier           =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
+
+
         $signatory_list     =   $signatories->lists('id','name');
 
         return $this->view('modules.procurements.inspection-acceptance.show',[
@@ -543,7 +553,18 @@ class InspectionAndAcceptanceController extends Controller
 
         $result                     =  $delivery->with(['upr', 'po'])->findById($model->dr_id);
 
-        $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+        // $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+
+
+        if($upr_model->mode_of_procurement == 'public_bidding')
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
+
         $data['po_number']          =  $result->po->po_number;
         $data['purchase_date']      =  $result->po->purchase_date;
         $data['bid_amount']         =  $result->po->bid_amount;

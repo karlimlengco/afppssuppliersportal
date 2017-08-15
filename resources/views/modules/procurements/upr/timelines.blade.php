@@ -281,10 +281,18 @@ Unit Purchase Request
                         <tr>
                             <td>Document Acceptance</td>
                             <td>
-                                <?php $doc_transaction_date  =  createCarbon('Y-m-d',$docu->transaction_date); ?>
+                                @if($docu->approved_date != null)
+                                <?php $doc_transaction_date  =  createCarbon('Y-m-d',$docu->approved_date); ?>
                                 <a target="_blank" href="{{route('biddings.document-acceptance.show', $docu->id)}}">
                                     {{ $doc_transaction_date->format('d F Y') }}
                                 </a>
+                                @else
+
+                                <?php $doc_transaction_date  =  createCarbon('Y-m-d',$docu->return_date); ?>
+                                <a target="_blank" href="{{route('biddings.document-acceptance.show', $docu->id)}}">
+                                    {{ $doc_transaction_date->format('d F Y') }}
+                                </a>
+                                @endif
                             </td>
                             <td >1</td>
                             <td>

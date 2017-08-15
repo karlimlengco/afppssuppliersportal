@@ -122,6 +122,15 @@
             <span >Post Qualification</span>
             <a href="#" class="button" id="post-qual-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif
+        @if($data->status == 'Post Qualification')
+
+            <a href="{{route('biddings.bid-openings.show', $data->bid_open->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+            <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
+            {{-- <a class="button__options__item" id="post-qual-button" href="#">Post Qualification</a> --}}
+
+            <span >Post Qualification</span>
+            <a href="{{route('biddings.post-qualifications.show', $data->post_qual->id)}}" class="button"  tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif
     @endif
 
     @if(strpos($data->status, 'Awarded To') !== false || $data->status == 'Approved NOA')

@@ -9,6 +9,7 @@ use PDF;
 use Carbon\Carbon;
 use Validator;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use Revlv\Biddings\BidDocs\BidDocsRepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
@@ -133,7 +134,7 @@ class NOAController extends Controller
         $noaModal   =   $noa->save($data);
 
         // // update upr
-        $upr->update([
+        $upr_result  = $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'Approved NOA',
             'next_due'      => $transaction_date->addDays(1),
@@ -144,6 +145,9 @@ class NOAController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ],  $pq_model->upr_id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number." Award NOA"));
 
         return redirect()->route('biddings.noa.show', $noaModal->id)->with([
             'success'  => "New record has been successfully added."
@@ -233,13 +237,16 @@ class NOAController extends Controller
         $result             =   $model->findById($id);
 
         $model->update($input, $id);
-        $upr->update([
+        $upr_result    =  $upr->update([
             'status' => 'NOA Received',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number." NOA Received"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -315,13 +322,16 @@ class NOAController extends Controller
         }
 
          // // update upr
-        $upr->update([
+        $upr_result  = $upr->update([
             'status' => "Approved NOA",
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ],  $result->upr_id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number." NOA Approved"));
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([

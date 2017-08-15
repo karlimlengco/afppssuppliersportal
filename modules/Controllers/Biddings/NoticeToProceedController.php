@@ -8,6 +8,7 @@ use Auth;
 use PDF;
 use Carbon\Carbon;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 use Validator;
 
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
@@ -108,7 +109,16 @@ class NoticeToProceedController extends Controller
     {
         $result             =   $model->with(['winner'])->findById($id);
         $po_model           =   $po->with(['items'])->findById($result->po_id);
-        $supplier           =   $result->winner->supplier;
+
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $result->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $result->winner->supplier;
+        }
+
         $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findById($result->rfq_id);
 
         $signatory_list     =   $signatories->lists('id','name');
@@ -205,13 +215,17 @@ class NoticeToProceedController extends Controller
         ];
 
 
-        $upr->update([
+        $upr_result  = $upr->update([
             'status' => "NTP Created",
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $po_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $po_model->upr_id);
+
+
+
+        event(new Event($upr_result, $upr_result->ref_number." NTP Created"));
 
         $result = $model->save($inputs);
 
@@ -393,13 +407,15 @@ class NoticeToProceedController extends Controller
 
         $result             =   $model->update($input, $id);
 
-        $upr->update([
+        $upr_result   = $upr->update([
             'status' => 'NTP Accepted',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $ntp_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." NTP Accepted"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

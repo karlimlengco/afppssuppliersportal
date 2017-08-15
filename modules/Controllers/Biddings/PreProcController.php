@@ -9,6 +9,7 @@ use Auth;
 use Carbon\Carbon;
 use Validator;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceRepository;
 use Revlv\Biddings\PreProc\PreProcRepository;
@@ -146,7 +147,7 @@ class PreProcController extends Controller
 
         if($request->resched_date == null)
         {
-            $upr->update([
+            $upr_result = $upr->update([
                 'status'        => 'PreProc Conference',
                 'next_allowable'=> 1,
                 'next_step'     => 'Invitation To Bid',
@@ -160,6 +161,12 @@ class PreProcController extends Controller
                 'last_action'   => $request->action,
                 'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+            event(new Event($upr_result, $upr_result->ref_number." PreProc Conference"));
+        }
+        else
+        {
+            event(new Event($result->upr, $result->upr->ref_number." Re-Sched PreProc Conference"));
         }
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([

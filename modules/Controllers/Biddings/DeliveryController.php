@@ -9,6 +9,7 @@ use DB;
 use PDF;
 use \App\Support\Breadcrumb;
 use Carbon\Carbon;
+use App\Events\Event;
 use Validator;
 
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
@@ -127,10 +128,12 @@ class DeliveryController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
         $ntp_date               =   Carbon::createFromFormat('Y-m-d', $ntp->award_accepted_date );
+        $cd                     =   $ntp_date->diffInDays($transaction_date);
 
         $day_delayed            =   $ntp_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
         $validator = Validator::make($request->all(),[
             'expected_date'     =>  'required',
@@ -162,7 +165,7 @@ class DeliveryController extends Controller
             'status'            =>  'ongoing',
             'upr_number'        =>  $po_model->upr_number,
             'created_by'        =>  \Sentinel::getUser()->id,
-            'days'              =>  $day_delayed,
+            'days'              =>  $wd,
             'action'           =>  $request->action,
             'remarks'           =>  $request->remarks
         ];
@@ -185,13 +188,20 @@ class DeliveryController extends Controller
 
         DB::table('delivery_order_items')->insert($items);
 
-        $upr->update([
-            'status' => 'NOD Created',
-            'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
-            'calendar_days' => $day_delayed + $result->upr->calendar_days,
+        $upr_result  = $upr->update([
+            'next_allowable'=> $po_model->delivery_terms,
+            'next_step'     => 'Receive Delivery',
+            'next_due'      => $transaction_date->addDays($po_model->delivery_terms),
+            'last_date'     => $transaction_date,
+            'status'        => 'NOD Created',
+            'delay_count'   => $wd,
+            'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number." NOD Created"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -392,19 +402,30 @@ class DeliveryController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('delivery_date') );
         $dr_date                =   Carbon::createFromFormat('Y-m-d', $dr_model->transaction_date );
+        $cd                     =   $dr_date->diffInDays($transaction_date);
 
         $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+        if($day_delayed > $dr_model->po->delivery_terms)
+        {
+            $day_delayed = $day_delayed - $dr_model->po->delivery_terms;
+        }
+
+
         $validator = Validator::make($request->all(),[
             'delivery_date'     =>  'required',
-            'delivery_action'  =>  'required_with:delivery_remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('delivery_remarks') == null && $day_delayed > 7) {
                 $validator->errors()->add('delivery_remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('delivery_action') == null && $day_delayed > 7) {
+                $validator->errors()->add('delivery_action', 'This field is required when your process is delay');
             }
         });
 
@@ -415,7 +436,7 @@ class DeliveryController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        $inputs['delivery_days']    =   $day_delayed;
+        $inputs['delivery_days']    =   $wd;
         $inputs['delivery_remarks'] =   $request->delivery_remarks;
         $inputs['delivery_action']  =   $request->delivery_action;
 
@@ -423,38 +444,82 @@ class DeliveryController extends Controller
         $item_input =   $request->only(['ids', 'received_quantity']);
 
         $errcount = 0;
+        $new_item  =   [];
         for ($i=0; $i < count($item_input['ids']) ; $i++) {
             $item_model =  $items->getById($item_input['ids'][$i]);
+
+
             if($item_model->quantity != $item_input['received_quantity'][$i])
             {
+                $new_quantity       =   $item_model->quantity - $item_input['received_quantity'][$i];
+                $new_item[]  =   [
+                    'order_id'      =>  $item_model->order_id,
+                    'description'   =>  $item_model->description,
+                    'quantity'      =>  $new_quantity,
+                    'unit'          =>  $item_model->unit,
+                    'price_unit'    =>  $item_model->price_unit,
+                    'total_amount'  =>  $item_model->price_unit * $new_quantity,
+                ];
                 $errcount ++;
             }
 
+
             $items->update([
-                'received_quantity' => $item_input['received_quantity'][$i]
-                ], $item_input['ids'][$i]);
+                'quantity'          =>  $item_input['received_quantity'][$i],
+                'received_quantity' =>  $item_input['received_quantity'][$i]
+            ], $item_input['ids'][$i]);
+
         }
 
         $inputs['received_by']  =   \Sentinel::getUser()->id;
 
-        $model->update($inputs, $id);
-
-        if($errcount == 0)
+        if($errcount != 0)
         {
-            $status =   'Delivery Received';
+            $status =   'Delivery Partial';
+
+            $dr_inputs     =   [
+                'expected_date'     =>  $dr_model->expected_date,
+                'transaction_date'  =>  $dr_model->transaction_date,
+                'po_id'             =>  $dr_model->po_id,
+                'rfq_id'            =>  $dr_model->rfq_id,
+                'upr_id'            =>  $dr_model->upr_id,
+                'rfq_number'        =>  $dr_model->rfq_number,
+                'status'            =>  'ongoing',
+                'upr_number'        =>  $dr_model->upr_number,
+                'created_by'        =>  $dr_model->created_by,
+                'days'              =>  $dr_model->days,
+            ];
+
+            $new_dr =   $model->save($dr_inputs);
+
+            foreach($new_item as $nitem)
+            {
+                $nitem['order_id'] = $new_dr->id;
+                $items->save($nitem);
+            }
         }
         else
         {
-            $status =   'Delivery Incomplete';
+            $status =   'Delivery Received';
         }
 
-        $upr->update([
-            'status'    => $status,
-            'delay_count'   => ($day_delayed > 7 )? $day_delayed - 7 : 0,
-            'calendar_days' => $day_delayed + $dr_model->upr->calendar_days,
+        $inputs['status']       =   $status;
+
+        $model->update($inputs, $id);
+
+        $upr_result  = $upr->update([
+            'next_allowable'=> 1,
+            'next_step'     => 'COA Delivery',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => $status,
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $dr_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $dr_model->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." ". $status));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -585,7 +650,17 @@ class DeliveryController extends Controller
             ]);
         }
 
-        $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+        // $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $noa_model           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $noa_model           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
+
         $data['transaction_date']   =  $result->delivery_date;
         $data['po_number']          =  $result->po->po_number;
         $data['bid_amount']         =  $result->po->bid_amount;

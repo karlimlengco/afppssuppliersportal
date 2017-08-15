@@ -9,6 +9,7 @@ use Auth;
 use Carbon\Carbon;
 use Validator;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use Revlv\Biddings\InvitationToBid\InvitationToBidRepository;
 use Revlv\Biddings\InvitationToBid\InvitationToBidRequest;
@@ -162,10 +163,10 @@ class InvitationToBidController extends Controller
 
         $result = $model->save($inputs);
 
-        $upr->update([
+        $upr_result = $upr->update([
             'status' => 'ITB Created',
             'next_allowable'=> 3,
-            'next_step'     => 'PhilGeps POsting',
+            'next_step'     => 'PhilGeps Posting',
             'next_due'      => $transaction_date->addDays(3),
             'last_date'     => $transaction_date,
             'processed_by'  => \Sentinel::getUser()->id,
@@ -174,6 +175,8 @@ class InvitationToBidController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
              ], $upr_model->id);
+
+        event(new Event($upr_result, $upr_result->ref_number." ITB Created"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

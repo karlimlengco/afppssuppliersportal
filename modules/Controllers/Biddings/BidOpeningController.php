@@ -9,6 +9,7 @@ use Auth;
 use Carbon\Carbon;
 use Validator;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use Revlv\Biddings\BidOpening\BidOpeningRepository;
 use Revlv\Biddings\BidOpening\BidOpeningRequest;
@@ -159,7 +160,7 @@ class BidOpeningController extends Controller
 
         $result = $model->save($inputs);
 
-        $upr->update([
+        $upr_result  = $upr->update([
             'status' => 'SOBE OPEN',
             'next_allowable'=> 1,
             'next_step'     => 'Closed SOBE',
@@ -171,6 +172,8 @@ class BidOpeningController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
         ], $upr_model->id);
+
+        event(new Event($upr_result, $upr_result->ref_number." SOBE Open"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -303,13 +306,14 @@ class BidOpeningController extends Controller
         $transaction_date   =   Carbon::createFromFormat('Y-m-d',$result->transaction_date);
         $upr_model  = $result->upr;
 
-        $upr->update([
+        $upr_result = $upr->update([
             'status' => 'SOBE Closed',
             'next_allowable'=> 1,
             'next_step'     => 'Post Qualification',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
         ], $upr_model->id);
+        event(new Event($upr_result, $upr_result->ref_number." SOBE Closed"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
