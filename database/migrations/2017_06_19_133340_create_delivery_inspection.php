@@ -38,6 +38,7 @@ class CreateDeliveryInspection extends Migration
 
 
             $table->integer('received_by')->nullable();
+            $table->integer('inspected_by')->nullable();
             $table->integer('approved_by')->nullable();
             $table->integer('issued_by')->nullable();
             $table->integer('requested_by')->nullable();

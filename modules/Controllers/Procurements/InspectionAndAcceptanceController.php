@@ -584,6 +584,58 @@ class InspectionAndAcceptanceController extends Controller
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('iar.pdf');
     }
 
+    /**
+     * [viewPrintMFO description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrintMFO(
+        $id,
+        InspectionAndAcceptanceRepository $model,
+        DeliveryOrderRepository $delivery,
+        NOARepository $noa
+        )
+    {
+        $model                      =  $model->with(['acceptor', 'inspector'])->findById($id);
+        if($model->acceptor ==null || $model->inspector == null)
+        {
+            return redirect()->back()->with(['error' => 'please add signatory']);
+        }
+
+        $result                     =  $delivery->with(['upr', 'po'])->findById($model->dr_id);
+
+        // $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
+
+
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
+
+        $data['po_number']          =  $result->po->po_number;
+        $data['purchase_date']      =  $result->po->purchase_date;
+        $data['bid_amount']         =  $result->po->bid_amount;
+        $data['project_name']       =  $result->upr->project_name;
+        $data['center']             =  $result->upr->centers->name;
+        $data['signatory']          =  $result->signatory;
+        $data['winner']             =  $noa_model->name;
+        $data['expected_date']      =  $result->expected_date;
+        $data['items']              =  $result->po->items;
+        $data['accepted_date']      =  $model->accepted_date;
+        $data['inspection_date']    =  $model->inspection_date;
+        $data['acceptor']           =  $model->acceptor;
+        $data['inspector']          =  $model->inspector;
+
+        $pdf = PDF::loadView('forms.iar', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('iar.pdf');
+    }
+
 
     /**
      * [updateSignatory description]

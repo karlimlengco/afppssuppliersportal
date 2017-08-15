@@ -503,6 +503,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     */
     Route::get('inspection-and-acceptance/logs/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@viewLogs')->name('inspection-and-acceptance.logs');
     Route::get('inspection-and-acceptance/print/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@viewPrint')->name('inspection-and-acceptance.print');
+    Route::get('inspection-and-acceptance/print-mfo/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@viewPrintMFO')->name('inspection-and-acceptance.print-mfo');
     Route::post('inspection-and-acceptance/create-from-delivery/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@storeFromDelivery')->name('inspection-and-acceptance.create-from-delivery.store');
     Route::get('inspection-and-acceptance/create-from-delivery/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@createFromDelivery')->name('inspection-and-acceptance.create-from-delivery');
     Route::post('inspection-and-acceptance/accepted/{id}', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@acceptOrder')->name('inspection-and-acceptance.accepted');

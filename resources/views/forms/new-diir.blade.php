@@ -62,9 +62,9 @@
                                 <td class="has-child" colspan="4">
                                     <table class="child-table">
                                         <tr>
-                                            <td class="head" width="10%">Qty</td>
+                                            <td style="text-align:center" class="head" width="10%">Qty</td>
                                             <td class="head" width="10%">U/I</td>
-                                            <td class="head" width="40%">Article/Nomenclature</td>
+                                            <td style="text-align:left" class="head" width="40%">Article/Nomenclature</td>
                                             <td class="head" width="20%">Amount Unit Item</td>
                                             <td class="head" width="20%">Total Amount</td>
                                         </tr>
@@ -136,6 +136,7 @@
                                     </table>
                                 </div>
                                 {{$data['requestor']->designation}}<br>
+                                Date
                             </td>
                             <td width="10%"></td>
                             <td class="signatory align-center v-align-middle" width="45%">
@@ -159,104 +160,18 @@
                                     </table>
                                 </div>
                                 {{$data['issuer']->designation}}<br>
+                                Date
                             </td>
                         </tr>
                     </table>
 
                     <p><strong>Section B: Report of Inspection and Action Taken</strong></p>
                     <p><strong>Findings/Observation:</strong><br>
+                    <p>
                     @foreach($data['issues'] as $issue)
-                        <p>{{$issue->issue}} / {{$issue->remarks}}</p>
+                        {{$issue->issue}},
                     @endforeach
                     </p>
-                    <!-- form signatories -->
-                    <table class="printable-form__body__table
-                                  printable-form__body__table--borderless" style="page-break-inside:avoid">
-                        <tr>
-                            <td class="v-align-bottom align-center" width="30%">Inspected By:</td>
-                            <td width="5%"></td>
-                            <td class="v-align-bottom align-center" width="30%">Witnessed By:</td>
-                            <td width="5%"></td>
-                            <td class="v-align-bottom align-center" width="30%">Certified By:</td>
-                        </tr>
-                        <tr>
-                            <td class="v-align-bottom align-center" height="80px"></td>
-                            <td></td>
-                            <td class="v-align-bottom align-center" height="80px"></td>
-                            <td></td>
-                            <td class="v-align-bottom align-center" height="80px"></td>
-                        </tr>
-                        <tr>
-                            <td class="signatory align-center v-align-middle" width="30%">
-                                <div class="signatory-name">
-                                    <table>
-                                        <tr>
-                                            <td width="50%"></td>
-                                            <td nowrap>{{$data['inspector']->name}}</td>
-                                            <td width="50%"></td>
-                                        </tr>
-                                        <tr>
-                                            <td width="50%"></td>
-                                            <td class="align-justify">
-                                                <div class="signatory-rank-justify">
-                                                    <strong>{{$data['inspector']->ranks}}</strong>
-                                                    <span></span>
-                                                </div>
-                                            </td>
-                                            <td width="50%"></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                {{$data['inspector']->designation}}<br>
-                            </td>
-                            <td width="5%"></td>
-                            <td class="signatory align-center v-align-middle" width="30%">
-                                <div class="signatory-name">
-                                    <table>
-                                        <tr>
-                                            <td width="50%"></td>
-                                            <td nowrap>{{$data['receiver']->name}}</td>
-                                            <td width="50%"></td>
-                                        </tr>
-                                        <tr>
-                                            <td width="50%"></td>
-                                            <td class="align-justify">
-                                                <div class="signatory-rank-justify">
-                                                    <strong>{{$data['receiver']->ranks}}</strong>
-                                                    <span></span>
-                                                </div>
-                                            </td>
-                                            <td width="50%"></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                {{$data['receiver']->designation}}<br>
-                            </td>
-                            <td width="5%"></td>
-                            <td class="signatory align-center v-align-middle" width="30%">
-                                <div class="signatory-name">
-                                    <table>
-                                        <tr>
-                                            <td width="50%"></td>
-                                            <td nowrap>{{$data['approver']->name}}</td>
-                                            <td width="50%"></td>
-                                        </tr>
-                                        <tr>
-                                            <td width="50%"></td>
-                                            <td class="align-justify">
-                                                <div class="signatory-rank-justify">
-                                                    <strong>{{$data['approver']->ranks}}</strong>
-                                                    <span></span>
-                                                </div>
-                                            </td>
-                                            <td width="50%"></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                {{$data['approver']->designation}}<br>
-                            </td>
-                        </tr>
-                    </table>
                 </div>
             </div>
 
