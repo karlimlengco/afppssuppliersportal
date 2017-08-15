@@ -556,7 +556,7 @@ class InspectionAndAcceptanceController extends Controller
         // $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
 
 
-        if($upr_model->mode_of_procurement == 'public_bidding')
+        if($result->upr->mode_of_procurement == 'public_bidding')
         {
             $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
         }
