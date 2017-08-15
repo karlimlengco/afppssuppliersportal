@@ -483,6 +483,7 @@ class NoticeToProceedController extends Controller
         $data['total_amount']       =   $result->po->bid_amount;
         $data['signatory']          =   $result->signatory;
         $data['project_name']       =   $upr_model->project_name;
+        $data['items']              =   $upr_model->items;
         $data['today']              =   \Carbon\Carbon::now()->format("d F Y");
 
         $pdf = PDF::loadView('forms.ntp', ['data' => $data])
