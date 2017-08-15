@@ -664,6 +664,10 @@ class NoticeOfAwardController extends Controller
         {
             $proponent_awardee  =   $noa_modal->biddingWinner->supplier;
             $bidamount          =   $noa_modal->biddingWinner->bid_amount;
+            $data['rfq_date']           =   "";
+
+            $data['rfq_number']         =   "";
+
 
         }
         else
@@ -683,8 +687,10 @@ class NoticeOfAwardController extends Controller
         $data['transaction_date']   =   $noa_modal->awarded_date;
         $data['supplier']           =   $proponent_awardee;
         $data['unit']               =   $upr_model->unit->description;
+        $data['center']             =  $result->upr->centers->name;
         $data['total_amount']       =   $upr_model->total_amount;
         $data['bid_amount']         =   $bidamount;
+        $data['items']              =   $upr_model->items;
 
 
         $data['signatory']          =   $noa_modal->signatory;

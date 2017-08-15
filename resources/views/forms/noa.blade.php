@@ -31,7 +31,107 @@
                     </div>
                 </div>
                 <!-- form header -->
+
                 <div class="printable-form__body">
+                    <span class="printable-form__body__title">Notice of Award</span>
+
+                    <p{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['transaction_date'])->format('d F Y')}}</p>
+                    <p>
+                        {{$data['supplier']->owner}}<br>
+                        {{$data['supplier']->name}}<br>
+                        {{$data['supplier']->address}}<br>
+                        Tel: {{$data['supplier']->phone_1}} Fax: {{$data['supplier']->fax_1}}
+                    </p>
+                    <p>Dear Madam,</p>
+                    <p>We are pleased to notify you that your price offer/s for the {{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) < 1) and {{count($data['items']) - 1}} @endif only of RFQ No.{{$data['rfq_number']}} dated {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['transaction_date'])->format('d F Y')}} for the use of {{$data['center']}} in the amount of {{translateToWords($data['bid_amount'])}} PESOS ONLY (Php {{formatPrice($data['bid_amount'])}}) is hereby accepted. A contract for the procurement of this item/s is being awarded to your company/firm.</p>
+                    <p>You shall subsequently be informed (thru your contact number or email address specified below) accordingly to appear before this office for the requirements.</p>
+                    <p class="indent">
+                        - Signing of PURCHASE ORDER<br>
+                        - Acknowledgement of the Notice to Proceed
+                    </p>
+                    <p>Failure to comply with the above requirements within the prescribed period shall be grounds for the cancellation of this award.</p>
+                    <p>Meantime, you are requested to affix your conformity hereto and send this back to us not later than two (2) working days upon receipt of this notice. </p>
+                    <p>Very truly yours;</p>
+                    <!-- form signatories -->
+                    <table class="printable-form__body__table
+                                  printable-form__body__table--borderless">
+                        <tr>
+                            <td width="45%" height="80px"></td>
+                            <td width="10%" height="80px"></td>
+                            <td width="45%" height="80px"></td>
+                        </tr>
+                        <tr>
+                            <td class="signatory align-center v-align-middle" width="45%">
+                                <div class="signatory-name">
+                                    <table>
+                                        <tr>
+                                            <td><strong>{{$data['signatory']->name}} {{$data['signatory']->ranks}}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{$data['signatory']->designation}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                            <td width="10%"></td>
+                            <td class="signatory align-left v-align-middle" width="45%"></td>
+                        </tr>
+                        <tr>
+                            <td class="signatory align-center v-align-middle" width="45%" height="50px"></td>
+                            <td width="10%"></td>
+                            <td class="signatory align-left v-align-middle" width="45%" height="50px">Conforme:</td>
+                        </tr>
+                        <tr>
+                            <td class="signatory align-center v-align-bottom" width="45%" height="10px"></td>
+                            <td width="10%"></td>
+                            <td class="signatory align-center v-align-bottom" width="45%" height="10px"></td>
+                        </tr>
+                        <tr>
+                            <td class="signatory align-center" width="45%"></td>
+                            <td width="10%"></td>
+                            <td class="signatory align-center" width="45%">
+                                <span class="conforme-label">Signature over Printed Name</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="signatory align-center v-align-bottom" width="45%" height="30px"></td>
+                            <td width="10%"></td>
+                            <td class="signatory align-center v-align-bottom" width="45%" height="30px"></td>
+                        </tr>
+                        <tr>
+                            <td class="signatory align-center" width="45%"></td>
+                            <td width="10%"></td>
+                            <td class="signatory align-center" width="45%">
+                                <span class="conforme-label">Date</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="signatory align-center v-align-bottom" width="45%" height="30px"></td>
+                            <td width="10%"></td>
+                            <td class="signatory align-center v-align-bottom" width="45%" height="30px"></td>
+                        </tr>
+                        <tr>
+                            <td class="signatory align-center" width="45%"></td>
+                            <td width="10%"></td>
+                            <td class="signatory align-center" width="45%">
+                                <span class="conforme-label">Contact Number</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="signatory align-center v-align-bottom" width="45%" height="30px"></td>
+                            <td width="10%"></td>
+                            <td class="signatory align-center v-align-bottom" width="45%" height="30px">example@email.com</td>
+                        </tr>
+                        <tr>
+                            <td class="signatory align-center" width="45%"></td>
+                            <td width="10%"></td>
+                            <td class="signatory align-center" width="45%">
+                                <span class="conforme-label">Email Address</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+{{--                 <div class="printable-form__body">
                     <span class="printable-form__body__title">Notice of Award</span>
 
                     <p>
@@ -145,7 +245,7 @@
                             </td>
                         </tr>
                     </table>
-                </div>
+                </div> --}}
             </div>
 
         </div>
