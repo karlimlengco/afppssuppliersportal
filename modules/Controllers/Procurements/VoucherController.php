@@ -393,17 +393,29 @@ class VoucherController extends Controller
 
         $result = $model->update($inputs, $id);
 
+        // $upr->update([
+        //     'next_allowable'=> 1,
+        //     'next_step'     => 'Certify Voucher',
+        //     'next_due'      => $transaction_date->addDays(1),
+        //     'last_date'     => $transaction_date,
+        //     'status'        => 'Voucher Preaudit',
+        //     'delay_count'   => $day_delayed,
+        //     'calendar_days' => $cd + $result->upr->calendar_days,
+        //     'last_action'   => $request->action,
+        //     'last_remarks'  => $request->remarks
+        //     ], $result->upr_id);
+
         $upr->update([
-            'next_allowable'=> 1,
-            'next_step'     => 'Certify Voucher',
-            'next_due'      => $transaction_date->addDays(1),
+            'next_allowable'=> 0,
+            'next_step'     => 'Complete',
+            'next_due'      => $transaction_date,
             'last_date'     => $transaction_date,
-            'status'        => 'Voucher Preaudit',
-            'delay_count'   => $day_delayed,
-            'calendar_days' => $cd + $result->upr->calendar_days,
-            'last_action'   => $request->action,
-            'last_remarks'  => $request->remarks
-            ], $result->upr_id);
+            'status'        => 'completed',
+            'state'         => 'completed',
+            'completed_at'  => $request->preaudit_date,
+            'delay_count'   => $cd + $result->upr->delay_count,
+            'days'          => $wd],
+       $result->upr_id);
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -471,17 +483,17 @@ class VoucherController extends Controller
 
         $result=    $model->update($inputs, $id);
 
-        $upr->update([
-            'next_allowable'=> 1,
-            'next_step'     => 'Release Voucher',
-            'next_due'      => $transaction_date->addDays(1),
-            'last_date'     => $transaction_date,
-            'status'        => 'Voucher Approved',
-            'delay_count'   => $day_delayed,
-            'calendar_days' => $cd + $result->upr->calendar_days,
-            'last_action'   => $request->action,
-            'last_remarks'  => $request->remarks
-            ], $result->upr_id);
+        // $upr->update([
+        //     'next_allowable'=> 1,
+        //     'next_step'     => 'Release Voucher',
+        //     'next_due'      => $transaction_date->addDays(1),
+        //     'last_date'     => $transaction_date,
+        //     'status'        => 'Voucher Approved',
+        //     'delay_count'   => $day_delayed,
+        //     'calendar_days' => $cd + $result->upr->calendar_days,
+        //     'last_action'   => $request->action,
+        //     'last_remarks'  => $request->remarks
+        //     ], $result->upr_id);
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -522,9 +534,6 @@ class VoucherController extends Controller
 
         $validator = Validator::make($request->all(),[
             'certify_date'                      =>'required',
-            'is_cash_avail'                     =>'required',
-            'subject_to_authority_to_debit_acc' =>'required',
-            'documents_completed'               =>'required',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -555,17 +564,17 @@ class VoucherController extends Controller
 
         $result =   $model->update($inputs, $id);
 
-        $upr->update([
-            'next_allowable'=> 1,
-            'next_step'     => 'Voucher JEV',
-            'next_due'      => $transaction_date->addDays(1),
-            'last_date'     => $transaction_date,
-            'status'        => 'Voucher Certify',
-            'delay_count'   => $day_delayed,
-            'calendar_days' => $cd + $result->upr->calendar_days,
-            'last_action'   => $request->action,
-            'last_remarks'  => $request->remarks
-            ], $result->upr_id);
+        // $upr->update([
+        //     'next_allowable'=> 1,
+        //     'next_step'     => 'Voucher JEV',
+        //     'next_due'      => $transaction_date->addDays(1),
+        //     'last_date'     => $transaction_date,
+        //     'status'        => 'Voucher Certify',
+        //     'delay_count'   => $day_delayed,
+        //     'calendar_days' => $cd + $result->upr->calendar_days,
+        //     'last_action'   => $request->action,
+        //     'last_remarks'  => $request->remarks
+        //     ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -605,8 +614,8 @@ class VoucherController extends Controller
 
         $validator = Validator::make($request->all(),[
             'journal_entry_date'    =>'required',
-            'journal_entry_number'  =>'required',
-            'or'                    =>'required',
+            // 'journal_entry_number'  =>'required',
+            // 'or'                    =>'required',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -636,17 +645,17 @@ class VoucherController extends Controller
 
         $result =   $model->update($inputs, $id);
 
-        $upr->update([
-            'next_allowable'=> 1,
-            'next_step'     => 'Approve Voucher',
-            'next_due'      => $transaction_date->addDays(1),
-            'last_date'     => $transaction_date,
-            'status'        => 'Voucher Journal Entry',
-            'delay_count'   => $day_delayed,
-            'calendar_days' => $cd + $result->upr->calendar_days,
-            'last_action'   => $request->action,
-            'last_remarks'  => $request->remarks
-            ], $result->upr_id);
+        // $upr->update([
+        //     'next_allowable'=> 1,
+        //     'next_step'     => 'Approve Voucher',
+        //     'next_due'      => $transaction_date->addDays(1),
+        //     'last_date'     => $transaction_date,
+        //     'status'        => 'Voucher Journal Entry',
+        //     'delay_count'   => $day_delayed,
+        //     'calendar_days' => $cd + $result->upr->calendar_days,
+        //     'last_action'   => $request->action,
+        //     'last_remarks'  => $request->remarks
+        //     ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -717,17 +726,17 @@ class VoucherController extends Controller
         $result =   $model->update($inputs, $id);
 
 
-        $upr->update([
-            'next_allowable'=> 0,
-            'next_step'     => 'Complete',
-            'next_due'      => $transaction_date,
-            'last_date'     => $transaction_date,
-            'status'        => 'completed',
-            'state'         => 'completed',
-            'completed_at'  => $request->payment_release_date,
-            'delay_count'   => $cd + $result->upr->delay_count,
-            'days'          => $wd],
-       $result->upr_id);
+       //  $upr->update([
+       //      'next_allowable'=> 0,
+       //      'next_step'     => 'Complete',
+       //      'next_due'      => $transaction_date,
+       //      'last_date'     => $transaction_date,
+       //      'status'        => 'completed',
+       //      'state'         => 'completed',
+       //      'completed_at'  => $request->payment_release_date,
+       //      'delay_count'   => $cd + $result->upr->delay_count,
+       //      'days'          => $wd],
+       // $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -911,11 +920,6 @@ class VoucherController extends Controller
         $data['or']                     =   $result->or;
         $data['approver']               =   $result->approver;
         $data['certifier']              =   $result->certifier;
-        $data['journal_entry_date']     =   $result->journal_entry_date;
-        $data['journal_entry_number']   =   $result->journal_entry_number;
-        $data['payment_received_date']  =   $result->payment_received_date;
-        $data['approval_date']          =   $result->approval_date;
-        $data['certify_date']           =   $result->certify_date;
         $data['expanded_witholding_tax']=   $result->expanded_witholding_tax;
         $data['ewt_amount']             =   $result->ewt_amount;
         $data['final_tax_amount']       =   $result->final_tax_amount;
@@ -938,6 +942,52 @@ class VoucherController extends Controller
         $data['nr_delay']               =   $nr_delay;
         $data['penalty']                =   $penalty;
         $pdf = PDF::loadView('forms.voucher', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'))
+            ->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('voucher.pdf');
+    }
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrintNoTax($id, VoucherRepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr)
+    {
+        $result     =   $model->with(['receiver', 'approver', 'certifier'])->findById($id);
+        $noa_model  =   $noa->with(['winner','upr'])->findByUPR($result->upr_id);
+
+        if($noa_model->upr->mode_of_procurement != 'public_bidding')
+        {
+            $winner     =   $noa_model->winner->supplier;
+        }
+        else
+        {
+            $winner     =   $noa_model->biddingWinner->supplier;
+        }
+
+        $data['transaction_date']       =   $result->transaction_date;
+        $data['bir_address']            =   $result->bir_address;
+        $data['final_tax']              =   $result->final_tax;
+        $data['receiver']               =   $result->receiver;
+        $data['or']                     =   $result->or;
+        $data['approver']               =   $result->approver;
+        $data['certifier']              =   $result->certifier;
+        $data['amount']                 =   $result->amount;
+        $data['payee']                  =   $winner;
+        $data['upr']                    =   $noa_model->upr;
+        $data['po']                     =   $noa_model->upr->purchase_order;
+        $data['delivery_terms']         =   $noa_model->upr->purchase_order->delivery_terms;
+        $data['delivery_date']          =   $noa_model->upr->delivery_order->delivery_date;
+        $data['ntp_date']               =   $noa_model->upr->ntp->award_accepted_date;
+
+        $ntp_date                       =   Carbon::createFromFormat('Y-m-d',$data['ntp_date']);
+        $delivery_date                  =   Carbon::createFromFormat('Y-m-d',$data['delivery_date']);
+
+        $pdf = PDF::loadView('forms.voucher-no-tax', ['data' => $data])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'))
             ->setPaper('a4');

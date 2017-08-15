@@ -191,6 +191,16 @@
         <a href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
     {{-- <a class="button__options__item"  href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}">View Notice Of Delivery</a> --}}
     @endif
+
+    @if($data->status == 'Delivery Partial')
+
+        <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
+
+        <span >View Notice Of Delivery</span>
+        <a href="{{route('procurements.delivery-orders.lists', $data->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+    {{-- <a class="button__options__item"  href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}">View Notice Of Delivery</a> --}}
+    @endif
     @if($data->status == 'Complete COA Delivery')
 
         <span >Technical Inspection</span>

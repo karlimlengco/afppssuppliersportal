@@ -88,18 +88,8 @@
                             <tr>
                                 <td class="has-child" colspan="2">
                                     <table class="child-table">
-                                        <tr>
-                                            <td class="head align-center v-align-middle fix-border" rowspan="3" width="10%">Less</td>
-                                            <td class="align-left" width="70%">{{$data['final_tax']}}% Final Tax</td>
-                                            <td width="20%">{{formatPrice($data['final_tax_amount'])}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-left">{{$data['expanded_witholding_tax']}}% EWT</td>
-                                            <td> {{formatPrice($data['ewt_amount'])}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-left">Penalty ({{$data['nr_delay']}} Days)</td>
-                                            <td> {{formatPrice($data['penalty'])}}</td>
+                                        <tr rowspan="3">
+                                            <td class="head align-center v-align-middle fix-border" height="90px" rowspan="3" width="10%">&nbsp; </td>
                                         </tr>
                                     </table>
                                 </td>
@@ -107,7 +97,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">Amount Due</td>
-                                <td class="align-center">Php {{ formatPrice( ($data['amount']) - ($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty']) )}}</td>
+                                <td class="align-center"></td>
                             </tr>
                             <tr>
                                 <td class="has-child" colspan="3">
@@ -227,6 +217,5 @@
             </div>
 
         </div>
-
     </body>
 </html>

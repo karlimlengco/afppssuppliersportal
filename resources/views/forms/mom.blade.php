@@ -41,6 +41,7 @@
                         {{$member->signatory->name}} {{$member->signatory->ranks}} - {{$member->signatory->designation}}<br>
                         @endforeach
                         <strong>Other Attendees:</strong>
+                        <p>{{$data['others']}}</p>
                     </p>
                     <p><strong>III. CALL TO ORDER:</strong></p>
                     <p>The Chairman at around 0900H called the meeting to order. The Secretary was asked as to the quorum and latter informed the attendees that there was a quorum with five (5) regular members present. </p>

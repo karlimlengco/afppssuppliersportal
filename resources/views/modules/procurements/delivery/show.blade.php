@@ -40,10 +40,8 @@ Notice Of Delivery
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
 
 
-                @if($data->delivery_date)
-                    @if(!$data->date_delivered_to_coa)
+                @if($data->status == 'Delivery Received')
                         <a class="button__options__item" href="#" id="coa-button">Complete COA Delivery</a>
-                    @endif
                 @endif
             </div>
         </button>
@@ -53,9 +51,9 @@ Notice Of Delivery
 
         <a   target="_blank" href="{{route('procurements.delivery-orders.print', $data->id)}}" class="button" tooltip="PRINT"><i class="nc-icon-mini tech_print "></i></a>
 
-        {{-- @if(!$data->status == 'Delivery Recieved') --}}
+        @if( $data->status == 'ongoing')
             <a href="{{route($editRoute, $data->id)}}" class="button" tooltip="Receive"><i class="nc-icon-glyph shopping_delivery lg"></i></a>
-        {{-- @endif --}}
+        @endif
 
         <a href="#" id="attachment-button" class="button" tooltip="Attachments"><i class="nc-icon-mini ui-1_attach-86"></i> </a>
 
@@ -103,6 +101,35 @@ Notice Of Delivery
         </ul>
     </div>
 </div>
+
+<div class="row">
+    <div class="twelve columns ">
+        <h3>Items Details</h3>
+        <table class='table' id="item_table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Qty</th>
+                    <th>Unit</th>
+                    <th>Unit Price</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($data->items as $item)
+                    <tr>
+                        <td>{{$item->description}}</td>
+                        <td>{{$item->quantity}}/{{$item->received_quantity}}</td>
+                        <td>{{$item->unit}}</td>
+                        <td>{{formatPrice($item->price_unit)}}</td>
+                        <td>{{formatPrice($item->total_amount)}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
 @stop
 
 @section('scripts')

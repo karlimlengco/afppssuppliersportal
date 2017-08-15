@@ -129,6 +129,7 @@ class NoticeOfAwardController extends Controller
             'upr_id'        =>  $canvasModel->upr_id,
             'rfq_id'        =>  $canvasModel->rfq_id,
             'rfq_number'    =>  $canvasModel->rfq_number,
+            'signatory_id'  =>  $canvasModel->chief,
             'upr_number'    =>  $canvasModel->upr_number,
             'proponent_id'  =>  $proponentId,
             'awarded_by'    =>  $request->awarded_by,

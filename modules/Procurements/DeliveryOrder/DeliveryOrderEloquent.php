@@ -48,6 +48,7 @@ class DeliveryOrderEloquent extends Model implements  AuditableContract
         'transaction_date',
         'expected_date',
         'prepared_by',
+        'delivery_status',
         'created_by',
         'status',
         'signatory_id',

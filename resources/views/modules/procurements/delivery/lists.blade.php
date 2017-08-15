@@ -58,7 +58,7 @@ Notice Of Delivery
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.procurements.delivery-orders')}}",
+                url: "{{route('datatables.procurements.delivery-orders-lists', $id)}}",
             },
         columns: [
             {data: 'id', name: 'id'},

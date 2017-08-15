@@ -147,7 +147,6 @@ class ProcurementCenterRepository extends BaseRepository
         {
 
             $unit_id    =   \Sentinel::getUser()->unit_id;
-
             if($type != 'alternative')
             {
                 $model  =   $model->select([

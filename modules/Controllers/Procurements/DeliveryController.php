@@ -77,6 +77,17 @@ class DeliveryController extends Controller
         return $model->getDatatable();
     }
 
+
+    /**
+     * [getListDatatable description]
+     *
+     * @return [type]            [description]
+     */
+    public function getListDatatable(DeliveryOrderRepository $model, $id)
+    {
+        return $model->getListDatatable($id);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -450,34 +461,75 @@ class DeliveryController extends Controller
         $inputs['delivery_remarks'] =   $request->delivery_remarks;
         $inputs['delivery_action']  =   $request->delivery_action;
 
+        // dd($request->all());
+
         // Delay
         $item_input =   $request->only(['ids', 'received_quantity']);
 
         $errcount = 0;
+        $new_item  =   [];
         for ($i=0; $i < count($item_input['ids']) ; $i++) {
             $item_model =  $items->getById($item_input['ids'][$i]);
+
+
             if($item_model->quantity != $item_input['received_quantity'][$i])
             {
+                $new_quantity       =   $item_model->quantity - $item_input['received_quantity'][$i];
+                $new_item[]  =   [
+                    'order_id'      =>  $item_model->order_id,
+                    'description'   =>  $item_model->description,
+                    'quantity'      =>  $new_quantity,
+                    'unit'          =>  $item_model->unit,
+                    'price_unit'    =>  $item_model->price_unit,
+                    'total_amount'  =>  $item_model->price_unit * $new_quantity,
+                ];
                 $errcount ++;
             }
 
+
             $items->update([
-                'received_quantity' => $item_input['received_quantity'][$i]
-                ], $item_input['ids'][$i]);
+                'quantity'          =>  $item_input['received_quantity'][$i],
+                'received_quantity' =>  $item_input['received_quantity'][$i]
+            ], $item_input['ids'][$i]);
+
         }
+        //
 
         $inputs['received_by']  =   \Sentinel::getUser()->id;
 
-        $model->update($inputs, $id);
 
-        if($errcount == 0)
+        if($errcount != 0)
         {
-            $status =   'Delivery Received';
+            $status =   'Delivery Partial';
+
+            $dr_inputs     =   [
+                'expected_date'     =>  $dr_model->expected_date,
+                'transaction_date'  =>  $dr_model->transaction_date,
+                'po_id'             =>  $dr_model->po_id,
+                'rfq_id'            =>  $dr_model->rfq_id,
+                'upr_id'            =>  $dr_model->upr_id,
+                'rfq_number'        =>  $dr_model->rfq_number,
+                'status'            =>  'ongoing',
+                'upr_number'        =>  $dr_model->upr_number,
+                'created_by'        =>  $dr_model->created_by,
+                'days'              =>  $dr_model->days,
+            ];
+
+            $new_dr =   $model->save($dr_inputs);
+
+            foreach($new_item as $nitem)
+            {
+                $nitem['order_id'] = $new_dr->id;
+                $items->save($nitem);
+            }
         }
         else
         {
-            $status =   'Delivery Incomplete';
+            $status =   'Delivery Received';
         }
+        $inputs['status']       =   $status;
+
+        $model->update($inputs, $id);
 
         $upr->update([
             'next_allowable'=> 1,
@@ -490,6 +542,7 @@ class DeliveryController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $dr_model->upr_id);
+
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -676,5 +729,30 @@ class DeliveryController extends Controller
             ]
         ]);
     }
+
+    /**
+     * [listsAll description]
+     *
+     * @param  [type]             $id    [description]
+     * @param  BlankRFQRepository $model [description]
+     * @return [type]                    [description]
+     */
+    public function listsAll($id, DeliveryOrderRepository $model)
+    {
+
+        $data_model =   $model->findById($id);
+
+        return $this->view('modules.procurements.delivery.lists',[
+            'model'         =>  $data_model,
+            'id'            =>  $data_model->upr_id,
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb($data_model->upr_number, 'procurements.unit-purchase-requests.show', $data_model->upr_id),
+                new Breadcrumb('Delivery Lists')
+            ]
+        ]);
+    }
+
+
 
 }

@@ -478,6 +478,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('delivery-orders\lists\{id}', '\Revlv\Controllers\Procurements\DeliveryController@listsAll')->name('delivery-orders.lists');
     Route::get('delivery-orders/store-by-dr/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@storeByDR')->name('delivery-orders.store-by-dr');
     Route::get('delivery-orders/edit-dates/{id}', '\Revlv\Controllers\Procurements\DeliveryController@editDates')->name('delivery-orders.edit-dates');
     Route::get('delivery-orders/logs/{id}', '\Revlv\Controllers\Procurements\DeliveryController@viewLogs')->name('delivery-orders.logs');
@@ -533,7 +534,10 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |
     */
     Route::put('vouchers/update-signatories/{id}', '\Revlv\Controllers\Procurements\VoucherController@updateSignatory')->name('vouchers.update-signatories');
+
     Route::get('vouchers/print/{id}', '\Revlv\Controllers\Procurements\VoucherController@viewPrint')->name('vouchers.print');
+    Route::get('vouchers/print-wotax/{id}', '\Revlv\Controllers\Procurements\VoucherController@viewPrintNoTax')->name('vouchers.print-wotax');
+
     Route::get('vouchers/logs/{id}', '\Revlv\Controllers\Procurements\VoucherController@viewLogs')->name('vouchers.logs');
     Route::post('vouchers/preaudit/{id}', '\Revlv\Controllers\Procurements\VoucherController@preauditVoucher')->name('vouchers.preaudit');
     Route::post('vouchers/certify/{id}', '\Revlv\Controllers\Procurements\VoucherController@certifyVoucher')->name('vouchers.certify');
@@ -708,6 +712,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('ntp', '\Revlv\Controllers\Procurements\NoticeToProceedController@getDatatable')->name('procurements.ntp');
     Route::get('purchase-orders', '\Revlv\Controllers\Procurements\PurchaseOrderController@getDatatable')->name('procurements.purchase-orders');
     Route::get('delivery-orders', '\Revlv\Controllers\Procurements\DeliveryController@getDatatable')->name('procurements.delivery-orders');
+    Route::get('delivery-orders-lists/{id}', '\Revlv\Controllers\Procurements\DeliveryController@getListDatatable')->name('procurements.delivery-orders-lists');
     Route::get('inspection-and-acceptance', '\Revlv\Controllers\Procurements\InspectionAndAcceptanceController@getDatatable')->name('procurements.inspection-and-acceptance');
 
     Route::get('delivery-to-coa', '\Revlv\Controllers\Procurements\DeliveryToCoaController@getDatatable')->name('procurements.delivery-to-coa');

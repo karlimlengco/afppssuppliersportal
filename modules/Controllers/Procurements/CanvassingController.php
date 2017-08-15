@@ -588,6 +588,7 @@ class CanvassingController extends Controller
         $data['venue']          =   $result->upr->invitations->ispq->venue;
         $data['time_closed']    =   $result->adjourned_time;
         $data['members']        =   $result->signatories;
+        $data['others']         =  $result->other_attendees;
         $data['canvass']        =   $result;
         $data['officer']        =   $result->officer;
         $data['resolution']     =   $result->resolution;

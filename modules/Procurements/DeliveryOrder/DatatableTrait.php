@@ -40,6 +40,38 @@ trait DatatableTrait
     }
 
     /**
+     * [getListDatatable description]
+     *
+     * @param  [int]    $company_id ['company id ']
+     * @return [type]               [description]
+     */
+    public function getListDatatable($id, $type = 'alternative')
+    {
+        $model  =   $this->model;
+
+        if($type == 'alternative')
+        {
+            $model  =   $model->select([
+                'delivery_orders.*',
+                'request_for_quotations.rfq_number'
+            ]);
+
+            $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.id', '=', 'delivery_orders.rfq_id');
+            $model  =   $model->whereNotNull('rfq_id');
+        }
+        else
+        {
+            $model  =   $model->whereNull('rfq_id');
+        }
+
+        $model  =   $model->where('delivery_orders.upr_id','=', $id);
+
+        $model  =   $model->orderBy('created_at', 'desc');
+
+        return $this->dataTable($model->get());
+    }
+
+    /**
      * [dataTable description]
      *
      * @param  [type] $model [description]

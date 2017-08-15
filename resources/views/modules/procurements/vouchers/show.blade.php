@@ -39,6 +39,11 @@ Vouchers
             <div class="button__options">
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}">Unit of Purchase Request</a>
 
+                <a target="_blank" class="button__options__item" href="{{route('procurements.vouchers.print', $data->id)}}">Print With TAX</a>
+
+                <a target="_blank" class="button__options__item" href="{{route('procurements.vouchers.print-wotax', $data->id)}}">Print Without TAX</a>
+
+
                 @if($data->approval_date && !$data->payment_release_date)
                     <a href="#" id="release-button" class="button__options__item " tooltip="Release Payment"> Release Payment</a>
                 @endif
@@ -63,9 +68,9 @@ Vouchers
         </button>
 
         <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
-        <a target="_blank" href="{{route('procurements.vouchers.print', $data->id)}}" class="button" tooltip="Print">
+      {{--   <a target="_blank" href="{{route('procurements.vouchers.print', $data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
-        </a>
+        </a> --}}
         <a href="{{route('procurements.vouchers.logs', $data->id)}}" class="button" tooltip="Logs">
             <i class="nc-icon-mini files_archive-content"></i>
         </a>
@@ -81,8 +86,8 @@ Vouchers
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ No. :</strong> {{$data->rfq_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Transaction DAte :</strong> {{$data->transaction_date}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">BIR Address. :</strong> {{$data->bir_address}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Final Tax :</strong> {{$data->final_tax}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Expanded Witholding Tax :</strong> {{$data->expanded_witholding_tax}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Final Tax :</strong> {{$data->final_tax}} &nbsp;</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Expanded Witholding Tax :</strong> {{$data->expanded_witholding_tax}} &nbsp;</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared By:</strong> {{($data->users) ? $data->users->first_name .' '.$data->users->surname : " "}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Conduct PreAudit :</strong> {{$data->preaudit_date}} </li>
         </ul>
