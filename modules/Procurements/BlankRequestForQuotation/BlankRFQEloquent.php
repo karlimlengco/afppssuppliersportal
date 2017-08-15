@@ -84,7 +84,8 @@ class BlankRFQEloquent extends Model implements  AuditableContract
      */
     public function proponents()
     {
-         return $this->hasMany('\Revlv\Procurements\RFQProponents\RFQProponentEloquent', 'rfq_id');
+         return $this->hasMany('\Revlv\Procurements\RFQProponents\RFQProponentEloquent', 'rfq_id')
+         ->orderByRaw( "CAST(bid_amount as UNSIGNED)");
     }
 
     /**

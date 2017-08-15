@@ -16,6 +16,7 @@
 
             <div class="printable-form">
                 <!-- form header -->
+
                 <div class="printable-form__head">
                     <p class="printable-form__head__vision">AFP Vision 2028: A World-class Armed Forces, Source of National Pride</p>
                     <div class="printable-form__head__letterhead">
@@ -30,8 +31,238 @@
                         </span>
                     </div>
                 </div>
-                <!-- form content -->
                 <div class="printable-form__body">
+                    <span class="printable-form__body__title">Abstract of Canvass and Recommendation of Award</span>
+                    <table class="printable-form__body__table classic">
+                        <tr>
+                            <td width="20%">RFQ No</td>
+                            <td width="30%">{{$data['rfq_number']}}</td>
+                            <td width="30%">Approved Budget for Contract (ABC)</td>
+                            <td width="20%">Php {{formatPrice($data['total_amount'])}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date and Time</td>
+                            <td>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['date'])->format('dHi F Y')}}</td>
+                            <td>Unit / End User</td>
+                            <td>{{$data['unit']}}</td>
+                        </tr>
+                        <tr>
+                            <td>Place of Canvass</td>
+                            <td colspan="3">{{$data['venue']}}</td>
+                        </tr>
+                        <tr>
+                            <td>Place of Delivery</td>
+                            <td colspan="3">{{$data['center']}}</td>
+                        </tr>
+                    </table>
+                    <table class="printable-form__body__table classic">
+                        <tr>
+                            <td width="20%">Name of Supplier</td>
+                            <td width="20%">{{$data['proponents'][0]->supplier->name}}</td>
+                            <td width="20%">{{$data['proponents'][1]->supplier->name}}</td>
+                            <td width="20%">{{$data['proponents'][2]->supplier->name}}</td>
+                            <td width="20%">Remarks (Lowest Price Quotation/Proposal)</td>
+                        </tr>
+                        <tr>
+                            <td>Canvass Amount</td>
+                            <td>PHP {{formatPrice($data['proponents'][0]->bid_amount)}}</td>
+                            <td>PHP {{formatPrice($data['proponents'][1]->bid_amount)}}</td>
+                            <td>PHP {{formatPrice($data['proponents'][2]->bid_amount)}}</td>
+                            <td rowspan="4" class="v-align-middle align-center"><strong>{{$data['proponents'][0]->supplier->name}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>DTI Registration</td>
+                            <td>
+                                @if($data['proponents'][0]->supplier->attachmentByType("dti") != null && $data['proponents'][0]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
+                                     ok
+                                @endif
+                            </td>
+                            <td>
+                                @if($data['proponents'][1]->supplier->attachmentByType("dti") != null && $data['proponents'][1]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
+                                     ok
+                                @endif
+                            </td>
+                            <td>
+                                @if($data['proponents'][2]->supplier->attachmentByType("dti") != null && $data['proponents'][2]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
+                                     ok
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Mayor's Permit</td>
+
+                            <td>
+                                @if($data['proponents'][0]->supplier->attachmentByType("mayors_permit
+                                ") != null && $data['proponents'][0]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
+                                     ok
+                                @endif
+                            </td>
+
+                            <td>
+                                @if($data['proponents'][1]->supplier->attachmentByType("mayors_permit
+                                ") != null && $data['proponents'][1]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
+                                     ok
+                                @endif
+                            </td>
+
+                            <td>
+                                @if($data['proponents'][2]->supplier->attachmentByType("mayors_permit
+                                ") != null && $data['proponents'][2]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
+                                     ok
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tax Clearance</td>
+
+                            <td>
+                                @if($data['proponents'][0]->supplier->attachmentByType("tax_clearance
+                                ") != null && $data['proponents'][0]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'])
+                                     ok
+                                @endif
+                            </td>
+
+                            <td>
+                                @if($data['proponents'][1]->supplier->attachmentByType("tax_clearance
+                                ") != null && $data['proponents'][1]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'])
+                                     ok
+                                @endif
+                            </td>
+
+                            <td>
+                                @if($data['proponents'][2]->supplier->attachmentByType("tax_clearance
+                                ") != null && $data['proponents'][2]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'])
+                                     ok
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PhilGeps Registration</td>
+
+                            <td>
+                                @if($data['proponents'][0]->supplier->attachmentByType("philgeps_registration
+                                ") != null && $data['proponents'][0]->supplier->attachmentByType("philgeps_registration")->validity_date >= $data['today'])
+                                     ok
+                                @endif
+                            </td>
+
+                            <td>
+                                @if($data['proponents'][1]->supplier->attachmentByType("philgeps_registration
+                                ") != null && $data['proponents'][1]->supplier->attachmentByType("philgeps_registration")->validity_date >= $data['today'])
+                                     ok
+                                @endif
+                            </td>
+
+                            <td>
+                                @if($data['proponents'][2]->supplier->attachmentByType("philgeps_registration
+                                ") != null && $data['proponents'][2]->supplier->attachmentByType("philgeps_registration")->validity_date >= $data['today'])
+                                     ok
+                                @endif
+                            </td>
+
+                            <td rowspan="2" class="v-align-middle align-center"><strong>PHP {{formatPrice($data['proponents'][0]->bid_amount)}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Remarks</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                    <p><strong>WE HEREBY CERTIFY</strong> that the Above Abstract of Canvass is correct and complying and therefore recommend the award to <strong>{{$data['proponents'][0]->supplier->name}}</strong> having the lowest and most responsive calculated price offer.</p>
+                    <!-- form signatories -->
+                    <table class="printable-form__body__table
+                                  printable-form__body__table--borderless">
+                        <tr>
+                            <td width="45%" height="80px"></td>
+                            <td width="10%" height="80px"></td>
+                            <td width="45%" height="80px"></td>
+                        </tr>
+                        <tr>
+                            <td class="signatory v-align-middle" width="45%">
+                                <div class="signatory-name">
+                                    <table>
+                                        <tr>
+                                            <td><strong>{{$data['signatories'][0]->signatory->name}}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{$data['signatories'][0]->signatory->designation}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                            <td width="10%"></td>
+                            <td class="signatory align-left v-align-middle" width="45%"></td>
+                        </tr>
+                        <tr>
+                            <td width="45%" height="60px"></td>
+                            <td width="10%" height="60px"></td>
+                            <td width="45%" height="60px"></td>
+                        </tr>
+                        <tr>
+                            <td class="signatory v-align-middle" width="45%">
+                                <div class="signatory-name">
+                                    <table>
+                                        <tr>
+                                            <td><strong>{{$data['signatories'][1]->signatory->name}}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{$data['signatories'][1]->signatory->designation}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                            <td width="10%"></td>
+                            <td class="signatory v-align-middle" width="45%">
+                                <div class="signatory-name">
+                                    <table>
+                                        <tr>
+                                            <td><strong>{{$data['signatories'][2]->signatory->name}}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{$data['signatories'][2]->signatory->designation}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="45%" height="60px"></td>
+                            <td width="10%" height="60px"></td>
+                            <td width="45%" height="60px"></td>
+                        </tr>
+                        <tr>
+                            <td class="signatory v-align-middle" width="45%">
+                                <div class="signatory-name">
+                                    <table>
+                                        <tr>
+                                            <td><strong>{{$data['signatories'][3]->signatory->name}}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{$data['signatories'][3]->signatory->designation}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                            <td width="10%"></td>
+                            <td class="signatory v-align-middle" width="45%">
+                                <div class="signatory-name">
+                                    <table>
+                                        <tr>
+                                            <td><strong>{{$data['signatories'][4]->signatory->name}}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{$data['signatories'][4]->signatory->designation}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- form content -->
+                {{-- <div class="printable-form__body">
                     <span class="printable-form__body__title">Abstract of Canvass and Recommendation of Award</span>
                     <table class="printable-form__body__table">
                         <tbody>
@@ -283,7 +514,7 @@
                         </tr>
                         @endif
                     </table>
-                </div>
+                </div> --}}
                 <!-- form footer -->
                {{--  <div class="printable-form__foot">
                     <table class="printable-form__foot__table">

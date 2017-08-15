@@ -31,7 +31,7 @@ class RFQProponentRepository extends BaseRepository
 
         $model  =   $model->where('rfq_id', '=', $rfq);
 
-        $model  =   $model->orderBy('bid_amount');
+        $model  =   $model->orderByRaw("CAST(bid_amount as UNSIGNED)");
 
         return $model->get();
     }
