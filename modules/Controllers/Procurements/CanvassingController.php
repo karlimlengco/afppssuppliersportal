@@ -542,6 +542,9 @@ class CanvassingController extends Controller
         $data['proponents']         =  $result->rfq->proponents;
         $data['min_bid']            =  $min;
 
+        $data['items']              =  $result->rfq->upr->items;
+        $data['ref_number']         =  $result->rfq->upr->ref_number;
+
         $pdf = PDF::loadView('forms.cop', ['data' => $data])->setOption('margin-bottom', 10)->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('cop.pdf');
