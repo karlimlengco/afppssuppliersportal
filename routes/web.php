@@ -318,6 +318,8 @@ Route::group(['as' => 'library.', 'prefix' => 'library'], function () {
     Route::resource('catalogs', '\Revlv\Controllers\Library\CatalogController');
 
     Route::get('file/download/{id}', '\Revlv\Controllers\Library\FileController@downloadFile')->name('file.download');
+    Route::get('file/pending', '\Revlv\Controllers\Library\FileController@pending')->name('files.pending');
+    Route::get('file/approved/{id}', '\Revlv\Controllers\Library\FileController@approved')->name('files.approved');
     Route::resource('files', '\Revlv\Controllers\Library\FileController');
 });
 
@@ -636,6 +638,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('noa-acceptance', '\Revlv\Controllers\Biddings\NOAController@getDatatable')->name('biddings.noa-acceptance');
     Route::get('catalogs', '\Revlv\Controllers\Library\CatalogController@getDatatable')->name('library.catalogs');
     Route::get('files', '\Revlv\Controllers\Library\FileController@getDatatable')->name('library.files');
+    Route::get('pending-files', '\Revlv\Controllers\Library\FileController@getPendingDatatable')->name('library.pending-files');
 
     /*
     |--------------------------------------------------------------------------

@@ -20,6 +20,7 @@ class CreateLibrary extends Migration
             $table->text('tags')->nullable();
             $table->text('file_name');
             $table->string('uploaded_by');
+            $table->string('status');
             $table->timestamps();
         });
     }

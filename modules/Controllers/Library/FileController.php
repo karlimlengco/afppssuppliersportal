@@ -47,7 +47,32 @@ class FileController extends Controller
      */
     public function getDatatable(LibraryRepository $model)
     {
-        return $model->getDatatable();
+        return $model->getDatatable('approved');
+    }
+
+    /**
+     * [getDatatable description]
+     *
+     * @return [type]            [description]
+     */
+    public function getPendingDatatable(LibraryRepository $model)
+    {
+        return $model->getDatatable('pending');
+    }
+
+    /**
+     * [pending description]
+     * @return [type] [description]
+     */
+    public function pending()
+    {
+
+        return $this->view('modules.library.files.pending',[
+            'breadcrumbs' => [
+                new Breadcrumb('Library'),
+                new Breadcrumb('Pending Files')
+            ]
+        ]);
     }
 
     /**
@@ -59,6 +84,7 @@ class FileController extends Controller
     {
         return $this->view('modules.library.files.index',[
             'createRoute'   =>  $this->baseUrl."create",
+            'pendingRoute'   =>  $this->baseUrl."pending",
             'breadcrumbs' => [
                 new Breadcrumb('Library'),
                 new Breadcrumb('Files')
@@ -109,6 +135,7 @@ class FileController extends Controller
             'catalog_id'    =>  $request->catalog_id,
             'tags'          =>  $request->tags,
             'file_name'     =>  $file,
+            'status'        =>  'pending',
             'uploaded_by'   =>  \Sentinel::getUser()->first_name ." ". \Sentinel::getUser()->surname,
         ]);
 
@@ -118,7 +145,7 @@ class FileController extends Controller
         }
 
         return redirect()->route($this->baseUrl."index")->with([
-            'success'  => "New record has been successfully added."
+            'success'  => "New record has been successfully added. wait until admin approved your file"
         ]);
     }
 
@@ -199,6 +226,25 @@ class FileController extends Controller
         }
 
         return response()->download($directory);
+    }
+
+    /**
+     * [approved description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function approved($id,
+        LibraryRepository $model)
+    {
+
+        $model->update([
+            'status'        =>  'approved',
+        ], $id);
+
+        return redirect()->route($this->baseUrl."index")->with([
+            'success'  => "Record has been successfully approved."
+        ]);
     }
 
     /**

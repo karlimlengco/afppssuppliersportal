@@ -34,6 +34,10 @@ Files
         <i class="nc-icon-mini ui-2_disk"></i>
         </button>
 
+        @if($data->status == 'pending')
+            <a href="{{route('library.files.approved',$data->id)}}" class="button" tooltip="Approve"><i class="nc-icon-mini ui-1_check-bold"></i></a>
+        @endif
+
         <a href="#" class="button topbar__utility__button--modal" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
     </div>
 </div>

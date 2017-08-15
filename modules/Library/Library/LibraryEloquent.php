@@ -25,6 +25,7 @@ class LibraryEloquent extends Model
         'catalog_id',
         'tags',
         'file_name',
+        'status',
         'uploaded_by',
     ];
 

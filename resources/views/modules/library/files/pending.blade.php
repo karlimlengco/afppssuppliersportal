@@ -21,12 +21,8 @@ Files
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
-    </div>
-    <div class="six columns utility utility--align-right" >
-        <a class="button" href="{{route($pendingRoute)}}" tooltip="Pending"><i class="nc-icon-mini ui-2_time-clock"></i></a>
-        <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
+    <div class="twelve columns utility utility--align-right" >
+        <a href="{{route('library.files.index')}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
     </div>
 </div>
 
@@ -37,9 +33,10 @@ Files
 
             <thead>
                 <tr>
-                    <th width="40%">Name</th>
-                    <th width="25%">Catalog</th>
-                    <th width="25%">Created</th>
+                    <th width="30%">Name</th>
+                    <th width="20%">Uploaded By</th>
+                    <th width="15%">Catalog</th>
+                    <th width="15%">Created</th>
                     <th></th>
                 </tr>
             </thead>
@@ -59,13 +56,14 @@ Files
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.library.files')}}",
+                url: "{{route('datatables.library.pending-files')}}",
                 // data: function (d) {
                     // d.search.value = $('#search-table').val();
                 // }
             },
         columns: [
             {data: 'name', name: 'name'},
+            {data: 'uploaded_by', name: 'uploaded_by'},
             {data: 'catalog', name: 'catalog'},
             {data: 'created_at', name: 'created_at', searchable: false},
             {data: 'print_button', name: 'print_button', searchable: false},

@@ -16,7 +16,7 @@ trait DatatableTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getDatatable()
+    public function getDatatable($status)
     {
         $model  =   $this->model;
 
@@ -30,6 +30,8 @@ trait DatatableTrait
             'library.created_at',
             'library_catalogs.name as catalog',
         ]);
+
+        $model  =   $model->where('status', '=', $status);
 
         $model  =   $model->leftJoin('library_catalogs', 'library_catalogs.id', '=', 'library.catalog_id');
 
