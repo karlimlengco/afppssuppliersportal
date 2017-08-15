@@ -34,7 +34,7 @@ trait TransactionDaysTrait
             'unit_purchase_requests.date_prepared as upr_created_at',
             'unit_purchase_requests.date_prepared as upr_created_at',
             'document_acceptance.days as doc_days',
-            'document_acceptance.transaction_date as doc_date',
+            'document_acceptance.approved_date as doc_date',
             'invitation_to_bid.days as itb_days',
             'invitation_to_bid.transaction_date as itb_date',
             'pre_bid_conferences.days as prebid_days',
@@ -75,12 +75,27 @@ trait TransactionDaysTrait
             'notice_to_proceed.accepted_days as ntp_accepted_days',
             'notice_to_proceed.prepared_date as ntp_date',
             'notice_to_proceed.award_accepted_date as ntp_award_date',
-            'delivery_orders.days as dr_days',
-            'delivery_orders.delivery_days as dr_delivery_days',
-            'delivery_orders.dr_coa_days as dr_dr_coa_days',
-            'delivery_orders.transaction_date as dr_date',
-            'delivery_orders.delivery_date',
-            'delivery_orders.date_delivered_to_coa as dr_coa_date',
+
+
+            DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_days "),
+
+            DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
+
+            DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
+
+            DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_date "),
+
+            DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_date "),
+
+            DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
+
+            // 'delivery_orders.days as dr_days',
+            // 'delivery_orders.delivery_days as dr_delivery_days',
+            // 'delivery_orders.dr_coa_days as dr_dr_coa_days',
+            // 'delivery_orders.transaction_date as dr_date',
+            // 'delivery_orders.delivery_date',
+            // 'delivery_orders.date_delivered_to_coa as dr_coa_date',
+
             'inspection_acceptance_report.days as dr_inspection_days',
             'inspection_acceptance_report.accept_days as dr_inspection_accept_days',
             'inspection_acceptance_report.inspection_date as dr_inspection',
@@ -123,7 +138,7 @@ trait TransactionDaysTrait
         $model  =   $model->leftJoin('notice_of_awards', 'notice_of_awards.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('notice_to_proceed', 'notice_to_proceed.upr_id', '=', 'unit_purchase_requests.id');
-        $model  =   $model->leftJoin('delivery_orders', 'delivery_orders.upr_id', '=', 'unit_purchase_requests.id');
+        // $model  =   $model->leftJoin('delivery_orders', 'delivery_orders.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('inspection_acceptance_report', 'inspection_acceptance_report.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
@@ -147,7 +162,7 @@ trait TransactionDaysTrait
             'unit_purchase_requests.date_processed',
             'unit_purchase_requests.calendar_days',
             'document_acceptance.days',
-            'document_acceptance.transaction_date',
+            'document_acceptance.approved_date',
             'invitation_to_bid.days',
             'invitation_to_bid.transaction_date',
             'bid_opening.days',
@@ -183,12 +198,12 @@ trait TransactionDaysTrait
             'notice_to_proceed.accepted_days',
             'notice_to_proceed.prepared_date',
             'notice_to_proceed.award_accepted_date',
-            'delivery_orders.transaction_date',
-            'delivery_orders.delivery_date',
-            'delivery_orders.date_delivered_to_coa',
-            'delivery_orders.days',
-            'delivery_orders.delivery_days',
-            'delivery_orders.dr_coa_days',
+            // 'delivery_orders.transaction_date',
+            // 'delivery_orders.delivery_date',
+            // 'delivery_orders.date_delivered_to_coa',
+            // 'delivery_orders.days',
+            // 'delivery_orders.delivery_days',
+            // 'delivery_orders.dr_coa_days',
             'inspection_acceptance_report.inspection_date',
             'inspection_acceptance_report.accepted_date',
             'inspection_acceptance_report.days',

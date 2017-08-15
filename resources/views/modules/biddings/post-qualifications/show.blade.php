@@ -82,7 +82,6 @@ Post Qualification
             </thead>
             <tbody>
                 @foreach($data->upr->bid_proponents as $proponent)
-                @if($proponent->is_lcb == 1 || $proponent->is_scb == 1)
                 <tr>
                     <td>{{$proponent->proponent_name}}</td>
                     <td>{{$proponent->bid_amount}}</td>
@@ -90,7 +89,6 @@ Post Qualification
                     <td>{{($proponent->is_scb == 1) ? "yes" : "no"}}</td>
                     <td><a href="#" class="award-button award"  data-id="{{$proponent->id}}" data-name="{{$proponent->proponent_name}}">winner</a></td>
                 </tr>
-                @endif
                 @endforeach
             </tbody>
         </table>

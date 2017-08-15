@@ -59,7 +59,7 @@
                 {
                     "route" :   "biddings.purchase-orders.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Purchase Order"
+                    "name"  :   "Contract Order"
                 },
                 {
                     "route" :   "biddings.ntp.index",
