@@ -28,6 +28,91 @@
                 <!-- form content -->
                 <div class="printable-form__body">
                     <span class="printable-form__body__title">Notice of Delivery / Request for Inspection</span>
+                    <p>{{\Carbon\Carbon::createFromFormat('Y-m-d',$data['transaction_date'])->format('d F Y')}}</p>
+                    <p>To: All Concerned</p>
+                    <ol>
+                        <li>Reference: Approved PURCHASE ORDER No. {{$data['po_number']}}</li>
+                        <li>Per reference above, {{$data['winner']}} will be delivering {{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) < 1) and {{count($data['items']) - 1}} @endif only at {{$data['center']}} on {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['expected_date'])->format('d F Y')}} in the total amount of <strong>{{translateToWords($data['bid_amount'])}} (Php{{formatPrice($data['bid_amount'])}}) ONLY</strong>. </li>
+                        <li>Request acknowledge receipt. </li>
+                    </ol>
+                    <!-- form signatories -->
+                    <table class="printable-form__body__table
+                                  printable-form__body__table--borderless">
+                        <tr>
+                            <td class="v-align-bottom align-center" width="45%" height="80px"></td>
+                            <td class="v-align-bottom align-center" width="10%" height="80px"></td>
+                            <td class="v-align-bottom align-center" width="45%" height="80px"></td>
+                        </tr>
+                        <tr>
+                            <td class="signatory align-center v-align-middle" width="45%"></td>
+                            <td width="10%"></td>
+                            <td class="signatory align-left v-align-middle" width="45%">
+                                <div class="signatory-name">
+                                    <table>
+                                        <tr>
+                                            <td nowrap><strong>{{$data['signatory']->name}} {{$data['signatory']->ranks}}</strong></td>
+                                            <td width="100%"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-justify">
+                                                <div class="signatory-rank-justify">
+                                                    <strong>{{$data['signatory']->designation}}</strong>
+                                                    <span></span>
+                                                </div>
+                                            </td>
+                                            <td width="100%"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="v-align-bottom" height="20px">Chief</td>
+                                            <td width="100%" height="20px"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="printable-form__body__table
+                                  printable-form__body__table--borderless">
+                        <tr>
+                            <td class="signatory align-left v-align-middle">Distributions:</td>
+                        </tr>
+                        <tr>
+                            <td class="signatory v-align-bottom" width="1%" height="40px" nowrap>C, TIAC</td>
+                            <td class="signatory align-center v-align-bottom" width="100px">
+                                <span class="conforme-label move"></span>
+                            </td>
+                            <td width="65%"></td>
+                        </tr>
+                        <tr>
+                            <td class="signatory v-align-bottom" width="1%" height="30px" nowrap>COA</td>
+                            <td class="signatory align-center v-align-bottom" width="100px">
+                                <span class="conforme-label move"></span>
+                            </td>
+                            <td width="65%"></td>
+                        </tr>
+                        <tr>
+                            <td class="signatory v-align-bottom" width="1%" height="30px" nowrap>MFO</td>
+                            <td class="signatory align-center v-align-bottom" width="100px">
+                                <span class="conforme-label move"></span>
+                            </td>
+                            <td width="65%"></td>
+                        </tr>
+                        <tr>
+                            <td class="signatory v-align-bottom" width="1%" height="30px" nowrap>SAO</td>
+                            <td class="signatory align-center v-align-bottom" width="100px">
+                                <span class="conforme-label move"></span>
+                            </td>
+                            <td width="65%"></td>
+                        </tr>
+                        <tr>
+                            <td class="signatory v-align-bottom" width="1%" height="30px" nowrap>Recipient Unit</td>
+                            <td class="signatory align-center v-align-bottom" width="100px">
+                                <span class="conforme-label move"></span>
+                            </td>
+                            <td width="65%"></td>
+                        </tr>
+                    </table>
+                    {{-- <span class="printable-form__body__title">Notice of Delivery / Request for Inspection</span>
                     <p>
 
                     {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['transaction_date'])->format('d F Y')}}</p>
@@ -138,7 +223,7 @@
                                 <span class="conforme-label">Recipient Unit</span>
                             </td>
                         </tr>
-                    </table>
+                    </table> --}}
                 </div>
                 <!-- form footer -->
             </div>

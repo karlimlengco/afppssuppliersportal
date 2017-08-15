@@ -696,8 +696,7 @@ class DeliveryController extends Controller
 
         // $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
 
-
-        if($upr_model->mode_of_procurement == 'public_bidding')
+        if($result->upr->mode_of_procurement == 'public_bidding')
         {
             $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
         }
@@ -711,6 +710,7 @@ class DeliveryController extends Controller
         $data['bid_amount']         =  $result->po->bid_amount;
         $data['project_name']       =  $result->upr->project_name;
         $data['center']             =  $result->upr->centers->name;
+        $data['items']              =  $result->upr->items;
         $data['signatory']          =  $result->signatory;
         $data['winner']             =  $noa_model->name;
         $data['expected_date']      =  $result->expected_date;
