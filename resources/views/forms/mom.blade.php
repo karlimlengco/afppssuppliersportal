@@ -51,7 +51,7 @@
                     <p>The Chairman and Member in the presence of the attendees checked the submitted eligibility documents of each proponent base on the checklist of eligibility documents using a non-discretionary "Passed/Failed". After examination, the results are as follow: </p>
 
 
-                    @foreach($data['canvass'] as $canvass)
+
                     <table class="printable-form__body__table">
                         <thead>
                             <tr>
@@ -62,9 +62,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($canvass->canvass->rfq->proponents as $proponent)
+                            @foreach($data['canvass']->rfq->proponents as $proponent)
                                 <tr>
-                                    <td>{{$canvass->canvass->rfq_number}}</td>
+                                    <td>{{$data['canvass']->rfq_number}}</td>
                                     <td>{{$proponent->supplier->name}}</td>
                                     <td>{{ucfirst($proponent->status)}}</td>
                                     <td>{{formatPrice($proponent->bid_amount)}}</td>
@@ -72,8 +72,8 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <p>That after reading the price quotation submitted of the proponent for <strong>{{$canvass->canvass->rfq_number}}</strong>, <strong>{{$canvass->canvass->winners->awarder->name}}</strong> moved <strong>{{$canvass->canvass->winners->winner->supplier->name}}</strong> be declared as the winner for having the lowest price among other bidder. <strong>{{$canvass->canvass->winners->seconder->name}}</strong> seconded it. Since no objection was raised, the Chairman declared <strong>{{$canvass->canvass->winners->winner->supplier->name}}</strong> as the winner.</p>
-                    @endforeach
+                    <p>Resolution: <strong>{{$data['resolution']}}</strong></p>
+                    <p>That after reading the price quotation submitted of the proponent for <strong>{{$data['canvass']->rfq_number}}</strong>, <strong>{{$data['canvass']->winners->awarder->name}}</strong> moved <strong>{{$data['canvass']->winners->winner->supplier->name}}</strong> be declared as the winner for having the lowest price among other bidder. <strong>{{$data['canvass']->winners->seconder->name}}</strong> seconded it. Since no objection was raised, the Chairman declared <strong>{{$data['canvass']->winners->winner->supplier->name}}</strong> as the winner.</p>
 
                 </div>
             </div>

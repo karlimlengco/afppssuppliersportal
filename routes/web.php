@@ -393,6 +393,9 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     */
     Route::get('canvassing/logs/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewLogs')->name('canvassing.logs');
     Route::get('canvassing/print/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewPrint')->name('canvassing.print');
+    Route::get('canvassing/cop/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewCOP')->name('canvassing.cop');
+    Route::get('canvassing/rop/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewROP')->name('canvassing.rop');
+    Route::get('canvassing/mom/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewMOM')->name('canvassing.mom');
     Route::post('canvassing/signatories/{id}', '\Revlv\Controllers\Procurements\CanvassingController@addSignatories')->name('canvassing.signatories');
     Route::post('canvassing/opening/{id}', '\Revlv\Controllers\Procurements\CanvassingController@openCanvass')->name('canvassing.opening');
     Route::post('canvassing/failed', '\Revlv\Controllers\Procurements\CanvassingController@failedCanvass')->name('canvassing.failed');

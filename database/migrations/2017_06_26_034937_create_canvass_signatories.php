@@ -17,6 +17,9 @@ class CreateCanvassSignatories extends Migration
             $table->increments('id');
             $table->integer('canvass_id');
             $table->integer('signatory_id');
+            $table->integer('is_present')->nullable();
+            $table->integer('cop')->nullable();
+            $table->integer('rop')->nullable();
             $table->timestamps();
         });
     }

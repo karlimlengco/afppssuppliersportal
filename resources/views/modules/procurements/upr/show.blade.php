@@ -68,107 +68,12 @@ Unit Purchase Request
                 <a class="button__options__item" id="reject-button" href="#">Cancel UPR</a>
                 @if($data->mode_of_procurement != 'public_bidding')
                     @if($data->status == 'upr_processing')
-                        {{-- <a class="button__options__item" id="process-button" href="#">Process UPR</a> --}}
                     @endif
                 @else
-
                     @if($data->status == 'Philgeps Approved')
                         <a class="button__options__item" id="bid-docs-button" href="#">Bid Docs Issuance</a>
-                        {{-- <a class="button__options__item" href="{{route('biddings.pre-bids.create-by-upr', $data->id)}}">Pre-Bid Conference</a> --}}
                     @endif
                 @endif
-
-                {{-- @if($data->mode_of_procurement != 'public_bidding')
-                    @if($data->status == 'Processing RFQ')
-                        <a href="#" class="button__options__item" id="invitation-button">Create Invitation</a>
-                    @endif
-                    @if($data->status == 'Invitation Created' || $data->status == 'Philgeps Need Repost')
-
-                        <a href="#" class="button__options__item" id="philgeps-posting-button">PhilGeps Posting</a>
-
-                    @endif
-                    @if($data->status == 'Philgeps Approved')
-                        <a href="#" id="open_canvass-button" class="button__options__item">Open Canvass</a>
-                    @endif
-                    @if($data->status == 'Open Canvass')
-                        <a href="{{route('procurements.canvassing.show', $data->canvassing->id)}}" class="button__options__item">View Canvass</a>
-                    @endif
-                    @if($data->status == 'upr_processing')
-                        <a class="button__options__item" id="process-button" href="#">Process UPR</a>
-                        <a class="button__options__item" id="reject-button" href="#">Cancel UPR</a>
-                    @endif
-
-                @else
-                    @if($data->status == 'upr_processing')
-                    <a class="button__options__item"  href="{{route('biddings.document-acceptance.create-by-rfq', $data->id)}}">Document Acceptance</a>
-                    @endif
-                    @if($data->status == 'Document Accepted')
-                        <a class="button__options__item" id="itb-button" href="#">Invitation To Bid</a>
-                    @endif
-                    @if($data->status == 'ITB Created' || $data->status == 'Philgeps Need Repost')
-                        <a class="button__options__item" id="biddings-philgeps-posting-button" href="#">PhilGeps Posting</a>
-                    @endif
-                    @if($data->status == 'Philgeps Approved')
-                        <a class="button__options__item" id="bid-docs-button" href="#">Bid Docs Issuance</a>
-                        <a class="button__options__item" href="{{route('biddings.pre-bids.create-by-upr', $data->id)}}">Pre-Bid Conference</a>
-                    @endif
-                    @if($data->status == 'Pre Bid Conference')
-                        <a class="button__options__item" id="open-bid-button" href="#">SOBE</a>
-                    @endif
-                    @if($data->status == 'Bid Open')
-                        <a class="button__options__item" id="post-qual-button" href="#">Post Qualification</a>
-                    @endif
-                @endif
-
-                @if(strpos($data->status, 'Awarded To') !== false || $data->status == 'Approved NOA')
-                    <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a>
-                @endif
-                @if($data->status == 'NOA Received')
-
-                    <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button__options__item">Create PO</a>
-                @endif
-
-                @if($data->status == 'PO Created' || $data->status == 'PO Funding Approved' || $data->status == 'PO MFO Approved')
-                    <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">View PO</a>
-                @endif
-
-                @if($data->status == 'PO Approved')
-                    <a href="#" class="button__options__item" id="ntp-button"> Notice To Proceed</a>
-                @endif
-
-                @if($data->status == 'NTP Created')
-                    <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item"> View Notice To Proceed</a>
-                @endif
-
-                @if($data->status == 'NTP Accepted')
-
-                    <a class="button__options__item" id="create-delivery-button" href="#">Create Notice Of Delivery</a>
-                @endif
-
-                @if($data->status == 'NOD Created' || $data->status == 'Delivery Received')
-                <a class="button__options__item"  href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}">View Notice Of Delivery</a>
-                @endif
-                @if($data->status == 'Complete COA Delivery')
-
-                    <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.create-from-delivery',$data->delivery_order->id)}}">Technical Inspection</a>
-                @endif
-                @if($data->status == 'Inspection Started')
-
-                    <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.show',$data->inspections->id)}}"> View Technical Inspection</a>
-                @endif
-                @if($data->status == 'Inspection Accepted')
-                    <a class="button__options__item" href="{{route('procurements.delivery-orders.store-by-dr',$data->delivery_order->id)}}">Delivered Items</a>
-                @endif
-                @if( $data->status == 'DIIR Created' || $data->status == 'DIIR Started')
-                    <a class="button__options__item" href="{{route('procurements.delivered-inspections.show',$data->diir->id)}}">Delivered Items</a>
-                @endif
-                @if( $data->status == 'DIIR Closed')
-                    <a href="#" id="voucher-button" class="button__options__item">Create Voucher</a>
-                @endif
-                @if( $data->status == 'Voucher Created' || $data->status == 'Voucher Preaudit' || $data->status == 'Voucher Certify'|| $data->status == 'Voucher Journal Entry'|| $data->status == 'Voucher Approved'|| $data->status == 'Voucher Released')
-                   <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button__options__item">View Voucher</a>
-                @endif --}}
-
                 <a class="button__options__item" id="view-attachments-button" href="#">View Attachments</a>
             </div>
         </button>
@@ -330,7 +235,6 @@ Unit Purchase Request
         e.preventDefault();
         $('#post-qual-modal').addClass('is-visible');
     })
-
     $('#open-bid-button').click(function(e){
         e.preventDefault();
         $('#open-bid-modal').addClass('is-visible');
@@ -427,5 +331,6 @@ Unit Purchase Request
         var ewt_amount   = total_amount * (expanded_witholding_tax / 100);
         $("#id-field-ewt_amount").val(ewt_amount.toFixed(2));
     });
+
 </script>
 @stop

@@ -122,11 +122,6 @@
                     "name"  :   "Canvassing"
                 },
                 {
-                    "route" :   "procurements.minutes.index",
-                    "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Minutes of the Meeting"
-                },
-                {
                     "route" :   "procurements.noa.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "Notice Of Award"

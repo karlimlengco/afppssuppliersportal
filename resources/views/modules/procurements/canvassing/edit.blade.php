@@ -55,6 +55,20 @@ Canvassing
                 </div>
             </div>
 
+            <div class="row">
+                <div class="six columns">
+                    {!! Form::selectField('presiding_officer', 'Presiding Officer', $signatory_list) !!}
+                </div>
+                <div class="six columns">
+                    {!! Form::selectField('chief', 'Chief', $signatory_list) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textField('other_attendees', 'Other Attendees') !!}
+                </div>
+            </div>
+
         {!! Form::close() !!}
     </div>
 </div>

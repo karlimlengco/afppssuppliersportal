@@ -10,7 +10,6 @@ Request For Quotation
     @include('modules.partials.modals.proponents')
     @include('modules.partials.modals.close_rfq')
     {{-- @include('modules.partials.modals.invitation') --}}
-    @include('modules.partials.modals.open_canvass')
 @stop
 
 @section('breadcrumbs')

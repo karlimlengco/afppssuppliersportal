@@ -11,13 +11,21 @@
 
             <div class="modal__dialogue__body">
                 {!! Form::textField('awarded_date', 'Award Date')!!}
-                {!! Form::selectField('awarded_by', 'Award By', $current_signs)!!}
-                {!! Form::selectField('seconded_by', 'Seconded By', $current_signs)!!}
+
+                <div class="row">
+                    <div class="six columns">
+                        {!! Form::selectField('awarded_by', 'Award By', $current_signs)!!}
+                    </div>
+                    <div class="six columns">
+                        {!! Form::selectField('seconded_by', 'Seconded By', $current_signs)!!}
+                    </div>
+                </div>
+
+                {!! Form::textareaField('resolution', 'Resolution', "", ['rows' => '4']) !!}
 
                 {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => '4']) !!}
                 {!! Form::textareaField('action', 'Action', null, ['rows' => '4']) !!}
 
-                {{-- {!! Form::textareaField('resolution', 'Resolution', "That after reading the price quotation submitted of the proponent for RFQ NUMBER  PERSONNEL moved PROPONENT be declared as the winner for having the lowest price among other bidder. PERSONNEL seconded it. Since no objection was raised, the Chairman declared PROPONENT as the winner.", ['rows' => '4']) !!} --}}
 
                 <p>You will award this to <strong><span id='proponent'></span></strong></p>
 

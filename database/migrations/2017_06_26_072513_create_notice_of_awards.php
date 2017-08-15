@@ -23,8 +23,11 @@ class CreateNoticeOfAwards extends Migration
             $table->string('upr_number')->nullable();
             $table->integer('signatory_id')->nullable();
             $table->integer('proponent_id');
+
             $table->integer('awarded_by')->nullable();
             $table->integer('seconded_by')->nullable();
+            $table->string('resolution')->nullable();
+
             $table->timestamp('awarded_date')->nullable();
             $table->string('status')->default('pending');
 

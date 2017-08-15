@@ -56,7 +56,10 @@ class CanvassingEloquent extends Model implements  AuditableContract
         'resolution',
         'is_failed',
         'failed_remarks',
-        'date_failed'
+        'date_failed',
+        'chief',
+        'presiding_officer',
+        'other_attendees',
     ];
 
     /**
@@ -67,6 +70,16 @@ class CanvassingEloquent extends Model implements  AuditableContract
     public function rfq()
     {
         return $this->belongsTo('\Revlv\Procurements\BlankRequestForQuotation\BlankRFQEloquent', 'rfq_id');
+    }
+
+    /**
+     * [officer description]
+     *
+     * @return [type] [description]
+     */
+    public function officer()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'presiding_officer');
     }
 
     /**

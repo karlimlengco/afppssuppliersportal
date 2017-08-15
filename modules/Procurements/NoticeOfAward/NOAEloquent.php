@@ -47,6 +47,7 @@ class NOAEloquent extends Model implements  AuditableContract
         'canvass_id',
         'proponent_id',
         'awarded_by',
+        'resolution',
         'awarded_date',
         'update_remarks',
         'remarks',

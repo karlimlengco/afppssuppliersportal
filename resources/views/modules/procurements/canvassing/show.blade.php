@@ -21,7 +21,7 @@ Canvassing
 
 @section('modal')
     @include('modules.partials.modals.notice_of_award')
-    @include('modules.partials.modals.signatories')
+    @include('modules.partials.modals.canvass_signatories')
     @include('modules.partials.modals.failed-canvass')
 @stop
 
@@ -49,6 +49,11 @@ Canvassing
                     <a href="#" id="failed-button" class=" button__options__item">Failed Bid</a>
                     @endif
                 @endif
+
+                <a target="_blank" href="{{route('procurements.canvassing.print',$data->id)}}" class=" button__options__item">Print Abstract</a>
+                <a target="_blank" href="{{route('procurements.canvassing.cop',$data->id)}}" class=" button__options__item">Print COP</a>
+                <a target="_blank" href="{{route('procurements.canvassing.rop',$data->id)}}" class=" button__options__item">Print ROP</a>
+                <a target="_blank" href="{{route('procurements.canvassing.mom',$data->id)}}" class=" button__options__item">Print MOM</a>
             </div>
         </button>
 
@@ -57,9 +62,6 @@ Canvassing
             <i class="nc-icon-mini arrows-1_tail-left"></i>
         </a>
 
-        <a target="_blank" href="{{route('procurements.canvassing.print',$data->id)}}" class="button" tooltip="Print">
-            <i class="nc-icon-mini tech_print"></i>
-        </a>
         <a href="{{route('procurements.canvassing.logs', $data->id)}}" class="button" tooltip="Logs">
             <i class="nc-icon-mini files_archive-content"></i>
         </a>

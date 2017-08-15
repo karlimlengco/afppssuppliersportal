@@ -145,7 +145,7 @@ class DeliveryController extends Controller
         $validator = Validator::make($request->all(),[
             'expected_date'     =>  'required',
             'transaction_date'  =>  'required',
-            'action'  =>  'required_with:remarks',
+            'action'            =>  'required_with:remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {

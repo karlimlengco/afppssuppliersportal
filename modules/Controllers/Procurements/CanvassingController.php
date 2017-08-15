@@ -123,6 +123,7 @@ class CanvassingController extends Controller
         CanvassingRepository $model,
         BlankRFQRepository $rfq,
         UnitPurchaseRequestRepository $upr,
+        CSignatoryRepository $mysignatories,
         HolidayRepository $holidays)
     {
         $upr_model              =   $upr->findById($id);
@@ -140,16 +141,17 @@ class CanvassingController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
-        if(!$upr_model->philgeps)
-        {
-            $ispq_transaction_date  = Carbon::createFromFormat('Y-m-d', $rfq_model->invitations->ispq->transaction_date);
-        }
-        else
-        {
-            $ispq_transaction_date  = Carbon::createFromFormat('Y-m-d', $upr_model->philgeps->transaction_date);
-        }
+        $ispq_transaction_date  =   $rfq_model->completed_at;
+        // if(!$upr_model->philgeps)
+        // {
+        //     $ispq_transaction_date  = Carbon::createFromFormat('Y-m-d', $rfq_model->invitations->ispq->transaction_date);
+        // }
+        // else
+        // {
+        //     $ispq_transaction_date  = Carbon::createFromFormat('Y-m-d', $upr_model->philgeps->transaction_date);
+        // }
 
-        $cd                     = $ispq_transaction_date->diffInDays($transaction_date);
+        $cd                     =   $ispq_transaction_date->diffInDays($transaction_date);
 
         $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -165,12 +167,14 @@ class CanvassingController extends Controller
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
             'open_canvass_date'  =>  'required',
-            'action'             =>  'required_with:remarks',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('remarks') == null && $day_delayed > 2) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('action') == null && $day_delayed > 2) {
+                $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
 
@@ -193,7 +197,19 @@ class CanvassingController extends Controller
         $inputs['canvass_time'] =   \Carbon\Carbon::now()->format('H:i:s');
         $inputs['open_by']      =   \Sentinel::getUser()->id;
         $canvass_date           =   $request->open_canvass_date;
+
+            $inputs['presiding_officer']     =   $request->presiding_officer;
+            $inputs['chief']                =   $request->chief;
+            $inputs['other_attendees']      =   $request->other_attendees;
+
         $result = $model->save($inputs);
+
+        for ($i=0; $i < count($request->members); $i++) {
+            $mysignatories->save([
+                'signatory_id'  =>  $request->members[$i],
+                'canvass_id'    =>  $result->id
+            ]);
+        }
 
         $upr->update([
             'next_allowable'=> 2,
@@ -201,7 +217,7 @@ class CanvassingController extends Controller
             'next_due'      => $transaction_date->addDays(2),
             'last_date'     => $transaction_date,
             'status' => "Open Canvass",
-            'delay_count'   => $day_delayed,
+            'delay_count'   => $wd,
             'calendar_days' => $cd + $rfq_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
@@ -286,12 +302,14 @@ class CanvassingController extends Controller
         $proponent_list =   $proponents->findByRFQId($result->rfq_id);
 
         $my_signtories  =   $result->signatories->pluck('signatory_id', 'signatory_id');
+        $signatory_info     =   $result->signatories;
 
         $current_signs  =   array_intersect_key( $signatory_lists, $my_signtories->toArray()  );
 
         return $this->view('modules.procurements.canvassing.show',[
             'data'              =>  $result,
             'signatory_lists'   =>  $signatory_lists,
+            'signatory_info'    =>  $signatory_info,
             'current_signs'     =>  $current_signs,
             'proponent_list'    =>  $proponent_list,
             'indexRoute'        =>  $this->baseUrl.'index',
@@ -310,13 +328,16 @@ class CanvassingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, CanvassingRepository $model, BlankRFQRepository $rfq)
+    public function edit($id, CanvassingRepository $model,
+        SignatoryRepository $signatories, BlankRFQRepository $rfq)
     {
         $result     =   $model->findById($id);
+        $signatory_lists=   $signatories->lists('id', 'name');
         $rfq_list   =   $rfq->lists('id', 'rfq_number');
 
         return $this->view('modules.procurements.canvassing.edit',[
             'data'          =>  $result,
+            'signatory_list'   =>  $signatory_lists,
             'rfq_list'      =>  $rfq_list,
             'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
@@ -355,8 +376,12 @@ class CanvassingController extends Controller
         UserRepository $users,
         CanvassingRepository $model)
     {
+        $inputs                         =   $request->getData();
+        $inputs['presiding_officer']    =   $request->presiding_officer;
+        $inputs['chief']                =   $request->chief;
+        $inputs['other_attendees']      =   $request->other_attendees;
 
-        $result                 =   $model->update($request->getData(), $id);
+        $result                 =   $model->update($inputs, $id);
 
         $upr_model              =   $upr->findById($result->id);
         // $rfq_model              =   $rfq->with('invitations')->findById($id);
@@ -366,20 +391,23 @@ class CanvassingController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
-        $ispq_transaction_date  = Carbon::createFromFormat('Y-m-d', $rfq_model->invitations->ispq->transaction_date);
+        $ispq_transaction_date  =   $rfq_model->completed_at;
 
         $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+
+        $cd                     =   $ispq_transaction_date->diffInDays($transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
         if($day_delayed != 0)
         {
             $day_delayed            =   $day_delayed - 1;
         }
 
-        if($day_delayed != $result->days)
+        if($wd != $result->days)
         {
-            $model->update(['days' => $day_delayed], $id);
+            $model->update(['days' => $wd], $id);
         }
 
         $modelType  =   'Revlv\Procurements\Canvassing\CanvassingEloquent';
@@ -413,16 +441,29 @@ class CanvassingController extends Controller
         CanvassingRepository $model
         )
     {
+
         $canvass    =   $model->with('signatories')->findById($id);
 
-        $mysignatories->deleteAllByCanvass($id);
-
-        for ($i=0; $i < count($request->signatory_id); $i++) {
-            $mysignatories->save([
-                'signatory_id'  =>  $request->signatory_id[$i],
-                'canvass_id'    =>  $id
-            ]);
+        foreach($canvass->signatories as $signa)
+        {
+            $mysignatories->update(['is_present' => 0, 'cop' => 0, 'rop' => 0], $signa->id);
         }
+
+        for ($i=0; $i < count($request->attendance); $i++) {
+            $mysignatories->update(['is_present' => 1], $request->attendance[$i]);
+        }
+
+        $mysignatories->update(['cop' => 1], $request->cop);
+        $mysignatories->update(['rop' => 1], $request->rop);
+
+        // $mysignatories->deleteAllByCanvass($id);
+
+        // for ($i=0; $i < count($request->signatory_id); $i++) {
+        //     $mysignatories->save([
+        //         'signatory_id'  =>  $request->signatory_id[$i],
+        //         'canvass_id'    =>  $id
+        //     ]);
+        // }
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "New record has been successfully added."
@@ -469,6 +510,90 @@ class CanvassingController extends Controller
         $pdf = PDF::loadView('forms.canvass', ['data' => $data])->setOption('margin-bottom', 10)->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('canvass.pdf');
+    }
+
+    /**
+     * [viewCOP description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewCOP($id, CanvassingRepository $model)
+    {
+        $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
+        $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
+
+        $data['date']               =  $result->canvass_date." ". $result->canvass_time;
+
+        $data['rfq_number']         =  $result->rfq->rfq_number;
+        $data['total_amount']       =  $result->upr->total_amount;
+        $data['unit']               =  $result->upr->unit->short_code;
+        $data['center']             =  $result->upr->centers->name;
+        $data['venue']              =  $result->rfq->invitations->ispq->venue;
+        $data['signatories']        =  $result->signatories;
+        $data['proponents']         =  $result->rfq->proponents;
+        $data['min_bid']            =  $min;
+
+        $pdf = PDF::loadView('forms.cop', ['data' => $data])->setOption('margin-bottom', 10)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('cop.pdf');
+    }
+
+    /**
+     * [viewROP description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewROP($id, CanvassingRepository $model)
+    {
+        $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
+        $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
+
+        $data['date']               =  $result->canvass_date." ". $result->canvass_time;
+
+        $data['rfq_number']         =  $result->rfq->rfq_number;
+        $data['total_amount']       =  $result->upr->total_amount;
+        $data['unit']               =  $result->upr->unit->short_code;
+        $data['center']             =  $result->upr->centers->name;
+        $data['venue']              =  $result->rfq->invitations->ispq->venue;
+        $data['signatories']        =  $result->signatories;
+        $data['proponents']         =  $result->rfq->proponents;
+        $data['min_bid']            =  $min;
+
+        $pdf = PDF::loadView('forms.rop', ['data' => $data])->setOption('margin-bottom', 10)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('rop.pdf');
+    }
+
+    /**
+     * [viewMOM description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewMOM($id, CanvassingRepository $model)
+    {
+        $result                 =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
+
+        if($result->winners == null)
+        {
+            return redirect()->back()->with(['error' => 'No winner']);
+        }
+
+        $data['other_attendees']=   $result->other_attendees;
+        $data['date_opened']    =   $result->canvass_date;
+        $data['time_opened']    =   $result->canvass_time;
+        $data['venue']          =   $result->upr->invitations->ispq->venue;
+        $data['time_closed']    =   $result->adjourned_time;
+        $data['members']        =   $result->signatories;
+        $data['canvass']        =   $result;
+        $data['officer']        =   $result->officer;
+        $data['resolution']     =   $result->resolution;
+
+        $pdf = PDF::loadView('forms.mom', ['data' => $data])->setOption('margin-left', 13)->setOption('margin-right', 13)->setOption('margin-bottom', 10)->setPaper('a4');
+
+        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('mom.pdf');
     }
 
     /**

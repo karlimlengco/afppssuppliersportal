@@ -31,6 +31,9 @@ class CreateCanvassing extends Migration
             $table->text('remarks')->nullable();
             $table->text('action')->nullable();
             $table->text('resolution')->nullable();
+            $table->integer('presiding_officer')->nullable();
+            $table->integer('chief')->nullable();
+            $table->text('other_attendees')->nullable();
             $table->timestamps();
         });
     }

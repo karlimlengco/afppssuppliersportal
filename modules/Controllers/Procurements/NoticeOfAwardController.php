@@ -101,9 +101,10 @@ class NoticeOfAwardController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'awarded_date'  =>   'required',
+            'awarded_date'  =>   'required|after_or_equal:'.$canvasModel->canvass_date,
             'awarded_by'    =>   'required',
             'seconded_by'   =>   'required',
+            'resolution'    =>   'required',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -141,7 +142,7 @@ class NoticeOfAwardController extends Controller
         $noa->save($data);
 
         // // Update canvass adjuourned time
-        $model->update(['adjourned_time' => \Carbon\Carbon::now()], $canvasId);
+        $model->update(['adjourned_time' => \Carbon\Carbon::now(), 'resolution' => $request->resolution], $canvasId);
         // // update upr
         $upr->update([
             'next_allowable'=> 1,
@@ -150,7 +151,7 @@ class NoticeOfAwardController extends Controller
             'last_date'     => $transaction_date,
             'calendar_days' => $cd + $canvasModel->upr->calendar_days,
             'status'        => "Awarded To $supplier_name",
-            'delay_count'   => $day_delayed,
+            'delay_count'   => $wd,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ],  $canvasModel->upr_id);

@@ -23,6 +23,9 @@ class SignatoryEloquent extends Model
     protected $fillable = [
         'canvass_id',
         'signatory_id',
+        'is_present',
+        'cop',
+        'rop',
     ];
 
     /**
