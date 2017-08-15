@@ -8,6 +8,7 @@ use PDF;
 use Auth;
 use Carbon\Carbon;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
@@ -180,7 +181,7 @@ class BlankRFQController extends Controller
 
         $result = $model->save($inputs);
 
-        $upr->update([
+        $upr_result =   $upr->update([
             'status'        => 'Processing RFQ',
             'next_allowable'=> 1,
             'next_step'     => 'Close RFQ',
@@ -194,6 +195,9 @@ class BlankRFQController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $upr_model->id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number." Process RFQ"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -418,7 +422,7 @@ class BlankRFQController extends Controller
             'close_days'    => $wd,
             ], $request->rfq_id);
 
-        $upr->update([
+        $upr_result =   $upr->update([
             'status'        => 'Close RFQ',
             'next_allowable'=> 1,
             'next_step'     => 'Canvassing',
@@ -428,6 +432,9 @@ class BlankRFQController extends Controller
             'last_action'   => $request->close_remarks,
             'last_remarks'  => $request->close_action
             ], $rfq->upr_id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number."Close RFQ"));
 
         return redirect()->route($this->baseUrl.'show', $request->rfq_id)->with([
             'success'  => "Record has been successfully updated."

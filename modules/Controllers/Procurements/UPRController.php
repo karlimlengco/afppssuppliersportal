@@ -9,6 +9,7 @@ use DB;
 use Excel;
 use PDF;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
@@ -135,8 +136,7 @@ class UPRController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return $this->view('modules.procurements.upr.index',[
+    {        return $this->view('modules.procurements.upr.index',[
             'createRoute'   =>  $this->baseUrl."create",
             'importRoute'   =>  $this->baseUrl."imports",
             'breadcrumbs' => [
@@ -203,6 +203,7 @@ class UPRController extends Controller
         UnitPurchaseRequestRequest $request,
         UnitPurchaseRequestRepository $model)
     {
+
         $items                  =   $request->only([
             'item_description',
             'quantity',
@@ -264,6 +265,7 @@ class UPRController extends Controller
 
             DB::table('unit_purchase_request_items')->insert($item_datas);
         }
+        event(new Event($result, "UPR Created"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -414,6 +416,7 @@ class UPRController extends Controller
                 $x = $userLogs->save($data);
             }
         }
+        event(new Event($result, "Update UPR"));
 
         return redirect()->route($this->baseUrl.'edit', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -464,13 +467,15 @@ class UPRController extends Controller
             'remarks'           => 'required',
         ]);
 
-        $model->update([
+        $result =   $model->update([
             'terminate_status'  =>  $request->terminate_status,
             'remarks'           =>  $request->remarks,
             'state'             =>  "Terminated (".$request->terminate_status.")",
             'terminated_date'   =>  \Carbon\Carbon::now(),
             'terminated_by'     =>  \Sentinel::getUser()->id,
         ], $id);
+
+        event(new Event($result, "UPR Terminated"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -494,12 +499,14 @@ class UPRController extends Controller
             'cancel_reason'     => 'required',
         ]);
 
-        $model->update([
+        $result =   $model->update([
             'cancelled_at'  =>  $request->cancelled_at,
             'cancel_reason' =>  $request->cancel_reason,
             'state'         =>  "Cancelled",
             'status'        =>  "Cancelled",
         ], $id);
+
+        event(new Event($result, "UPR Cancelled"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

@@ -630,6 +630,7 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
 
 
 
+Route::resource('notify', '\Revlv\Controllers\Notifications\NotifyController');
 /*
 |--------------------------------------------------------------------------
 | Datatables Routes
@@ -638,6 +639,7 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
 */
 Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
 
+    Route::get('notifications', '\Revlv\Controllers\Notifications\NotifyController@getDatatable')->name('notifications');
     Route::get('audit-logs', '\Revlv\Controllers\Settings\AuditLogController@getDatatable')->name('audit-logs');
     Route::get('noa-acceptance', '\Revlv\Controllers\Biddings\NOAController@getDatatable')->name('biddings.noa-acceptance');
     Route::get('catalogs', '\Revlv\Controllers\Library\CatalogController@getDatatable')->name('library.catalogs');

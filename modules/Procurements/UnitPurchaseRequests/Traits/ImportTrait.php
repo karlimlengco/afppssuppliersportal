@@ -8,6 +8,7 @@ use Datatables;
 use Excel;
 use PDF;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\AccountCodes\AccountCodeRepository;
@@ -279,7 +280,7 @@ trait ImportTrait
 
             DB::table('unit_purchase_request_items')->insert($item_datas);
         }
-
+        event(new Event($result, "UPR Created"));
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
         ]);

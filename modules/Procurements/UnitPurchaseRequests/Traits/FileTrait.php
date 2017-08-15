@@ -3,6 +3,7 @@
 namespace Revlv\Procurements\UnitPurchaseRequests\Traits;
 
 use Illuminate\Http\Request;
+use App\Events\Event;
 use DB;
 use Datatables;
 use Excel;

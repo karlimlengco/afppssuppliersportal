@@ -9,82 +9,82 @@
                 {
                     "route" :   "biddings.unit-purchase-requests.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Unit Purchase Request"
+                    "name"  :   "Unit Purchase Request (PCCO)"
                 },
                 {
                     "route" :   "biddings.document-acceptance.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Document Acceptance"
+                    "name"  :   "Document Acceptance (BAC)"
                 },
                 {
                     "route" :   "biddings.preproc.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "PreProc Conference"
+                    "name"  :   "PreProc Conference (BAC)"
                 },
                 {
                     "route" :   "biddings.itb.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Invitation To Bid"
+                    "name"  :   "Invitation To Bid (BAC)"
                 },
                 {
                     "route" :   "biddings.philgeps.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "PhilGeps"
+                    "name"  :   "PhilGeps (BAC)"
                 },
                 {
                     "route" :   "biddings.bid-docs.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Bid Docs Issuance"
+                    "name"  :   "Bid Docs Issuance (BAC)"
                 },
                 {
                     "route" :   "biddings.pre-bids.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Pre Bid Conference"
+                    "name"  :   "Pre Bid Conference (BAC)"
                 },
                 {
                     "route" :   "biddings.bid-openings.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "SOBE"
+                    "name"  :   "SOBE (BAC)"
                 },
                 {
                     "route" :   "biddings.post-qualifications.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Post Qualification"
+                    "name"  :   "Post Qualification (BAC)"
                 },
                 {
                     "route" :   "biddings.noa.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Notice of Award"
+                    "name"  :   "Notice of Award (PCCO)"
                 },
                 {
                     "route" :   "biddings.purchase-orders.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Contract Order"
+                    "name"  :   "Contract Order (PCCO)"
                 },
                 {
                     "route" :   "biddings.ntp.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Notice To Proceed"
+                    "name"  :   "Notice To Proceed (PCCO)"
                 },
                 {
                     "route" :   "biddings.delivery-orders.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Notice Of Delivery"
+                    "name"  :   "Notice Of Delivery (PCCO)"
                 },
                 {
                     "route" :   "biddings.inspection-and-acceptance.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Inspection And Acceptance"
+                    "name"  :   "Inspection And Acceptance (PCCO)"
                 },
                 {
                     "route" :   "biddings.delivered-inspections.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Delivered Inspection"
+                    "name"  :   "Delivered Inspection (PCCO)"
                 },
                 {
                     "route" :   "biddings.vouchers.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Vouchers"
+                    "name"  :   "Vouchers (PCCO)"
                 }
             ]
         }

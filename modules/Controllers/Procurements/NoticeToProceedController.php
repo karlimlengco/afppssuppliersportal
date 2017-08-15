@@ -9,6 +9,7 @@ use PDF;
 use Carbon\Carbon;
 use \App\Support\Breadcrumb;
 use Validator;
+use App\Events\Event;
 
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\NoticeToProceed\NTPRepository;
@@ -212,7 +213,7 @@ class NoticeToProceedController extends Controller
         ];
 
 
-        $upr->update([
+        $upr_result =  $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'Receive NTP',
             'next_due'      => $transaction_date->addDays(1),
@@ -223,6 +224,8 @@ class NoticeToProceedController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $po_model->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." NTP Created"));
 
         $result = $model->save($inputs);
 
@@ -417,7 +420,7 @@ class NoticeToProceedController extends Controller
 
         $result             =   $model->update($input, $id);
 
-        $upr->update([
+        $upr_result  =  $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'Prepare NOD',
             'next_due'      => $transaction_date->addDays(1),
@@ -428,6 +431,8 @@ class NoticeToProceedController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." NPT Accepted"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

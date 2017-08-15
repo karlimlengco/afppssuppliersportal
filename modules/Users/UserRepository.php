@@ -350,4 +350,26 @@ class UserRepository extends BaseRepository
 
         return $model->paginate($paginate);
     }
+
+    public function getAdminAndPCCO($pcco)
+    {
+        $model  =   $this->model;
+
+        $model  = $model->select(
+            'users.username',
+            'users.id',
+            'users.unit_id',
+            'roles.name'
+        );
+
+        $model  =   $model->where('catered_units.pcco_id', '=', $pcco);
+        $model  =   $model->orWhere('roles.name', '=', 'admin');
+
+        $model  =   $model->leftJoin('catered_units', 'catered_units.id', '=', "users.unit_id");
+        $model  =   $model->leftJoin('role_users', 'role_users.user_id', '=', 'users.id');
+        $model  =   $model->leftJoin('roles', 'roles.id', '=', 'role_users.role_id');
+
+
+        return $model->get();
+    }
 }

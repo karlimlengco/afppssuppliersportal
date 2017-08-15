@@ -8,6 +8,7 @@ use Auth;
 use PDF;
 use Carbon\Carbon;
 use Validator;
+use App\Events\Event;
 use \App\Support\Breadcrumb;
 
 
@@ -170,7 +171,7 @@ class VoucherController extends Controller
 
         $result = $model->save($inputs);
 
-        $upr->update([
+        $upr_result  = $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'Pre Audit Voucher',
             'next_due'      => $transaction_date->addDays(1),
@@ -181,6 +182,8 @@ class VoucherController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." Voucher Created"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -405,7 +408,7 @@ class VoucherController extends Controller
         //     'last_remarks'  => $request->remarks
         //     ], $result->upr_id);
 
-        $upr->update([
+        $upr_result = $upr->update([
             'next_allowable'=> 0,
             'next_step'     => 'Complete',
             'next_due'      => $transaction_date,
@@ -415,8 +418,9 @@ class VoucherController extends Controller
             'completed_at'  => $request->preaudit_date,
             'delay_count'   => $cd + $result->upr->delay_count,
             'days'          => $wd],
-       $result->upr_id);
+        $result->upr_id);
 
+        event(new Event($upr_result, $upr_result->ref_number." Completed"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

@@ -9,6 +9,7 @@ use PDF ;
 use Carbon\Carbon;
 use Validator;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
@@ -191,7 +192,7 @@ class DeliveredInspectionReportController extends Controller
 
         $result     =   $model->update($inputs, $id);
 
-        $upr->update([
+        $upr_result = $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'Close Inspection',
             'next_due'      => $transaction_date->addDays(1),
@@ -202,6 +203,8 @@ class DeliveredInspectionReportController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." DIIR Started"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -272,7 +275,7 @@ class DeliveredInspectionReportController extends Controller
 
         $result     =   $model->update($inputs, $id);
 
-        $upr->update([
+        $upr_result  =  $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'Create Voucher',
             'next_due'      => $transaction_date->addDays(1),
@@ -283,6 +286,9 @@ class DeliveredInspectionReportController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number." DIIR Closed"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -364,9 +370,12 @@ class DeliveredInspectionReportController extends Controller
 
         $result         =   $model->save($inputs);
 
-        $upr->update([
+        $upr_result =  $upr->update([
             'status' => "DIIR Created",
             ], $delivery_model->upr_id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number." DIIR Created"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

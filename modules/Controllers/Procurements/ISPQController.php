@@ -9,6 +9,7 @@ use PDF;
 use DB;
 use Carbon\Carbon;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\InvitationToSubmitQuotation\ISPQRepository;
@@ -193,7 +194,7 @@ class ISPQController extends Controller
             'action'            =>  $request->get('action'),
         ];
 
-        $upr->update(['status' => 'Invitation Created',
+        $upr_result =   $upr->update(['status' => 'Invitation Created',
             'next_allowable'=> 3,
             'next_step'     => 'Close RFQ',
             'next_due'      => $transaction_date->addDays(3),
@@ -203,6 +204,8 @@ class ISPQController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $upr_model->id);
+
+        event(new Event($upr_result, $upr_result->ref_number." Invitation Created"));
 
         $quotations->save($data);
 

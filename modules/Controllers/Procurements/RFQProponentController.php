@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use \App\Support\Breadcrumb;
 use Auth;
 use PDF;
+use App\Events\Event;
 
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRequest;
@@ -111,8 +112,9 @@ class RFQProponentController extends Controller
     {
         $inputs                 =   $request->getData();
         $inputs['prepared_by']  =   \Sentinel::getUser()->id;
-
         $result = $model->save($inputs);
+
+        event(new Event($result->rfq->upr, $result->rfq->upr->ref_number." Added Proponent"));
 
         return redirect()->back()->with([
             'success'  => "New record has been successfully added."

@@ -10,6 +10,7 @@ use PDF;
 use Carbon\Carbon;
 use \App\Support\Breadcrumb;
 use Validator;
+use App\Events\Event;
 
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
@@ -23,7 +24,6 @@ use \Revlv\Settings\Holidays\HolidayRepository;
 use Revlv\Procurements\DeliveryOrder\AttachmentTrait;
 use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Users\UserRepository;
-
 
 class DeliveryController extends Controller
 {
@@ -206,7 +206,7 @@ class DeliveryController extends Controller
 
         DB::table('delivery_order_items')->insert($items);
 
-        $upr->update([
+        $upr_result  = $upr->update([
             'next_allowable'=> $po_model->delivery_terms,
             'next_step'     => 'Receive Delivery',
             'next_due'      => $transaction_date->addDays($po_model->delivery_terms),
@@ -217,6 +217,8 @@ class DeliveryController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." NOD Created"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -531,7 +533,7 @@ class DeliveryController extends Controller
 
         $model->update($inputs, $id);
 
-        $upr->update([
+        $upr_result  = $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'COA Delivery',
             'next_due'      => $transaction_date->addDays(1),
@@ -542,6 +544,9 @@ class DeliveryController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $dr_model->upr_id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number." ". $status));
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -633,7 +638,7 @@ class DeliveryController extends Controller
 
         $result =   $model->update($inputs, $id);
 
-        $upr->update([
+        $upr_result = $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'Technical Inspection',
             'next_due'      => $transaction_date->addDays(1),
@@ -644,6 +649,9 @@ class DeliveryController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number." Complete COA Delivery"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

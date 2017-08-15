@@ -9,6 +9,7 @@ use PDF;
 use Carbon\Carbon;
 use Validator;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\Canvassing\CanvassingRepository;
@@ -145,7 +146,8 @@ class NoticeOfAwardController extends Controller
         // // Update canvass adjuourned time
         $model->update(['adjourned_time' => \Carbon\Carbon::now(), 'resolution' => $request->resolution], $canvasId);
         // // update upr
-        $upr->update([
+
+        $upr_result =   $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'Approved NOA',
             'next_due'      => $transaction_date->addDays(1),
@@ -156,6 +158,9 @@ class NoticeOfAwardController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ],  $canvasModel->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." Award NOA"));
+
 
         return redirect()->route('procurements.canvassing.show', $canvasId)->with([
             'success'  => "New record has been successfully added."
@@ -255,7 +260,7 @@ class NoticeOfAwardController extends Controller
         $result             =   $model->findById($id);
 
         $model->update($input, $id);
-        $upr->update([
+        $upr_result = $upr->update([
             'next_allowable'=> 2,
             'next_step'     => 'Create PO',
             'next_due'      => $award_accepted_date->addDays(2),
@@ -266,6 +271,9 @@ class NoticeOfAwardController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." Received NOA"));
+
 
         return redirect()->back()->with([
             'success'  => "Record has been successfully updated."
@@ -350,7 +358,7 @@ class NoticeOfAwardController extends Controller
 
          // // update upr
 
-        $upr->update([
+        $upr_result =   $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'Recieved NOA',
             'next_due'      => $accepted_date->addDays(1),
@@ -361,6 +369,8 @@ class NoticeOfAwardController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ],  $result->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." Approved NOA"));
 
 
         return redirect()->back()->with([

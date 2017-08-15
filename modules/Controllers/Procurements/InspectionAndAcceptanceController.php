@@ -10,6 +10,7 @@ use PDF;
 use Carbon\Carbon;
 use \App\Support\Breadcrumb;
 use Validator;
+use App\Events\Event;
 
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
@@ -130,7 +131,7 @@ class InspectionAndAcceptanceController extends Controller
 
         $delivery->update(['status' => 'Accepted'], $result->dr_id);
 
-        $upr->update([
+        $upr_result  =  $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'DIIR',
             'next_due'      => $transaction_date->addDays(1),
@@ -142,6 +143,7 @@ class InspectionAndAcceptanceController extends Controller
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
+        event(new Event($upr_result, $upr_result->ref_number." Inspection Accepted"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -303,7 +305,7 @@ class InspectionAndAcceptanceController extends Controller
             DB::table('inspection_acceptance_invoices')->insert($invoices);
         }
 
-        $upr->update([
+        $upr_result = $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'Inspection Acceptance',
             'next_due'      => $transaction_date->addDays(1),
@@ -314,6 +316,9 @@ class InspectionAndAcceptanceController extends Controller
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
+
+
+        event(new Event($upr_result, $upr_result->ref_number." Inspection Started"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

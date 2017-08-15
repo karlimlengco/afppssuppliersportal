@@ -9,6 +9,7 @@ use \Carbon\Carbon;
 use Validator;
 use PDF;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use \Revlv\Procurements\Canvassing\CanvassingRepository;
 use \Revlv\Procurements\Canvassing\Signatories\SignatoryRepository as CSignatoryRepository;
@@ -211,17 +212,19 @@ class CanvassingController extends Controller
             ]);
         }
 
-        $upr->update([
+        $upr_result =   $upr->update([
             'next_allowable'=> 2,
             'next_step'     => 'NOA',
             'next_due'      => $transaction_date->addDays(2),
             'last_date'     => $transaction_date,
-            'status' => "Open Canvass",
+            'status'        => "Open Canvass",
             'delay_count'   => $wd,
             'calendar_days' => $cd + $rfq_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $rfq_model->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." Open Canvas"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -241,10 +244,12 @@ class CanvassingController extends Controller
         UnitPurchaseRequestRepository $upr)
     {
 
-        $upr->update([
+        $upr_result = $upr->update([
             'status' => "Failed Bid",
             'last_remarks'  => $request->failed_remarks
             ], $request->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." Failed Bid"));
 
         $result =   $model->update(['is_failed'=> 1, 'date_failed'=>$request->date_failed, 'failed_remarks'=>$request->failed_remarks], $request->id);
 
