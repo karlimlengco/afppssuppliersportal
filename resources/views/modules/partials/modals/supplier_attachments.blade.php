@@ -15,6 +15,19 @@
                         {!! Form::textField('name', 'Name') !!}
                     </div>
                     <div class="six columns">
+                        {!! Form::selectField('type', 'Type', [
+                            'dti'                   => 'DTI',
+                            'mayors_permit'         => 'Mayors Permit',
+                            'tax_clearance'         => 'Tax Clearance',
+                            'philgeps_registraion'  => 'Philgeps Registration',
+                        ]) !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="six columns">
+                        {!! Form::dateField('issued_date', 'Issued Date') !!}
+                    </div>
+                    <div class="six columns">
                         {!! Form::dateField('validity_date', 'Validity Date') !!}
                     </div>
                 </div>

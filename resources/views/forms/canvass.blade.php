@@ -78,14 +78,31 @@
                             </tr>
                         </thead>
                         <tbody>
+
                         @foreach($data['proponents'] as $proponent)
                             <tr>
                                 <td>{{$proponent->supplier->name}}</td>
                                 <td>{{formatPrice($proponent->bid_amount)}}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>
+                                    @if($proponent->supplier->attachmentByType("dti") != null && $proponent->supplier->attachmentByType("dti")->validity_date >= $data['today'])
+                                         ok
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($proponent->supplier->attachmentByType("mayors_permit") != null && $proponent->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
+                                        ok
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($proponent->supplier->attachmentByType("tax_clearance") != null && $proponent->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'])
+                                        ok
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($proponent->supplier->attachmentByType("philgeps_registration") != null && $proponent->supplier->attachmentByType("philgeps_registration")->validity_date >= $data['today'])
+                                        ok
+                                    @endif
+                                </td>
                                 <td>{{ucfirst($proponent->status)}}</td>
                             </tr>
                             @endforeach

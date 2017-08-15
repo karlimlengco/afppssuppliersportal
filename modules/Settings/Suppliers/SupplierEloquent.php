@@ -53,4 +53,14 @@ class SupplierEloquent extends Model
          return $this->hasMany('\Revlv\Settings\Suppliers\Attachments\AttachmentEloquent', 'supplier_id');
     }
 
+    /**
+     * [attachments description]
+     *
+     * @return [type] [description]
+     */
+    public function attachmentByType($type)
+    {
+         return $this->hasOne('\Revlv\Settings\Suppliers\Attachments\AttachmentEloquent', 'supplier_id')->where('type','=',$type)->first();
+    }
+
 }

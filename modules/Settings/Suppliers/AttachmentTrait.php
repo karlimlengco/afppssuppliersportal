@@ -35,18 +35,23 @@ trait AttachmentTrait
         AttachmentRepository $attachments)
     {
 
+        $validator = \Validator::make($request->all(), [
+            'type'          => 'required',
+            'file'          => 'required',
+            'name'          => 'required',
+            'issued_date'   => 'required',
+            'validity_date' => 'required',
+        ]);
+
         $file       = md5_file($request->file);
         $file       = $file.".".$request->file->getClientOriginalExtension();
 
-        $validator = \Validator::make($request->all(), [
-            'file'          => 'required',
-            'name'          => 'required',
-            'validity_date' => 'required',
-        ]);
 
         $result     = $attachments->save([
             'supplier_id'       =>  $id,
             'name'          =>  $request->name,
+            'issued_date'   =>  $request->issued_date,
+            'type'          =>  $request->type,
             'file_name'     =>  $file,
             'user_id'       =>  \Sentinel::getUser()->id,
             'upload_date'   =>  \Carbon\Carbon::now(),

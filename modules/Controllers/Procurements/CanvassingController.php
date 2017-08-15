@@ -506,6 +506,7 @@ class CanvassingController extends Controller
         $data['signatories']        =  $result->signatories;
         $data['proponents']         =  $result->rfq->proponents;
         $data['min_bid']            =  $min;
+        $data['today']              =  Carbon::now()->format('Y-m-d');
 
         $pdf = PDF::loadView('forms.canvass', ['data' => $data])->setOption('margin-bottom', 10)->setPaper('a4');
 

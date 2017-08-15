@@ -139,20 +139,20 @@ Suppliers
                      <thead>
                         <tr>
                             <th>Name</th>
-                            <th>File Name</th>
+                            <th>Type</th>
                             <th>Uploaded By</th>
+                            <th>Issued Date</th>
                             <th>Validity Date</th>
-                            <th>Upload Date</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($data->attachments as  $attachment)
                         <tr>
                             <td> <a target="_blank" href="{{route('settings.suppliers.attachments.download', $attachment->id)}}"> {{$attachment->name}} </a></td>
-                            <td>{{$attachment->file_name}}</td>
+                            <td style="text-transform:uppercase">{{$attachment->type}}</td>
                             <td>{{($attachment->users) ? $attachment->users->first_name ." ". $attachment->users->surname :""}}</td>
+                            <td>{{$attachment->issued_date}}</td>
                             <td>{{$attachment->validity_date}}</td>
-                            <td>{{$attachment->upload_date}}</td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -19,6 +19,8 @@ class CreateSupplierAttachments extends Migration
             $table->string('name');
             $table->string('file_name');
             $table->integer('user_id');
+            $table->string('type');
+            $table->date('issued_date')->nullable();
             $table->date('validity_date')->nullable();
             $table->date('upload_date');
             $table->timestamps();
