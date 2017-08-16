@@ -225,7 +225,12 @@ class FileController extends Controller
             return 'Sorry. File does not exists.';
         }
 
-        return response()->download($directory);
+        return \Response::make(file_get_contents($directory), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="file"'
+        ]);
+
+        return response()->make($directory);
     }
 
     /**
