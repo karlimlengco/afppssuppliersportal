@@ -166,13 +166,14 @@ class ProcurementCenterRepository extends BaseRepository
                     //     as delay_count"),
 
                     DB::raw(" IFNULL( (select SUM(CASE
-                         WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' THEN 1
-                         ELSE 0
+                                 WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' THEN 1
+                                 ELSE 0
                        END)
                         from unit_purchase_requests
                         left join procurement_centers as pc
                         on unit_purchase_requests.procurement_office  = pc.id
                         where mode_of_procurement  = 'public_bidding'
+                        and unit_purchase_requests.next_due <  NOW()
                         and programs = procurement_centers.programs and unit_purchase_requests.units = '$unit_id' and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to' ) ,0 )
                         as delay_count"),
 
@@ -248,13 +249,14 @@ class ProcurementCenterRepository extends BaseRepository
 
 
                     DB::raw("IFNULL( (select SUM(CASE
-                         WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' THEN 1
-                         ELSE 0
+                                 WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' THEN 1
+                                 ELSE 0
                        END)
                         from unit_purchase_requests
                         left join procurement_centers as pc
                         on unit_purchase_requests.procurement_office  = pc.id
                         where mode_of_procurement  != 'public_bidding'
+                        and unit_purchase_requests.next_due <  NOW()
                         and programs = procurement_centers.programs and unit_purchase_requests.units = '$unit_id' and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to'), 0)
                         as delay_count"),
 
@@ -336,15 +338,15 @@ class ProcurementCenterRepository extends BaseRepository
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
                     DB::raw(" (select count(unit_purchase_requests.id) from unit_purchase_requests left join procurement_centers as pc on unit_purchase_requests.procurement_office  = pc.id where mode_of_procurement  = 'public_bidding' and programs = procurement_centers.programs and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to') as upr_count "),
 
-
                     DB::raw("IFNULL( (select SUM(CASE
-                         WHEN unit_purchase_requests.delay_count != 0 and unit_purchase_requests.state != 'completed' THEN 1
-                         ELSE 0
+                                 WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' THEN 1
+                                 ELSE 0
                        END)
                         from unit_purchase_requests
                         left join procurement_centers as pc
                         on unit_purchase_requests.procurement_office  = pc.id
                         where mode_of_procurement  = 'public_bidding'
+                        and unit_purchase_requests.next_due <  NOW()
                         and programs = procurement_centers.programs and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to'), 0)
                         as delay_count"),
 
@@ -419,15 +421,21 @@ class ProcurementCenterRepository extends BaseRepository
 
 
                     DB::raw("IFNULL( (select SUM(CASE
-                         WHEN unit_purchase_requests.delay_count != 0 and unit_purchase_requests.state != 'completed' THEN 1
-                         ELSE 0
+                                 WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' THEN 1
+                                 ELSE 0
                        END)
                         from unit_purchase_requests
                         left join procurement_centers as pc
                         on unit_purchase_requests.procurement_office  = pc.id
                         where mode_of_procurement  != 'public_bidding'
+                        and unit_purchase_requests.next_due <  NOW()
                         and programs = procurement_centers.programs and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to'), 0)
                         as delay_count"),
+
+                    // IFNULL( SUM(CASE
+                    //              WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' THEN 1
+                    //              ELSE 0
+                    //            END),0) as delay_count
 
                     // DB::raw("count(unit_purchase_requests.delay_count) -
                     //     count(unit_purchase_requests.completed_at)

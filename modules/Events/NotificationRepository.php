@@ -19,4 +19,20 @@ class NotificationRepository extends BaseRepository
         return NotificationEloquent::class;
     }
 
+    /**
+     * [getById description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function getByUser($id)
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->where('user_id','=', $id);
+
+        $model  =   $model->get();
+
+        return $model;
+    }
+
 }

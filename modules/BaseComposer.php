@@ -11,6 +11,7 @@ use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use Revlv\Messages\MessageEloquent;
 use \Revlv\Users\Logs\UserLogRepository;
 use Carbon\Carbon;
+use Revlv\Events\NotificationRepository;
 
 class BaseComposer
 {
@@ -24,6 +25,7 @@ class BaseComposer
     private $upr;
     private $holidays;
     private $logs;
+    private $nofications;
 
     /**
      * @param Model $model
@@ -33,12 +35,14 @@ class BaseComposer
         UserRepository $user,
         UnitPurchaseRequestRepository $upr,
         UserLogRepository $logs,
+        NotificationRepository $nofications,
         HolidayRepository $holidays)
     {
         $this->user     =   $user;
         $this->logs     =   $logs;
         $this->upr      =   $upr;
         $this->holidays =   $holidays;
+        $this->nofications =   $nofications;
     }
 
     /**
@@ -114,8 +118,11 @@ class BaseComposer
         $delays         =   $this->getDelays();
         $logs           =   $this->logs->findUnSeedByAdmin($userId);
 
+        $notifications  =   $this->nofications->getByUser($userId);
+
         $view->with('logCounts', count($logs) );
         $view->with('delayCounts', count($delays) );
+        $view->with('notifCount', count($notifications) );
         $view->with('currentUser', $userModel);
     }
 }

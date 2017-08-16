@@ -51,6 +51,9 @@ trait ImportTrait
                     'method'=>  'POST',
                     'files' =>  true
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Unit Purchase Request Import')
             ]
         ]);
     }
@@ -248,8 +251,15 @@ trait ImportTrait
         $prepared_by            =   \Sentinel::getUser()->id;
         $item_datas             =   [];
 
+
+        $transaction_date       =   \Carbon\Carbon::createFromFormat('Y-m-d', $request->date_prepared);
+
         $procs['total_amount']  =   $total_amount;
         $procs['prepared_by']   =   $prepared_by;
+        $procs['next_allowable']=   1;
+        $procs['next_step']     =   "Create RFQ";
+        $procs['next_due']      =   $transaction_date->addDays(1);
+        $procs['last_date']     =   $transaction_date;
 
         $result = $model->save($procs);
 

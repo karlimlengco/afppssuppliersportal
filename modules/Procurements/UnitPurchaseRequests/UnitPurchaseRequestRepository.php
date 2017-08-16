@@ -285,7 +285,8 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.next_due',
             'unit_purchase_requests.next_step',
             DB::raw("(select count(*) from holidays where holiday_date >= unit_purchase_requests.created_at and holiday_date <= NOW()) as holidays"),
-            DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) as delay")
+            // DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) as delay")
+            DB::raw("datediff( unit_purchase_requests.next_due, NOW()) as delay")
         ]);
 
         $model  =   $model->where('state', '!=', 'completed');
@@ -308,6 +309,8 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.next_step',
         ]);
         $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1)) > 0");
+
+        $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");
 
         // $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
         // $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');

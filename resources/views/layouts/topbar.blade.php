@@ -29,6 +29,14 @@ $cRoute = explode('.', $currentRoute);
                         @if($delayCounts >= 1)
                             <span class="topbar__utility__button__badge">{{$delayCounts}}</span>
                         @endif
+                            <i class="nc-icon-mini ui-3_alert"></i>
+                    </button>
+                </a>
+                <a href="{{route('notify.index')}}" class="">
+                    <button type="button" class="topbar__utility__button">
+                        @if($notifCount >= 1)
+                            <span class="topbar__utility__button__badge">{{$notifCount}}</span>
+                        @endif
                             <i class="nc-icon-mini ui-1_bell-53"></i>
                     </button>
                 </a>

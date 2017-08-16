@@ -74,7 +74,7 @@ trait AnalyticTrait
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
 
             DB::raw("IFNULL( SUM(CASE
-             WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' THEN 1
+             WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' and unit_purchase_requests.next_due <  NOW() THEN 1
              ELSE 0
            END),0) as delay_count"),
             // DB::raw("count(unit_purchase_requests.delay_count)  - count(unit_purchase_requests.completed_at) as delay_count"),
@@ -137,7 +137,7 @@ trait AnalyticTrait
 
             // DB::raw("count(unit_purchase_requests.delay_count) - count(unit_purchase_requests.completed_at) as delay_count"),
             DB::raw("IFNULL( SUM(CASE
-             WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' THEN 1
+             WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' and unit_purchase_requests.next_due <  NOW()THEN 1
              ELSE 0
            END),0) as delay_count"),
 
@@ -205,10 +205,16 @@ trait AnalyticTrait
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
 
             // DB::raw("count(unit_purchase_requests.delay_count)- count(unit_purchase_requests.completed_at) as delay_count"),
+           //  DB::raw("IFNULL( SUM(CASE
+           //   WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' THEN 1
+           //   ELSE 0
+           // END),0) as delay_count"),
             DB::raw("IFNULL( SUM(CASE
-             WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' THEN 1
+             WHEN  (DATEDIFF( unit_purchase_requests.next_due, NOW()) )  > 0 and unit_purchase_requests.state != 'completed' and unit_purchase_requests.next_due <  NOW()THEN 1
              ELSE 0
            END),0) as delay_count"),
+           //
+            // DB::raw("datediff( unit_purchase_requests.next_due, NOW()) as delay_count"),
 
             DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
 
@@ -231,11 +237,13 @@ trait AnalyticTrait
             'unit_purchase_requests.status',
             'unit_purchase_requests.last_remarks',
             'unit_purchase_requests.last_action',
+            'unit_purchase_requests.next_due',
             'catered_units.short_code',
 
             // DB::raw("(select count(*) from holidays where holiday_date >= unit_purchase_requests.created_at and holiday_date <= NOW()) as holidays"),
             // DB::raw("datediff(NOW(), unit_purchase_requests.next_due ) as delay"),
-            DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) as delay")
+            // DB::raw("5 * (DATEDIFF(unit_purchase_requests.next_due, NOW()) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) as delay")
+            DB::raw("datediff( unit_purchase_requests.next_due, NOW()) as delay")
         ]);
 
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
@@ -266,6 +274,7 @@ trait AnalyticTrait
             'unit_purchase_requests.next_due',
             'procurement_centers.programs',
             'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.next_due',
             'unit_purchase_requests.delay_count',
             'unit_purchase_requests.status',
             'catered_units.short_code',
