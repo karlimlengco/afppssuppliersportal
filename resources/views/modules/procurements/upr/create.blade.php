@@ -253,7 +253,7 @@ Unit Purchase Request
             newRow += "<input type='text' name='unit_measurement[]' value='"+unit_measurement+"' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='unit_price_row"+table_len+"'>";
-            newRow += "<input type='text' name='unit_price[]' value='"+unit_price+"' class='input'/>";
+            newRow += "<input type='number' name='unit_price[]' value='"+unit_price+"' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
             newRow += "<input type='text' name='total_amount[]' value='"+total_amount+"' class='input' readonly/>";
