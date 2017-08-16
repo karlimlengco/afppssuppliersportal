@@ -697,8 +697,6 @@ class NoticeOfAwardController extends Controller
         $data['project_name']       =   $upr_model->project_name;
 
         $pdf = PDF::loadView('forms.noa', ['data' => $data])
-            ->setOption('margin-left', 13)
-            ->setOption('margin-right', 13)
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'))
             ->setPaper('a4');

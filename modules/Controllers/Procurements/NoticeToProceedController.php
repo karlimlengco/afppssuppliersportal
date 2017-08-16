@@ -487,8 +487,6 @@ class NoticeToProceedController extends Controller
         $data['today']              =   \Carbon\Carbon::now()->format("d F Y");
 
         $pdf = PDF::loadView('forms.ntp', ['data' => $data])
-            ->setOption('margin-left', 13)
-            ->setOption('margin-right', 13)
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'))
             ->setPaper('a4');

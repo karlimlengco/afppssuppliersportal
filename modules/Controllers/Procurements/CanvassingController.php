@@ -515,7 +515,10 @@ class CanvassingController extends Controller
         $data['min_bid']            =  $min;
         $data['today']              =  Carbon::now()->format('Y-m-d');
 
-        $pdf = PDF::loadView('forms.canvass', ['data' => $data])->setOption('margin-bottom', 10)->setPaper('a4');
+        $pdf = PDF::loadView('forms.canvass', ['data' => $data])
+        ->setOption('margin-bottom', 30)
+        ->setOption('footer-html', route('pdf.footer'))
+        ->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('canvass.pdf');
     }
@@ -545,7 +548,10 @@ class CanvassingController extends Controller
         $data['items']              =  $result->rfq->upr->items;
         $data['ref_number']         =  $result->rfq->upr->ref_number;
 
-        $pdf = PDF::loadView('forms.cop', ['data' => $data])->setOption('margin-bottom', 10)->setPaper('a4');
+        $pdf = PDF::loadView('forms.cop', ['data' => $data])
+        ->setOption('margin-bottom', 30)
+        ->setOption('footer-html', route('pdf.footer'))
+        ->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('cop.pdf');
     }
@@ -575,7 +581,10 @@ class CanvassingController extends Controller
         $data['items']              =  $result->rfq->upr->items;
         $data['ref_number']         =  $result->rfq->upr->ref_number;
 
-        $pdf = PDF::loadView('forms.rop', ['data' => $data])->setOption('margin-bottom', 10)->setPaper('a4');
+        $pdf = PDF::loadView('forms.rop', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'))
+            ->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('rop.pdf');
     }
@@ -607,7 +616,10 @@ class CanvassingController extends Controller
         $data['officer']        =   $result->officer;
         $data['resolution']     =   $result->resolution;
 
-        $pdf = PDF::loadView('forms.mom', ['data' => $data])->setOption('margin-left', 13)->setOption('margin-right', 13)->setOption('margin-bottom', 10)->setPaper('a4');
+        $pdf = PDF::loadView('forms.mom', ['data' => $data])
+        ->setOption('margin-bottom', 30)
+        ->setOption('footer-html', route('pdf.footer'))
+        ->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('mom.pdf');
     }

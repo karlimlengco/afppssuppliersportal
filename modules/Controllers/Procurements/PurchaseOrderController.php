@@ -894,7 +894,10 @@ class PurchaseOrderController extends Controller
         $data['transaction_date']   =  $result->rfq->transaction_date;
         $data['rfq_number']         =  $result->rfq_number;
 
-        $pdf = PDF::loadView('forms.po-terms', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
+        $pdf = PDF::loadView('forms.po-terms', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'))
+            ->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('po-terms.pdf');
         return $pdf->download('po-terms.pdf');
@@ -992,7 +995,10 @@ class PurchaseOrderController extends Controller
         $data['coa_signatory']      =  $result->coa_signatories;
         $data['items']              =  $result->upr->items;
 
-        $pdf = PDF::loadView('forms.po-coa', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
+        $pdf = PDF::loadView('forms.po-coa', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'))
+            ->setPaper('a4');
 
         return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('po-coa.pdf');
         return $pdf->download('po-coa.pdf');
