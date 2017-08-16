@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use \App\Support\Breadcrumb;
 use Validator;
 use App\Events\Event;
+use Excel;
 
 use \Revlv\Procurements\PurchaseOrder\PORepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
@@ -359,6 +360,81 @@ class PurchaseOrderController extends Controller
             'success'  => "Record has been successfully updated."
         ]);
 
+    }
+
+    /**
+     * [importPrice description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function importPrice($id, Request $request)
+    {
+
+        $path           =   $request->file('file')->getRealPath();
+
+        $reader         =   Excel::load($path, function($reader) {});
+        $fields         =   $reader->get();
+
+        session(['po_fields' => $fields]);
+        // dd($itemArray);
+
+        return redirect()->route($this->baseUrl.'view-import', $id);
+    }
+
+    /**
+     * [createFromRfqWithImport description]
+     *
+     * @param  [type]                $id    [description]
+     * @param  BlankRFQRepository    $rfq   [description]
+     * @param  PaymentTermRepository $terms [description]
+     * @param  PORepository          $model [description]
+     * @return [type]                       [description]
+     */
+    public function createFromRfqWithImport(
+        $id,
+        BlankRFQRepository $rfq,
+        PaymentTermRepository $terms,
+        PORepository $model)
+    {
+        $data           =   [];
+
+        $fields         =   session('po_fields');
+        $rfq_model      =   $rfq->getInfo($id);
+
+        foreach($fields->toArray() as $row)
+        {
+            if($row[0] != "ITEM DESCRIPTION")
+            {
+                foreach($rfq_model as $upr_item)
+                {
+                    if($row[0] == $upr_item->item_description)
+                    {
+                        $upr_item->unit_price = $row[3];
+                        $upr_item->total_amount = $row[3] * $upr_item->quantity;
+                    }
+                }
+            }
+        }
+
+        $term_lists =   $terms->lists('id','name');
+
+        $this->view('modules.procurements.purchase-order.create-from-rfq-import',[
+            'indexRoute'    =>  $this->baseUrl.'index',
+            'term_lists'    =>  $term_lists,
+            'rfq_id'        =>  $id,
+            'rfq_model'     =>  $rfq_model,
+            'modelConfig'   =>  [
+                'store' =>  [
+                    'route'     =>  [$this->baseUrl.'store-from-rfq',$id]
+                ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Alternative'),
+                new Breadcrumb('Purchase Order', 'procurements.purchase-orders.index'),
+                new Breadcrumb('Create'),
+            ]
+        ]);
     }
 
     public function createFromRfq(

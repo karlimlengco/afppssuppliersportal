@@ -454,6 +454,8 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('purchase-orders/rfq/{rfq_id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@createFromRfq')->name('purchase-orders.rfq');
     Route::get('purchase-orders/coa-file/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@downloadCoa')->name('purchase-orders.coa-file');
     Route::put('purchase-orders/update-dates/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@updateDates')->name('purchase-orders.update-dates');
+    Route::post('purchase-orders/import/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@importPrice')->name('purchase-orders.import');
+    Route::get('purchase-orders/import/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@createFromRfqWithImport')->name('purchase-orders.view-import');
     Route::post('purchase-orders/coa-approved/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@coaApproved')->name('purchase-orders.coa-approved');
     Route::post('purchase-orders/store-from-rfq/{rfq_id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@storeFromRfq')->name('purchase-orders.store-from-rfq');
     Route::post('purchase-orders/mfo-approved/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@mfoApproved')->name('purchase-orders.mfo-approved');
