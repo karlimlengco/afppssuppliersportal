@@ -797,11 +797,20 @@ class DeliveredInspectionReportController extends Controller
     {
         $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
 
-        $supplier                   =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+            $win                =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner;
+        }
+        else
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+            $win                =   $noa->with('winner')->findByUPR($result->upr_id)->winner;
+        }
 
         $data['items']              =   $result->delivery->po->items;
         $data['purpose']            =   $result->upr->purpose;
-        $data['place']             =   $result->upr->place_of_delivery;
+        $data['place']              =   $result->upr->place_of_delivery;
         $data['centers']            =   $result->upr->centers->name;
         $data['units']              =   $result->upr->unit->short_code;
         $data['ref_number']         =   $result->upr->ref_number;
@@ -817,8 +826,10 @@ class DeliveredInspectionReportController extends Controller
         $data['approver']           =   $result->approver;
         $data['issuer']             =   $result->issuer;
         $data['requestor']          =   $result->requestor;
+        $data['po']          =   $result->delivery->po;
+        $data['bid_amount']         =   $win->bid_amount;
         // dd($data);
-        $pdf = PDF::loadView('forms.new-diir', ['data' => $data])
+        $pdf = PDF::loadView('forms.rsmi', ['data' => $data])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'))
             ->setPaper('a4');
