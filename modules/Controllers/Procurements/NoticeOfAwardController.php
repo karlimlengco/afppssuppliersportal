@@ -687,10 +687,11 @@ class NoticeOfAwardController extends Controller
         $data['transaction_date']   =   $noa_modal->awarded_date;
         $data['supplier']           =   $proponent_awardee;
         $data['unit']               =   $upr_model->unit->description;
-        $data['center']             =  $result->upr->centers->name;
+        $data['center']             =   $result->upr->centers->name;
         $data['total_amount']       =   $upr_model->total_amount;
         $data['bid_amount']         =   $bidamount;
         $data['items']              =   $upr_model->items;
+        $data['header']             =   $result->upr->centers;
 
 
         $data['signatory']          =   $noa_modal->signatory;
@@ -698,10 +699,9 @@ class NoticeOfAwardController extends Controller
 
         $pdf = PDF::loadView('forms.noa', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('noa.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('noa.pdf');
     }
 
     /**
