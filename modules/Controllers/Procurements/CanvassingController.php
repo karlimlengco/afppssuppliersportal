@@ -518,10 +518,9 @@ class CanvassingController extends Controller
 
         $pdf = PDF::loadView('forms.canvass', ['data' => $data])
         ->setOption('margin-bottom', 30)
-        ->setOption('footer-html', route('pdf.footer'))
-        ->setPaper('a4');
+        ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('canvass.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('canvass.pdf');
     }
 
     /**
@@ -552,10 +551,9 @@ class CanvassingController extends Controller
 
         $pdf = PDF::loadView('forms.cop', ['data' => $data])
         ->setOption('margin-bottom', 30)
-        ->setOption('footer-html', route('pdf.footer'))
-        ->setPaper('a4');
+        ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('cop.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('cop.pdf');
     }
 
     /**
@@ -589,7 +587,7 @@ class CanvassingController extends Controller
             ->setOption('footer-html', route('pdf.footer'))
             ->setPaper('a4');
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('rop.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('rop.pdf');
     }
 
     /**
@@ -610,7 +608,7 @@ class CanvassingController extends Controller
         $data['other_attendees']=   $result->other_attendees;
         $data['date_opened']    =   $result->canvass_date;
         $data['time_opened']    =   $result->canvass_time;
-        $data['header']         =  $result->upr->center;
+        $data['header']         =   $result->upr->centers;
         $data['venue']          =   $result->upr->invitations->ispq->venue;
         $data['time_closed']    =   $result->adjourned_time;
         $data['members']        =   $result->signatories;
@@ -622,10 +620,9 @@ class CanvassingController extends Controller
 
         $pdf = PDF::loadView('forms.mom', ['data' => $data])
         ->setOption('margin-bottom', 30)
-        ->setOption('footer-html', route('pdf.footer'))
-        ->setPaper('a4');
+        ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('mom.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('mom.pdf');
     }
 
     /**

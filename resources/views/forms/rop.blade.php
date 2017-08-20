@@ -20,64 +20,58 @@
         <div class="printable-form-wrapper">
 
             <div class="printable-form">
-                <!-- form header -->
+
                 <div class="printable-form__head">
                     <p class="printable-form__head__vision">AFP Vision 2028: A World-class Armed Forces, Source of National Pride</p>
-                    <div class="printable-form__head__letterhead">
-                        <span class="printable-form__head__letterhead__logo">
+                </div>
+                <!-- form body -->
+                <div class="printable-form__body">
+                    <!-- letterhead -->
+                    <div class="printable-form__letterhead">
+                        <span class="printable-form__letterhead__logo">
                             <img src="{{base_path('public/img/form-logo.png')}}" alt="">
                         </span>
-                        <span class="printable-form__head__letterhead__details">
-                            <strong>302nd Contracting Office</strong><br>
+                        <span class="printable-form__letterhead__details">
+                            <strong>{{$data['header']->name}}</strong><br>
                             Armed Forces of the Philippines Procurement Service<br>
-                            Naval Base Pascual Ledesma<br>
-                            Fort San Felipe, Cavite City Philippines
+                            {{$data['header']->address}}
                         </span>
                     </div>
-                </div>
-                <br>
-                <br>
-                <!-- form content -->
-                <div class="printable-form__body">
+                    <!-- title -->
                     <span class="printable-form__body__title">Certificate of Reasonableness of Price</span>
+                    <!-- content -->
                     <p>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['date'])->format('d F Y')}}</p>
                     <p class="indent-first-line">THIS IS TO CERTIFY that the price indicated in the PURCHASE ORDER No. {{$data['ref_number']}} is the lowest obtainable price as a result of the open market canvass made by this unit and found that the prices are in favor of the government.</p>
-                    <p class="indent-first-line">THIS CERTIFICATION is made to support the procurement of {{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) < 1) and {{count($data['items']) - 1}} @endif only FOR THE USE OF {{$data['center']}}</p>
-                    <!-- form signatories -->
-                    <table class="printable-form__body__table
-                                  printable-form__body__table--borderless">
+                    <p class="indent-first-line">THIS CERTIFICATION is made to support the procurement of {{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) > 1) and {{count($data['items']) - 1}} @endif only FOR THE USE OF {{$data['center']}}</p>
+                    <table class="printable-form__body__table no-border no-padding">
                         <tr>
-                            <td class="v-align-bottom align-center" width="45%" height="80px"></td>
-                            <td class="v-align-bottom align-center" width="10%" height="80px"></td>
-                            <td class="v-align-bottom align-center" width="45%" height="80px"></td>
+                            <td colspan="3" height="60px"></td>
                         </tr>
                         <tr>
-                            <td class="signatory align-left v-align-middle" width="45%"></td>
+                            <td width="45%"></td>
                             <td width="10%"></td>
-                            <td class="signatory align-center v-align-middle" width="45%">
-                                @foreach($data['signatories'] as $signature)
-                                @if($signature->rop != null)
-                                <div class="signatory-name">
-                                    <table>
-                                        <tr>
-                                            <td nowrap><strong>{{$signature->signatory->name}}</strong></td>
-                                            <td width="100%"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-justify">
-                                                <div class="signatory-rank-justify">
-                                                    <strong>{{$signature->signatory->ranks}}</strong>
-                                                    <span></span>
-                                                </div>
-                                            </td>
-                                            <td width="100%"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="v-align-bottom" height="20px">{{$signature->signatory->designation}}</td>
-                                            <td width="100%" height="20px"></td>
-                                        </tr>
-                                    </table>
-                                </div>
+                            <td width="45%">
+                            @foreach($data['signatories'] as $signature)
+                            @if($signature->rop != null)
+                                <table class="signatory">
+                                    <tr>
+                                        <td nowrap><strong>{{$signature->signatory->name}}</strong></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="signatory-rank-justify">
+                                                <strong>{{$signature->signatory->ranks}} {{$signature->signatory->branch}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{$signature->signatory->designation}}</td>
+                                        <td></td>
+                                    </tr>
+                                </table>
                                 @endif
                                 @endforeach
                             </td>
@@ -85,9 +79,7 @@
                     </table>
                 </div>
 
-
             </div>
-
         </div>
 
     </body>
