@@ -747,6 +747,7 @@ class DeliveredInspectionReportController extends Controller
         $data['invoice']            =   $result->delivery->inspections->invoices;
         $data['issues']             =   $result->delivery->diir->issues;
         $data['header']             =   $result->upr->centers;
+        $data['bid_amount']         =   $result->delivery->po->bid_amount;
 
         $data['receiver']           =   $result->receiver;
         $data['inspector']          =   $result->inspector;
