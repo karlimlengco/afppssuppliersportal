@@ -634,12 +634,14 @@ class DeliveredInspectionReportController extends Controller
         }
 
         $data['items']              =   $result->delivery->po->items;
+        $data['delivery_number']              =   $result->delivery->delivery_number;
+        $data['delivery_date']              =   $result->delivery->delivery_date;
         $data['purpose']            =   $result->upr->purpose;
         $data['place']             =   $result->upr->place_of_delivery;
         $data['centers']            =   $result->upr->centers->name;
         $data['units']              =   $result->upr->unit->short_code;
         $data['ref_number']         =   $result->upr->ref_number;
-        $data['supplier']           =   $supplier->name;
+        $data['supplier']           =   $supplier;
         $data['date']               =   $result->delivery->delivery_date;
         $data['po_number']          =   $result->delivery->po->po_number;
         $data['po_date']            =   $result->delivery->po->coa_approved_date;
@@ -786,8 +788,10 @@ class DeliveredInspectionReportController extends Controller
         }
 
         $data['items']              =   $result->delivery->po->items;
+        $data['delivery_number']    =   $result->delivery->delivery_number;
+        $data['delivery_date']      =   $result->delivery->delivery_date;
         $data['purpose']            =   $result->upr->purpose;
-        $data['place']             =   $result->upr->place_of_delivery;
+        $data['place']              =   $result->upr->place_of_delivery;
         $data['centers']            =   $result->upr->centers->name;
         $data['units']              =   $result->upr->unit->short_code;
         $data['ref_number']         =   $result->upr->ref_number;
@@ -804,6 +808,7 @@ class DeliveredInspectionReportController extends Controller
         $data['approver']           =   $result->approver;
         $data['issuer']             =   $result->issuer;
         $data['requestor']          =   $result->requestor;
+        $data['bid_amount']         =   $result->delivery->po->bid_amount;
         // dd($data);
         $pdf = PDF::loadView('forms.rar', ['data' => $data])
             ->setOption('margin-bottom', 30)

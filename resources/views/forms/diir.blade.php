@@ -21,9 +21,9 @@
                 <!-- letterhead -->
                 <div class="printable-form__letterhead">
                     <span class="printable-form__letterhead__details">
-                        ARMED FORCES OF THE PHILIPPINES<br>
-                        OFFICE OF THE ADJUTANT GENERAL, AFP<br>
-                        Camp General Emilio Aguinaldo, Quezon City
+                        <strong>{{$data['header']->name}}</strong><br>
+                        Armed Forces of the Philippines Procurement Service<br>
+                        {{$data['header']->address}}
                     </span>
                 </div>
                 <!-- title -->
