@@ -48,6 +48,7 @@ Delivered Items Inspection
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-ris2', $data->id)}}" class="button__options__item" > PRINT  RIS2</a>
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-rsmi', $data->id)}}" class="button__options__item" > PRINT  RSMI</a>
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-rar', $data->id)}}" class="button__options__item" > PRINT  RAR</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-coi', $data->id)}}" class="button__options__item" > PRINT  COI</a>
 
             </div>
         </button>

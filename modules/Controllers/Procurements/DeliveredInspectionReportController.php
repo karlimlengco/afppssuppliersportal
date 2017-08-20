@@ -624,8 +624,14 @@ class DeliveredInspectionReportController extends Controller
         )
     {
         $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
-
-        $supplier                   =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
 
         $data['items']              =   $result->delivery->po->items;
         $data['purpose']            =   $result->upr->purpose;
@@ -639,6 +645,7 @@ class DeliveredInspectionReportController extends Controller
         $data['po_date']            =   $result->delivery->po->coa_approved_date;
         $data['invoice']            =   $result->delivery->inspections->invoices;
         $data['issues']             =   $result->delivery->diir->issues;
+        $data['header']             =   $result->upr->centers;
 
         $data['receiver']           =   $result->receiver;
         $data['inspector']          =   $result->inspector;
@@ -648,10 +655,9 @@ class DeliveredInspectionReportController extends Controller
         // dd($data);
         $pdf = PDF::loadView('forms.new-diir', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('diir.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('diir.pdf');
     }
 
     /**
@@ -668,7 +674,14 @@ class DeliveredInspectionReportController extends Controller
     {
         $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
 
-        $supplier                   =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
 
         $data['items']              =   $result->delivery->po->items;
         $data['purpose']            =   $result->upr->purpose;
@@ -682,6 +695,7 @@ class DeliveredInspectionReportController extends Controller
         $data['po_date']            =   $result->delivery->po->coa_approved_date;
         $data['invoice']            =   $result->delivery->inspections->invoices;
         $data['issues']             =   $result->delivery->diir->issues;
+        $data['header']             =   $result->upr->centers;
 
         $data['receiver']           =   $result->receiver;
         $data['inspector']          =   $result->inspector;
@@ -692,10 +706,9 @@ class DeliveredInspectionReportController extends Controller
         // dd($data);
         $pdf = PDF::loadView('forms.diir', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('ris.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('ris.pdf');
     }
 
     /**
@@ -712,7 +725,14 @@ class DeliveredInspectionReportController extends Controller
     {
         $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
 
-        $supplier                   =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
 
         $data['items']              =   $result->delivery->po->items;
         $data['purpose']            =   $result->upr->purpose;
@@ -726,6 +746,7 @@ class DeliveredInspectionReportController extends Controller
         $data['po_date']            =   $result->delivery->po->coa_approved_date;
         $data['invoice']            =   $result->delivery->inspections->invoices;
         $data['issues']             =   $result->delivery->diir->issues;
+        $data['header']             =   $result->upr->centers;
 
         $data['receiver']           =   $result->receiver;
         $data['inspector']          =   $result->inspector;
@@ -735,10 +756,9 @@ class DeliveredInspectionReportController extends Controller
         // dd($data);
         $pdf = PDF::loadView('forms.diir2', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('rsi2.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('rsi2.pdf');
     }
 
     /**
@@ -755,7 +775,14 @@ class DeliveredInspectionReportController extends Controller
     {
         $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
 
-        $supplier                   =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
 
         $data['items']              =   $result->delivery->po->items;
         $data['purpose']            =   $result->upr->purpose;
@@ -769,6 +796,7 @@ class DeliveredInspectionReportController extends Controller
         $data['po_date']            =   $result->delivery->po->coa_approved_date;
         $data['invoice']            =   $result->delivery->inspections->invoices;
         $data['issues']             =   $result->delivery->diir->issues;
+        $data['header']             =   $result->upr->centers;
 
         $data['receiver']           =   $result->receiver;
         $data['inspector']          =   $result->inspector;
@@ -778,10 +806,67 @@ class DeliveredInspectionReportController extends Controller
         // dd($data);
         $pdf = PDF::loadView('forms.rar', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('rar.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('rar.pdf');
+    }
+
+    /**
+     * [viewPrintRAR description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrintCOI(
+        $id,
+        DeliveryInspectionRepository $model,
+        NOARepository $noa
+        )
+    {
+        $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
+
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
+
+
+        $data['invoice']            =   $result->upr->inspections->invoices;
+        $data['nature_of_delivery'] =   $result->upr->inspections->nature_of_delivery;
+        $data['recommendation']     =   $result->upr->inspections->recommendation;
+        $data['inspection_date']    =   $result->upr->inspections->inspection_date;
+        $data['findings']           =   $result->upr->inspections->findings;
+        $data['items']              =   $result->delivery->po->items;
+        $data['delivery_number']    =   $result->delivery->delivery_number;
+        $data['delivery_date']      =   $result->delivery->delivery_date;
+        $data['purpose']            =   $result->upr->purpose;
+        $data['place']              =   $result->upr->place_of_delivery;
+        $data['centers']            =   $result->upr->centers->name;
+        $data['units']              =   $result->upr->unit->short_code;
+        $data['ref_number']         =   $result->upr->ref_number;
+        $data['supplier']           =   $supplier;
+        $data['date']               =   $result->delivery->delivery_date;
+        $data['po_number']          =   $result->delivery->po->po_number;
+        $data['po_date']            =   $result->delivery->po->coa_approved_date;
+        $data['invoice']            =   $result->delivery->inspections->invoices;
+        $data['issues']             =   $result->delivery->diir->issues;
+        $data['header']             =   $result->upr->centers;
+
+        $data['receiver']           =   $result->receiver;
+        $data['inspector']          =   $result->inspector;
+        $data['approver']           =   $result->approver;
+        $data['issuer']             =   $result->issuer;
+        $data['requestor']          =   $result->requestor;
+        // dd($data);
+        $pdf = PDF::loadView('forms.coi', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'));
+
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('coi.pdf');
     }
 
     /**
@@ -832,10 +917,9 @@ class DeliveredInspectionReportController extends Controller
         // dd($data);
         $pdf = PDF::loadView('forms.rsmi', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('rsmi.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('rsmi.pdf');
     }
 
     /**
