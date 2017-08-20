@@ -481,17 +481,18 @@ class NoticeToProceedController extends Controller
         $data['rfq_number']         =   $result->rfq_number;
         $data['rfq_date']           =   $blank_model->transaction_date;
         $data['total_amount']       =   $result->po->bid_amount;
+        $data['delivery_terms']     =   $result->po->delivery_terms;
         $data['signatory']          =   $result->signatory;
         $data['project_name']       =   $upr_model->project_name;
         $data['items']              =   $upr_model->items;
+        $data['header']             =   $upr_model->centers;
         $data['today']              =   \Carbon\Carbon::now()->format("d F Y");
 
         $pdf = PDF::loadView('forms.ntp', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('ntp.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('ntp.pdf');
     }
 
     /**

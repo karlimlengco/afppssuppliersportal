@@ -715,13 +715,13 @@ class DeliveryController extends Controller
         $data['signatory']          =  $result->signatory;
         $data['winner']             =  $noa_model->name;
         $data['expected_date']      =  $result->expected_date;
+        $data['header']             =  $result->upr->centers;
 
         $pdf = PDF::loadView('forms.nod', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('nod.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('nod.pdf');
     }
 
     /**
