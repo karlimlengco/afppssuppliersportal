@@ -506,6 +506,7 @@ class CanvassingController extends Controller
         $data['date']               =  $result->canvass_date." ". $result->canvass_time;
 
         $data['rfq_number']         =  $result->rfq->rfq_number;
+        $data['header']             =  $result->upr->centers;
         $data['total_amount']       =  $result->upr->total_amount;
         $data['unit']               =  $result->upr->unit->short_code;
         $data['center']             =  $result->upr->centers->name;
@@ -538,6 +539,7 @@ class CanvassingController extends Controller
 
         $data['rfq_number']         =  $result->rfq->rfq_number;
         $data['total_amount']       =  $result->upr->total_amount;
+        $data['header']             =  $result->upr->centers;
         $data['unit']               =  $result->upr->unit->short_code;
         $data['center']             =  $result->upr->centers->name;
         $data['venue']              =  $result->rfq->invitations->ispq->venue;
@@ -571,6 +573,7 @@ class CanvassingController extends Controller
 
         $data['rfq_number']         =  $result->rfq->rfq_number;
         $data['total_amount']       =  $result->upr->total_amount;
+        $data['header']             =  $result->upr->centers;
         $data['unit']               =  $result->upr->unit->short_code;
         $data['center']             =  $result->upr->centers->name;
         $data['venue']              =  $result->rfq->invitations->ispq->venue;
@@ -607,6 +610,7 @@ class CanvassingController extends Controller
         $data['other_attendees']=   $result->other_attendees;
         $data['date_opened']    =   $result->canvass_date;
         $data['time_opened']    =   $result->canvass_time;
+        $data['header']         =  $result->upr->center;
         $data['venue']          =   $result->upr->invitations->ispq->venue;
         $data['time_closed']    =   $result->adjourned_time;
         $data['members']        =   $result->signatories;
