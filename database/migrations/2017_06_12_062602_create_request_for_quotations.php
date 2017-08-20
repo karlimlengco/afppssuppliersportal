@@ -20,22 +20,23 @@ class CreateRequestForQuotations extends Migration
             $table->string('upr_number')->nullable();
             $table->string('rfq_number')->nullable();
 
-            $table->date('deadline');
-            $table->time('opening_time');
+            $table->date('deadline')->nullable();
+            $table->time('opening_time')->nullable();
             $table->date('transaction_date');
             $table->timestamp('completed_at')->nullable();
 
             $table->string('status')->default('pending');
-            $table->string('remarks')->nullable();
+            $table->text('remarks')->nullable();
             $table->string('action')->nullable();
-            $table->string('update_remarks')->nullable();
+            $table->text('update_remarks')->nullable();
             $table->integer('processed_by')->nullable();
             $table->integer('days')->nullable();
             $table->integer('close_days')->nullable();
-            $table->string('close_remarks')->nullable();
-            $table->string('close_action')->nullable();
+            $table->text('close_remarks')->nullable();
+            $table->text('close_action')->nullable();
 
             $table->integer('awarded_to')->nullable();
+            $table->integer('chief')->nullable();
             $table->date('awarded_date')->nullable();
             $table->timestamps();
         });

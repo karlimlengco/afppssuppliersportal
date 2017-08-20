@@ -54,6 +54,7 @@ class BlankRFQEloquent extends Model implements  AuditableContract
 
         'upr_number',
         'rfq_number',
+        'chief',
 
         'deadline',
         'opening_time',
@@ -136,6 +137,16 @@ class BlankRFQEloquent extends Model implements  AuditableContract
     public function diir()
     {
         return $this->hasOne('\Revlv\Procurements\DeliveryInspection\DeliveryInspectionEloquent',  'rfq_id');
+    }
+
+    /**
+     * [chieftain description]
+     *
+     * @return [type] [description]
+     */
+    public function chieftain()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'chief');
     }
 
     /**

@@ -28,6 +28,7 @@ class UpdateRequest extends BaseRequest
         'awarded_to',
         'awarded_date',
         'is_award_accepted',
+        'chief',
         'award_accepted_date',
     ];
 
@@ -39,8 +40,6 @@ class UpdateRequest extends BaseRequest
     public function rules()
     {
         return [
-            'deadline'              => 'required',
-            'opening_time'          => 'required',
             'transaction_date'      => 'required',
         ];
     }

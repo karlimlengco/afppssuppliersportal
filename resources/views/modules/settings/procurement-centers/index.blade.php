@@ -15,24 +15,15 @@ Procurement Centers
 
 <div class="row">
     <div class="twelve columns">
-        <div class="form-group">
-            <div class="input-group
-                        input-group--has-icon
-                        input-group--solid-icon
-                        input-group--right-icon">
-                <span class="input-group__icon"><i class="nc-icon-outline ui-1_zoom"></i></span>
-                <input type="text" class="input" placeholder="Search" id="newForm">
-            </div>
-        </div>
 
         <table id="datatable-responsive" class="table" >
 
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Short Code</th>
                     <th>Address</th>
                     <th>Program</th>
-                    <th>Created</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,9 +49,9 @@ Procurement Centers
             },
         columns: [
             {data: 'name', name: 'name'},
+            {data: 'short_code', name: 'short_code'},
             {data: 'address', name: 'address'},
             {data: 'programs', name: 'programs'},
-            {data: 'created_at', name: 'created_at', searchable: false},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

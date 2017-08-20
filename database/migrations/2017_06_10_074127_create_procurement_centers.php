@@ -16,6 +16,7 @@ class CreateProcurementCenters extends Migration
         Schema::create('procurement_centers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
+            $table->string('short_code')->unique();
             $table->text('address');
             $table->string('programs');
             $table->timestamps();

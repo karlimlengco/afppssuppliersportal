@@ -254,13 +254,18 @@ class BlankRFQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, BlankRFQRepository $model, UnitPurchaseRequestRepository $upr)
+    public function edit($id,
+        SignatoryRepository $signatories,
+        BlankRFQRepository $model,
+        UnitPurchaseRequestRepository $upr)
     {
-        $result     =   $model->findById($id);
-        $upr_list   =   $upr->lists('id', 'upr_number');
+        $result             =   $model->findById($id);
+        $upr_list           =   $upr->lists('id', 'upr_number');
+        $signatory_list     =   $signatories->lists('id','name');
 
         return $this->view('modules.procurements.blank-rfq.edit',[
             'data'          =>  $result,
+            'signatory_list'=>  $signatory_list,
             'upr_list'      =>  $upr_list,
             'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
@@ -466,6 +471,7 @@ class BlankRFQController extends Controller
     {
         $result     =   $model->with(['upr'])->findById($id);
         // dd($result);
+        $data['chief']              =  $result->chieftain;
         $data['total_amount']       =  $result->upr->total_amount;
         $data['transaction_date']   =  $result->transaction_date;
         $data['rfq_number']         =  $result->rfq_number;
@@ -473,12 +479,11 @@ class BlankRFQController extends Controller
         $data['items']              =  $result->upr->items;
         $pdf = PDF::loadView('forms.rfq', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf
-            ->setOption('page-width', '8.27in')
-            ->setOption('page-height', '11.69in')
+            ->setOption('page-width', '8.5in')
+            ->setOption('page-height', '14in')
             ->inline('rfq.pdf');
     }
 

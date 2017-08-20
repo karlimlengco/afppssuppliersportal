@@ -25,8 +25,8 @@ class CreateIspqQuotations extends Migration
             $table->string('upr_number')->nullable();
             $table->string('rfq_number')->nullable();
             $table->string('delay_count')->nullable();
-            $table->string('remarks')->nullable();
-            $table->string('action')->nullable();
+            $table->text('remarks')->nullable();
+            $table->text('action')->nullable();
             $table->timestamps();
         });
     }

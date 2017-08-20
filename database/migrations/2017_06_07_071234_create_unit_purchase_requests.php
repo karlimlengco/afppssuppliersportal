@@ -44,8 +44,8 @@ class CreateUnitPurchaseRequests extends Migration
             $table->date('cancelled_at')->nullable();
             $table->text('cancel_reason')->nullable();
 
-            $table->string('remarks')->nullable();
-            $table->string('update_remarks')->nullable();
+            $table->text('remarks')->nullable();
+            $table->text('update_remarks')->nullable();
 
             $table->timestamp('date_processed')->nullable();
             $table->integer('processed_by')->nullable();
@@ -65,8 +65,8 @@ class CreateUnitPurchaseRequests extends Migration
             $table->string('days')->nullable();
             $table->string('delay_count')->nullable();
             $table->string('calendar_days')->nullable();
-            $table->string('last_remarks')->nullable();
-            $table->string('last_action')->nullable();
+            $table->text('last_remarks')->nullable();
+            $table->text('last_action')->nullable();
 
 
             $table->timestamps();

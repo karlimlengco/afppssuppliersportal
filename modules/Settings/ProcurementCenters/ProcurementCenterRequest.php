@@ -13,6 +13,7 @@ class ProcurementCenterRequest extends BaseRequest
         'name',
         'address',
         'programs',
+        'short_code',
     ];
 
     /**
@@ -26,6 +27,7 @@ class ProcurementCenterRequest extends BaseRequest
             'name'          => 'required',
             'address'       => 'required',
             'programs'      => 'required',
+            'short_code'    => 'required',
         ];
     }
 }

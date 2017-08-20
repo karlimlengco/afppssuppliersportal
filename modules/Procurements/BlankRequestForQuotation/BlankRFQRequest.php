@@ -33,6 +33,7 @@ class BlankRFQRequest extends BaseRequest
         'close_days',
         'close_remarks',
         'close_action',
+        'chief',
     ];
 
     /**
