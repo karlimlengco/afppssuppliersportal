@@ -20,6 +20,11 @@
                         {!! Form::selectField('acceptance_signatory', 'Acceptance Signatory', $signatory_list) !!}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="twelve columns">
+                        {!! Form::selectField('sao_signatory', 'SAO Signatory', $signatory_list) !!}
+                    </div>
+                </div>
             </div>
 
             <div class="modal__dialogue__foot">

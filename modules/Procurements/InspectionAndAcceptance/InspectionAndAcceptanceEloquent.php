@@ -58,6 +58,7 @@ class InspectionAndAcceptanceEloquent extends Model implements  AuditableContrac
         'accept_remarks',
         'action',
         'accept_action',
+        'sao_signatory',
     ];
 
     /**
@@ -118,6 +119,17 @@ class InspectionAndAcceptanceEloquent extends Model implements  AuditableContrac
     public function acceptor()
     {
         return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'acceptance_signatory');
+    }
+
+
+    /**
+     * [sao description]
+     *
+     * @return [type] [description]
+     */
+    public function sao()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'sao_signatory');
     }
 
     /**

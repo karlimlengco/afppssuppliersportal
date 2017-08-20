@@ -566,6 +566,7 @@ class InspectionAndAcceptanceController extends Controller
         }
 
         $data['po_number']          =  $result->po->po_number;
+        $data['header']             =  $result->upr->centers;
         $data['purchase_date']      =  $result->po->purchase_date;
         $data['bid_amount']         =  $result->po->bid_amount;
         $data['project_name']       =  $result->upr->project_name;
@@ -581,10 +582,9 @@ class InspectionAndAcceptanceController extends Controller
 
         $pdf = PDF::loadView('forms.iar', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('iar.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('iar.pdf');
     }
 
     /**
@@ -626,20 +626,25 @@ class InspectionAndAcceptanceController extends Controller
         $data['project_name']       =  $result->upr->project_name;
         $data['center']             =  $result->upr->centers->name;
         $data['signatory']          =  $result->signatory;
+        $data['delivery_date']      =  $result->delivery_date;
+        $data['delivery_number']    =  $result->delivery_number;
+        $data['venue']              =  $result->upr->place_of_delivery;
         $data['winner']             =  $noa_model->name;
         $data['expected_date']      =  $result->expected_date;
         $data['items']              =  $result->po->items;
         $data['accepted_date']      =  $model->accepted_date;
         $data['inspection_date']    =  $model->inspection_date;
+        $data['header']             =  $result->upr->centers;
         $data['acceptor']           =  $model->acceptor;
         $data['inspector']          =  $model->inspector;
+        $data['sao']          =  $model->sao;
+        $data['invoices']          =  $model->invoices;
 
         $pdf = PDF::loadView('forms.mfo', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('iar.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('iar.pdf');
     }
 
 
@@ -655,8 +660,9 @@ class InspectionAndAcceptanceController extends Controller
         $this->validate($request, [
             'acceptance_signatory'   =>  'required',
             'inspection_signatory'   =>  'required',
+            'sao_signatory'   =>  'required',
         ]);
-        $model->update(['acceptance_signatory' =>$request->acceptance_signatory, 'inspection_signatory' =>$request->inspection_signatory], $id);
+        $model->update(['sao_signatory' =>$request->sao_signatory, 'acceptance_signatory' =>$request->acceptance_signatory, 'inspection_signatory' =>$request->inspection_signatory], $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

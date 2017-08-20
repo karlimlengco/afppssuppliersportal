@@ -34,6 +34,7 @@ class CreateInspectionAcceptanceReport extends Migration
             $table->integer('acceptance_signatory')->nullable();
             $table->integer('days')->nullable();
             $table->integer('accept_days')->nullable();
+            $table->integer('sao_signatory')->nullable();
             $table->text('remarks')->nullable();
             $table->text('accept_remarks')->nullable();
             $table->text('action')->nullable();

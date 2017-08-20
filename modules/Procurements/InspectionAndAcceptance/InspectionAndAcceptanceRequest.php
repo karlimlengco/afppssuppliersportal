@@ -27,6 +27,7 @@ class InspectionAndAcceptanceRequest extends BaseRequest
         'accept_days',
         'remarks',
         'accept_remarks',
+        'sao_signatory',
         'action',
         'accept_action',
     ];

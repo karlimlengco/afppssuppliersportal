@@ -21,112 +21,125 @@
 
             <div class="printable-form">
 
+                <!-- form header -->
+                <div class="printable-form__head">
+                    <p class="printable-form__head__vision">AFP Vision 2028: A World-class Armed Forces, Source of National Pride</p>
+                </div>
+                <!-- form body -->
+                <div class="printable-form__body">
+                    <!-- letterhead -->
+                    <div class="printable-form__letterhead">
+                        <span class="printable-form__letterhead__details">
+                            <strong>{{$data['header']->name}}</strong><br>
+                            Armed Forces of the Philippines Procurement Service<br>
+                            {{$data['header']->address}}
+                        </span>
+                    </div>
+                    <!-- title -->
+                    <span class="printable-form__body__title">MFO Inspection</span>
+                    <!-- content -->
+                    <p>Management FiscalOffice (MFO)</p>
+                    <p>Sir/Madam:</p>
+                    <p>May I respectfully request the availability of a representative from your office to conduct inspection of goods delivered to this office under PURCHASE ORDER No.{{$data['po_number']}}</p>
+                    <table class="printable-form__body__table no-border">
+                        <tr>
+                            <td width="20%">ACCOUNT OF:</td>
+                            <td class="align-left" width="40%"><strong>{{$data['venue']}}</strong></td>
+                            <td width="40%"></td>
+                        </tr>
+                        <tr>
+                            <td>DELIVERED AT:</td>
+                            <td class="align-left"><strong>{{$data['venue']}}</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>DATE DELIVERED:</td>
+                            <td class="align-left"><strong>{{\Carbon\Carbon::createFromFormat('Y-m-d',$data['delivery_date'])->format('d F Y')}}</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>DEALER/CONTRACTOR:</td>
+                            <td class="align-left"><strong>{{$data['winner']}}</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>COMMERCIAL INVOICE:</td>
+                            <td class="align-left"><strong>
+                            @foreach($data['invoices'] as $invoice)
+                                {{$invoice->invoice_number}} ({{\Carbon\Carbon::createFromFormat('Y-m-d',$invoice->invoice_date)->format('d F Y')}})<br>
+                            @endforeach
+                            </strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>DELIVERY RECEIPT NO.:</td>
+                            <td class="align-left"><strong>{{$data['delivery_number']}} ({{\Carbon\Carbon::createFromFormat('Y-m-d',$data['delivery_date'])->format('d F Y')}})</strong></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <table class="printable-form__body__table no-border no-padding">
+                        <tr>
+                            <td class="align-bottom align-left" width="45%" height="60px">
+                                @if($data['sao'])
+                                <strong>{{$data['sao']->ranks}} {{$data['sao']->name}} {{$data['sao']->branch}}</strong><br>
+                                {{$data['sao']->designation}}
+                                @endif
+                            </td>
+                            <td width="10%"></td>
+                            <td class="align-bottom" width="45%"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-bottom-only" colspan="3" height="30px"></td>
+                        </tr>
+                    </table>
+                    <p class="align-center">
+                        <strong>MFO INSPECTION REPORT</strong><br>
+                        (For MFO Portion Only)
+                    </p>
+                    <p class="align-right">Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <p>TO:</p>
+                    <p>Please conduct inspection on the above-cited request for inspection.</p>
+                    <p>FINDINGS/REMARKS:</p>
+                    <p class="align-center"></p>
+                    <table class="printable-form__body__table no-border no-padding">
+                        <tr>
+                            <td colspan="4" height="40px"></td>
+                        </tr>
+                        <tr>
+                            <td width="45%"></td>
+                            <td width="10%"></td>
+                            <td width="1%" nowrap>INSPECTED BY:</td>
+                            <td class="align-bottom" width="45%" height="80px">
+                                <strong></strong><br>
 
-                 <div class="printable-form__head">
-                     <p class="printable-form__head__vision">AFP Vision 2028: A World-class Armed Forces, Source of National Pride</p>
-                 </div>
-                 <!-- form content -->
-                 <div class="printable-form__body no-letterhead">
-                     <span class="printable-form__head__letterhead__details inside">
-                         ARMED FORCES OF THE PHILIPPINES<br>
-                         SUPPLY ACCOUNTABLE OFFICER, OTAG<br>
-                         Camp General Emilio Aguinaldo, Quezon City
-                     </span>
-                     <span class="printable-form__body__title">MFO Inspection</span>
-                     <p>Management FiscalOffice (MFO)</p>
-                     <p>Sir/Madam:</p>
-                     <p>May I respectfully request the availability of a representative from your office to conduct inspection of goods delivered to this office under PURCHASE ORDER No. GHQPC-OTAG-TRNG-039-17</p>
-                     <table class="printable-form__body__table
-                                   printable-form__body__table--borderless">
-                         <tr>
-                             <td width="20%">ACCOUNT OF:</td>
-                             <td class="align-left" width="40%"><strong>OTAG, AFP</strong></td>
-                             <td width="40%"></td>
-                         </tr>
-                         <tr>
-                             <td>DELIVERED AT:</td>
-                             <td class="align-left"><strong>OTAG, AFP</strong></td>
-                             <td></td>
-                         </tr>
-                         <tr>
-                             <td>DATE DELIVERED:</td>
-                             <td class="align-left"><strong>07-Jun-17</strong></td>
-                             <td></td>
-                         </tr>
-                         <tr>
-                             <td>DEALER/CONTRACTOR:</td>
-                             <td class="align-left"><strong>MAYLINDA ENTERPRISES</strong></td>
-                             <td></td>
-                         </tr>
-                         <tr>
-                             <td>COMMERCIAL INVOICE:</td>
-                             <td class="align-left"><strong>3000 (07 June 2017)</strong></td>
-                             <td></td>
-                         </tr>
-                         <tr>
-                             <td>DELIVERY RECEIPT NO.:</td>
-                             <td class="align-left"><strong>2873 (07 June 2017)</strong></td>
-                             <td></td>
-                         </tr>
-                     </table>
-                     <br>
-                     <br>
-                     <br>
-                     <p>
-                         <strong>MS. EVELYN A BLUSAN CE</strong><br>
-                         SAO, OTAG, AFP
-                     </p>
-                     <hr>
-                     <br>
-                     <br>
-                     <p class="align-center">
-                         <strong>MFO INSPECTION REPORT</strong><br>
-                         (For MFO Portion Only)
-                     </p>
-                     <p class="align-right">Date: 7-Jun-17</p>
-                     <p>TO:</p>
-                     <p>Please conduct inspection on the above-cited request for inspection.</p>
-                     <p>FINDINGS/REMARKS:</p>
-                     <p class="align-center">100% Delivered</p>
-                     <table class="printable-form__body__table printable-form__body__table--borderless classic">
-                         <tr>
-                             <td colspan="4" height="40px"></td>
-                         </tr>
-                         <tr>
-                             <td width="45%"></td>
-                             <td width="10%"></td>
-                             <td width="1%" nowrap>INSPECTED BY:</td>
-                             <td class="v-align-bottom" width="45%" height="80px">
-                                 <strong>SSg Virgilio P Martinez PA</strong><br>
-                                 RSNCO
-                             </td>
-                         </tr>
-                         <tr>
-                             <td class="v-align-TOP" width="45%" height="50px">NOTED BY:</td>
-                             <td width="10%"></td>
-                             <td width="1%"></td>
-                             <td width="45%"></td>
-                         </tr>
-                         <tr>
-                             <td width="45%">
-                                 <strong>CPT GLENDA M BAUTISTA PA</strong><br>
-                                 Budget Officer, OTAG
-                             </td>
-                             <td width="10%"></td>
-                             <td width="1%"></td>
-                             <td width="45%"></td>
-                         </tr>
-                         <tr>
-                             <td width="45%"></td>
-                             <td width="10%"></td>
-                             <td width="1%" nowrap>WITNESSED BY:</td>
-                             <td class="v-align-bottom" width="45%" height="80px">
-                                 <strong>Ms Elma S Lavador</strong><br>
-                                 End User
-                             </td>
-                         </tr>
-                     </table>
-                 </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-top" width="45%" height="50px">NOTED BY:</td>
+                            <td width="10%"></td>
+                            <td width="1%"></td>
+                            <td width="45%"></td>
+                        </tr>
+                        <tr>
+                            <td width="45%">
+                                <strong></strong><br>
+
+                            </td>
+                            <td width="10%"></td>
+                            <td width="1%"></td>
+                            <td width="45%"></td>
+                        </tr>
+                        <tr>
+                            <td width="45%"></td>
+                            <td width="10%"></td>
+                            <td width="1%" nowrap>WITNESSED BY:</td>
+                            <td class="align-bottom" width="45%" height="80px">
+                                <strong></strong><br>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
 
         </div>
