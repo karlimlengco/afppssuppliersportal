@@ -17,6 +17,7 @@ class CreateSignatories extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('ranks');
+            $table->string('branch')->nullable();
             $table->string('designation');
             $table->timestamps();
         });

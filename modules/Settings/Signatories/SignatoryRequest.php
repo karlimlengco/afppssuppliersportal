@@ -13,6 +13,7 @@ class SignatoryRequest extends BaseRequest
         'name',
         'designation',
         'ranks',
+        'branch',
     ];
 
     /**
@@ -25,7 +26,7 @@ class SignatoryRequest extends BaseRequest
         return [
             'name'              => 'required',
             'designation'       => 'required',
-            'ranks'       => 'required',
+            'ranks'             => 'required',
         ];
     }
 }

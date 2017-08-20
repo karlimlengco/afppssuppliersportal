@@ -634,7 +634,7 @@ class InspectionAndAcceptanceController extends Controller
         $data['acceptor']           =  $model->acceptor;
         $data['inspector']          =  $model->inspector;
 
-        $pdf = PDF::loadView('forms.iar', ['data' => $data])
+        $pdf = PDF::loadView('forms.mfo', ['data' => $data])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'))
             ->setPaper('a4');

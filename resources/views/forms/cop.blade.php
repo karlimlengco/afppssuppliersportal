@@ -36,6 +36,8 @@
                         </span>
                     </div>
                 </div>
+                <br>
+                <br>
                 <!-- form content -->
                 <div class="printable-form__body">
                     <span class="printable-form__body__title">Certificate of Posting</span>

@@ -44,14 +44,14 @@
                         </table>
                         <p>SIR/MADAME,</p>
                         <p>Please quote your lowest price on the items listed below, subject to the following conditions and submit your quotation duly signed by you or your representative not later than {{\Carbon\Carbon::createFromFormat( 'Y-m-d H:i:s', $data['deadline'])->format('dHi F y') }}</p>
-                       {{--  <table class="printable-form__body__table
+                       <table  style="margin-top:-30px; margin-bottom:-10px" class="printable-form__body__table
                                       printable-form__body__table--borderless">
                             <tr>
                                 <td width="45%" height="30px"></td>
                                 <td width="10%" height="30px"></td>
                                 <td width="45%" height="30px"></td>
                             </tr>
-                            <tr>
+                            <tr style="margin-top:0px">
                                 <td class="signatory align-center v-align-middle" width="45%"></td>
                                 <td width="10%"></td>
                                 <td class="signatory align-left v-align-middle" width="45%">
@@ -67,7 +67,7 @@
                                     </div>
                                 </td>
                             </tr>
-                        </table> --}}
+                        </table>
                         <ol>
                             <li>DELIVERY PERIOD IS ATLEAST SEVEN (7) CALENDAR DAYS AT GHQ HEADQUARTERS</li>
                             <li>WARRANTY SHALL BE FOR THE PERIOD OF THREE (3) MONTHS FOR SUPPLIES & MATERIALS, ONE (1) YEAR FOR EQUIPMENT, FROM DATE OF ACCEPTANCE BY THE PROCURING ENTITY OR PRODUCT WARRANTY WHICHEVER IS LONGER.</li>
@@ -79,21 +79,21 @@
                         </ol>
                         <table class="printable-form__body__table classic">
                             <tr>
-                                <td width="10%">Item No.</td>
-                                <td width="10%">Qunatity</td>
-                                <td width="10%">UOM</td>
-                                <td width="30%">Description</td>
-                                <td width="10%">Unit Price</td>
-                                <td width="20%">Total Price</td>
+                                <td class="align-center" width="8%">Item No.</td>
+                                <td class="align-center" width="5%">Quantity</td>
+                                <td class="align-center" width="10%">UOM</td>
+                                <td class="align-center"  width="47%">Description</td>
+                                <td class="align-center"  width="10%">Unit Price</td>
+                                <td class="align-center"  width="15%">Total Price</td>
                             </tr>
                             @foreach($data['items'] as $key => $item)
                                 <tr>
-                                    <td style="text-align:center">{{$key+1}}</td>
-                                    <td>{{$item->quantity}}</td>
-                                    <td>{{$item->unit_measurement}}</td>
-                                    <td style="text-align:left">{{$item->item_description}}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td  class="align-center"  style="text-align:center">{{$key+1}}</td>
+                                    <td  class="align-center" >{{$item->quantity}}</td>
+                                    <td  class="align-center" >{{$item->unit_measurement}}</td>
+                                    <td  style="text-align:left">{{$item->item_description}}</td>
+                                    <td  class="align-center" ></td>
+                                    <td  class="align-center" ></td>
                                 </tr>
                             @endforeach
                             <tr>
@@ -101,7 +101,7 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td colspan="5" class="align-center"><strong>TOTAL PhP</strong></td>
+                                <td colspan="5" class="align-right"><strong>TOTAL PhP</strong></td>
                                 <td></td>
                             </tr>
                         </table>

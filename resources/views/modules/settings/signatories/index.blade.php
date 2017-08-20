@@ -31,8 +31,8 @@ Signatories
                 <tr>
                     <th>Name</th>
                     <th>Rank</th>
+                    <th>Branch</th>
                     <th>Designation</th>
-                    <th>Created</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,8 +59,8 @@ Signatories
         columns: [
             {data: 'name', name: 'name'},
             {data: 'ranks', name: 'ranks'},
+            {data: 'branch', name: 'branch'},
             {data: 'designation', name: 'designation'},
-            {data: 'created_at', name: 'created_at'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

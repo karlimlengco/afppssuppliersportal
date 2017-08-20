@@ -59,17 +59,7 @@ trait FileTrait
      */
     public function viewPrint($id, UnitPurchaseRequestRepository $model)
     {
-        $result     =   $model->with([
-            'centers',
-            'modes',
-            'charges',
-            'accounts',
-            'terms',
-            'items',
-            'requestor',
-            'funders',
-            'approver',
-            ])->findById($id);
+        $result     =   $model->findById($id);
 
         if($result->requestor == null ||  $result->funders == null || $result->approver == null)
         {
@@ -95,10 +85,9 @@ trait FileTrait
 
         $pdf = PDF::loadView('forms.upr', ['data' => $data])
         ->setOption('margin-bottom', 30)
-        ->setOption('footer-html', route('pdf.footer'))
-        ->setPaper('a4');
+        ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('upr.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('upr.pdf');
     }
 
 

@@ -25,14 +25,17 @@
                         </span>
                     </div>
                 </div>
+                <br>
+                <br>
                 <!-- form content -->
                 <div class="printable-form__body">
                     <span class="printable-form__body__title">Notice of Delivery / Request for Inspection</span>
-                    <p>{{\Carbon\Carbon::createFromFormat('Y-m-d',$data['transaction_date'])->format('d F Y')}}</p>
+                    <p>@if($data['transaction_date']){{\Carbon\Carbon::createFromFormat('Y-m-d',$data['transaction_date'])->format('d F Y')}}
+                    @endif</p>
                     <p>To: All Concerned</p>
                     <ol>
                         <li>Reference: Approved PURCHASE ORDER No. {{$data['po_number']}}</li>
-                        <li>Per reference above, {{$data['winner']}} will be delivering {{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) < 1) and {{count($data['items']) - 1}} @endif only at {{$data['center']}} on {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['expected_date'])->format('d F Y')}} in the total amount of <strong>{{translateToWords($data['bid_amount'])}} (Php{{formatPrice($data['bid_amount'])}}) ONLY</strong>. </li>
+                        <li>Per reference above, {{$data['winner']}} will be delivering <span style="text-transform:uppercase">{{translateToWords($data['items'][0]->quantity)}}</span> ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) > 1) and  <span style="text-transform:uppercase">{{translateToWords( count($data['items']) - 1 )}}</span> ({{ count($data['items']) - 1}}) LI @endif only at {{$data['center']}} on {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['expected_date'])->format('d F Y')}} in the total amount of <strong>{{translateToWords($data['bid_amount'])}} (Php{{formatPrice($data['bid_amount'])}}) ONLY</strong>. </li>
                         <li>Request acknowledge receipt. </li>
                     </ol>
                     <!-- form signatories -->

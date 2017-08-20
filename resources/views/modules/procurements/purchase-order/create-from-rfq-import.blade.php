@@ -41,7 +41,7 @@ Purchase Order
     <div class="twelve columns">
         <div class="row">
             <div class="four columns">
-                {!! Form::textField('purchase_date', 'Purchase Date') !!}
+                {!! Form::textField('purchase_date', 'PO Date') !!}
             </div>
             <div class="four columns">
                 {!! Form::selectField('payment_term', 'Payment Terms', $term_lists) !!}

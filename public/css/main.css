@@ -1352,10 +1352,8 @@ printable-form.less
   padding: 0 15px;
   margin: 30px 0;
   border: solid 1px transparent;
-  /* for 'long' bond paper prints */
-  /* for 'short' bond paper prints */
-  /* file name for dev reference only */
   /* main form header area */
+  /* main form letterhead */
   /* main form content area */
   /* main form footer area */
 }
@@ -1368,12 +1366,7 @@ printable-form.less
 .printable-form * strong {
   font-family: 'Arial';
   font-weight: 700;
-}
-.printable-form__filename {
-  position: absolute;
-  bottom: 100%;
-  padding: 10px 0;
-  left: 0;
+  color: #2e2e2e;
 }
 .printable-form__head {
   position: absolute;
@@ -1388,24 +1381,26 @@ printable-form.less
   width: 100%;
   text-align: center;
   padding: 0;
-  margin: 0 0 30px 0;
+  margin: 0;
   font-style: italic;
 }
-.printable-form__head__letterhead {
+.printable-form__letterhead {
   display: block;
   width: 100%;
+  margin-top: 60px;
+  margin-bottom: 25px;
   text-align: center;
 }
-.printable-form__head__letterhead__logo {
+.printable-form__letterhead__logo {
   height: 75px;
   width: 75px;
 }
-.printable-form__head__letterhead__details {
+.printable-form__letterhead__details {
   display: block;
   font-weight: 400;
   margin-top: 10px;
 }
-.printable-form__head__letterhead__details.inside {
+.printable-form__letterhead__details.inside {
   text-align: center;
   margin-top: 0;
   margin-bottom: 30px;
@@ -1413,28 +1408,25 @@ printable-form.less
 .printable-form__body {
   display: block;
   width: 100%;
-  margin-top: 230px;
-  margin-bottom: 110px;
+  margin-top: 60px;
 }
 .printable-form__body.no-letterhead {
   margin-top: 80px;
 }
 .printable-form__body.boxed {
-  padding-top: 30px;
+  margin-top: 60px;
   border: solid 1px #cccccc;
+}
+.printable-form__body.boxed .printable-form__letterhead {
+  margin-top: 30px;
 }
 .printable-form__body.boxed .printable-form__body__table {
   margin-bottom: 0;
-}
-.printable-form__body.boxed__no-padding {
-  padding-top: 0;
 }
 .printable-form__body table,
 .printable-form__body p,
 .printable-form__body ol,
 .printable-form__body ul {
-  font-family: 'Arial';
-  font-weight: 400;
   margin-bottom: 20px;
 }
 .printable-form__body table.indent,
@@ -1449,12 +1441,6 @@ printable-form.less
 .printable-form__body ul.indent-first-line {
   text-indent: 50px;
 }
-.printable-form__body table.indent {
-  margin-left: 50px;
-}
-.printable-form__body table.indent td {
-  padding: 4px 0;
-}
 .printable-form__body__title {
   font-size: 12px;
   font-weight: 700;
@@ -1463,6 +1449,7 @@ printable-form.less
   margin-bottom: 20px;
   display: block;
   width: 100%;
+  color: #2e2e2e;
 }
 .printable-form__body__subtitle {
   text-align: center;
@@ -1474,244 +1461,109 @@ printable-form.less
   width: 100%;
   table-layout: auto;
   border-collapse: collapse;
-  /* used for positioning signatories */
-  /* used for layouting complex content */
 }
-.printable-form__body__table.classic tr td {
-  padding: 4px;
-  text-align: left;
-}
-.printable-form__body__table.classic tr td:last-child {
-  text-align: left;
-}
-.printable-form__body__table thead tr th {
-  font-weight: 800;
-  text-transform: uppercase;
-  background: #e6e6e6;
-}
-.printable-form__body__table tr td,
-.printable-form__body__table tr th {
-  font-size: 10px;
-  font-weight: 400;
-  padding: 8px;
-  vertical-align: top;
-  text-align: center;
-  border: solid 1px #adadad;
-}
-.printable-form__body__table tr td.head,
-.printable-form__body__table tr th.head {
-  font-weight: 800;
-  text-transform: uppercase;
-  background: #e6e6e6;
-}
-.printable-form__body__table tr td .margin-top,
-.printable-form__body__table tr th .margin-top {
-  display: block;
-  margin-top: 30px;
-}
-.printable-form__body__table tr td .font-x2,
-.printable-form__body__table tr th .font-x2 {
-  font-size: 16px;
-}
-.printable-form__body__table tr td.has-child,
-.printable-form__body__table tr th.has-child {
-  padding: 0;
-}
-.printable-form__body__table tr td.align-left,
-.printable-form__body__table tr th.align-left {
-  text-align: left !important;
-}
-.printable-form__body__table tr td.align-center,
-.printable-form__body__table tr th.align-center {
-  text-align: center !important;
-}
-.printable-form__body__table tr td.align-right,
-.printable-form__body__table tr th.align-right {
-  text-align: right !important;
-}
-.printable-form__body__table tr td.v-align-middle,
-.printable-form__body__table tr th.v-align-middle {
-  vertical-align: middle !important;
-}
-.printable-form__body__table tr td.v-align-bottom,
-.printable-form__body__table tr th.v-align-bottom {
-  vertical-align: bottom !important;
-}
-.printable-form__body__table tr td.v-align-top,
-.printable-form__body__table tr th.v-align-top {
-  vertical-align: top !important;
-}
-.printable-form__body__table tr td.fix-border,
-.printable-form__body__table tr th.fix-border {
-  border-bottom: none !important;
-}
-.printable-form__body__table tr td.no-border-top,
-.printable-form__body__table tr th.no-border-top {
-  border-top: none !important;
-}
-.printable-form__body__table tr td.no-border-right,
-.printable-form__body__table tr th.no-border-right {
-  border-right: none !important;
-}
-.printable-form__body__table tr td.no-border-bottom,
-.printable-form__body__table tr th.no-border-bottom {
-  border-bottom: none !important;
-}
-.printable-form__body__table tr td.no-border-left,
-.printable-form__body__table tr th.no-border-left {
-  border-left: none !important;
-}
-.printable-form__body__table tr td.no-padding,
-.printable-form__body__table tr th.no-padding {
-  padding: 0 4px !important;
-}
-.printable-form__body__table tr td.border-left-only,
-.printable-form__body__table tr th.border-left-only {
-  border-right: none;
-  border-bottom: none;
-  border-top: none;
-}
-.printable-form__body__table tr td.border-right-only,
-.printable-form__body__table tr th.border-right-only {
-  border-left: none;
-  border-bottom: none;
-  border-top: none;
-}
-.printable-form__body__table tr td.border-bottom-only,
-.printable-form__body__table tr th.border-bottom-only {
-  border-left: none;
-  border-right: none;
-  border-top: none;
-}
-.printable-form__body__table tr td.border-top-only,
-.printable-form__body__table tr th.border-top-only {
-  border-left: none;
-  border-right: none;
-  border-bottom: none;
-}
-.printable-form__body__table tr td.no-border,
-.printable-form__body__table tr th.no-border {
+.printable-form__body__table.no-border {
   border: none;
 }
-.printable-form__body__table tr td .child-table,
-.printable-form__body__table tr th .child-table {
-  width: 100%;
-  border-collapse: collapse;
+.printable-form__body__table.no-border tr td {
+  border: none;
+  padding: 4px 0;
+}
+.printable-form__body__table.no-padding tr td {
+  padding: 0;
+}
+.printable-form__body__table.no-space {
   margin: 0;
   padding: 0;
-  border: none;
 }
-.printable-form__body__table tr td .child-table tr td:first-child,
-.printable-form__body__table tr th .child-table tr td:first-child,
-.printable-form__body__table tr td .child-table tr th:first-child,
-.printable-form__body__table tr th .child-table tr th:first-child {
-  border-left: none;
-}
-.printable-form__body__table tr td .child-table tr td:last-child,
-.printable-form__body__table tr th .child-table tr td:last-child,
-.printable-form__body__table tr td .child-table tr th:last-child,
-.printable-form__body__table tr th .child-table tr th:last-child {
-  border-right: none;
-}
-.printable-form__body__table tr td .child-table tr:first-child td,
-.printable-form__body__table tr th .child-table tr:first-child td,
-.printable-form__body__table tr td .child-table tr:first-child th,
-.printable-form__body__table tr th .child-table tr:first-child th {
-  border-top: none;
-}
-.printable-form__body__table tr td .child-table tr:last-child td,
-.printable-form__body__table tr th .child-table tr:last-child td,
-.printable-form__body__table tr td .child-table tr:last-child th,
-.printable-form__body__table tr th .child-table tr:last-child th {
-  border-bottom: none;
-}
-.printable-form__body__table tr td .label,
-.printable-form__body__table tr th .label {
-  display: block;
+.printable-form__body__table tr td {
   font-size: 10px;
-  font-weight: 800;
-  color: #545454;
-  text-transform: uppercase;
+  font-weight: 400;
+  padding: 4px;
+  vertical-align: top;
+  text-align: left;
+  border: solid 1px #adadad;
 }
-.printable-form__body__table tr td .checkbox-item,
-.printable-form__body__table tr th .checkbox-item {
-  display: inline-block;
-  margin-right: 5px;
-  font-size: 10px;
+.printable-form__body__table tr td .signatory {
+  margin: 0;
 }
-.printable-form__body__table tr td .signatory-rank-justify,
-.printable-form__body__table tr th .signatory-rank-justify {
+.printable-form__body__table tr td .signatory .signatory-rank-justify {
   text-align: justify;
   margin: 0;
   padding: 0;
   height: 12px;
   line-height: 1;
 }
-.printable-form__body__table tr td .signatory-rank-justify span,
-.printable-form__body__table tr th .signatory-rank-justify span {
+.printable-form__body__table tr td .signatory .signatory-rank-justify span {
   display: inline-block;
   width: 100%;
   height: 1px;
 }
-.printable-form__body__table tr td.signatory,
-.printable-form__body__table tr th.signatory {
-  padding: 0 0 4px 0 !important;
-}
-.printable-form__body__table tr td.signatory .signatory-name,
-.printable-form__body__table tr th.signatory .signatory-name {
-  display: block;
-  width: 100%;
-}
-.printable-form__body__table tr td.signatory .signatory-name.bordered,
-.printable-form__body__table tr th.signatory .signatory-name.bordered {
-  padding-top: 8px;
-  padding-left: 8px;
-  padding-right: 8px;
+.printable-form__body__table tr td.border-top-only {
   border-top: solid 1px #adadad;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
 }
-.printable-form__body__table tr td.signatory .signatory-name table,
-.printable-form__body__table tr th.signatory .signatory-name table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0;
+.printable-form__body__table tr td.border-right-only {
+  border-right: solid 1px #adadad;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
 }
-.printable-form__body__table tr td.signatory .signatory-name table tr td,
-.printable-form__body__table tr th.signatory .signatory-name table tr td {
-  padding: 0;
+.printable-form__body__table tr td.border-bottom-only {
+  border-bottom: solid 1px #adadad;
+  border-left: none;
+  border-right: none;
+  border-top: none;
 }
-.printable-form__body__table tr td.signatory .conforme-label,
-.printable-form__body__table tr th.signatory .conforme-label {
-  display: block;
-  font-size: 10px;
-  font-style: italic;
-  width: 100%;
-  font-weight: 400;
-  padding-top: 4px;
-  border-top: solid 1px #adadad;
+.printable-form__body__table tr td.border-left-only {
+  border-left: solid 1px #adadad;
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
 }
-.printable-form__body__table tr td.signatory .conforme-label.move,
-.printable-form__body__table tr th.signatory .conforme-label.move {
-  margin-left: 5px;
-  margin-bottom: -15px;
+.printable-form__body__table tr td.no-border {
+  border: none !important;
 }
-.printable-form__body__table tr td:last-child,
-.printable-form__body__table tr th:last-child {
-  text-align: right;
+.printable-form__body__table tr td.no-border-top {
+  border-top: none !important;
 }
-.printable-form__body__table tr td:first-child,
-.printable-form__body__table tr th:first-child {
-  text-align: left;
+.printable-form__body__table tr td.no-border-right {
+  border-right: none !important;
 }
-.printable-form__body__table--borderless tr th,
-.printable-form__body__table--borderless tr td {
-  border: none;
-  font-size: 12px;
+.printable-form__body__table tr td.no-border-bottom {
+  border-bottom: none !important;
 }
-.printable-form__body__table--layout tr th,
-.printable-form__body__table--layout tr td {
-  border: none;
-  padding: 0;
-  font-size: 12px;
+.printable-form__body__table tr td.no-border-left {
+  border-left: none !important;
+}
+.printable-form__body__table tr td.align-left {
+  text-align: left !important;
+}
+.printable-form__body__table tr td.align-center {
+  text-align: center !important;
+}
+.printable-form__body__table tr td.align-right {
+  text-align: right !important;
+}
+.printable-form__body__table tr td.align-justify {
+  text-align: justify !important;
+}
+.printable-form__body__table tr td.align-middle {
+  vertical-align: middle !important;
+}
+.printable-form__body__table tr td.align-bottom {
+  vertical-align: bottom !important;
+}
+.printable-form__body__table tr td.align-top {
+  vertical-align: top !important;
+}
+.printable-form__body__table tr td.fix-border {
+  border-bottom: none !important;
+}
+.printable-form__body__table tr td.no-padding {
+  padding: 0 4px !important;
 }
 .printable-form__foot {
   position: absolute;

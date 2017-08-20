@@ -672,7 +672,7 @@ class DeliveredInspectionReportController extends Controller
 
         $data['items']              =   $result->delivery->po->items;
         $data['purpose']            =   $result->upr->purpose;
-        $data['place']             =   $result->upr->place_of_delivery;
+        $data['place']              =   $result->upr->place_of_delivery;
         $data['centers']            =   $result->upr->centers->name;
         $data['units']              =   $result->upr->unit->short_code;
         $data['ref_number']         =   $result->upr->ref_number;
@@ -688,6 +688,7 @@ class DeliveredInspectionReportController extends Controller
         $data['approver']           =   $result->approver;
         $data['issuer']             =   $result->issuer;
         $data['requestor']          =   $result->requestor;
+        $data['bid_amount']         =   $result->delivery->po->bid_amount;
         // dd($data);
         $pdf = PDF::loadView('forms.diir', ['data' => $data])
             ->setOption('margin-bottom', 30)
@@ -715,7 +716,7 @@ class DeliveredInspectionReportController extends Controller
 
         $data['items']              =   $result->delivery->po->items;
         $data['purpose']            =   $result->upr->purpose;
-        $data['place']             =   $result->upr->place_of_delivery;
+        $data['place']              =   $result->upr->place_of_delivery;
         $data['centers']            =   $result->upr->centers->name;
         $data['units']              =   $result->upr->unit->short_code;
         $data['ref_number']         =   $result->upr->ref_number;
@@ -775,7 +776,7 @@ class DeliveredInspectionReportController extends Controller
         $data['issuer']             =   $result->issuer;
         $data['requestor']          =   $result->requestor;
         // dd($data);
-        $pdf = PDF::loadView('forms.diir2', ['data' => $data])
+        $pdf = PDF::loadView('forms.rar', ['data' => $data])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'))
             ->setPaper('a4');

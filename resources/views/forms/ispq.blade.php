@@ -31,6 +31,7 @@
                         </span>
                     </div>
                 </div>
+                <br>
                 <!-- form content -->
                 <div class="printable-form__body">
 
@@ -39,13 +40,13 @@
                     <p>1. The Armed Forces of the Philippines through the 302ND  Canvass/Contracting Committee invites PhilGEPS registered suppliers to submit quotation/proposal for the following list of procurement with corresponding Approved Budget for the Contract (ABC).</p>
                     <table class="printable-form__body__table classic">
                         <tr>
-                            <td width="10%">ITEM NO</td>
-                            <td width="10%">UPR NO</td>
-                            <td width="20%">RFQ NO</td>
-                            <td width="10%">MP</td>
-                            <td width="30%">ITEM DESCRIPTION</td>
-                            <td width="10%">ABC</td>
-                            <td width="20%">CANVASSING DATE/TIME</td>
+                            <td class="align-center" width="10%">ITEM NO</td>
+                            <td class="align-center" width="10%">UPR NO</td>
+                            <td class="align-center" width="20%">RFQ NO</td>
+                            <td class="align-center" width="10%">MP</td>
+                            <td class="align-center" width="30%">ITEM DESCRIPTION</td>
+                            <td class="align-center" width="10%">ABC</td>
+                            <td class="align-center" width="20%">CANVASSING DATE/TIME</td>
                         </tr>
                         @foreach($data['quotations'] as $key => $quotation)
                             <tr>
@@ -54,7 +55,7 @@
                                 <td>{{$quotation->rfq_number}}</td>
                                 <td>@if($quotation->upr) @if($quotation->upr->modes) {{$quotation->upr->modes->name}} @endif @endif</td>
                                 <td style="text-align:left">{{$quotation->description}}</td>
-                                <td>{{formatPrice($quotation->total_amount)}}</td>
+                                <td class="align-right">{{formatPrice($quotation->total_amount)}}</td>
                                 <td>{{$quotation->canvassing_date}} {{$quotation->canvassing_time}}</td>
                             </tr>
                         @endforeach

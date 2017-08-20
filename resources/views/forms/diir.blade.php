@@ -27,37 +27,37 @@
                 <span class="printable-form__body__title">Requisition and Issue Slip</span>
                 <table class="printable-form__body__table classic">
                     <tr>
-                        <td width="10%"><strong>STOCK NO.</strong></td>
-                        <td width="10%"><strong>UOM</strong></td>
-                        <td  style="text-align:left" width="35%"><strong>DESCRIPTION</strong></td>
-                        <td width="10%"><strong>QTY</strong></td>
-                        <td width="15%"><strong>UNIT COST</strong></td>
-                        <td width="20%"><strong>TOTAL COST</strong></td>
+                        <td class="align-center"  width="12%"><strong>STOCK NO.</strong></td>
+                        <td class="align-center"  width="5%"><strong>UOM</strong></td>
+                        <td class="align-center" width="48%"><strong>DESCRIPTION</strong></td>
+                        <td class="align-center"  width="5%"><strong>QTY</strong></td>
+                        <td class="align-center"  width="15%"><strong>UNIT COST</strong></td>
+                        <td class="align-center"  width="15%"><strong>TOTAL COST</strong></td>
                     </tr>
                     @foreach($data['items'] as $key=>$item)
                     <tr>
-                        <td>{{$key+1}}</td>
-                        <td>{{$item->unit}}</td>
+                        <td class="align-center" >{{$key+1}}</td>
+                        <td class="align-center" >{{$item->unit}}</td>
                         <td style="text-align:left">{{$item->description}}</td>
-                        <td>{{$item->quantity}}</td>
-                        <td>{{formatPrice($item->price_unit)}}</td>
-                        <td>{{formatPrice($item->total_amount)}}</td>
+                        <td class="align-center" >{{$item->quantity}}</td>
+                        <td class="align-right" >{{formatPrice($item->price_unit)}}</td>
+                        <td class="align-right" >{{formatPrice($item->total_amount)}}</td>
                     </tr>
                     @endforeach
                     <tr>
-                        <td colspan="5">One Hundred Pesos</td>
-                        <td>100.00</td>
+                        <td class="align-center"  colspan="5" style="text-transform:uppercase">{{translateToWords($data['bid_amount'])}} Pesos Only</td>
+                        <td  class="align-right" >Php {{formatPrice($data['bid_amount'])}}</td>
                     </tr>
                     <tr>
                         <td colspan="6">
-                            <span class="label">Purpose</span>
-                            {{$data['purpose']}}
+                            <span class="label">Purpose: {{$data['purpose']}}</span>
+
                         </td>
                     </tr>
                     <tr>
                         <td class="v-align-bottom no-border-bottom" height="60px">Signature</td>
-                        <td class="align-center no-border-bottom" colspan="2">REQUESTED BY:</td>
-                        <td class="align-center no-border-bottom" colspan="3">APPROVED BY:</td>
+                        <td class="align-left no-border-bottom" colspan="2">REQUESTED BY:</td>
+                        <td class="align-left no-border-bottom" colspan="3">APPROVED BY:</td>
                     </tr>
                     <tr>
                         <td class="no-border-top no-border-bottom">Name</td>
@@ -80,8 +80,8 @@
                     </tr>
                     <tr>
                         <td class="v-align-bottom no-border-top no-border-bottom" height="60px">Signature</td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="2">ISSUED BY:</td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="3">RECEIVED BY:</td>
+                        <td class="align-left no-border-top no-border-bottom" colspan="2">ISSUED BY:</td>
+                        <td class="align-left no-border-top no-border-bottom" colspan="3">RECEIVED BY:</td>
                     </tr>
                     <tr>
                         <td class="no-border-top no-border-bottom">Name</td>

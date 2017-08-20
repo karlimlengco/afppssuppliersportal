@@ -63,6 +63,13 @@ Canvassing
                     {!! Form::selectField('chief', 'Chief', $signatory_list) !!}
                 </div>
             </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::tagField('members', 'Members', $signatory_list) !!}
+                </div>
+            </div>
+
             <div class="row">
                 <div class="twelve columns">
                     {!! Form::textField('other_attendees', 'Other Attendees') !!}

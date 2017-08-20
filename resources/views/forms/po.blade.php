@@ -14,23 +14,229 @@
         <div class="printable-form">
 
             <!-- main page -->
+
             <div class="printable-form__head">
                 <p class="printable-form__head__vision">AFP Vision 2028: A World-class Armed Forces, Source of National Pride</p>
-                <div class="printable-form__head__letterhead">
-                    <span class="printable-form__head__letterhead__logo">
-                        <img src="{{base_path('public/img/form-logo.png')}}" alt="">
-                    </span>
-                    <span class="printable-form__head__letterhead__details">
-                        <strong>302ND Contracting Office</strong><br>
-                        ARMED FORCES OF THE PHILIPPINES PROCUREMENT SERVICE<br>
-                        Naval Base Pascual Ledesma<br>
-                        Fort San Felipe, Cavite City Philippines
-                    </span>
-                </div>
+            </div>
+            <!-- form content -->
+            <div class="printable-form__body no-letterhead boxed">
+                <span class="printable-form__head__letterhead__details inside">
+                    GHQ Procurement Center<br>
+                    ARMED FORCES OF THE PHILIPPINES PROCUREMENT SERVICE<br>
+                    Camp General Emilio Aguinaldo, Quezon City
+                </span>
+                <span class="printable-form__body__title">Purchase Order/ Job Order/ Work Order</span>
+                <table class="printable-form__body__table classic">
+                    <tr>
+                        <td class="no-border-bottom" colspan="1"></td>
+                        <td class="no-border-bottom" colspan="1"></td>
+                        <td class="no-border-bottom" colspan="1"></td>
+                        <td class="no-border-bottom" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td class="border-left-only" width="80px" nowrap>Supplier:</td>
+                        <td class="border-right-only" width="30%"><strong>3 R TRADING</strong></td>
+                        <td class="no-border" width="80px" nowrap>P.O. No.</td>
+                        <td class="border-right-only" width="30%"><strong>302ND-NLC-SPOF-016-15</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="border-left-only" nowrap>Address:</td>
+                        <td class="border-right-only"><strong>715 Kalayaan st., San Antonio, Cavite City</strong></td>
+                        <td class="no-border" nowrap>Date:</td>
+                        <td class="border-right-only"><strong>28 December 2015</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="border-left-only" nowrap>Email Address:</td>
+                        <td class="border-right-only"><strong>--</strong></td>
+                        <td class="no-border" nowrap>Proc Mode:</td>
+                        <td class="border-right-only"><strong>NEGOTIATED</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="border-left-only" nowrap>Telephone No:</td>
+                        <td class="border-right-only"><strong>--</strong></td>
+                        <td class="no-border" nowrap>Account Code:</td>
+                        <td class="border-right-only"><strong>10-2016</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="border-left-only " nowrap>TIN:</td>
+                        <td class="border-right-only" ><strong>141-727-319-000 NON VAT</strong></td>
+                        <td class="no-border" nowrap></td>
+                        <td class="border-right-only" nowrap></td>
+                    </tr>
+                    <tr>
+                        <td class="no-border" colspan="1"></td>
+                        <td class="no-border" colspan="1"></td>
+                        <td class="no-border-top border-left-only" colspan="2"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="no-border" colspan="1"></td>
+                        <td class="no-border" colspan="1"></td>
+                        <td class="no-border-top border-left-only " colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="no-border-bottom">
+                            Sir/Madam,
+                            <br><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please furnish this office the following articles subject to the terms and conditions contained herein:</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="no-border-top no-border-bottom" colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="no-border-top no-border-bottom" colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="border-left-only" nowrap>Place of Delivery:</td>
+                        <td class="no-border"><strong>GHQ HEADQUARTERS</strong></td>
+                        <td class="no-border" nowrap>Delivery Schedule:</td>
+                        <td class="border-right-only"><strong>--</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="border-left-only" nowrap>Delivery Term:</td>
+                        <td class="no-border"><strong>Seven (7) Calendar Days upon conformed of Notice To Proceed</strong></td>
+                        <td class="no-border" nowrap>Payment Term:</td>
+                        <td class="border-right-only"><strong>--</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="no-border-top no-border-bottom" colspan="4"></td>
+                    </tr>
+                </table>
+                <table class="printable-form__body__table classic">
+                    <tr>
+                        <td class="align-center" width="10%"><strong>ITEM NO</strong></td>
+                        <td class="align-center" width="10%"><strong>UOM</strong></td>
+                        <td class="align-center" width="40%"><strong>DESCRPTION</strong></td>
+                        <td class="align-center" width="10%"><strong>QTY</strong></td>
+                        <td class="align-center" width="15%"><strong>UNIT COST</strong></td>
+                        <td class="align-center" width="15%"><strong>AMOUNT</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="align-center">1</td>
+                        <td class="align-center">RM</td>
+                        <td>BOND PAPER A4</td>
+                        <td class="align-center">100</td>
+                        <td class="align-right">240.00</td>
+                        <td class="align-right">24,000.00</td>
+                    </tr>
+                    <tr>
+                        <td class="align-center" colspan="5"><strong>TWENTY FOUR THOUSAND PESOS ONLY.</strong></td>
+                        <td colspan="1" class="align-right"><strong >24,000.00</strong></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            BASIS: FOR THE USE OF GHQ<br>
+                            REFERENCES: UPR No. THIRD-UPR-2016 dtd 28 December 2015
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="v-align-top no-border-bottom" colspan="6" height="40px">In case of failure to make the full delivery within the time specified above, a penalty of one-tenth (1/10) of one percent (1%) for every day of delay shall be imposed.</td>
+                    </tr>
+                </table>
+                <table class="printable-form__body__table classic">
+                    <tr>
+                        <td class="border-left-only" width="45%"></td>
+                        <td class="no-border" width="10%"></td>
+                        <td class="border-right-only" width="45%">
+                            Very truly yours,
+                            <strong class="margin-top">LTC ADONIS ARIEL G ORIO (GSC) PA</strong>
+                            Chairman, CCC
+                        </td>
+                    </tr>
+                </table>
+                <table class="printable-form__body__table classic">
+                    <tr>
+                        <td class="border-left-only" width="9%" height="30px"></td>
+                        <td class="no-border" width="1%" height="40px">Conforme:</td>
+                        <td class="border-bottom-only" width="40%" height="30px"></td>
+                        <td class="border-right-only" width="50%" height="30px"></td>
+                    </tr>
+                    <tr>
+                        <td class="border-left-only" colspan="2" height="30px"></td>
+                        <td class="align-center no-padding border-bottom-only" height="30px">Signature over printed name of Supplier</td>
+                        <td class="border-right-only" height="30px"></td>
+                    </tr>
+                    <tr>
+                        <td class="border-left-only" colspan="2"></td>
+                        <td class="align-center no-padding no-border">Date</td>
+                        <td class="border-right-only"></td>
+                    </tr>
+                    <tr>
+                        <td class="no-border-top" colspan="4"></td>
+                    </tr>
+                </table>
+                <table class="printable-form__body__table classic">
+                    <tr>
+                        <td class="border-left-only" width="15%" height="30px">Funds Available:</td>
+                        <td class="no-border" width="1%"></td>
+                        <td class="no-border" width="30%"></td>
+                        <td class="no-border" width="15%"></td>
+                        <td class="no-border" width="1%"></td>
+                        <td class="no-border" width="28%"></td>
+                        <td class="border-right-only" width="10%"></td>
+                    </tr>
+                    <tr>
+                        <td class="no-padding border-left-only"></td>
+                        <td class="no-padding no-border" colspan="2"><strong>MR NILO B ABAIGAR MBA, DPA</strong></td>
+                        <td class="no-padding no-border"></td>
+                        <td class="no-padding no-border" nowrap>OBR/BUR No</td>
+                        <td class="no-padding border-bottom-only"></td>
+                        <td class="no-padding border-right-only"></td>
+                    </tr>
+                    <tr>
+                        <td class="no-padding border-left-only"></td>
+                        <td class="no-padding no-border" colspan="2">Chief Accountant</td>
+                        <td class="no-padding no-border"></td>
+                        <td class="no-padding no-border"></td>
+                        <td class="no-padding no-border"></td>
+                        <td class="no-padding border-right-only"></td>
+                    </tr>
+                    <tr>
+                        <td class="no-padding border-left-only"></td>
+                        <td class="no-padding no-border">Date</td>
+                        <td class="no-padding border-bottom-only"></td>
+                        <td class="no-padding no-border"></td>
+                        <td class="no-padding no-border" nowrap>Amount</td>
+                        <td class="no-padding border-bottom-only"></td>
+                        <td class="no-padding border-right-only"></td>
+                    </tr>
+                    <tr>
+                        <td class="no-border-top" colspan="7" height="20px"></td>
+                    </tr>
+                </table>
+                <table class="printable-form__body__table classic">
+                    <tr>
+                        <td class="border-left-only" width="14%" height="30px">Approved By:</td>
+                        <td class="no-border" width="30%"></td>
+                        <td class="no-border" width="19%"></td>
+                        <td class="no-border" width="1%"></td>
+                        <td class="no-border" width="28%"></td>
+                        <td class="border-right-only" width="8%"></td>
+                    </tr>
+                    <tr>
+                        <td class="no-padding border-left-only"></td>
+                        <td class="no-padding no-border"><strong>CDR FRANKLIN B ROTONI PN</strong></td>
+                        <td class="no-padding no-border"></td>
+                        <td class="no-padding no-border" nowrap>Date</td>
+                        <td class="no-padding border-bottom-only"></td>
+                        <td class="no-padding border-right-only"></td>
+                    </tr>
+                    <tr>
+                        <td class="no-padding border-left-only"></td>
+                        <td class="no-padding no-border">CO, GHQPC, AFPPS</td>
+                        <td class="no-padding no-border"></td>
+                        <td class="no-padding no-border"></td>
+                        <td class="no-padding no-border"></td>
+                        <td class="no-padding border-right-only"></td>
+                    </tr>
+                    <tr>
+                        <td class="no-border-top no-border-bottom" colspan="6" height="15px"></td>
+                    </tr>
+                </table>
             </div>
 
-            <div class="printable-form__body">
-                <span class="printable-form__body__title">Purchase Order</span>
+            {{-- <div class="printable-form__body">
+                <span class="printable-form__body__title">Purchase Order / Job Order / Work Order</span>
                 <table class="printable-form__body__table">
                     <tbody>
                         <tr>
@@ -111,10 +317,10 @@
                             <td class="has-child" colspan="3">
                                 <table class="child-table">
                                     <tr>
-                                        <td class="head" width="10%">Item No</td>
-                                        <td class="head" width="10%">UOM</td>
-                                        <td class="head" width="30%">Description</td>
-                                        <td class="head" width="10%">Quantity</td>
+                                        <td class="head" width="8%">Item No</td>
+                                        <td class="head" width="5%">UOM</td>
+                                        <td class="head" width="42%">Description</td>
+                                        <td class="head" width="5%">Quantity</td>
                                         <td class="head" width="10%">Unit Cost</td>
                                         <td class="head" width="10%">Amount</td>
                                     </tr>
@@ -140,7 +346,7 @@
 
                 <p>Purpose: {{$data['purpose']}}</p>
                 <p>In case of failure to make the full delivery within the time specified above, a penalty of one-tenth (1/10) of one percent (1%) for every day of delay shall be imposed. </p>
-                {{-- <span class="printable-form__body__title">Purchase Order</span>
+                <span class="printable-form__body__title">Purchase Order</span>
                 <table class="printable-form__body__table
                               printable-form__body__table--custom">
                     <tbody>
@@ -247,7 +453,7 @@
                             </td>
                         </tr>
                     </tbody>
-                </table> --}}
+                </table>
 
             </div>
 
@@ -381,7 +587,7 @@
                         <td class="signatory align-center" width="45%"></td>
                     </tr>
                 </table>
-                <t{{-- able class="printable-form__body__table
+                <t --}}{{-- able class="printable-form__body__table
                               printable-form__body__table--custom
                               printable-form__body__table--borderless" >
                     <tr>
@@ -514,9 +720,9 @@
                         <td width="20%"></td>
                         <td class="signatory align-center" width="40%"></td>
                     </tr>
-                </table --}}>
-                </div>
-                </div>
+                </table>--}}
+                {{-- </div> --}}
+                {{-- </div> --}}
 {{--
             <div class="printable-form__foot">
                 <table class="printable-form__foot__table">

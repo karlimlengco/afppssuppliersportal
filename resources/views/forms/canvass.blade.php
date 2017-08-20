@@ -75,16 +75,24 @@
                             <td>
                                 @if($data['proponents'][0]->supplier->attachmentByType("dti") != null && $data['proponents'][0]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
                                      ok
+                                @else
+                                    failed
                                 @endif
                             </td>
                             <td>
                                 @if($data['proponents'][1]->supplier->attachmentByType("dti") != null && $data['proponents'][1]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
                                      ok
+
+                                     @else
+                                         failed
                                 @endif
                             </td>
                             <td>
                                 @if($data['proponents'][2]->supplier->attachmentByType("dti") != null && $data['proponents'][2]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
                                      ok
+
+                                     @else
+                                         failed
                                 @endif
                             </td>
                         </tr>
@@ -95,6 +103,9 @@
                                 @if($data['proponents'][0]->supplier->attachmentByType("mayors_permit
                                 ") != null && $data['proponents'][0]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
                                      ok
+
+                                     @else
+                                         failed
                                 @endif
                             </td>
 
@@ -102,6 +113,9 @@
                                 @if($data['proponents'][1]->supplier->attachmentByType("mayors_permit
                                 ") != null && $data['proponents'][1]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
                                      ok
+
+                                     @else
+                                         failed
                                 @endif
                             </td>
 
@@ -109,6 +123,9 @@
                                 @if($data['proponents'][2]->supplier->attachmentByType("mayors_permit
                                 ") != null && $data['proponents'][2]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
                                      ok
+
+                                     @else
+                                         failed
                                 @endif
                             </td>
                         </tr>
@@ -119,6 +136,9 @@
                                 @if($data['proponents'][0]->supplier->attachmentByType("tax_clearance
                                 ") != null && $data['proponents'][0]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'])
                                      ok
+
+                                     @else
+                                         failed
                                 @endif
                             </td>
 
@@ -126,6 +146,9 @@
                                 @if($data['proponents'][1]->supplier->attachmentByType("tax_clearance
                                 ") != null && $data['proponents'][1]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'])
                                      ok
+
+                                     @else
+                                         failed
                                 @endif
                             </td>
 
@@ -133,6 +156,9 @@
                                 @if($data['proponents'][2]->supplier->attachmentByType("tax_clearance
                                 ") != null && $data['proponents'][2]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'])
                                      ok
+
+                                     @else
+                                         failed
                                 @endif
                             </td>
                         </tr>
@@ -143,6 +169,9 @@
                                 @if($data['proponents'][0]->supplier->attachmentByType("philgeps_registration
                                 ") != null && $data['proponents'][0]->supplier->attachmentByType("philgeps_registration")->validity_date >= $data['today'])
                                      ok
+
+                                     @else
+                                         failed
                                 @endif
                             </td>
 
@@ -150,6 +179,9 @@
                                 @if($data['proponents'][1]->supplier->attachmentByType("philgeps_registration
                                 ") != null && $data['proponents'][1]->supplier->attachmentByType("philgeps_registration")->validity_date >= $data['today'])
                                      ok
+
+                                     @else
+                                         failed
                                 @endif
                             </td>
 
@@ -157,6 +189,9 @@
                                 @if($data['proponents'][2]->supplier->attachmentByType("philgeps_registration
                                 ") != null && $data['proponents'][2]->supplier->attachmentByType("philgeps_registration")->validity_date >= $data['today'])
                                      ok
+
+                                     @else
+                                         failed
                                 @endif
                             </td>
 

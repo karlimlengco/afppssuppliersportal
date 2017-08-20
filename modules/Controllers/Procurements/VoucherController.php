@@ -942,7 +942,6 @@ class VoucherController extends Controller
         $delivery_date                  =   Carbon::createFromFormat('Y-m-d',$data['delivery_date']);
         $nr_delay                       =   $ntp_date->diffInDays($delivery_date, false);
         $penalty                        =   (($result->amount * 0.01) * 0.1) * $nr_delay;
-
         $data['nr_delay']               =   $nr_delay;
         $data['penalty']                =   $penalty;
         $pdf = PDF::loadView('forms.voucher', ['data' => $data])
@@ -950,7 +949,7 @@ class VoucherController extends Controller
             ->setOption('footer-html', route('pdf.footer'))
             ->setPaper('a4');
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('voucher.pdf');
+        return $pdf->setOption('page-width', '10in')->setOption('page-height', '12in')->inline('voucher.pdf');
     }
 
     /**

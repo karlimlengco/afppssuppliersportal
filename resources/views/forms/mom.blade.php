@@ -25,6 +25,8 @@
                         </span>
                     </div>
                 </div>
+                <br>
+                <br>
                 <!-- form content -->
                 <div class="printable-form__body">
 
@@ -55,9 +57,9 @@
                         @foreach($data['members'] as $member)
                             <tr>
                                 <td width="50px"></td>
-                                <td class="align-left" width="300px"> {{$member->signatory->name}} {{$member->signatory->ranks}}</td>
-                                <td class="align-left" width="100px">{{$member->signatory->designation}}</td>
-                                <td width="40%"></td>
+                                <td class="align-left" width="500px"> {{$member->signatory->name}} {{$member->signatory->ranks}}</td>
+                                <td class="align-left" width="150px">{{$member->signatory->designation}}</td>
+                                <td width="30%"></td>
                             </tr>
                         @endforeach
 
@@ -75,10 +77,10 @@
 
                     <p><strong>III. CALL TO ORDER:</strong></p>
                     <p class="indent-first-line">The Chairman at around {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_opened'])->format('Hi')}}H called the meeting to order. The Secretary was asked as to the quorum and latter informed the attendees that there was a quorum with regular members present. </p>
-                    <p class="indent-first-line">He then welcomed all the participants. At exactly {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_opened'])->format('Hi')}}H, he directed the secretary to close the price quotation box. The secretary gave a short briefing on the procedures on the opening of canvass proposal and stressed the guidelines in Shopping / Negotiated procedure and it will be guided strictly by the provision of IRR-A 9184 and pertinent AFP Logistics Directives and enumerated the requirements for eligibility. </p>
-                    <p><strong>IV. AGENDA: SUBMISSION AND OPENING OF CANVASS PROPOSALS</strong></p>
+                    <p class="indent-first-line" style="text-align:justify">He then welcomed all the participants. At exactly {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_opened'])->format('Hi')}}H, he directed the secretary to close the price quotation box. The secretary gave a short briefing on the procedures on the opening of canvass proposal and stressed the guidelines in Shopping / Negotiated procedure and it will be guided strictly by the provision of IRR-A 9184 and pertinent AFP Logistics Directives and enumerated the requirements for eligibility. </p>
+                    <p style="text-indent: justify; text-align:justify;"><strong>IV. AGENDA: SUBMISSION AND OPENING OF CANVASS PROPOSALS</strong></p>
                     <p class="indent-first-line">The Secretary then read the agenda of the meeting that was the submission and opening of canvass proposal for procuring {{$data['center']}} requirements. </p>
-                    <p><strong>V. OPENING, EXAMINATION AND EVALUATION OF ELIGIBILITY DOCUMENTS</strong> </p>
+                    <p style="text-indent: justify; text-align:justify;"><strong>V. OPENING, EXAMINATION AND EVALUATION OF ELIGIBILITY DOCUMENTS</strong> </p>
                     <p class="indent-first-line">The Chairman and Member in the presence of the attendees checked the submitted eligibility documents of each proponent base on the checklist of eligibility documents using a non-discretionary "Passed/Failed". After examination, the results are as follow: </p>
 
                     <table class="printable-form__body__table classic">
@@ -153,7 +155,7 @@
 
 
             <!-- mom.xps -->
-            <div class="printable-form" style="page-break-before: always">
+            <div class="printable-form" >
                 <!-- form header -->
                 <div class="printable-form__head">
                     <p class="printable-form__head__vision">AFP Vision 2028: A World-class Armed Forces, Source of National Pride</p>
@@ -166,7 +168,7 @@
                     <p class="indent-first-line">The Chairman thanked the attendees and declared the meeting adjourned at exactly {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_closed'])->format('Hi')}}H</p>
                     <!-- form signatories -->
                     <table class="printable-form__body__table
-                                  printable-form__body__table--borderless">
+                                  printable-form__body__table--borderless" style="page-break-inside:avoid">
                         <tr>
                             <td width="45%" height="80px"></td>
                             <td width="10%" height="80px"></td>

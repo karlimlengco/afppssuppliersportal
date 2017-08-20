@@ -22,6 +22,7 @@ class SignatoryEloquent extends Model
     protected $fillable = [
         'name',
         'designation',
+        'branch',
         'ranks',
     ];
 

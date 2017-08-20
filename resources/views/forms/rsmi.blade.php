@@ -58,30 +58,30 @@
                                 <td colspan="8">To be filled up in the Supply and Property Unit</td>
                             </tr>
                             <tr>
-                                <td class="v-align-middle" width="10%"><strong>RIS No.</strong></td>
-                                <td class="v-align-middle" width="15%"><strong>Responsibility Code</strong></td>
-                                <td class="v-align-middle" width="5%"><strong>Stock No.</strong></td>
-                                <td class="v-align-middle" width="25%"><strong>Item</strong></td>
-                                <td class="v-align-middle" width="5%"><strong>Unit</strong></td>
-                                <td class="v-align-middle" width="5%"><strong>Qty Issued</strong></td>
-                                <td class="v-align-middle" width="15%"><strong>Unit Cost</strong></td>
-                                <td class="v-align-middle" width="20%"><strong>Amount</strong></td>
+                                <td class="align-center v-align-middle" width="7%"><strong>RIS No.</strong></td>
+                                <td class="align-center v-align-middle" width="10%"><strong>Responsibility Code</strong></td>
+                                <td class="align-center v-align-middle" width="5%"><strong>Stock No.</strong></td>
+                                <td class="align-center v-align-middle" width="40%"><strong>Item</strong></td>
+                                <td class="align-center v-align-middle" width="5%"><strong>Unit</strong></td>
+                                <td class="align-center v-align-middle" width="5%"><strong>Qty Issued</strong></td>
+                                <td class="align-center v-align-middle" width="10%"><strong>Unit Cost</strong></td>
+                                <td class="align-center v-align-middle" width="18%"><strong>Amount</strong></td>
                             </tr>
                             @foreach($data['items'] as $key=>$item)
                             <tr>
                                 <td></td>
-                                <td></td>
-                                <td>{{$key+1}}</td>
-                                <td>{{$item->description}}</td>
-                                <td>{{$item->unit}}</td>
-                                <td>{{$item->quantity}}</td>
-                                <td>{{formatPrice($item->price_unit)}}</td>
-                                <td>{{formatPrice($item->total_amount)}}</td>
+                                <td class="align-center"></td>
+                                <td class="align-center">{{$key+1}}</td>
+                                <td class="align-left">{{$item->description}}</td>
+                                <td class="align-center">{{$item->unit}}</td>
+                                <td class="align-center">{{$item->quantity}}</td>
+                                <td class="align-right">{{formatPrice($item->price_unit)}}</td>
+                                <td class="align-right">{{formatPrice($item->total_amount)}}</td>
                             </tr>
                             @endforeach
                             <tr>
                                 <td class="align-center" colspan="7"><strong style="text-transform:uppercase">{{translateToWords($data['bid_amount'])}} PESOS ONLY.</strong></td>
-                                <td><strong>Php{{formatPrice($data['bid_amount'])}}</strong></td>
+                                <td class="align-right"><strong>Php{{formatPrice($data['bid_amount'])}}</strong></td>
                             </tr>
                             <tr>
                                 <td colspan="8" height="80px"></td>

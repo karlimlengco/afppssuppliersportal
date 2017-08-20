@@ -269,6 +269,7 @@ class DeliveryController extends Controller
                 'destroy'   => [
                     'route' => [$this->baseUrl.'destroy',$id],
                     'method'=> 'DELETE'
+                    'novalidate'=>  'novalidate'
                 ]
             ],
             'breadcrumbs' => [

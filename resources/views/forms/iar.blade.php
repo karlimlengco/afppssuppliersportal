@@ -43,14 +43,14 @@
                     </tr>
                     <tr>
                         <td class="align-center" width="10%"><strong>NR</strong></td>
-                        <td width="10%"><strong>UOM</strong></td>
-                        <td width="70%"><strong>DESCRIPTION</strong></td>
+                        <td class="align-center"  width="10%"><strong>UOM</strong></td>
+                        <td class="align-center" width="70%"><strong>DESCRIPTION</strong></td>
                         <td class="align-center" width="10%"><strong>QTY</strong></td>
                     </tr>
                     @foreach($data['items'] as $key=>$value)
                     <tr>
                         <td class="align-center">{{$key + 1}}</td>
-                        <td>{{$value->unit}}</td>
+                        <td class="align-center">{{$value->unit}}</td>
                         <td style="text-align:left">{{$value->description}}</td>
                         <td class="align-center">{{$value->quantity}}</td>
                     </tr>
@@ -69,8 +69,8 @@
                         <td class="no-border-right no-border-left" width="200px"></td>
                         <td class="no-border-bottom no-border-right no-border-left" width="20%"></td>
                         <td class="no-border-bottom no-border-right" width="1%" nowrap>Date Received</td>
-                        <td class="no-border-right no-border-left" width="200px"></td>
-                        <td class="no-border-bottom no-border-left" width="20%"></td>
+                        <td class="no-border-right no-border-left" width="400px"></td>
+                        <td class="no-border-bottom no-border-left" width="12%"></td>
                     </tr>
                     <tr>
                         <td class="v-align-middle no-border-top no-border-bottom" colspan="3" height="50px">Inspected, verified and found in order as to qunantity and specifications</td>
