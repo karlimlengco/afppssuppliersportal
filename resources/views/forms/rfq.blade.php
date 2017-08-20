@@ -61,6 +61,7 @@
                             <li>PRICE VALIDITY SHALL BE FIXED DURING THE BIDDERS PERFORMANCE OF THE CONTRACT AND NOT SUBJECT TO VARIATION OR PRICE ESCALATION ON ANY ACCOUNT.</li>
                             <li>PHILGEPS REGISTRATION SHALL BE ATTACHED UPON SUBMISSION OF THE QUOTATION.</li>
                             <li>BIDDERS SHALL SUBMIT ORIGINAL DOCUMENTS SHOWING CERTIFICATIONS OF THE PROJECT BEING OFFERED OR ITS EQUIVALENT, IF NECESSARY.</li>
+                            <li>FOR INFRASTRUCTURE PROJECT, INTERESTED PROPONENTS SHOULD SUBMIT CERTIFICATE OF SITE INSPECTION ISSUED BY THE END USER.</li>
                             <li>APPROVED BUDGET FOR THE CONTRACT IS: <strong><strong style="text-transform:uppercase">{{translateToWords($data['total_amount'])}} PESOS ONLY. ( Php{{formatPrice($data['total_amount'])}})</strong></strong></li>
                         </ol>
                         <table class="printable-form__body__table">

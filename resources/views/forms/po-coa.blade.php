@@ -10,87 +10,83 @@
 
         <div class="printable-form-wrapper">
             <div class="printable-form">
-                <!-- form header -->
                 <div class="printable-form__head">
                     <p class="printable-form__head__vision">AFP Vision 2028: A World-class Armed Forces, Source of National Pride</p>
-                    <div class="printable-form__head__letterhead">
-                        <span class="printable-form__head__letterhead__logo">
+                </div>
+                <!-- form body -->
+                <div class="printable-form__body">
+                    <!-- letterhead -->
+                    <div class="printable-form__letterhead">
+                        <span class="printable-form__letterhead__logo">
                             <img src="{{base_path('public/img/form-logo.png')}}" alt="">
                         </span>
-                        <span class="printable-form__head__letterhead__details">
-                            <strong>302nd Contracting Office</strong><br>
+                        <span class="printable-form__letterhead__details">
+                            <strong>{{$data['header']->name}}</strong><br>
                             Armed Forces of the Philippines Procurement Service<br>
-                            Naval Base Pascual Ledesma<br>
-                            Fort San Felipe, Cavite City Philippines
+                            {{$data['header']->address}}
                         </span>
                     </div>
-                </div>
-                <!-- form content -->
-                <div class="printable-form__body">
+                    <!-- title -->
                     <span class="printable-form__body__title">APPROVED PURCHASE ORDER/WORK ORDER/JOB ORDER</span>
+                    <!-- content -->
                     <p>28 December 2015</p>
                     <p>
                         Resident Auditor <br>
                         Commission on Audit<br>
+                        HEADER1<br>
+                        HEADER2
                     </p>
                     <p>Dear Sir/Madame,</p>
                     <p>This is in reference to COA Circular No. 2009-001 dated February 12, 2009 regarding submission of approved purchase order, work order and job order.</p>
                     <p>In compliance with the above reference, submitted herewith is the approved PO/WO/JO of 302nd on.</p>
-                    <table class="printable-form__body__table classic">
+                    <table class="printable-form__body__table">
                         <tr>
-                            <td width="25%">PO/WO/JO No.</td>
-                            <td width="30%">Nomenclature</td>
-                            <td width="20%">Amount</td>
-                            <td width="25%">Supplier</td>
+                            <td class="align-center" width="25%"><strong>PO/WO/JO No.</strong></td>
+                            <td class="align-center" width="30%"><strong>Nomenclature</strong></td>
+                            <td class="align-center" width="20%"><strong>Amount</strong></td>
+                            <td class="align-center" width="25%"><strong>Supplier</strong></td>
                         </tr>
                         <tr>
-                            <tr>
-                                <td>{{$data['po_number']}}</td>
-                                <td>{{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) < 1) and {{count($data['items']) - 1}} @endif</td>
-                                <td>{{formatPrice($data['bid_amount'])}}</td>
-                                <td>{{$data['winner']}}</td>
-                            </tr>
+                            <td class="align-left">{{$data['po_number']}}</td>
+                            <td class="align-left">{{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) > 1) and {{count($data['items']) - 1}} @endif</td>
+                            <td class="align-right">{{formatPrice($data['bid_amount'])}}</td>
+                            <td class="align-left">{{$data['winner']}}</td>
                         </tr>
                     </table>
                     <p>Very truly yours;</p>
-                    <!-- form signatories -->
-                    <table class="printable-form__body__table
-                                  printable-form__body__table--borderless">
+                    <table class="printable-form__body__table no-border no-padding">
                         <tr>
-                            <td width="40%" height="80px"></td>
-                            <td width="20%" height="80px"></td>
-                            <td width="40%" height="80px"></td>
+                            <td width="45%" height="60px"></td>
+                            <td width="10%" height="60px"></td>
+                            <td width="45%" height="60px"></td>
                         </tr>
                         <tr>
-                            <td class="signatory align-center v-align-middle" width="45%">
-                                <div class="signatory-name">
-                                    <table>
-                                        <tr>
-                                            <td nowrap><strong>{{$data['coa_signatory']->name}}</strong></td>
-                                            <td width="100%"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-justify">
-                                                <div class="signatory-rank-justify">
-                                                    <strong>{{$data['coa_signatory']->ranks}}</strong>
-                                                    <span></span>
-                                                </div>
-                                            </td>
-                                            <td width="100%"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="v-align-bottom" height="20px">{{$data['coa_signatory']->designation}}</td>
-                                            <td width="100%" height="20px"></td>
-                                        </tr>
-                                    </table>
-                                </div>
+                            <td>
+                                <table class="signatory">
+                                    <tr>
+                                        <td nowrap>{{$data['coa_signatory']->name}}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="signatory-rank-justify">
+                                                <strong>{{$data['coa_signatory']->ranks}} {{$data['coa_signatory']->branch}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{$data['coa_signatory']->designation}}</td>
+                                        <td></td>
+                                    </tr>
+                                </table>
                             </td>
-                            <td width="10%"></td>
-                            <td class="signatory align-left v-align-middle" width="45%"></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </table>
                 </div>
-                <!-- form footer -->
             </div>
 
         </div>
