@@ -268,17 +268,20 @@ class ISPQController extends Controller
     public function viewPrint($id, ISPQRepository $model)
     {
         $result     =   $model->with(['quotations'])->findById($id);
-
+        $center     =   '';
+        if(\Sentinel::getUser()->units != null)
+        {
+            $center     =   \Sentinel::getUser()->units->centers;
+        }
         $data['transaction_date']   =  $result->transaction_date;
         $data['venue']              =  $result->venue;
         $data['signatories']        =  $result->signatories;
         $data['quotations']         =  $result->quotations;
-        $pdf = PDF::loadView('forms.ispq', ['data' => $result])
+        $pdf = PDF::loadView('forms.ispq', ['data' => $result, 'center' => $center])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('ispq.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('ispq.pdf');
     }
 
     /**

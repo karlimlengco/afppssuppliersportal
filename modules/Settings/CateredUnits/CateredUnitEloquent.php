@@ -36,4 +36,15 @@ class CateredUnitEloquent extends Model
     {
          return $this->hasMany('\Revlv\Settings\CateredUnits\Attachments\AttachmentEloquent', 'unit_id');
     }
+
+    /**
+     * [unit description]
+     *
+     * @return [type] [description]
+     */
+    public function centers()
+    {
+        return $this->belongsTo('\Revlv\Settings\ProcurementCenters\ProcurementCenterEloquent', 'pcco_id');
+    }
+
 }

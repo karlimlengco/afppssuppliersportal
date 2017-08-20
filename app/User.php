@@ -129,6 +129,17 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
      *
      * @return [type] [description]
      */
+    public function centers()
+    {
+        return $this->belongsTo('\Revlv\Settings\ProcurementCenters\ProcurementCenterEloquent', 'procurement_office');
+    }
+
+
+    /**
+     * [unit description]
+     *
+     * @return [type] [description]
+     */
     public function units()
     {
         return $this->belongsTo('\Revlv\Settings\CateredUnits\CateredUnitEloquent', 'unit_id');

@@ -296,6 +296,7 @@ class RFQProponentController extends Controller
         $rfq        =   $result->rfq;
 
         $data['total_amount']       =  $rfq->upr->total_amount;
+        $data['header']             =  $rfq->upr->centers;
         $data['transaction_date']   =  $rfq->transaction_date;
         $data['rfq_number']         =  $rfq->rfq_number;
         $data['deadline']           =  $rfq->deadline." ".$rfq->opening_time;

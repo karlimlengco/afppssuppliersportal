@@ -26,10 +26,9 @@
                                 <img src="{{base_path('public/img/form-logo.png')}}" alt="">
                             </span>
                             <span class="printable-form__letterhead__details">
-                                <strong>302nd Contracting Office</strong><br>
+                                <strong>{{$data['header']->name}}</strong><br>
                                 Armed Forces of the Philippines Procurement Service<br>
-                                Naval Base Pascual Ledesma<br>
-                                Fort San Felipe, Cavite City Philippines
+                                {{$data['header']->address}}
                             </span>
                         </div>
                         <!-- title -->

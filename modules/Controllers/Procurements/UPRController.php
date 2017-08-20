@@ -241,11 +241,11 @@ class UPRController extends Controller
 
         if($result->mode_of_procurement != 'public_bidding')
         {
-            $ref_name   =   "AMP-". $result->centers->name ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
+            $ref_name   =   "AMP-". $result->centers->short_code ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
         }
         else
         {
-            $ref_name   =   "PB-". $result->centers->name ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
+            $ref_name   =   "PB-". $result->centers->short_code ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
         }
 
         $ref_name   =   str_replace(" ", "", $ref_name);
@@ -398,11 +398,11 @@ class UPRController extends Controller
         $ref        =   explode('-', $result->ref_number);
         if($result->mode_of_procurement != 'public_bidding')
         {
-            $ref_name   =   "AMP-". $result->centers->name ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
+            $ref_name   =   "AMP-". $result->centers->short_code ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
         }
         else
         {
-            $ref_name   =   "PB-". $result->centers->name ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
+            $ref_name   =   "PB-". $result->centers->short_code ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
         }
 
         $ref_name   =   str_replace(" ", "", $ref_name);
