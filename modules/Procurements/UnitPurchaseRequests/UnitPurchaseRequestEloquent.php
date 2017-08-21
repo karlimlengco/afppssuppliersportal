@@ -210,7 +210,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     public function bid_proponents()
     {
-        return $this->hasMany('\Revlv\Biddings\BidDocs\BidDocsEloquent',  'upr_id');
+        return $this->hasMany('\Revlv\Biddings\BidDocs\BidDocsEloquent',  'upr_id')->orderByRaw("CAST(bid_amount as UNSIGNED)");
     }
 
     /**

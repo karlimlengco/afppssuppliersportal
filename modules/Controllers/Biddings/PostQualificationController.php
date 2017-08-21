@@ -314,15 +314,50 @@ class PostQualificationController extends Controller
     {
 
         $this->validate($request,[
-            'failed_remarks'    =>  'required'
+            'failed_remarks'    =>  'required',
+            'date_failed'    =>  'required',
         ]);
 
-        $result     =   $model->update(['failed_remarks' => $request->failed_remarks, 'is_failed' => 1],$request->id);
+        $result     =   $model->update(['date_failed' => $request->date_failed,'failed_remarks' => $request->failed_remarks, 'is_failed' => 1],$request->id);
 
         $upr_model  =   $result->upr;
         $upr->update(['status' => 'Failed Post Qualification'], $upr_model->id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
+            'success'  => "New record has been successfully added."
+        ]);
+    }
+
+    /**
+     *
+     *
+     * @param  Request                       $request [description]
+     * @param  PostQualificationRepository   $model   [description]
+     * @param  UnitPurchaseRequestRepository $upr     [description]
+     * @return [type]                                 [description]
+     */
+    public function disqualify(
+        Request $request,
+        PostQualificationRepository $model,
+        UnitPurchaseRequestRepository $upr)
+    {
+
+        $this->validate($request,[
+            'disqualification_date'    =>  'required',
+            'disqualification_remarks' =>  'required',
+        ]);
+
+        $upr_model  =   $upr->findById($request->id);
+
+        $result     =   $model->update(
+            [
+                'disqualification_date' => $request->disqualification_date,
+                'disqualification_remarks' => $request->disqualification_remarks
+            ], $upr_model->post_qual->id);
+
+        $upr->update(['status' => 'Disqualification of Proponent'], $upr_model->id);
+
+        return redirect()->route($this->baseUrl.'show', $upr_model->post_qual->id)->with([
             'success'  => "New record has been successfully added."
         ]);
     }

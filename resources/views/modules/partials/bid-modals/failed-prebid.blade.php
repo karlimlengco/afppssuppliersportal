@@ -1,20 +1,16 @@
 <div class="modal" id="fail-pq-modal">
     <div class="modal__dialogue modal__dialogue--round-corner">
-        <form method="POST" id="delete-form" action="{{route('biddings.post-qualifications.failed')}}" accept-charset="UTF-8">
+        <form method="POST" id="delete-form" action="{{route('biddings.pre-bids.failed')}}" accept-charset="UTF-8">
             <button type="button" class="modal__close-button">
                 <i class="nc-icon-outline ui-1_simple-remove"></i>
             </button>
 
             <div class="moda__dialogue__head">
-                <h1 class="modal__title">Failed Post Qualification</h1>
+                <h1 class="modal__title">Failed Pre-Bid</h1>
             </div>
 
             <div class="modal__dialogue__body">
-                {!! Form::hidden('rfq_id', $data->id) !!}
-                <div class="row">
-                    {!! Form::dateField('date_failed', 'Date Failed')!!}
-                </div>
-
+                {!! Form::hidden('id', $data->id) !!}
                 <div class="row">
                     {!! Form::textareaField('failed_remarks', 'Remarks', null, ['rows'=>3])!!}
                 </div>

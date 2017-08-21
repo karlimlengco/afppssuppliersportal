@@ -1,22 +1,21 @@
-<div class="modal" id="fail-pq-modal">
+<div class="modal" id="dq-modal">
     <div class="modal__dialogue modal__dialogue--round-corner">
-        <form method="POST" id="delete-form" action="{{route('biddings.post-qualifications.failed')}}" accept-charset="UTF-8">
+        <form method="POST" id="delete-form" action="{{route('biddings.post-qualifications.disqualify')}}" accept-charset="UTF-8">
             <button type="button" class="modal__close-button">
                 <i class="nc-icon-outline ui-1_simple-remove"></i>
             </button>
 
             <div class="moda__dialogue__head">
-                <h1 class="modal__title">Failed Post Qualification</h1>
+                <h1 class="modal__title">Disqualify Proponent</h1>
             </div>
 
             <div class="modal__dialogue__body">
-                {!! Form::hidden('rfq_id', $data->id) !!}
+                {!! Form::hidden('id', $data->id) !!}
                 <div class="row">
-                    {!! Form::dateField('date_failed', 'Date Failed')!!}
+                    {!! Form::dateField('disqualification_date', 'Disqualification Date')!!}
                 </div>
-
                 <div class="row">
-                    {!! Form::textareaField('failed_remarks', 'Remarks', null, ['rows'=>3])!!}
+                    {!! Form::textareaField('disqualification_remarks', 'Remarks', null, ['rows'=>3])!!}
                 </div>
 
                 <input name="id" type="hidden" value="{{ $data->id }}">

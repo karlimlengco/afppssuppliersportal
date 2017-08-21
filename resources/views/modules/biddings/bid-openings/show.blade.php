@@ -63,6 +63,7 @@ SOBE
         <ul class="data-panel__list">
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Ref No. :</strong> {{$data->ref_number}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">ABC :</strong>Php {{formatPrice($data->upr->total_amount)}} </li>
         </ul>
     </div>
     <div class="data-panel__section">
@@ -88,8 +89,8 @@ SOBE
                 <tr>
                     <th>Name</th>
                     <th>Bid Amount</th>
-                    <th>LCB</th>
-                    <th>SCB</th>
+                    <th>Residual</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
             </thead>
@@ -97,9 +98,9 @@ SOBE
                 @foreach($data->upr->bid_proponents as $proponent)
                 <tr>
                     <td>{{$proponent->proponent_name}}</td>
-                    <td>{{$proponent->bid_amount}}</td>
-                    <td>{{($proponent->is_lcb == 1) ? "yes" : "no"}}</td>
-                    <td>{{($proponent->is_scb == 1) ? "yes" : "no"}}</td>
+                    <td>@if($proponent->bid_amount != null) {{formatPrice($proponent->bid_amount)}} @endif</td>
+                    <td>{{ formatPrice($data->upr->total_amount - $proponent->bid_amount) }}</td>
+                    <td style="text-transform: capitalize">{{$proponent->status}}</td>
                     <td><a href="{{route('biddings.proponents.show',[$data->id,$proponent->id])}}"> <span class="nc-icon-mini design_pen-01"></span></a></td>
                 </tr>
                 @endforeach

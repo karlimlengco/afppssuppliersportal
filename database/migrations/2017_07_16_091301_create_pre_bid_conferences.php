@@ -28,6 +28,7 @@ class CreatePreBidConferences extends Migration
             $table->date('resched_date')->nullable();
             $table->text('resched_remarks')->nullable();
             $table->text('remarks')->nullable();
+            $table->text('failed_remarks')->nullable();
             $table->integer('days')->nullable();
             $table->integer('processed_by')->nullable();
 

@@ -22,6 +22,9 @@ class PostQualificationRequest extends BaseRequest
         'days',
         'processed_by',
         'action',
+        'date_failed',
+        'disqualification_date',
+        'disqualification_remarks',
     ];
 
     /**

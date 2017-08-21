@@ -32,16 +32,12 @@ Bid Proponents
 </div>
 
 <div class="row">
-    <div class="four columns">
+    <div class="six columns">
         {!! Form::textField('bid_amount', 'Bid Amount')!!}
     </div>
 
-    <div class="four columns">
-        {!! Form::booleanField('is_lcb', 'LCB')!!}
-    </div>
-
-    <div class="four columns">
-        {!! Form::booleanField('is_scb', 'SCB')!!}
+    <div class="six columns">
+        {!! Form::selectField('status', 'Status', ['eligible' => 'Eligible', 'ineligible' => 'Ineligible'])!!}
     </div>
 </div>
 

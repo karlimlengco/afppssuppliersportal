@@ -67,7 +67,7 @@
             <span >Document Acceptance</span>
             <a href="{{route('biddings.document-acceptance.create-by-rfq', $data->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif
-        @if($data->status == 'Document Accepted'  || $data->status == 'Failed Post Qualification'|| $data->status == 'Failed SOBE')
+        @if($data->status == 'Document Accepted'  || $data->status == 'Failed Post Qualification'|| $data->status == 'Failed SOBE'|| $data->status == 'Failed Pre Bid'|| $data->status == 'Disqualification of Proponent')
             {{-- <a class="button__options__item" id="itb-button" href="#">Invitation To Bid</a> --}}
 
             <a href="{{route('biddings.document-acceptance.show', $data->document_accept->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>

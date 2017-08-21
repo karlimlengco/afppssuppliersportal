@@ -150,6 +150,10 @@ class BidDocsController extends Controller
                     'route' => [$this->baseUrl.'update', $proponent_id],
                     'method'=> 'PUT'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('Proponents')
             ]
         ]);
     }
@@ -181,9 +185,10 @@ class BidDocsController extends Controller
     {
         $this->validate($request, [
             'bid_amount'    =>  'required',
+            'status'        =>  'required',
         ]);
 
-        $model->update(['bid_amount' => $request->bid_amount, 'is_lcb' => $request->is_lcb, 'is_scb' => $request->is_scb], $id);
+        $model->update(['bid_amount' => $request->bid_amount, 'status' => $request->status], $id);
 
         return redirect()->back()->with([
             'success'  => "Record has been successfully updated."

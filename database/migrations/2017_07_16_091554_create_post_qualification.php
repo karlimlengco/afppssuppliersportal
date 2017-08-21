@@ -19,6 +19,9 @@ class CreatePostQualification extends Migration
             $table->string('upr_number')->nullable();
             $table->string('ref_number')->nullable();
             $table->date('transaction_date');
+            $table->date('date_failed')->nullable();
+            $table->date('disqualification_date')->nullable();
+            $table->text('disqualification_remarks')->nullable();
             $table->text('update_remarks')->nullable();
             $table->integer('is_failed')->nullable();
             $table->text('action')->nullable();

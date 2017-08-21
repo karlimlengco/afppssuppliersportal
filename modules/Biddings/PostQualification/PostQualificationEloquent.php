@@ -51,6 +51,9 @@ class PostQualificationEloquent extends Model implements  AuditableContract
         'remarks',
         'days',
         'processed_by',
+        'date_failed',
+        'disqualification_date',
+        'disqualification_remarks',
     ];
 
     /**

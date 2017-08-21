@@ -18,6 +18,7 @@ class PreBidRequest extends BaseRequest
         'is_resched',
         'bid_opening_date',
         'resched_date',
+        'failed_remarks',
         'resched_remarks',
         'remarks',
         'update_remarks',

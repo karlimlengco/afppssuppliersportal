@@ -44,6 +44,7 @@ Unit Purchase Request
 
     @if($data->mode_of_procurement == 'public_bidding')
     @include('modules.partials.bid-modals.rfb-process')
+    @include('modules.partials.bid-modals.dq')
     @include('modules.partials.bid-modals.preproc')
     @include('modules.partials.bid-modals.philgeps_posting')
     @include('modules.partials.bid-modals.bid_docs_issue')
@@ -70,7 +71,10 @@ Unit Purchase Request
                     @if($data->status == 'upr_processing')
                     @endif
                 @else
-                    @if($data->status == 'Philgeps Approved')
+                    @if(strpos($data->status, 'Awarded To') !== false || $data->status == 'Approved NOA')
+                        <a class="button__options__item" id="dq-button" href="#">Disqualify Proponent</a>
+                    @endif
+                    @if($data->status == 'Philgeps Approved' || $data->status == 'Pre Bid Conference')
                         <a class="button__options__item" id="bid-docs-button" href="#">Bid Docs Issuance</a>
                     @endif
                 @endif
@@ -230,6 +234,10 @@ Unit Purchase Request
     $('#terminate-button').click(function(e){
         e.preventDefault();
         $('#terminate-modal').addClass('is-visible');
+    })
+    $('#dq-button').click(function(e){
+        e.preventDefault();
+        $('#dq-modal').addClass('is-visible');
     })
     $('#post-qual-button').click(function(e){
         e.preventDefault();

@@ -20,6 +20,7 @@ Pre-Bid Conference
 @stop
 
 @section('styles')
+    @include('modules.partials.bid-modals.failed-prebid')
 @stop
 
 @section('modal')
@@ -29,6 +30,10 @@ Pre-Bid Conference
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+        @if($data->failed_remarks == null)
+        <a href="#" class="button" id="fail-pq-button" tooltip="Failed"><i class="nc-icon-mini ui-1_bold-remove"></i></a>
+        @endif
+
         <a href="{{route('biddings.pre-bids.logs', $data->id)}}" class="button" tooltip="Logs">
             <i class="nc-icon-mini files_archive-content"></i>
         </a>
@@ -71,4 +76,11 @@ Pre-Bid Conference
 @stop
 
 @section('scripts')
+<script type="text/javascript">
+
+    $('#fail-pq-button').click(function(e){
+        e.preventDefault();
+        $('#fail-pq-modal').addClass('is-visible');
+    })
+</script>
 @stop

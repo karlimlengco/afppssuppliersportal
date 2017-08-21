@@ -93,13 +93,13 @@ class PreBidController extends Controller
     {
         $result =   $model->findById($id);
 
-        if($result->bid_issuance == null)
-        {
-            return redirect()
-                        ->back()
-                        ->with(['error' => 'No Bid Issuance. Click Option and add Bid Issuance'])
-                        ->withInput();
-        }
+        // if($result->bid_issuance == null)
+        // {
+        //     return redirect()
+        //                 ->back()
+        //                 ->with(['error' => 'No Bid Issuance. Click Option and add Bid Issuance'])
+        //                 ->withInput();
+        // }
 
         $this->view('modules.biddings.pre-bids.create',[
             'indexRoute'    =>  $this->baseUrl.'index',
@@ -114,6 +114,34 @@ class PreBidController extends Controller
                 new Breadcrumb($result->upr_number, 'biddings.unit-purchase-requests.show', $result->id ),
                 new Breadcrumb('Pre Bid Conference')
             ]
+        ]);
+    }
+
+    /**
+     *
+     *
+     * @param  Request                       $request [description]
+     * @param  PostQualificationRepository   $model   [description]
+     * @param  UnitPurchaseRequestRepository $upr     [description]
+     * @return [type]                                 [description]
+     */
+    public function failed(
+        Request $request,
+        PreBidRepository $model,
+        UnitPurchaseRequestRepository $upr)
+    {
+
+        $this->validate($request,[
+            'failed_remarks'    =>  'required'
+        ]);
+
+        $result     =   $model->update(['failed_remarks' => $request->failed_remarks], $request->id);
+        $upr_model  =   $result->upr;
+
+        $upr->update(['status' => 'Failed Pre Bid'], $upr_model->id);
+
+        return redirect()->route($this->baseUrl.'show', $result->id)->with([
+            'success'  => "New record has been successfully added."
         ]);
     }
 
