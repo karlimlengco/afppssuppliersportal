@@ -918,6 +918,7 @@ class DeliveredInspectionReportController extends Controller
         $data['approver']           =   $result->approver;
         $data['issuer']             =   $result->issuer;
         $data['requestor']          =   $result->requestor;
+        $data['header']             =   $result->upr->centers;
         $data['po']          =   $result->delivery->po;
         $data['bid_amount']         =   $win->bid_amount;
         // dd($data);

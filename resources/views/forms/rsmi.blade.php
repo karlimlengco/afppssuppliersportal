@@ -15,20 +15,24 @@
 
             <div class="printable-form-wrapper">
                 <div class="printable-form">
-
                     <!-- form header -->
                     <div class="printable-form__head">
                         <p class="printable-form__head__vision">AFP Vision 2028: A World-class Armed Forces, Source of National Pride</p>
                     </div>
-                    <!-- form content -->
-                    <div class="printable-form__body no-letterhead boxed">
-                        <span class="printable-form__head__letterhead__details inside">
-                            ARMED FORCES OF THE PHILIPPINES<br>
-                            SUPPLY ACCOUNTABLE OFFICER, OTAG<br>
-                            Camp General Emilio Aguinaldo, Quezon City
-                        </span>
+                    <!-- form body -->
+                    <div class="printable-form__body boxed">
+                        <!-- letterhead -->
+                        <div class="printable-form__letterhead">
+                            <span class="printable-form__letterhead__details">
+                            <strong>{{$data['header']->name}}</strong><br>
+                            Armed Forces of the Philippines Procurement Service<br>
+                            {{$data['header']->address}}
+                            </span>
+                        </div>
+                        <!-- title -->
                         <span class="printable-form__body__title">Report of Supplies and Material Issued</span>
-                        <table class="printable-form__body__table classic">
+                        <!-- content -->
+                        <table class="printable-form__body__table">
                             <tr>
                                 <td class="no-border-bottom" colspan="2"></td>
                                 <td class="no-border-bottom"></td>
@@ -40,12 +44,12 @@
                             </tr>
                             <tr>
                                 <td class="border-left-only">PO No.</td>
-                                <td class="border-right-only"><strong>{{$data['po']->po_number}}</strong></td>
+                                <td class="border-right-only"><strong>{{$data['po_number']}}</strong></td>
                                 <td class="border-right-only">No:</td>
                             </tr>
                             <tr>
                                 <td class="border-left-only">Amount:</td>
-                                <td class="border-right-only"><strong>Php {{formatPrice($data['bid_amount'])}}</strong></td>
+                                <td class="border-right-only"><strong>{{formatPrice($data['bid_amount'])}}</strong></td>
                                 <td class="border-right-only"></td>
                             </tr>
                             <tr>
@@ -53,35 +57,37 @@
                                 <td class="no-border-bottom no-border-top"></td>
                             </tr>
                         </table>
-                        <table class="printable-form__body__table classic">
+                        <table class="printable-form__body__table">
                             <tr>
                                 <td colspan="8">To be filled up in the Supply and Property Unit</td>
                             </tr>
                             <tr>
-                                <td class="align-center v-align-middle" width="7%"><strong>RIS No.</strong></td>
-                                <td class="align-center v-align-middle" width="10%"><strong>Responsibility Code</strong></td>
-                                <td class="align-center v-align-middle" width="5%"><strong>Stock No.</strong></td>
-                                <td class="align-center v-align-middle" width="40%"><strong>Item</strong></td>
-                                <td class="align-center v-align-middle" width="5%"><strong>Unit</strong></td>
-                                <td class="align-center v-align-middle" width="5%"><strong>Qty Issued</strong></td>
-                                <td class="align-center v-align-middle" width="10%"><strong>Unit Cost</strong></td>
-                                <td class="align-center v-align-middle" width="18%"><strong>Amount</strong></td>
+                                <td class="align-middle align-center" width="10%"><strong>RIS No.</strong></td>
+                                <td class="align-middle align-center" width="10%"><strong>Responsibility Code</strong></td>
+                                <td class="align-middle align-center" width="5%"><strong>Stock No.</strong></td>
+                                <td class="align-middle align-center" width="35%"><strong>Item</strong></td>
+                                <td class="align-middle align-center" width="5%"><strong>Unit</strong></td>
+                                <td class="align-middle align-center" width="5%"><strong>Qty Issued</strong></td>
+                                <td class="align-middle align-center" width="15%"><strong>Unit Cost</strong></td>
+                                <td class="align-middle align-center" width="15%"><strong>Amount</strong></td>
                             </tr>
+
                             @foreach($data['items'] as $key=>$item)
                             <tr>
+
                                 <td></td>
-                                <td class="align-center"></td>
-                                <td class="align-center">{{$key+1}}</td>
-                                <td class="align-left">{{$item->description}}</td>
-                                <td class="align-center">{{$item->unit}}</td>
-                                <td class="align-center">{{$item->quantity}}</td>
-                                <td class="align-right">{{formatPrice($item->price_unit)}}</td>
-                                <td class="align-right">{{formatPrice($item->total_amount)}}</td>
+                                <td></td>
+                                <td class="align-center" >{{$key+1}}</td>
+                                <td class="align-left" >{{$item->description}}</td>
+                                <td class="align-center" >{{$item->unit}}</td>
+                                <td class="align-center" >{{$item->quantity}}</td>
+                                <td class="align-right" >{{formatPrice($item->price_unit)}}</td>
+                                <td class="align-right" >{{formatPrice($item->total_amount)}}</td>
                             </tr>
                             @endforeach
                             <tr>
-                                <td class="align-center" colspan="7"><strong style="text-transform:uppercase">{{translateToWords($data['bid_amount'])}} PESOS ONLY.</strong></td>
-                                <td class="align-right"><strong>Php{{formatPrice($data['bid_amount'])}}</strong></td>
+                                <td class="align-center"  colspan="7" style="text-transform:uppercase">{{translateToWords($data['bid_amount'])}} Pesos Only</td>
+                                <td  class="align-right" >Php {{formatPrice($data['bid_amount'])}}</td>
                             </tr>
                             <tr>
                                 <td colspan="8" height="80px"></td>
@@ -131,10 +137,10 @@
                             </tr>
                             <tr>
                                 <td class="align-center no-border-top" colspan="4">
-                                    <strong>{{($data['inspector']) ? $data['inspector']->name : ""}}</strong><br>
-                                    {{($data['inspector']) ? $data['inspector']->designation : ""}}
+                                    <strong>{{$data['receiver']->ranks}} {{$data['receiver']->name}}{{$data['receiver']->branch}}</strong><br>
+                                    {{$data['receiver']->designation}}
                                 </td>
-                                <td class="v-align-middle align-center" colspan="4">Accounting Clerk</td>
+                                <td class="align-middle align-center" colspan="4">Accounting Clerk</td>
                             </tr>
                         </table>
                     </div>
