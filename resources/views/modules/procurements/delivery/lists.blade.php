@@ -27,6 +27,8 @@ Notice Of Delivery
     </div>
 </div>
 
+<delivery-order></delivery-order>
+
 <div class="row">
     <div class="twelve columns">
 
@@ -35,7 +37,6 @@ Notice Of Delivery
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>RFQ Number</th>
                     <th>UPR Number</th>
                     <th>DR Number</th>
                     <th>Expected Delivery Date.</th>
@@ -62,7 +63,6 @@ Notice Of Delivery
             },
         columns: [
             {data: 'id', name: 'id'},
-            {data: 'rfq_number', name: 'rfq_number'},
             {data: 'upr_number', name: 'upr_number'},
             {data: 'delivery_number', name: 'delivery_number'},
             {data: 'expected_date', name: 'expected_date'},
@@ -71,6 +71,7 @@ Notice Of Delivery
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
             $("#datatable-responsive_next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+            console.log("{{$id}}")
         },
         "drawCallback": function(oSettings, json) {
             $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

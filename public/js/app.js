@@ -14970,6 +14970,7 @@ Vue.component('chat-log', __webpack_require__(59));
 Vue.component('chat-composer', __webpack_require__(57));
 Vue.component('admin-messages', __webpack_require__(55));
 Vue.component('user-lists', __webpack_require__(63));
+Vue.component('delivery-order', __webpack_require__(86));
 
 var app = new Vue({
     el: '#app',
@@ -52998,6 +52999,256 @@ module.exports = function(module) {
 __webpack_require__(13);
 module.exports = __webpack_require__(14);
 
+
+/***/ }),
+/* 78 */,
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+var arrayIDs = [];
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            items: [],
+            itemDelivery: [],
+            show: true,
+            endDate: "",
+            startDate: ""
+        };
+    },
+    mounted: function mounted() {
+        this.fetchUprAnalytics();
+    },
+
+
+    methods: {
+        formatPrice: function formatPrice(value) {
+            var val = (value / 1).toFixed(2).replace('.', ',');
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        },
+
+        fetchUprAnalytics: function fetchUprAnalytics(type) {
+            var _this = this;
+
+            axios.get('/procurements/delivery-orders/get-item-lists/' + deliveryOrder + '?date_from=' + this.startDate + '&&date_to=' + this.endDate).then(function (response) {
+                _this.items = response.data.data;
+            }).catch(function (e) {
+                console.log(e);
+            });
+        },
+        fetchItemOrder: function fetchItemOrder(itemId) {
+            var _this2 = this;
+
+            axios.get('/procurements/delivery-orders/get-item-orders/' + deliveryOrder + '/?item=' + encodeURIComponent(itemId)).then(function (response) {
+                _this2.itemDelivery.push(response.data);
+            }).catch(function (e) {
+                console.log(e);
+            });
+        },
+        clickitemDelivery: function clickitemDelivery(item) {
+            if (arrayIDs.indexOf(item.description) == -1) {
+                arrayIDs.push(item.description);
+                this.fetchItemOrder(item.description);
+            }
+        },
+        search: function search() {
+            this.fetchUprAnalytics();
+        }
+    },
+    computed: {
+        total: function total() {
+            if (!this.items) {
+                return 0;
+            }
+            return this.items.reduce(function (total, value) {
+                return total + Number(value.upr_count);
+            }, 0);
+        },
+        total_completed: function total_completed() {
+            if (!this.items) {
+                return 0;
+            }
+            return this.items.reduce(function (total, value) {
+                return total + Number(value.completed_count);
+            }, 0);
+        }
+    }
+});
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(85),
+  /* template */
+  __webpack_require__(87),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/storage/storage/Sites/epmis/resources/assets/js/components/DeliveryOrder.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] DeliveryOrder.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-172fbf76", Component.options)
+  } else {
+    hotAPI.reload("data-v-172fbf76", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": "programs"
+    }
+  }, [_c('div', {
+    staticClass: "table-scroll"
+  }, [_c('table', {
+    staticClass: "table table--with-border table-name ",
+    attrs: {
+      "id": "bidding"
+    }
+  }, [_vm._m(1), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
+    return [_c('tr', [_c('td', [_vm._v("\n                                " + _vm._s(item.description) + "\n                                "), _c('button', {
+      staticClass: "show-child-table",
+      on: {
+        "click": function($event) {
+          _vm.clickitemDelivery(item)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "nc-icon-mini ui-1_circle-add"
+    })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.dr_count))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.received_quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.quantity - item.received_quantity))])]), _vm._v(" "), _c('tr', [_c('td', {
+      staticClass: "has-child",
+      attrs: {
+        "colspan": "5"
+      }
+    }, [_c('table', {
+      staticClass: "child-table table-name"
+    }, [_c('tbody', [_vm._l((_vm.itemDelivery), function(itemProg) {
+      return [(itemProg.item == item.description) ? [_vm._l((itemProg.data), function(itemProgData) {
+        return [_c('tr', [_c('td', [_vm._v(_vm._s(itemProgData.description))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.delivery_number) + "\n                                                            "), _c('p', {
+          staticStyle: {
+            "margin-bottom": "3px"
+          }
+        }, [_vm._v(_vm._s(itemProgData.delivery_date))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.received_quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgData.quantity - itemProgData.received_quantity))])])]
+      })] : _vm._e()]
+    })], 2)])])])]
+  })], 2)])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "six columns"
+  }, [_c('h1', [_vm._v("Delivery Order Monitoring")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("Items")]), _vm._v(" "), _c('th', [_vm._v("DR #/ DR Date")]), _vm._v(" "), _c('th', [_vm._v("Qty")]), _vm._v(" "), _c('th', [_vm._v("Received")]), _vm._v(" "), _c('th', [_vm._v("Balance")])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-172fbf76", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

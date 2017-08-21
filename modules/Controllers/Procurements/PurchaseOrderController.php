@@ -509,12 +509,11 @@ class PurchaseOrderController extends Controller
         HolidayRepository $holidays)
     {
         $noa_model              =   $noa->with('winner')->findByUPR($id);
-        // dd($noa_model);
+
         $award_accepted_date    =   Carbon::createFromFormat('Y-m-d', $noa_model->award_accepted_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('purchase_date') );
         $cd                     =   $award_accepted_date->diffInDays($transaction_date);
-
 
         // Delay
         $day_delayed            =   $award_accepted_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {

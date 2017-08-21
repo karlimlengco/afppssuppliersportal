@@ -65,7 +65,6 @@ Unit Purchase Request
                 @if($data->status != 'pending' && $data->status != 'Cancelled')
                     <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->id)}}">View Timelines</a>
                 @endif
-
                 <a class="button__options__item" id="reject-button" href="#">Cancel UPR</a>
                 @if($data->mode_of_procurement != 'public_bidding')
                     @if($data->status == 'upr_processing')
@@ -79,6 +78,10 @@ Unit Purchase Request
                     @endif
                 @endif
                 <a class="button__options__item" id="view-attachments-button" href="#">View Attachments</a>
+                @if(count($data->delivery_order)  >= 1)
+                    <a class="button__options__item" href="{{route('procurements.delivery-orders.lists', $data->id)}}">View Deliveries</a>
+                @endif
+
             </div>
         </button>
 

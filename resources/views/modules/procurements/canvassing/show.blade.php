@@ -133,11 +133,7 @@ Canvassing
                             @if($data->adjourned_time == null)
                             <a href="#" class="award-button award" data-id="{{$proponent->id}}" data-name="{{$proponent->supplier->name}}" tooltip="Award"> <span class="nc-icon-glyph business_award-48"></span> </a>
                             @endif
-                            @if($data->is_failed != 1)
-                                @if($data->winners != null && $data->winners->proponent_id == $proponent->id )
-                                    <a href="#" class=" award" tooltip="Winner"> <span class="nc-icon-glyph business_award-48"></span> </a>
-                                @endif
-                            @endif
+
                         @endif
                     </td>
                 </tr>

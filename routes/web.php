@@ -485,7 +485,13 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
-    Route::get('delivery-orders\lists\{id}', '\Revlv\Controllers\Procurements\DeliveryController@listsAll')->name('delivery-orders.lists');
+    Route::get('delivery-orders/get-item-lists/{id}', '\Revlv\Controllers\Procurements\DeliveryController@GetAllItems')->name('delivery-orders.get-item-lists');
+
+    Route::get('delivery-orders/get-item-orders/{id}/{item?}', '\Revlv\Controllers\Procurements\DeliveryController@GetItemOrders')->name('delivery-orders.get-item-orders');
+
+    Route::get('delivery-orders/lists/{id}', '\Revlv\Controllers\Procurements\DeliveryController@listsAll')->name('delivery-orders.lists');
+
+
     Route::get('delivery-orders/store-by-dr/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@storeByDR')->name('delivery-orders.store-by-dr');
     Route::get('delivery-orders/edit-dates/{id}', '\Revlv\Controllers\Procurements\DeliveryController@editDates')->name('delivery-orders.edit-dates');
     Route::get('delivery-orders/logs/{id}', '\Revlv\Controllers\Procurements\DeliveryController@viewLogs')->name('delivery-orders.logs');

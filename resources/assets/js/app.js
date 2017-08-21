@@ -29,6 +29,7 @@ Vue.component('chat-log', require('./components/ChatLog.vue'));
 Vue.component('chat-composer', require('./components/ChatComposer.vue'));
 Vue.component('admin-messages', require('./components/AdminMessage.vue'));
 Vue.component('user-lists', require('./components/UserLists.vue'));
+Vue.component('delivery-order', require('./components/DeliveryOrder.vue'));
 
 const app = new Vue({
     el: '#app',

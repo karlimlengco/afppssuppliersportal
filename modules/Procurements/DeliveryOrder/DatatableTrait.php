@@ -49,21 +49,6 @@ trait DatatableTrait
     {
         $model  =   $this->model;
 
-        if($type == 'alternative')
-        {
-            $model  =   $model->select([
-                'delivery_orders.*',
-                'request_for_quotations.rfq_number'
-            ]);
-
-            $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.id', '=', 'delivery_orders.rfq_id');
-            $model  =   $model->whereNotNull('rfq_id');
-        }
-        else
-        {
-            $model  =   $model->whereNull('rfq_id');
-        }
-
         $model  =   $model->where('delivery_orders.upr_id','=', $id);
 
         $model  =   $model->orderBy('created_at', 'desc');

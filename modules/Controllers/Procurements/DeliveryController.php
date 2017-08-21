@@ -757,20 +757,56 @@ class DeliveryController extends Controller
      * @param  BlankRFQRepository $model [description]
      * @return [type]                    [description]
      */
-    public function listsAll($id, DeliveryOrderRepository $model)
+    public function listsAll($id, UnitPurchaseRequestRepository $model)
     {
-
         $data_model =   $model->findById($id);
+
+        \JavaScript::put([
+            'deliveryOrder'   => $data_model->id,
+        ]);
 
         return $this->view('modules.procurements.delivery.lists',[
             'model'         =>  $data_model,
-            'id'            =>  $data_model->upr_id,
+            'id'            =>  $data_model->id,
             'breadcrumbs' => [
                 new Breadcrumb('Alternative'),
-                new Breadcrumb($data_model->upr_number, 'procurements.unit-purchase-requests.show', $data_model->upr_id),
+                new Breadcrumb($data_model->upr_number, 'procurements.unit-purchase-requests.show', $data_model->id),
                 new Breadcrumb('Delivery Lists')
             ]
         ]);
+    }
+
+    /**
+     * [GetAllItems description]
+     * @param [type]                  $id    [description]
+     * @param DeliveryOrderRepository $model [description]
+     */
+    public function GetAllItems($id, DeliveryOrderRepository $model)
+    {
+        $model_items=   $model->getAllItems($id);
+
+        $response   = [
+            'data' => $model_items
+        ];
+
+        return $response;
+    }
+
+    /**
+     * [GetAllItems description]
+     * @param [type]                  $id    [description]
+     * @param DeliveryOrderRepository $model [description]
+     */
+    public function GetItemOrders(Request $request, $uprID, $item = null, DeliveryOrderRepository $model)
+    {
+        $model_items=   $model->GetItemOrders($uprID, $request->item);
+
+        $response   = [
+            'data' => $model_items,
+            'item' => $request->item
+        ];
+
+        return $response;
     }
 
 

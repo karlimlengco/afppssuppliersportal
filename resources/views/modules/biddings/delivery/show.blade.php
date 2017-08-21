@@ -113,6 +113,33 @@ Notice Of Delivery
         </ul>
     </div>
 </div>
+<div class="row">
+    <div class="twelve columns ">
+        <h3>Items Details</h3>
+        <table class='table' id="item_table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Qty</th>
+                    <th>Unit</th>
+                    <th>Unit Price</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($data->items as $item)
+                    <tr>
+                        <td>{{$item->description}}</td>
+                        <td>{{$item->quantity}}/{{$item->received_quantity}}</td>
+                        <td>{{$item->unit}}</td>
+                        <td>{{formatPrice($item->price_unit)}}</td>
+                        <td>{{formatPrice($item->total_amount)}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
 @stop
 
 @section('scripts')

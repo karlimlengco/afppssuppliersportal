@@ -85,6 +85,10 @@ Unit Purchase Request
                 @endif
 
                 <a class="button__options__item" id="view-attachments-button" href="#">Attachments</a>
+
+                @if(count($data->delivery_order)  >= 1)
+                    <a class="button__options__item" href="{{route('procurements.delivery-orders.lists', $data->id)}}">View Deliveries</a>
+                @endif
             </div>
         </button>
 

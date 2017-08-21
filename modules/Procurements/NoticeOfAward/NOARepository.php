@@ -45,6 +45,8 @@ class NOARepository extends BaseRepository
 
         $model  =   $model->where('upr_id','=', $id);
 
+        $model  =   $model->orderBy('created_at','desc');
+
         $model  =   $model->first();
 
         return $model;
