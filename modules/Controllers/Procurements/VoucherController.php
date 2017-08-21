@@ -937,6 +937,7 @@ class VoucherController extends Controller
         $data['delivery_terms']         =   $noa_model->upr->purchase_order->delivery_terms;
         $data['delivery_date']          =   $noa_model->upr->delivery_order->delivery_date;
         $data['ntp_date']               =   $noa_model->upr->ntp->award_accepted_date;
+        $data['header']                 =   $result->upr->centers;
 
         $ntp_date                       =   Carbon::createFromFormat('Y-m-d',$data['ntp_date']);
         $delivery_date                  =   Carbon::createFromFormat('Y-m-d',$data['delivery_date']);
@@ -946,10 +947,9 @@ class VoucherController extends Controller
         $data['penalty']                =   $penalty;
         $pdf = PDF::loadView('forms.voucher', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '10in')->setOption('page-height', '12in')->inline('voucher.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('voucher.pdf');
     }
 
     /**
@@ -986,15 +986,15 @@ class VoucherController extends Controller
         $data['delivery_terms']         =   $noa_model->upr->purchase_order->delivery_terms;
         $data['delivery_date']          =   $noa_model->upr->delivery_order->delivery_date;
         $data['ntp_date']               =   $noa_model->upr->ntp->award_accepted_date;
+        $data['header']             =   $result->upr->centers;
 
         $ntp_date                       =   Carbon::createFromFormat('Y-m-d',$data['ntp_date']);
         $delivery_date                  =   Carbon::createFromFormat('Y-m-d',$data['delivery_date']);
 
         $pdf = PDF::loadView('forms.voucher-no-tax', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('voucher.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('voucher.pdf');
     }
 }
