@@ -35,12 +35,14 @@ trait AttachmentTrait
         AttachmentRepository $attachments)
     {
 
-        $validator = \Validator::make($request->all(), [
+        $validator = $this->validate($request, [
             'type'          => 'required',
             'file'          => 'required',
             'name'          => 'required',
             'issued_date'   => 'required',
             'validity_date' => 'required',
+            'ref_number' => 'required',
+            'place' => 'required',
         ]);
 
         $file       = md5_file($request->file);
@@ -50,7 +52,9 @@ trait AttachmentTrait
         $result     = $attachments->save([
             'supplier_id'       =>  $id,
             'name'          =>  $request->name,
+            'place'         =>  $request->place,
             'issued_date'   =>  $request->issued_date,
+            'ref_number'    =>  $request->ref_number,
             'type'          =>  $request->type,
             'file_name'     =>  $file,
             'user_id'       =>  \Sentinel::getUser()->id,

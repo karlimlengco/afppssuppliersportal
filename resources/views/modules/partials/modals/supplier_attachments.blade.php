@@ -11,10 +11,18 @@
 
             <div class="modal__dialogue__body">
                 <div class="row">
-                    <div class="six columns">
+                    <div class="four columns">
                         {!! Form::textField('name', 'Name') !!}
                     </div>
-                    <div class="six columns">
+                    <div class="four columns">
+                        {!! Form::textField('ref_number', 'Ref Number') !!}
+                    </div>
+                    <div class="four columns">
+                        {!! Form::textField('place', 'Place of Issuance') !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns">
                         {!! Form::selectField('type', 'Type', [
                             'dti'                   => 'DTI',
                             'mayors_permit'         => 'Mayors Permit',
@@ -22,12 +30,10 @@
                             'philgeps_registraion'  => 'Philgeps Registration',
                         ]) !!}
                     </div>
-                </div>
-                <div class="row">
-                    <div class="six columns">
+                    <div class="four columns">
                         {!! Form::dateField('issued_date', 'Issued Date') !!}
                     </div>
-                    <div class="six columns">
+                    <div class="four columns">
                         {!! Form::dateField('validity_date', 'Validity Date') !!}
                     </div>
                 </div>

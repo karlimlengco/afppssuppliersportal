@@ -17,6 +17,8 @@ class CreateSupplierAttachments extends Migration
             $table->increments('id');
             $table->integer('supplier_id');
             $table->string('name');
+            $table->string('ref_number')->nullable();
+            $table->string('place')->nullable();
             $table->string('file_name');
             $table->integer('user_id');
             $table->string('type');

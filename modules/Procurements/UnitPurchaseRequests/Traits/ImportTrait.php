@@ -203,7 +203,7 @@ trait ImportTrait
         $old_codes          =    $accounts->listOld();
         $charges            =    $chargeability->lists('id', 'name');
         $procurement_modes  =    $modes->lists('id', 'name');
-        $procurement_center =    $centers->lists('id', 'name');
+        $procurement_center =    $centers->lists('id', 'short_code');
         $payment_terms      =    $terms->lists('id', 'name');
         $unit               =    $units->lists('id', 'short_code');
         $procurement_types  =    $types->lists('id', 'code');
@@ -257,7 +257,7 @@ trait ImportTrait
         $procs['total_amount']  =   $total_amount;
         $procs['prepared_by']   =   $prepared_by;
         $procs['next_allowable']=   1;
-        $procs['next_step']     =   "Create RFQ";
+        $procs['next_step']     =   "Create Invitation";
         $procs['next_due']      =   $transaction_date->addDays(1);
         $procs['last_date']     =   $transaction_date;
 
@@ -266,7 +266,15 @@ trait ImportTrait
         $counts                 =   $model->getCountByYear($date->format('Y'))->total;
         $counts                 += 1;
 
-        $ref_name   =   "AMP-". $result->centers->name ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
+        if($result->mode_of_procurement != 'public_bidding')
+        {
+            $ref_name   =   "AMP-". $result->centers->short_code ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
+        }
+        else
+        {
+            $ref_name   =   "PB-". $result->centers->short_code ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
+        }
+
         $ref_name   =   str_replace(" ", "", $ref_name);
 
         $model->update(['ref_number' => $ref_name], $result->id);

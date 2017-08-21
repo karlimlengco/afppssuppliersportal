@@ -9,6 +9,7 @@ use Auth;
 use PDF;
 use App\Events\Event;
 
+use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
@@ -52,6 +53,7 @@ class RFQProponentController extends Controller
      * @var [type]
      */
     protected $attachments;
+    protected $suppliers;
 
     /**
      * @param model $model
@@ -183,12 +185,14 @@ class RFQProponentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, RFQProponentRepository $model)
+    public function show($id, RFQProponentRepository $model, SupplierRepository $suppliers)
     {
         $result     =   $model->with(['attachments'])->findById($id);
+        $supplier   =   $suppliers->findAndGetStatus($result->proponents);
 
         return $this->view('modules.procurements.rfq-proponent.show',[
             'data'          =>  $result,
+            'status'        =>  $supplier,
             'indexRoute'    =>  'procurements.blank-rfq.show',
             'modelConfig'   =>  [
                 'add_attachment' =>  [
@@ -295,11 +299,12 @@ class RFQProponentController extends Controller
         $supplier   =   $result->supplier;
         $rfq        =   $result->rfq;
 
+
         $data['total_amount']       =  $rfq->upr->total_amount;
         $data['header']             =  $rfq->upr->centers;
         $data['transaction_date']   =  $rfq->transaction_date;
         $data['rfq_number']         =  $rfq->rfq_number;
-        $data['deadline']           =  $rfq->deadline." ".$rfq->opening_time;
+        $data['deadline']           =  $rfq->upr->philgeps->deadline_rfq." ".$rfq->upr->philgeps->opening_time;
         $data['items']              =  $rfq->upr->items;
         $data['supplier']           =  $supplier;
         $data['chief']              =  $rfq->chieftain;

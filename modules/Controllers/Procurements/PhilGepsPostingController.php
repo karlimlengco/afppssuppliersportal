@@ -118,8 +118,7 @@ class PhilGepsPostingController extends Controller
         BlankRFQRepository $rfq,
         HolidayRepository $holidays)
     {
-        $rfq_model              =   $rfq->findById($request->rfq_id);
-        $upr_model              =   $rfq_model->upr;
+        $upr_model              =   $upr->findById($request->upr_id);
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
@@ -161,10 +160,10 @@ class PhilGepsPostingController extends Controller
 
         $inputs                 =   $request->getData();
         $inputs['opening_time'] =   $request->pp_opening_time;
-        $inputs['rfq_number']   =   $rfq_model->rfq_number;
-        $inputs['upr_number']   =   $rfq_model->upr_number;
+        $inputs['rfq_number']   =   $upr_model->ref_number;
+        $inputs['upr_number']   =   $upr_model->ref_number;
         $inputs['remarks']      =   $request->remarks;
-        $inputs['upr_id']       =   $rfq_model->upr_id;
+        $inputs['upr_id']       =   $upr_model->id;
         $inputs['days']         =   $wd;
         $status  = 'Philgeps Approved';
 
@@ -175,15 +174,15 @@ class PhilGepsPostingController extends Controller
 
         $upr_result = $upr->update([
             'next_allowable'=> 1,
-            'next_step'     => 'ISPQ',
+            'next_step'     => 'Create RFQ',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
             'status'        => $status,
             'delay_count'   => $wd,
-            'calendar_days' => $cd + $rfq_model->upr->calendar_days,
+            'calendar_days' => $cd + $upr_model->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
-            ], $rfq_model->upr->id);
+            ], $upr_model->id);
 
         event(new Event($upr_result, $upr_result->ref_number." ". $status));
 

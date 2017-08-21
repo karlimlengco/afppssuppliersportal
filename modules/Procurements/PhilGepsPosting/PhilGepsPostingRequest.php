@@ -10,7 +10,7 @@ class PhilGepsPostingRequest extends BaseRequest
      * @var array
      */
     protected $whitelist = [
-        'rfq_id',
+        'upr_id',
         'philgeps_number',
         'rfq_number',
         'upr_number',
@@ -34,7 +34,7 @@ class PhilGepsPostingRequest extends BaseRequest
     public function rules()
     {
         return [
-            'rfq_id'            => 'required',
+            'upr_id'            => 'required',
             'philgeps_number'   => 'required',
             'transaction_date'  => 'required',
             'philgeps_posting'  => 'required',

@@ -50,7 +50,6 @@ PhilGeps Posting
 <div class="data-panel">
     <div class="data-panel__section">
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ Number :</strong> {{$data->rfq_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR Number :</strong> {{$data->upr_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PhilGeps Number :</strong> {{$data->philgeps_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{($data->status == 1) ? "Approved" : "Needs Re-Post"}} </li>
@@ -58,14 +57,14 @@ PhilGeps Posting
     </div>
     <div class="data-panel__section">
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Transaction Date :</strong> {{$data->transaction_date}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PhilGeps Posting Date :</strong> {{$data->philgeps_posting}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Transaction Date :</strong>  {{ createCarbon('Y-m-d',$data->transaction_date)->format('d M Y') }} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PhilGeps Posting Date :</strong> {{ createCarbon('Y-m-d',$data->philgeps_posting)->format('d M Y') }}  </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Working Days :</strong> {{$data->days}} day(s) </li>
         </ul>
     </div>
     <div class="data-panel__section">
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ Submition Deadline :</strong> {{$data->deadline_rfq}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ Submition Deadline :</strong> {{ createCarbon('Y-m-d',$data->deadline_rfq)->format('d M Y') }}  </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Canvas Opening Time :</strong> {{$data->opening_time}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Remarks :</strong> {{$data->remarks}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Action :</strong> {{$data->action}} </li>

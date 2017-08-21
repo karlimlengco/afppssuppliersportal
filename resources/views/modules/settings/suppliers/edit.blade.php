@@ -141,6 +141,8 @@ Suppliers
                             <th>Name</th>
                             <th>Type</th>
                             <th>Uploaded By</th>
+                            <th>Ref Number</th>
+                            <th>Place</th>
                             <th>Issued Date</th>
                             <th>Validity Date</th>
                         </tr>
@@ -151,6 +153,8 @@ Suppliers
                             <td> <a target="_blank" href="{{route('settings.suppliers.attachments.download', $attachment->id)}}"> {{$attachment->name}} </a></td>
                             <td style="text-transform:uppercase">{{$attachment->type}}</td>
                             <td>{{($attachment->users) ? $attachment->users->first_name ." ". $attachment->users->surname :""}}</td>
+                            <td>{{$attachment->ref_number}}</td>
+                            <td>{{$attachment->place}}</td>
                             <td>{{$attachment->issued_date}}</td>
                             <td>{{$attachment->validity_date}}</td>
                         </tr>

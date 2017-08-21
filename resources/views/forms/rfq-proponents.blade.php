@@ -41,14 +41,15 @@
                             </tr>
                         </table>
                         <p>SIR/MADAME,</p>
-                        <p>Please quote your lowest price on the items listed below, subject to the following conditions and submit your quotation duly signed by you or your representative not later than {{\Carbon\Carbon::createFromFormat( 'Y-m-d H:i:s', $data['deadline'])->format('dHi F y') }}</p>
+                        <p>Please quote your lowest price on the items listed below, subject to the following conditions and submit your quotation duly signed by you or your representative not later than {{\Carbon\Carbon::createFromFormat( 'Y-m-d H:i', $data['deadline'])->format('dHi F y') }}</p>
                         <table class="printable-form__body__table no-border no-padding">
                             <tr>
                                 <td class="align-bottom" width="45%"></td>
                                 <td width="10%"></td>
                                 <td class="align-bottom align-left" width="45%" height="60px">
-                                    <strong> @if($data['chief'] != null)  {{$data['chief']->ranks}} {{$data['chief']->name}} {{$data['chief']->branch}} @endif</strong><br>
+                                    <strong> @if($data['chief'] != null)  {{$data['chief']->ranks}} {{$data['chief']->name}} {{$data['chief']->branch}} </strong><br>
                                     {{$data['chief']->designation}}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>

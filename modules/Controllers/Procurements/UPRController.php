@@ -163,7 +163,7 @@ class UPRController extends Controller
         $account_codes      =    $accounts->lists('id', 'new_account_code');
         $charges            =    $chargeability->lists('id', 'name');
         $procurement_modes  =    $modes->lists('id', 'name');
-        $procurement_center =    $centers->lists('id', 'name');
+        $procurement_center =    $centers->lists('id', 'short_code');
         $payment_terms      =    $terms->lists('id', 'name');
         $procurement_types  =    $types->lists('id', 'code');
         $unit               =    $units->lists('id', 'short_code');
@@ -231,7 +231,7 @@ class UPRController extends Controller
         $procs['total_amount']  =   $total_amount;
         $procs['prepared_by']   =   $prepared_by;
         $procs['next_allowable']=   1;
-        $procs['next_step']     =   "Create RFQ";
+        $procs['next_step']     =   "Create Invitation";
         $procs['next_due']      =   $transaction_date->addDays(1);
         $procs['last_date']     =   $transaction_date;
 
@@ -344,7 +344,7 @@ class UPRController extends Controller
         $account_codes      =    $accounts->lists('id', 'new_account_code');
         $charges            =    $chargeability->lists('id', 'name');
         $procurement_modes  =    $modes->lists('id', 'name');
-        $procurement_center =    $centers->lists('id', 'name');
+        $procurement_center =    $centers->lists('id', 'short_code');
         $procurement_types  =    $types->lists('id', 'code');
         $payment_terms      =    $terms->lists('id', 'name');
         $unit               =    $units->lists('id', 'short_code');

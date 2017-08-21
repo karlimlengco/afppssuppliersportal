@@ -132,7 +132,7 @@ class UPRController extends Controller
         $account_codes      =    $accounts->lists('id', 'new_account_code');
         $charges            =    $chargeability->lists('id', 'name');
         $procurement_modes  =    $modes->lists('id', 'name');
-        $procurement_center =    $centers->lists('id', 'name');
+        $procurement_center =    $centers->lists('id', 'short_code');
         $payment_terms      =    $terms->lists('id', 'name');
         $procurement_types  =    $types->lists('id', 'code');
         $unit               =    $units->lists('id', 'short_code');
@@ -303,7 +303,7 @@ class UPRController extends Controller
         $account_codes      =    $accounts->lists('id', 'new_account_code');
         $charges            =    $chargeability->lists('id', 'name');
         $procurement_modes  =    $modes->lists('id', 'name');
-        $procurement_center =    $centers->lists('id', 'name');
+        $procurement_center =    $centers->lists('id', 'short_code');
         $procurement_types  =    $types->lists('id', 'code');
         $payment_terms      =    $terms->lists('id', 'name');
         $unit               =    $units->lists('id', 'short_code');

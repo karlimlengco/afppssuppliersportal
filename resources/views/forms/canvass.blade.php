@@ -76,24 +76,54 @@
                         </tr>
                         <tr>
                             <td><strong>DTI Registration</strong></td>
-                            <td>
+                            <td class="align-center">
                                 @if($data['proponents'][0]->supplier->attachmentByType("dti") != null && $data['proponents'][0]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
-                                     ok
+
+                                    <span>
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("dti")->issued_date )->format('d F Y')}}
+                                    -
+
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("dti")->validity_date )->format('d F Y')}}
+
+                                    </span>
+
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][0]->supplier->attachmentByType("dti")->ref_number}}</p>
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][0]->supplier->attachmentByType("dti")->place}}</p>
                                 @else
                                     failed
                                 @endif
                             </td>
-                            <td>
+                            <td class="align-center">
                                 @if($data['proponents'][1]->supplier->attachmentByType("dti") != null && $data['proponents'][1]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
-                                     ok
+
+                                    <span>
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("dti")->issued_date )->format('d F Y')}}
+                                    -
+
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("dti")->validity_date )->format('d F Y')}}
+
+                                    </span>
+
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][1]->supplier->attachmentByType("dti")->ref_number}}</p>
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][1]->supplier->attachmentByType("dti")->place}}</p>
 
                                      @else
                                          failed
                                 @endif
                             </td>
-                            <td>
+                            <td class="align-center">
                                 @if($data['proponents'][2]->supplier->attachmentByType("dti") != null && $data['proponents'][2]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
-                                     ok
+
+                                    <span>
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("dti")->issued_date )->format('d F Y')}}
+                                    -
+
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("dti")->validity_date )->format('d F Y')}}
+
+                                    </span>
+
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][2]->supplier->attachmentByType("dti")->ref_number}}</p>
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][2]->supplier->attachmentByType("dti")->place}}</p>
 
                                      @else
                                          failed
@@ -102,62 +132,111 @@
                         </tr>
                         <tr>
                             <td><strong>Mayor's Permit</strong></td>
-                            <td>
-                                @if($data['proponents'][0]->supplier->attachmentByType("mayors_permit
-                                ") != null && $data['proponents'][0]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
-                                     ok
+                            <td class="align-center">
+                                @if($data['proponents'][0]->supplier->attachmentByType("mayors_permit") != null && $data['proponents'][0]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
+
+                                    <span>
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("mayors_permit")->issued_date )->format('d F Y')}}
+                                    -
+
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("mayors_permit")->validity_date )->format('d F Y')}}
+
+                                    </span>
+
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][0]->supplier->attachmentByType("mayors_permit")->ref_number}}</p>
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][0]->supplier->attachmentByType("mayors_permit")->place}}</p>
 
                                      @else
                                          failed
                                 @endif
                             </td>
 
-                            <td>
-                                @if($data['proponents'][1]->supplier->attachmentByType("mayors_permit
-                                ") != null && $data['proponents'][1]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
-                                     ok
+                            <td class="align-center">
+                                @if($data['proponents'][1]->supplier->attachmentByType("mayors_permit") != null && $data['proponents'][1]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
+                                    <span>
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("mayors_permit")->issued_date )->format('d F Y')}}
+                                    -
+
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("mayors_permit")->validity_date )->format('d F Y')}}
+
+                                    </span>
+
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][1]->supplier->attachmentByType("mayors_permit")->ref_number}}</p>
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][1]->supplier->attachmentByType("mayors_permit")->place}}</p>
 
                                      @else
                                          failed
                                 @endif
                             </td>
 
-                            <td>
-                                @if($data['proponents'][2]->supplier->attachmentByType("mayors_permit
-                                ") != null && $data['proponents'][2]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
-                                     ok
+                            <td class="align-center">
+                                @if($data['proponents'][2]->supplier->attachmentByType("mayors_permit") != null && $data['proponents'][2]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'] == 1)
+                                    <span>
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("mayors_permit")->issued_date )->format('d F Y')}}
+                                    -
+
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("mayors_permit")->validity_date )->format('d F Y')}}
+
+                                    </span>
+
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][2]->supplier->attachmentByType("mayors_permit")->ref_number}}</p>
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][2]->supplier->attachmentByType("mayors_permit")->place}}</p>
 
                                      @else
-                                         failed
+                                        failed
                                 @endif
                             </td>
                         </tr>
                         <tr>
                             <td><strong>Tax Clearance</strong></td>
-                            <td>
-                                @if($data['proponents'][0]->supplier->attachmentByType("tax_clearance
-                                ") != null && $data['proponents'][0]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'])
-                                     ok
+                            <td class="align-center">
+                                @if($data['proponents'][0]->supplier->attachmentByType("tax_clearance") != null && $data['proponents'][0]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'] == 1)
+                                    <span>
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("tax_clearance")->issued_date )->format('d F Y')}}
+                                    -
+
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("tax_clearance")->validity_date )->format('d F Y')}}
+
+                                    </span>
+
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][0]->supplier->attachmentByType("tax_clearance")->ref_number}}</p>
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][0]->supplier->attachmentByType("tax_clearance")->place}}</p>
 
                                      @else
                                          failed
                                 @endif
                             </td>
 
-                            <td>
-                                @if($data['proponents'][1]->supplier->attachmentByType("tax_clearance
-                                ") != null && $data['proponents'][1]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'])
-                                     ok
+                            <td class="align-center">
+                                @if($data['proponents'][1]->supplier->attachmentByType("tax_clearance") != null && $data['proponents'][1]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'] == 1)
+                                    <span>
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("tax_clearance")->issued_date )->format('d F Y')}}
+                                    -
+
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("tax_clearance")->validity_date )->format('d F Y')}}
+
+                                    </span>
+
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][1]->supplier->attachmentByType("tax_clearance")->ref_number}}</p>
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][1]->supplier->attachmentByType("tax_clearance")->place}}</p>
 
                                      @else
                                          failed
                                 @endif
                             </td>
 
-                            <td>
-                                @if($data['proponents'][2]->supplier->attachmentByType("tax_clearance
-                                ") != null && $data['proponents'][2]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'])
-                                     ok
+                            <td class="align-center">
+                                @if($data['proponents'][2]->supplier->attachmentByType("tax_clearance") != null && $data['proponents'][2]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'])
+                                    <span>
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("tax_clearance")->issued_date )->format('d F Y')}}
+                                    -
+
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("tax_clearance")->validity_date )->format('d F Y')}}
+
+                                    </span>
+
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][2]->supplier->attachmentByType("tax_clearance")->ref_number}}</p>
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][2]->supplier->attachmentByType("tax_clearance")->place}}</p>
 
                                      @else
                                          failed
@@ -166,30 +245,54 @@
                         </tr>
                         <tr>
                             <td><strong>PhilGeps Registration</strong></td>
-                            <td>
-                                @if($data['proponents'][0]->supplier->attachmentByType("philgeps_registration
-                                ") != null && $data['proponents'][0]->supplier->attachmentByType("philgeps_registration")->validity_date >= $data['today'])
-                                     ok
+                            <td class="align-center">
+                                @if($data['proponents'][0]->supplier->attachmentByType("philgeps_registraion") != null && $data['proponents'][0]->supplier->attachmentByType("philgeps_registraion")->validity_date >= $data['today'])
+                                    <span>
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("philgeps_registraion")->issued_date )->format('d F Y')}}
+                                    -
+
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("philgeps_registraion")->validity_date )->format('d F Y')}}
+
+                                    </span>
+
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][0]->supplier->attachmentByType("philgeps_registraion")->ref_number}}</p>
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][0]->supplier->attachmentByType("philgeps_registraion")->place}}</p>
 
                                      @else
                                          failed
                                 @endif
                             </td>
 
-                            <td>
-                                @if($data['proponents'][1]->supplier->attachmentByType("philgeps_registration
-                                ") != null && $data['proponents'][1]->supplier->attachmentByType("philgeps_registration")->validity_date >= $data['today'])
-                                     ok
+                            <td class="align-center">
+                                @if($data['proponents'][1]->supplier->attachmentByType("philgeps_registraion") != null && $data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->validity_date >= $data['today'])
+                                    <span>
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->issued_date )->format('d F Y')}}
+                                    -
+
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->validity_date )->format('d F Y')}}
+
+                                    </span>
+
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->ref_number}}</p>
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->place}}</p>
 
                                      @else
                                          failed
                                 @endif
                             </td>
 
-                            <td>
-                                @if($data['proponents'][2]->supplier->attachmentByType("philgeps_registration
-                                ") != null && $data['proponents'][2]->supplier->attachmentByType("philgeps_registration")->validity_date >= $data['today'])
-                                     ok
+                            <td class="align-center">
+                                @if($data['proponents'][2]->supplier->attachmentByType("philgeps_registraion") != null && $data['proponents'][2]->supplier->attachmentByType("philgeps_registraion")->validity_date >= $data['today'] == 1)
+                                    <span>
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("philgeps_registraion")->issued_date )->format('d F Y')}}
+                                    -
+
+                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("philgeps_registraion")->validity_date )->format('d F Y')}}
+
+                                    </span>
+
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][2]->supplier->attachmentByType("philgeps_registraion")->ref_number}}</p>
+                                    <p style='margin-bottom:5px'>{{$data['proponents'][2]->supplier->attachmentByType("philgeps_registraion")->place}}</p>
 
                                      @else
                                          failed

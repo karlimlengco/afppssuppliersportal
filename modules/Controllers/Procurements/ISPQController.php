@@ -131,7 +131,7 @@ class ISPQController extends Controller
             'transaction_dates'         =>  'required',
         ]);
         $upr_model              =   $upr->findById($id);
-        $rfq_model              =   $upr_model->rfq;
+        // $rfq_model              =   $upr_model->rfq;
 
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_dates') );
 
@@ -181,12 +181,12 @@ class ISPQController extends Controller
 
         $data           =   [
             'ispq_id'           =>  $result->id,
-            'rfq_id'            =>  $rfq_model->id,
-            'upr_id'            =>  $rfq_model->upr_id,
+            'rfq_id'            =>  $upr_model->id,
+            'upr_id'            =>  $upr_model->id,
             'description'       =>  $upr_model->project_name,
-            'total_amount'      =>  $rfq_model->upr->total_amount,
-            'upr_number'        =>  $rfq_model->upr_number,
-            'rfq_number'        =>  $rfq_model->rfq_number,
+            'total_amount'      =>  $upr_model->total_amount,
+            'upr_number'        =>  $upr_model->ref_number,
+            'rfq_number'        =>  $upr_model->ref_number,
             'delay_count'       =>  $wd,
             'canvassing_date'   =>  $request->get('canvassing_date'),
             'canvassing_time'   =>  $request->get('canvassing_time'),
@@ -196,7 +196,7 @@ class ISPQController extends Controller
 
         $upr_result =   $upr->update(['status' => 'Invitation Created',
             'next_allowable'=> 3,
-            'next_step'     => 'Close RFQ',
+            'next_step'     => 'PhilGeps Posting',
             'next_due'      => $transaction_date->addDays(3),
             'last_date'     => $transaction_date,
             'delay_count'   => $wd,

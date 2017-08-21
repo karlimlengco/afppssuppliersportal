@@ -14,12 +14,6 @@
                     <div class="four columns">
                         {!! Form::dateField('transaction_date', 'Transaction Date') !!}
                     </div>
-                    <div class="four columns">
-                        {!! Form::dateField('deadline', 'Deadline to submit') !!}
-                    </div>
-                    <div class="four columns">
-                        {!! Form::textField('opening_time', 'Opening Time') !!}
-                    </div>
                 </div>
 
                 <div class="row">

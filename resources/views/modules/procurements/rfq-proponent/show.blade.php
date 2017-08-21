@@ -42,9 +42,8 @@ Proponent
     <div class="six columns">
         {!! Form::textField('bid_amount', 'Bid Amount')!!}
     </div>
-
     <div class="six columns">
-        {!! Form::selectField('status', 'Status', ['passed' => 'Passed', 'failed' => 'Failed'])!!}
+        {!! Form::selectField('status', 'Status', ['passed' => 'Passed', 'failed' => 'Failed'], ($status->name == '(failed)') ? 'failed' : 'passed' )!!}
     </div>
 </div>
 

@@ -28,6 +28,8 @@ class AttachmentEloquent extends Model
         'issued_date',
         'validity_date',
         'upload_date',
+        'ref_number',
+        'place',
     ];
 
     /**
