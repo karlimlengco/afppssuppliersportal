@@ -113,18 +113,21 @@
                             <td class="align-right" colspan="4"><strong>Total Amount PhP</strong></td>
                             <td colspan="2" class="align-right"> <strong>{{formatPrice($data['total_amount'])}}</strong></td>
                         </tr>
+                        <tr>
+                            <td class="align-center" colspan="6"><strong>NOTE: ALL SIGNATURES MUST BE OVER PRINTED NAME</strong></td>
+                        </tr>
                     </table>
 
 
-                    <table class="printable-form__body__table">
+                    <table class="printable-form__body__table" >
                         <tr>
                             <td class="no-border-bottom no-border-top" width="33%">STOCKS REQUESTED ARE CERTIFIED TO BE WITHIN APPROVED APP/PPMP</td>
                             <td class="no-border-bottom no-border-top" width="33%">FUNDS CERTIFIED AVAILABLE:</td>
                             <td class="no-border-bottom no-border-top" width="33%">APPROVED:</td>
                         </tr>
-                        <tr>
+                        <tr >
                             <td class="align-bottom no-border-top" height="100px">
-                                <table class="signatory no-padding no-border">
+                                <table class="signatory no-padding no-border" style="margin:0;padding:0">
                                     <tr>
                                         <td width="50%"></td>
                                         <td nowrap><strong>{{$data['approver']->name}}</strong></td>
@@ -141,8 +144,11 @@
                                         <td></td>
                                     </tr>
                                     <tr>
+                                        <td colspan="3" style="border-bottom:1px solid #adadad"></td>
+                                    </tr>
+                                    <tr >
                                         <td ></td>
-                                        <td class="align-left" colspan="2">{{$data['approver']->designation}}</td>
+                                        <td class="align-left" colspan="2" >{{$data['approver']->designation}}</td>
                                     </tr>
                                 </table>
                             </td>
@@ -162,6 +168,9 @@
                                             </div>
                                         </td>
                                         <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="border-bottom:1px solid #adadad"></td>
                                     </tr>
                                     <tr>
                                         <td ></td>
@@ -185,6 +194,9 @@
                                             </div>
                                         </td>
                                         <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="border-bottom:1px solid #adadad"></td>
                                     </tr>
                                     <tr>
                                         <td ></td>
