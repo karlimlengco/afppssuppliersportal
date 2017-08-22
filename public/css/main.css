@@ -1359,7 +1359,7 @@ printable-form.less
 }
 .printable-form * {
   font-family: 'Arial' !important;
-  font-size: 15px !important;
+  font-size: 13px !important;
   font-weight: 400;
   color: #545454;
 }
