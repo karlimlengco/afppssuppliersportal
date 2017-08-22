@@ -102,11 +102,6 @@
                     "name"  :   "Unit Purchase Request"
                 },
                 {
-                    "route" :   "procurements.blank-rfq.index",
-                    "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "Request For Quotation"
-                },
-                {
                     "route" :   "procurements.ispq.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "ISPQ"
@@ -115,6 +110,11 @@
                     "route" :   "procurements.philgeps-posting.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "PhilGeps Posting"
+                },
+                {
+                    "route" :   "procurements.blank-rfq.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "Request For Quotation"
                 },
                 {
                     "route" :   "procurements.canvassing.index",
