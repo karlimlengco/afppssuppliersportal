@@ -162,10 +162,10 @@
                     <tr>
                         <td class="border-left-only" width="13%" height="30px">Funds Available:</td>
                         <td class="no-border" width="1%"></td>
-                        <td class="no-border" width="30%"></td>
+                        <td class="no-border" width="40%"></td>
                         <td class="no-border" width="15%"></td>
                         <td class="no-border" width="1%"></td>
-                        <td class="no-border" width="30%"></td>
+                        <td class="no-border" width="20%"></td>
                         <td class="border-right-only" width="10%"></td>
                     </tr>
                     <tr>
@@ -200,10 +200,10 @@
                 <table class="printable-form__body__table">
                     <tr>
                         <td class="border-left-only" width="12%" height="30px">Approved By:</td>
-                        <td class="no-border" width="30%"></td>
+                        <td class="no-border" width="40%"></td>
                         <td class="no-border" width="19%"></td>
                         <td class="no-border" width="1%"></td>
-                        <td class="no-border" width="30%"></td>
+                        <td class="no-border" width="20%"></td>
                         <td class="border-right-only" width="8%"></td>
                     </tr>
                     <tr>
