@@ -129,7 +129,9 @@
                         <td class="border-right-only" width="45%">
                             @if($data['approver'] != null)
                             Very truly yours,
+                            <br>
                             <strong class="margin-top">{{$data['approver']->ranks}} {{$data['approver']->name}} {{$data['approver']->branch}}</strong>
+                            <br>
                             {{$data['approver']->designation}}
                             @endif
                         </td>
