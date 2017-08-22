@@ -709,6 +709,7 @@ class DeliveryController extends Controller
         $data['transaction_date']   =  $result->delivery_date;
         $data['po_number']          =  $result->po->po_number;
         $data['bid_amount']         =  $result->po->bid_amount;
+        $data['po_type']            =  $result->po->type;
         $data['project_name']       =  $result->upr->project_name;
         $data['center']             =  $result->upr->centers->name;
         $data['items']              =  $result->upr->items;

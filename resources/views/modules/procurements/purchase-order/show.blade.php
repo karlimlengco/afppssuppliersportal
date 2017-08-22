@@ -104,6 +104,7 @@ Purchase Order
 
         <h3>Purchase Details</h3>
         <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Type :</strong> <span style="text-transform: uppercase">{{$data->type}}</span> </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Purchase Number :</strong> {{$data->po_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Purchase Date :</strong> {{$data->purchase_date}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Bid Amount :</strong> {{ formatPrice($data->bid_amount)}} </li>
@@ -157,6 +158,7 @@ Purchase Order
                     <th>Unit</th>
                     <th>Unit Price</th>
                     <th>Amount</th>
+                    <th>Type</th>
                 </tr>
             </thead>
             <tbody>
@@ -167,6 +169,7 @@ Purchase Order
                         <td>{{$item->unit}}</td>
                         <td>{{formatPrice($item->price_unit)}}</td>
                         <td>{{formatPrice($item->total_amount)}}</td>
+                        <td style="text-transform: uppercase;">{{$item->type}}</td>
                     </tr>
                 @endforeach
             </tbody>

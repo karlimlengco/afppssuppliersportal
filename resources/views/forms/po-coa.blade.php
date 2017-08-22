@@ -48,9 +48,9 @@
                         </tr>
                         <tr>
                             <td class="align-left">{{$data['po_number']}}</td>
-                            <td class="align-left">{{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) > 1) and {{count($data['items']) - 1}} @endif</td>
+                            <td class="align-left">{{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) > 1) and {{count($data['items']) - 1}} LI @endif</td>
                             <td class="align-right">{{formatPrice($data['bid_amount'])}}</td>
-                            <td class="align-left">{{$data['winner']}}</td>
+                            <td class="align-center">{{$data['winner']}}</td>
                         </tr>
                     </table>
                     <p>Very truly yours;</p>

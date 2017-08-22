@@ -29,7 +29,7 @@ Notice Of Delivery
 
 <div class="row">
     <div class="twelve columns">
-        <div class="form-group">
+      {{--   <div class="form-group">
             <div class="input-group
                         input-group--has-icon
                         input-group--solid-icon
@@ -38,7 +38,7 @@ Notice Of Delivery
                 <input type="text" class="input" placeholder="Search" id="newForm">
             </div>
         </div>
-
+ --}}
         <table id="datatable-responsive" class="table" >
 
             <thead>

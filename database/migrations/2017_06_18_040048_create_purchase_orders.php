@@ -26,6 +26,7 @@ class CreatePurchaseOrders extends Migration
             $table->integer('delivery_terms');
             $table->integer('delivery_date')->nullable();
             $table->integer('prepared_by');
+            $table->string('type')->nullable();
             $table->string('status')->nullable();
 
             $table->text('remarks')->nullable();

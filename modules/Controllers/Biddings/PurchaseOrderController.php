@@ -411,6 +411,7 @@ class PurchaseOrderController extends Controller
             'delivery_terms'    => 'required|integer',
             'action'            => 'required_with:remarks',
             'unit_price.*'      => 'required',
+            'type.*'            => 'required',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -438,7 +439,7 @@ class PurchaseOrderController extends Controller
         ];
 
         $items                  =   $request->only([
-            'item_description', 'quantity', 'unit_measurement', 'unit_price', 'total_amount'
+            'item_description', 'quantity', 'unit_measurement', 'unit_price', 'total_amount', 'type'
         ]);
 
 
@@ -473,6 +474,7 @@ class PurchaseOrderController extends Controller
                     'unit'                  =>  $items['unit_measurement'][$i],
                     'price_unit'            =>  $items['unit_price'][$i],
                     'total_amount'          =>  $items['total_amount'][$i],
+                    'type'                  =>  $items['type'][$i],
                     'order_id'              =>  $result->id,
                 ];
             }

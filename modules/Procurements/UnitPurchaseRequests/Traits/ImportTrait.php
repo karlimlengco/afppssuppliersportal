@@ -76,6 +76,7 @@ trait ImportTrait
         CateredUnitRepository $units,
         PaymentTermRepository $terms)
     {
+        $this->validate($request,['file'=>'required']);
         $path           =   $request->file('file')->getRealPath();
 
         $data           =   [];

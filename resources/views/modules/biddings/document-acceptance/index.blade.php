@@ -24,10 +24,10 @@ Document Acceptance
 <div class="row">
     <div class="six columns align-left">
         <h3> </h3>
-    </div>
+    </div>{{--
     <div class="six columns utility utility--align-right" >
         <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
-    </div>
+    </div> --}}
 </div>
 
 <div class="row">

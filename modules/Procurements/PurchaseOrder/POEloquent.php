@@ -57,6 +57,7 @@ class POEloquent extends Model implements  AuditableContract
 
         'funding_released_date',
         'funding_received_date',
+        'type',
         'funding_remarks',
         'update_remarks',
 

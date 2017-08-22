@@ -478,6 +478,7 @@ class NoticeToProceedController extends Controller
         $data['supplier']           =   $supplier;
         $data['po_transaction_date']=   $result->po->created_at;
         $data['po_number']          =   $result->po->po_number;
+        $data['po_type']            =   $result->po->type;
         $data['rfq_number']         =   $result->rfq_number;
         $data['rfq_date']           =   $blank_model->transaction_date;
         $data['total_amount']       =   $result->po->bid_amount;

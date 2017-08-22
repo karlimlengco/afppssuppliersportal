@@ -531,6 +531,7 @@ class PurchaseOrderController extends Controller
             'payment_term'      => 'required',
             'delivery_terms'    => 'required|integer',
             'unit_price.*'      => 'required',
+            'type.*'            => 'required',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -555,13 +556,14 @@ class PurchaseOrderController extends Controller
             'purchase_date' =>  $request->purchase_date,
             'payment_term'  =>  $request->payment_term,
             'delivery_terms'=>  $request->delivery_terms,
-            'action'       =>  $request->action,
+            'action'        =>  $request->action,
+            'type'          =>  $request->type,
             'remarks'       =>  $request->remarks,
             'days'          =>  $wd
         ];
 
         $items                  =   $request->only([
-            'item_description', 'quantity', 'unit_measurement', 'unit_price', 'total_amount'
+            'item_description', 'quantity', 'unit_measurement', 'unit_price', 'total_amount', 'item_type'
         ]);
 
 
@@ -598,7 +600,9 @@ class PurchaseOrderController extends Controller
                     'unit'                  =>  $items['unit_measurement'][$i],
                     'price_unit'            =>  $items['unit_price'][$i],
                     'total_amount'          =>  $items['total_amount'][$i],
+                    'type'                  =>  $items['item_type'][$i],
                     'order_id'              =>  $result->id,
+                    'created_at'            =>  Carbon::now()
                 ];
             }
 

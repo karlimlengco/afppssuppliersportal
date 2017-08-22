@@ -16,6 +16,7 @@ class ItemRequest extends BaseRequest
         'unit',
         'price_unit',
         'total_amount',
+        'type',
     ];
 
     /**
@@ -31,6 +32,7 @@ class ItemRequest extends BaseRequest
             'unit'          => 'required',
             'price_unit'    => 'required',
             'total_amount'  => 'required',
+            'type'          => 'required',
         ];
     }
 }

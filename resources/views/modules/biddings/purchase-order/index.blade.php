@@ -1,5 +1,5 @@
 @section('title')
-Purchase Order
+Contract Order
 @stop
 
 
@@ -26,13 +26,13 @@ Purchase Order
         <h3> </h3>
     </div>
     <div class="six columns utility utility--align-right" >
-        <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
+        {{-- <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a> --}}
     </div>
 </div>
 
 <div class="row">
     <div class="twelve columns">
-        <div class="form-group">
+{{--         <div class="form-group">
             <div class="input-group
                         input-group--has-icon
                         input-group--solid-icon
@@ -41,7 +41,7 @@ Purchase Order
                 <input type="text" class="input" placeholder="Search" id="newForm">
             </div>
         </div>
-
+ --}}
         <table id="datatable-responsive" class="table" >
 
             <thead>

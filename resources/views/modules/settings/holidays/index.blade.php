@@ -15,15 +15,7 @@ Holidays
 
 <div class="row">
     <div class="twelve columns">
-        <div class="form-group">
-            <div class="input-group
-                        input-group--has-icon
-                        input-group--solid-icon
-                        input-group--right-icon">
-                <span class="input-group__icon"><i class="nc-icon-outline ui-1_zoom"></i></span>
-                <input type="text" class="input" placeholder="Search" id="newForm">
-            </div>
-        </div>
+
 
         <table id="datatable-responsive" class="table" >
 

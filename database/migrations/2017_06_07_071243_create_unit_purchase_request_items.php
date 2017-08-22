@@ -23,6 +23,7 @@ class CreateUnitPurchaseRequestItems extends Migration
             $table->string('total_amount');
             $table->string('upr_number')->nullable();
             $table->string('ref_number')->nullable();
+            $table->string('type')->nullable();
             $table->integer('prepared_by')->nullable();
             $table->date('date_prepared')->nullable();
 

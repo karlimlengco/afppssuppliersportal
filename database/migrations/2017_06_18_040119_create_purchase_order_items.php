@@ -21,6 +21,7 @@ class CreatePurchaseOrderItems extends Migration
             $table->string('unit');
             $table->string('price_unit');
             $table->string('total_amount');
+            $table->string('type');
             $table->timestamps();
         });
     }

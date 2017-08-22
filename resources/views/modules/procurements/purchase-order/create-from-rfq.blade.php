@@ -40,14 +40,23 @@ Purchase Order
 <div class="row">
     <div class="twelve columns">
         <div class="row">
-            <div class="four columns">
+            <div class="three columns">
                 {!! Form::textField('purchase_date', 'PO Date') !!}
             </div>
-            <div class="four columns">
+            <div class="three columns">
                 {!! Form::selectField('payment_term', 'Payment Terms', $term_lists) !!}
             </div>
-            <div class="four columns">
+            <div class="three columns">
                 {!! Form::numberField('delivery_terms', 'Delivery Terms') !!}
+            </div>
+            <div class="three columns">
+                {!! Form::selectField('type', 'Type',[
+                    'purchase_order'    =>  'Purchase Order',
+                    'job_order'         =>  'Job Order',
+                    'work_order'        =>  'Work Order',
+                    'contract'          =>  'Contract',
+                    'contract_and_po'   =>  'Contract And Purchase Order',
+                ]) !!}
             </div>
         </div>
         <div class="row">
@@ -80,12 +89,12 @@ Purchase Order
         <table class='table' id="item_table">
             <thead>
                 <tr>
-                    <th>Description</th>
-                    <th>Qty</th>
-                    <th>Unit</th>
-                    <th>Unit Price</th>
-                    <th>Amount</th>
-                    <th></th>
+                    <th width="50%">Description</th>
+                    <th width="5%">Qty</th>
+                    <th width="5%">Unit</th>
+                    <th width="12%">Unit Price</th>
+                    <th width="13">Amount</th>
+                    <th width="15%">Type</th>
                 </tr>
             </thead>
             <tbody>
@@ -158,6 +167,9 @@ Purchase Order
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
             newRow += "<input type='text' id='total_amount"+table_len+"' tabindex='-1' name='total_amount[]' value='' class='input' readonly/>";
+            newRow += "</td>";
+            newRow += "<td id='type_row"+table_len+"'>";
+            newRow += "<select class='select' name='item_type[]' id='type"+table_len+"' tabindex='-1'><option value='purchase_order'>Purchase Order</option><option value='contract'>Contract</option></select>";
             newRow += "</td>";
             newRow += "</tr>";
 

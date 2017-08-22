@@ -25,6 +25,7 @@ class ItemEloquent extends Model
         'quantity',
         'unit',
         'price_unit',
+        'type',
         'total_amount',
     ];
 
