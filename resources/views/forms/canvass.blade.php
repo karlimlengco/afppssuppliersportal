@@ -335,8 +335,10 @@
                             </td>
                             <td></td>
                             <td class="align-bottom align-left" height="80px">
+                                @if($data['signatories'][4] != null)
                                 <strong>{{$data['signatories'][4]->signatory->ranks}} {{$data['signatories'][4]->signatory->name}} {{$data['signatories'][4]->signatory->branch}}</strong><br>
                                 {{$data['signatories'][4]->signatory->designation}}
+                                @endif
                             </td>
                         </tr>
                     </table>

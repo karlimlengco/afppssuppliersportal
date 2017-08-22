@@ -127,8 +127,10 @@
                             </td>
                             <td></td>
                             <td class="align-bottom align-left" height="80px">
+                                @if($data['members'][4] != null)
                                 <strong>{{$data['members'][4]->signatory->ranks}} {{$data['members'][4]->signatory->name}} {{$data['members'][4]->signatory->branch}}</strong><br>
                                 {{$data['members'][4]->signatory->designation}}
+                                @endif
                             </td>
                         </tr>
                     </table>
