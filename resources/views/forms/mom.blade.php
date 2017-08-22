@@ -103,27 +103,35 @@
                     <table class="printable-form__body__table no-border no-padding" style="page-break-inside:avoid">
                         <tr>
                             <td class="align-bottom align-left" width="45%" height="80px">
+                                @if(isset($data['members'][0]) )
                                 <strong>{{$data['members'][0]->signatory->ranks}} {{$data['members'][0]->signatory->name}} {{$data['members'][0]->signatory->branch}}</strong><br>
                                 {{$data['members'][0]->signatory->designation}}
+                                @endif
                             </td>
                             <td width="10%"></td>
                             <td class="align-bottom" width="45%"></td>
                         </tr>
                         <tr>
                             <td class="align-bottom align-left" height="80px">
+                                @if(isset($data['members'][1]) )
                                 <strong>{{$data['members'][1]->signatory->ranks}} {{$data['members'][1]->signatory->name}} {{$data['members'][1]->signatory->branch}}</strong><br>
                                 {{$data['members'][1]->signatory->designation}}
+                                @endif
                             </td>
                             <td></td>
                             <td class="align-bottom align-left" height="80px">
+                                @if(isset($data['members'][2]) )
                                 <strong>{{$data['members'][2]->signatory->ranks}} {{$data['members'][2]->signatory->name}} {{$data['members'][2]->signatory->branch}}</strong><br>
                                 {{$data['members'][2]->signatory->designation}}
+                                @endif
                             </td>
                         </tr>
                         <tr>
                             <td class="align-bottom align-left" height="80px">
+                                @if(isset($data['members'][3]) )
                                 <strong>{{$data['members'][3]->signatory->ranks}} {{$data['members'][3]->signatory->name}} {{$data['members'][3]->signatory->branch}}</strong><br>
                                 {{$data['members'][3]->signatory->designation}}
+                                @endif
                             </td>
                             <td></td>
                             <td class="align-bottom align-left" height="80px">
