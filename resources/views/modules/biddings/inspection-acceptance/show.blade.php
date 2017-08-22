@@ -36,15 +36,10 @@ Inspection And Acceptance Report
             <div class="button__options">
                 <a id="signatory-button" href="#" class="button__options__item" > Signatories</a>
                 <a id="signatory-button" href="{{route('procurements.unit-purchase-requests.show', $data->upr->id)}}" class="button__options__item" > Unit Purchase Request</a>
-                <a id="signatory-button" href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" > Delivery</a>
-
             </div>
         </button>
 
-        @if(!$data->accepted_date)
-            <a class="button" tooltip="Accept" id="accept-button"  href="#"><i class="nc-icon-mini ui-1_check-bold"></i></a>
-        @else
-        @endif
+
         <a target="_blank" class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
 
         <a href="{{route('procurements.inspection-and-acceptance.logs', $data->id)}}" class="button" tooltip="Logs">
@@ -54,6 +49,21 @@ Inspection And Acceptance Report
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
             <i class="nc-icon-mini design_pen-01"></i>
         </a>
+    </div>
+
+
+    <hr>
+    <br>
+    <div class="twelve columns align-right utility utility--align-right">
+        <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Go to UPR</span>
+        @if(!$data->accepted_date)
+            Accept Inspection
+            <a class="button" tooltip="Accept" id="accept-button"  href="#"><i class="nc-icon-mini ui-1_check-bold"></i></a>
+        @else
+            Go to UPR
+            <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="Accept NOA" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif
     </div>
 </div>
 

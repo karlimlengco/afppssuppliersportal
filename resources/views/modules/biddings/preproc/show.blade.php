@@ -36,6 +36,13 @@ PreProc Conference
             <i class="nc-icon-mini design_pen-01"></i>
         </a>
     </div>
+
+    <hr>
+    <br>
+    <div class="twelve columns align-right utility utility--align-right">
+            Go to UPR
+            <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}"  class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+    </div>
 </div>
 <div class="data-panel">
     <div class="data-panel__section">

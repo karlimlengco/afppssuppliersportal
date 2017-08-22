@@ -54,6 +54,17 @@ Unit Purchase Request
 @stop
 
 @section('contents')
+
+@if($data->status == 'Philgeps Approved' && $data->mode_of_procurement == 'public_bidding'|| $data->status == 'Pre Bid Conference')
+
+<div class="message-box message-box--large message-box--success" role="alert">
+    <span class="message-box__icon"><i class="nc-icon-outline ui-1_check-circle-08"></i></span>
+    <span class="message-box__message">
+    Bid Docs Issuance
+    <br>
+    Click icon options to add bid docs issuance</span>
+</div>
+@endif
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
 

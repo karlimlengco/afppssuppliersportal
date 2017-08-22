@@ -26,22 +26,18 @@ SOBE
 @stop
 
 @section('contents')
+
+<div class="message-box message-box--large message-box--success" role="alert">
+    <span class="message-box__icon"><i class="nc-icon-outline ui-1_check-circle-08"></i></span>
+    <span class="message-box__message">
+    <br>
+    Click pen icon to edit proponents status and add bid amount</span>
+</div>
+
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
-        <?php $count = count($data->upr->bid_proponents); ?>
-        @foreach($data->upr->bid_proponents as $proponent)
-            @if($proponent->bid_amount != null)
-                <?php $count --; ?>
-            @endif
-        @endforeach
-
-        @if($count == 0)
-            @if(!$data->closing_date)
-                <a href="{{route('biddings.bid-openings.closed',$data->id)}}" class="button" tooltip="Submit"><i class="nc-icon-mini ui-2_disk"></i></a>
-            @endif
-        @endif
 
 
         @if(!$data->closing_date)
@@ -55,6 +51,28 @@ SOBE
         <a href="{{route('biddings.bid-openings.edit',$data->id)}}" class="button" tooltip="Edit">
             <i class="nc-icon-mini design_pen-01"></i>
         </a>
+    </div>
+
+    <hr>
+    <br>
+    <div class="twelve columns align-right utility utility--align-right">
+
+            <?php $count = count($data->upr->bid_proponents); ?>
+            @foreach($data->upr->bid_proponents as $proponent)
+                @if($proponent->bid_amount != null)
+                    <?php $count --; ?>
+                @endif
+            @endforeach
+
+            @if($count == 0)
+                @if(!$data->closing_date)
+                    Submit
+                    <a href="{{route('biddings.bid-openings.closed',$data->id)}}" class="button" tooltip="Submit"><i class="nc-icon-mini ui-2_disk"></i></a>
+                @else
+                    Go to UPR
+                    <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}"  class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+                @endif
+            @endif
     </div>
 </div>
 

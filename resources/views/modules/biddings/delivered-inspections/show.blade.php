@@ -29,6 +29,13 @@ Delivered Items Inspection
 
 @section('contents')
 
+<div class="message-box message-box--large message-box--success" role="alert">
+    <span class="message-box__icon"><i class="nc-icon-outline ui-1_check-circle-08"></i></span>
+    <span class="message-box__message">
+    To Add Issue Click option icon and add issue.
+    </span>
+</div>
+
 <div class="row">
     <div class="twelve columns utility utility--align-right" >
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
@@ -38,10 +45,6 @@ Delivered Items Inspection
                 <a class="button__options__item" href="#" id="signatories-button">Signatories</a>
                 @if($data->start_date and !$data->closed_date)
                     <a class="button__options__item" href="#" id="add-issue-button">Add Issue</a>
-                    <a class="button__options__item" href="#" id="close-button">Close Inspection</a>
-                @endif
-                @if(!$data->start_date)
-                    <a class="button__options__item" href="#" id="start-button">Start Inspection</a>
                 @endif
                 <a id="signatory-button" href="{{route('procurements.unit-purchase-requests.show', $data->upr->id)}}" class="button__options__item" > Unit Purchase Request</a>
                 @if($data->rfq)
@@ -59,6 +62,23 @@ Delivered Items Inspection
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
             <i class="nc-icon-mini design_pen-01"></i>
         </a>
+    </div>
+    <hr>
+    <br>
+    <div class="twelve columns align-right utility utility--align-right">
+        <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Go to UPR</span>
+
+        @if($data->start_date and !$data->closed_date)
+            Close Inspection
+            <a class="button" tooltip="Close Inspection" id="close-button"  href="#"><i class="nc-icon-mini ui-1_check-bold"></i></a>
+        @elseif(!$data->start_date)
+            Start Inspection
+            <a class="button" tooltip="Start Inspection" id="start-button"  href="#"><i class="nc-icon-mini ui-1_check-bold"></i></a>
+        @else
+            Go to UPR
+            <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="Accept NOA" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif
     </div>
 </div>
 
