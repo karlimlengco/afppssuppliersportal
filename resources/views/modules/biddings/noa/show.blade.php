@@ -37,12 +37,10 @@ Notice Of Award
 
                 <a href="#"  id="signatory-button" class="button__options__item">Signatories</a>
 
-           {{--      @if($data->status == 'approved')
-                    <a href="#"  id="received-button" class="button__options__item">Received</a>
-                @endif
-                @if($data->status == 'pending')
-                    <a href="#"  id="accept-button" class="button__options__item">Accept NOA</a>
-                @endif --}}
+
+                 <a href="{{route('procurements.noa.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
+                     View Logs
+                 </a>
             </div>
         </button>
 
@@ -51,10 +49,6 @@ Notice Of Award
         @endif --}}
         <a target="_blank" class="button" href="{{route($printRoute,$data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
 
-
-        <a href="{{route('procurements.noa.logs', $data->id)}}" class="button" tooltip="Logs">
-            <i class="nc-icon-mini files_archive-content"></i>
-        </a>
 
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
             <i class="nc-icon-mini design_pen-01"></i>

@@ -56,16 +56,15 @@ Request For Quotation
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
 
+                <a href="{{route('procurements.blank-rfq.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
+                    View Logs
+                </a>
+
             </div>
         </button>
 
         <a target="_blank" href="{{route($printRoute,$data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
-        </a>
-
-
-        <a href="{{route('procurements.blank-rfq.logs', $data->id)}}" class="button" tooltip="Logs">
-            <i class="nc-icon-mini files_archive-content"></i>
         </a>
 
         {{-- @if($data->status != 'closed') --}}

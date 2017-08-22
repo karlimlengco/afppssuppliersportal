@@ -47,17 +47,22 @@ Delivered Items Inspection
                     <a class="button__options__item" href="#" id="add-issue-button">Add Issue</a>
                 @endif
                 <a id="signatory-button" href="{{route('procurements.unit-purchase-requests.show', $data->upr->id)}}" class="button__options__item" > Unit Purchase Request</a>
-                @if($data->rfq)
-                <a id="signatory-button" href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button__options__item" > Request For Quotation</a>
-                @endif
-                <a id="signatory-button" href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" > Delivery</a>
+
+
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-ris', $data->id)}}" class="button__options__item" > PRINT  RIS</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-ris2', $data->id)}}" class="button__options__item" > PRINT  RIS2</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-rsmi', $data->id)}}" class="button__options__item" > PRINT  RSMI</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-rar', $data->id)}}" class="button__options__item" > PRINT  RAR</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-coi', $data->id)}}" class="button__options__item" > PRINT  COI</a>
+
+
+
+                <a href="{{route('procurements.delivered-inspections.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
+                    View Logs
+                </a>
             </div>
         </button>
         <a target="_blank" class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
-
-        <a href="{{route('procurements.delivered-inspections.logs', $data->id)}}" class="button" tooltip="Logs">
-            <i class="nc-icon-mini files_archive-content"></i>
-        </a>
 
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
             <i class="nc-icon-mini design_pen-01"></i>

@@ -36,16 +36,17 @@ Inspection And Acceptance Report
             <div class="button__options">
                 <a  href="{{route('procurements.unit-purchase-requests.show', $data->upr->id)}}" class="button__options__item" > Unit Purchase Request</a>
                 <a target="_blank" href="{{route('procurements.inspection-and-acceptance.print-mfo', $data->id)}}" class="button__options__item" > Print MFO Inspection</a>
+
+                <a href="{{route('procurements.inspection-and-acceptance.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
+                    View Logs
+                </a>
+
             </div>
         </button>
 
         <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
 
         <a target="_blank" class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
-
-        <a href="{{route('procurements.inspection-and-acceptance.logs', $data->id)}}" class="button" tooltip="Logs">
-            <i class="nc-icon-mini files_archive-content"></i>
-        </a>
 
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
             <i class="nc-icon-mini design_pen-01"></i>

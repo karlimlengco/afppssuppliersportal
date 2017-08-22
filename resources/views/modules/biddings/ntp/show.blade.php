@@ -36,6 +36,9 @@ Notice To Proceed
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
 
 
+                <a href="{{route('procurements.ntp.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
+                    View Logs
+                </a>
 
             </div>
         </button>
@@ -44,10 +47,6 @@ Notice To Proceed
 
         <a target="_blank" href="{{route($printRoute,$data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
-        </a>
-
-        <a href="{{route('procurements.ntp.logs', $data->id)}}" class="button" tooltip="Logs">
-            <i class="nc-icon-mini files_archive-content"></i>
         </a>
 
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">

@@ -57,6 +57,11 @@ Delivered Items Inspection
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-rar', $data->id)}}" class="button__options__item" > PRINT  RAR</a>
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-coi', $data->id)}}" class="button__options__item" > PRINT  COI</a>
 
+
+                <a href="{{route('procurements.delivered-inspections.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
+                    View Logs
+                </a>
+
             </div>
         </button>
 
@@ -64,9 +69,6 @@ Delivered Items Inspection
 
         <a target="_blank" class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
 
-        <a href="{{route('procurements.delivered-inspections.logs', $data->id)}}" class="button" tooltip="Logs">
-            <i class="nc-icon-mini files_archive-content"></i>
-        </a>
 
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
             <i class="nc-icon-mini design_pen-01"></i>

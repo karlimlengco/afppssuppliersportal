@@ -45,6 +45,7 @@ Purchase Order
                 <a target="_blank" href="{{route('procurements.purchase-orders.print-coa', $data->id)}}" class="button__options__item" id="signatory-button"> Print COA Approval</a>
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
+                <a href="{{route('procurements.purchase-orders.logs', $data->id)}}" class="button__options__item">View Logs</a>
 
 
 
@@ -56,9 +57,6 @@ Purchase Order
 
         <a target="_blank" href="{{route('procurements.purchase-orders.print', $data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
-        </a>
-        <a href="{{route('procurements.purchase-orders.logs', $data->id)}}" class="button" tooltip="Logs">
-            <i class="nc-icon-mini files_archive-content"></i>
         </a>
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
             <i class="nc-icon-mini design_pen-01"></i>

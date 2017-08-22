@@ -34,12 +34,11 @@ Notice Of Award
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item">Unit Purchase Request</a>
-           {{--      @if($data->status == 'approved')
-                    <a href="#"  id="received-button" class="button__options__item">Received</a>
-                @endif
-                @if($data->status == 'pending')
-                    <a href="#"  id="accept-button" class="button__options__item">Accept NOA</a>
-                @endif --}}
+
+
+                <a href="{{route('procurements.noa.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
+                    View Logs
+                </a>
             </div>
         </button>
 
@@ -50,10 +49,6 @@ Notice Of Award
 
         <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
 
-
-        <a href="{{route('procurements.noa.logs', $data->id)}}" class="button" tooltip="Logs">
-            <i class="nc-icon-mini files_archive-content"></i>
-        </a>
 
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
             <i class="nc-icon-mini design_pen-01"></i>

@@ -39,6 +39,11 @@ Notice Of Delivery
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
 
                 <a target="_blank" class="button__options__item" id="signatory-button" href="#">Signatory</a>
+
+
+                <a href="{{route('procurements.delivery-orders.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
+                    View Logs
+                </a>
             </div>
         </button>
 
@@ -51,9 +56,6 @@ Notice Of Delivery
 
         <a href="#" id="attachment-button" class="button" tooltip="Attachments"><i class="nc-icon-mini ui-1_attach-86"></i> </a>
 
-        <a href="{{route('procurements.delivery-orders.logs', $data->id)}}" class="button" tooltip="Logs">
-            <i class="nc-icon-mini files_archive-content"></i>
-        </a>
 
         <a href="{{route($editDateRoute,$data->id)}}" class="button" tooltip="Edit">
             <i class="nc-icon-mini design_pen-01"></i>

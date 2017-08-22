@@ -54,16 +54,16 @@ Canvassing
                 <a target="_blank" href="{{route('procurements.canvassing.cop',$data->id)}}" class=" button__options__item">Print COP</a>
                 <a target="_blank" href="{{route('procurements.canvassing.rop',$data->id)}}" class=" button__options__item">Print ROP</a>
                 <a target="_blank" href="{{route('procurements.canvassing.mom',$data->id)}}" class=" button__options__item">Print MOM</a>
+
+                <a href="{{route('procurements.canvassing.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
+                    View Logs
+                </a>
             </div>
         </button>
 
         <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back">
             <i class="nc-icon-mini arrows-1_tail-left"></i>
-        </a>
-
-        <a href="{{route('procurements.canvassing.logs', $data->id)}}" class="button" tooltip="Logs">
-            <i class="nc-icon-mini files_archive-content"></i>
         </a>
 
         <a class="button" href="{{route($editRoute,$data->id)}}"><i class="nc-icon-mini design_pen-01"></i></a>

@@ -85,6 +85,7 @@ Unit Purchase Request
                 @endif
 
                 <a class="button__options__item" id="view-attachments-button" href="#">Attachments</a>
+                <a class="button__options__item" id="view-attachments-button" href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}">View Logs</a>
 
                 @if(count($data->delivery_order)  >= 1)
                     <a class="button__options__item" href="{{route('procurements.delivery-orders.lists', $data->id)}}">View Deliveries</a>
@@ -97,7 +98,6 @@ Unit Purchase Request
 
         <a target="_blank" href="{{route('procurements.unit-purchase-requests.print', $data->id)}}" class="button" tooltip="Print"> <i class="nc-icon-mini tech_print"></i> </a>
 
-        <a href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}" class="button" tooltip="Logs"> <i class="nc-icon-mini files_archive-content"></i> </a>
 
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit"> <i class="nc-icon-mini design_pen-01"></i> </a>
 
