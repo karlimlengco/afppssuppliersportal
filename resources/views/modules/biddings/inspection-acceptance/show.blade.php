@@ -82,11 +82,11 @@ Inspection And Acceptance Report
     <div class="data-panel__section">
         <h3></h3>
         <ul  class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Inspection Date :</strong> {{$data->inspection_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Inspection Date :</strong> @if($data->inspection_date) {{CreateCarbon('Y-m-d', $data->inspection_date)->format('d F Y')}}@endif</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Nature Of Delivery :</strong> {{$data->nature_of_delivery}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared By :</strong> {{($data->users) ? $data->users->first_name .' '.$data->users->surname : ""}} </li>
             @if($data->accepted_date)
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Date Accepted :</strong> {{$data->accepted_date}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Date Accepted :</strong> @if($data->accepted_date) {{CreateCarbon('Y-m-d', $data->accepted_date)->format('d F Y')}}@endif</li>
             @endif
         </ul>
     </div>

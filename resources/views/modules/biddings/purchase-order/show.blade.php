@@ -110,13 +110,13 @@ Purchase Order
         <ul class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Purchase Number :</strong> {{$data->po_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Type :</strong> <span style="text-transform: uppercase;">{{$data->type}}</span> </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Purchase Date :</strong> {{$data->purchase_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Purchase Date :</strong> @if($data->purchase_date) {{CreateCarbon('Y-m-d', $data->purchase_date)->format('d F Y')}}@endif</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Bid Amount :</strong> {{ formatPrice($data->bid_amount)}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Payment Term :</strong> {{($data->terms) ? $data->terms->name : ""}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared By :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname : ""}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{ucfirst($data->status)}} </li>
             @if($data->coa_approved_date)
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">COA Approved Date :</strong> {{$data->coa_approved_date}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">COA Approved Date :</strong> @if($data->coa_approved_date) {{CreateCarbon('Y-m-d', $data->coa_approved_date)->format('d F Y')}}@endif </li>
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">COA File :</strong> <a target="_blank" href="{{route('procurements.purchase-orders.coa-file',$data->id)}}">{{$data->coa_file}} </a></li>
             @endif
         </ul>
@@ -125,12 +125,12 @@ Purchase Order
     <div class="data-panel__section">
         <h3>Approval Details</h3>
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Funding Released Date :</strong> {{$data->funding_released_date}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Funding Received Date :</strong> {{$data->funding_received_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Funding Released Date :</strong> @if($data->funding_released_date) {{CreateCarbon('Y-m-d', $data->funding_released_date)->format('d F Y')}}@endif </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Funding Received Date :</strong> @if($data->funding_received_date) {{CreateCarbon('Y-m-d', $data->funding_received_date)->format('d F Y')}}@endif </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Funding Remarks :</strong> {{$data->funding_remarks}} </li>
 
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Released Date :</strong> {{$data->mfo_released_date}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Funding/Obligation :</strong> {{$data->mfo_received_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Released Date :</strong> @if($data->mfo_released_date) {{CreateCarbon('Y-m-d', $data->mfo_released_date)->format('d F Y')}}@endif </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Funding/Obligation :</strong> @if($data->mfo_received_date) {{CreateCarbon('Y-m-d', $data->mfo_received_date)->format('d F Y')}}@endif </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Remarks :</strong> {{$data->mfo_remarks}} </li>
         </ul>
     </div>

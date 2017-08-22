@@ -50,14 +50,14 @@ PhilGeps Posting
         <ul class="data-panel__list">
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Ref No. :</strong> {{$data->upr->ref_number}} </li>
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Transaction Date:</strong> {{$data->transaction_date}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Transaction Date:</strong>@if($data->transaction_date) {{CreateCarbon('Y-m-d', $data->transaction_date)->format('d F Y')}}@endif </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{($data->status == 1) ? "Approved" : "Needs Re-Post"}} </li>
         </ul>
     </div>
     <div class="data-panel__section">
         <ul class="data-panel__list">
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Philgeps Number :</strong> {{$data->philgeps_number}} </li>
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Philgeps Posting :</strong> {{$data->philgeps_posting}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Philgeps Posting :</strong> @if($data->philgeps_posting) {{CreateCarbon('Y-m-d', $data->philgeps_posting)->format('d F Y')}}@endif</li>
         </ul>
     </div>
     <div class="data-panel__section">

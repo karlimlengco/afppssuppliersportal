@@ -56,7 +56,7 @@ Pre-Bid Conference
         <ul class="data-panel__list">
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Ref No. :</strong> {{$data->ref_number}} </li>
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Transaction Date :</strong> {{$data->transaction_date}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Transaction Date :</strong> @if($data->transaction_date) {{CreateCarbon('Y-m-d', $data->transaction_date)->format('d F Y')}}@endif</li>
         </ul>
     </div>
     <div class="data-panel__section">
@@ -65,7 +65,7 @@ Pre-Bid Conference
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Approved Date :</strong> Yes </li>
             @endif
             @if($data->resched_date)
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Re-Sched Date :</strong> {{$data->resched_date}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Re-Sched Date :</strong> @if($data->resched_date) {{CreateCarbon('Y-m-d', $data->resched_date)->format('d F Y')}}@endif</li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Re-Sched Remarks :</strong> {{$data->resched_remarks}} </li>
             @endif
         </ul>

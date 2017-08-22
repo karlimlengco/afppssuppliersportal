@@ -53,8 +53,8 @@ PreProc Conference
     </div>
     <div class="data-panel__section">
         <ul class="data-panel__list">
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">PreProc Conference Date :</strong> {{$data->pre_proc_date}} </li>
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Re-Sched Date :</strong> {{$data->resched_date}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">PreProc Conference Date :</strong>@if($data->pre_proc_date) {{CreateCarbon('Y-m-d', $data->pre_proc_date)->format('d F Y')}}@endif</li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Re-Sched Date :</strong> @if($data->resched_date) {{CreateCarbon('Y-m-d', $data->resched_date)->format('d F Y')}}@endif</li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Re-Sched Remarks :</strong> {{$data->resched_remarks}} </li>
         </ul>
     </div>

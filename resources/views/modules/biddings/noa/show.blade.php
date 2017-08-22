@@ -82,12 +82,8 @@ Notice Of Award
         <h3>Details</h3>
         <ul  class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR No. :</strong> {{$canvass->upr_number}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ No. :</strong> {{$canvass->rfq_number}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{ ucwords($data->status)}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Canvass Date :</strong> {{$canvass->canvass_date}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Adjourned Time :</strong> {{$canvass->adjourned_time}} </li>
             @if($data->awarded_date  )
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award Date :</strong> {{$data->awarded_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award Date :</strong>@if($data->awarded_date) {{CreateCarbon('Y-m-d', $data->awarded_date)->format('d F Y')}}@endif </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award By :</strong> {{($data->awarder) ? $data->awarder->name : ""}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Seconded By :</strong> {{($data->seconder) ? $data->seconder->name : ""}} </li>
             @endif
@@ -97,7 +93,7 @@ Notice Of Award
 
         <ul  class="data-panel__list">
             @if($data->awarded_date  )
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award Date :</strong> {{$data->awarded_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award Date :</strong> @if($data->awarded_date) {{CreateCarbon('Y-m-d H:i:s', $data->awarded_date)->format('d F Y')}}@endif </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award By :</strong> {{($data->awarder) ? $data->awarder->name : ""}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Seconded By :</strong> {{($data->seconder) ? $data->seconder->name : ""}} </li>
             @endif
@@ -109,10 +105,10 @@ Notice Of Award
         <ul  class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">ABC :</strong> {{formatPrice($data->upr->total_amount)}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">BID Amount :</strong> @if($data->biddingWinner) {{formatPrice($data->biddingWinner->bid_amount)}} @endif </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Date :</strong> {{$data->accepted_date}} &nbsp;</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Date :</strong> @if($data->accepted_date) {{CreateCarbon('Y-m-d', $data->accepted_date)->format('d F Y')}}@endif &nbsp;</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Copy :</strong> <a target="_blank" href="{{route('procurements.noa.download',$data->id)}}">{{$data->file}}</a> &nbsp;</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Conforme :</strong> {{$data->received_by}}&nbsp; </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received Date :</strong> {{$data->award_accepted_date}} &nbsp;</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received Date :</strong> @if($data->award_accepted_date) {{CreateCarbon('Y-m-d', $data->award_accepted_date)->format('d F Y')}}@endif&nbsp;</li>
         </ul>
     </div>
     <div class="data-panel__section">

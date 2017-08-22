@@ -92,7 +92,6 @@ Delivered Items Inspection
         <h3>Inspection Details</h3>
         <ul class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ No. :</strong> {{$data->rfq_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Delivery No. :</strong> {{$data->delivery_number}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{ucfirst($data->status)}} </li>
         </ul>
@@ -101,11 +100,11 @@ Delivered Items Inspection
         <ul class="data-panel__list">
 
             @if($data->started)
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Start Date :</strong> {{$data->start_date}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Start Date :</strong> @if($data->start_date) {{CreateCarbon('Y-m-d', $data->start_date)->format('d F Y')}}@endif</li>
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Started By :</strong> {{($data->started) ? $data->started->first_name .' '. $data->started->surname : ""}} </li>
             @endif
             @if($data->closed)
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Close Date :</strong> {{$data->closed_date}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Close Date :</strong> @if($data->closed_date) {{CreateCarbon('Y-m-d', $data->closed_date)->format('d F Y')}}@endif </li>
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Closed By :</strong> {{($data->closed) ? $data->closed->first_name .' '. $data->closed->surname : ""}} </li>
             @endif
         </ul>
