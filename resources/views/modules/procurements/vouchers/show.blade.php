@@ -105,23 +105,22 @@ Vouchers
     <div class="data-panel__section">
         <ul class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">RFQ No. :</strong> {{$data->rfq_number}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Transaction DAte :</strong> {{$data->transaction_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Transaction DAte :</strong>  @if($data->transaction_date) {{CreateCarbon('Y-m-d', $data->transaction_date)->format('d F Y')}}@endif</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">BIR Address. :</strong> {{$data->bir_address}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Final Tax :</strong> {{$data->final_tax}} &nbsp;</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Expanded Witholding Tax :</strong> {{$data->expanded_witholding_tax}} &nbsp;</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared By:</strong> {{($data->users) ? $data->users->first_name .' '.$data->users->surname : " "}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Conduct PreAudit :</strong> {{$data->preaudit_date}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Conduct PreAudit :</strong>  @if($data->preaudit_date) {{CreateCarbon('Y-m-d', $data->preaudit_date)->format('d F Y')}}@endif</li>
         </ul>
     </div>
     <div class="data-panel__section">
     <h3></h3>
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Certify Date :</strong> {{$data->certify_date}} &nbsp; </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Certify Date :</strong> @if($data->certify_date) {{CreateCarbon('Y-m-d', $data->certify_date)->format('d F Y')}}@endif &nbsp; </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Is Cash Available :</strong> {{($data->is_cash_avail == 1) ? "Yes" : "No"}} &nbsp; </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Subject to authority to debit account:</strong> {{($data->subject_to_authority_to_debit_acc == 1) ? "Yes" : "No"}} &nbsp; </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Supporting Document Complete:</strong> {{($data->documents_completed == 1) ? "Yes" : "No"}} &nbsp; </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Journal Entry Date:</strong> {{$data->journal_entry_date}} &nbsp; </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Journal Entry Date:</strong>  @if($data->journal_entry_date) {{CreateCarbon('Y-m-d', $data->journal_entry_date)->format('d F Y')}}@endif &nbsp; </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Number:</strong> {{$data->journal_entry_number}} &nbsp; </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">OR/ Other Documents:</strong> {{$data->or}} &nbsp; </li>
         </ul>
@@ -130,10 +129,10 @@ Vouchers
     <h3></h3>
         <ul class="data-panel__list">
 
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approval Date :</strong> {{$data->approval_date}} &nbsp; </li>
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Payment Release Date :</strong> {{$data->payment_release_date}} &nbsp; </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approval Date :</strong> @if($data->approval_date) {{CreateCarbon('Y-m-d', $data->approval_date)->format('d F Y')}}@endif &nbsp; </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Payment Release Date :</strong> @if($data->payment_release_date) {{CreateCarbon('Y-m-d', $data->payment_release_date)->format('d F Y')}}@endif &nbsp; </li>
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Releaser :</strong> {{($data->releaser) ? $data->releaser->first_name .' '.$data->releaser->surname : " "}} &nbsp; </li>
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Payment Received Date :</strong> {{$data->payment_received_date}} &nbsp; </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Payment Received Date :</strong> @if($data->payment_received_date) {{CreateCarbon('Y-m-d', $data->payment_received_date)->format('d F Y')}}@endif &nbsp; </li>
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Receiver :</strong> {{($data->recevier) ? $data->recevier->first_name .' '.$data->recevier->surname : " "}} &nbsp; </li>
         </ul>
     </div>

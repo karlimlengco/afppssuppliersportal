@@ -88,7 +88,6 @@ Notice Of Delivery
     <div class="data-panel__section">
         <h3>Delivery Details</h3>
         <ul class="data-panel__list">
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">RFQ Number :</strong> {{$data->rfq_number}} </li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">UPR Number :</strong> {{$data->upr_number}} </li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Status :</strong> {{ucwords($data->status)}} </li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Created By :</strong> {{($data->creator) ? $data->creator->first_name .' '. $data->creator->surname : " "}} </li>
@@ -99,9 +98,9 @@ Notice Of Delivery
     <div class="data-panel__section">
         <h3>&nbsp;</h3>
         <ul  class="data-panel__list">
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Transaction Date :</strong> {{$data->transaction_date}} &nbsp; </li>
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Expected Delivery Date :</strong> {{$data->expected_date}} </li>
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Delivery Date :</strong> {{$data->delivery_date}}  &nbsp;</li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Transaction Date :</strong> @if($data->transaction_date) {{CreateCarbon('Y-m-d', $data->transaction_date)->format('d F Y')}}@endif &nbsp; </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Expected Delivery Date :</strong>  @if($data->expected_date) {{CreateCarbon('Y-m-d', $data->expected_date)->format('d F Y')}}@endif  </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Delivery Date :</strong> @if($data->delivery_date) {{CreateCarbon('Y-m-d', $data->delivery_date)->format('d F Y')}}@endif &nbsp;</li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Delivery Number :</strong> {{$data->delivery_number}}  &nbsp;</li>
         </ul>
     </div>
@@ -113,7 +112,7 @@ Notice Of Delivery
             @if($data->delivery_date)
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Delivery Note :</strong> {{$data->notes}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Conforme :</strong> {{($data->receiver) ? $data->receiver->first_name ." ". $data->receiver->surname : ""}} </li>
-                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">COA Completed Date :</strong> {{$data->date_delivered_to_coa}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">COA Completed Date :</strong> @if($data->date_delivered_to_coa) {{CreateCarbon('Y-m-d', $data->date_delivered_to_coa)->format('d F Y')}}@endif </li>
             @endif
         </ul>
     </div>

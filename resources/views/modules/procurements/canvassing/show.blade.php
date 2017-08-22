@@ -89,17 +89,14 @@ Canvassing
     <div class="data-panel__section">
         <ul class="data-panel__list">
 
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Transaction Date :</strong> {{$data->transaction_date}} </li>
-
             @if($data->canvass_time)
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Opening Date :</strong> {{$data->canvass_date}}  {{$data->canvass_time}}</li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Opening Date :</strong> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->canvass_date." ".$data->canvass_time)->format('dHi M Y')}}</li>
             @endif
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Remarks :</strong> {{$data->remarks}} </li>
         </ul>
     </div>
     <div class="data-panel__section">
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{($data->is_failed) ? "Failed" : ""}} </li>
             @if($data->opens != null)
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Opening By :</strong> {{$data->opens->first_name}} {{$data->opens->surname}} </li>
             @endif

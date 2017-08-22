@@ -106,11 +106,11 @@ Delivered Items Inspection
         <ul class="data-panel__list">
 
             @if($data->started)
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Start Date :</strong> {{$data->start_date}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Start Date :</strong>  @if($data->start_date) {{CreateCarbon('Y-m-d', $data->start_date)->format('d F Y')}}@endif</li>
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Started By :</strong> {{($data->started) ? $data->started->first_name .' '. $data->started->surname : ""}} </li>
             @endif
             @if($data->closed)
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Close Date :</strong> {{$data->closed_date}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Close Date :</strong> @if($data->closed_date) {{CreateCarbon('Y-m-d', $data->closed_date)->format('d F Y')}}@endif </li>
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Closed By :</strong> {{($data->closed) ? $data->closed->first_name .' '. $data->closed->surname : ""}} </li>
             @endif
         </ul>
