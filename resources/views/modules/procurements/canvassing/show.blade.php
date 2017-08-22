@@ -68,6 +68,14 @@ Canvassing
 
         <a class="button" href="{{route($editRoute,$data->id)}}"><i class="nc-icon-mini design_pen-01"></i></a>
     </div>
+    @if($data->adjourned_time != null)
+        <hr>
+        <br>
+        <div class="twelve columns align-right utility utility--align-right">
+            Go to UPR
+            <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        </div>
+    @endif
 </div>
 
 <div class="data-panel">
@@ -131,7 +139,7 @@ Canvassing
                         <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="edit"> <span class="nc-icon-glyph design_pen-01"></span> </a>
                         @if($proponent->bid_amount != null)
                             @if($data->adjourned_time == null)
-                            <a href="#" class="award-button award" data-id="{{$proponent->id}}" data-name="{{$proponent->supplier->name}}" tooltip="Award"> <span class="nc-icon-glyph business_award-48"></span> </a>
+                            <a href="#" class="award-button award" data-id="{{$proponent->id}}" data-name="{{$proponent->supplier->name}}" tooltip="Award"> mark as winner </a>
                             @endif
 
                         @endif

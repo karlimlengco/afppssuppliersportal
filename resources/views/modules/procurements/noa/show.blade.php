@@ -34,12 +34,12 @@ Notice Of Award
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item">Unit Purchase Request</a>
-                @if($data->status == 'approved')
+           {{--      @if($data->status == 'approved')
                     <a href="#"  id="received-button" class="button__options__item">Received</a>
                 @endif
                 @if($data->status == 'pending')
                     <a href="#"  id="accept-button" class="button__options__item">Accept NOA</a>
-                @endif
+                @endif --}}
             </div>
         </button>
 
@@ -59,6 +59,25 @@ Notice Of Award
             <i class="nc-icon-mini design_pen-01"></i>
         </a>
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+    </div>
+
+    <hr>
+    <br>
+    <div class="twelve columns align-right utility utility--align-right">
+
+        <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Go to UPR</span>
+
+        @if($data->status == 'approved')
+            Received NOA
+            <a href="#" id="received-button" tooltip="Received NOA" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @elseif($data->status == 'pending')
+            Accept NOA
+            <a href="#" id="accept-button" tooltip="Accept NOA" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @else
+            Go to UPR
+            <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="Accept NOA" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif
     </div>
 </div>
 <div class="data-panel">

@@ -31,6 +31,16 @@ Request For Quotation
 
 @section('contents')
 
+
+
+<div class="message-box message-box--large message-box--success" role="alert">
+    <span class="message-box__icon"><i class="nc-icon-outline ui-1_check-circle-08"></i></span>
+    <span class="message-box__message">
+    Add Proponents
+    <br>
+    Click option icon to add new proponent </span>
+</div>
+
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
         <button class="button button--options-trigger" tooltip="Options">
@@ -39,10 +49,10 @@ Request For Quotation
                 {{-- @if($data->status != 'closed') --}}
                 <a href="#" class="button__options__item" id="proponent-button">Add Proponents</a>
                 {{-- @endif --}}
-
+{{--
                 @if($data->status != 'closed')
                     <a href="#" class="button__options__item" id="close-button">Close RFQ</a>
-                @endif
+                @endif --}}
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
 
@@ -66,6 +76,21 @@ Request For Quotation
 
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
+    </div>
+    <hr>
+    <br>
+    <div class="twelve columns align-right utility utility--align-right">
+
+        <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Go to UPR</span>
+
+        @if($data->status != 'closed')
+            <span >Close UPR</span>
+            <a href="#" class="button" id="close-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @else
+            Go to UPR
+            <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif
     </div>
 </div>
 

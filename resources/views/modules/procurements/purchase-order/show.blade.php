@@ -40,17 +40,7 @@ Purchase Order
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
 
-                @if(!$data->funding_released_date)
-                    <a class=" button__options__item" id="pcco-button" href="#">Funding</a>
-                @endif
 
-                @if(!$data->mfo_released_date && $data->funding_released_date)
-                    <a class=" button__options__item" id="mfo-button" href="#">MFO Funding/Obligation</a>
-                @endif
-
-                @if($data->mfo_released_date && $data->funding_released_date && !$data->coa_approved_date)
-                    <a href="#" class="button__options__item" id="coa-button">  Approval</a>
-                @endif
 
                 @if($data->status == 'COA Approved')
 
@@ -80,6 +70,28 @@ Purchase Order
             <i class="nc-icon-mini design_pen-01"></i>
         </a>
 
+
+    </div>
+
+    <hr>
+    <br>
+    <div class="twelve columns align-right utility utility--align-right">
+        <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Go to UPR</span>
+
+        @if(!$data->funding_released_date)
+            Funding
+            <a href="#" id="pcco-button" tooltip="Funding" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @elseif(!$data->mfo_released_date && $data->funding_released_date)
+            MFO Funding/Obligation
+            <a href="#" id="mfo-button" tooltip="MFO Funding/Obligation" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @elseif($data->mfo_released_date && $data->funding_released_date && !$data->coa_approved_date)
+            PO Approval
+            <a href="#" id="coa-button" tooltip="PO Approval" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @else
+            Go to UPR
+            <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="Accept NOA" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif
 
     </div>
 </div>

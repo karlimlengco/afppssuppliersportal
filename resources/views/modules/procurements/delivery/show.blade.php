@@ -39,10 +39,6 @@ Notice Of Delivery
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
 
-
-                @if($data->status == 'Delivery Received')
-                        <a class="button__options__item" href="#" id="coa-button">Complete COA Delivery</a>
-                @endif
             </div>
         </button>
 
@@ -65,6 +61,25 @@ Notice Of Delivery
             <i class="nc-icon-mini design_pen-01"></i>
         </a>
     </div>
+
+    <hr>
+    <br>
+    <div class="twelve columns align-right utility utility--align-right">
+        <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Go to UPR</span>
+
+        @if($data->status == 'Delivery Received')
+            Complete COA Delivery
+            <a href="#" id="coa-button" tooltip="Complete COA Delivery" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @elseif( $data->status == 'ongoing')
+            Receiving Items
+            <a href="{{route($editRoute, $data->id)}}" class="button" tooltip="Receive"><i class="nc-icon-glyph shopping_delivery lg"></i></a>
+        @else
+            Go to UPR
+            <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="Accept NOA" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif
+    </div>
+
 </div>
 
 <div class="data-panel">

@@ -24,7 +24,7 @@ $cRoute = explode('.', $currentRoute);
         </div>
         <div class="topbar__right-panel">
             <div class="topbar__utility">
-                <a href="{{route('notifications.index')}}" class="">
+                <a href="{{route('notifications.index')}}" class=""  position="bottom" tooltip="Delays">
                     <button type="button" class="topbar__utility__button">
                         @if($delayCounts >= 1)
                             <span class="topbar__utility__button__badge">{{$delayCounts}}</span>
@@ -32,7 +32,7 @@ $cRoute = explode('.', $currentRoute);
                             <i class="nc-icon-mini ui-3_alert"></i>
                     </button>
                 </a>
-                <a href="{{route('notify.index')}}" class="">
+                <a href="{{route('notify.index')}}" class="" position="bottom" tooltip="Notifications">
                     <button type="button" class="topbar__utility__button">
                         @if($notifCount >= 1)
                             <span class="topbar__utility__button__badge">{{$notifCount}}</span>
@@ -40,7 +40,7 @@ $cRoute = explode('.', $currentRoute);
                             <i class="nc-icon-mini ui-1_bell-53"></i>
                     </button>
                 </a>
-                <a href="{{route('change-logs.index')}}">
+                <a href="{{route('change-logs.index')}}"  position="bottom" tooltip="Change Logs">
                     <button type="button" class="topbar__utility__button">
                         @if($logCounts >= 1)
                             <span class="topbar__utility__button__badge">{{$logCounts}}</span>
@@ -49,9 +49,9 @@ $cRoute = explode('.', $currentRoute);
                     </button>
                 </a>
                 @if(!Sentinel::getUser()->hasRole('Admin'))
-                    <button type="button" class="topbar__utility__button topbar__utility__button--chat open-chat" ><i class="nc-icon-mini ui-2_chat-round"></i></button>
+                    <button type="button" class="topbar__utility__button topbar__utility__button--chat open-chat"><i class="nc-icon-mini ui-2_chat-round"></i></button>
                 @else
-                    <button v-link="'{{route('messages.admin')}}'" type="button" class="topbar__utility__button " ><i class="nc-icon-mini ui-2_chat-round"></i></button>
+                    <button v-link="'{{route('messages.admin')}}'" type="button" class="topbar__utility__button "><i class="nc-icon-mini ui-2_chat-round"></i></button>
                 @endif
             </div>
             <div class="topbar__user">
