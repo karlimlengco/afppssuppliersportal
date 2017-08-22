@@ -264,7 +264,7 @@ class TransactionDayController extends Controller
                         if($data->rfq_completed_at != null)
                         {
                             $dt                 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at);
-                            $upr_create         = $data->date_prepared;
+                            $upr_create         = Carbon\Carbon::createFromFormat('Y-m-d', $data->pp_completed_at);
                             $d_rfq_completed_at  = $dt->diffInDays($upr_create);
                         }
 
@@ -277,11 +277,12 @@ class TransactionDayController extends Controller
                         }
 
                         $dispq_transaction_date = 0;
-                        if($data->ispq_transaction_date && $data->rfq_completed_at != null)
+                        if($data->ispq_transaction_date )
                         {
-                            $dt                         = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date);
-                            $upr_create                 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at);
-                            $dispq_transaction_date     = $dt->diffInDays($upr_create);
+                            $upr_create                 = $data->date_prepared;
+                            $ispq_transaction_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date);
+
+                            $dispq_transaction_date = $ispq_transaction_date->diffInDaysFiltered(function (\Carbon\Carbon $date) {return $date->isWeekday(); }, $upr_create );
                         }
 
 
@@ -586,35 +587,29 @@ class TransactionDayController extends Controller
                         'UPR',
                         'PROJECT',
                         'ABC',
-                        'Stage 1',
-                        'Stage 2',
-                        'Stage 3',
-                        'Stage 4',
-                        'Stage 5',
-                        'Stage 6',
-                        'Stage 7',
-                        'Stage 8',
-                        'Stage 9',
-                        'Stage 10',
-                        'Stage 11',
-                        'Stage 12',
-                        'Stage 13',
-                        'Stage 14',
-                        'Stage 15',
-                        'Stage 16',
-                        'Stage 17',
-                        'Stage 18',
-                        'Stage 19',
-                        'Stage 20',
-                        'Stage 21',
-                        'Stage 22',
-                        'Stage 23',
-                        'Stage 24',
-                        'Stage 25',
-                        'Stage 26',
-                        'Stage 27',
-                        'Stage 28',
-                        // 'Stage 29',
+                        'UPR',
+                        'ISPQ',
+                        'PhilGeps Posting',
+                        'Close RFQ',
+                        'Canvassing',
+                        'Prepare NOA',
+                        'Approved NOA',
+                        'Received NOA',
+                        'PO/JO/WO Creation',
+                        'Funding',
+                        'MFO Funding/Obligation',
+                        'PO COA Approval',
+                        'Prepare NTP',
+                        'Received NTP',
+                        'Create NOD',
+                        'Received Delivery',
+                        'Complete COA Delivery',
+                        'Technical Inspection',
+                        'IAR Acceptance',
+                        'DIIR Inspection Start',
+                        'DIIR Inspection Close',
+                        'Prepare Voucher',
+                        'Preaudit Voucher /End',
                         'Total CD',
                     ]);
                 }
@@ -670,7 +665,7 @@ class TransactionDayController extends Controller
                         if($data->rfq_completed_at != null)
                         {
                             $dt                 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at);
-                            $upr_create         = $data->date_prepared;
+                            $upr_create         = Carbon\Carbon::createFromFormat('Y-m-d', $data->pp_completed_at);
                             $d_rfq_completed_at  = $dt->diffInDays($upr_create);
                         }
 
@@ -678,16 +673,18 @@ class TransactionDayController extends Controller
                         if($data->pp_completed_at != null && $data->rfq_completed_at != null)
                         {
                             $dt                 = Carbon\Carbon::createFromFormat('Y-m-d', $data->pp_completed_at);
-                            $upr_create         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at);
-                            $d_pp_completed_at  = $dt->diffInDays($upr_create);
+
+                            $upr_create                 = $data->date_prepared;
+                            $d_pp_completed_at  = $dt->diffInDays($upr_create );
                         }
 
                         $dispq_transaction_date = 0;
-                        if($data->ispq_transaction_date && $data->rfq_completed_at != null)
+                        if($data->ispq_transaction_date )
                         {
-                            $dt                         = Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date);
-                            $upr_create                 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at);
-                            $dispq_transaction_date     = $dt->diffInDays($upr_create);
+                            $upr_create                 = $data->date_prepared;
+                            $ispq_transaction_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date);
+
+                            $dispq_transaction_date = $ispq_transaction_date->diffInDaysFiltered(function (\Carbon\Carbon $date) {return $date->isWeekday(); }, $upr_create );
                         }
 
 
@@ -717,8 +714,9 @@ class TransactionDayController extends Controller
                         if($data->pp_completed_at != null && $data->rfq_completed_at != null)
                         {
                             $dt                 = Carbon\Carbon::createFromFormat('Y-m-d', $data->pp_completed_at);
-                            $upr_create         = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->rfq_completed_at);
-                            $d_pp_completed_at  = $dt->diffInDays($upr_create);
+
+                            $upr_create                 = $data->date_prepared;
+                            $d_pp_completed_at  = $dt->diffInDaysFiltered(function (\Carbon\Carbon $date) {return $date->isWeekday(); }, $upr_create );
                         }
 
                         $d_prebid_days = 0;
@@ -822,7 +820,7 @@ class TransactionDayController extends Controller
                     }
 
                     $d_dr_coa_date = 0;
-                    if($data->dr_coa_date)
+                    if($data->dr_coa_date && $data->delivery_date)
                     {
                         $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->dr_coa_date);
                         $upr_create = Carbon\Carbon::createFromFormat('Y-m-d', $data->delivery_date);
@@ -862,9 +860,9 @@ class TransactionDayController extends Controller
                     }
 
                     $d_vou_release = 0;
-                    if($data->vou_release)
+                    if($data->vou_certify_days)
                     {
-                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_release);
+                        $dt         = Carbon\Carbon::createFromFormat('Y-m-d', $data->vou_certify_days);
                         $upr_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->vou_start);
                         $d_vou_release       = $dt->diffInDays($upr_create);
                     }
@@ -886,9 +884,9 @@ class TransactionDayController extends Controller
                             $data->project_name,
                             formatPrice($data->total_amount),
                             $data->date_prepared->format('d F Y'),
-                            $d_rfq_completed_at,
-                            $d_pp_completed_at,
                             $dispq_transaction_date,
+                            $d_pp_completed_at,
+                            $d_rfq_completed_at,
                             $d_canvass_start_date,
                             $d_noa_award_date,
                             $d_noa_approved_date,

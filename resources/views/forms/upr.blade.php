@@ -114,6 +114,8 @@
                             <td colspan="2" class="align-right"> <strong>{{formatPrice($data['total_amount'])}}</strong></td>
                         </tr>
                     </table>
+
+
                     <table class="printable-form__body__table">
                         <tr>
                             <td class="no-border-bottom no-border-top" width="33%">STOCKS REQUESTED ARE CERTIFIED TO BE WITHIN APPROVED APP/PPMP</td>
@@ -121,34 +123,75 @@
                             <td class="no-border-bottom no-border-top" width="33%">APPROVED:</td>
                         </tr>
                         <tr>
-                            <td class="align-bottom no-border-top" height="60px"><strong>{{$data['approver']->name}}</strong></td>
-                            <td class="align-bottom no-border-top" height="60px"><strong>{{$data['funder']->name}}</strong></td>
-                            <td class="align-bottom no-border-top" height="60px"><strong>{{$data['requestor']->name}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td class="align-justify">
-                                <div class="signatory-rank-justify">
-                                    <strong>{{$data['approver']->ranks}} {{$data['approver']->branch}}</strong>
-                                    <span></span>
-                                </div>
+                            <td class="align-bottom no-border-top" height="100px">
+                                <table class="signatory no-padding no-border">
+                                    <tr>
+                                        <td width="50%"></td>
+                                        <td nowrap><strong>{{$data['approver']->name}}</strong></td>
+                                        <td width="50%"></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div class="signatory-rank-justify">
+                                                <strong>{{$data['approver']->ranks}} {{$data['approver']->branch}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td ></td>
+                                        <td class="align-left" colspan="2">{{$data['approver']->designation}}</td>
+                                    </tr>
+                                </table>
                             </td>
-                            <td class="align-justify">
-                                <div class="signatory-rank-justify">
-                                    <strong>{{$data['funder']->ranks}} {{$data['funder']->branch}}</strong>
-                                    <span></span>
-                                </div>
+                            <td class="align-bottom no-border-top" height="100px">
+                                <table class="signatory no-padding no-border">
+                                    <tr>
+                                        <td width="50%"></td>
+                                        <td nowrap><strong>{{$data['funder']->name}}</strong></td>
+                                        <td width="50%"></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div class="signatory-rank-justify">
+                                                <strong>{{$data['funder']->ranks}} {{$data['funder']->branch}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td ></td>
+                                        <td class="align-left" colspan="2">{{$data['funder']->designation}}</td>
+                                    </tr>
+                                </table>
                             </td>
-                            <td class="align-justify">
-                                <div class="signatory-rank-justify">
-                                    <strong>{{$data['requestor']->ranks}} {{$data['requestor']->branch}}</strong>
-                                    <span></span>
-                                </div>
+                            <td class="align-bottom no-border-top" height="100px">
+                                <table class="signatory no-padding no-border">
+                                    <tr>
+                                        <td width="50%"></td>
+                                        <td nowrap><strong>{{$data['requestor']->name}}</strong></td>
+                                        <td width="50%"></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div class="signatory-rank-justify">
+                                                <strong>{{$data['requestor']->ranks}} {{$data['requestor']->branch}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td ></td>
+                                        <td class="align-left" colspan="2">{{$data['requestor']->designation}}</td>
+                                    </tr>
+                                </table>
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="align-center">{{$data['approver']->designation}}</td>
-                            <td class="align-center">{{$data['funder']->designation}}</td>
-                            <td class="align-center">{{$data['requestor']->designation}}</td>
                         </tr>
                     </table>
                 </div>

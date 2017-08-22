@@ -1359,7 +1359,7 @@ printable-form.less
 }
 .printable-form * {
   font-family: 'Arial' !important;
-  font-size: 11px !important;
+  font-size: 15px !important;
   font-weight: 400;
   color: #545454;
 }
@@ -1486,6 +1486,16 @@ printable-form.less
 }
 .printable-form__body__table tr td .signatory {
   margin: 0;
+}
+.printable-form__body__table tr td .signatory.no-border {
+  border: none;
+}
+.printable-form__body__table tr td .signatory.no-border tr td {
+  border: none;
+  padding: 4px 0;
+}
+.printable-form__body__table tr td .signatory.no-padding tr td {
+  padding: 0;
 }
 .printable-form__body__table tr td .signatory .signatory-rank-justify {
   text-align: justify;
