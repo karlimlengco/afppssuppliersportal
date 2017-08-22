@@ -21,20 +21,22 @@ Unit Purchase Request
 @section('contents')
 
 <div class="row">
-    <div class="six columns align-left">
-        <h3></h3>
+    <div class="six columns utility utility--align-left">
+        <a class="button" href="{{route('procurements.unit-purchase-requests.view-cancel')}}" tooltip="View All Cancelled"><i class="nc-icon-mini ui-1_circle-remove"></i></a>
     </div>
     <div class="six columns utility utility--align-right" >
 
-        <button class="button button--options-trigger" tooltip="Options">
+     {{--    <button class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 <a href="{{route($importRoute)}}" class="button__options__item">Import UPR</a>
                 <a href="{{route('procurements.unit-purchase-requests.view-cancel')}}" class="button__options__item">View All Cancelled</a>
             </div>
-        </button>
+        </button> --}}
 
-        <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
+
+        <a class="button" href="{{route($createRoute)}}" tooltip="Add UPR"><i class="nc-icon-mini ui-1_circle-add"></i></a>
+        <a class="button" href="{{route($importRoute)}}" tooltip="Import UPR"><i class="nc-icon-mini arrows-2_file-upload-86"></i></a>
     </div>
 </div>
 

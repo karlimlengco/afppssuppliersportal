@@ -7,11 +7,11 @@
 
         <div class="six columns align-right">
             <div style="display: inline-block">
-                <input v-model="startDate" type="date" format="yyyy-MM-dd" id="start" name="date_from" class="input" placeholder="Start Date">
+                <input placeholder="Start Date" v-model="startDate" type="text" format="yyyy-MM-dd" id="start" name="date_from" class="input" onfocus="(this.type='date')">
             </div>
 
             <div style="display: inline-block">
-                <input v-model="endDate" type="date" format="yyyy-MM-dd" id="end" name="date_to" class="input" placeholder="End Date">
+                <input placeholder="End Date" v-model="endDate" type="text" format="yyyy-MM-dd" id="end" name="date_to" class="input" onfocus="(this.type='date')">
             </div>
             <button class="button" @click.prevent="search()" id="dateSearch"><span class="nc-icon-mini ui-1_zoom"></span></button>
             <button tooltip="change overview" class="button" @click.prevent="changeOverview()" id="dateSearch"><span class="nc-icon-mini arrows-1_refresh-69"></span></button>
