@@ -119,6 +119,8 @@ trait AnalyticTrait
             'procurement_centers.name',
         ]);
 
+        $model  =   $model->orderBy('delay_count','desc');
+
         return $model->get();
     }
 
