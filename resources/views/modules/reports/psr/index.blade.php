@@ -47,35 +47,29 @@ Procurement Status Report
                 <th>UPR</th>
                 <th>Project</th>
                 <th>ABC</th>
-                <th>Stage 1 </th>
-                <th>Stage 2</th>
-                <th>Stage 3</th>
-                <th>Stage 4</th>
-                <th>Stage 5</th>
-                <th>Stage 6</th>
-                <th>Stage 7</th>
-                <th>Stage 8</th>
-                <th>Stage 9</th>
-                <th>Stage 10</th>
-                <th>Stage 11</th>
-                <th>Stage 12</th>
-                <th>Stage 13</th>
-                <th>Stage 14</th>
-                <th>Stage 15</th>
-                <th>Stage 16</th>
-                <th>Stage 17</th>
-                <th>Stage 18</th>
-                <th>Stage 19</th>
-                <th>Stage 20</th>
-                <th>Stage 21</th>
-                <th>Stage 22</th>
-                <th>Stage 23</th>
-                <th>Stage 24</th>
-                <th>Stage 25</th>
-                <th>Stage 26</th>
-                <th>Stage 27</th>
-                <th>Stage 28</th>
-                {{-- <th>Stage 29</th> --}}
+                <th>UPR</th>
+                <th>ISPQ</th>
+                <th>PhilGeps Posting</th>
+                <th>Close RFQ</th>
+                <th>Canvassing</th>
+                <th>Prepare NOA</th>
+                <th>Approved NOA</th>
+                <th>Received NOA</th>
+                <th>PO/JO/WO Creation</th>
+                <th>Funding</th>
+                <th>MFO Funding/Obligation</th>
+                <th>PO COA Approval</th>
+                <th>Prepare NTP</th>
+                <th>Received NTP</th>
+                <th>Create NOD</th>
+                <th>Received Delivery</th>
+                <th>Complete COA Delivery</th>
+                <th>Technical Inspection</th>
+                <th>IAR Acceptance</th>
+                <th>DIIR Inspection Start</th>
+                <th>DIIR Inspection Close</th>
+                <th>Prepare Voucher</th>
+                <th>Preaudit Voucher /End</th>
                 <th>Total CD</th>
             </tr>
         </thead>
@@ -91,36 +85,32 @@ Procurement Status Report
                 <th>UPR</th>
                 <th>Project</th>
                 <th>ABC</th>
-                <th>Stage 1 </th>
-                <th>Stage 2</th>
-                <th>Stage 3</th>
-                <th>Stage 4</th>
-                <th>Stage 5</th>
-                <th>Stage 6</th>
-                <th>Stage 7</th>
-                <th>Stage 8</th>
-                <th>Stage 9</th>
-                <th>Stage 10</th>
-                <th>Stage 11</th>
-                <th>Stage 12</th>
-                <th>Stage 13</th>
-                <th>Stage 14</th>
-                <th>Stage 15</th>
-                <th>Stage 16</th>
-                <th>Stage 17</th>
-                <th>Stage 18</th>
-                <th>Stage 19</th>
-                <th>Stage 20</th>
-                <th>Stage 21</th>
-                <th>Stage 22</th>
-                <th>Stage 23</th>
-                <th>Stage 24</th>
-                <th>Stage 25</th>
-                <th>Stage 26</th>
-                <th>Stage 27</th>
-                <th>Stage 28</th>
-                <th>Stage 29</th>
-                {{-- <th>Stage 30</th> --}}
+                <th>UPR</th>
+                <th>Document Acceptance (BAC)</th>
+                <th>Pre Proc (BAC)</th>
+                <th>Invitation to BId (BAC)</th>
+                <th>PhilGeps Posting (BAC)</th>
+                <th>    AC)</th>
+                <th>SOBE (BAC)</th>
+                <th>POST QUAL (BAC)</th>
+                <th>Prepare NOA (BAC)</th>
+                <th>Approved NOA (PCCO)</th>
+                <th>Received NOA (PCCO)</th>
+                <th>Contract Creation (PCCO)</th>
+                <th>Contract Funding (PCCO)</th>
+                <th>MFO Funding/Obligation (PCCO)</th>
+                <th>Contract COA Approval (PCCO)</th>
+                <th>Prepare NTP</th>
+                <th>Received NTP</th>
+                <th>Create NOD</th>
+                <th>Received Delivery</th>
+                <th>Complete COA Delivery</th>
+                <th>Technical Inspection</th>
+                <th>IAR Acceptance</th>
+                <th>DIIR Inspection Start</th>
+                <th>DIIR Inspection Close</th>
+                <th>Prepare Voucher</th>
+                <th>Preaudit Voucher /End</th>
                 <th>Total CD</th>
             </tr>
         </thead>
@@ -157,10 +147,9 @@ Procurement Status Report
             {data: 'project_name', name: 'project_name'},
             {data: 'total_amount', name: 'total_amount'},
             {data: 'psr_date_prepared', name: 'date_prepared'},
-            {data: 'd_blank_rfq', name: 'd_blank_rfq'},
-            {data: 'd_close_blank_rfq', name: 'd_close_blank_rfq'},
             {data: 'd_ispq', name: 'd_ispq'},
             {data: 'd_philgeps', name: 'd_philgeps'},
+            {data: 'd_close_blank_rfq', name: 'd_close_blank_rfq'},
             {data: 'd_canvass', name: 'd_canvass'},
             {data: 'd_noa', name: 'd_noa'},
             {data: 'd_noa_approved', name: 'd_noa_approved'},
@@ -180,11 +169,6 @@ Procurement Status Report
             {data: 'd_di_close', name: 'd_di_close'},
             {data: 'd_vou_start', name: 'd_vou_start'},
             {data: 'd_preaudit_date', name: 'd_preaudit_date'},
-            {data: 'd_certify_date', name: 'd_certify_date'},
-            {data: 'd_journal_entry_date', name: 'd_journal_entry_date'},
-            {data: 'd_vou_approval_date', name: 'd_vou_approval_date'},
-            {data: 'd_vou_release', name: 'd_vou_release'},
-            // {data: 'd_vou_received', name: 'd_vou_received'},
             {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {
@@ -215,6 +199,7 @@ Procurement Status Report
             {data: 'total_amount', name: 'total_amount'},
             {data: 'psr_date_prepared', name: 'date_prepared'},
             {data: 'doc_days', name: 'doc_days'},
+            {data: 'proc_days', name: 'proc_days'},
             {data: 'itb_days', name: 'itb_days'},
             {data: 'd_philgeps', name: 'd_philgeps'},
             {data: 'prebid_days', name: 'prebid_days'},
@@ -238,12 +223,7 @@ Procurement Status Report
             {data: 'd_di_close', name: 'd_di_close'},
             {data: 'd_vou_start', name: 'd_vou_start'},
             {data: 'd_preaudit_date', name: 'd_preaudit_date'},
-            {data: 'd_certify_date', name: 'd_certify_date'},
-            {data: 'd_journal_entry_date', name: 'd_journal_entry_date'},
-            {data: 'd_vou_approval_date', name: 'd_vou_approval_date'},
-            {data: 'd_vou_release', name: 'd_vou_release'},
-            // {data: 'd_vou_received', name: 'd_vou_received'},
-            {data: 'calendar_days', name: 'calendar_days'},
+             {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

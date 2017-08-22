@@ -138,12 +138,9 @@ trait DatatableTrait
                 $days = 0;
                 if($data->ispq_transaction_date != null)
                 {
-                    $rfq_completed_ats = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->rfq_completed_at)->format('Y-m-d');
-                    $rfq_completed_at    =   \Carbon\Carbon::createFromFormat('Y-m-d', $rfq_completed_ats);
-
                     $ispq_transaction_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date);
 
-                    $days = $ispq_transaction_date->diffInDaysFiltered(function (\Carbon\Carbon $date) {return $date->isWeekday(); }, $rfq_completed_at );
+                    $days = $ispq_transaction_date->diffInDaysFiltered(function (\Carbon\Carbon $date) {return $date->isWeekday(); }, $data->date_prepared );
                 }
                 if($days > 1)
                 {
@@ -162,7 +159,8 @@ trait DatatableTrait
             })
             ->editColumn('d_canvass', function($data){
                 $days = $data->canvass_days;
-                if($days > 2)
+
+                if($days > 1)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
@@ -171,15 +169,15 @@ trait DatatableTrait
             ->editColumn('d_noa', function($data){
                 $days = $data->noa_days;
 
-                if($days > 2)
+                if($days > 1)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
                 return $days;
             })
-
             ->editColumn('d_noa_approved', function($data){
                 $days = $data->noa_approved_days;
+
                 if($days > 1)
                 {
                     return "<span style='color:red'>".$days."</span>";
@@ -384,6 +382,10 @@ trait DatatableTrait
 
             ->editColumn('doc_days', function($data){
                 $days = $data->doc_days;
+                return $days;
+            })
+            ->editColumn('proc_days', function($data){
+                $days = $data->proc_days;
                 return $days;
             })
             ->editColumn('prebid_days', function($data){

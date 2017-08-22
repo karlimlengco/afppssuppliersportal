@@ -33,6 +33,7 @@ trait TransactionDaysTrait
             'unit_purchase_requests.calendar_days',
             'unit_purchase_requests.date_prepared as upr_created_at',
             'unit_purchase_requests.date_prepared as upr_created_at',
+
             'document_acceptance.days as doc_days',
             'document_acceptance.approved_date as doc_date',
             'invitation_to_bid.days as itb_days',
@@ -41,6 +42,8 @@ trait TransactionDaysTrait
             'pre_bid_conferences.transaction_date as prebid_date',
             'bid_opening.days as bid_days',
             'bid_opening.transaction_date as bid_date',
+            'pre_proc.days as proc_days',
+            'pre_proc.pre_proc_date as proc_date',
             'post_qualification.days as pq_days',
             'post_qualification.transaction_date as pq_date',
             'request_for_quotations.days as rfq_days',
@@ -145,6 +148,7 @@ trait TransactionDaysTrait
 
         // Biddings
         $model  =   $model->leftJoin('document_acceptance', 'document_acceptance.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('pre_proc', 'pre_proc.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('invitation_to_bid', 'invitation_to_bid.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('pre_bid_conferences', 'pre_bid_conferences.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('bid_opening', 'bid_opening.upr_id', '=', 'unit_purchase_requests.id');
@@ -163,6 +167,8 @@ trait TransactionDaysTrait
             'unit_purchase_requests.calendar_days',
             'document_acceptance.days',
             'document_acceptance.approved_date',
+            'pre_proc.days',
+            'pre_proc.pre_proc_date',
             'invitation_to_bid.days',
             'invitation_to_bid.transaction_date',
             'bid_opening.days',
