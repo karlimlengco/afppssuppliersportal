@@ -23,8 +23,10 @@ Change Logs
            </thead>
            <tbody>
                 @foreach($resources as $data)
+                <?php $url = $data['url'];?>
+                <?php $id = $data['auditable_id'];?>
                     <tr>
-                        <td><a target="_blank" href="{{$data['url']}}">View here</a></td>
+                        <td><a target="_blank" href="{{ preg_replace("/$id$/", '', $url ). "logs/".$id }}">View here</a></td>
                         <td>{{$data['auditable_type']}}</td>
                         <td>{{$data['full_name']}}</td>
                     </tr>

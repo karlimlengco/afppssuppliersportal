@@ -48,7 +48,7 @@ class UserLogRepository extends BaseRepository
 
         $model  =   $model->select([
             \DB::raw("CONCAT(users.first_name,' ', users.surname) AS full_name"),
-            'audits.ip_address',
+            'audits.auditable_id',
             'audits.auditable_type',
             'audits.event',
             'audits.url',
@@ -58,6 +58,7 @@ class UserLogRepository extends BaseRepository
         $model  =   $model->leftJoin('users', 'users.id', 'user_logs.admin_id');
 
         $model  =   $model->where('admin_id', '=', $id);
+        $model  =   $model->orderBy('audits.created_at', 'desc');
         return $model->get();
     }
 

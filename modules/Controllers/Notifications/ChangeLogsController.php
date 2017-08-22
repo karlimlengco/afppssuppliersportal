@@ -47,7 +47,6 @@ class ChangeLogsController extends Controller
     public function index(UserLogRepository $model )
     {
         $result =   $model->findByAdmin(\Sentinel::getUser()->id);
-
         $model->seenByAdmin(\Sentinel::getUser()->id);
 
         return $this->view('modules.notifications.logs.index',[
