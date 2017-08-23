@@ -46,28 +46,27 @@ Transaction Summary
                     <tr>
                         <th>PC/CO</th>
                         <th>UPR</th>
-                        <th>RFQ</th>
-                        <th>RFQ Closed</th>
                         <th>ISPQ</th>
-                        <th>PhilGeps</th>
-                        <th>Canvass</th>
-                        <th>NOA</th>
-                        <th>NOAA</th>
-                        <th>PO</th>
-                        <th>MFO OB</th>
-                        <th>ACCTG OB</th>
-                        <th>MFO Received</th>
-                        <th>ACCTG Received</th>
-                        <th>COA Approved</th>
-                        <th>NTP</th>
-                        <th>NTPA</th>
-                        <th>NOD</th>
-                        <th>Delivery</th>
-                        <th>TIAC</th>
-                        <th>COA Delivery</th>
-                        <th>DIIR</th>
-                        <th>Voucher</th>
-                        <th>End</th>
+                        <th>PhilGeps Posting</th>
+                        <th>Close RFQ</th>
+                        <th>Canvassing</th>
+                        <th>Prepare NOA</th>
+                        <th>Approved NOA</th>
+                        <th>Received NOA</th>
+                        <th>PO/JO/WO Creation</th>
+                        <th>Funding</th>
+                        <th>MFO Funding/Obligation</th>
+                        <th>PO COA Approval</th>
+                        <th>Prepare NTP</th>
+                        <th>Received NTP</th>
+                        <th>Received Delivery</th>
+                        <th>Complete COA Delivery</th>
+                        <th>Technical Inspection</th>
+                        <th>IAR Acceptance</th>
+                        <th>DIIR Inspection Start</th>
+                        <th>DIIR Inspection Close</th>
+                        <th>Prepare Voucher</th>
+                        <th>Preaudit Voucher /End</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,29 +79,30 @@ Transaction Summary
                 <thead>
                     <tr>
                         <th>UPR</th>
-                        <th>Document Acceptance</th>
-                        <th>Invitation To Bid</th>
-                        <th>Philgeps</th>
-                        <th>Pre Bid</th>
-                        <th>SOBE</th>
-                        <th>Post Qual</th>
-                        <th>NOA</th>
-                        <th>NOAA</th>
-                        <th>PO</th>
-                        <th>MFO OB</th>
-                        <th>ACCTG OB</th>
-                        <th>MFO Received</th>
-                        <th>ACCTG Received</th>
-                        <th>COA Approved</th>
-                        <th>NTP</th>
-                        <th>NTPA</th>
-                        <th>NOD</th>
-                        <th>Delivery</th>
-                        <th>TIAC</th>
-                        <th>COA Delivery</th>
-                        <th>DIIR</th>
-                        <th>Voucher</th>
-                        <th>End</th>
+                        <th>Document Acceptance (BAC)</th>
+                        <th>Pre Proc (BAC)</th>
+                        <th>Invitation to BId (BAC)</th>
+                        <th>PhilGeps Posting (BAC)</th>
+                        <th>Pre Bid Conference (BAC)</th>
+                        <th>SOBE (BAC)</th>
+                        <th>POST QUAL (BAC)</th>
+                        <th>Prepare NOA (BAC)</th>
+                        <th>Approved NOA (PCCO)</th>
+                        <th>Received NOA (PCCO)</th>
+                        <th>Contract Creation (PCCO)</th>
+                        <th>Contract Funding (PCCO)</th>
+                        <th>MFO Funding/Obligation (PCCO)</th>
+                        <th>Contract COA Approval (PCCO)</th>
+                        <th>Prepare NTP</th>
+                        <th>Received NTP</th>
+                        <th>Received Delivery</th>
+                        <th>Complete COA Delivery</th>
+                        <th>Technical Inspection</th>
+                        <th>IAR Acceptance</th>
+                        <th>DIIR Inspection Start</th>
+                        <th>DIIR Inspection Close</th>
+                        <th>Prepare Voucher</th>
+                        <th>Preaudit Voucher /End</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -132,26 +132,25 @@ Transaction Summary
         columns: [
             {data: 'unit_name', name: 'unit_name'},
             {data: 'upr', name: 'upr'},
-            {data: 'rfq', name: 'rfq'},
-            {data: 'rfq_close', name: 'rfq_close'},
             {data: 'ispq', name: 'ispq'},
             {data: 'philgeps', name: 'philgeps'},
+            {data: 'rfq_close', name: 'rfq_close'},
             {data: 'canvass', name: 'canvass'},
             {data: 'noa', name: 'noa'},
             {data: 'noaa', name: 'noaa'},
+            {data: 'noar', name: 'noar'},
             {data: 'po', name: 'po'},
-            {data: 'po_mfo_released', name: 'po_mfo_released'},
-            {data: 'po_pcco_released', name: 'po_pcco_released'},
             {data: 'po_mfo_received', name: 'po_mfo_received'},
             {data: 'po_pcco_received', name: 'po_pcco_received'},
             {data: 'po_coa_approved', name: 'po_coa_approved'},
             {data: 'ntp', name: 'ntp'},
             {data: 'ntpa', name: 'ntpa'},
-            {data: 'nod', name: 'nod'},
             {data: 'delivery', name: 'delivery'},
+            {data: 'date_delivered_to_coa', name: 'date_delivered_to_coa'},
             {data: 'tiac', name: 'tiac'},
             {data: 'coa_inspection', name: 'coa_inspection'},
-            {data: 'diir', name: 'diir'},
+            {data: 'diir_start', name: 'diir_start'},
+            {data: 'diir_close', name: 'diir_close'},
             {data: 'voucher', name: 'voucher'},
             {data: 'end_process', name: 'end_process'},
         ],
@@ -177,6 +176,7 @@ Transaction Summary
         columns: [
             {data: 'unit_name', name: 'unit_name'},
             {data: 'doc', name: 'doc'},
+            {data: 'pre_proc', name: 'pre_proc'},
             {data: 'itb', name: 'itb'},
             {data: 'philgeps', name: 'philgeps'},
             {data: 'prebid', name: 'prebid'},
@@ -184,19 +184,19 @@ Transaction Summary
             {data: 'pq', name: 'pq'},
             {data: 'noa', name: 'noa'},
             {data: 'noaa', name: 'noaa'},
+            {data: 'noar', name: 'noar'},
             {data: 'po', name: 'po'},
-            {data: 'po_mfo_released', name: 'po_mfo_released'},
-            {data: 'po_pcco_released', name: 'po_pcco_released'},
             {data: 'po_mfo_received', name: 'po_mfo_received'},
             {data: 'po_pcco_received', name: 'po_pcco_received'},
             {data: 'po_coa_approved', name: 'po_coa_approved'},
             {data: 'ntp', name: 'ntp'},
             {data: 'ntpa', name: 'ntpa'},
-            {data: 'nod', name: 'nod'},
             {data: 'delivery', name: 'delivery'},
+            {data: 'date_delivered_to_coa', name: 'date_delivered_to_coa'},
             {data: 'tiac', name: 'tiac'},
             {data: 'coa_inspection', name: 'coa_inspection'},
-            {data: 'diir', name: 'diir'},
+            {data: 'diir_start', name: 'diir_start'},
+            {data: 'diir_close', name: 'diir_close'},
             {data: 'voucher', name: 'voucher'},
             {data: 'end_process', name: 'end_process'},
         ],

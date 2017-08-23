@@ -185,62 +185,129 @@ class PSRController extends Controller
                 $sheet->mergeCells('A2:AA2');
                 $sheet->mergeCells('A3:AA3');
 
-                $sheet->row(6, [
-                    'PC/CO',
-                    'UPR',
-                    'RFQ',
-                    'RFQ Closed',
-                    'PhilGeps',
-                    'ISPQ',
-                    'Canvass',
-                    'NOA',
-                    'NOAA',
-                    'PO',
-                    'MFO OB',
-                    'ACCTG OB',
-                    'MFO Received',
-                    'ACCTG Received',
-                    'COA Approved',
-                    'NTP',
-                    'NTPA',
-                    'NOD',
-                    'Delivery',
-                    'TIAC',
-                    'COA Delivery',
-                    'DIIR',
-                    'Voucher',
-                    'End'
-                ]);
+                if($result->last()->mode_of_procurement != 'public_bidding')
+                {
+                    $sheet->row(6, [
+                        'PC/CO',
+                        'UPR',
+                        'ISPQ',
+                        'PhilGeps Posting',
+                        'Close RFQ',
+                        'Canvassing',
+                        'Prepare NOA',
+                        'Approved NOA',
+                        'Received NOA',
+                        'PO/JO/WO Creation',
+                        'Funding',
+                        'MFO Funding/Obligation',
+                        'PO COA Approval',
+                        'Prepare NTP',
+                        'Received NTP',
+                        'Received Delivery',
+                        'Complete COA Delivery',
+                        'Technical Inspection',
+                        'IAR Acceptance',
+                        'DIIR Inspection Start',
+                        'DIIR Inspection Close',
+                        'Prepare Voucher',
+                        'Preaudit Voucher /End',
+                    ]);
+                }
+                else
+                {
+                    $sheet->row(6, [
+                        'UPR',
+                        'Document Acceptance',
+                        'Pre Proc',
+                        'ITB',
+                        'PhilGeps Posting',
+                        'Pre Bid Conference',
+                        'SOBE',
+                        'Post Qualification',
+                        'Prepare NOA',
+                        'Approved NOA',
+                        'Received NOA',
+                        'PO/Contract Creation',
+                        'Funding',
+                        'MFO Funding/Obligation',
+                        'PO/Contract COA Approval',
+                        'Prepare NTP',
+                        'Received NTP',
+                        'Received Delivery',
+                        'Complete COA Delivery',
+                        'Technical Inspection',
+                        'IAR Acceptance',
+                        'DIIR Inspection Start',
+                        'DIIR Inspection Close',
+                        'Prepare Voucher',
+                        'Preaudit Voucher /End',
+                    ]);
+                }
 
                 foreach($result as $data)
                 {
+
                     $count ++;
-                    $newdata    =   [
-                        $data->unit_name,
-                        $data->upr,
-                        $data->rfq,
-                        $data->rfq_close,
-                        $data->philgeps,
-                        $data->ispq,
-                        $data->canvass,
-                        $data->noa,
-                        $data->noaa,
-                        $data->po,
-                        $data->po_mfo_released,
-                        $data->po_mfo_received,
-                        $data->po_pcco_released,
-                        $data->po_pcco_received,
-                        $data->po_coa_approved,
-                        $data->ntp,
-                        $data->ntpa,
-                        $data->nod,
-                        $data->delivery,
-                        $data->tiac,
-                        $data->coa_inspection,
-                        $data->diir,
-                        $data->voucher,
-                        $data->end_process,
-                    ];
+                    if($data->mode_of_procurement != 'public_bidding')
+                    {
+                        $newdata    =   [
+                            $data->unit_name,
+                            $data->upr,
+                            $data->ispq,
+                            $data->philgeps,
+                            $data->rfq,
+                            $data->canvass,
+                            $data->noa,
+                            $data->noaa,
+                            $data->noar,
+                            $data->po,
+                            $data->po_mfo_received,
+                            $data->po_pcco_received,
+                            $data->po_coa_approved,
+                            $data->ntp,
+                            $data->ntpa,
+                            $data->delivery,
+                            $data->date_delivered_to_coa,
+                            $data->tiac,
+                            $data->coa_inspection,
+                            $data->diir_start,
+                            $data->diir_close,
+                            $data->voucher,
+                            $data->end_process,
+                        ];
+                    }
+                    else
+                    {
+
+                        $newdata    =   [
+                            $data->unit_name,
+                            $data->upr,
+                            $data->doc,
+                            $data->pre_proc,
+                            $data->itb,
+                            $data->philgeps,
+                            $data->prebid,
+                            $data->bidop,
+                            $data->pq,
+                            $data->noa,
+                            $data->noaa,
+                            $data->noar,
+                            $data->po,
+                            $data->po_mfo_received,
+                            $data->po_pcco_received,
+                            $data->po_coa_approved,
+                            $data->ntp,
+                            $data->ntpa,
+                            $data->delivery,
+                            $data->date_delivered_to_coa,
+                            $data->tiac,
+                            $data->coa_inspection,
+                            $data->diir_start,
+                            $data->diir_close,
+                            $data->voucher,
+                            $data->end_process,
+                        ];
+                    }
                     $sheet->row($count, $newdata);
 
                 }
