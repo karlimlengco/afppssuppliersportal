@@ -938,8 +938,6 @@ class PurchaseOrderController extends Controller
     public function viewPrintTerms($id, PORepository $model)
     {
         $result                     =  $model->with(['rfq'])->findById($id);
-        $data['transaction_date']   =  $result->rfq->transaction_date;
-        $data['rfq_number']         =  $result->rfq_number;
         $data['header']             =  $result->upr->centers;
 
         $pdf = PDF::loadView('forms.po-terms', ['data' => $data])
@@ -948,6 +946,39 @@ class PurchaseOrderController extends Controller
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po-terms.pdf');
         return $pdf->download('po-terms.pdf');
+    }
+
+    /**
+     * [viewPrintContract description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrintContract($id, PORepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr)
+    {
+        $result                     =  $model->with(['rfq'])->findById($id);
+        $upr_model                  =  $result->upr;
+
+        if($upr_model->mode_of_procurement == 'public_bidding')
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        } ;
+
+        $data['type']               =  $result->type;
+        $data['items']              =  $result->items;
+        $data['supplier']           =  $noa_model;
+        $data['header']             =  $result->upr->centers;
+        $data['accounting']         =  $result->accounting;
+
+        $pdf = PDF::loadView('forms.po-contract', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'));
+
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po-contract.pdf');
     }
 
 
@@ -976,8 +1007,9 @@ class PurchaseOrderController extends Controller
         {
             return redirect()->back()->with(['error' => 'Please add signatories']);
         }
-
+        $data['type']               =  $result->type;
         $data['po_number']          =  $result->po_number;
+        $data['upr_number']         =  $upr_model->upr_number;
         $data['remarks']            =  $result->remarks;
         $data['purchase_date']      =  $result->purchase_date;
         $data['transaction_date']   =  $result->rfq->transaction_date;

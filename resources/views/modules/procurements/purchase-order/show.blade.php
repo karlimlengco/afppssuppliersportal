@@ -51,6 +51,7 @@ Purchase Order
                     @endif --}}
                 @endif
 
+                <a target="_blank" href="{{route('procurements.purchase-orders.print-contract', $data->id)}}" class="button__options__item" > Print Contract</a>
                 <a target="_blank" href="{{route('procurements.purchase-orders.print-terms', $data->id)}}" class="button__options__item" > Print Terms</a>
                 <a target="_blank" href="{{route('procurements.purchase-orders.print-coa', $data->id)}}" class="button__options__item" > Print COA Approval</a>
 
@@ -61,9 +62,11 @@ Purchase Order
         </button>
 
         <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
+        @if($data->type != 'contract')
         <a target="_blank" href="{{route('procurements.purchase-orders.print', $data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
         </a>
+        @endif
         <a href="{{route($editRoute,$data->id)}}" class="button" tooltip="Edit">
             <i class="nc-icon-mini design_pen-01"></i>
         </a>

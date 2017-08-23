@@ -98,24 +98,39 @@
                         <td class="align-center" width="15%"><strong>UNIT COST</strong></td>
                         <td class="align-center" width="15%"><strong>AMOUNT</strong></td>
                     </tr>
+
+                    <?php $total = 0; ?>
                     @foreach($data['items'] as $key=>$item)
-                    <tr>
-                        <td class="align-center">{{$key+1}}</td>
-                        <td class="align-center">{{$item->unit}}</td>
-                        <td class="align-left">{{$item->description}}</td>
-                        <td class="align-center">{{$item->quantity}}</td>
-                        <td class="align-right">{{formatPrice($item->price_unit)}}</td>
-                        <td class="align-right">{{formatPrice($item->total_amount)}}</td>
-                    </tr>
+                        @if($data['type'] != 'contract' && $data['type'] != 'contract_and_po')
+                            <tr>
+                                <td class="align-center">{{$key+1}}</td>
+                                <td class="align-center">{{$item->unit}}</td>
+                                <td class="align-left">{{$item->description}}</td>
+                                <td class="align-center">{{$item->quantity}}</td>
+                                <td class="align-right">{{formatPrice($item->price_unit)}}</td>
+                                <td class="align-right">{{formatPrice($item->total_amount)}}</td>
+                                <?php $total += $item->total_amount; ?>
+                            </tr>
+                        @elseif($item->type != 'contract')
+                            <tr>
+                                <td class="align-center">{{$key+1}}</td>
+                                <td class="align-center">{{$item->unit}}</td>
+                                <td class="align-left">{{$item->description}}</td>
+                                <td class="align-center">{{$item->quantity}}</td>
+                                <td class="align-right">{{formatPrice($item->price_unit)}}</td>
+                                <td class="align-right">{{formatPrice($item->total_amount)}}</td>
+                                <?php $total += $item->total_amount; ?>
+                            </tr>
+                        @endif
                     @endforeach
                     <tr>
-                        <td class="align-center" colspan="4"><strong style="text-transform:uppercase">{{translateToWords($data['bid_amount'])}}PESOS ONLY.</strong></td>
-                        <td colspan="2" class="align-right"><strong>{{formatPrice($data['bid_amount'])}}</strong></td>
+                        <td class="align-center" colspan="4"><strong style="text-transform:uppercase">{{translateToWords($total)}}PESOS ONLY.</strong></td>
+                        <td colspan="2" class="align-right"><strong>{{formatPrice($total)}}</strong></td>
                     </tr>
                     <tr>
                         <td colspan="6">
                             BASIS: {{$data['purpose']}}<br>
-                            REFERENCES: UPR No. THIRD-UPR-2016 dtd 28 December 2015
+                            REFERENCES: UPR No. {{$data['upr_number']}}
                         </td>
                     </tr>
                     <tr>
