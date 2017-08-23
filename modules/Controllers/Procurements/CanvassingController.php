@@ -131,12 +131,12 @@ class CanvassingController extends Controller
         // $rfq_model              =   $rfq->with('invitations')->findById($id);
         $rfq_model              =   $upr_model->rfq;
 
-        if($rfq_model->invitations == null)
-        {
-            return redirect()->back()->with([
-                'error'     =>  'Create Invitation First'
-            ]);
-        }
+        // if($rfq_model->invitations == null)
+        // {
+        //     return redirect()->back()->with([
+        //         'error'     =>  'Create Invitation First'
+        //     ]);
+        // }
 
         $transaction_date       =   Carbon::createFromFormat('Y-m-d',$request->open_canvass_date);
 

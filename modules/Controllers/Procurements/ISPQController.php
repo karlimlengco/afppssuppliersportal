@@ -156,10 +156,10 @@ class ISPQController extends Controller
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed >= 3) {
+            if ( $request->get('remarks') == null && $day_delayed > 3) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
             }
-            if ( $request->get('action') == null && $day_delayed >= 3) {
+            if ( $request->get('action') == null && $day_delayed > 3) {
                 $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
