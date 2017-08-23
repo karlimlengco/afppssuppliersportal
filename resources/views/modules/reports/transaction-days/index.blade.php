@@ -38,33 +38,28 @@ Transaction Days Report
         <thead>
             <tr>
                 <th>UPR</th>
-                <th>Create RFQ</th>
-                <th>Close RFQ</th>
                 <th>ISPQ</th>
-                <th>PhilGeps</th>
-                <th>Canvass</th>
-                <th>NOA</th>
-                <th>NOA Approved</th>
-                <th>NOA Accepted</th>
-                <th>PO Create</th>
-                <th>Funding PO</th>
-                <th>Issuance of Certificate</th>
+                <th>PhilGeps Posting</th>
+                <th>Close RFQ</th>
+                <th>Canvassing</th>
+                <th>Prepare NOA</th>
+                <th>Approved NOA</th>
+                <th>Received NOA</th>
+                <th>PO/JO/WO Creation</th>
+                <th>Funding</th>
+                <th>MFO Funding/Obligation</th>
                 <th>PO COA Approval</th>
-                <th>NTP</th>
-                <th>NTPA</th>
-                <th>Delivery</th>
-                <th>Received DR</th>
-                <th>Delivery To COA</th>
-                <th>Inspection</th>
-                <th>Inspection Acceptance</th>
-                <th>Inspection of Delivered Items</th>
-                <th>Prepare Certificate of Inspection</th>
-                <th>Create Voucher</th>
-                <th>PreAudit</th>
-                <th>Certify</th>
-                <th>JEV</th>
-                <th>Voucher Approval</th>
-                <th>Release Payment</th>
+                <th>Prepare NTP</th>
+                <th>Received NTP</th>
+                <th>Received Delivery</th>
+                <th>Complete COA Delivery</th>
+                <th>Technical Inspection</th>
+                <th>IAR Acceptance</th>
+                <th>DIIR Inspection Start</th>
+                <th>DIIR Inspection Close</th>
+                <th>Prepare Voucher</th>
+                <th>Preaudit Voucher /End</th>
+                <th>Total Days</th>
                 {{-- <th>Received Payment</th> --}}
             </tr>
         </thead>
@@ -79,35 +74,31 @@ Transaction Days Report
         <thead>
             <tr>
                 <th>UPR</th>
-                <th>Document Acceptance</th>
-                <th>Invitation To Bid</th>
-                <th>Philgeps</th>
-                <th>Pre Bid</th>
-                <th>SOBE</th>
-                <th>Post Qual</th>
-                <th>NOA</th>
-                <th>NOA Approved</th>
-                <th>NOA Accepted</th>
-                <th>PO Create</th>
-                <th>Funding PO</th>
-                <th>Issuance of Certificate</th>
-                <th>PO COA Approval</th>
-                <th>NTP</th>
-                <th>NTPA</th>
-                <th>Delivery</th>
-                <th>Received DR</th>
-                <th>Delivery To COA</th>
-                <th>Inspection</th>
-                <th>Inspection Acceptance</th>
-                <th>Inspection of Delivered Items</th>
-                <th>Prepare Certificate of Inspection</th>
-                <th>Create Voucher</th>
-                <th>PreAudit</th>
-                <th>Certify</th>
-                <th>JEV</th>
-                <th>Voucher Approval</th>
-                <th>Release Payment</th>
-                {{-- <th>Received Payment</th> --}}
+                <th>Document Acceptance (BAC)</th>
+                <th>Pre Proc (BAC)</th>
+                <th>Invitation to BId (BAC)</th>
+                <th>PhilGeps Posting (BAC)</th>
+                <th>Pre Bid Conference (BAC)</th>
+                <th>SOBE (BAC)</th>
+                <th>POST QUAL (BAC)</th>
+                <th>Prepare NOA (BAC)</th>
+                <th>Approved NOA (PCCO)</th>
+                <th>Received NOA (PCCO)</th>
+                <th>Contract Creation (PCCO)</th>
+                <th>Contract Funding (PCCO)</th>
+                <th>MFO Funding/Obligation (PCCO)</th>
+                <th>Contract COA Approval (PCCO)</th>
+                <th>Prepare NTP</th>
+                <th>Received NTP</th>
+                <th>Received Delivery</th>
+                <th>Complete COA Delivery</th>
+                <th>Technical Inspection</th>
+                <th>IAR Acceptance</th>
+                <th>DIIR Inspection Start</th>
+                <th>DIIR Inspection Close</th>
+                <th>Prepare Voucher</th>
+                <th>Preaudit Voucher /End</th>
+                <th>Total Days</th>
             </tr>
         </thead>
         <tbody>
@@ -138,10 +129,9 @@ Transaction Days Report
             },
         columns: [
             {data: 'upr_number', name: 'upr_number'},
-            {data: 'd_blank_rfq', name: 'd_blank_rfq'},
-            {data: 'd_close_blank_rfq', name: 'd_close_blank_rfq'},
             {data: 'd_ispq', name: 'd_ispq'},
             {data: 'd_philgeps', name: 'd_philgeps'},
+            {data: 'd_close_blank_rfq', name: 'd_close_blank_rfq'},
             {data: 'd_canvass', name: 'd_canvass'},
             {data: 'd_noa', name: 'd_noa'},
             {data: 'd_noa_approved', name: 'd_noa_approved'},
@@ -152,7 +142,6 @@ Transaction Days Report
             {data: 'd_coa_approved_date', name: 'd_coa_approved_date'},
             {data: 'd_ntp_date', name: 'd_ntp_date'},
             {data: 'd_ntp_award_date', name: 'd_ntp_award_date'},
-            {data: 'd_delivery_date', name: 'd_delivery_date'},
             {data: 'd_receive_delivery_date', name: 'd_receive_delivery_date'},
             {data: 'd_dr_coa_date', name: 'd_dr_coa_date'},
             {data: 'd_dr_inspection', name: 'd_dr_inspection'},
@@ -161,11 +150,7 @@ Transaction Days Report
             {data: 'd_di_close', name: 'd_di_close'},
             {data: 'd_vou_start', name: 'd_vou_start'},
             {data: 'd_preaudit_date', name: 'd_preaudit_date'},
-            {data: 'd_certify_date', name: 'd_certify_date'},
-            {data: 'd_journal_entry_date', name: 'd_journal_entry_date'},
-            {data: 'd_vou_approval_date', name: 'd_vou_approval_date'},
-            {data: 'd_vou_release', name: 'd_vou_release'},
-            // {data: 'd_vou_received', name: 'd_vou_received'},
+            {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
@@ -191,6 +176,7 @@ Transaction Days Report
         columns: [
             {data: 'upr_number', name: 'upr_number'},
             {data: 'doc_days', name: 'doc_days'},
+            {data: 'proc_days', name: 'proc_days'},
             {data: 'itb_days', name: 'itb_days'},
             {data: 'd_philgeps', name: 'd_philgeps'},
             {data: 'prebid_days', name: 'prebid_days'},
@@ -205,7 +191,6 @@ Transaction Days Report
             {data: 'd_coa_approved_date', name: 'd_coa_approved_date'},
             {data: 'd_ntp_date', name: 'd_ntp_date'},
             {data: 'd_ntp_award_date', name: 'd_ntp_award_date'},
-            {data: 'd_delivery_date', name: 'd_delivery_date'},
             {data: 'd_receive_delivery_date', name: 'd_receive_delivery_date'},
             {data: 'd_dr_coa_date', name: 'd_dr_coa_date'},
             {data: 'd_dr_inspection', name: 'd_dr_inspection'},
@@ -214,11 +199,7 @@ Transaction Days Report
             {data: 'd_di_close', name: 'd_di_close'},
             {data: 'd_vou_start', name: 'd_vou_start'},
             {data: 'd_preaudit_date', name: 'd_preaudit_date'},
-            {data: 'd_certify_date', name: 'd_certify_date'},
-            {data: 'd_journal_entry_date', name: 'd_journal_entry_date'},
-            {data: 'd_vou_approval_date', name: 'd_vou_approval_date'},
-            {data: 'd_vou_release', name: 'd_vou_release'},
-            // {data: 'd_vou_received', name: 'd_vou_received'},
+            {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

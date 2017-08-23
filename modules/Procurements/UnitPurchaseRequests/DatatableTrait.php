@@ -154,7 +154,14 @@ trait DatatableTrait
             ->editColumn('d_philgeps', function($data){
                 $days = $data->pp_days;
 
-                if($days > 3)
+                $pp_allowable = 7;
+
+                if($data->mode_of_procurement != 'public_bidding')
+                {
+                    $pp_allowable = 3;
+                }
+
+                if($days > $pp_allowable)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
@@ -211,7 +218,8 @@ trait DatatableTrait
                 {
                     $po_allowable = 2;
                 }
-                if($days > 2)
+
+                if($days > $po_allowable)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
@@ -418,7 +426,7 @@ trait DatatableTrait
 
             ->editColumn('itb_days', function($data){
                 $days = $data->itb_days;
-                if($days > 1)
+                if($days > 7)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
@@ -427,7 +435,7 @@ trait DatatableTrait
 
             ->editColumn('bid_days', function($data){
                 $days = $data->bid_days;
-                if($days > 1)
+                if($days > 45)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
@@ -436,7 +444,7 @@ trait DatatableTrait
 
             ->editColumn('pq_days', function($data){
                 $days = $data->pq_days;
-                if($days > 30)
+                if($days > 45)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
