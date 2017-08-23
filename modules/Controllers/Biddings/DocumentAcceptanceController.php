@@ -307,6 +307,7 @@ class DocumentAcceptanceController extends Controller
             $model->update(['days' => $wd], $id);
         }
 
+        // Logs
         $modelType  =   'Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceEloquent';
         $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
 
@@ -320,6 +321,7 @@ class DocumentAcceptanceController extends Controller
                 $x = $userLogs->save($data);
             }
         }
+        // Logs
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
