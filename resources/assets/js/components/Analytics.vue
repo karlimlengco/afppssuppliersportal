@@ -153,8 +153,9 @@
                                                                                                     <td>{{formatPrice(itemProgCentData.total_residual)}}</td>
                                                                                                     <td>{{itemProgCentData.avg_days}}</td>
 
-                                                                                                    <td v-if="show"> {{itemProgCentData.delay}}</td>
-                                                                                                    <td v-if="show"  style="text-align:left">{{itemProgCentData.status}}</td>
+                                                                                                    <td v-if="show && itemProgCentData.status != 'completed'  "> {{itemProgCentData.delay}}</td>
+                                                                                                    <td v-if="itemProgCentData.status == 'completed'  "></td>
+                                                                                                    <td v-if="show "  style="text-align:left">{{itemProgCentData.status}}</td>
                                                                                                     <td v-if="show"> {{itemProgCentData.last_remarks}}</td>
                                                                                                     <td v-if="show"> {{itemProgCentData.last_action}}</td>
                                                                                                 </tr>
@@ -493,11 +494,11 @@ var tarray2IDs           =   [];
                 }
             },
             clickItemUnit: function(item){
-                // if(this.show == false){
+                if(this.show == false){
                     this.show = true;
-                // }else{
-                    // this.show = false;
-                // }
+                }else{
+                    this.show = false;
+                }
 
 
                 if( arrayProgramCenter.indexOf(item.name) == -1 && arrayProgramCenter[item.name] == item.name)

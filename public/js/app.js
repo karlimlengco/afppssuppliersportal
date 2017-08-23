@@ -16436,6 +16436,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 var arrayIDs = [];
@@ -16529,12 +16530,11 @@ var tarray2IDs = [];
             }
         },
         clickItemUnit: function clickItemUnit(item) {
-            // if(this.show == false){
-            this.show = true;
-            // }else{
-            // this.show = false;
-            // }
-
+            if (this.show == false) {
+                this.show = true;
+            } else {
+                this.show = false;
+            }
 
             if (arrayProgramCenter.indexOf(item.name) == -1 && arrayProgramCenter[item.name] == item.name) {
                 if (array2IDs.indexOf(item.short_code) == -1) {
@@ -52512,7 +52512,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   attrs: {
                     "tooltip": "Delay"
                   }
-                }, [_vm._v("(" + _vm._s(itemProgCentData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), (_vm.show) ? _c('td', [_vm._v(" " + _vm._s(itemProgCentData.delay))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
+                }, [_vm._v("(" + _vm._s(itemProgCentData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), (_vm.show && itemProgCentData.status != 'completed') ? _c('td', [_vm._v(" " + _vm._s(itemProgCentData.delay))]) : _vm._e(), _vm._v(" "), (itemProgCentData.status == 'completed') ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
                   staticStyle: {
                     "text-align": "left"
                   }
