@@ -494,11 +494,11 @@ var tarray2IDs           =   [];
                 }
             },
             clickItemUnit: function(item){
-                if(this.show == false){
+                // if(this.show == false){
                     this.show = true;
-                }else{
-                    this.show = false;
-                }
+                // }else{
+                //     this.show = false;
+                // }
 
 
                 if( arrayProgramCenter.indexOf(item.name) == -1 && arrayProgramCenter[item.name] == item.name)
