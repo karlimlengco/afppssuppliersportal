@@ -123,7 +123,7 @@ trait DatatableTrait
             })
             ->editColumn('d_close_blank_rfq', function($data){
                 $days = $data->rfq_close_days;
-                if($days > 1)
+                if($days > 3)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
@@ -141,8 +141,11 @@ trait DatatableTrait
                     $ispq_transaction_date    =   \Carbon\Carbon::createFromFormat('!Y-m-d', $data->ispq_transaction_date);
 
                     $days = $ispq_transaction_date->diffInDaysFiltered(function (\Carbon\Carbon $date) {return $date->isWeekday(); }, $data->date_prepared );
+                    if($days > 0 ) {
+                        $days = $days - 1;
+                    }
                 }
-                if($days > 1)
+                if($days > 3)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
@@ -160,7 +163,7 @@ trait DatatableTrait
             ->editColumn('d_canvass', function($data){
                 $days = $data->canvass_days;
 
-                if($days > 1)
+                if($days > 2)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
@@ -168,8 +171,14 @@ trait DatatableTrait
             })
             ->editColumn('d_noa', function($data){
                 $days = $data->noa_days;
+                $allowable = 15;
 
-                if($days > 1)
+                if($data->mode_of_procurement != 'public_bidding')
+                {
+                    $allowable = 2;
+                }
+
+                if($days > $allowable)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
@@ -196,6 +205,12 @@ trait DatatableTrait
 
             ->editColumn('d_po_create_date', function($data){
                 $days = $data->po_days;
+                $po_allowable = 10;
+
+                if($data->mode_of_procurement != 'public_bidding')
+                {
+                    $po_allowable = 2;
+                }
                 if($days > 2)
                 {
                     return "<span style='color:red'>".$days."</span>";
@@ -234,7 +249,15 @@ trait DatatableTrait
             ->editColumn('d_ntp_date', function($data){
 
                 $days = $data->ntp_days;
-                if($days > 1)
+
+                $ntp_allowable = 7;
+
+                if($data->mode_of_procurement != 'public_bidding')
+                {
+                    $ntp_allowable = 1;
+                }
+
+                if($days > $ntp_allowable)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
@@ -262,7 +285,7 @@ trait DatatableTrait
 
             ->editColumn('d_receive_delivery_date', function($data){
                 $days = $data->dr_delivery_days;
-                if($days > 15)
+                if($days > $data->delivery_terms)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
@@ -280,7 +303,7 @@ trait DatatableTrait
 
             ->editColumn('d_dr_inspection', function($data){
                 $days = $data->dr_inspection_days;
-                if($days > 1)
+                if($days > 2)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }
@@ -290,7 +313,7 @@ trait DatatableTrait
             ->editColumn('d_iar_accepted_date', function($data){
                 $days = $data->dr_inspection_accept_days;
 
-                if($days > 1)
+                if($days > 2)
                 {
                     return "<span style='color:red'>".$days."</span>";
                 }

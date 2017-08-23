@@ -653,9 +653,9 @@ class PurchaseOrderController extends Controller
         else{
 
             $upr_result =   $upr->update([
-                'next_allowable'=> 10,
+                'next_allowable'=> 2,
                 'next_step'     => 'PO FUNDING',
-                'next_due'      => $transaction_date->addDays(10),
+                'next_due'      => $transaction_date->addDays(2),
                 'last_date'     => $transaction_date,
                 'status'        => "Contract Created",
                 'delay_count'   => $wd,

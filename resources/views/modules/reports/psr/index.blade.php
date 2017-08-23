@@ -61,7 +61,6 @@ Procurement Status Report
                 <th>PO COA Approval</th>
                 <th>Prepare NTP</th>
                 <th>Received NTP</th>
-                <th>Create NOD</th>
                 <th>Received Delivery</th>
                 <th>Complete COA Delivery</th>
                 <th>Technical Inspection</th>
@@ -70,7 +69,7 @@ Procurement Status Report
                 <th>DIIR Inspection Close</th>
                 <th>Prepare Voucher</th>
                 <th>Preaudit Voucher /End</th>
-                <th>Total CD</th>
+                <th>Total Days</th>
             </tr>
         </thead>
         <tbody>
@@ -90,7 +89,7 @@ Procurement Status Report
                 <th>Pre Proc (BAC)</th>
                 <th>Invitation to BId (BAC)</th>
                 <th>PhilGeps Posting (BAC)</th>
-                <th>    AC)</th>
+                <th>Pre Bid Conference (BAC)</th>
                 <th>SOBE (BAC)</th>
                 <th>POST QUAL (BAC)</th>
                 <th>Prepare NOA (BAC)</th>
@@ -102,7 +101,6 @@ Procurement Status Report
                 <th>Contract COA Approval (PCCO)</th>
                 <th>Prepare NTP</th>
                 <th>Received NTP</th>
-                <th>Create NOD</th>
                 <th>Received Delivery</th>
                 <th>Complete COA Delivery</th>
                 <th>Technical Inspection</th>
@@ -111,7 +109,7 @@ Procurement Status Report
                 <th>DIIR Inspection Close</th>
                 <th>Prepare Voucher</th>
                 <th>Preaudit Voucher /End</th>
-                <th>Total CD</th>
+                <th>Total Days</th>
             </tr>
         </thead>
         <tbody>
@@ -160,7 +158,6 @@ Procurement Status Report
             {data: 'd_coa_approved_date', name: 'd_coa_approved_date'},
             {data: 'd_ntp_date', name: 'd_ntp_date'},
             {data: 'd_ntp_award_date', name: 'd_ntp_award_date'},
-            {data: 'd_delivery_date', name: 'd_delivery_date'},
             {data: 'd_receive_delivery_date', name: 'd_receive_delivery_date'},
             {data: 'd_dr_coa_date', name: 'd_dr_coa_date'},
             {data: 'd_dr_inspection', name: 'd_dr_inspection'},
@@ -214,7 +211,6 @@ Procurement Status Report
             {data: 'd_coa_approved_date', name: 'd_coa_approved_date'},
             {data: 'd_ntp_date', name: 'd_ntp_date'},
             {data: 'd_ntp_award_date', name: 'd_ntp_award_date'},
-            {data: 'd_delivery_date', name: 'd_delivery_date'},
             {data: 'd_receive_delivery_date', name: 'd_receive_delivery_date'},
             {data: 'd_dr_coa_date', name: 'd_dr_coa_date'},
             {data: 'd_dr_inspection', name: 'd_dr_inspection'},
@@ -223,7 +219,7 @@ Procurement Status Report
             {data: 'd_di_close', name: 'd_di_close'},
             {data: 'd_vou_start', name: 'd_vou_start'},
             {data: 'd_preaudit_date', name: 'd_preaudit_date'},
-             {data: 'calendar_days', name: 'calendar_days'},
+            {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

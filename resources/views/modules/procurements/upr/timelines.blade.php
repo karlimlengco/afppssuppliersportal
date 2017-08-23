@@ -1599,7 +1599,18 @@ Unit Purchase Request
                     <td>Total</td>
                     <td></td>
                     <td>Working Days</td>
-                    <td>{{$totalDays}}</td>
+                    <?php $total = 0;?>
+                    @if(isset($preaudit_date))
+                    <?php  $total =  $upr_created->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $preaudit_date ); ?>
+                    @endif
+                    <td>
+                        @if($total > 0)
+                            {{$total - 1}}
+                        @else
+                            {{$total}}
+                        @endif
+                    </td>
+                    {{-- <td>{{$totalDays}}</td> --}}
                     <td></td>
                 </tr>
 

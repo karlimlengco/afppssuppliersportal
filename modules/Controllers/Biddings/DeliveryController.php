@@ -403,10 +403,11 @@ class DeliveryController extends Controller
         $inputs                 =   $request->getData();
 
         $dr_model               =   $model->findById($id);
+        $ntp                    =   $dr_model->po->ntp;
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('delivery_date') );
-        $dr_date                =   Carbon::createFromFormat('!Y-m-d', $dr_model->transaction_date );
+        $dr_date                =   Carbon::createFromFormat('!Y-m-d', $ntp->award_accepted_date );
         $cd                     =   $dr_date->diffInDays($transaction_date);
 
         $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
