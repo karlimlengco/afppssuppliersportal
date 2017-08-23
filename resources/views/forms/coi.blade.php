@@ -54,7 +54,7 @@
                         </tr>
                         <tr>
                             <td>4. DELIVERY RECEIPT NO:</td>
-                            <td class="align-left"><strong>{{$data['delivery_number']}} ({{\Carbon\Carbon::createFromFormat('Y-m-d',$data['delivery_date'])->format('d F Y')}})</strong></td>
+                            <td class="align-left"><strong>{{$data['delivery_number']}} ({{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['delivery_date'])->format('d F Y')}})</strong></td>
                         </tr>
                         <tr>
                             <td>5. INVOICE NO:</td>
@@ -75,7 +75,7 @@
                         </tr>
                         <tr>
                             <td>8. DATE OF INSPECTION:</td>
-                            <td class="align-left"><strong>{{\Carbon\Carbon::createFromFormat('Y-m-d',$data['inspection_date'])->format('d F Y')}}</strong></td>
+                            <td class="align-left"><strong>{{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['inspection_date'])->format('d F Y')}}</strong></td>
                         </tr>
                         <tr>
                             <td>9. FINDINGS:</td>

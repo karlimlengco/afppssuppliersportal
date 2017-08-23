@@ -117,7 +117,7 @@ class PurchaseOrderController extends Controller
         $po                     =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('coa_approved_date') );
-        $po_date                =   Carbon::createFromFormat('Y-m-d', $po->mfo_received_date );
+        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po->mfo_received_date );
         $cd                     =   $po_date->diffInDays($transaction_date);
 
         // Delay
@@ -132,7 +132,7 @@ class PurchaseOrderController extends Controller
 
         $validator = Validator::make($request->all(),[
             'file'              => 'required',
-            'coa_approved_date' => 'required',
+            'coa_approved_date' => 'required|after_or_equal:'. $po_date->format('Y-m-d'),
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -162,7 +162,7 @@ class PurchaseOrderController extends Controller
             'coa_approved'      =>  \Sentinel::getUser()->id,
             'status'            =>  'COA Approved',
             'coa_remarks'       => $request->coa_remarks,
-            'coa_action'       => $request->coa_action,
+            'coa_action'        => $request->coa_action,
             'coa_days'          => $wd,
         ];
 
@@ -173,17 +173,35 @@ class PurchaseOrderController extends Controller
             $path       = $request->file->storeAs('coa-approved-attachments', $file);
         }
 
-        $upr_result =   $upr->update([
-            'next_allowable'=> 1,
-            'next_step'     => 'Prepare NTP',
-            'next_due'      => $transaction_date->addDays(1),
-            'last_date'     => $transaction_date,
-            'status' => 'PO Approved',
-            'delay_count'   => $day_delayed,
-            'calendar_days' => $cd + $po->upr->calendar_days,
-            'last_action'   => $request->action,
-            'last_remarks'  => $request->remarks
-            ], $result->upr_id);
+
+        if($po->upr->mode_of_procurement != 'public_bidding')
+        {
+            $upr_result =   $upr->update([
+                'next_allowable'=> 1,
+                'next_step'     => 'Prepare NTP',
+                'next_due'      => $po_date->addDays(1),
+                'last_date'     => $transaction_date,
+                'status' => 'PO Approved',
+                'delay_count'   => $day_delayed,
+                'calendar_days' => $cd + $po->upr->calendar_days,
+                'last_action'   => $request->action,
+                'last_remarks'  => $request->remarks
+                ], $result->upr_id);
+        }
+        else
+        {
+            $upr_result =   $upr->update([
+                'next_allowable'=> 7,
+                'next_step'     => 'Prepare NTP',
+                'next_due'      => $po_date->addDays(7),
+                'last_date'     => $transaction_date,
+                'status' => 'PO Approved',
+                'delay_count'   => $day_delayed,
+                'calendar_days' => $cd + $po->upr->calendar_days,
+                'last_action'   => $request->action,
+                'last_remarks'  => $request->remarks
+                ], $result->upr_id);
+        }
 
         event(new Event($upr_result, $upr_result->ref_number." PO Approved"));
 
@@ -209,7 +227,7 @@ class PurchaseOrderController extends Controller
         $po                     =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('mfo_received_date') );
-        $po_date                =   Carbon::createFromFormat('Y-m-d', $po->funding_received_date );
+        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po->funding_received_date );
         $cd                     =   $po_date->diffInDays($transaction_date);
 
         // Delay
@@ -217,14 +235,13 @@ class PurchaseOrderController extends Controller
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
-
         if($day_delayed > 2 ){
             $day_delayed =- 2;
         }
 
         $validator = Validator::make($request->all(),[
-            'mfo_released_date' =>  'required',
-            'mfo_received_date' =>  'required',
+            'mfo_released_date' =>  'required|after_or_equal:'. $po_date->format('Y-m-d'),
+            'mfo_received_date' =>  'required|after_or_equal:'. $po_date->format('Y-m-d'),
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -296,7 +313,7 @@ class PurchaseOrderController extends Controller
         $po                     =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('funding_received_date') );
-        $po_date                =   Carbon::createFromFormat('Y-m-d', $po->purchase_date );
+        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po->purchase_date );
         $cd                     =   $po_date->diffInDays($transaction_date);
 
         // Delay
@@ -310,8 +327,8 @@ class PurchaseOrderController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'funding_released_date' =>  'required',
-            'funding_received_date' =>  'required',
+            'funding_released_date' =>  'required|after_or_equal:'. $po_date->format('Y-m-d'),
+            'funding_received_date' =>  'required|after_or_equal:'. $po_date->format('Y-m-d'),
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -510,7 +527,7 @@ class PurchaseOrderController extends Controller
     {
         $noa_model              =   $noa->with('winner')->findByUPR($id);
 
-        $award_accepted_date    =   Carbon::createFromFormat('Y-m-d', $noa_model->award_accepted_date);
+        $award_accepted_date    =   Carbon::createFromFormat('!Y-m-d', $noa_model->award_accepted_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('purchase_date') );
         $cd                     =   $award_accepted_date->diffInDays($transaction_date);
@@ -519,26 +536,35 @@ class PurchaseOrderController extends Controller
         $day_delayed            =   $award_accepted_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed  >= 2 )
+        if($noa_model->upr->mode_of_procurement != 'public_bidding')
         {
-            $day_delayed = $day_delayed - 2;
+            $poAllowed  =   2;
+        }
+        else
+        {
+            $poAllowed  =   10;
+        }
+        if($day_delayed  >= $poAllowed )
+        {
+            $day_delayed = $day_delayed - $poAllowed;
         }
 
         $validator = Validator::make($request->all(),[
-            'purchase_date'     => 'required',
+            'purchase_date'     => 'required|after_or_equal:'. $noa_model->award_accepted_date,
             'payment_term'      => 'required',
             'delivery_terms'    => 'required|integer',
             'unit_price.*'      => 'required',
             'type.*'            => 'required',
         ]);
 
-        $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed > 2) {
+        $validator->after(function ($validator)use($day_delayed, $request, $poAllowed) {
+            if ( $request->get('remarks') == null && $day_delayed > $poAllowed) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
             }
-            if ( $request->get('action') == null && $day_delayed > 2) {
+            if ( $request->get('action') == null && $day_delayed > $poAllowed) {
                 $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
@@ -609,17 +635,35 @@ class PurchaseOrderController extends Controller
             DB::table('purchase_order_items')->insert($item_datas);
         }
 
-        $upr_result =   $upr->update([
-            'next_allowable'=> 2,
-            'next_step'     => 'PO FUNDING',
-            'next_due'      => $transaction_date->addDays(2),
-            'last_date'     => $transaction_date,
-            'status'        => "PO Created",
-            'delay_count'   => $day_delayed,
-            'calendar_days' => $cd + $upr_model->calendar_days,
-            'last_action'   => $request->action,
-            'last_remarks'  => $request->remarks
-            ], $noa_model->upr_id);
+        if($upr_model->mode_of_procurement != 'public_bidding')
+        {
+
+            $upr_result =   $upr->update([
+                'next_allowable'=> 2,
+                'next_step'     => 'PO FUNDING',
+                'next_due'      => $transaction_date->addDays(2),
+                'last_date'     => $transaction_date,
+                'status'        => "PO Created",
+                'delay_count'   => $wd,
+                'calendar_days' => $cd + $upr_model->calendar_days,
+                'last_action'   => $request->action,
+                'last_remarks'  => $request->remarks
+                ], $noa_model->upr_id);
+        }
+        else{
+
+            $upr_result =   $upr->update([
+                'next_allowable'=> 10,
+                'next_step'     => 'PO FUNDING',
+                'next_due'      => $transaction_date->addDays(10),
+                'last_date'     => $transaction_date,
+                'status'        => "Contract Created",
+                'delay_count'   => $wd,
+                'calendar_days' => $cd + $upr_model->calendar_days,
+                'last_action'   => $request->action,
+                'last_remarks'  => $request->remarks
+                ], $noa_model->upr_id);
+        }
 
         event(new Event($upr_result, $upr_result->ref_number." PO Created"));
 
@@ -837,7 +881,7 @@ class PurchaseOrderController extends Controller
         $result =   $model->update($input, $id);
 
         $noa_model              =   $noa->with('winner')->findByUPR($result->upr_id);
-        $award_accepted_date    =   Carbon::createFromFormat('Y-m-d', $noa_model->award_accepted_date);
+        $award_accepted_date    =   Carbon::createFromFormat('!Y-m-d', $noa_model->award_accepted_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('purchase_date') );
         // Delay

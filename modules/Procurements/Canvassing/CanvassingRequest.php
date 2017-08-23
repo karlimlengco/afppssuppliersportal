@@ -11,6 +11,7 @@ class CanvassingRequest extends BaseRequest
      */
     protected $whitelist = [
         'canvass_date',
+        'canvass_time',
         'adjourned_time',
         'closebox_time',
         'order_time',

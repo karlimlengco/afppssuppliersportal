@@ -173,7 +173,7 @@ class NoticeToProceedController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('preparared_date') );
-        $po_date                =   Carbon::createFromFormat('Y-m-d', $po_model->coa_approved_date );
+        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_model->coa_approved_date );
 
         $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -316,7 +316,7 @@ class NoticeToProceedController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('prepared_date') );
-        $po_date                =   Carbon::createFromFormat('Y-m-d', $po_model->coa_approved_date );
+        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_model->coa_approved_date );
 
         $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -369,7 +369,7 @@ class NoticeToProceedController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('award_accepted_date') );
         $po_date                =   Carbon::createFromFormat('Y-m-d H:i:s', $ntp_model->prepared_date );
-        $po_date                =   Carbon::createFromFormat('Y-m-d', $po_date->format('Y-m-d') );
+        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_date->format('Y-m-d') );
 
         $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);

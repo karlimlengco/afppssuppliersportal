@@ -75,7 +75,7 @@ class NOAController extends Controller
         )
     {
         $pq_model               =   $model->findById($pq_id);
-        $pqDate                 =   Carbon::createFromFormat('Y-m-d', $pq_model->transaction_date);
+        $pqDate                 =   Carbon::createFromFormat('!Y-m-d', $pq_model->transaction_date);
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('awarded_date') );
 
         $proponent_model        =   $bid_docs->findById($proponentId);
@@ -90,9 +90,9 @@ class NOAController extends Controller
         $cd                     =   $pqDate->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed  > 0)
+        if($day_delayed  > 15)
         {
-            $day_delayed = $day_delayed - 2;
+            $day_delayed = $day_delayed - 15;
         }
 
         $validator = Validator::make($request->all(),[
@@ -102,10 +102,10 @@ class NOAController extends Controller
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed > 2) {
+            if ( $request->get('remarks') == null && $day_delayed > 15) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
             }
-            if ( $request->get('action') == null && $day_delayed > 2) {
+            if ( $request->get('action') == null && $day_delayed > 15) {
                 $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
@@ -198,7 +198,7 @@ class NOAController extends Controller
         $noaModel       =   $model->findById($id);
         $holiday_lists  =   $holidays->lists('id','holiday_date');
 
-        $accepted_date =   Carbon::createFromFormat('Y-m-d', $noaModel->accepted_date);
+        $accepted_date =   Carbon::createFromFormat('!Y-m-d', $noaModel->accepted_date);
         $award_accepted_date  =   Carbon::createFromFormat('Y-m-d', $request->award_accepted_date);
 
         $day_delayed    =   $accepted_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -239,6 +239,11 @@ class NOAController extends Controller
         $model->update($input, $id);
         $upr_result    =  $upr->update([
             'status' => 'NOA Received',
+            'next_allowable'=> 10,
+            'next_step'     => 'Create Contract',
+            'next_due'      => $award_accepted_date->addDays(10),
+            'last_date'     => $award_accepted_date,
+            'status'        => 'NOA Received',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
             'last_action'   => $request->action,
@@ -270,7 +275,7 @@ class NOAController extends Controller
         $holiday_lists  =   $holidays->lists('id','holiday_date');
 
         $noa_award_date =   Carbon::createFromFormat('Y-m-d H:i:s', $noaModel->awarded_date)->format('Y-m-d');
-        $noa_award_date =   Carbon::createFromFormat('Y-m-d', $noa_award_date);
+        $noa_award_date =   Carbon::createFromFormat('!Y-m-d', $noa_award_date);
         $accepted_date  =   Carbon::createFromFormat('Y-m-d', $request->accepted_date);
 
         $day_delayed            =   $noa_award_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {

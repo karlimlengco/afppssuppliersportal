@@ -38,7 +38,7 @@
                     <!-- title -->
                     <span class="printable-form__body__title">Invitation to Submit a Quotation / Proposal</span>
                     <!-- content -->
-                    <p>{{\Carbon\Carbon::createFromFormat('Y-m-d',$data['transaction_date'])->format('d F Y')}}</p>
+                    <p>{{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['transaction_date'])->format('d F Y')}}</p>
                     <p>1. The Armed Forces of the Philippines through the 302ND  Canvass/Contracting Committee invites PhilGEPS registered suppliers to submit quotation/proposal for the following list of procurement with corresponding Approved Budget for the Contract (ABC).</p>
                     <table class="printable-form__body__table">
                         <tr>

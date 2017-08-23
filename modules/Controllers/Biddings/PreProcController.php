@@ -113,11 +113,11 @@ class PreProcController extends Controller
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->pre_proc_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
-        $day_delayed            =   Carbon::createFromFormat('Y-m-d', $doc_accept->approved_date)->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed            =   Carbon::createFromFormat('!Y-m-d', $doc_accept->approved_date)->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        $cd                     =   Carbon::createFromFormat('Y-m-d', $doc_accept->approved_date)->diffInDays($transaction_date);
+        $cd                     =   Carbon::createFromFormat('!Y-m-d', $doc_accept->approved_date)->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
 
@@ -149,13 +149,10 @@ class PreProcController extends Controller
         {
             $upr_result = $upr->update([
                 'status'        => 'PreProc Conference',
-                'next_allowable'=> 1,
+                'next_allowable'=> 7,
                 'next_step'     => 'Invitation To Bid',
-                'state'         => 'On-Going',
-                'next_due'      => $transaction_date->addDays(1),
+                'next_due'      => $transaction_date->addDays(7),
                 'last_date'     => $transaction_date,
-                'date_processed'=> $transaction_date,
-                'processed_by'  => \Sentinel::getUser()->id,
                 'delay_count'   => $wd,
                 'calendar_days' => $cd + $result->upr->calendar_days,
                 'last_action'   => $request->action,
@@ -253,11 +250,11 @@ class PreProcController extends Controller
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->pre_proc_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
-        $day_delayed            =   Carbon::createFromFormat('Y-m-d', $doc_accept->approved_date)->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed            =   Carbon::createFromFormat('!Y-m-d', $doc_accept->approved_date)->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        $cd                     =   Carbon::createFromFormat('Y-m-d', $doc_accept->approved_date)->diffInDays($transaction_date);
+        $cd                     =   Carbon::createFromFormat('!Y-m-d', $doc_accept->approved_date)->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
         if($day_delayed != 0)

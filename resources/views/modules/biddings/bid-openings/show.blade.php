@@ -22,6 +22,7 @@ SOBE
 @stop
 
 @section('modal')
+    @include('modules.partials.bid-modals.close-sobe')
     @include('modules.partials.bid-modals.failed-sobe')
 @stop
 
@@ -67,7 +68,7 @@ SOBE
             @if($count == 0)
                 @if(!$data->closing_date)
                     Submit
-                    <a href="{{route('biddings.bid-openings.closed',$data->id)}}" class="button" tooltip="Submit"><i class="nc-icon-mini ui-2_disk"></i></a>
+                    <a href="#" class="button" id="close-sobe-button" tooltip="Submit"><i class="nc-icon-mini ui-2_disk"></i></a>
                 @else
                     Go to UPR
                     <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}"  class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
@@ -135,6 +136,10 @@ SOBE
 $('#fail-pq-button').click(function(e){
     e.preventDefault();
     $('#fail-pq-modal').addClass('is-visible');
+})
+$('#close-sobe-button').click(function(e){
+    e.preventDefault();
+    $('#close-sobe-modal').addClass('is-visible');
 })
 </script>
 

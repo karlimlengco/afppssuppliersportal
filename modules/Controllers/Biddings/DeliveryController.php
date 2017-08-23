@@ -127,7 +127,7 @@ class DeliveryController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
-        $ntp_date               =   Carbon::createFromFormat('Y-m-d', $ntp->award_accepted_date );
+        $ntp_date               =   Carbon::createFromFormat('!Y-m-d', $ntp->award_accepted_date );
         $cd                     =   $ntp_date->diffInDays($transaction_date);
 
         $day_delayed            =   $ntp_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -135,14 +135,19 @@ class DeliveryController extends Controller
         }, $transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
+        if($day_delayed > $po_model->delivery_terms)
+        {
+            $day_delayed  =  $day_delayed - $po_model->delivery_terms;
+        }
+
         $validator = Validator::make($request->all(),[
             'expected_date'     =>  'required',
             'transaction_date'  =>  'required',
             'action'  =>  'required_with:remarks',
         ]);
 
-        $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed > 1) {
+        $validator->after(function ($validator)use($day_delayed, $request, $po_model) {
+            if ( $request->get('remarks') == null && $day_delayed > $po_model->delivery_terms) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
             }
         });
@@ -345,7 +350,7 @@ class DeliveryController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
-        $ntp_date               =   Carbon::createFromFormat('Y-m-d', $ntp->award_accepted_date );
+        $ntp_date               =   Carbon::createFromFormat('!Y-m-d', $ntp->award_accepted_date );
 
         $day_delayed            =   $ntp_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -401,7 +406,7 @@ class DeliveryController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('delivery_date') );
-        $dr_date                =   Carbon::createFromFormat('Y-m-d', $dr_model->transaction_date );
+        $dr_date                =   Carbon::createFromFormat('!Y-m-d', $dr_model->transaction_date );
         $cd                     =   $dr_date->diffInDays($transaction_date);
 
         $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -567,7 +572,7 @@ class DeliveryController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('date_delivered_to_coa') );
-        $dr_date                =   Carbon::createFromFormat('Y-m-d', $dr_model->delivery_date );
+        $dr_date                =   Carbon::createFromFormat('!Y-m-d', $dr_model->delivery_date );
 
         $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);

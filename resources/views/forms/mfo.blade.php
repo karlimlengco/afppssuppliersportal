@@ -54,7 +54,7 @@
                         </tr>
                         <tr>
                             <td>DATE DELIVERED:</td>
-                            <td class="align-left"><strong>{{\Carbon\Carbon::createFromFormat('Y-m-d',$data['delivery_date'])->format('d F Y')}}</strong></td>
+                            <td class="align-left"><strong>{{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['delivery_date'])->format('d F Y')}}</strong></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -66,14 +66,14 @@
                             <td>COMMERCIAL INVOICE:</td>
                             <td class="align-left"><strong>
                             @foreach($data['invoices'] as $invoice)
-                                {{$invoice->invoice_number}} ({{\Carbon\Carbon::createFromFormat('Y-m-d',$invoice->invoice_date)->format('d F Y')}})<br>
+                                {{$invoice->invoice_number}} ({{\Carbon\Carbon::createFromFormat('!Y-m-d',$invoice->invoice_date)->format('d F Y')}})<br>
                             @endforeach
                             </strong></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>DELIVERY RECEIPT NO.:</td>
-                            <td class="align-left"><strong>{{$data['delivery_number']}} ({{\Carbon\Carbon::createFromFormat('Y-m-d',$data['delivery_date'])->format('d F Y')}})</strong></td>
+                            <td class="align-left"><strong>{{$data['delivery_number']}} ({{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['delivery_date'])->format('d F Y')}})</strong></td>
                             <td></td>
                         </tr>
                     </table>

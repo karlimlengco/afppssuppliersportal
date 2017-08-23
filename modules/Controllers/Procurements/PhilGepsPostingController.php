@@ -173,9 +173,9 @@ class PhilGepsPostingController extends Controller
         }
 
         $upr_result = $upr->update([
-            'next_allowable'=> 1,
+            'next_allowable'=> 3,
             'next_step'     => 'Create RFQ',
-            'next_due'      => $transaction_date->addDays(1),
+            'next_due'      => $upr_model->date_prepared->addDays(3),
             'last_date'     => $transaction_date,
             'status'        => $status,
             'delay_count'   => $wd,
@@ -282,7 +282,7 @@ class PhilGepsPostingController extends Controller
 
             if($invitation = $rfq_model->invitations)
             {
-                $ispq_transaction_date   = Carbon::createFromFormat('Y-m-d', $invitation->ispq->transaction_date);
+                $ispq_transaction_date   = Carbon::createFromFormat('!Y-m-d', $invitation->ispq->transaction_date);
             }
             else
             {
@@ -298,7 +298,7 @@ class PhilGepsPostingController extends Controller
         else
         {
             $upr_model              =   $upr->findById($result->upr_id);
-            $invitation             =   Carbon::createFromFormat('Y-m-d',$upr_model->itb->approved_date);
+            $invitation             =   Carbon::createFromFormat('!Y-m-d',$upr_model->itb->approved_date);
             $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
             $holiday_lists          =   $holidays->lists('id','holiday_date');
 

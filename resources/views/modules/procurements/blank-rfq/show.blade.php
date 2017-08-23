@@ -84,7 +84,7 @@ Request For Quotation
         <span class="button--pull-left" style="padding-top:10px">Go to UPR</span>
 
         @if($data->status != 'closed')
-            <span >Close UPR</span>
+            <span >Close RFQ</span>
             <a href="#" class="button" id="close-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @else
             Go to UPR

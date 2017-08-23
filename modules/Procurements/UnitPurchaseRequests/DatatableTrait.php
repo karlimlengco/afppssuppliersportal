@@ -138,7 +138,7 @@ trait DatatableTrait
                 $days = 0;
                 if($data->ispq_transaction_date != null)
                 {
-                    $ispq_transaction_date    =   \Carbon\Carbon::createFromFormat('Y-m-d', $data->ispq_transaction_date);
+                    $ispq_transaction_date    =   \Carbon\Carbon::createFromFormat('!Y-m-d', $data->ispq_transaction_date);
 
                     $days = $ispq_transaction_date->diffInDaysFiltered(function (\Carbon\Carbon $date) {return $date->isWeekday(); }, $data->date_prepared );
                 }

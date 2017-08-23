@@ -146,7 +146,7 @@ class DeliveredInspectionReportController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('start_date') );
-        $tiac_date              =   Carbon::createFromFormat('Y-m-d', $tiac->accepted_date );
+        $tiac_date              =   Carbon::createFromFormat('!Y-m-d', $tiac->accepted_date );
         $cd                     =   $tiac_date->diffInDays($transaction_date);
 
         $day_delayed            =   $tiac_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -161,7 +161,7 @@ class DeliveredInspectionReportController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'start_date'       => 'required',
+            'start_date'       => 'required|after_or_equal:'. $tiac_date->format('Y-m-d'),
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -195,7 +195,7 @@ class DeliveredInspectionReportController extends Controller
         $upr_result = $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'Close Inspection',
-            'next_due'      => $transaction_date->addDays(1),
+            'next_due'      => $tiac_date->addDays(1),
             'last_date'     => $transaction_date,
             'status'        => 'DIIR Started',
             'delay_count'   => $day_delayed,
@@ -225,10 +225,11 @@ class DeliveredInspectionReportController extends Controller
         HolidayRepository $holidays)
     {
         $diir                   =   $model->findById($id);
+        $tiac                   =   $diir->delivery->inspections;
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('closed_date') );
-        $diir_date              =   Carbon::createFromFormat('Y-m-d', $diir->start_date );
+        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $tiac->accepted_date );
         $cd                     =   $diir_date->diffInDays($transaction_date);
 
         $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -243,7 +244,7 @@ class DeliveredInspectionReportController extends Controller
 
 
         $validator = Validator::make($request->all(),[
-            'closed_date'       => 'required',
+            'closed_date'       => 'required|after_or_equal:'. $diir_date->format('Y-m-d'),
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -544,7 +545,7 @@ class DeliveredInspectionReportController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('start_date') );
-        $tiac_date              =   Carbon::createFromFormat('Y-m-d', $tiac->accepted_date );
+        $tiac_date              =   Carbon::createFromFormat('!Y-m-d', $tiac->accepted_date );
 
         $day_delayed            =   $tiac_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);

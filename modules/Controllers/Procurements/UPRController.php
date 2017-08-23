@@ -230,10 +230,20 @@ class UPRController extends Controller
 
         $procs['total_amount']  =   $total_amount;
         $procs['prepared_by']   =   $prepared_by;
-        $procs['next_allowable']=   1;
-        $procs['next_step']     =   "Create Invitation";
-        $procs['next_due']      =   $transaction_date->addDays(1);
         $procs['last_date']     =   $transaction_date;
+
+
+        if($request->mode_of_procurement != 'public_bidding'){
+            $procs['next_allowable']=   3;
+            $procs['next_step']     =   "Create Invitation";
+            $procs['next_due']      =   $transaction_date->addDays(3);
+        }
+        else{
+
+            $procs['next_allowable']=   1;
+            $procs['next_step']     =   "Document Acceptance";
+            $procs['next_due']      =   $transaction_date->addDays(1);
+        }
 
         $result = $model->save($procs);
 
@@ -558,7 +568,7 @@ class UPRController extends Controller
         $h_lists        =   [];
         foreach($holiday_lists as $hols)
         {
-            $h_lists[]  =   \Carbon\Carbon::createFromFormat('Y-m-d', $hols)->format('Y-m-d');
+            $h_lists[]  =   \Carbon\Carbon::createFromFormat('!Y-m-d', $hols)->format('Y-m-d');
         }
 
         return $this->view('modules.procurements.upr.timelines',[

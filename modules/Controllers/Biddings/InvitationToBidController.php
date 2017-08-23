@@ -115,7 +115,7 @@ class InvitationToBidController extends Controller
 
         $upr_model              =   $upr->findById($request->upr_id);
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->itb_approved_date);
-        $preproc                =   Carbon::createFromFormat('Y-m-d', $upr_model->preproc->pre_proc_date);
+        $preproc                =   Carbon::createFromFormat('!Y-m-d', $upr_model->preproc->pre_proc_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
         $day_delayed            =   $preproc->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -125,18 +125,18 @@ class InvitationToBidController extends Controller
         $cd                     =   $preproc->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed > 1)
-        $day_delayed            =   $day_delayed - 1;
+        if($day_delayed > 7)
+        $day_delayed            =   $day_delayed - 7;
 
         $validator = Validator::make($request->all(),[
             'itb_approved_date'  =>  'required|after_or_equal:'.$upr_model->preproc->pre_proc_date,
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed > 1) {
+            if ( $request->get('remarks') == null && $day_delayed > 7) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
             }
-            if ( $request->get('action') == null && $day_delayed > 1) {
+            if ( $request->get('action') == null && $day_delayed > 7) {
                 $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
@@ -165,9 +165,9 @@ class InvitationToBidController extends Controller
 
         $upr_result = $upr->update([
             'status' => 'ITB Created',
-            'next_allowable'=> 3,
+            'next_allowable'=> 7,
             'next_step'     => 'PhilGeps Posting',
-            'next_due'      => $transaction_date->addDays(3),
+            'next_due'      => $preproc->addDays(7),
             'last_date'     => $transaction_date,
             'processed_by'  => \Sentinel::getUser()->id,
             'delay_count'   => $wd,
@@ -259,7 +259,7 @@ class InvitationToBidController extends Controller
 
         $upr_model              =   $result->upr;
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->approved_date);
-        $preproc                =   Carbon::createFromFormat('Y-m-d', $upr_model->preproc->pre_proc_date);
+        $preproc                =   Carbon::createFromFormat('!Y-m-d', $upr_model->preproc->pre_proc_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
         $day_delayed            =   $preproc->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {

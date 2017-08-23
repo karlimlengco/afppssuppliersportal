@@ -141,9 +141,9 @@ class BlankRFQController extends Controller
         $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed >= 1)
+        if($day_delayed > 3)
         {
-            $day_delayed = $day_delayed - 1;
+            $day_delayed = $day_delayed - 3;
         }
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
@@ -151,11 +151,11 @@ class BlankRFQController extends Controller
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed > 1) {
+            if ( $request->get('remarks') == null && $day_delayed > 3) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
             }
 
-            if( $request->get('action') == null &&$day_delayed > 1)
+            if( $request->get('action') == null && $day_delayed > 3)
             {
                 $validator->errors()->add('action', 'This field is required');
             }
@@ -183,15 +183,15 @@ class BlankRFQController extends Controller
 
         $upr_result =   $upr->update([
             'status'        => 'Processing RFQ',
-            'next_allowable'=> 1,
-            'next_step'     => 'Close RFQ',
-            'state'         => 'On-Going',
-            'next_due'      => $transaction_date->addDays(1),
-            'last_date'     => $transaction_date,
-            'date_processed'=> \Carbon\Carbon::now(),
-            'processed_by'  => \Sentinel::getUser()->id,
-            'delay_count'   => $day_delayed,
-            'calendar_days' => $cd,
+            // 'next_allowable'=> 1,
+            // 'next_step'     => 'Close RFQ',
+            // 'state'         => 'On-Going',
+            // 'next_due'      => $transaction_date->addDays(1),
+            // 'last_date'     => $transaction_date,
+            // 'date_processed'=> \Carbon\Carbon::now(),
+            // 'processed_by'  => \Sentinel::getUser()->id,
+            // 'delay_count'   => $day_delayed,
+            // 'calendar_days' => $cd,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $upr_model->id);
@@ -375,7 +375,7 @@ class BlankRFQController extends Controller
 
         $completed_at       =   createCarbon('Y-m-d',$request->completed_at);
 
-        $ispq_transaction_date   = Carbon::createFromFormat('Y-m-d', $rfq->invitations->ispq->transaction_date);
+        $ispq_transaction_date   = $rfq->upr->date_prepared;
 
         $holiday_lists      =   $holidays->lists('id','holiday_date');
         $day_delayed        =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -385,21 +385,21 @@ class BlankRFQController extends Controller
         $cd                     =   $ispq_transaction_date->diffInDays($completed_at);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed >= 1)
+        if($day_delayed >= 3)
         {
-            $day_delayed            =   $day_delayed - 1;
+            $day_delayed            =   $day_delayed - 3;
         }
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'completed_at'      =>  'required|after_or_equal:'. $rfq->invitations->ispq->transaction_date,
+            'completed_at'      =>  'required|after_or_equal:'. $ispq_transaction_date->format('Y-m-d'),
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('close_remarks') == null && $day_delayed >= 1 ) {
+            if ( $request->get('close_remarks') == null && $day_delayed >= 3 ) {
                 $validator->errors()->add('close_remarks', 'This field is required when your process is delay');
             }
-            if ( $request->get('close_action') == null && $day_delayed >= 1 ) {
+            if ( $request->get('close_action') == null && $day_delayed >= 3 ) {
                 $validator->errors()->add('close_action', 'This field is required when your process is delay');
             }
         });
@@ -429,9 +429,9 @@ class BlankRFQController extends Controller
 
         $upr_result =   $upr->update([
             'status'        => 'Close RFQ',
-            'next_allowable'=> 1,
+            'next_allowable'=> 2,
             'next_step'     => 'Canvassing',
-            'next_due'      => $completed_at->addDays(1),
+            'next_due'      => $completed_at->addDays(2),
             'last_date'     => $completed_at,
             'calendar_days' => $cd + $rfq->upr->calendar_days,
             'last_action'   => $request->close_remarks,
@@ -439,7 +439,7 @@ class BlankRFQController extends Controller
             ], $rfq->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number."Close RFQ"));
+        event(new Event($upr_result, $upr_result->ref_number." Close RFQ"));
 
         return redirect()->route($this->baseUrl.'show', $request->rfq_id)->with([
             'success'  => "Record has been successfully updated."

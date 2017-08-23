@@ -144,7 +144,7 @@ class DocumentAcceptanceController extends Controller
         $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed >= 1)
+        if($day_delayed > 1)
         $day_delayed            =   $day_delayed - 1;
 
         if($request->return_date == null)
@@ -155,10 +155,10 @@ class DocumentAcceptanceController extends Controller
 
             $validator->after(function ($validator)use($day_delayed, $request) {
 
-                    if ( $request->get('remarks') == null && $day_delayed >= 1) {
+                    if ( $request->get('remarks') == null && $day_delayed > 1) {
                         $validator->errors()->add('remarks', 'This field is required when your process is delay');
                     }
-                    if ( $request->get('action') == null && $day_delayed >= 1) {
+                    if ( $request->get('action') == null && $day_delayed > 1) {
                         $validator->errors()->add('action', 'This field is required when your process is delay');
                     }
             });

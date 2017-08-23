@@ -330,16 +330,6 @@ Unit Purchase Request
     })
 
 
-    var timepicker = new TimePicker([ 'id-field-canvassing_time','id-field-pp_opening_time' ], {
-        lang: 'en',
-        theme: 'dark'
-    });
-
-    timepicker.on('change', function(evt){
-      var value = (evt.hour || '00') + ':' + (evt.minute || '00');
-      evt.element.value = value;
-    });
-
     $('.datepicker').pikaday({ firstDay: 1 });
 
     $(document).on('change', '#id-field-final_tax', function(e){
@@ -354,6 +344,16 @@ Unit Purchase Request
         var total_amount  = "{{$data->total_amount}}";
         var ewt_amount   = total_amount * (expanded_witholding_tax / 100);
         $("#id-field-ewt_amount").val(ewt_amount.toFixed(2));
+    });
+
+    var timepicker = new TimePicker([ 'id-field-open_canvass_time','id-field-canvassing_time','id-field-pp_opening_time' ], {
+        lang: 'en',
+        theme: 'dark'
+    });
+
+    timepicker.on('change', function(evt){
+      var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+      evt.element.value = value;
     });
 
 </script>

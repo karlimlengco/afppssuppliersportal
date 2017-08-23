@@ -105,7 +105,7 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
 
     Route::get('document-acceptance/create/{id}', '\Revlv\Controllers\Biddings\DocumentAcceptanceController@create')->name('document-acceptance.create-by-rfq');
 
-    Route::get('bid-openings/closed/{id}', '\Revlv\Controllers\Biddings\BidOpeningController@closed')->name('bid-openings.closed');
+    Route::post('bid-openings/closed', '\Revlv\Controllers\Biddings\BidOpeningController@closed')->name('bid-openings.closed');
     Route::get('pre-bids/create/{id}', '\Revlv\Controllers\Biddings\PreBidController@create')->name('pre-bids.create-by-upr');
 
     Route::get('proponents/{id}/{proponent}', '\Revlv\Controllers\Biddings\BidDocsController@show')->name('proponents.show');

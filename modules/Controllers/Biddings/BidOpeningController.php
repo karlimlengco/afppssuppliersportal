@@ -113,7 +113,7 @@ class BidOpeningController extends Controller
         UnitPurchaseRequestRepository $upr)
     {
         $upr_model              =   $upr->findById($request->upr_id);
-        $pre_bid                =   Carbon::createFromFormat('Y-m-d',$upr_model->bid_conference->transaction_date);
+        $pre_bid                =   Carbon::createFromFormat('!Y-m-d',$upr_model->bid_conference->transaction_date);
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->op_transaction_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
@@ -124,9 +124,9 @@ class BidOpeningController extends Controller
         $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed > 0)
+        if($day_delayed > 45)
         {
-            $day_delayed            =   $day_delayed - 1;
+            $day_delayed            =   $day_delayed - 45;
         }
 
         $validator = Validator::make($request->all(),[
@@ -134,10 +134,10 @@ class BidOpeningController extends Controller
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed >= 1) {
+            if ( $request->get('remarks') == null && $day_delayed > 45) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
             }
-            if ( $request->get('action') == null && $day_delayed >= 1) {
+            if ( $request->get('action') == null && $day_delayed > 45) {
                 $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
@@ -162,9 +162,9 @@ class BidOpeningController extends Controller
 
         $upr_result  = $upr->update([
             'status' => 'SOBE OPEN',
-            'next_allowable'=> 1,
+            'next_allowable'=> 7,
             'next_step'     => 'Closed SOBE',
-            'next_due'      => $transaction_date->addDays(1),
+            'next_due'      => $transaction_date->addDays(7),
             'last_date'     => $transaction_date,
             'processed_by'  => \Sentinel::getUser()->id,
             'delay_count'   => $wd,
@@ -254,7 +254,7 @@ class BidOpeningController extends Controller
         $result     =   $model->update(['transaction_date' => $request->transaction_date, 'closing_date' => $request->closing_date,'update_remarks' => $request->update_remarks, ], $id);
 
         $upr_model              =   $result->upr;
-        $pre_bid                =   Carbon::createFromFormat('Y-m-d',$upr_model->bid_conference->transaction_date);
+        $pre_bid                =   Carbon::createFromFormat('!Y-m-d',$upr_model->bid_conference->transaction_date);
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
@@ -298,24 +298,31 @@ class BidOpeningController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function closed($id,
+    public function closed(
+        Request $request,
         BidOpeningRepository $model,
         UnitPurchaseRequestRepository $upr)
     {
-        $result =   $model->update(['closing_date' => Carbon::now()], $id);
-        $transaction_date   =   Carbon::createFromFormat('Y-m-d',$result->transaction_date);
+        $sobe   =   $model->findById($request->id);
+
+        $this->validate($request, [
+            'closing_date'  =>  'required|after_or_equal:'.$sobe->transaction_date,
+        ]);
+
+        $result =   $model->update(['closing_date' => $request->closing_date], $request->id);
+        $transaction_date   =   Carbon::createFromFormat('Y-m-d',$result->closing_date);
         $upr_model  = $result->upr;
 
         $upr_result = $upr->update([
             'status' => 'SOBE Closed',
-            'next_allowable'=> 1,
+            'next_allowable'=> 45,
             'next_step'     => 'Post Qualification',
-            'next_due'      => $transaction_date->addDays(1),
+            'next_due'      => $transaction_date->addDays(45),
             'last_date'     => $transaction_date,
         ], $upr_model->id);
         event(new Event($upr_result, $upr_result->ref_number." SOBE Closed"));
 
-        return redirect()->route($this->baseUrl.'show', $id)->with([
+        return redirect()->route($this->baseUrl.'show', $request->id)->with([
             'success'  => "Record has been successfully updated."
         ]);
     }

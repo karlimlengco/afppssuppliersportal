@@ -80,10 +80,10 @@
                                 @if($data['proponents'][0]->supplier->attachmentByType("dti") != null && $data['proponents'][0]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
 
                                     <span>
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("dti")->issued_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][0]->supplier->attachmentByType("dti")->issued_date )->format('d F Y')}}
                                     -
 
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("dti")->validity_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][0]->supplier->attachmentByType("dti")->validity_date )->format('d F Y')}}
 
                                     </span>
 
@@ -97,10 +97,10 @@
                                 @if($data['proponents'][1]->supplier->attachmentByType("dti") != null && $data['proponents'][1]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
 
                                     <span>
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("dti")->issued_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][1]->supplier->attachmentByType("dti")->issued_date )->format('d F Y')}}
                                     -
 
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("dti")->validity_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][1]->supplier->attachmentByType("dti")->validity_date )->format('d F Y')}}
 
                                     </span>
 
@@ -115,10 +115,10 @@
                                 @if($data['proponents'][2]->supplier->attachmentByType("dti") != null && $data['proponents'][2]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
 
                                     <span>
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("dti")->issued_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][2]->supplier->attachmentByType("dti")->issued_date )->format('d F Y')}}
                                     -
 
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("dti")->validity_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][2]->supplier->attachmentByType("dti")->validity_date )->format('d F Y')}}
 
                                     </span>
 
@@ -136,10 +136,10 @@
                                 @if($data['proponents'][0]->supplier->attachmentByType("mayors_permit") != null && $data['proponents'][0]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
 
                                     <span>
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("mayors_permit")->issued_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][0]->supplier->attachmentByType("mayors_permit")->issued_date )->format('d F Y')}}
                                     -
 
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("mayors_permit")->validity_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][0]->supplier->attachmentByType("mayors_permit")->validity_date )->format('d F Y')}}
 
                                     </span>
 
@@ -154,10 +154,10 @@
                             <td class="align-center">
                                 @if($data['proponents'][1]->supplier->attachmentByType("mayors_permit") != null && $data['proponents'][1]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
                                     <span>
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("mayors_permit")->issued_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][1]->supplier->attachmentByType("mayors_permit")->issued_date )->format('d F Y')}}
                                     -
 
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("mayors_permit")->validity_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][1]->supplier->attachmentByType("mayors_permit")->validity_date )->format('d F Y')}}
 
                                     </span>
 
@@ -172,10 +172,10 @@
                             <td class="align-center">
                                 @if($data['proponents'][2]->supplier->attachmentByType("mayors_permit") != null && $data['proponents'][2]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'] == 1)
                                     <span>
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("mayors_permit")->issued_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][2]->supplier->attachmentByType("mayors_permit")->issued_date )->format('d F Y')}}
                                     -
 
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("mayors_permit")->validity_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][2]->supplier->attachmentByType("mayors_permit")->validity_date )->format('d F Y')}}
 
                                     </span>
 
@@ -192,10 +192,10 @@
                             <td class="align-center">
                                 @if($data['proponents'][0]->supplier->attachmentByType("tax_clearance") != null && $data['proponents'][0]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'] == 1)
                                     <span>
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("tax_clearance")->issued_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][0]->supplier->attachmentByType("tax_clearance")->issued_date )->format('d F Y')}}
                                     -
 
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("tax_clearance")->validity_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][0]->supplier->attachmentByType("tax_clearance")->validity_date )->format('d F Y')}}
 
                                     </span>
 
@@ -210,10 +210,10 @@
                             <td class="align-center">
                                 @if($data['proponents'][1]->supplier->attachmentByType("tax_clearance") != null && $data['proponents'][1]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'] == 1)
                                     <span>
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("tax_clearance")->issued_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][1]->supplier->attachmentByType("tax_clearance")->issued_date )->format('d F Y')}}
                                     -
 
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("tax_clearance")->validity_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][1]->supplier->attachmentByType("tax_clearance")->validity_date )->format('d F Y')}}
 
                                     </span>
 
@@ -228,10 +228,10 @@
                             <td class="align-center">
                                 @if($data['proponents'][2]->supplier->attachmentByType("tax_clearance") != null && $data['proponents'][2]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'])
                                     <span>
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("tax_clearance")->issued_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][2]->supplier->attachmentByType("tax_clearance")->issued_date )->format('d F Y')}}
                                     -
 
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("tax_clearance")->validity_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][2]->supplier->attachmentByType("tax_clearance")->validity_date )->format('d F Y')}}
 
                                     </span>
 
@@ -248,10 +248,10 @@
                             <td class="align-center">
                                 @if($data['proponents'][0]->supplier->attachmentByType("philgeps_registraion") != null && $data['proponents'][0]->supplier->attachmentByType("philgeps_registraion")->validity_date >= $data['today'])
                                     <span>
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("philgeps_registraion")->issued_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][0]->supplier->attachmentByType("philgeps_registraion")->issued_date )->format('d F Y')}}
                                     -
 
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][0]->supplier->attachmentByType("philgeps_registraion")->validity_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][0]->supplier->attachmentByType("philgeps_registraion")->validity_date )->format('d F Y')}}
 
                                     </span>
 
@@ -266,10 +266,10 @@
                             <td class="align-center">
                                 @if($data['proponents'][1]->supplier->attachmentByType("philgeps_registraion") != null && $data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->validity_date >= $data['today'])
                                     <span>
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->issued_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->issued_date )->format('d F Y')}}
                                     -
 
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->validity_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->validity_date )->format('d F Y')}}
 
                                     </span>
 
@@ -284,10 +284,10 @@
                             <td class="align-center">
                                 @if($data['proponents'][2]->supplier->attachmentByType("philgeps_registraion") != null && $data['proponents'][2]->supplier->attachmentByType("philgeps_registraion")->validity_date >= $data['today'] == 1)
                                     <span>
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("philgeps_registraion")->issued_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][2]->supplier->attachmentByType("philgeps_registraion")->issued_date )->format('d F Y')}}
                                     -
 
-                                    {{\Carbon\Carbon::createFromFormat('Y-m-d',$data['proponents'][2]->supplier->attachmentByType("philgeps_registraion")->validity_date )->format('d F Y')}}
+                                    {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][2]->supplier->attachmentByType("philgeps_registraion")->validity_date )->format('d F Y')}}
 
                                     </span>
 

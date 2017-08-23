@@ -121,7 +121,7 @@ class VoucherController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('voucher_transaction_date') );
-        $diir_date              =   Carbon::createFromFormat('Y-m-d', $rfq_model->diir->closed_date );
+        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $rfq_model->diir->closed_date );
 
         $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -276,7 +276,7 @@ class VoucherController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
-        $diir_date              =   Carbon::createFromFormat('Y-m-d', $rfq_model->diir->closed_date );
+        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $rfq_model->diir->closed_date );
 
         $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -329,7 +329,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('preaudit_date') );
-        $diir_date              =   Carbon::createFromFormat('Y-m-d', $voucher->transaction_date );
+        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $voucher->transaction_date );
 
         $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -394,7 +394,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('approval_date') );
-        $diir_date              =   Carbon::createFromFormat('Y-m-d', $voucher->journal_entry_date );
+        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $voucher->journal_entry_date );
 
         $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -459,7 +459,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('certify_date') );
-        $vou_date               =   Carbon::createFromFormat('Y-m-d', $voucher->preaudit_date );
+        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->preaudit_date );
 
         $day_delayed            =   $vou_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -529,7 +529,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('journal_entry_date') );
-        $vou_date               =   Carbon::createFromFormat('Y-m-d', $voucher->certify_date );
+        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->certify_date );
 
         $day_delayed            =   $vou_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -596,7 +596,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('payment_release_date') );
-        $vou_date               =   Carbon::createFromFormat('Y-m-d', $voucher->approval_date );
+        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->approval_date );
 
         $day_delayed            =   $vou_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -662,7 +662,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('payment_received_date') );
-        $vou_date               =   Carbon::createFromFormat('Y-m-d', $voucher->payment_release_date );
+        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->payment_release_date );
 
         $day_delayed            =   $vou_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -697,7 +697,7 @@ class VoucherController extends Controller
 
         $result     =   $model->update($inputs, $id);
 
-        $prepared_date      =   \Carbon\Carbon::createFromFormat('Y-m-d', $result->upr->date_prepared->format('Y-m-d'));
+        $prepared_date      =   \Carbon\Carbon::createFromFormat('!Y-m-d', $result->upr->date_prepared->format('Y-m-d'));
         $completed_date     =   \Carbon\Carbon::createFromFormat('Y-m-d', $request->payment_received_date);
 
         $days               =   $completed_date->diffInDays($prepared_date);

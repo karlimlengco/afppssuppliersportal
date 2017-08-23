@@ -122,7 +122,7 @@ class VoucherController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('voucher_transaction_date') );
-        $diir_date              =   Carbon::createFromFormat('Y-m-d', $rfq_model->diir->closed_date );
+        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $rfq_model->diir->closed_date );
         $cd                     =   $diir_date->diffInDays($transaction_date);
 
         $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -138,7 +138,8 @@ class VoucherController extends Controller
 
 
         $validator = Validator::make($request->all(),[
-            'amount'       => 'required',
+            'amount'                         => 'required',
+            'voucher_transaction_date'       => 'required|after_or_equal:'. $diir_date->format('Y-m-d'),
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -172,9 +173,9 @@ class VoucherController extends Controller
         $result = $model->save($inputs);
 
         $upr_result  = $upr->update([
-            'next_allowable'=> 1,
+            'next_allowable'=> 2,
             'next_step'     => 'Pre Audit Voucher',
-            'next_due'      => $transaction_date->addDays(1),
+            'next_due'      => $transaction_date->addDays(2),
             'last_date'     => $transaction_date,
             'status'        => 'Voucher Created',
             'delay_count'   => $day_delayed,
@@ -299,7 +300,7 @@ class VoucherController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
-        $diir_date              =   Carbon::createFromFormat('Y-m-d', $rfq_model->diir->closed_date );
+        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $rfq_model->diir->closed_date );
 
         $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -353,7 +354,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('preaudit_date') );
-        $diir_date              =   Carbon::createFromFormat('Y-m-d', $voucher->transaction_date );
+        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $voucher->transaction_date );
         $cd                     =   $diir_date->diffInDays($transaction_date);
 
         $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -361,20 +362,20 @@ class VoucherController extends Controller
         }, $transaction_date);
 
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
-        if($day_delayed > 1)
+        if($day_delayed > 2)
         {
-            $day_delayed = $day_delayed - 1;
+            $day_delayed = $day_delayed - 2;
         }
 
         $validator = Validator::make($request->all(),[
-            'preaudit_date'       => 'required',
+            'preaudit_date'       => 'required|after_or_equal:'. $diir_date->format('Y-m-d'),
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('preaudit_remarks') == null && $day_delayed > 1) {
+            if ( $request->get('preaudit_remarks') == null && $day_delayed > 2) {
                 $validator->errors()->add('preaudit_remarks', 'This field is required when your process is delay');
             }
-            if ( $request->get('preaudit_action') == null && $day_delayed > 1) {
+            if ( $request->get('preaudit_action') == null && $day_delayed > 2) {
                 $validator->errors()->add('preaudit_action', 'This field is required when your process is delay');
             }
         });
@@ -444,7 +445,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('approval_date') );
-        $diir_date              =   Carbon::createFromFormat('Y-m-d', $voucher->journal_entry_date );
+        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $voucher->journal_entry_date );
         $cd                     =   $diir_date->diffInDays($transaction_date);
 
         $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -522,7 +523,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('certify_date') );
-        $vou_date               =   Carbon::createFromFormat('Y-m-d', $voucher->preaudit_date );
+        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->preaudit_date );
         $cd                     =   $vou_date->diffInDays($transaction_date);
 
         $day_delayed            =   $vou_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -603,7 +604,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('journal_entry_date') );
-        $vou_date               =   Carbon::createFromFormat('Y-m-d', $voucher->certify_date );
+        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->certify_date );
         $cd                     =   $vou_date->diffInDays($transaction_date);
 
         $day_delayed            =   $vou_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -683,7 +684,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('payment_release_date') );
-        $vou_date               =   Carbon::createFromFormat('Y-m-d', $voucher->approval_date );
+        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->approval_date );
         $cd                     =   $vou_date->diffInDays($transaction_date);
 
         $day_delayed            =   $vou_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -763,7 +764,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('payment_received_date') );
-        $vou_date               =   Carbon::createFromFormat('Y-m-d', $voucher->payment_release_date );
+        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->payment_release_date );
         $cd                     =   $vou_date->diffInDays($transaction_date);
 
         $day_delayed            =   $vou_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -807,7 +808,7 @@ class VoucherController extends Controller
 
         $result     =   $model->update($inputs, $id);
 
-        $prepared_date      =   \Carbon\Carbon::createFromFormat('Y-m-d', $result->upr->date_prepared->format('Y-m-d'));
+        $prepared_date      =   \Carbon\Carbon::createFromFormat('!Y-m-d', $result->upr->date_prepared->format('Y-m-d'));
         $completed_date     =   \Carbon\Carbon::createFromFormat('Y-m-d', $request->payment_received_date);
 
         $days               =   $completed_date->diffInDays($prepared_date);
@@ -939,8 +940,8 @@ class VoucherController extends Controller
         $data['ntp_date']               =   $noa_model->upr->ntp->award_accepted_date;
         $data['header']                 =   $result->upr->centers;
 
-        $ntp_date                       =   Carbon::createFromFormat('Y-m-d',$data['ntp_date']);
-        $delivery_date                  =   Carbon::createFromFormat('Y-m-d',$data['delivery_date']);
+        $ntp_date                       =   Carbon::createFromFormat('!Y-m-d',$data['ntp_date']);
+        $delivery_date                  =   Carbon::createFromFormat('!Y-m-d',$data['delivery_date']);
         $nr_delay                       =   $ntp_date->diffInDays($delivery_date, false);
         $penalty                        =   (($result->amount * 0.01) * 0.1) * $nr_delay;
         $data['nr_delay']               =   $nr_delay;
@@ -988,8 +989,8 @@ class VoucherController extends Controller
         $data['ntp_date']               =   $noa_model->upr->ntp->award_accepted_date;
         $data['header']             =   $result->upr->centers;
 
-        $ntp_date                       =   Carbon::createFromFormat('Y-m-d',$data['ntp_date']);
-        $delivery_date                  =   Carbon::createFromFormat('Y-m-d',$data['delivery_date']);
+        $ntp_date                       =   Carbon::createFromFormat('!Y-m-d',$data['ntp_date']);
+        $delivery_date                  =   Carbon::createFromFormat('!Y-m-d',$data['delivery_date']);
 
         $pdf = PDF::loadView('forms.voucher-no-tax', ['data' => $data])
             ->setOption('margin-bottom', 30)

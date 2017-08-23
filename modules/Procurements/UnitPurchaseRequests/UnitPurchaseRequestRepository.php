@@ -145,18 +145,39 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'notice_to_proceed.prepared_date as ntp_date',
             'notice_to_proceed.award_accepted_date as ntp_award_date',
             'delivery_orders.transaction_date as dr_date',
+
             'delivery_orders.id as dr_id',
-            'delivery_orders.days as dr_days',
-            'delivery_orders.remarks as dr_remarks',
-            'delivery_orders.action as dr_action',
-            'delivery_orders.delivery_days as dr_delivery_days',
-            'delivery_orders.delivery_remarks as dr_delivery_remarks',
-            'delivery_orders.delivery_action as dr_delivery_action',
-            'delivery_orders.dr_coa_days as dr_dr_coa_days',
-            'delivery_orders.dr_coa_remarks as dr_dr_coa_remarks',
-            'delivery_orders.dr_coa_action as dr_dr_coa_action',
-            'delivery_orders.delivery_date',
-            'delivery_orders.date_delivered_to_coa as dr_coa_date',
+
+
+            DB::raw(" (select delivery_orders.id from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_id "),
+
+            DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_days "),
+
+            DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
+
+            DB::raw(" (select delivery_orders.remarks from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_remarks "),
+
+            DB::raw(" (select delivery_orders.action from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_action "),
+            DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
+            DB::raw(" (select delivery_orders.delivery_remarks from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_delivery_remarks "),
+            DB::raw(" (select delivery_orders.delivery_action from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_delivery_action "),
+            DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
+            DB::raw(" (select delivery_orders.dr_coa_remarks from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_dr_coa_remarks "),
+            DB::raw(" (select delivery_orders.dr_coa_action from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as dr_dr_coa_action "),
+            DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id order by delivery_orders.created_at desc limit 1) as delivery_date "),
+
+            // 'delivery_orders.days as dr_days',
+            // 'delivery_orders.remarks as dr_remarks',
+            // 'delivery_orders.action as dr_action',
+            // 'delivery_orders.delivery_days as dr_delivery_days',
+            // 'delivery_orders.delivery_remarks as dr_delivery_remarks',
+            // 'delivery_orders.delivery_action as dr_delivery_action',
+            // 'delivery_orders.dr_coa_days as dr_dr_coa_days',
+            // 'delivery_orders.dr_coa_remarks as dr_dr_coa_remarks',
+            // 'delivery_orders.dr_coa_action as dr_dr_coa_action',
+            // 'delivery_orders.delivery_date',
+            // 'delivery_orders.date_delivered_to_coa as dr_coa_date',
+
             'inspection_acceptance_report.id as tiac_id',
             'inspection_acceptance_report.accept_days as tiac_accept_days',
             'inspection_acceptance_report.accept_remarks as tiac_accept_remarks',
@@ -284,9 +305,12 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.date_prepared as upr_created_at',
             'unit_purchase_requests.next_due',
             'unit_purchase_requests.next_step',
-            DB::raw("(select count(*) from holidays where holiday_date >= unit_purchase_requests.created_at and holiday_date <= NOW()) as holidays"),
+            DB::raw("(select count(*) from holidays where holiday_date >= unit_purchase_requests.date_prepared and holiday_date <= NOW()) as holidays"),
+            DB::raw("(SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_prepared and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6) as holidays2"),
             // DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) as delay")
-            DB::raw("datediff( unit_purchase_requests.next_due, NOW()) as delay")
+            DB::raw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1)) as test"),
+            // DB::raw("datediff( unit_purchase_requests.next_due, NOW()) as delay")
+            DB::raw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_prepared and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) as delay")
         ]);
 
         $model  =   $model->where('state', '!=', 'completed');
@@ -308,22 +332,9 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.next_due',
             'unit_purchase_requests.next_step',
         ]);
-        $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1)) > 0");
+        $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_prepared and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) > 0");
 
         $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");
-
-        // $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('ispq_quotations', 'ispq_quotations.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('invitation_for_quotation', 'invitation_for_quotation.id', '=', 'ispq_quotations.ispq_id');
-        // $model  =   $model->leftJoin('canvassing', 'canvassing.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('notice_of_awards', 'notice_of_awards.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('notice_to_proceed', 'notice_to_proceed.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('delivery_orders', 'delivery_orders.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('inspection_acceptance_report', 'inspection_acceptance_report.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
         if($request && $request->has('search') && $request->search != null)
         {
             $search =   $request->search;

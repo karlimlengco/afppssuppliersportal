@@ -141,12 +141,14 @@ class ISPQController extends Controller
         $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed  > 0)
+        if($day_delayed  > 3)
         {
-            $day_delayed            =   $day_delayed - 1;
+            $day_delayed            =   $day_delayed - 3;
         }
+
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
@@ -154,10 +156,10 @@ class ISPQController extends Controller
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed >= 1) {
+            if ( $request->get('remarks') == null && $day_delayed >= 3) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
             }
-            if ( $request->get('action') == null && $day_delayed >= 1) {
+            if ( $request->get('action') == null && $day_delayed >= 3) {
                 $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
@@ -197,7 +199,7 @@ class ISPQController extends Controller
         $upr_result =   $upr->update(['status' => 'Invitation Created',
             'next_allowable'=> 3,
             'next_step'     => 'PhilGeps Posting',
-            'next_due'      => $transaction_date->addDays(3),
+            'next_due'      => $upr_model->date_prepared->addDays(3),
             'last_date'     => $transaction_date,
             'delay_count'   => $wd,
             'calendar_days' => $cd + $upr_model->calendar_days,

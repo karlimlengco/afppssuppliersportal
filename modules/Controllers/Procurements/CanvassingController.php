@@ -143,14 +143,6 @@ class CanvassingController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
         $ispq_transaction_date  =   $rfq_model->completed_at;
-        // if(!$upr_model->philgeps)
-        // {
-        //     $ispq_transaction_date  = Carbon::createFromFormat('Y-m-d', $rfq_model->invitations->ispq->transaction_date);
-        // }
-        // else
-        // {
-        //     $ispq_transaction_date  = Carbon::createFromFormat('Y-m-d', $upr_model->philgeps->transaction_date);
-        // }
 
         $cd                     =   $ispq_transaction_date->diffInDays($transaction_date);
 
@@ -160,14 +152,14 @@ class CanvassingController extends Controller
 
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed != 0)
+        if($day_delayed >= 2)
         {
-            $day_delayed            =   $day_delayed - 1;
+            $day_delayed            =   $day_delayed - 2;
         }
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'open_canvass_date'  =>  'required',
+            'open_canvass_date'  =>  'required|after_or_equal:'. $ispq_transaction_date->format('Y-m-d'),
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -186,7 +178,6 @@ class CanvassingController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-
         $inputs['rfq_number']   =   $rfq_model->rfq_number;
         $inputs['upr_number']   =   $rfq_model->upr_number;
         $inputs['upr_id']       =   $rfq_model->upr_id;
@@ -195,13 +186,12 @@ class CanvassingController extends Controller
         $inputs['canvass_date'] =   $request->open_canvass_date;
         $inputs['remarks']      =   $request->remarks;
         $inputs['action']       =   $request->action;
-        $inputs['canvass_time'] =   \Carbon\Carbon::now()->format('H:i:s');
+        $inputs['canvass_time'] =   $request->open_canvass_time;
         $inputs['open_by']      =   \Sentinel::getUser()->id;
-        $canvass_date           =   $request->open_canvass_date;
 
-            $inputs['presiding_officer']     =   $request->presiding_officer;
-            $inputs['chief']                =   $request->chief;
-            $inputs['other_attendees']      =   $request->other_attendees;
+        $inputs['presiding_officer']     =   $request->presiding_officer;
+        $inputs['chief']                =   $request->chief;
+        $inputs['other_attendees']      =   $request->other_attendees;
 
         $result = $model->save($inputs);
 
@@ -214,8 +204,8 @@ class CanvassingController extends Controller
 
         $upr_result =   $upr->update([
             'next_allowable'=> 2,
-            'next_step'     => 'NOA',
-            'next_due'      => $transaction_date->addDays(2),
+            'next_step'     => 'Prepare NOA',
+            'next_due'      => $ispq_transaction_date->addDays(2),
             'last_date'     => $transaction_date,
             'status'        => "Open Canvass",
             'delay_count'   => $wd,

@@ -172,7 +172,8 @@ class NoticeToProceedController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('preparared_date') );
-        $po_date                =   Carbon::createFromFormat('Y-m-d', $po_model->coa_approved_date );
+        // $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_model->coa_approved_date );
+        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_model->mfo_received_date );
         $cd                     =   $po_date->diffInDays($transaction_date);
 
         $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -180,19 +181,28 @@ class NoticeToProceedController extends Controller
         }, $transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed > 1 ){
-            $day_delayed = $day_delayed - 1;
+        if($po_model->upr->mode_of_procurement != 'public_bidding')
+        {
+            $ntpAllowed  =   1;
+        }
+        else
+        {
+            $ntpAllowed  =   7;
+        }
+
+        if($day_delayed > $ntpAllowed ){
+            $day_delayed = $day_delayed - $ntpAllowed;
         }
 
         $validator = Validator::make($request->all(),[
-            'preparared_date'   => 'required',
+            'preparared_date'   => 'required|after_or_equal:'. $po_date->format('Y-m-d'),
         ]);
 
-        $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed > 1) {
+        $validator->after(function ($validator)use($day_delayed, $request, $ntpAllowed) {
+            if ( $request->get('remarks') == null && $day_delayed > $ntpAllowed) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
             }
-            if ( $request->get('action') == null && $day_delayed > 1) {
+            if ( $request->get('action') == null && $day_delayed > $ntpAllowed) {
                 $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
@@ -330,7 +340,7 @@ class NoticeToProceedController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('prepared_date') );
-        $po_date                =   Carbon::createFromFormat('Y-m-d', $po_model->coa_approved_date );
+        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_model->coa_approved_date );
 
         $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
@@ -383,7 +393,7 @@ class NoticeToProceedController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('award_accepted_date') );
         $po_date                =   Carbon::createFromFormat('Y-m-d H:i:s', $ntp_model->prepared_date );
-        $po_date                =   Carbon::createFromFormat('Y-m-d', $po_date->format('Y-m-d') );
+        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_date->format('Y-m-d') );
         $cd                     =   $po_date->diffInDays($transaction_date);
 
         $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -391,13 +401,14 @@ class NoticeToProceedController extends Controller
         }, $transaction_date);
 
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
         if($day_delayed > 1 ){
             $day_delayed = $day_delayed - 1;
         }
 
         $validator = Validator::make($request->all(),[
             'received_by'           =>  'required',
-            'award_accepted_date'   =>  'required',
+            'award_accepted_date'   =>  'required|after_or_equal:'. $po_date->format('Y-m-d'),
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -430,9 +441,9 @@ class NoticeToProceedController extends Controller
         $result             =   $model->update($input, $id);
 
         $upr_result  =  $upr->update([
-            'next_allowable'=> 1,
+            'next_allowable'=> $ntp_model->po->delivery_terms,
             'next_step'     => 'Prepare NOD',
-            'next_due'      => $transaction_date->addDays(1),
+            'next_due'      => $transaction_date->addDays($ntp_model->po->delivery_terms),
             'last_date'     => $transaction_date,
             'status'        => 'NTP Accepted',
             'delay_count'   => $day_delayed,

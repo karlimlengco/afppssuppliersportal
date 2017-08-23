@@ -84,7 +84,7 @@ class InspectionAndAcceptanceController extends Controller
         $tiac                   =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('accepted_date') );
-        $tiac_date              =   Carbon::createFromFormat('Y-m-d', $tiac->inspection_date );
+        $tiac_date              =   Carbon::createFromFormat('!Y-m-d', $tiac->inspection_date );
         $cd                     =   $tiac_date->diffInDays($transaction_date);
 
         $day_delayed            =   $tiac_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -98,7 +98,7 @@ class InspectionAndAcceptanceController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'accepted_date'       => 'required',
+            'accepted_date'       => 'required|after_or_equal:'. $tiac_date->format('Y-m-d'),
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -233,7 +233,7 @@ class InspectionAndAcceptanceController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('inspection_date') );
-        $dr_date                =   Carbon::createFromFormat('Y-m-d', $dr_model->date_delivered_to_coa );
+        $dr_date                =   Carbon::createFromFormat('!Y-m-d', $dr_model->date_delivered_to_coa );
         $cd                     =   $dr_date->diffInDays($transaction_date);
 
         $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -241,22 +241,22 @@ class InspectionAndAcceptanceController extends Controller
         }, $transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed > 1)
+        if($day_delayed > 2)
         {
-            $day_delayed = $day_delayed - 1;
+            $day_delayed = $day_delayed - 2;
         }
 
 
         $validator = Validator::make($request->all(),[
-            'inspection_date'       => 'required',
+            'inspection_date'       => 'required|after_or_equal:'. $dr_date->format('Y-m-d'),
             'invoice_number.*' => 'required'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed > 1) {
+            if ( $request->get('remarks') == null && $day_delayed > 2) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
             }
-            if ( $request->get('action') == null && $day_delayed > 1) {
+            if ( $request->get('action') == null && $day_delayed > 2) {
                 $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
@@ -306,9 +306,9 @@ class InspectionAndAcceptanceController extends Controller
         }
 
         $upr_result = $upr->update([
-            'next_allowable'=> 1,
+            'next_allowable'=> 2,
             'next_step'     => 'Inspection Acceptance',
-            'next_due'      => $transaction_date->addDays(1),
+            'next_due'      => $dr_date->addDays(2),
             'last_date'     => $transaction_date,
             'status'        => 'Inspection Started',
             'delay_count'   => $day_delayed,
@@ -482,7 +482,7 @@ class InspectionAndAcceptanceController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('inspection_date') );
-        $dr_date                =   Carbon::createFromFormat('Y-m-d', $dr_model->date_delivered_to_coa );
+        $dr_date                =   Carbon::createFromFormat('!Y-m-d', $dr_model->date_delivered_to_coa );
 
         $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);

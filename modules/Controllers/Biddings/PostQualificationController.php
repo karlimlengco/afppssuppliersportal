@@ -116,7 +116,7 @@ class PostQualificationController extends Controller
         UnitPurchaseRequestRepository $upr)
     {
         $upr_model              =   $upr->findById($request->upr_id);
-        $bid_open                =   Carbon::createFromFormat('Y-m-d',$upr_model->bid_open->closing_date);
+        $bid_open                =   Carbon::createFromFormat('!Y-m-d',$upr_model->bid_open->closing_date);
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->pq_transaction_date);
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
@@ -128,9 +128,9 @@ class PostQualificationController extends Controller
         $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed >= 1)
+        if($day_delayed > 45)
         {
-            $day_delayed            =   $day_delayed - 1;
+            $day_delayed            =   $day_delayed - 45;
         }
 
         $validator = Validator::make($request->all(),[
@@ -138,10 +138,10 @@ class PostQualificationController extends Controller
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed >= 1) {
+            if ( $request->get('remarks') == null && $day_delayed > 45) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
             }
-            if ( $request->get('action') == null && $day_delayed >= 1) {
+            if ( $request->get('action') == null && $day_delayed > 45) {
                 $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
@@ -167,9 +167,9 @@ class PostQualificationController extends Controller
 
         $upr_result = $upr->update([
             'status' => 'Post Qualification',
-            'next_allowable'=> 2,
+            'next_allowable'=> 15,
             'next_step'     => 'Prepare NOA',
-            'next_due'      => $transaction_date->addDays(2),
+            'next_due'      => $transaction_date->addDays(15),
             'last_date'     => $transaction_date,
             'processed_by'  => \Sentinel::getUser()->id,
             'delay_count'   => $wd,
@@ -261,7 +261,7 @@ class PostQualificationController extends Controller
         $result =   $model->update(['update_remarks' => $request->update_remarks, 'transaction_date' => $request->transaction_date], $id);
 
         $upr_model              =   $result->upr;
-        $bid_open               =   Carbon::createFromFormat('Y-m-d',$upr_model->bid_open->closing_date);
+        $bid_open               =   Carbon::createFromFormat('!Y-m-d',$upr_model->bid_open->closing_date);
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');

@@ -84,7 +84,7 @@ class InspectionAndAcceptanceController extends Controller
         $tiac                   =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('accepted_date') );
-        $tiac_date              =   Carbon::createFromFormat('Y-m-d', $tiac->inspection_date );
+        $tiac_date              =   Carbon::createFromFormat('!Y-m-d', $tiac->inspection_date );
 
         $cd                     =   $tiac_date->diffInDays($transaction_date);
 
@@ -235,7 +235,7 @@ class InspectionAndAcceptanceController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('inspection_date') );
-        $dr_date                =   Carbon::createFromFormat('Y-m-d', $dr_model->date_delivered_to_coa );
+        $dr_date                =   Carbon::createFromFormat('!Y-m-d', $dr_model->date_delivered_to_coa );
 
         $cd                     =   $dr_date->diffInDays($transaction_date);
 
@@ -479,7 +479,7 @@ class InspectionAndAcceptanceController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('inspection_date') );
-        $dr_date                =   Carbon::createFromFormat('Y-m-d', $dr_model->date_delivered_to_coa );
+        $dr_date                =   Carbon::createFromFormat('!Y-m-d', $dr_model->date_delivered_to_coa );
 
         $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);

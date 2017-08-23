@@ -156,10 +156,10 @@ class PSRController extends Controller
         Excel::create("PSR Transactions", function($excel)use ($result, $from ,$to) {
             $excel->sheet('Page1', function($sheet)use ($result, $from ,$to) {
                 if($from != null)
-                $from = \Carbon\Carbon::createFromFormat('Y-m-d', $from)->format('d F Y');
+                $from = \Carbon\Carbon::createFromFormat('!Y-m-d', $from)->format('d F Y');
 
                 if($to != null)
-                $to = \Carbon\Carbon::createFromFormat('Y-m-d', $to)->format('d F Y');
+                $to = \Carbon\Carbon::createFromFormat('!Y-m-d', $to)->format('d F Y');
 
                 $count = 6;
                 $sheet->row(1, ['TRANSACTION SUMMARY OF PROCUREMENT CENTER']);

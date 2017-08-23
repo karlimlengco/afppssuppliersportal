@@ -44,7 +44,7 @@
                         <td class="border-left-only" nowrap>Address</td>
                         <td class="no-border"><strong>{{$data['winner']->address}}</strong></td>
                         <td class="no-border" nowrap>Date</td>
-                        <td class="border-right-only"><strong>{{\Carbon\Carbon::createFromFormat('Y-m-d',$data['purchase_date'])->format('d F Y')}}</strong></td>
+                        <td class="border-right-only"><strong>{{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['purchase_date'])->format('d F Y')}}</strong></td>
                     </tr>
                     <tr>
                         <td class="border-left-only" nowrap>Email Address</td>

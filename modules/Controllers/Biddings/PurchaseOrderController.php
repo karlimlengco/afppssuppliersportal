@@ -116,7 +116,7 @@ class PurchaseOrderController extends Controller
         $po                     =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('coa_approved_date') );
-        $po_date                =   Carbon::createFromFormat('Y-m-d', $po->mfo_received_date );
+        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po->mfo_received_date );
 
         // Delay
         $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -196,7 +196,7 @@ class PurchaseOrderController extends Controller
         $po                     =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('mfo_received_date') );
-        $po_date                =   Carbon::createFromFormat('Y-m-d', $po->funding_received_date );
+        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po->funding_received_date );
 
         // Delay
         $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -272,7 +272,7 @@ class PurchaseOrderController extends Controller
         $po                     =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('funding_received_date') );
-        $po_date                =   Carbon::createFromFormat('Y-m-d', $po->purchase_date );
+        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po->purchase_date );
 
         // Delay
         $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -395,7 +395,7 @@ class PurchaseOrderController extends Controller
     {
         $noa_model              =   $noa->with('winner')->findByUPR($id);
         // dd($noa_model);
-        $award_accepted_date    =   Carbon::createFromFormat('Y-m-d', $noa_model->award_accepted_date);
+        $award_accepted_date    =   Carbon::createFromFormat('!Y-m-d', $noa_model->award_accepted_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('purchase_date') );
 
@@ -705,7 +705,7 @@ class PurchaseOrderController extends Controller
         $result =   $model->update($input, $id);
 
         $noa_model              =   $noa->with('winner')->findByUPR($result->upr_id);
-        $award_accepted_date    =   Carbon::createFromFormat('Y-m-d', $noa_model->award_accepted_date);
+        $award_accepted_date    =   Carbon::createFromFormat('!Y-m-d', $noa_model->award_accepted_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('purchase_date') );
         // Delay

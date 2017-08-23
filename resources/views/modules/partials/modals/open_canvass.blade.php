@@ -11,8 +11,11 @@
 
             <div class="modal__dialogue__body">
                 <div class="row">
-                    <div class="twelve columns">
+                    <div class="six columns">
                         {!! Form::dateField('open_canvass_date', 'Canvass Date') !!}
+                    </div>
+                    <div class="six columns">
+                        {!! Form::textField('open_canvass_time', 'Canvass Time') !!}
                     </div>
                 </div>
                 <div class="row">
@@ -25,7 +28,7 @@
                 </div>
                 <div class="row">
                     <div class="twelve columns">
-                        {!! Form::tagField('members', 'Members', $signatory_list) !!}
+                        {!! Form::tagField('members', 'Members (Max 5 members)', $signatory_list) !!}
                     </div>
                 </div>
                 <div class="row">

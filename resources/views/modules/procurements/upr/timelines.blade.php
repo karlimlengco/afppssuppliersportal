@@ -69,7 +69,7 @@ Unit Purchase Request
                     <th>Name</th>
                     <th>Date</th>
                     <th>Allowable Time</th>
-                    <th>Day/s</th>
+                    <th>W Day/s</th>
                     <th>Justification/Remarks</th>
                     <th>Action Taken</th>
                     <th>Print</th>
@@ -101,23 +101,25 @@ Unit Purchase Request
                             </a>
                         @endif
                     </td>
-                    <td>0</td>
+                    <td>3</td>
                     <td>
-                    @if(isset($rfq_completed_at))
-                        @if($data->ispq_transaction_date != null)
-                            {{ $data->ispq_days }}
-                            <?php $totalDays +=  $data->ispq_days ; ?>
+                    @if($data->ispq_transaction_date != null)
+                        {{ $data->ispq_days }}
+                        <?php $totalDays +=  $data->ispq_days ; ?>
 
 
-                            @if($data->ispq_days >= 1)
-                                <strong class="red">({{$data->ispq_days - 0}})</strong>
-                            @endif
+                        @if($data->ispq_days > 3)
+                            <strong class="red" tooltip="Delay">({{$data->ispq_days - 3}})</strong>
+                        @endif
 
-                        @else
+                    @else
 
-                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
-                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                            {{$d}}
+                        <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+                        {{$d}}
+
+
+                        @if($d > 3)
+                            <strong class="red" tooltip="Delay">({{$d - 3}})</strong>
                         @endif
                     @endif
 
@@ -152,13 +154,17 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->pp_days ; ?>
 
                             @if($data->pp_days > 3)
-                                <strong class="red">({{$data->pp_days - 3}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->pp_days - 3}})</strong>
                             @endif
 
                         @else
                             <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
-                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{-- {{ ($d >= 3) ?  $d - 3 : $d }} --}}
                             {{$d}}
+
+                            @if($d > 3)
+                                <strong class="red" tooltip="Delay">({{$d - 3}})</strong>
+                            @endif
 
                         @endif
                     </td>
@@ -179,20 +185,24 @@ Unit Purchase Request
 
                         @endif
                     </td>
-                    <td>0</td>
+                    <td>3</td>
                     <td>
                         @if(isset($rfq_completed_ats) && $rfq_completed_ats != null)
                             {{ $data->rfq_closed_days }}
                             <?php $totalDays +=  $data->rfq_closed_days ; ?>
 
-                            @if($data->rfq_closed_days >= 1)
-                                <strong class="red">({{$data->rfq_closed_days - 0}})</strong>
+                            @if($data->rfq_closed_days >  3)
+                                <strong class="red" tooltip="Delay">({{$data->rfq_closed_days - 3}})</strong>
                             @endif
 
                         @else
                             <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ) ;?>
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
+
+                            @if($d > 3)
+                                <strong class="red" tooltip="Delay">({{$d - 3}})</strong>
+                            @endif
                         @endif
 
                     </td>
@@ -220,21 +230,28 @@ Unit Purchase Request
                         </a>
                         @endif
                     </td>
-                    <td>1</td>
+                    <td>2</td>
                     <td>
-                        @if(isset($canvass_start_date))
+                    @if($data->rfq_completed_at != null)
+                        @if(isset($canvass_start_date) )
                             {{ $data->canvass_days }}
                             <?php $totalDays +=  $data->canvass_days ; ?>
 
-                            @if($data->canvass_days > 1)
-                                <strong class="red">({{$data->canvass_days - 1}})</strong>
+                            @if($data->canvass_days > 2)
+                                <strong class="red" tooltip="Delay">({{$data->canvass_days - 2}})</strong>
                             @endif
 
                         @else
-                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
-                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                            {{$d}}
+                            @if($next_date < $today)
+                                <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                                {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                {{$d}}
+                                @if($d > 2)
+                                    <strong class="red" tooltip="Delay">({{$d - 2}})</strong>
+                                @endif
+                            @endif
                         @endif
+                    @endif
                     </td>
                     <td>{{$data->canvass_remarks}}</td>
                     <td>{{$data->canvass_action}}</td>
@@ -270,9 +287,13 @@ Unit Purchase Request
                                 </a>
                                 @endif
                             </td>
-                            <td ></td>
+                            <td >1</td>
                             <td>
                                 {{ $docu->days }}
+
+                                @if($docu->days > 1)
+                                    <strong class="red" tooltip="Delay">({{$docu->days - 1}})</strong>
+                                @endif
                                 <?php $totalDays +=  $docu->days ; ?>
                             </td>
                             <td>{{$docu->remarks}}</td>
@@ -299,13 +320,16 @@ Unit Purchase Request
                                     <?php $totalDays +=  $data->preproc->days ; ?>
 
                                     @if($data->preproc->days > 1)
-                                        <strong class="red">({{$data->preproc->days - 1}})</strong>
+                                        <strong class="red" tooltip="Delay">({{$data->preproc->days - 1}})</strong>
                                     @endif
 
                                     @else
                                     <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
                                     {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                                     {{$d}}
+                                    @if($d > 1)
+                                        <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                                    @endif
                                 @endif
 
                             </td>
@@ -335,13 +359,18 @@ Unit Purchase Request
                                     <?php $totalDays +=  $data->itb->days ; ?>
 
                                     @if($data->itb->days > 7)
-                                        <strong class="red">({{$data->itb->days - 7}})</strong>
+                                        <strong class="red" tooltip="Delay">({{$data->itb->days - 7}})</strong>
                                     @endif
 
                                     @else
-                                    <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
-                                    {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                                    {{$d}}
+                                    @if($data->preproc != null)
+                                        <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                                        {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                        {{$d}}
+                                        @if($d > 7)
+                                            <strong class="red" tooltip="Delay">({{$d - 7}})</strong>
+                                        @endif
+                                    @endif
                                 @endif
 
                             </td>
@@ -369,7 +398,7 @@ Unit Purchase Request
                                 <?php $totalDays +=  $data->philgeps->days ; ?>
 
                                 @if($data->philgeps->days > 7)
-                                    <strong class="red">({{$data->philgeps->days - 7}})</strong>
+                                    <strong class="red" tooltip="Delay">({{$data->philgeps->days - 7}})</strong>
                                 @endif
 
                         </td>
@@ -402,13 +431,18 @@ Unit Purchase Request
                                 <?php $totalDays +=  $data->bid_conference->days ; ?>
 
                 {{--                 @if($data->bid_conference->days > 1)
-                                    <strong class="red">({{$data->bid_conference->days - 1}})</strong>
+                                    <strong class="red" tooltip="Delay">({{$data->bid_conference->days - 1}})</strong>
                                 @endif
  --}}
                             @else
-                                    <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
-                                    {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                                    {{$d}}
+                                @if($data->philgeps != null)
+                                        <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                                        {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                        {{$d}}
+                                    @if($d > 1)
+                                        <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                                    @endif
+                                @endif
                             @endif
                         @endif
                         </td>
@@ -448,13 +482,66 @@ Unit Purchase Request
                                 <?php $totalDays +=  $data->bid_open->days ; ?>
 
                                 @if($data->bid_open->days > 45)
-                                    <strong class="red">({{$data->bid_open->days - 45}})</strong>
+                                    <strong class="red" tooltip="Delay">({{$data->bid_open->days - 45}})</strong>
                                 @endif
 
                             @else
                                     <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
                                     {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                                     {{$d}}
+                                @if($d > 45)
+                                    <strong class="red" tooltip="Delay">({{$d - 45}})</strong>
+                                @endif
+                            @endif
+                        @endif
+                        </td>
+                        <td>
+                            @if($data->bid_open != null)
+                                {{$data->bid_open->remarks}}
+                            @endif
+                        </td>
+                        <td>
+                            @if($data->bid_open != null)
+                                {{$data->bid_open->action}}
+                            @endif
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    {{-- SOBE --}}
+
+
+                    {{-- SOBE --}}
+                    <tr>
+                        <td>Close SOBE</td>
+                        <td>
+                            @if($data->bid_open != null && $data->bid_open->closing_date != null)
+                            <?php $bid_close  =  createCarbon('Y-m-d',$data->bid_open->closing_date); ?>
+                                <a target="_blank" href="{{route('biddings.bid-openings.show', $data->bid_open->id)}}">
+                                    {{ $bid_close->format('d F Y') }}
+                                </a>
+                            @endif
+                        </td>
+                        <td >7</td>
+                        <td>
+                        @if($data->bid_conference != null)
+                            @if($data->bid_open != null && $data->bid_open->closing_date != null)
+                                <?php  $closeDays =  $bid_open->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $bid_close ); ?>
+                                {{ $closeDays }}
+                                <?php $totalDays +=  $closeDays ; ?>
+
+                                @if($closeDays > 7)
+                                    <strong class="red" tooltip="Delay">({{$closeDays - 7}})</strong>
+                                @endif
+
+                            @else
+                                    <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                                    {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                    {{$d}}
+                                @if($d > 7)
+                                    <strong class="red" tooltip="Delay">({{$d - 7}})</strong>
+                                @endif
                             @endif
                         @endif
                         </td>
@@ -493,13 +580,18 @@ Unit Purchase Request
                                     <?php $totalDays +=  $data->post_qual->days ; ?>
 
                                     @if($data->post_qual->days > 45)
-                                        <strong class="red">({{$data->post_qual->days - 45}})</strong>
+                                        <strong class="red" tooltip="Delay">({{$data->post_qual->days - 45}})</strong>
                                     @endif
 
                                 @else
-                                        <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
-                                        {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                                        {{$d}}
+                                    @if($data->bid_open->closing_date != null)
+                                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                            {{$d}}
+                                        @if($d > 45)
+                                            <strong class="red" tooltip="Delay">({{$d - 45}})</strong>
+                                        @endif
+                                    @endif
                                 @endif
                             @endif
                         </td>
@@ -530,7 +622,12 @@ Unit Purchase Request
                         </a>
                         @endif
                     </td>
+
+                    @if($data->mode_of_procurement != 'public_bidding')
                     <td>2</td>
+                    @else
+                    <td>15</td>
+                    @endif
                     <td>
                     @if(isset($canvass_start_date))
                         @if($data->noa_award_date)
@@ -538,7 +635,7 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->noa_days ; ?>
 
                             @if($data->noa_days > 2)
-                                <strong class="red">({{$data->noa_days - 2}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->noa_days - 2}})</strong>
                             @endif
 
 
@@ -547,14 +644,29 @@ Unit Purchase Request
 
                                 {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                                 {{$d}}
+
+                                @if($d > 2)
+                                    <strong class="red" tooltip="Delay">({{$d - 2}})</strong>
+                                @endif
                         @endif
                     @else
+                            {{ $data->noa_days }}
+                            <?php $totalDays +=  $data->noa_days ; ?>
 
-                            @if($data->post_qual != null)
+                            @if($data->noa_days > 15)
+                                <strong class="red" tooltip="Delay">({{$data->noa_days - 15}})</strong>
+                            @endif
+
+                            @if($data->post_qual != null && $data->noa_days == null)
                                 <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
 
                                 {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                                 {{$d}}
+
+
+                                @if($d > 15)
+                                    <strong class="red" tooltip="Delay">({{$d - 15}})</strong>
+                                @endif
 
                             @endif
                     @endif
@@ -589,7 +701,7 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->noa_approved_days ; ?>
 
                             @if($data->noa_approved_days > 1)
-                                <strong class="red">({{$data->noa_approved_days - 1}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->noa_approved_days - 1}})</strong>
                             @endif
 
 
@@ -599,6 +711,11 @@ Unit Purchase Request
 
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
+
+
+                            @if($d > 1)
+                                <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                            @endif
                         @endif
                     @endif
                     </td>
@@ -625,7 +742,7 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->noa_received_days ; ?>
 
                             @if($data->noa_received_days > 1)
-                                <strong class="red">({{$data->noa_received_days - 1}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->noa_received_days - 1}})</strong>
                             @endif
 
                         @else
@@ -635,6 +752,11 @@ Unit Purchase Request
 
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
+
+
+                            @if($d > 1)
+                                <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                            @endif
                         @endif
                     @endif
                     </td>
@@ -643,6 +765,7 @@ Unit Purchase Request
                     <td></td>
                 </tr>
 
+                @if($data->mode_of_procurement != 'public_bidding')
                 <tr>
                     <td>PO Creation</td>
                     <td>
@@ -661,13 +784,17 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->po_days ; ?>
 
                             @if($data->po_days > 2)
-                                <strong class="red">({{$data->po_days - 2}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->po_days - 2}})</strong>
                             @endif
 
                         @else
                             <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
+
+                            @if($d > 2)
+                                <strong class="red" tooltip="Delay">({{$d - 2}})</strong>
+                            @endif
 
                         @endif
                     @endif
@@ -683,6 +810,53 @@ Unit Purchase Request
                         @endif
                     </td>
                 </tr>
+                @else
+
+                <tr>
+                    <td>Contract Creation</td>
+                    <td>
+                        @if($data->po_create_date != null)
+                        <?php $po_create_date = createCarbon('Y-m-d',$data->po_create_date); ?>
+                        <a target="_blank" href="{{route('procurements.purchase-orders.show', $data->po_id)}}">
+                            {{$po_create_date->format('d F Y')}}
+                        </a>
+                        @endif
+                    </td>
+                    <td>10</td>
+                    <td>
+                    @if(isset($noa_award_accepted_date))
+                        @if($data->po_create_date != null)
+                            {{ $data->po_days }}
+                            <?php $totalDays +=  $data->po_days ; ?>
+
+                            @if($data->po_days > 10)
+                                <strong class="red" tooltip="Delay">({{$data->po_days - 10}})</strong>
+                            @endif
+
+                        @else
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
+
+                            @if($d > 10)
+                                <strong class="red" tooltip="Delay">({{$d - 10}})</strong>
+                            @endif
+
+                        @endif
+                    @endif
+                    </td>
+                    <td>{{$data->po_remarks}}</td>
+                    <td>{{$data->po_action}}</td>
+                    <td>
+                        @if($data->po_create_date != null)
+                        <a target="_blank"
+                            href="{{route('procurements.purchase-orders.print', $data->po_id)}}" tooltip="Print">
+                            <i class="nc-icon-mini tech_print"></i>
+                        </a>
+                        @endif
+                    </td>
+                </tr>
+                @endif
 
                 <tr>
                     <td>PO Funding</td>
@@ -702,7 +876,7 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->po_fund_days ; ?>
 
                             @if($data->po_fund_days > 2)
-                                <strong class="red">({{$data->po_fund_days - 2}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->po_fund_days - 2}})</strong>
                             @endif
                         @else
 
@@ -710,6 +884,9 @@ Unit Purchase Request
 
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
+                            @if($d > 2)
+                                <strong class="red" tooltip="Delay">({{$d - 2}})</strong>
+                            @endif
                         @endif
                     @endif
                     </td>
@@ -735,7 +912,7 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->po_mfo_days ; ?>
 
                             @if($data->po_mfo_days > 2)
-                                <strong class="red">({{$data->po_mfo_days - 2}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->po_mfo_days - 2}})</strong>
                             @endif
 
                         @else
@@ -745,6 +922,9 @@ Unit Purchase Request
 
                                 {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                                 {{$d}}
+                                @if($d > 2)
+                                    <strong class="red" tooltip="Delay">({{$d - 2}})</strong>
+                                @endif
                             @endif
                         @endif
                     </td>
@@ -767,11 +947,11 @@ Unit Purchase Request
                     <td>
                         @if(isset($mfo_received_date))
                             @if($data->coa_approved_date != null)
-                                {{ $data->po_mfo_days }}
-                                <?php $totalDays +=  $data->po_mfo_days ; ?>
+                                {{ $data->po_coa_days }}
+                                <?php $totalDays +=  $data->po_coa_days ; ?>
 
-                                @if($data->po_mfo_days > 1)
-                                    <strong class="red">({{$data->po_mfo_days - 1}})</strong>
+                                @if($data->po_coa_days > 1)
+                                    <strong class="red" tooltip="Delay">({{$data->po_coa_days - 1}})</strong>
                                 @endif
                             @else
 
@@ -779,6 +959,9 @@ Unit Purchase Request
 
                                 {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                                 {{$d}}
+                                @if($d > 1)
+                                    <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                                @endif
                             @endif
                         @endif
                     </td>
@@ -787,46 +970,95 @@ Unit Purchase Request
                     <td></td>
                 </tr>
 
-                <tr>
-                    <td>Prepare Notice to Proceed</td>
-                    <td>
-                        @if($data->ntp_date)
-                            <?php $ntp_dates = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->ntp_date)->format('Y-m-d'); ?>
-                            <a target="_blank" href="{{route('procurements.ntp.show', $data->ntp_id)}}">
-                            {{  \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->ntp_date)->format('d F Y') }}
-                            </a>
-                        @endif
-                    </td>
-                    <td>1</td>
-                    <td>
-                    @if(isset($coa_approved_date) )
-                        @if(isset($ntp_dates))
-                            {{ $data->ntp_days }}
-                            <?php $totalDays +=  $data->ntp_days ; ?>
-
-                            @if($data->ntp_days > 1)
-                                <strong class="red">({{$data->ntp_days - 1}})</strong>
+                @if($data->mode_of_procurement != 'public_bidding')
+                    <tr>
+                        <td>Prepare Notice to Proceed</td>
+                        <td>
+                            @if($data->ntp_date)
+                                <?php $ntp_dates = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->ntp_date)->format('Y-m-d'); ?>
+                                <a target="_blank" href="{{route('procurements.ntp.show', $data->ntp_id)}}">
+                                {{  \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->ntp_date)->format('d F Y') }}
+                                </a>
                             @endif
-                        @else
+                        </td>
+                        <td>1</td>
+                        <td>
+                        @if(isset($coa_approved_date) )
+                            @if(isset($ntp_dates))
+                                {{ $data->ntp_days }}
+                                <?php $totalDays +=  $data->ntp_days ; ?>
 
-                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+                                @if($data->ntp_days > 1)
+                                    <strong class="red" tooltip="Delay">({{$data->ntp_days - 1}})</strong>
+                                @endif
+                            @else
 
-                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                            {{$d}}
+                                <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                                {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                {{$d}}
+                                @if($d > 1)
+                                    <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                                @endif
+                            @endif
                         @endif
-                    @endif
-                    </td>
-                    <td>{{$data->ntp_remarks}}</td>
-                    <td>{{$data->ntp_action}}</td>
-                    <td>
-                        @if($data->ntp_date != null)
-                        <a target="_blank"
-                            href="{{route('procurements.ntp.print', $data->ntp_id)}}" tooltip="Print">
-                            <i class="nc-icon-mini tech_print"></i>
-                        </a>
+                        </td>
+                        <td>{{$data->ntp_remarks}}</td>
+                        <td>{{$data->ntp_action}}</td>
+                        <td>
+                            @if($data->ntp_date != null)
+                            <a target="_blank"
+                                href="{{route('procurements.ntp.print', $data->ntp_id)}}" tooltip="Print">
+                                <i class="nc-icon-mini tech_print"></i>
+                            </a>
+                            @endif
+                        </td>
+                    </tr>
+                @else
+                    <tr>
+                        <td>Prepare Notice to Proceed</td>
+                        <td>
+                            @if($data->ntp_date)
+                                <?php $ntp_dates = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->ntp_date)->format('Y-m-d'); ?>
+                                <a target="_blank" href="{{route('procurements.ntp.show', $data->ntp_id)}}">
+                                {{  \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->ntp_date)->format('d F Y') }}
+                                </a>
+                            @endif
+                        </td>
+                        <td>7</td>
+                        <td>
+                        @if(isset($coa_approved_date) )
+                            @if(isset($ntp_dates))
+                                {{ $data->ntp_days }}
+                                <?php $totalDays +=  $data->ntp_days ; ?>
+
+                                @if($data->ntp_days > 7)
+                                    <strong class="red" tooltip="Delay">({{$data->ntp_days - 7}})</strong>
+                                @endif
+                            @else
+
+                                <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                                {{-- {{ ($d >= 7) ?  $d - 7 : $d }} --}}
+                                {{$d}}
+                                @if($d > 7)
+                                    <strong class="red" tooltip="Delay">({{$d - 7}})</strong>
+                                @endif
+                            @endif
                         @endif
-                    </td>
-                </tr>
+                        </td>
+                        <td>{{$data->ntp_remarks}}</td>
+                        <td>{{$data->ntp_action}}</td>
+                        <td>
+                            @if($data->ntp_date != null)
+                            <a target="_blank"
+                                href="{{route('procurements.ntp.print', $data->ntp_id)}}" tooltip="Print">
+                                <i class="nc-icon-mini tech_print"></i>
+                            </a>
+                            @endif
+                        </td>
+                    </tr>
+                @endif
 
                 <tr>
                     <td>NTP Received</td>
@@ -846,13 +1078,16 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->ntp_accepted_days ; ?>
 
                             @if($data->ntp_accepted_days > 1)
-                                <strong class="red">({{$data->ntp_accepted_days - 1}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->ntp_accepted_days - 1}})</strong>
                             @endif
                         @else
 
                             <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
+                            @if($d > 1)
+                                <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                            @endif
                         @endif
                     @endif
                     </td>
@@ -860,44 +1095,7 @@ Unit Purchase Request
                     <td>{{$data->ntp_accepted_action}}</td>
                     <td> </td>
                 </tr>
-                <tr>
-                    <td>Create Notice Of Delivery</td>
-                    <td>
-                        @if($data->dr_date != null)
-                        <?php $dr_date = createCarbon('Y-m-d',$data->dr_date); ?>
-                        <a target="_blank" href="{{route('procurements.delivery-orders.show', $data->dr_id)}}">
-                            {{$dr_date->format('d F Y')}}
-                        </a>
-                        @endif
-                    </td>
-                    <td>1</td>
-                    <td>
-                    @if($data->ntp_award_date != null)
-                        @if($data->dr_date != null)
-                            {{ $data->dr_days }}
-                            <?php $totalDays +=  $data->dr_days ; ?>
 
-                            @if($data->dr_days > 1)
-                                <strong class="red">({{$data->dr_days - 1}})</strong>
-                            @endif
-                        @else
-                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
-                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                            {{$d}}
-                        @endif
-                    @endif
-                    </td>
-                    <td>{{$data->dr_remarks}}</td>
-                    <td>{{$data->dr_action}}</td>
-                    <td>
-                        @if($data->dr_date != null)
-                        <a target="_blank"
-                            href="{{route('procurements.delivery-orders.print', $data->dr_id)}}" tooltip="Print">
-                            <i class="nc-icon-mini tech_print"></i>
-                        </a>
-                        @endif
-                    </td>
-                </tr>
                 <tr>
                     <td>Receive Delivery</td>
                     <td>
@@ -910,13 +1108,12 @@ Unit Purchase Request
                     </td>
                     <td>{{$data->delivery_terms}}</td>
                     <td>
-                    @if(isset($dr_date))
                         @if($data->delivery_date != null)
                             {{ $data->dr_delivery_days }}
                             <?php $totalDays +=  $data->dr_delivery_days ; ?>
 
                             @if($data->dr_delivery_days > $data->delivery_terms)
-                                <strong class="red">({{$data->dr_delivery_days - $data->delivery_terms}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->dr_delivery_days - $data->delivery_terms}})</strong>
                             @endif
 
                         @else
@@ -925,8 +1122,10 @@ Unit Purchase Request
 
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
+                            @if($d > $data->delivery_terms)
+                                <strong class="red" tooltip="Delay">({{$d - $data->delivery_terms}})</strong>
+                            @endif
                         @endif
-                    @endif
                     </td>
                     <td>{{$data->dr_delivery_remarks}}</td>
                     <td>{{$data->dr_delivery_action}}</td>
@@ -944,23 +1143,25 @@ Unit Purchase Request
                     </td>
                     <td>1</td>
                     <td>
-                    @if(isset($delivery_date))
                         @if($data->dr_coa_date != null)
                             {{ $data->dr_dr_coa_days }}
                             <?php $totalDays +=  $data->dr_dr_coa_days ; ?>
 
                             @if($data->dr_dr_coa_days > 1)
-                                <strong class="red">({{$data->dr_dr_coa_days - 1}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->dr_dr_coa_days - 1}})</strong>
                             @endif
 
                         @else
+                            @if($data->delivery_date != null)
+                                <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
 
-                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
-
-                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                            {{$d}}
+                                {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                {{$d}}
+                                @if($d > 1)
+                                    <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                                @endif
+                            @endif
                         @endif
-                    @endif
                     </td>
                     <td>{{$data->dr_dr_coa_remarks}}</td>
                     <td>{{$data->dr_dr_coa_action}}</td>
@@ -977,15 +1178,15 @@ Unit Purchase Request
                         </a>
                         @endif
                     </td>
-                    <td>1</td>
+                    <td>2</td>
                     <td>
                     @if(isset($dr_coa_date))
                         @if($data->dr_inspection != null)
                             {{ $data->tiac_days }}
                             <?php $totalDays +=  $data->tiac_days ; ?>
 
-                            @if($data->tiac_days > 1)
-                                <strong class="red">({{$data->tiac_days - 1}})</strong>
+                            @if($data->tiac_days > 2)
+                                <strong class="red" tooltip="Delay">({{$data->tiac_days - 2}})</strong>
                             @endif
 
                         @else
@@ -994,6 +1195,9 @@ Unit Purchase Request
 
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
+                            @if($d > 2)
+                                <strong class="red" tooltip="Delay">({{$d - 2}})</strong>
+                            @endif
                         @endif
                     @endif
                     </td>
@@ -1019,15 +1223,15 @@ Unit Purchase Request
                         </a>
                         @endif
                     </td>
-                    <td>1</td>
+                    <td>2</td>
                     <td>
                     @if(isset($dr_inspection))
                         @if($data->iar_accepted_date != null)
                             {{ $data->tiac_accept_days }}
                             <?php $totalDays +=  $data->tiac_accept_days ; ?>
 
-                            @if($data->tiac_accept_days > 1)
-                                <strong class="red">({{$data->tiac_accept_days - 1}})</strong>
+                            @if($data->tiac_accept_days > 2)
+                                <strong class="red" tooltip="Delay">({{$data->tiac_accept_days - 2}})</strong>
                             @endif
 
                         @else
@@ -1036,6 +1240,9 @@ Unit Purchase Request
 
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
+                            @if($d > 2)
+                                <strong class="red" tooltip="Delay">({{$d - 2}})</strong>
+                            @endif
                         @endif
                     @endif
                     </td>
@@ -1061,7 +1268,7 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->diir_days ; ?>
 
                             @if($data->diir_days > 1)
-                                <strong class="red">({{$data->diir_days - 1}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->diir_days - 1}})</strong>
                             @endif
 
                         @else
@@ -1070,6 +1277,9 @@ Unit Purchase Request
 
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
+                            @if($d > 1)
+                                <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                            @endif
                         @endif
                     @endif
                     </td>
@@ -1105,7 +1315,7 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->diir_close_days ; ?>
 
                             @if($data->diir_close_days > 1)
-                                <strong class="red">({{$data->diir_close_days - 1}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->diir_close_days - 1}})</strong>
                             @endif
 
                         @else
@@ -1114,6 +1324,9 @@ Unit Purchase Request
 
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
+                            @if($d > 1)
+                                <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                            @endif
                         @endif
                     @endif
                     </td>
@@ -1141,7 +1354,7 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->vou_days ; ?>
 
                             @if($data->vou_days > 1)
-                                <strong class="red">({{$data->vou_days - 1}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->vou_days - 1}})</strong>
                             @endif
 
                         @else
@@ -1150,6 +1363,9 @@ Unit Purchase Request
 
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
+                            @if($d > 1)
+                                <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                            @endif
                         @endif
                     @endif
                     </td>
@@ -1175,15 +1391,15 @@ Unit Purchase Request
                         </a>
                         @endif
                     </td>
-                    <td>1</td>
+                    <td>2</td>
                     <td>
                     @if(isset($v_transaction_date))
                         @if($data->preaudit_date != null)
                             {{ $data->vou_preaudit_days }}
                             <?php $totalDays +=  $data->vou_preaudit_days ; ?>
 
-                            @if($data->vou_preaudit_days > 1)
-                                <strong class="red">({{$data->vou_preaudit_days - 1}})</strong>
+                            @if($data->vou_preaudit_days > 2)
+                                <strong class="red" tooltip="Delay">({{$data->vou_preaudit_days - 2}})</strong>
                             @endif
 
 
@@ -1193,6 +1409,9 @@ Unit Purchase Request
 
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
+                            @if($d > 2)
+                                <strong class="red" tooltip="Delay">({{$d - 2}})</strong>
+                            @endif
                         @endif
                     @endif
                     </td>
@@ -1221,7 +1440,7 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->vou_certify_days ; ?>
 
                             @if($data->vou_certify_days > 1)
-                                <strong class="red">({{$data->vou_certify_days - 1}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->vou_certify_days - 1}})</strong>
                             @endif
 
                         @else
@@ -1256,7 +1475,7 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->vou_jev_days ; ?>
 
                             @if($data->vou_jev_days > 1)
-                                <strong class="red">({{$data->vou_jev_days - 1}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->vou_jev_days - 1}})</strong>
                             @endif
 
                         @else
@@ -1290,7 +1509,7 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->vou_approved_days ; ?>
 
                             @if($data->vou_approved_days > 1)
-                                <strong class="red">({{$data->vou_approved_days - 1}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->vou_approved_days - 1}})</strong>
                             @endif
 
                         @else
@@ -1324,7 +1543,7 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->vou_released_days ; ?>
 
                             @if($data->vou_released_days > 1)
-                                <strong class="red">({{$data->vou_released_days - 1}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->vou_released_days - 1}})</strong>
                             @endif
 
                         @else
@@ -1359,7 +1578,7 @@ Unit Purchase Request
                             <?php $totalDays +=  $data->vou_received_days ; ?>
 
                             @if($data->vou_received_days > 1)
-                                <strong class="red">({{$data->vou_received_days - 1}})</strong>
+                                <strong class="red" tooltip="Delay">({{$data->vou_received_days - 1}})</strong>
                             @endif
 
                         @else

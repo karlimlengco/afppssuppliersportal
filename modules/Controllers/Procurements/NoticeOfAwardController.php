@@ -82,7 +82,7 @@ class NoticeOfAwardController extends Controller
         )
     {
         $canvasModel            =   $model->findById($canvasId);
-        $canvasDate             =   Carbon::createFromFormat('Y-m-d', $canvasModel->canvass_date);
+        $canvasDate             =   $canvasModel->rfq->completed_at;
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('awarded_date') );
 
         $proponent_model        =   $proponents->with('supplier')->findById($proponentId);
@@ -102,7 +102,7 @@ class NoticeOfAwardController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'awarded_date'  =>   'required|after_or_equal:'.$canvasModel->canvass_date,
+            'awarded_date'  =>   'required|after_or_equal:'.$canvasDate->format('Y-m-d'),
             'awarded_by'    =>   'required',
             'seconded_by'   =>   'required',
             'resolution'    =>   'required',
@@ -145,8 +145,8 @@ class NoticeOfAwardController extends Controller
 
         // // Update canvass adjuourned time
         $model->update(['adjourned_time' => \Carbon\Carbon::now(), 'resolution' => $request->resolution], $canvasId);
-        // // update upr
 
+        // // update upr
         $upr_result =   $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'Approved NOA',
@@ -213,16 +213,18 @@ class NoticeOfAwardController extends Controller
         $noaModel       =   $model->findById($id);
         $holiday_lists  =   $holidays->lists('id','holiday_date');
 
-        $accepted_date =   Carbon::createFromFormat('Y-m-d', $noaModel->accepted_date);
+        $accepted_date =   Carbon::createFromFormat('Y-m-d H:i:s', $noaModel->awarded_date);
+
         $award_accepted_date  =   Carbon::createFromFormat('Y-m-d', $request->award_accepted_date);
 
-        $cd                     =   $accepted_date->diffInDays($award_accepted_date);
+        $cd                   =   $accepted_date->diffInDays($award_accepted_date);
 
-        $day_delayed    =   $accepted_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed          =   $accepted_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $award_accepted_date);
 
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
         if($day_delayed > 1)
         {
             $day_delayed = $day_delayed - 1;
@@ -230,8 +232,8 @@ class NoticeOfAwardController extends Controller
 
         $validator = Validator::make($request->all(),[
             'received_by'           =>  'required',
-            'award_accepted_date'   =>  'required',
-            'received_action'       =>   'required_with:received_remarks'
+            'award_accepted_date'   =>  'required|after_or_equal:'. $accepted_date->format('Y-m-d'),
+            'received_action'       =>  'required_with:received_remarks'
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -266,7 +268,7 @@ class NoticeOfAwardController extends Controller
             'next_due'      => $award_accepted_date->addDays(2),
             'last_date'     => $award_accepted_date,
             'status'        => 'NOA Received',
-            'delay_count'   => $day_delayed,
+            'delay_count'   => $wd,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
@@ -295,16 +297,18 @@ class NoticeOfAwardController extends Controller
         $id             =   $request->id;
         $noaModel       =   $model->findById($id);
         $holiday_lists  =   $holidays->lists('id','holiday_date');
+        $noa_award_date =   Carbon::createFromFormat('Y-m-d H:i:s', $noaModel->awarded_date);
 
-        $noa_award_date =   Carbon::createFromFormat('Y-m-d H:i:s', $noaModel->awarded_date)->format('Y-m-d');
-        $noa_award_date =   Carbon::createFromFormat('Y-m-d', $noa_award_date);
         $accepted_date  =   Carbon::createFromFormat('Y-m-d', $request->accepted_date);
         $cd                     =   $noa_award_date->diffInDays($accepted_date);
+
         $day_delayed            =   $noa_award_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $accepted_date);
 
+
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
         if($day_delayed > 1)
         {
             $day_delayed = $day_delayed - 1;
@@ -312,7 +316,7 @@ class NoticeOfAwardController extends Controller
 
         $validator = Validator::make($request->all(),[
             'file'          =>   'required',
-            'accepted_date' =>   'required',
+            'accepted_date' =>   'required|after_or_equal:'. $noa_award_date->format('Y-m-d'),
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -361,7 +365,7 @@ class NoticeOfAwardController extends Controller
         $upr_result =   $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'Recieved NOA',
-            'next_due'      => $accepted_date->addDays(1),
+            'next_due'      => $noa_award_date->addDays(1),
             'last_date'     => $accepted_date,
             'status'        => "Approved NOA",
             'delay_count'   => $day_delayed,
@@ -566,7 +570,7 @@ class NoticeOfAwardController extends Controller
         if($result->rfq_id)
         {
             $canvasModel            =   $result->canvass;
-            $canvasDate             =   Carbon::createFromFormat('Y-m-d', $canvasModel->canvass_date);
+            $canvasDate             =   Carbon::createFromFormat('!Y-m-d', $canvasModel->canvass_date);
             $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('awarded_date') );
 
             $holiday_lists          =   $holidays->lists('id','holiday_date');
@@ -578,7 +582,7 @@ class NoticeOfAwardController extends Controller
         else
         {
             $pq_model               =   $result->pq;
-            $pqDate                 =   Carbon::createFromFormat('Y-m-d', $pq_model->transaction_date);
+            $pqDate                 =   Carbon::createFromFormat('!Y-m-d', $pq_model->transaction_date);
             $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('awarded_date') );
 
             $holiday_lists          =   $holidays->lists('id','holiday_date');

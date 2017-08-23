@@ -158,7 +158,7 @@ class PreBidController extends Controller
         UnitPurchaseRequestRepository $upr)
     {
         $upr_model              =   $upr->findById($request->upr_id);
-        $philgeps               =   Carbon::createFromFormat('Y-m-d',$upr_model->philgeps->transaction_date);
+        $philgeps               =   Carbon::createFromFormat('!Y-m-d',$upr_model->philgeps->transaction_date);
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
@@ -169,7 +169,7 @@ class PreBidController extends Controller
         $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed >= 1)
+        if($day_delayed > 1)
         $day_delayed            =   $day_delayed - 1;
 
         $validator = Validator::make($request->all(),[
@@ -180,10 +180,10 @@ class PreBidController extends Controller
         $validator->after(function ($validator)use($day_delayed, $request) {
             if($request->resched_date == null)
             {
-                if ( $request->get('remarks') == null && $day_delayed >= 1) {
+                if ( $request->get('remarks') == null && $day_delayed > 1) {
                     $validator->errors()->add('remarks', 'This field is required when your process is delay');
                 }
-                if ( $request->get('action') == null && $day_delayed >= 1) {
+                if ( $request->get('action') == null && $day_delayed > 1) {
                     $validator->errors()->add('action', 'This field is required when your process is delay');
                 }
             }
@@ -208,9 +208,9 @@ class PreBidController extends Controller
         {
             $upr_result  = $upr->update([
                 'status' => 'Pre Bid Conference',
-                'next_allowable'=> 1,
+                'next_allowable'=> 45,
                 'next_step'     => 'SOBE',
-                'next_due'      => $transaction_date->addDays(1),
+                'next_due'      => $transaction_date->addDays(45),
                 'last_date'     => $transaction_date,
                 'processed_by'  => \Sentinel::getUser()->id,
                 'delay_count'   => $wd,
@@ -304,7 +304,7 @@ class PreBidController extends Controller
         $result =   $model->update($request->getData(), $id);
 
         $upr_model              =   $result->upr;
-        $philgeps               =   Carbon::createFromFormat('Y-m-d',$upr_model->philgeps->transaction_date);
+        $philgeps               =   Carbon::createFromFormat('!Y-m-d',$upr_model->philgeps->transaction_date);
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 

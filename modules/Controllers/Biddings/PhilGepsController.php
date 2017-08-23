@@ -108,7 +108,7 @@ class PhilGepsController extends Controller
         UnitPurchaseRequestRepository $upr)
     {
         $upr_model              =   $upr->findById($request->upr_id);
-        $invitation             =   Carbon::createFromFormat('Y-m-d',$upr_model->itb->approved_date);
+        $invitation             =   Carbon::createFromFormat('!Y-m-d',$upr_model->preproc->pre_proc_date);
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->pp_transaction_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
@@ -119,8 +119,8 @@ class PhilGepsController extends Controller
         $cd                     =   $invitation->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed > 1)
-        $day_delayed            =   $day_delayed - 1;
+        if($day_delayed > 7)
+        $day_delayed            =   $day_delayed - 7;
 
         $validator = Validator::make($request->all(),[
             'pp_transaction_date'        =>  'required|after_or_equal:'.$upr_model->itb->approved_date,
@@ -130,10 +130,10 @@ class PhilGepsController extends Controller
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('remarks') == null && $day_delayed >= 1) {
+            if ( $request->get('remarks') == null && $day_delayed >= 7) {
                 $validator->errors()->add('remarks', 'This field is required when your process is delay');
             }
-            if ( $request->get('action') == null && $day_delayed >= 1) {
+            if ( $request->get('action') == null && $day_delayed >= 7) {
                 $validator->errors()->add('action', 'This field is required when your process is delay');
             }
         });
@@ -273,7 +273,7 @@ class PhilGepsController extends Controller
 
             if($invitation = $rfq_model->invitations)
             {
-                $ispq_transaction_date   = Carbon::createFromFormat('Y-m-d', $invitation->ispq->transaction_date);
+                $ispq_transaction_date   = Carbon::createFromFormat('!Y-m-d', $invitation->ispq->transaction_date);
             }
             else
             {
@@ -289,7 +289,7 @@ class PhilGepsController extends Controller
         else
         {
             $upr_model              =   $upr->findById($result->upr_id);
-            $invitation             =   Carbon::createFromFormat('Y-m-d',$upr_model->itb->approved_date);
+            $invitation             =   Carbon::createFromFormat('!Y-m-d',$upr_model->itb->approved_date);
             $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
             $holiday_lists          =   $holidays->lists('id','holiday_date');
 

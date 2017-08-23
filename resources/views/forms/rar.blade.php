@@ -57,13 +57,13 @@
                         </tr>
                         <tr>
                             <td>DELIVERY RECEIPT:</td>
-                            <td class="align-left"><strong>{{$data['delivery_number']}} ({{\Carbon\Carbon::createFromFormat('Y-m-d',$data['delivery_date'])->format('d F Y')}})</strong></td>
+                            <td class="align-left"><strong>{{$data['delivery_number']}} ({{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['delivery_date'])->format('d F Y')}})</strong></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>INVOICE NUMBER:</td>
                             <td class="align-left"><strong>@foreach($data['invoice'] as $invoice)
-                                {{$invoice->invoice_number}} ({{\Carbon\Carbon::createFromFormat('Y-m-d',$invoice->invoice_date)->format('d F Y')}})
+                                {{$invoice->invoice_number}} ({{\Carbon\Carbon::createFromFormat('!Y-m-d',$invoice->invoice_date)->format('d F Y')}})
                             @endforeach </strong></td>
                             <td></td>
                         </tr>

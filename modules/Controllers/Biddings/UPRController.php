@@ -490,7 +490,7 @@ class UPRController extends Controller
         $h_lists        =   [];
         foreach($holiday_lists as $hols)
         {
-            $h_lists[]  =   \Carbon\Carbon::createFromFormat('Y-m-d', $hols)->format('Y-m-d');
+            $h_lists[]  =   \Carbon\Carbon::createFromFormat('!Y-m-d', $hols)->format('Y-m-d');
         }
 
         return $this->view('modules.biddings.upr.timelines',[

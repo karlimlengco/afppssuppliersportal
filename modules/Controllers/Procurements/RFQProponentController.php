@@ -249,9 +249,11 @@ class RFQProponentController extends Controller
     public function update(Request $request, $id, RFQProponentRepository $model)
     {
         $this->validate($request, ['bid_amount' => 'required', 'status' => 'required', 'remarks' => 'required_if:status,failed']);
-        $model->update(['remarks' => $request->remarks, 'bid_amount' => $request->bid_amount, 'status' => $request->status], $id);
 
-        return redirect()->route($this->baseUrl.'show', $id)->with([
+        $result =   $model->update(['remarks' => $request->remarks, 'bid_amount' => $request->bid_amount, 'status' => $request->status], $id);
+
+
+        return redirect()->route('procurements.canvassing.show', $result->rfq->canvassing->id)->with([
             'success'  => "Record has been successfully updated."
         ]);
     }

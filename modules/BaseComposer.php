@@ -56,21 +56,21 @@ class BaseComposer
         $h_lists        =   [];
         foreach($holiday_lists as $hols)
         {
-            $h_lists[]  =   Carbon::createFromFormat('Y-m-d', $hols)->format('Y-m-d');
+            $h_lists[]  =   Carbon::createFromFormat('!Y-m-d', $hols)->format('Y-m-d');
         }
 
         $delays         =   $this->upr->getDelays();
         $newCollection  =   collect([]);
         $today          =   Carbon::now()->format('Y-m-d');
-        $today          =   Carbon::createFromFormat('Y-m-d', $today);
+        $today          =   Carbon::createFromFormat('!Y-m-d', $today);
 
         foreach($delays as $key => $item)
         {
-            $upr_created    = Carbon::createFromFormat('Y-m-d', $item->upr_created_at);
+            $upr_created    = Carbon::createFromFormat('!Y-m-d', $item->upr_created_at);
 
             if($item->next_due)
             {
-                $next_due       = Carbon::createFromFormat('Y-m-d', $item->next_due);
+                $next_due       = Carbon::createFromFormat('!Y-m-d', $item->next_due);
             }
             else
             {
