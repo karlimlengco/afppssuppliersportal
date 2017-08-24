@@ -72,16 +72,28 @@
                     <tr>
                         <td class="no-border-top no-border-bottom">Name</td>
                         <td class="align-center no-border-top no-border-bottom" colspan="2">
+                            @if($data['requestor'] != null)
                             <strong>{{$data['requestor']->ranks}} {{$data['requestor']->name}}{{$data['requestor']->branch}}</strong>
+                            @endif
                         </td>
                         <td class="align-center no-border-top no-border-bottom" colspan="3">
+                            @if($data['approver'] != null)
                             <strong>{{$data['approver']->ranks}} {{$data['approver']->name}}{{$data['approver']->branch}}</strong>
+                            @endif
                         </td>
                     </tr>
                     <tr>
                         <td class="no-border-top no-border-bottom">Designation</td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="2">{{$data['requestor']->designation}}</td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="3">{{$data['approver']->designation}} </td>
+                        <td class="align-center no-border-top no-border-bottom" colspan="2">
+                            @if($data['requestor'] != null)
+                                {{$data['requestor']->designation}}
+                            @endif
+                        </td>
+                        <td class="align-center no-border-top no-border-bottom" colspan="3">
+                            @if($data['approver'] != null)
+                            {{$data['approver']->designation}}
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td class="no-border-top">Date</td>
@@ -96,16 +108,30 @@
                     <tr>
                         <td class="no-border-top no-border-bottom">Name</td>
                         <td class="align-center no-border-top no-border-bottom" colspan="2">
+                            @if($data['issuer'] != null)
                             <strong>{{$data['issuer']->ranks}} {{$data['issuer']->name}}{{$data['issuer']->branch}}</strong>
+                            @endif
                         </td>
                         <td class="align-center no-border-top no-border-bottom" colspan="3">
-                            <strong>{{$data['receiver']->ranks}} {{$data['receiver']->name}}{{$data['receiver']->branch}}</strong>
+                            @if($data['receiver'] != null)
+                            <strong>
+                            {{$data['receiver']->ranks}} {{$data['receiver']->name}}{{$data['receiver']->branch}}
+                            </strong>
+                            @endif
                         </td>
                     </tr>
                     <tr>
                         <td class="no-border-top no-border-bottom">Designation</td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="2">{{$data['issuer']->designation}}</td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="3">{{$data['receiver']->designation}}</td>
+                        <td class="align-center no-border-top no-border-bottom" colspan="2">
+                            @if($data['issuer'] != null)
+                            {{$data['issuer']->designation}}
+                            @endif
+                        </td>
+                        <td class="align-center no-border-top no-border-bottom" colspan="3">
+                            @if($data['issuer'] != null)
+                                {{$data['issuer']->designation}}
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td class="no-border-top">Date</td>
