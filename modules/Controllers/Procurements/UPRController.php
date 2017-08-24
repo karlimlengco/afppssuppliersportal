@@ -33,10 +33,11 @@ use \Revlv\Settings\BacSec\BacSecRepository;
 
 use Revlv\Procurements\UnitPurchaseRequests\Traits\FileTrait;
 use Revlv\Procurements\UnitPurchaseRequests\Traits\ImportTrait;
+use Revlv\Procurements\UnitPurchaseRequests\Traits\OverviewTrait;
 
 class UPRController extends Controller
 {
-    use FileTrait, ImportTrait;
+    use FileTrait, ImportTrait, OverviewTrait;
 
     /**
      * [Base Route of Controller]

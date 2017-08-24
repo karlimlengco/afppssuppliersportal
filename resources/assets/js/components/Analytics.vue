@@ -50,9 +50,9 @@
                             </td>
                             <td>
                                 <span tooltip="Total" >{{item.upr_count}}</span>
-                                <span tooltip="Completed" class="blue">({{item.completed_count}})</span>
-                                <span tooltip="Ongoing" class="green">({{item.ongoing_count}})</span>
-                                <span tooltip="Delay" class="red">({{item.delay_count}})</span>
+                                <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/completed/'+item.programs+'?type='+types" tooltip="Completed" class="blue">({{item.completed_count}})</a>
+                                <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/ongoing/'+item.programs+'?type='+types" tooltip="Ongoing" class="green">({{item.ongoing_count}})</a>
+                                <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'?type='+types" tooltip="Delay" class="red">({{item.delay_count}})</a>
                             </td>
                             <td>{{formatPrice(item.total_abc)}}</td>
                             <td>{{formatPrice(item.total_bid)}}</td>
@@ -84,9 +84,30 @@
                                                         </td>
                                                         <td>
                                                             <span tooltip="Total" >{{itemProgData.upr_count}}</span>
-                                                            <span tooltip="Completed" class="blue">({{itemProgData.completed_count}})</span>
-                                                            <span tooltip="Ongoing" class="green">({{itemProgData.ongoing_count}})</span>
-                                                            <span tooltip="Delay" class="red">({{itemProgData.delay_count}})</span>
+                                                            <a
+                                                                target="_blank"
+                                                                v-bind:href="'/procurements/unit-purchase-requests/overview/completed/'+item.programs+'/'+itemProgData.name+'/?type='+types"
+                                                                tooltip="Completed"
+                                                                class="blue"
+                                                            >
+                                                                ({{itemProgData.completed_count}})
+                                                            </a>
+                                                            <a
+                                                                target="_blank"
+                                                                v-bind:href="'/procurements/unit-purchase-requests/overview/ongoing/'+item.programs+'/'+itemProgData.name+'?type='+types"
+                                                                tooltip="Ongoing"
+                                                                class="green"
+                                                            >
+                                                                ({{itemProgData.ongoing_count}})
+                                                            </a>
+                                                            <a
+                                                                target="_blank"
+                                                                v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'/'+itemProgData.name+'?type='+types"
+                                                                tooltip="Delay"
+                                                                class="red"
+                                                            >
+                                                                ({{itemProgData.delay_count}})
+                                                            </a>
                                                         </td>
                                                         <td>{{formatPrice(itemProgData.total_abc)}}</td>
                                                         <td>{{formatPrice(itemProgData.total_bid)}}</td>
