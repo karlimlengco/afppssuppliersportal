@@ -67,6 +67,17 @@ const app = new Vue({
                 searchText: this.searchText,
             });
         },
+        getMessage(){
+            axios.get('/messages').then(response => {
+                if(is_admin == false){
+                    if( Object.keys(response.data).length > 1)
+                    {
+                        this.chatId = response.data[0].chat_id;
+                    }
+                }
+                this.messages = response.data;
+            });
+        }
     },
     created() {
         this.$on('getmessage', (item) =>{
@@ -76,15 +87,8 @@ const app = new Vue({
                 this.messages = response.data;
             });
         })
-        axios.get('/messages').then(response => {
-            if(is_admin == false){
-                if( Object.keys(response.data).length > 1)
-                {
-                    this.chatId = response.data[0].chat_id;
-                }
-            }
-            this.messages = response.data;
-        });
+
+        this.getMessage();
 
         Echo.join('chatroom')
             .here((users) => {

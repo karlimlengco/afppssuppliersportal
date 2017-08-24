@@ -54,7 +54,7 @@
 
             $(".chat__thread").mCustomScrollbar({
                 axis:"y",
-                setTop:0,
+                setTop:"-999999px",
                 scrollbarPosition:"inside",
                 scrollInertia:250,
                 autoDraggerLength:true,

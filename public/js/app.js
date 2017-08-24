@@ -15007,37 +15007,43 @@ var app = new Vue({
             this.$emit('searchingText', {
                 searchText: this.searchText
             });
+        },
+        getMessage: function getMessage() {
+            var _this = this;
+
+            axios.get('/messages').then(function (response) {
+                if (is_admin == false) {
+                    if (Object.keys(response.data).length > 1) {
+                        _this.chatId = response.data[0].chat_id;
+                    }
+                }
+                _this.messages = response.data;
+            });
         }
     },
     created: function created() {
-        var _this = this;
+        var _this2 = this;
 
         this.$on('getmessage', function (item) {
-            _this.chatId = item.message.id;
-            _this.receiverId = item.message.receiver_id;
+            _this2.chatId = item.message.id;
+            _this2.receiverId = item.message.receiver_id;
             axios.get('/messages/' + item.message.sender_id).then(function (response) {
-                _this.messages = response.data;
+                _this2.messages = response.data;
             });
         });
-        axios.get('/messages').then(function (response) {
-            if (is_admin == false) {
-                if (Object.keys(response.data).length > 1) {
-                    _this.chatId = response.data[0].chat_id;
-                }
-            }
-            _this.messages = response.data;
-        });
+
+        this.getMessage();
 
         Echo.join('chatroom').here(function (users) {
-            _this.usersInRoom = users;
+            _this2.usersInRoom = users;
         }).joining(function (user) {
-            _this.usersInRoom.push(user);
+            _this2.usersInRoom.push(user);
         }).leaving(function (user) {
-            _this.usersInRoom = _this.usersInRoom.filter(function (u) {
+            _this2.usersInRoom = _this2.usersInRoom.filter(function (u) {
                 return u != user;
             });
         }).listen('MessagePosted', function (e) {
-            _this.messages.push({
+            _this2.messages.push({
                 message: e.message.message,
                 user: e.user
             });
