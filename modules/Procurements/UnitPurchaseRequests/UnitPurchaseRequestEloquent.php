@@ -130,7 +130,17 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     public function itb()
     {
-        return $this->hasOne('\Revlv\Biddings\InvitationToBid\InvitationToBidEloquent',  'upr_id');
+        return $this->hasOne('\Revlv\Biddings\InvitationToBid\InvitationToBidEloquent',  'upr_id')->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * [itb description]
+     *
+     * @return [type] [description]
+     */
+    public function itbs()
+    {
+        return $this->hasMany('\Revlv\Biddings\InvitationToBid\InvitationToBidEloquent',  'upr_id');
     }
 
     /**
@@ -140,7 +150,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     public function document_accept()
     {
-        return $this->hasOne('\Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceEloquent',  'upr_id')->whereNotNull('approved_date');
+        return $this->hasOne('\Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceEloquent',  'upr_id')->whereNotNull('approved_date')->orderBy('created_at', 'desc');
     }
 
     /**
@@ -150,7 +160,17 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     public function preproc()
     {
-        return $this->hasOne('\Revlv\Biddings\PreProc\PreProcEloquent',  'upr_id')->whereNull('resched_date');
+        return $this->hasOne('\Revlv\Biddings\PreProc\PreProcEloquent',  'upr_id')->whereNull('resched_date')->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * [document_accept description]
+     *
+     * @return [type] [description]
+     */
+    public function preprocs()
+    {
+        return $this->hasMany('\Revlv\Biddings\PreProc\PreProcEloquent',  'upr_id');
     }
 
     /**
@@ -170,7 +190,17 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     public function bid_conference()
     {
-        return $this->hasOne('\Revlv\Biddings\PreBid\PreBidEloquent',  'upr_id')->whereNotNull('bid_opening_date');
+        return $this->hasOne('\Revlv\Biddings\PreBid\PreBidEloquent',  'upr_id')->whereNotNull('bid_opening_date')->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * [document_accept description]
+     *
+     * @return [type] [description]
+     */
+    public function bid_conferences()
+    {
+        return $this->hasMany('\Revlv\Biddings\PreBid\PreBidEloquent',  'upr_id');
     }
 
     /**
@@ -180,7 +210,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     public function bid_issuance()
     {
-        return $this->hasOne('\Revlv\Biddings\BidDocs\BidDocsEloquent',  'upr_id');
+        return $this->hasOne('\Revlv\Biddings\BidDocs\BidDocsEloquent',  'upr_id')->orderBy('created_at', 'desc');
     }
 
     /**
@@ -190,7 +220,17 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     public function bid_open()
     {
-        return $this->hasOne('\Revlv\Biddings\BidOpening\BidOpeningEloquent',  'upr_id');
+        return $this->hasOne('\Revlv\Biddings\BidOpening\BidOpeningEloquent',  'upr_id')->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * [post_qual description]
+     *
+     * @return [type] [description]
+     */
+    public function bid_opens()
+    {
+        return $this->hasMany('\Revlv\Biddings\BidOpening\BidOpeningEloquent',  'upr_id');
     }
 
     /**
@@ -200,7 +240,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     public function post_qual()
     {
-        return $this->hasOne('\Revlv\Biddings\PostQualification\PostQualificationEloquent',  'upr_id');
+        return $this->hasOne('\Revlv\Biddings\PostQualification\PostQualificationEloquent',  'upr_id')->orderBy('created_at', 'desc');
     }
 
     /**
@@ -251,6 +291,16 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
     public function philgeps()
     {
         return $this->hasOne('\Revlv\Procurements\PhilGepsPosting\PhilGepsPostingEloquent', 'upr_id');
+    }
+
+    /**
+     * [philgeps description]
+     *
+     * @return [type] [description]
+     */
+    public function philgeps_many()
+    {
+        return $this->hasMany('\Revlv\Procurements\PhilGepsPosting\PhilGepsPostingEloquent', 'upr_id');
     }
 
     /**

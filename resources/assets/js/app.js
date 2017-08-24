@@ -60,7 +60,6 @@ const app = new Vue({
             })
         },
         searching(){
-            console.log('asdsad');
             this.$emit('searchingText', {
                 searchText: this.searchText,
             });

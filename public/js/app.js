@@ -15001,7 +15001,6 @@ var app = new Vue({
             });
         },
         searching: function searching() {
-            console.log('asdsad');
             this.$emit('searchingText', {
                 searchText: this.searchText
             });

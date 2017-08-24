@@ -160,7 +160,7 @@
         {{-- <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button__options__item">Create PO</a> --}}
     @endif
 
-    @if($data->status == 'PO Created' || $data->status == 'PO Funding Approved' || $data->status == 'PO MFO Approved')
+    @if($data->status == 'PO Created' || $data->status == 'Contract Created' || $data->status == 'PO Funding Approved' || $data->status == 'PO MFO Approved')
         {{-- <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">View PO</a> --}}
 
         <span >View PO</span>

@@ -305,6 +305,36 @@ Unit Purchase Request
 
 
                     {{-- Pre Proc --}}
+
+                    @if(count($data->preprocs) > 1)
+                        @foreach($data->preprocs as $proc)
+                            <tr>
+                                <td>Pre Proc Conference</td>
+                                <td>
+                                        <?php $pre_proc_date  =  createCarbon('Y-m-d',$proc->pre_proc_date); ?>
+                                            {{ $pre_proc_date->format('d F Y') }}
+                                </td>
+                                <td >1</td>
+                                <td>
+
+                                    {{ $proc->days }}
+                                    <?php $totalDays +=  $proc->days ; ?>
+
+                                    @if($proc->days > 1)
+                                        <strong class="red" tooltip="Delay">({{$proc->days - 1}})</strong>
+                                    @endif
+
+                                </td>
+                                <td>
+                                    @if($proc != null){{$proc->remarks}}@endif</td>
+                                <td>
+                                    @if($proc != null){{$proc->action}}@endif</td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
                         <tr>
                             <td>Pre Proc Conference</td>
                             <td>
@@ -341,9 +371,40 @@ Unit Purchase Request
 
                             </td>
                         </tr>
+                    @endif
                     {{-- Pre Proc --}}
 
                     {{-- ITB --}}
+
+
+                    @if(count($data->itbs) > 1)
+                        @foreach($data->itbs as $itb)
+                            <tr>
+                                <td>Invitation To Bid</td>
+                                <td>
+                                    <?php $itb_approved_date  =  createCarbon('Y-m-d',$itb->approved_date); ?>
+                                            {{ $itb_approved_date->format('d F Y') }}
+                                </td>
+                                <td>7</td>
+                                <td>
+                                    {{ $itb->days }}
+                                    <?php $totalDays +=  $itb->days ; ?>
+
+                                    @if($itb->days > 7)
+                                        <strong class="red" tooltip="Delay">({{$itb->days - 7}})</strong>
+                                    @endif
+
+                                </td>
+                                <td>
+                                    @if($itb != null){{$itb->remarks}}@endif</td>
+                                <td>
+                                    @if($itb != null){{$itb->action}}@endif</td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
                         <tr>
                             <td>Invitation To Bid</td>
                             <td>
@@ -382,133 +443,231 @@ Unit Purchase Request
 
                             </td>
                         </tr>
+                    @endif
                     {{-- ITB --}}
 
                     {{-- Philgeps --}}
-                    @if($data->philgeps != null)
-                    <tr>
-                        <td>PhilGeps Posting</td>
-                        <td>
-                            <?php $philgeps_date  =  createCarbon('Y-m-d',$data->philgeps->transaction_date); ?>
-                            {{ $philgeps_date->format('d F Y') }}
-                        </td>
-                        <td >7</td>
-                        <td>
-                                {{ $data->philgeps->days }}
-                                <?php $totalDays +=  $data->philgeps->days ; ?>
 
-                                @if($data->philgeps->days > 7)
-                                    <strong class="red" tooltip="Delay">({{$data->philgeps->days - 7}})</strong>
-                                @endif
+                    @if(count($data->philgeps_many) > 1)
+                        @foreach($data->philgeps_many as $pm)
+                        <tr>
+                            <td>PhilGeps Posting</td>
+                            <td>
+                                <?php $philgeps_date  =  createCarbon('Y-m-d',$pm->transaction_date); ?>
+                                {{ $philgeps_date->format('d F Y') }}
+                            </td>
+                            <td >7</td>
+                            <td>
+                                    {{ $pm->days }}
+                                    <?php $totalDays +=  $pm->days ; ?>
 
-                        </td>
-                        <td>{{$data->philgeps->remarks}}</td>
-                        <td>{{$data->philgeps->action}}</td>
-                        <td>
+                                    @if($pm->days > 7)
+                                        <strong class="red" tooltip="Delay">({{$pm->days - 7}})</strong>
+                                    @endif
 
-                        </td>
-                    </tr>
+                            </td>
+                            <td>{{$pm->remarks}}</td>
+                            <td>{{$pm->action}}</td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        @endforeach
+
+                    @else
+                        @if($data->philgeps != null)
+                        <tr>
+                            <td>PhilGeps Posting</td>
+                            <td>
+                                <?php $philgeps_date  =  createCarbon('Y-m-d',$data->philgeps->transaction_date); ?>
+                                {{ $philgeps_date->format('d F Y') }}
+                            </td>
+                            <td >7</td>
+                            <td>
+                                    {{ $data->philgeps->days }}
+                                    <?php $totalDays +=  $data->philgeps->days ; ?>
+
+                                    @if($data->philgeps->days > 7)
+                                        <strong class="red" tooltip="Delay">({{$data->philgeps->days - 7}})</strong>
+                                    @endif
+
+                            </td>
+                            <td>{{$data->philgeps->remarks}}</td>
+                            <td>{{$data->philgeps->action}}</td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        @endif
                     @endif
                     {{-- Philgeps --}}
 
 
                     {{-- Pre Bid Conference --}}
-                    <tr>
-                        <td>Pre Bid Conference</td>
-                        <td>
-                            @if($data->bid_conference != null)
-                            <?php $rfq_created_at  =  createCarbon('Y-m-d',$data->bid_conference->transaction_date); ?>
-                                <a target="_blank" href="{{route('biddings.pre-bids.show', $data->bid_conference->id)}}">
-                                    {{ $rfq_created_at->format('d F Y') }}
-                                </a>
-                            @endif
-                        </td>
-                        <td >1</td>
-                        <td>
-                        @if($data->itb != null)
-                            @if($data->bid_conference != null)
-                                {{ $data->bid_conference->days }}
-                                <?php $totalDays +=  $data->bid_conference->days ; ?>
+                    @if(count($data->bid_conferences) > 1)
+                        @foreach($data->bid_conferences as $bids)
+                        <tr>
+                            <td>Pre Bid Conference</td>
+                            <td>
+                                <?php $rfq_created_at  =  createCarbon('Y-m-d',$bids->transaction_date); ?>
+                                    <a target="_blank" href="{{route('biddings.pre-bids.show', $bids->id)}}">
+                                        {{ $rfq_created_at->format('d F Y') }}
+                                    </a>
+                            </td>
+                            <td >1</td>
+                            <td>
+                                    {{ $bids->days }}
+                                    <?php $totalDays +=  $bids->days ; ?>
 
-                {{--                 @if($data->bid_conference->days > 1)
-                                    <strong class="red" tooltip="Delay">({{$data->bid_conference->days - 1}})</strong>
+                            </td>
+                            <td>
+
+                                    {{$bids->remarks}}
+                            </td>
+                            <td>
+                                    {{$bids->action}}
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        @endforeach
+
+                    @else
+
+                        <tr>
+                            <td>Pre Bid Conference</td>
+                            <td>
+                                @if($data->bid_conference != null)
+                                <?php $rfq_created_at  =  createCarbon('Y-m-d',$data->bid_conference->transaction_date); ?>
+                                    <a target="_blank" href="{{route('biddings.pre-bids.show', $data->bid_conference->id)}}">
+                                        {{ $rfq_created_at->format('d F Y') }}
+                                    </a>
                                 @endif
- --}}
-                            @else
-                                @if($data->philgeps != null)
-                                        <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
-                                        {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                                        {{$d}}
-                                    @if($d > 1)
-                                        <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                            </td>
+                            <td >1</td>
+                            <td>
+                            @if($data->itb != null)
+                                @if($data->bid_conference != null)
+                                    {{ $data->bid_conference->days }}
+                                    <?php $totalDays +=  $data->bid_conference->days ; ?>
+
+                                @else
+                                    @if($data->philgeps != null)
+                                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                            {{$d}}
+                                        @if($d > 1)
+                                            <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                                        @endif
                                     @endif
                                 @endif
                             @endif
-                        @endif
-                        </td>
-                        <td>
+                            </td>
+                            <td>
 
-                            @if($data->bid_conference != null)
-                                {{$data->bid_conference->remarks}}
-                            @endif
-                        </td>
-                        <td>
-                            @if($data->bid_conference != null)
-                                {{$data->bid_conference->action}}
-                            @endif
-                        </td>
-                        <td>
+                                @if($data->bid_conference != null)
+                                    {{$data->bid_conference->remarks}}
+                                @endif
+                            </td>
+                            <td>
+                                @if($data->bid_conference != null)
+                                    {{$data->bid_conference->action}}
+                                @endif
+                            </td>
+                            <td>
 
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    @endif
+                    {{-- Pre bid conf --}}
+
                     {{-- SOBE --}}
 
-                    {{-- SOBE --}}
-                    <tr>
-                        <td>SOBE</td>
-                        <td>
-                            @if($data->bid_open != null)
-                            <?php $bid_open  =  createCarbon('Y-m-d',$data->bid_open->transaction_date); ?>
-                                <a target="_blank" href="{{route('biddings.bid-openings.show', $data->bid_open->id)}}">
-                                    {{ $bid_open->format('d F Y') }}
-                                </a>
-                            @endif
-                        </td>
-                        <td >45</td>
-                        <td>
-                        @if($data->bid_conference != null)
-                            @if($data->bid_open != null)
-                                {{ $data->bid_open->days }}
-                                <?php $totalDays +=  $data->bid_open->days ; ?>
+                    @if(count($data->bid_opens) > 1)
+                        @foreach($data->bid_opens as $bops)
+                            <tr>
+                                <td>SOBE</td>
+                                <td>
+                                    @if($bops != null)
+                                    <?php $bid_open  =  createCarbon('Y-m-d',$bops->transaction_date); ?>
+                                        <a target="_blank" href="{{route('biddings.bid-openings.show', $bops->id)}}">
+                                            {{ $bid_open->format('d F Y') }}
+                                        </a>
+                                    @endif
+                                </td>
+                                <td >45</td>
+                                <td>
+                                    {{ $bops->days }}
+                                    <?php $totalDays +=  $bops->days ; ?>
 
-                                @if($data->bid_open->days > 45)
-                                    <strong class="red" tooltip="Delay">({{$data->bid_open->days - 45}})</strong>
+                                    @if($bops->days > 45)
+                                        <strong class="red" tooltip="Delay">({{$bops->days - 45}})</strong>
+                                    @endif
+
+                                </td>
+                                <td>
+                                    @if($bops != null)
+                                        {{$bops->remarks}}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($bops != null)
+                                        {{$bops->action}}
+                                    @endif
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td>SOBE</td>
+                            <td>
+                                @if($data->bid_open != null)
+                                <?php $bid_open  =  createCarbon('Y-m-d',$data->bid_open->transaction_date); ?>
+                                    <a target="_blank" href="{{route('biddings.bid-openings.show', $data->bid_open->id)}}">
+                                        {{ $bid_open->format('d F Y') }}
+                                    </a>
                                 @endif
+                            </td>
+                            <td >45</td>
+                            <td>
+                            @if($data->bid_conference != null)
+                                @if($data->bid_open != null)
+                                    {{ $data->bid_open->days }}
+                                    <?php $totalDays +=  $data->bid_open->days ; ?>
 
-                            @else
-                                    <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
-                                    {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                                    {{$d}}
-                                @if($d > 45)
-                                    <strong class="red" tooltip="Delay">({{$d - 45}})</strong>
+                                    @if($data->bid_open->days > 45)
+                                        <strong class="red" tooltip="Delay">({{$data->bid_open->days - 45}})</strong>
+                                    @endif
+
+                                @else
+                                        <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                                        {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                        {{$d}}
+                                    @if($d > 45)
+                                        <strong class="red" tooltip="Delay">({{$d - 45}})</strong>
+                                    @endif
                                 @endif
                             @endif
-                        @endif
-                        </td>
-                        <td>
-                            @if($data->bid_open != null)
-                                {{$data->bid_open->remarks}}
-                            @endif
-                        </td>
-                        <td>
-                            @if($data->bid_open != null)
-                                {{$data->bid_open->action}}
-                            @endif
-                        </td>
-                        <td>
+                            </td>
+                            <td>
+                                @if($data->bid_open != null)
+                                    {{$data->bid_open->remarks}}
+                                @endif
+                            </td>
+                            <td>
+                                @if($data->bid_open != null)
+                                    {{$data->bid_open->action}}
+                                @endif
+                            </td>
+                            <td>
 
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    @endif
                     {{-- SOBE --}}
 
 

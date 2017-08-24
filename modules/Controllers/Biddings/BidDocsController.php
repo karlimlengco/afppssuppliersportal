@@ -188,9 +188,9 @@ class BidDocsController extends Controller
             'status'        =>  'required',
         ]);
 
-        $model->update(['bid_amount' => $request->bid_amount, 'status' => $request->status], $id);
+        $result =   $model->update(['bid_amount' => $request->bid_amount, 'status' => $request->status], $id);
 
-        return redirect()->back()->with([
+        return redirect()->route('biddings.bid-openings.show', $result->upr->bid_open->id)->with([
             'success'  => "Record has been successfully updated."
         ]);
     }
