@@ -14987,6 +14987,8 @@ var app = new Vue({
                 message: message.message,
                 user: {
                     first_name: "You",
+                    id: currentUser.id,
+                    avatar: currentUser.avatar,
                     surname: ""
                 },
                 chatId: this.chatId,
@@ -14994,6 +14996,7 @@ var app = new Vue({
 
             };
             // Add to existing messages
+            console.log(newMessage);
             this.messages.push(newMessage);
             // Persist to the database etc
             axios.post('/messages', newMessage).then(function (response) {
@@ -16885,6 +16888,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return "/avatars/" + this.message.user.avatar;
         },
         computedUser: function computedUser() {
+
             if (this.message.user.id != currentUser.id) {
                 return "chat__thread__item";
             }

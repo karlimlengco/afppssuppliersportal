@@ -721,49 +721,83 @@ Unit Purchase Request
                     {{-- SOBE --}}
 
                     {{-- Post Qualification --}}
-                    <tr>
-                        <td>Post Qualification</td>
-                        <td>
-                            @if($data->post_qual != null)
-                            <?php $rfq_created_at  =  createCarbon('Y-m-d',$data->post_qual->transaction_date); ?>
-                                <a target="_blank" href="{{route('biddings.post-qualifications.show', $data->post_qual->id)}}">
-                                    {{ $rfq_created_at->format('d F Y') }}
-                                </a>
-                            @endif
-                        </td>
-                        <td >45</td>
-                        <td>
-                            @if($data->bid_open != null)
-                                @if($data->post_qual != null)
-                                    {{ $data->post_qual->days }}
-                                    <?php $totalDays +=  $data->post_qual->days ; ?>
+{{-- {{dd($data->post_quals)}} --}}
+                    @if(count($data->post_quals) > 1)
+                        @foreach($data->post_quals as $pqs)
 
-                                    @if($data->post_qual->days > 45)
-                                        <strong class="red" tooltip="Delay">({{$data->post_qual->days - 45}})</strong>
+                            <tr>
+                                <td>Post Qualification</td>
+                                <td>
+                                    <?php $rfq_created_at  =  createCarbon('Y-m-d',$pqs->transaction_date); ?>
+                                        <a target="_blank" href="{{route('biddings.post-qualifications.show', $pqs->id)}}">
+                                            {{ $rfq_created_at->format('d F Y') }}
+                                        </a>
+                                </td>
+                                <td >45</td>
+                                <td>
+                                    {{ $pqs->days }}
+                                    <?php $totalDays +=  $pqs->days ; ?>
+
+                                    @if($pqs->days > 45)
+                                        <strong class="red" tooltip="Delay">({{$pqs->days - 45}})</strong>
                                     @endif
+                                </td>
+                                <td>
+                                    @if($pqs != null) {{$pqs->remarks}} @endif
+                                </td>
+                                <td>
+                                    @if($pqs != null) {{$pqs->action}} @endif
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
 
-                                @else
-                                    @if($data->bid_open->closing_date != null)
-                                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
-                                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                                            {{$d}}
-                                        @if($d > 45)
-                                            <strong class="red" tooltip="Delay">({{$d - 45}})</strong>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td>Post Qualification</td>
+                            <td>
+                                @if($data->post_qual != null)
+                                <?php $rfq_created_at  =  createCarbon('Y-m-d',$data->post_qual->transaction_date); ?>
+                                    <a target="_blank" href="{{route('biddings.post-qualifications.show', $data->post_qual->id)}}">
+                                        {{ $rfq_created_at->format('d F Y') }}
+                                    </a>
+                                @endif
+                            </td>
+                            <td >45</td>
+                            <td>
+                                @if($data->bid_open != null)
+                                    @if($data->post_qual != null)
+                                        {{ $data->post_qual->days }}
+                                        <?php $totalDays +=  $data->post_qual->days ; ?>
+
+                                        @if($data->post_qual->days > 45)
+                                            <strong class="red" tooltip="Delay">({{$data->post_qual->days - 45}})</strong>
+                                        @endif
+
+                                    @else
+                                        @if($data->bid_open->closing_date != null)
+                                                <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                                                {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                                                {{$d}}
+                                            @if($d > 45)
+                                                <strong class="red" tooltip="Delay">({{$d - 45}})</strong>
+                                            @endif
                                         @endif
                                     @endif
                                 @endif
-                            @endif
-                        </td>
-                        <td>
-                            @if($data->post_qual != null) {{$data->post_qual->remarks}} @endif
-                        </td>
-                        <td>
-                            @if($data->post_qual != null) {{$data->post_qual->action}} @endif
-                        </td>
-                        <td>
+                            </td>
+                            <td>
+                                @if($data->post_qual != null) {{$data->post_qual->remarks}} @endif
+                            </td>
+                            <td>
+                                @if($data->post_qual != null) {{$data->post_qual->action}} @endif
+                            </td>
+                            <td>
 
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    @endif
                     {{-- Post Qualification --}}
 
 

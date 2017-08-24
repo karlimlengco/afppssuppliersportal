@@ -29,10 +29,11 @@ export default {
             return "/avatars/"+this.message.user.avatar;
         },
         computedUser: function () {
+
             if(this.message.user.id != currentUser.id){
                 return "chat__thread__item";
             }
-                return "chat__thread__item chat__thread__item--you";
+            return "chat__thread__item chat__thread__item--you";
 
         },
         computedName: function () {

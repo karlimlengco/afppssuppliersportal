@@ -46,6 +46,8 @@ const app = new Vue({
                 message: message.message,
                 user: {
                     first_name: "You",
+                    id: currentUser.id,
+                    avatar: currentUser.avatar,
                     surname: ""
                 },
                 chatId : this.chatId,
@@ -53,6 +55,7 @@ const app = new Vue({
 
             };
             // Add to existing messages
+            console.log(newMessage);
             this.messages.push(newMessage);
             // Persist to the database etc
             axios.post('/messages', newMessage).then(response => {

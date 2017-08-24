@@ -244,6 +244,16 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
     }
 
     /**
+     * [post_qual description]
+     *
+     * @return [type] [description]
+     */
+    public function post_quals()
+    {
+        return $this->hasMany('\Revlv\Biddings\PostQualification\PostQualificationEloquent',  'upr_id')->orderBy('created_at', 'desc');
+    }
+
+    /**
      * [document_accept description]
      *
      * @return [type] [description]
