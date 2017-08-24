@@ -29,4 +29,81 @@ class MessageRepository extends BaseRepository
 
         return $model->get();
     }
+
+    /**
+     * [getUnseenByUser description]
+     *
+     * @param  [type] $user [description]
+     * @return [type]       [description]
+     */
+    public function getUnseenByUser($user)
+    {
+
+        $model  =   $this->model;
+
+        $model  =   $model->select([
+            'messages.*',
+            'chats.sender_id',
+            'chats.receiver_id',
+        ]);
+
+        $model  =   $model->leftJoin('chats','chats.id', '=', 'messages.chat_id');
+
+        if(\Sentinel::getUser()->hasRole('Admin'))
+        {
+
+            $model  =   $model->whereNull('receiver_id');
+        }
+        else
+        {
+            $model  =   $model->where('sender_id', '=', $user);
+        }
+
+        $model  =   $model->where('user_id', '!=', $user);
+        $model  =   $model->whereNull('is_seen');
+
+        return $model->get();
+    }
+
+    /**
+     *
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function markAsSeen($user)
+    {
+        // dd('www');
+        $model  =   $this->model;
+        $model  =   $model->select([
+            'messages.*',
+            'chats.sender_id',
+            'chats.receiver_id',
+            'chats.updated_at as update',
+        ]);
+
+        $model  =   $model->leftJoin('chats','chats.id', '=', 'messages.chat_id');
+
+        if(\Sentinel::getUser()->hasRole('Admin'))
+        {
+            $model  =   $model->whereNull('receiver_id');
+        }
+        else
+        {
+            $model  =   $model->where('sender_id', '=', $user);
+        }
+
+        $model  =   $model->where('user_id', '!=', $user);
+        $model  =   $model->whereNull('is_seen');
+        $result =   $model->get();
+
+        foreach($result as $data)
+        {
+            $data->update(['is_seen' => 1]);
+        }
+        // $model  =   $model->update(['is_seen' => 1]);
+
+        return true;
+    }
+
 }

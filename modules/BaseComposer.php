@@ -8,7 +8,7 @@ use Revlv\Users\UserRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
-use Revlv\Messages\MessageEloquent;
+use Revlv\Chats\Message\MessageRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use Carbon\Carbon;
 use Revlv\Events\NotificationRepository;
@@ -35,6 +35,7 @@ class BaseComposer
         UserRepository $user,
         UnitPurchaseRequestRepository $upr,
         UserLogRepository $logs,
+        MessageRepository $messages,
         NotificationRepository $nofications,
         HolidayRepository $holidays)
     {
@@ -42,6 +43,7 @@ class BaseComposer
         $this->logs     =   $logs;
         $this->upr      =   $upr;
         $this->holidays =   $holidays;
+        $this->messages =   $messages;
         $this->nofications =   $nofications;
     }
 
@@ -119,10 +121,12 @@ class BaseComposer
         $logs           =   $this->logs->findUnSeedByAdmin($userId);
 
         $notifications  =   $this->nofications->getUnseenByUser($userId);
+        $messagesCount  =   $this->messages->getUnseenByUser($userId);
 
         $view->with('logCounts', count($logs) );
         $view->with('delayCounts', count($delays) );
         $view->with('notifCount', count($notifications) );
+        $view->with('messageCount', count($messagesCount) );
         $view->with('currentUser', $userModel);
     }
 }

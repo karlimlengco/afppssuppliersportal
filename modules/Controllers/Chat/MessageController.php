@@ -59,6 +59,7 @@ class MessageController extends Controller
         $user       =   \Sentinel::getUser();
         $chat       =   $chats->findBySender($user->id);
         $chatId     = 0;
+        $messages->markAsSeen($user->id);
         if($chat)
         {
             $chatId =   $chat->id;
@@ -99,6 +100,7 @@ class MessageController extends Controller
     public function showChat($senderId, ChatRepository $chats, MessageRepository $messages)
     {
         $chat       =   $chats->findBySender($senderId);
+        $messages->markAsSeen(\Sentinel::getUser()->id);
         if($chat)
         {
             return $chat->messages;
