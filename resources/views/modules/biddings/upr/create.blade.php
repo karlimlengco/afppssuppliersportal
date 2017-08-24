@@ -232,19 +232,19 @@ Unit Purchase Request
             newRow += "<input type='text' name='item_description[]' value='"+item_desc+"' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='quantity_row"+table_len+"'>";
-            newRow += "<input type='text' name='quantity[]' value='"+quantity+"' class='input'/>";
+            newRow += "<input readonly type='text' name='quantity[]' value='"+quantity+"' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='unit_measurement_row"+table_len+"'>";
-            newRow += "<input type='text' name='unit_measurement[]' value='"+unit_measurement+"' class='input'/>";
+            newRow += "<input readonly type='text' name='unit_measurement[]' value='"+unit_measurement+"' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='unit_price_row"+table_len+"'>";
-            newRow += "<input type='text' name='unit_price[]' value='"+unit_price+"' class='input'/>";
+            newRow += "<input readonly type='text' name='unit_price[]' value='"+unit_price+"' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
-            newRow += "<input type='text' name='total_amount[]' value='"+total_amount+"' class='input' readonly/>";
+            newRow += "<input readonly type='text' name='total_amount[]' value='"+total_amount+"' class='input' readonly/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
-            newRow += "<input type='button' value='Delete' class='button delete' onclick='delete_row("+table_len+")'";
+            newRow += "<input readonly type='button' value='Delete' class='button delete' onclick='delete_row("+table_len+")'";
             newRow += "</td>";
             newRow += "</tr>";
 

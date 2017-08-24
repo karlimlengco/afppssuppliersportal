@@ -137,9 +137,7 @@ Canvassing
                     <td>
                         <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="edit"> <span class="nc-icon-glyph design_pen-01"></span> </a>
                         @if($proponent->bid_amount != null)
-                            @if($data->adjourned_time == null)
                             <a href="#" class="award-button award" data-id="{{$proponent->id}}" data-name="{{$proponent->supplier->name}}" tooltip="Award"> mark as winner </a>
-                            @endif
 
                         @endif
                     </td>

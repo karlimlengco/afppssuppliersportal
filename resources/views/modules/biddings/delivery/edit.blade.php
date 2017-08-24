@@ -87,7 +87,7 @@ Notice Of Delivery
                         <tr>
                             <td>{{$item->description}}</td>
                             <td>{{$item->quantity}}</td>
-                            <td> {{Form::text('received_quantity[]', ($item->received_quantity) ? $item->received_quantity : 0, ['class' => 'input'])}} </td>
+                            <td> {{Form::text('received_quantity[]', $item->quantity, ['class' => 'input'])}} </td>
                             <td>{{$item->unit}}</td>
                             <td>{{formatPrice($item->price_unit)}}</td>
                             <td>{{formatPrice($item->total_amount)}}</td>
