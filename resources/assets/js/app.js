@@ -55,7 +55,6 @@ const app = new Vue({
 
             };
             // Add to existing messages
-            console.log(newMessage);
             this.messages.push(newMessage);
             // Persist to the database etc
             axios.post('/messages', newMessage).then(response => {
@@ -93,14 +92,18 @@ const app = new Vue({
         Echo.join('chatroom')
             .here((users) => {
                 this.usersInRoom = users;
+                console.log('user here')
             })
             .joining((user) => {
                 this.usersInRoom.push(user);
+                console.log('user join')
             })
             .leaving((user) => {
                 this.usersInRoom = this.usersInRoom.filter(u => u != user)
+                console.log('user leave')
             })
             .listen('MessagePosted', (e) => {
+                console.log('messagePosted')
                 this.messages.push({
                     message: e.message.message,
                     user: e.user

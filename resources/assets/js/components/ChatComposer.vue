@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="chat__compose">
-      <textarea required maxlength="355" @keyup.enter="sendMessage" v-model="message" class="chat__compose__textarea" name="" id="" cols="30" rows="3" placeholder="Write your message here"></textarea>
+      <textarea required maxlength="355" @keyup.enter="sendMessage" v-model="messageText" class="chat__compose__textarea" name="" id="" cols="30" rows="3" placeholder="Write your message here"></textarea>
       <div class="chat__compose__utility">
           <span class="chat__compose__word-count">{{charactersLeft}}</span>
           <span class="chat__compose__options">
@@ -15,25 +15,25 @@ export default {
 
     data() {
         return{
-            message: ""
+            messageText: ""
         }
     },
 
     methods: {
         sendMessage() {
             this.$emit('messagesent', {
-                message: this.message,
+                message: this.messageText,
                 user: {
                     first_name: $('.navbar-right .dropdown-toggle').text()
                 }
             });
-            this.message = '';
+            this.messageText = '';
         }
     },
 
     computed: {
         charactersLeft() {
-            var chars = this.message.length,
+            var chars = this.messageText.length,
                 limit = 355;
 
             return limit - chars;

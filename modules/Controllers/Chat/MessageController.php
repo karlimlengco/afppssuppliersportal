@@ -198,14 +198,13 @@ class MessageController extends Controller
     public function authenticate(Request $request)
     {
         $pusher = new \Pusher(env('PUSHER_KEY'), env('PUSHER_SECRET'), env('PUSHER_APP_ID'));
-
         if(\Sentinel::check())
         {
             //Fetch User Object
             $user =  \Sentinel::getUser();
             //Presence Channel information. Usually contains personal user information.
             //See: https://pusher.com/docs/client_api_guide/client_presence_channels
-            $presence_data = array('name' => $user->first_name." ".$user->last_name);
+            $presence_data = array('id' => $user->id ,'name' => $user->first_name." ".$user->surname);
             //Registers users' presence channel.
             return $pusher->presence_auth($request->get('channel_name'), $request->get('socket_id'), $user->id, $presence_data);
         }

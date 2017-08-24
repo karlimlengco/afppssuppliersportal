@@ -14996,7 +14996,6 @@ var app = new Vue({
 
             };
             // Add to existing messages
-            console.log(newMessage);
             this.messages.push(newMessage);
             // Persist to the database etc
             axios.post('/messages', newMessage).then(function (response) {
@@ -15036,13 +15035,17 @@ var app = new Vue({
 
         Echo.join('chatroom').here(function (users) {
             _this2.usersInRoom = users;
+            console.log('user here');
         }).joining(function (user) {
             _this2.usersInRoom.push(user);
+            console.log('user join');
         }).leaving(function (user) {
             _this2.usersInRoom = _this2.usersInRoom.filter(function (u) {
                 return u != user;
             });
+            console.log('user leave');
         }).listen('MessagePosted', function (e) {
+            console.log('messagePosted');
             _this2.messages.push({
                 message: e.message.message,
                 user: e.user
@@ -16792,7 +16795,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            message: ""
+            messageText: ""
         };
     },
 
@@ -16800,18 +16803,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         sendMessage: function sendMessage() {
             this.$emit('messagesent', {
-                message: this.message,
+                message: this.messageText,
                 user: {
                     first_name: $('.navbar-right .dropdown-toggle').text()
                 }
             });
-            this.message = '';
+            this.messageText = '';
         }
     },
 
     computed: {
         charactersLeft: function charactersLeft() {
-            var chars = this.message.length,
+            var chars = this.messageText.length,
                 limit = 355;
 
             return limit - chars;
@@ -52972,8 +52975,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.message),
-      expression: "message"
+      value: (_vm.messageText),
+      expression: "messageText"
     }],
     staticClass: "chat__compose__textarea",
     attrs: {
@@ -52986,7 +52989,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "Write your message here"
     },
     domProps: {
-      "value": (_vm.message)
+      "value": (_vm.messageText)
     },
     on: {
       "keyup": function($event) {
@@ -52995,7 +52998,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.message = $event.target.value
+        _vm.messageText = $event.target.value
       }
     }
   }), _vm._v(" "), _c('div', {
