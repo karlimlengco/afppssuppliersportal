@@ -22,8 +22,6 @@ trait DatatableTrait
 
         $model  =   $model->where('user_id','=', \Sentinel::getUser()->id);
 
-        $model->orderBy('created_at', 'desc');
-
         return $this->dataTable($model->get());
     }
 

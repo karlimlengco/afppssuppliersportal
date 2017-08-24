@@ -118,7 +118,7 @@ class BaseComposer
         $delays         =   $this->getDelays();
         $logs           =   $this->logs->findUnSeedByAdmin($userId);
 
-        $notifications  =   $this->nofications->getByUser($userId);
+        $notifications  =   $this->nofications->getUnseenByUser($userId);
 
         $view->with('logCounts', count($logs) );
         $view->with('delayCounts', count($delays) );

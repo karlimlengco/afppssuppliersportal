@@ -49,6 +49,7 @@ class NotifyController extends Controller
      */
     public function index(NotificationRepository $model)
     {
+        $model->markAsSeen(\Sentinel::getUser()->id);
         return $this->view('modules.notifications.notify.index',[
         ]);
     }

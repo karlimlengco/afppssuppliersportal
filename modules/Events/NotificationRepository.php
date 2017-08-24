@@ -35,4 +35,40 @@ class NotificationRepository extends BaseRepository
         return $model;
     }
 
+    /**
+     *
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function markAsSeen($id)
+    {
+
+        $model  =   $this->model;
+
+        $model  =   $model->where('user_id','=', $id);
+
+        $model  =   $model->whereNULL('is_seen');
+
+        $model  =   $model->update(['is_seen' => 1]);
+
+        return true;
+    }
+
+    /**
+     * [getById description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function getUnseenByUser($id)
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->where('user_id','=', $id);
+        $model  =   $model->whereNULL('is_seen');
+
+        $model  =   $model->get();
+        return $model;
+    }
+
 }
