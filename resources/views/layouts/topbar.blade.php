@@ -18,6 +18,7 @@ $cRoute = explode('.', $currentRoute);
                         @endif
                     @endif
                 @endforeach --}}
+
                 @yield('breadcrumbs')
 
             </div>
