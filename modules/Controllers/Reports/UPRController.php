@@ -229,7 +229,7 @@ class UPRController extends Controller
     {
         $result     =   $model->findTimelineById($id);
 
-        $this->downloadExcel($result, $request->date_from, $request->date_to);
+        $this->downloadExcel($result);
 
     }
 
@@ -239,16 +239,10 @@ class UPRController extends Controller
      * @param  [type] $result [description]
      * @return [type]         [description]
      */
-    public function downloadExcel($result, $from ,$to)
+    public function downloadExcel($result)
     {
-        Excel::create("Timeline", function($excel)use ($result, $from ,$to) {
-            $excel->sheet('Page1', function($sheet)use ($result, $from ,$to) {
-                if($from != null)
-                $from = \Carbon\Carbon::createFromFormat('!Y-m-d', $from)->format('d F Y');
-
-                if($to != null)
-                $to = \Carbon\Carbon::createFromFormat('!Y-m-d', $to)->format('d F Y');
-
+        Excel::create("Timeline", function($excel)use ($result) {
+            $excel->sheet('Page1', function($sheet)use ($result) {
                 $count = 6;
                 $sheet->row(1, ['Timeline']);
                 $sheet->row(2, ["ALTERNATIVE METHOD OF PROCUREMENT"]);
@@ -274,11 +268,12 @@ class UPRController extends Controller
                 $sheet->mergeCells('A3:AA3');
 
                 $sheet->row(6, [
+                    'UPR #',
+                    'Ref #',
                     'UPR',
-                    'Create RFQ',
-                    'Close RFQ',
                     'ISPQ',
                     'PhilGeps',
+                    'Close RFQ',
                     'Canvass',
                     'NOA',
                     'NOA Approved',
@@ -289,54 +284,89 @@ class UPRController extends Controller
                     'PO COA Approval',
                     'NTP',
                     'NTPA',
-                    'Delivery',
-                    'Received DR',
+                    'Received Items',
                     'Delivery To COA',
-                    'Inspection',
+                    'Technical Inspection',
                     'Inspection Acceptance',
                     'Inspection of Delivered Items',
                     'Prepare Certificate of Inspection',
                     'Create Voucher',
                     'PreAudit',
-                    'Certify',
-                    'JEV',
-                    'Voucher Approval',
-                    'Release Payment',
                     // 'Received Payment',
                 ]);
 
-                foreach($result as $data)
-                {
-                    $count ++;
-                    $newdata    =   [
-                        $data->unit_name,
-                        $data->upr,
-                        $data->rfq,
-                        $data->rfq_close,
-                        $data->philgeps,
-                        $data->ispq,
-                        $data->canvass,
-                        $data->noa,
-                        $data->noaa,
-                        $data->po,
-                        $data->po_mfo_released,
-                        $data->po_mfo_received,
-                        $data->po_pcco_released,
-                        $data->po_pcco_received,
-                        $data->po_coa_approved,
-                        $data->ntp,
-                        $data->ntpa,
-                        $data->nod,
-                        $data->delivery,
-                        $data->tiac,
-                        $data->coa_inspection,
-                        $data->diir,
-                        $data->voucher,
-                        $data->end_process,
-                    ];
-                    $sheet->row($count, $newdata);
+                $newdata    =   [
+                    $result->upr_number,
+                    $result->ref_number,
+                    $result->date_prepared->format('d F Y'),
+                    ($result->ispq_transaction_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->ispq_transaction_date)->format('d F Y')
+                        : "",
+                    ($result->pp_completed_at) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->pp_completed_at)->format('d F Y')
+                        : "",
+                    ($result->rfq_completed_at) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$result->rfq_completed_at)->format('d F Y')
+                        : "",
+                    ($result->canvass_start_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->canvass_start_date)->format('d F Y')
+                        : "",
+                    ($result->noa_award_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$result->noa_award_date)->format('d F Y')
+                        : "",
+                    ($result->noa_approved_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->noa_approved_date)->format('d F Y')
+                        : "",
+                    ($result->noa_award_accepted_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->noa_award_accepted_date)->format('d F Y')
+                        : "",
+                    ($result->po_create_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->po_create_date)->format('d F Y')
+                        : "",
+                    ($result->funding_received_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->funding_received_date)->format('d F Y')
+                        : "",
+                    ($result->mfo_received_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->mfo_received_date)->format('d F Y')
+                        : "",
+                    ($result->coa_approved_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->coa_approved_date)->format('d F Y')
+                        : "",
+                    ($result->ntp_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$result->ntp_date)->format('d F Y')
+                        : "",
+                    ($result->ntp_award_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->ntp_award_date)->format('d F Y')
+                        : "",
+                    ($result->delivery_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->delivery_date)->format('d F Y')
+                        : "",
+                    ($result->dr_coa_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->dr_coa_date)->format('d F Y')
+                        : "",
+                    ($result->dr_inspection) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->dr_inspection)->format('d F Y')
+                        : "",
+                    ($result->iar_accepted_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->iar_accepted_date)->format('d F Y')
+                        : "",
+                    ($result->di_start) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->di_start)->format('d F Y')
+                        : "",
+                    ($result->di_close) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->di_close)->format('d F Y')
+                        : "",
+                    ($result->v_transaction_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->v_transaction_date)->format('d F Y')
+                        : "",
+                    ($result->preaudit_date) ?
+                        \Carbon\Carbon::createFromFormat('Y-m-d',$result->preaudit_date)->format('d F Y')
+                        : "",
 
-                }
+                ];
+
+                $sheet->row(7, $newdata);
+
 
             });
 

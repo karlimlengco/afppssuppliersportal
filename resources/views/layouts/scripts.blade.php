@@ -51,7 +51,6 @@
                 theme:"minimal-dark"
             });
 
-
             $(".chat__thread").mCustomScrollbar({
                 axis:"y",
                 setTop:"-999999999px",

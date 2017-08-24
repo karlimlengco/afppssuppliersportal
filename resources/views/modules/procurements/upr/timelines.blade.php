@@ -26,9 +26,9 @@ Unit Purchase Request
     </div>
     <div class="six columns utility"  style="margin-bottom:0px; text-align: left" >
         <div class="eleven columns">{!! Form::selectField('upr_number', '', $upr_list, ['id'=>'upr_id'])!!}</div>
-       {{--  <div class="one columns">
+        <div class="one columns">
             <a href="#" id="printme" class="button" style="margin-top:5px"> <i class="nc-icon-mini arrows-2_square-download"></i></a>
-        </div> --}}
+        </div>
 
     </div>
 </div>
@@ -721,7 +721,6 @@ Unit Purchase Request
                     {{-- SOBE --}}
 
                     {{-- Post Qualification --}}
-{{-- {{dd($data->post_quals)}} --}}
                     @if(count($data->post_quals) > 1)
                         @foreach($data->post_quals as $pqs)
 
@@ -850,10 +849,9 @@ Unit Purchase Request
                                 <strong class="red" tooltip="Delay">({{$data->noa_days - 15}})</strong>
                             @endif
 
-                            @if($data->post_qual != null && $data->noa_days == null)
+                            <!--- @if($data->post_qual != null && $data->noa_days == null)
                                 <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
 
-                                {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                                 {{$d}}
 
 
@@ -861,7 +859,7 @@ Unit Purchase Request
                                     <strong class="red" tooltip="Delay">({{$d - 15}})</strong>
                                 @endif
 
-                            @endif
+                            @endif -->
                     @endif
                     </td>
                     <td>{{$data->noa_remarks}}</td>
