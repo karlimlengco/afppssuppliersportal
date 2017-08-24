@@ -16458,6 +16458,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var arrayIDs = [];
@@ -52486,21 +52508,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               attrs: {
                 "tooltip": "Total"
               }
-            }, [_vm._v(_vm._s(itemUnitData.upr_count))]), _vm._v(" "), _c('span', {
+            }, [_vm._v(_vm._s(itemUnitData.upr_count))]), _vm._v(" "), _c('a', {
+              staticClass: "blue",
               attrs: {
+                "target": "_blank",
+                "href": '/procurements/unit-purchase-requests/overview/completed/' + item.programs + '/' + itemProgData.name + '/' + itemUnitData.short_code + '?type=' + _vm.types,
                 "tooltip": "Completed"
               }
-            }, [_vm._v("(" + _vm._s(itemUnitData.completed_count) + ")")]), _vm._v(" "), _c('span', {
+            }, [_vm._v("(" + _vm._s(itemUnitData.completed_count) + "\n                                                                                         )")]), _vm._v(" "), _c('a', {
               staticClass: "green",
               attrs: {
+                "target": "_blank",
+                "href": '/procurements/unit-purchase-requests/overview/ongoing/' + item.programs + '/' + itemProgData.name + '/' + itemUnitData.short_code + '?type=' + _vm.types,
                 "tooltip": "Ongoing"
               }
-            }, [_vm._v("(" + _vm._s(itemUnitData.ongoing_count) + ")")]), _vm._v(" "), _c('span', {
+            }, [_vm._v("\n                                                                                                (" + _vm._s(itemUnitData.ongoing_count) + ")\n                                                                                        ")]), _vm._v(" "), _c('a', {
               staticClass: "red",
               attrs: {
+                "target": "_blank",
+                "href": '/procurements/unit-purchase-requests/overview/delay/' + item.programs + '/' + itemProgData.name + '/' + itemUnitData.short_code + '?type=' + _vm.types,
                 "tooltip": "Delay"
               }
-            }, [_vm._v("(" + _vm._s(itemUnitData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
+            }, [_vm._v("\n                                                                                                (" + _vm._s(itemUnitData.delay_count) + ")\n                                                                                        ")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_residual)))]), _vm._v(" "), _c('td'), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
               staticStyle: {
                 "text-align": "left"
               }

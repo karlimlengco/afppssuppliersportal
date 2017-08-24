@@ -138,9 +138,31 @@
                                                                                     <td>
 
                                                                                         <span tooltip="Total" >{{itemUnitData.upr_count}}</span>
-                                                                                        <span tooltip="Completed" >({{itemUnitData.completed_count}})</span>
-                                                                                        <span tooltip="Ongoing" class="green">({{itemUnitData.ongoing_count}})</span>
-                                                                                        <span tooltip="Delay" class="red">({{itemUnitData.delay_count}})</span>
+
+                                                                                        <a
+                                                                                            target="_blank"
+                                                                                            v-bind:href="'/procurements/unit-purchase-requests/overview/completed/'+item.programs+'/'+itemProgData.name+'/'+ itemUnitData.short_code +'?type='+types"
+                                                                                            tooltip="Completed"
+                                                                                            class="blue"
+                                                                                                 >({{itemUnitData.completed_count}}
+                                                                                         )</a>
+
+                                                                                        <a
+                                                                                            target="_blank"
+                                                                                            v-bind:href="'/procurements/unit-purchase-requests/overview/ongoing/'+item.programs+'/'+itemProgData.name+'/'+ itemUnitData.short_code+'?type='+types"
+                                                                                            tooltip="Ongoing"
+                                                                                            class="green">
+                                                                                                ({{itemUnitData.ongoing_count}})
+                                                                                        </a>
+
+                                                                                        <a
+                                                                                            target="_blank"
+                                                                                            v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'/'+itemProgData.name+'/'+ itemUnitData.short_code+'?type='+types"
+                                                                                            tooltip="Delay"
+                                                                                            class="red">
+                                                                                                ({{itemUnitData.delay_count}})
+                                                                                        </a>
+
                                                                                     </td>
                                                                                     <td>{{formatPrice(itemUnitData.total_abc)}}</td>
                                                                                     <td>{{formatPrice(itemUnitData.total_bid)}}</td>

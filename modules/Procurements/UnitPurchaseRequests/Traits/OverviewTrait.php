@@ -44,9 +44,9 @@ trait OverviewTrait
      * @param  UnitPurchaseRequestRepository $upr      [description]
      * @return [type]                                  [description]
      */
-    public function overviewCompleted(Request $request, $programs, $pcco = null,  UnitPurchaseRequestRepository $upr)
+    public function overviewCompleted(Request $request, $programs, $pcco = null, $unit = null, UnitPurchaseRequestRepository $upr)
     {
-        $result     =   $upr->findByPrograms($request->type, 'completed', $programs, $pcco);
+        $result     =   $upr->findByPrograms($request->type, 'completed', $programs, $pcco, $unit);
 
         return $this->view('modules.overview.completed',[
             'result'    =>  $result,
@@ -66,9 +66,9 @@ trait OverviewTrait
      * @param  UnitPurchaseRequestRepository $upr      [description]
      * @return [type]                                  [description]
      */
-    public function overviewOngoing(Request $request, $programs, $pcco =null, UnitPurchaseRequestRepository $upr)
+    public function overviewOngoing(Request $request, $programs, $pcco =null, $unit = null, UnitPurchaseRequestRepository $upr)
     {
-        $result     =   $upr->findByPrograms($request->type, 'ongoing', $programs, $pcco);
+        $result     =   $upr->findByPrograms($request->type, 'ongoing', $programs, $pcco, $unit);
         return $this->view('modules.overview.ongoing',[
             'result'    =>  $result,
             'breadcrumbs' => [
@@ -87,9 +87,9 @@ trait OverviewTrait
      * @param  UnitPurchaseRequestRepository $upr      [description]
      * @return [type]                                  [description]
      */
-    public function overviewDelay(Request $request, $programs, $pcco =null, UnitPurchaseRequestRepository $upr)
+    public function overviewDelay(Request $request, $programs, $pcco =null, $unit = null, UnitPurchaseRequestRepository $upr)
     {
-        $result     =   $upr->findByPrograms($request->type, 'delay', $programs, $pcco);
+        $result     =   $upr->findByPrograms($request->type, 'delay', $programs, $pcco, $unit);
         return $this->view('modules.overview.delay',[
             'result'    =>  $result,
             'breadcrumbs' => [

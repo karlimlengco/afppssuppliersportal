@@ -26,9 +26,9 @@ Route::get('messages/{sender}', '\Revlv\Controllers\Chat\MessageController@showC
 Route::get('api/get/new_code/{id}', '\Revlv\Controllers\Settings\AccountCodeController@getCode')->name('settings.account-codes.get-code');
 
 
-Route::get('procurements/unit-purchase-requests/overview/delay/{programs}/{pcco?}', '\Revlv\Controllers\Procurements\UPRController@overviewDelay')->name('upr-overview.delay');
-Route::get('procurements/unit-purchase-requests/overview/ongoing/{programs}/{pcco?}', '\Revlv\Controllers\Procurements\UPRController@overviewOngoing')->name('upr-overview.ongoing');
-Route::get('procurements/unit-purchase-requests/overview/completed/{programs}/{pcco?}', '\Revlv\Controllers\Procurements\UPRController@overviewCompleted')->name('upr-overview.completed');
+Route::get('procurements/unit-purchase-requests/overview/delay/{programs}/{pcco?}/{unit?}', '\Revlv\Controllers\Procurements\UPRController@overviewDelay')->name('upr-overview.delay');
+Route::get('procurements/unit-purchase-requests/overview/ongoing/{programs}/{pcco?}/{unit?}', '\Revlv\Controllers\Procurements\UPRController@overviewOngoing')->name('upr-overview.ongoing');
+Route::get('procurements/unit-purchase-requests/overview/completed/{programs}/{pcco?}/{unit?}', '\Revlv\Controllers\Procurements\UPRController@overviewCompleted')->name('upr-overview.completed');
 
 
 Route::get('timelines/print/{id}', '\Revlv\Controllers\Reports\UPRController@downloadTimeline')->name('settings.account-codes.get-code');

@@ -442,7 +442,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
      * @param  [type] $program [description]
      * @return [type]          [description]
      */
-    public function findByPrograms($type = 'alternative', $status, $programs, $pcco = null)
+    public function findByPrograms($type = 'alternative', $status, $programs, $pcco = null, $unit = null)
     {
         $model  =   $this->model;
 
@@ -506,6 +506,11 @@ class UnitPurchaseRequestRepository extends BaseRepository
         if($pcco != null)
         {
             $model  =   $model->where('procurement_centers.name', '=', $pcco);
+        }
+
+        if($unit != null)
+        {
+            $model  =   $model->where('catered_units.short_code', '=', $unit);
         }
 
         if($type != 'alternative')
