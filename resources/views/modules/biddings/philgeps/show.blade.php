@@ -29,6 +29,15 @@ PhilGeps Posting
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+
+
+        <button type="button" class="button button--options-trigger" tooltip="Options">
+            <i class="nc-icon-mini ui-2_menu-dots"></i>
+            <div class="button__options">
+                <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
+            </div>
+        </button>
+
         <a href="{{route('biddings.philgeps.logs', $data->id)}}" class="button" tooltip="Logs">
             <i class="nc-icon-mini files_archive-content"></i>
         </a>

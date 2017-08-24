@@ -61,6 +61,8 @@ Vouchers
                 @if($data->journal_entry_date && !$data->approval_date)
                     <a href="#" id="approval-button" class="button__options__item" tooltip="Received Payment"> Approve Voucher</a>
                 @endif
+                <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
+
             </div>
         </button>
 

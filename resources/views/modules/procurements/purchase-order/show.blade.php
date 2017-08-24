@@ -57,6 +57,8 @@ Purchase Order
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
                 <a href="{{route('procurements.purchase-orders.logs', $data->id)}}" class="button__options__item">View Logs</a>
+                <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
+
 
             </div>
         </button>

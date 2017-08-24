@@ -34,6 +34,8 @@ PhilGeps Posting
                 <a href="#" class=" topbar__utility__button--modal button__options__item">Add Attachment</a>
                 <a href="{{route('procurements.unit-purchase-requests.show',$data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
                 <a href="{{route('procurements.philgeps-posting.logs', $data->id)}}" class=" button__options__item">View Logs</a>
+                <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
+
 
                 {{-- <a href="{{route('procurements.blank-rfq.show',$data->rfq_id)}}" class=" button__options__item">Request For Quotation</a> --}}
             </div>

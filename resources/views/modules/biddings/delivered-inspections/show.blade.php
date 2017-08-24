@@ -60,6 +60,8 @@ Delivered Items Inspection
                 <a href="{{route('procurements.delivered-inspections.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
                     View Logs
                 </a>
+                <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
+
             </div>
         </button>
         <a target="_blank" class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>

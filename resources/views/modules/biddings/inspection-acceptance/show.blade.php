@@ -40,6 +40,8 @@ Inspection And Acceptance Report
                 <a href="{{route('procurements.inspection-and-acceptance.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
                     View Logs
                 </a>
+                <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
+
 
             </div>
         </button>

@@ -39,6 +39,8 @@ Notice To Proceed
                 <a href="{{route('procurements.ntp.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
                     View Logs
                 </a>
+                <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
+
 
             </div>
         </button>
