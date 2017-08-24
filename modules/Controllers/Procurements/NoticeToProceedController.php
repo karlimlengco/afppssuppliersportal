@@ -475,7 +475,7 @@ class NoticeToProceedController extends Controller
     {
         $result                     =   $model->with(['signatory', 'po'])->findById($id);
         $supplier                   =   $result->winner->supplier;
-        $blank_model                =   $blank->findById($result->rfq_id);
+        // $blank_model                =   $blank->findById($result->rfq_id);
         $upr_model                  =   $upr->findById($result->upr_id);
 
         if($result->signatory == null)
@@ -490,8 +490,8 @@ class NoticeToProceedController extends Controller
         $data['po_transaction_date']=   $result->po->created_at;
         $data['po_number']          =   $result->po->po_number;
         $data['po_type']            =   $result->po->type;
-        $data['rfq_number']         =   $result->rfq_number;
-        $data['rfq_date']           =   $blank_model->transaction_date;
+        // $data['rfq_number']         =   $result->rfq_number;
+        // $data['rfq_date']           =   $blank_model->transaction_date;
         $data['total_amount']       =   $result->po->bid_amount;
         $data['delivery_terms']     =   $result->po->delivery_terms;
         $data['signatory']          =   $result->signatory;
