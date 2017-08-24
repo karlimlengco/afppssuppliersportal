@@ -53,10 +53,11 @@
                         </tr>
 
                         <?php $total = 0; ?>
+                        <?php $count = 1; ?>
                         @foreach($data['items'] as $key=>$item)
                             @if($data['type'] == 'contract')
                                 <tr>
-                                    <td class="align-center">{{$key+1}}</td>
+                                    <td class="align-center">{{$count++}}</td>
                                     <td class="align-center">{{$item->quantity}}</td>
                                     <td class="align-center">{{$item->unit}}</td>
                                     <td class="align-left">{{$item->description}}</td>
@@ -66,7 +67,7 @@
                                 </tr>
                             @elseif($data['type'] == 'contract_and_po' && $item->type == 'contract')
                                 <tr>
-                                    <td class="align-center">{{$key+1}}</td>
+                                    <td class="align-center">{{$count++}}</td>
                                     <td class="align-center">{{$item->quantity}}</td>
                                     <td class="align-center">{{$item->unit}}</td>
                                     <td class="align-left">{{$item->description}}</td>

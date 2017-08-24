@@ -1012,10 +1012,10 @@ class PurchaseOrderController extends Controller
         $data['upr_number']         =  $upr_model->upr_number;
         $data['remarks']            =  $result->remarks;
         $data['purchase_date']      =  $result->purchase_date;
-        $data['transaction_date']   =  $result->rfq->transaction_date;
+        // $data['transaction_date']   =  $result->rfq->transaction_date;
         $data['winner']             =  $noa_model;
         $data['rfq_number']         =  $result->rfq_number;
-        $data['mode']               =  $upr_model->modes->name;
+        $data['mode']               =  ($upr_model->modes != null) ?$upr_model->modes->name : "Public Bidding";
         $data['term']               =  $result->terms->name;
         $data['accounts']           =  $upr_model->accounts->new_account_code;
         $data['centers']            =  $upr_model->centers->name;
