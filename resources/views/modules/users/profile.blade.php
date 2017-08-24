@@ -53,19 +53,49 @@ My Profile
     <div class="eight columns">
 
         <div class="row">
-            <div class="twelve columns">
 
-                    {!! Form::fileField('avatar', 'Avatar') !!}
-                    {!! Form::textField('username', 'Username') !!}
-                    {!! Form::textField('first_name', 'First Name') !!}
-                    {!! Form::textField('middle_name', 'Middle Name') !!}
-                    {!! Form::textField('surname', 'Surname') !!}
-                    {!! Form::textField('contact_number', 'Contact Number') !!}
-                    {!! Form::selectField('gender', 'Gender', $genders) !!}
-                    {!! Form::textField('email', 'Email Address') !!}
-                    {!! Form::textField('address', 'Address') !!}
+                <div class="row">
+                    <div class="six columns">
+                        {!! Form::fileField('avatar', 'Avatar') !!}
+                    </div>
+                    <div class="six columns">
+                        {!! Form::textField('username', 'Username') !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns">
+                        {!! Form::textField('first_name', 'First Name') !!}
+                    </div>
+                    <div class="four columns">
+                        {!! Form::textField('middle_name', 'Middle Name') !!}
+                    </div>
+                    <div class="four columns">
+                        {!! Form::textField('surname', 'Surname') !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns">
+                        {!! Form::textField('contact_number', 'Contact Number') !!}
+                    </div>
+                    <div class="four columns">
+                        {!! Form::selectField('gender', 'Gender', $genders) !!}
+                    </div>
+                    <div class="four columns">
+                        {!! Form::textField('email', 'Email Address') !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="twelve columns">
+                        {!! Form::textareaField('address', 'Address', null, ['rows'=> 3 ]) !!}
+                    </div>
+                </div>
 
-
+            </div>
+            Change Password
+            <hr>
+            <div class="row">
+                <div class="twelve columns">{!! Form::passwordField('password', 'New Password') !!}</div>
+                <div class="twelve columns">{!! Form::passwordField('password_confirmation', 'Confirm Password') !!}</div>
             </div>
         </div>
 

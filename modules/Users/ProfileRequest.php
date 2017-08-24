@@ -17,6 +17,7 @@ class ProfileRequest extends BaseRequest
         'gender',
         'first_name',
         'middle_name',
+        'password',
         'surname',
     ];
 
@@ -44,6 +45,7 @@ class ProfileRequest extends BaseRequest
             'first_name'            => 'required',
             'middle_name'           => 'required',
             'surname'               => 'required',
+            'password'              => 'confirmed',
         ];
     }
 }

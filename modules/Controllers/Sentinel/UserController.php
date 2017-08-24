@@ -202,6 +202,15 @@ class UserController extends Controller
             }
         }
 
+        if($request->password == null)
+        {
+            unset($inputs['password']);
+        }
+        else
+        {
+            $inputs['password'] = bcrypt($inputs['password']);
+        }
+
         $this->userRepository->update($inputs, $user->id);
 
         return redirect()->route('settings.users.show', $user->username)->with([
@@ -284,8 +293,18 @@ class UserController extends Controller
      */
     public function updateProfile($user, ProfileRequest $request)
     {
+
         $user               =   $this->userRepository->findByUsername($user);
         $input              =   $request->getData();
+
+        if($request->password == null)
+        {
+            unset($input['password']);
+        }
+        else
+        {
+            $input['password'] = bcrypt($input['password']);
+        }
 
         $this->userRepository->update($input, $user->id);
 

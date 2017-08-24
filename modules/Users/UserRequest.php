@@ -36,6 +36,7 @@ class UserRequest extends BaseRequest
 
         'username',
         'email',
+        'password',
     ];
 
     /**
@@ -64,6 +65,7 @@ class UserRequest extends BaseRequest
             'contact_number'        => 'required',
             'gender'                => 'required',
             'address'               => 'required',
+            'password'              => 'confirmed',
         ];
     }
 }

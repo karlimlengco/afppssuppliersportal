@@ -120,11 +120,19 @@ Users
                 <br>
 
                     {!! Form::tagField('role', 'Roles', $roles, (count( $user->roles ) != 0 ) ? $user->roles->pluck('id')->toArray()   : "", ['data-max-items' => 10]) !!}
-{{--                 {!!Form::model($user, ['route'=>['user.groups.update',$user->id], 'method'=> 'PUT', 'id' => 'mainForm'])!!}
-                    {!! Form::tagField('role', 'Roles', $roles, (count( $user->roles ) != 0 ) ? $user->roles->pluck('id')->toArray()   : "", ['data-max-items' => 10]) !!}
-                    <button type="submit" class="button">Continue</button>
-                {!!Form::close()!!}
- --}}                </div>
+                </div>
+
+                <br>
+                <br>
+                <div class="row">
+                    <h3>Change Password</h3>
+                </div>
+                <hr>
+                <br>
+                <div class="row">
+                    <div class="twelve columns">{!! Form::passwordField('password', 'New Password') !!}</div>
+                    <div class="twelve columns">{!! Form::passwordField('password_confirmation', 'Confirm Password') !!}</div>
+                </div>
             </div>
 
                 {!! Form::close() !!}

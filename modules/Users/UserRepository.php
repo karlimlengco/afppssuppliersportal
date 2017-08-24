@@ -68,7 +68,13 @@ class UserRepository extends BaseRepository
             ->model
             ->find($id);
 
-        unset($data['password']);
+            if(isset($data['password']) && $data['password'] != null)
+            {
+            }
+            else
+            {
+                unset($data['password']);
+            }
 
             if(isset($data['avatar']))
             {
