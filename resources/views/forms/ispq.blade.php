@@ -39,7 +39,7 @@
                     <span class="printable-form__body__title">Invitation to Submit a Quotation / Proposal</span>
                     <!-- content -->
                     <p>{{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['transaction_date'])->format('d F Y')}}</p>
-                    <p>1. The Armed Forces of the Philippines through the 302ND  Canvass/Contracting Committee invites PhilGEPS registered suppliers to submit quotation/proposal for the following list of procurement with corresponding Approved Budget for the Contract (ABC).</p>
+                    <p>1. The Armed Forces of the Philippines through the {{$center->short_code}} Canvass/Contracting Committee invites PhilGEPS registered suppliers to submit quotation/proposal for the following list of procurement with corresponding Approved Budget for the Contract (ABC).</p>
                     <table class="printable-form__body__table">
                         <tr>
                             <td class="align-center" width="10%"><strong>ITEM NO</strong></td>
@@ -62,7 +62,7 @@
                             </tr>
                         @endforeach
                     </table>
-                    <p>2. Interested Suppliers may obtain further information from Canvass Contracting Committee Secretariat at the office of 302ND Contracting Office,  Naval Base Pascual Ledesma Fort San Felipe, Cavite City Philippines for the issuance of Request for Quotation (RFQ) from <strong>8:00 AM - 5:00 PM Monday to Friday excluding Saturdays, Sundays and Holidays</strong>.</p>
+                    <p>2. Interested Suppliers may obtain further information from Canvass Contracting Committee Secretariat at the office of {{$center->name}}, {{$center->address}} for the issuance of Request for Quotation (RFQ) from <strong>8:00 AM - 5:00 PM Monday to Friday excluding Saturdays, Sundays and Holidays</strong>.</p>
                     <p>3. Quotations must be delivered on or before the <strong>stated canvassing date/time at {{$data['venue']}}</strong> . All quotations must be accompanied by eligibility documents as required.</p>
                     <p>4. RFQ will be opened in the presense of the Suppliers or their representative/s who choose to attend at the address stated above. Late quotations shall not be accepted.</p>
                     <p>5. The AFP reserves the right to reject any or all proposals, or declare a failure of canvass, or not award the contract, without thereby incurring any liability in accordance with the Republic Act No. 9184 and its Revised Implementing Rules and Regulations.</p>
