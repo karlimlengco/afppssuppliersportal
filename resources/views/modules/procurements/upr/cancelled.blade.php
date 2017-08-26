@@ -22,12 +22,14 @@ Unit Purchase Request
 
 <div class="row">
 
-    <div class="twelve columns align-right utility utility--align-right">
-        <a href="{{route('procurements.unit-purchase-requests.index')}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+    <div class="twelve columns">
+        <a href="{{route('procurements.unit-purchase-requests.index')}}" class="button button--pull-left" tooltip="Back">Go Back</a>
     </div>
 </div>
 
 <div class="row">
+    <br>
+    <h3><span style="border-bottom:2px solid black">List of Cancelled Unit Purchase Requests(UPRs)</span></h3>
     <div class="twelve columns">
         {{-- <div class="table-scroll"> --}}
             <table id="datatable-responsive" class="table ">

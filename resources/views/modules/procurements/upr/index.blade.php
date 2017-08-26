@@ -21,26 +21,20 @@ Unit Purchase Request
 @section('contents')
 
 <div class="row">
-    <div class="six columns utility utility--align-left">
-        <a class="button" href="{{route('procurements.unit-purchase-requests.view-cancel')}}" tooltip="View All Cancelled"><i class="nc-icon-mini ui-1_circle-remove"></i></a>
+    <div class="six columns ">
+        {{-- <a class="button" href="{{route('procurements.unit-purchase-requests.view-cancel')}}" tooltip="View All Cancelled"><i class="nc-icon-mini ui-1_circle-remove"></i></a> --}}
+        <a  class="button" href="{{route('procurements.unit-purchase-requests.view-cancel')}}"> View All Cancelled UPR</a>
     </div>
-    <div class="six columns utility utility--align-right" >
+    <div class="six columns align-right" >
 
-     {{--    <button class="button button--options-trigger" tooltip="Options">
-            <i class="nc-icon-mini ui-2_menu-dots"></i>
-            <div class="button__options">
-                <a href="{{route($importRoute)}}" class="button__options__item">Import UPR</a>
-                <a href="{{route('procurements.unit-purchase-requests.view-cancel')}}" class="button__options__item">View All Cancelled</a>
-            </div>
-        </button> --}}
-
-
-        <a class="button" href="{{route($createRoute)}}" tooltip="Add UPR"><i class="nc-icon-mini ui-1_circle-add"></i></a>
-        <a class="button" href="{{route($importRoute)}}" tooltip="Import UPR"><i class="nc-icon-mini arrows-2_file-upload-86"></i></a>
+        <a class="button" href="{{route($createRoute)}}" tooltip="Add UPR">Add UPR</a>
+        <a class="button" href="{{route($importRoute)}}" tooltip="Import UPR">Import UPR</a>
     </div>
 </div>
 
 <div class="row">
+    <br>
+    <h3><span style="border-bottom:2px solid black">List of Unit Purchase Requests(UPRs)</span></h3>
     <div class="twelve columns">
  {{--        <div class="form-group">
             <div class="input-group input-group--has-icon input-group--solid-icon input-group--right-icon">
@@ -60,7 +54,7 @@ Unit Purchase Request
                     <th>TYPE</th>
                     <th>Status</th>
                     {{-- <th>State</th> --}}
-                    <th>Calendar Days</th>
+                    {{-- <th>Calendar Days</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -85,6 +79,10 @@ Unit Purchase Request
                     // d.search.value = $('#search-table').val();
                 // }
             },
+
+        createdRow: function( row, data, dataIndex ) {
+            $( row ).find('td:eq(3)').attr('style', 'text-align:right!important');
+        },
         columns: [
             {data: 'upr_number', name: 'upr_number'},
             {data: 'ref_number', name: 'ref_number'},
@@ -93,7 +91,7 @@ Unit Purchase Request
             {data: 'type', name: 'type'},
             {data: 'status', name: 'status'},
             // {data: 'state', name: 'state'},
-            {data: 'calendar_days', name: 'calendar_days'},
+            // {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

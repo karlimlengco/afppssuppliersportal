@@ -22,6 +22,8 @@ Unit Purchase Request
 @section('contents')
 
 <div class="row">
+    <br>
+    <h3><span style="border-bottom:2px solid black">List of Unit Purchase Requests(UPRs)</span></h3>
     <div class="twelve columns">
 
         {{-- <div class="table-scroll"> --}}
@@ -35,7 +37,7 @@ Unit Purchase Request
                     <th>TYPE</th>
                     <th>Status</th>
                     {{-- <th>State</th> --}}
-                    <th>Calendar Days</th>
+                    {{-- <th>Calendar Days</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -60,6 +62,10 @@ Unit Purchase Request
                     // d.search.value = $('#search-table').val();
                 // }
             },
+
+        createdRow: function( row, data, dataIndex ) {
+            $( row ).find('td:eq(3)').attr('style', 'text-align:right!important');
+        },
         columns: [
             {data: 'public_upr_number', name: 'upr_number'},
             {data: 'ref_number', name: 'ref_number'},
@@ -68,7 +74,7 @@ Unit Purchase Request
             {data: 'type', name: 'type'},
             {data: 'status', name: 'status'},
             // {data: 'state', name: 'state'},
-            {data: 'calendar_days', name: 'calendar_days'},
+            // {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
