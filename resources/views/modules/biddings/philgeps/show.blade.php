@@ -34,13 +34,14 @@ PhilGeps Posting
         <button type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
+                <a class="button__options__item" href="{{route('biddings.philgeps.logs', $data->id)}}">View Logs</a>
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
             </div>
         </button>
-
+{{--
         <a href="{{route('biddings.philgeps.logs', $data->id)}}" class="button" tooltip="Logs">
             <i class="nc-icon-mini files_archive-content"></i>
-        </a>
+        </a> --}}
 
         <a class="button" href="{{route('biddings.philgeps.edit',$data->id)}}">
             <i class="nc-icon-mini design_pen-01"></i></a>

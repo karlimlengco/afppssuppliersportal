@@ -44,7 +44,7 @@ Pre Bid Conference
                 {!! Form::textField('transaction_date', 'Transaction Date') !!}
             </div>
             <div class="four columns">
-                {!! Form::booleanField('is_scb_issue', 'SBB issued') !!}
+                {!! Form::textField('sbb_date', 'SBB Date') !!}
             </div>
             <div class="four columns">
                 {!! Form::booleanField('is_resched', 'Need for another pre-bid conference') !!}
@@ -97,6 +97,14 @@ Pre Bid Conference
     var resched_date = new Pikaday(
     {
         field: document.getElementById('id-field-resched_date'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+    var sbb_date = new Pikaday(
+    {
+        field: document.getElementById('id-field-sbb_date'),
         firstDay: 1,
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
