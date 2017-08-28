@@ -93,6 +93,21 @@ Unit Purchase Request
             </div>
         </div>
 
+        <h3><strong style="border-bottom:2px solid black">Signatories</strong></h3>
+
+
+        <div class="row">
+            <div class="four columns">
+                {!! Form::selectField('requestor_id', 'Requested By', $signatory_list) !!}
+            </div>
+            <div class="four columns">
+                {!! Form::selectField('fund_signatory_id', 'Fund Certified Available', $signatory_list) !!}
+            </div>
+            <div class="four columns">
+                {!! Form::selectField('approver_id', 'Approved By', $signatory_list) !!}
+            </div>
+        </div>
+
     </div>
 </div>
 

@@ -37,6 +37,14 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
         'date_processed',
         'total_amount',
         'new_account_code',
+        'approver_text',
+        'fund_signatory_text',
+        'requestor_text',
+
+        // 'requestor_id',
+        // 'fund_signatory_id',
+        // 'approver_id',
+
     ];
 
 
@@ -104,6 +112,9 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
         'terminated_by',
 
         'requestor_id',
+        'requestor_text',
+        'fund_signatory_text',
+        'approver_text',
         'fund_signatory_id',
         'approver_id',
 

@@ -26,9 +26,9 @@
                     <!-- letterhead -->
                     <div class="printable-form__letterhead">
                         <span class="printable-form__letterhead__details">
-                            ARMED FORCES OF THE PHILIPPINES<br>
-                            OFFICE OF THE ADJUTANT GENERAL, AFP<br>
-                            Camp General Emilio Aguinaldo, Quezon City
+                            <strong>{{$data['header']->name}}</strong><br>
+                            Armed Forces of the Philippines Procurement Service<br>
+                            {{$data['header']->address}}
                         </span>
                     </div>
                     <!-- content -->
@@ -42,41 +42,41 @@
                             <td class="align-center align-middle no-border-top" rowspan="2">{{$data['upr_number']}}</td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="150px" nowrap>PLACE OF DELIVERY</td>
-                            <td class="border-bottom-only" width="350px">{{$data['center']}}</td>
+                            <td class="border-left-only" width="200px" nowrap>PLACE OF DELIVERY</td>
+                            <td class="border-bottom-only" width="300px">{{$data['center']}}</td>
                             <td class="border-right-only" width="10%"></td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="150px" nowrap>MODE OF PROCUREMENT</td>
-                            <td class="border-bottom-only" width="350px">{{$data['mode']}}</td>
+                            <td class="border-left-only" width="200px" nowrap>MODE OF PROCUREMENT</td>
+                            <td class="border-bottom-only" width="300px">{{$data['mode']}}</td>
                             <td class="border-right-only" width="10%"></td>
                             <td class="no-border-bottom">AFPPS REF NO:</td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="150px" nowrap>CHARGEABILITY</td>
-                            <td class="border-bottom-only" width="350px">{{$data['charge']}}</td>
+                            <td class="border-left-only" width="200px" nowrap>CHARGEABILITY</td>
+                            <td class="border-bottom-only" width="300px">{{$data['charge']}}</td>
                             <td class="border-right-only" width="10%"></td>
                             <td class="align-center align-middle no-border-top" rowspan="2">{{$data['ref_number']}}</td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="150px" nowrap>ACCOUNT CODE</td>
-                            <td class="border-bottom-only" width="350px">{{$data['codes']}}</td>
+                            <td class="border-left-only" width="200px" nowrap>ACCOUNT CODE</td>
+                            <td class="border-bottom-only" width="300px">{{$data['codes']}}</td>
                             <td class="border-right-only" width="10%"></td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="150px" nowrap>FUND VALIDITY</td>
-                            <td class="border-bottom-only" width="350px">{{$data['fund_validity']}}</td>
+                            <td class="border-left-only" width="200px" nowrap>FUND VALIDITY</td>
+                            <td class="border-bottom-only" width="300px">{{$data['fund_validity']}}</td>
                             <td class="border-right-only" width="10%"></td>
                             <td class="no-border-bottom">Date Prepared:</td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="150px" nowrap>TERMS OF PAYMENT</td>
-                            <td class="border-bottom-only" width="350px">{{$data['terms']}}</td>
+                            <td class="border-left-only" width="200px" nowrap>TERMS OF PAYMENT</td>
+                            <td class="border-bottom-only" width="300px">{{$data['terms']}}</td>
                             <td class="border-right-only" width="10%"></td>
                             <td class="align-center align-middle no-border-top" rowspan="3">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['date_prepared'])->format('d F Y') }}</td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="150px" nowrap>OTHER ESSENTIAL INFO</td>
+                            <td class="border-left-only" width="200px" nowrap>OTHER ESSENTIAL INFO</td>
                             <td class="border-bottom-only" width="350px">{{$data['other_infos']}}</td>
                             <td class="border-right-only" width="10%"></td>
                         </tr>
@@ -130,14 +130,14 @@
                                 <table class="signatory no-padding no-border" style="margin:0;padding:0">
                                     <tr>
                                         <td width="50%"></td>
-                                        <td nowrap><strong>{{$data['approver']->name}}</strong></td>
+                                        <td nowrap><strong>{{$data['approver'][0]}}</strong></td>
                                         <td width="50%"></td>
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td>
                                             <div class="signatory-rank-justify">
-                                                <strong>{{$data['approver']->ranks}} {{$data['approver']->branch}}</strong>
+                                                <strong>{{$data['approver'][1]}} {{$data['approver'][2]}}</strong>
                                                 <span></span>
                                             </div>
                                         </td>
@@ -148,7 +148,7 @@
                                     </tr>
                                     <tr >
                                         <td ></td>
-                                        <td class="align-left" colspan="2" >{{$data['approver']->designation}}</td>
+                                        <td class="align-left" colspan="2" >{{$data['approver']['3']}}</td>
                                     </tr>
                                 </table>
                             </td>
@@ -156,14 +156,14 @@
                                 <table class="signatory no-padding no-border">
                                     <tr>
                                         <td width="50%"></td>
-                                        <td nowrap><strong>{{$data['funder']->name}}</strong></td>
+                                        <td nowrap><strong>{{$data['funder'][0]}}</strong></td>
                                         <td width="50%"></td>
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td>
                                             <div class="signatory-rank-justify">
-                                                <strong>{{$data['funder']->ranks}} {{$data['funder']->branch}}</strong>
+                                                <strong>{{$data['funder'][1]}} {{$data['funder'][2]}}</strong>
                                                 <span></span>
                                             </div>
                                         </td>
@@ -174,7 +174,7 @@
                                     </tr>
                                     <tr>
                                         <td ></td>
-                                        <td class="align-left" colspan="2">{{$data['funder']->designation}}</td>
+                                        <td class="align-left" colspan="2">{{$data['funder']['3']}}</td>
                                     </tr>
                                 </table>
                             </td>
@@ -182,14 +182,14 @@
                                 <table class="signatory no-padding no-border">
                                     <tr>
                                         <td width="50%"></td>
-                                        <td nowrap><strong>{{$data['requestor']->name}}</strong></td>
+                                        <td nowrap><strong>{{$data['requestor'][0]}}</strong></td>
                                         <td width="50%"></td>
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td>
                                             <div class="signatory-rank-justify">
-                                                <strong>{{$data['requestor']->ranks}} {{$data['requestor']->branch}}</strong>
+                                                <strong>{{$data['requestor'][1]}} {{$data['requestor'][2]}}</strong>
                                                 <span></span>
                                             </div>
                                         </td>
@@ -200,7 +200,7 @@
                                     </tr>
                                     <tr>
                                         <td ></td>
-                                        <td class="align-left" colspan="2">{{$data['requestor']->designation}}</td>
+                                        <td class="align-left" colspan="2">{{$data['requestor']['3']}}</td>
                                     </tr>
                                 </table>
                             </td>

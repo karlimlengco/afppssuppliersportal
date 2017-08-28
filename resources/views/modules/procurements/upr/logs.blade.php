@@ -50,22 +50,72 @@ Unit Purchase Request
                         @if($log->event != 'created' )
                         @foreach( json_decode($log->old_values) as $oldKey => $oldValue )
                             @if($oldKey != 'update_remarks')
-                            <tr style="background: #e74c3c; ">
-                                <td style="color:white!important">Old</td>
-                                <td style="color:white!important">{{$oldKey}}</td>
-                                <td style="color:white!important">{{$oldValue}}</td>
+                            <tr style="background: #f0a35f; ">
+                                <td>Old</td>
+                                <td>{{$oldKey}}</td>
+                                <td>
+                                    @if($oldKey == 'procurement_office' )
+                                        {{( $office = \Revlv\Settings\ProcurementCenters\ProcurementCenterEloquent::where('id',$oldValue)->first() ) ? $office->name : "" }}
+                                    @elseif($oldKey == 'mode_of_procurement' )
+
+                                        {{( $procs = \Revlv\Settings\ModeOfProcurements\ModeOfProcurementEloquent::where('id',$oldValue)->first() ) ? $procs->name : "" }}
+                                    @elseif($oldKey == 'chargeability' )
+
+                                        {{( $charges = \Revlv\Settings\Chargeability\ChargeabilityEloquent::where('id',$oldValue)->first() ) ? $charges->name : "" }}
+                                    @elseif($oldKey == 'new_account_code' )
+
+                                        {{( $accounts = \Revlv\Settings\AccountCodes\AccountCodeEloquent::where('id',$oldValue)->first() ) ? $accounts->new_account_code : "" }}
+                                    @elseif($oldKey == 'procurement_type' )
+
+                                        {{( $types = \Revlv\Settings\ProcurementTypes\ProcurementTypeEloquent::where('id',$oldValue)->first() ) ? $types->code : "" }}
+                                    @elseif($oldKey == 'terms_of_payment' )
+
+                                        {{( $terms = \Revlv\Settings\PaymentTerms\PaymentTermEloquent::where('id',$oldValue)->first() ) ? $terms->name : "" }}
+                                    @elseif($oldKey == 'units' )
+
+                                        {{( $terms = \Revlv\Settings\Units\UnitEloquent::where('id',$oldValue)->first() ) ? $terms->name : "" }}
+                                    @else
+                                        {{$oldValue}}
+                                    @endif
+                                </td>
                             </tr>
                             @endif
                         @endforeach
 
                         @foreach( json_decode($log->new_values) as $newKey => $newValue )
-                            <tr style="background: #2ecc71;">
-                                <td style="color:white!important">New</td>
-                                <td style="color:white!important">{{$newKey}}</td>
+                            <tr style="background: #99ffc4;">
+                                <td>New</td>
+                                <td>
+                                    {{$newKey}}
+                                </td>
                                 @if(is_object($newValue))
-                                <td style="color:white!important">{{json_encode($newValue)}}</td>
+                                <td>{{json_encode($newValue)}}</td>
                                 @else
-                                <td style="color:white!important">{{$newValue}}</td>
+                                <td>
+                                    @if($newKey == 'procurement_office' )
+                                        {{( $office = \Revlv\Settings\ProcurementCenters\ProcurementCenterEloquent::where('id',$newValue)->first() ) ? $office->name : "" }}
+                                    @elseif($newKey == 'mode_of_procurement' )
+
+                                        {{( $procs = \Revlv\Settings\ModeOfProcurements\ModeOfProcurementEloquent::where('id',$newValue)->first() ) ? $procs->name : "" }}
+                                    @elseif($newKey == 'chargeability' )
+
+                                        {{( $charges = \Revlv\Settings\Chargeability\ChargeabilityEloquent::where('id',$newValue)->first() ) ? $charges->name : "" }}
+                                    @elseif($newKey == 'new_account_code' )
+
+                                        {{( $accounts = \Revlv\Settings\AccountCodes\AccountCodeEloquent::where('id',$newValue)->first() ) ? $accounts->new_account_code : "" }}
+                                    @elseif($newKey == 'procurement_type' )
+
+                                        {{( $types = \Revlv\Settings\ProcurementTypes\ProcurementTypeEloquent::where('id',$newValue)->first() ) ? $types->code : "" }}
+                                    @elseif($newKey == 'terms_of_payment' )
+
+                                        {{( $terms = \Revlv\Settings\PaymentTerms\PaymentTermEloquent::where('id',$newValue)->first() ) ? $terms->name : "" }}
+                                    @elseif($newKey == 'units' )
+
+                                        {{( $terms = \Revlv\Settings\Units\UnitEloquent::where('id',$newValue)->first() ) ? $terms->name : "" }}
+                                    @else
+                                        {{$newValue}}
+                                    @endif
+                                </td>
                                 @endif
                             </tr>
                         @endforeach

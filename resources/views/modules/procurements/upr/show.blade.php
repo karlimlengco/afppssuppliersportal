@@ -29,7 +29,6 @@ Unit Purchase Request
     @include('modules.partials.modals.dropzone')
     @include('modules.partials.modals.terminate')
     @include('modules.partials.modals.voucher')
-    @include('modules.partials.modals.upr-signatory')
     @include('modules.partials.modals.invitation')
     @include('modules.partials.modals.open_canvass')
 
@@ -100,7 +99,6 @@ Unit Purchase Request
         </button>
 
         <a href="#" id="attachment-button" class="button" tooltip="Attachments"><i class="nc-icon-mini ui-1_attach-86"></i> </a>
-        <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
 
         <a target="_blank" href="{{route('procurements.unit-purchase-requests.print', $data->id)}}" class="button" tooltip="Print"> <i class="nc-icon-mini tech_print"></i> </a>
 

@@ -79,10 +79,10 @@ trait FileTrait
         $data['items']              =  $result->items;
         $data['purpose']            =  $result->purpose;
         $data['total_amount']       =  $result->total_amount;
-        $data['requestor']          =  $result->requestor;
-        $data['funder']             =  $result->funders;
-        $data['approver']           =  $result->approver;
-
+        $data['header']             =  $result->centers;
+        $data['requestor']          =  explode('/', $result->requestor_text);
+        $data['funder']             =  explode('/', $result->fund_signatory_text);
+        $data['approver']           =  explode('/', $result->requestor_text);
         $pdf = PDF::loadView('forms.upr', ['data' => $data])
         ->setOption('margin-bottom', 30)
         ->setOption('footer-html', route('pdf.footer'));

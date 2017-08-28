@@ -347,6 +347,7 @@ class UPRController extends Controller
         ProcurementCenterRepository $centers,
         UnitPurchaseRequestRepository $model,
         CateredUnitRepository $units,
+        SignatoryRepository $signatories,
         ProcurementTypeRepository $types,
         PaymentTermRepository $terms)
     {
@@ -359,11 +360,13 @@ class UPRController extends Controller
         $procurement_types  =    $types->lists('id', 'code');
         $payment_terms      =    $terms->lists('id', 'name');
         $unit               =    $units->lists('id', 'short_code');
+        $signatory_lists=   $signatories->lists('id', 'name');
 
         return $this->view('modules.procurements.upr.edit',[
             'data'              =>  $result,
             'indexRoute'        =>  $this->baseUrl.'show',
             'account_codes'     =>  $account_codes,
+            'signatory_list'    =>  $signatory_lists,
             'payment_terms'     =>  $payment_terms,
             'procurement_types' =>  $procurement_types,
             'charges'           =>  $charges,
@@ -401,11 +404,42 @@ class UPRController extends Controller
         UnitPurchaseRequestUpdateRequest $request,
         UserLogRepository $userLogs,
         AuditLogRepository $logs,
+        SignatoryRepository $signatories,
         \Revlv\Users\UserRepository $users,
         UnitPurchaseRequestRepository $model)
     {
-        $result     =   $model->update($request->getData(), $id);
+        $upr_model  =   $model->findById($id);
+        $this->validate($request,[
+            'requestor_id'  =>  "required",
+            'fund_signatory_id'  =>  "required",
+            'approver_id'  =>  "required",
+        ]);
 
+        $inputs     =   $request->getData();
+
+        if($upr_model->requestor_id != $request->requestor_id)
+        {
+            $requestor  =   $signatories->findById($request->requestor_id);
+            $inputs['requestor_text']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
+        }
+        if($upr_model->fund_signatory_id != $request->fund_signatory_id)
+        {
+            $funder  =   $signatories->findById($request->fund_signatory_id);
+            $inputs['fund_signatory_text']   =   $funder->name."/".$funder->ranks."/".$funder->branch."/".$funder->designation;
+        }
+
+        if($upr_model->approver_id != $request->approver_id)
+        {
+            $approver  =   $signatories->findById($request->approver_id);
+            $inputs['approver_text']   =   $approver->name."/".$approver->ranks."/".$approver->branch."/".$approver->designation;
+        }
+
+
+        // $inputs['ref_number']   =   $ref_name;
+
+        $result     =   $model->update($inputs, $id);
+
+        // update ref number
         $ref        =   explode('-', $result->ref_number);
         if($result->mode_of_procurement != 'public_bidding')
         {
@@ -417,9 +451,10 @@ class UPRController extends Controller
         }
 
         $ref_name   =   str_replace(" ", "", $ref_name);
-
         $model->update(['ref_number' => $ref_name], $id);
+        // update ref number
 
+        // Adding logs
         $modelType  =   'Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestEloquent';
         $resultLog  =   $logs->findLastByModelAndId($modelType, $id);
 
