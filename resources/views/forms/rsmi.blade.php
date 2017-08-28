@@ -137,8 +137,8 @@
                             </tr>
                             <tr>
                                 <td class="align-center no-border-top" colspan="4">
-                                    <strong>{{$data['receiver']->ranks}} {{$data['receiver']->name}}{{$data['receiver']->branch}}</strong><br>
-                                    {{$data['receiver']->designation}}
+                                    <strong>{{$data['receiver'][1]}} {{$data['receiver'][0]}}{{$data['receiver'][2]}}</strong><br>
+                                    {{$data['receiver'][3]}}
                                 </td>
                                 <td class="align-middle align-center" colspan="4">Accounting Clerk</td>
                             </tr>

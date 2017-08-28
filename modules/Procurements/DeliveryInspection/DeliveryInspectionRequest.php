@@ -33,6 +33,12 @@ class DeliveryInspectionRequest extends BaseRequest
         'action',
         'close_action',
         'inspected_by',
+
+        'received_signatory',
+        'inspected_signatory',
+        'approved_signatory',
+        'issued_signatory',
+        'requested_signatory',
     ];
 
     /**

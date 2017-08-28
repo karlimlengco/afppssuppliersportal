@@ -90,24 +90,24 @@
                         <tr>
                             <td width="30%"></td>
                             <td class="align-bottom align-left" width="40%" height="80px">
-                                <strong>{{$data['approver']->ranks}} {{$data['approver']->name}} {{$data['approver']->branch}}</strong><br>
-                                {{$data['approver']->designation}}
+                                <strong>{{$data['approver'][1]}} {{$data['approver'][0]}} {{$data['approver'][2]}}</strong><br>
+                                {{$data['approver'][3]}}
                             </td>
                             <td width="30%"></td>
                         </tr>
                         <tr>
                             <td width="30%"></td>
                             <td class="align-bottom align-left" width="40%" height="80px">
-                                <strong>{{$data['requestor']->ranks}} {{$data['requestor']->name}} {{$data['requestor']->branch}}</strong><br>
-                                {{$data['requestor']->designation}}
+                                <strong>{{$data['requestor'][1]}} {{$data['requestor'][0]}} {{$data['requestor'][2]}}</strong><br>
+                                {{$data['requestor'][3]}}
                             </td>
                             <td width="30%"></td>
                         </tr>
                         <tr>
                             <td width="30%"></td>
                             <td class="align-bottom align-left" width="40%" height="80px">
-                                <strong>{{$data['receiver']->ranks}} {{$data['receiver']->name}} {{$data['receiver']->branch}}</strong><br>
-                                {{$data['receiver']->designation}}
+                                <strong>{{$data['receiver'][1]}} {{$data['receiver'][0]}} {{$data['receiver'][2]}}</strong><br>
+                                {{$data['receiver'][3]}}
                             </td>
                             <td width="30%"></td>
                         </tr>

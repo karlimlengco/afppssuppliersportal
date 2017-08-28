@@ -19,6 +19,12 @@ class DeliveryInspectionEloquent extends Model implements  AuditableContract
         'start_date',
         'closed_date',
         'update_remarks',
+
+        'received_signatory',
+        'inspected_signatory',
+        'approved_signatory',
+        'issued_signatory',
+        'requested_signatory',
     ];
 
     /**
@@ -60,6 +66,12 @@ class DeliveryInspectionEloquent extends Model implements  AuditableContract
         'close_remarks',
         'action',
         'close_action',
+
+        'received_signatory',
+        'inspected_signatory',
+        'approved_signatory',
+        'issued_signatory',
+        'requested_signatory',
     ];
 
     /**

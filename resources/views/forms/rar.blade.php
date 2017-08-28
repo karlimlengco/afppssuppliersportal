@@ -83,8 +83,8 @@
                     <table class="printable-form__body__table no-border no-padding">
                         <tr>
                             <td class="align-bottom align-left" width="45%" height="80px">
-                                <strong>{{$data['requestor']->ranks}} {{$data['requestor']->name}} {{$data['requestor']->branch}}</strong><br>
-                                {{$data['requestor']->designation}}
+                                <strong>{{$data['requestor'][1]}} {{$data['requestor'][0]}} {{$data['requestor'][2]}}</strong><br>
+                                {{$data['requestor'][3]}}
                             </td>
                             <td width="10%"></td>
                             <td class="align-bottom" width="45%"></td>

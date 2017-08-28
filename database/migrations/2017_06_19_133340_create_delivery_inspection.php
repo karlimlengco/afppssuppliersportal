@@ -43,6 +43,12 @@ class CreateDeliveryInspection extends Migration
             $table->integer('issued_by')->nullable();
             $table->integer('requested_by')->nullable();
 
+            $table->text('received_signatory')->nullable();
+            $table->text('inspected_signatory')->nullable();
+            $table->text('approved_signatory')->nullable();
+            $table->text('issued_signatory')->nullable();
+            $table->text('requested_signatory')->nullable();
+
             $table->timestamps();
         });
     }
