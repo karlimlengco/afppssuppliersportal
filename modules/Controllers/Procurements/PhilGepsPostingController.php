@@ -274,26 +274,29 @@ class PhilGepsPostingController extends Controller
     {
         $old                    =   $model->findById($id);
         $result                 =   $model->update($request->getData(), $id);
-        if($result->rfq_id)
+        if($result->upr->mode_of_procurement != 'public_bidding')
         {
 
-            $rfq_model              =   $rfq->findById($result->rfq_id);
             $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
 
-            if($invitation = $rfq_model->invitations)
-            {
-                $ispq_transaction_date   = Carbon::createFromFormat('!Y-m-d', $invitation->ispq->transaction_date);
-            }
-            else
-            {
-                $ispq_transaction_date   = $rfq_model->completed_at;
-            }
-
             $holiday_lists          =   $holidays->lists('id','holiday_date');
+            $cd                     =   $result->upr->date_prepared->diffInDays($transaction_date);
 
-            $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            $day_delayed            =   $result->upr->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
                 return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
             }, $transaction_date);
+
+            $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+            if($day_delayed >= 3)
+            {
+                $day_delayed            =   $day_delayed - 3;
+            }
+
+            if($wd != $result->days)
+            {
+                $model->update(['days' => $wd], $id);
+            }
         }
         else
         {
@@ -306,18 +309,18 @@ class PhilGepsPostingController extends Controller
                 return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
             }, $transaction_date);
 
-        }
+            if($day_delayed >= 3)
+            {
+                $day_delayed            =   $day_delayed - 3;
+            }
 
-        if($day_delayed >= 3)
-        {
-            $day_delayed            =   $day_delayed - 3;
-        }
+            if($day_delayed != $result->days)
+            {
+                $model->update(['days' => $day_delayed], $id);
+            }
 
-        if($day_delayed != $result->days)
-        {
-            $model->update(['days' => $day_delayed], $id);
         }
-
+// For logs
         $modelType  =   'Revlv\Procurements\PhilGepsPosting\PhilGepsPostingEloquent';
         $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
 
@@ -332,6 +335,7 @@ class PhilGepsPostingController extends Controller
             }
         }
 
+// For logs
         if($old->status == 1 && $result->status == 0)
         {
             $upr->update([
