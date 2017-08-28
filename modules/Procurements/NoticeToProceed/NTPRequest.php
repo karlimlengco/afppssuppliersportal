@@ -20,6 +20,7 @@ class NTPRequest extends BaseRequest
         'prepared_by',
         'prepared_date',
         'status',
+        'signatory',
         'remarks',
         'update_remarks',
         'file',

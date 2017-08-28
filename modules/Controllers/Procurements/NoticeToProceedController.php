@@ -257,13 +257,15 @@ class NoticeToProceedController extends Controller
      * [create description]
      * @return [type] [description]
      */
-    public function edit($id, NTPRepository $model)
+    public function edit($id, NTPRepository $model, SignatoryRepository $signatories)
     {
 
         $data   =   $model->findById($id);
+        $signatory_list     =   $signatories->lists('id','name');
 
         return $this->view('modules.procurements.ntp.edit',[
             'data'          =>  $data,
+            'signatory_list'=>  $signatory_list,
             'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
                 'update' =>  [
@@ -319,37 +321,49 @@ class NoticeToProceedController extends Controller
         HolidayRepository $holidays,
         PORepository $po,
         NOARepository $noa,
+        SignatoryRepository $signatories,
         UserLogRepository $userLogs,
         UserRepository $users)
     {
         $this->validate($request, [
             'prepared_date'         =>  'required',
             'update_remarks'        =>  'required',
+            'signatory_id'          =>  'required',
         ]);
+
+        $ntp_model  =   $model->findById($id);
+
 
         $input  =   [
             'prepared_date'         =>  $request->prepared_date,
             'update_remarks'        =>  $request->update_remarks,
             'award_accepted_date'   =>  $request->award_accepted_date,
+            'signatory_id'   =>  $request->signatory_id,
         ];
+
+        if($ntp_model->signatory_id != $request->signatory_id)
+        {
+            $signatory  =   $signatories->findById($request->signatory_id);
+            $input['signatory']   =   $signatory->name."/".$signatory->ranks."/".$signatory->branch."/".$signatory->designation;
+        }
 
         $result                 =   $model->update($input, $id);
 
-        $po_model               =   $po->findById($result->po_id);
-        $noa_model              =   $noa->findByUPR($po_model->upr_id);
+        // $po_model               =   $po->findById($result->po_id);
+        // $noa_model              =   $noa->findByUPR($po_model->upr_id);
 
-        $holiday_lists          =   $holidays->lists('id','holiday_date');
-        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('prepared_date') );
-        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_model->coa_approved_date );
+        // $holiday_lists          =   $holidays->lists('id','holiday_date');
+        // $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('prepared_date') );
+        // $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_model->coa_approved_date );
 
-        $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
-            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
-        }, $transaction_date);
+        // $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        //     return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        // }, $transaction_date);
 
-        if($day_delayed != $result->days)
-        {
-            $model->update(['days' => $day_delayed], $id);
-        }
+        // if($day_delayed != $result->days)
+        // {
+        //     $model->update(['days' => $day_delayed], $id);
+        // }
 
         $modelType  =   'Revlv\Procurements\NoticeToProceed\NTPEloquent';
         $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
@@ -494,7 +508,7 @@ class NoticeToProceedController extends Controller
         // $data['rfq_date']           =   $blank_model->transaction_date;
         $data['total_amount']       =   $result->po->bid_amount;
         $data['delivery_terms']     =   $result->po->delivery_terms;
-        $data['signatory']          =   $result->signatory;
+        $data['signatory']          =   explode('/',$result->signatory);
         $data['project_name']       =   $upr_model->project_name;
         $data['items']              =   $upr_model->items;
         $data['header']             =   $upr_model->centers;

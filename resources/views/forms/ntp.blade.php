@@ -55,8 +55,8 @@
                     <table class="printable-form__body__table no-border no-padding">
                         <tr>
                             <td class="align-bottom align-left" width="45%" height="80px">
-                                <strong>{{$data['signatory']->ranks}} {{$data['signatory']->name}} {{$data['signatory']->branch}}</strong><br>
-                                {{$data['signatory']->designation}}
+                                <strong>{{$data['signatory'][1]}} {{$data['signatory'][0]}} {{$data['signatory'][2]}}</strong><br>
+                                {{$data['signatory'][3]}}
                             </td>
                             <td width="10%"></td>
                             <td class="align-bottom" width="45%"></td>

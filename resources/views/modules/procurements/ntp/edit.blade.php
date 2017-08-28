@@ -42,8 +42,16 @@ Notice To Proceed
                 <div class="six columns">
                     {!! Form::textField('prepared_date', 'Prepared Date') !!}
                 </div>
+                @if($data->award_accepted_date != null)
                 <div class="six columns">
                     {!! Form::textField('award_accepted_date', 'Received Date') !!}
+                </div>
+                @endif
+            </div>
+
+            <div class="row">
+                <div class="six columns">
+                    {!! Form::selectField('signatory_id', 'Signatory', $signatory_list) !!}
                 </div>
             </div>
 

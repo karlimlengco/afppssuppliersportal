@@ -21,6 +21,7 @@ class NTPEloquent extends Model implements  AuditableContract
         'update_remarks',
         'award_accepted_date',
         'accepted_date',
+        'signatory',
     ];
 
 
@@ -46,6 +47,7 @@ class NTPEloquent extends Model implements  AuditableContract
         'proponent_id',
         'prepared_by',
         'prepared_date',
+        'signatory',
         'status',
         'remarks',
         'update_remarks',
