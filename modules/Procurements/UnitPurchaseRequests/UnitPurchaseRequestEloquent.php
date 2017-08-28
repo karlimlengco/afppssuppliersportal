@@ -392,6 +392,16 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
     }
 
     /**
+     * [delivery_orders description]
+     *
+     * @return [type] [description]
+     */
+    public function delivery_orders()
+    {
+        return $this->hasMany('\Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent',  'upr_id')->orderBy('created_at', 'desc');
+    }
+
+    /**
      * [delivery_order description]
      *
      * @return [type] [description]

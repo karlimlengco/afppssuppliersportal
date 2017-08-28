@@ -119,7 +119,7 @@ class NoticeToProceedController extends Controller
             $supplier           =   $result->winner->supplier;
         }
 
-        $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findById($result->rfq_id);
+        $upr_model          =   $upr->with(['centers','modes','unit','charges','terms','users'])->findById($result->rfq_id);
 
         $signatory_list     =   $signatories->lists('id','name');
 

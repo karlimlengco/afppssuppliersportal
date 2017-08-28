@@ -65,7 +65,7 @@ Notice Of Delivery
             {data: 'id', name: 'id'},
             {data: 'upr_number', name: 'upr_number'},
             {data: 'delivery_number', name: 'delivery_number'},
-            {data: 'expected_date', name: 'expected_date'},
+            {data: 'delivery_date', name: 'delivery_date'},
             {data: 'status', name: 'status'},
         ],
         "fnInitComplete": function (oSettings, json) {

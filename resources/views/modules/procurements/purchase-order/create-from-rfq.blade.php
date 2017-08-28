@@ -89,7 +89,8 @@ Purchase Order
         <table class='table' id="item_table">
             <thead>
                 <tr>
-                    <th width="50%">Description</th>
+                    <th width="30%">Description</th>
+                    <th width="20%">Account Code</th>
                     <th width="5%">Qty</th>
                     <th width="5%">Unit</th>
                     <th width="12%">Unit Price</th>
@@ -156,6 +157,16 @@ Purchase Order
             newRow += "<td id='desciption_row"+table_len+"'>";
             newRow += "<input type='text' name='item_description[]' tabindex='-1' readonly value='"+entry.item_description+"' class='input'/>"
             newRow += "</td>";
+
+            newRow += "<td id='new_account_code_row"+table_len+"'>";
+
+            newRow += "<select type='text' name='new_account_code[]'  class='select'>";
+
+            newRow += "<option value='"+entry.new_account_code+"'>";
+            newRow += entry.account_code;
+            newRow += "</option>";
+            newRow += "</select>";
+
             newRow += "<td >";
             newRow += "<input type='text' id='quantity_row"+table_len+"' tabindex='-1' name='quantity[]' readonly value='"+entry.quantity+"' class='input'/>";
             newRow += "</td>";

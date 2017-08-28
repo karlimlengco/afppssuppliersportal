@@ -137,6 +137,10 @@ Vouchers
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Releaser :</strong> {{($data->releaser) ? $data->releaser->first_name .' '.$data->releaser->surname : " "}} &nbsp; </li>
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Payment Received Date :</strong> @if($data->payment_received_date) {{CreateCarbon('Y-m-d', $data->payment_received_date)->format('d F Y')}}@endif &nbsp; </li>
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Receiver :</strong> {{($data->recevier) ? $data->recevier->first_name .' '.$data->recevier->surname : " "}} &nbsp; </li>
+
+                {{-- <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Penalty Days :</strong>  &nbsp; </li> --}}
+
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Penalty Amount : </strong>  Php {{ formatPrice($penalty_amount)}} &nbsp; </li>
         </ul>
     </div>
 </div>

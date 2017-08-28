@@ -375,11 +375,14 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_request_items.item_description',
             'unit_purchase_request_items.quantity',
             'unit_purchase_request_items.unit_measurement',
+            'unit_purchase_request_items.new_account_code',
+            'account_codes.new_account_code as account_code',
             'unit_purchase_request_items.unit_price',
             'unit_purchase_request_items.total_amount',
         ]);
 
         $model  =   $model->leftJoin('unit_purchase_request_items', 'unit_purchase_request_items.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('account_codes', 'account_codes.id', '=', 'unit_purchase_request_items.new_account_code');
 
         $model  =   $model->where('unit_purchase_requests.id','=', $id);
 

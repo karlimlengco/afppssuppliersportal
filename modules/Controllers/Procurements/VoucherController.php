@@ -203,10 +203,35 @@ class VoucherController extends Controller
         $signatory_lists=   $signatories->lists('id', 'name');
         $bank_list      =   $banks->lists('id', 'code');
 
+        $po_term        =   $result->upr->purchase_order->delivery_terms;
+        $ntp_date                       =   Carbon::createFromFormat('!Y-m-d',$result->upr->ntp->award_accepted_date);
+
+        // dd($ntp_date);
+        $penalty_amount = 0;
+        foreach($result->upr->delivery_orders as $dr)
+        {
+            if($ntp_date < $dr->delivery_date)
+            {
+                $delivery_date                  =   Carbon::createFromFormat('!Y-m-d', $dr->delivery_date);
+                $nr_delay                       =   $ntp_date->diffInDays($delivery_date, false);
+                if($nr_delay > $po_term)
+                {
+                    $penalty_day    =   $nr_delay  - $po_term;
+                    foreach($dr->items as $item)
+                    {
+                        $amount =   $item->total_amount;
+                        $penalty_amount += (($amount * 0.01) * 0.1) * $penalty_day;
+                    }
+                }
+                // $penalty                        =   (($result->amount * 0.01) * 0.1) * $nr_delay;
+            }
+        }
+
         return $this->view('modules.procurements.vouchers.show',[
             'data'              =>  $result,
             'signatory_list'    =>  $signatory_lists,
             'bank_list'         =>  $bank_list  ,
+            'penalty_amount'    =>  $penalty_amount  ,
             'indexRoute'        =>  $this->baseUrl.'index',
             'editRoute'         =>  $this->baseUrl.'edit',
             'modelConfig'   =>  [
@@ -967,10 +992,34 @@ class VoucherController extends Controller
 
         $ntp_date                       =   Carbon::createFromFormat('!Y-m-d',$data['ntp_date']);
         $delivery_date                  =   Carbon::createFromFormat('!Y-m-d',$data['delivery_date']);
-        $nr_delay                       =   $ntp_date->diffInDays($delivery_date, false);
-        $penalty                        =   (($result->amount * 0.01) * 0.1) * $nr_delay;
-        $data['nr_delay']               =   $nr_delay;
-        $data['penalty']                =   $penalty;
+
+        $penalty_amount = 0;
+        $po_term        =   $result->upr->purchase_order->delivery_terms;
+
+        foreach($result->upr->delivery_orders as $dr)
+        {
+            if($ntp_date < $dr->delivery_date)
+            {
+                $delivery_date                  =   Carbon::createFromFormat('!Y-m-d', $dr->delivery_date);
+                $nr_delay                       =   $ntp_date->diffInDays($delivery_date, false);
+                if($nr_delay > $po_term)
+                {
+                    $penalty_day    =   $nr_delay  - $po_term;
+                    foreach($dr->items as $item)
+                    {
+                        $amount =   $item->total_amount;
+                        $penalty_amount += (($amount * 0.01) * 0.1) * $penalty_day;
+                    }
+                }
+                // $penalty                        =   (($result->amount * 0.01) * 0.1) * $nr_delay;
+            }
+        }
+
+        // $nr_delay                       =   $ntp_date->diffInDays($delivery_date, false);
+        // $penalty                        =   (($result->amount * 0.01) * 0.1) * $nr_delay;
+        // $data['nr_delay']               =   $nr_delay;
+
+        $data['penalty']                =   $penalty_amount;
         $pdf = PDF::loadView('forms.voucher', ['data' => $data])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'));

@@ -105,7 +105,7 @@
                         <tr>
                             <td class="border-left-only"></td>
                             <td class="no-padding no-border">{{$data['expanded_witholding_tax']}}% Expanded Withholding Tax</td>
-                            <td class="no-padding no-border">{{$data['ewt_amount']}}</td>
+                            <td class="no-padding no-border">{{formatPrice($data['ewt_amount'])}}</td>
                             <td class="no-border-top no-border-bottom"></td>
                             <td class="no-border-top no-border-bottom"></td>
                             <td class="no-border-top no-border-bottom"></td>
@@ -113,14 +113,14 @@
                         <tr>
                             <td class="v-align-top border-left-only" height="30px"></td>
                             <td class="no-padding no-border">Penalty Deduction</td>
-                            <td class="no-padding no-border">100.00</td>
+                            <td class="no-padding no-border">{{formatPrice($data['penalty'])}}</td>
                             <td class="no-border-top no-border-bottom"></td>
                             <td class="no-border-top no-border-bottom"></td>
                             <td class="no-border-top no-border-bottom"></td>
                         </tr>
                         <tr>
                             <td class="align-center" colspan="5"><strong>Amount Due</strong></td>
-                            <td class="v-align-middle align-right"><strong>Php {{formatPrice($data['amount'])}}</strong></td>
+                            <td class="v-align-middle align-right"><strong> </strong></td>
                         </tr>
                     </table>
                     <table class="printable-form__body__table classic">

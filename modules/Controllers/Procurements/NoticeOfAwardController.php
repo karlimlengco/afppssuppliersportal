@@ -505,7 +505,7 @@ class NoticeOfAwardController extends Controller
 
         }
 
-        $upr_model          =   $upr->with(['centers','modes','unit','charges','accounts','terms','users'])->findByRFQId($proponent_awardee->rfq_id);
+        $upr_model          =   $upr->with(['centers','modes','unit','charges','terms','users'])->findByRFQId($proponent_awardee->rfq_id);
 
         $signatory_list     =   $signatories->lists('id','name');
 
