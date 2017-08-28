@@ -73,12 +73,12 @@
                     </tr>
                     <tr>
                         <td class="align-center align-bottom no-border-top no-border-bottom" colspan="3" height="60px">
-                            <strong>{{$data['inspector']->ranks}} {{$data['inspector']->name}} {{$data['inspector']->branch}}</strong><br>
-                            {{$data['inspector']->designation}}
+                            <strong>{{$data['inspector'][1]}} {{$data['inspector'][0]}} {{$data['inspector'][2]}}</strong><br>
+                            {{$data['inspector'][3]}}
                         </td>
                         <td class="align-center align-bottom no-border-top no-border-bottom" colspan="3" height="60px">
-                            <strong>{{$data['acceptor']->ranks}} {{$data['acceptor']->name}} {{$data['acceptor']->branch}}</strong><br>
-                            {{$data['acceptor']->designation}}
+                            <strong>{{$data['acceptor'][1]}} {{$data['acceptor'][0]}} {{$data['acceptor'][2]}}</strong><br>
+                            {{$data['acceptor'][3]}}
                         </td>
                     </tr>
                     <tr>

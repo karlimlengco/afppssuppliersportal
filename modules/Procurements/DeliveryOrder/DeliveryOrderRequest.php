@@ -20,6 +20,7 @@ class DeliveryOrderRequest extends BaseRequest
         'transaction_date',
         'expected_date',
         'prepared_by',
+        'signatory',
         'created_by',
         'notes',
         'update_remarks',

@@ -249,7 +249,8 @@ class DeliveryController extends Controller
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update-signatory', $id],
-                    'method'    =>  'PUT'
+                    'method'    =>  'PUT',
+                    'novalidate'    => 'novalidate'
                 ],
                 'add_attachment' =>  [
                     'route'     =>  [$this->baseUrl.'attachments.store', $id],
@@ -304,18 +305,21 @@ class DeliveryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editDates($id, DeliveryOrderRepository $model)
+    public function editDates($id, DeliveryOrderRepository $model, SignatoryRepository $signatories)
     {
         $result =   $model->with(['items'])->findById($id);
+        $signatory_list     =   $signatories->lists('id','name');
 
         return $this->view('modules.procurements.delivery.edit-dates',[
             'data'          =>  $result,
+            'signatory_list'=>  $signatory_list,
             'indexRoute'    =>  $this->baseUrl.'index',
             'showRoute'     =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update-dates', $id],
-                    'method'    =>  'PUT'
+                    'method'    =>  'PUT',
+                    'novalidate'    => 'novalidate'
                 ]
             ],
             'breadcrumbs' => [
@@ -341,6 +345,7 @@ class DeliveryController extends Controller
         HolidayRepository $holidays,
         UserLogRepository $userLogs,
         UserRepository $users,
+        SignatoryRepository $signatories,
         PORepository $po,
         $id,
         DeliveryOrderRepository $model)
@@ -349,18 +354,27 @@ class DeliveryController extends Controller
         $this->validate($request, [
             "update_remarks"        => 'required',
             "expected_date"         => 'required',
-            // "delivery_date"         => 'required',
+            "signatory_id"         => 'required',
             "transaction_date"      => 'required',
             // "date_delivered_to_coa" => 'required',
         ]);
+
+        $dr_model   =   $model->findById($id);
 
         $input  =   [
             "update_remarks"        =>  $request->update_remarks,
             "expected_date"         =>  $request->expected_date,
             "delivery_date"         =>  $request->delivery_date,
             "transaction_date"      =>  $request->transaction_date,
+            "signatory_id"      =>  $request->signatory_id,
             // "date_delivered_to_coa" =>  $request->date_delivered_to_coa,
         ];
+
+        if($dr_model->signatory_id != $request->signatory_id)
+        {
+            $signatory  =   $signatories->findById($request->signatory_id);
+            $input['signatory']   =   $signatory->name."/".$signatory->ranks."/".$signatory->branch."/".$signatory->designation;
+        }
 
         $result = $model->update($input, $id);
 
@@ -370,19 +384,21 @@ class DeliveryController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
         $ntp_date               =   Carbon::createFromFormat('!Y-m-d', $ntp->award_accepted_date );
+        $cd                     =   $ntp_date->diffInDays($transaction_date);
 
         $day_delayed            =   $ntp_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed != 0)
+        if($day_delayed > $po_model->delivery_terms)
         {
-            $day_delayed = $day_delayed - 1;
+            $day_delayed  =  $day_delayed - $po_model->delivery_terms;
         }
 
-        if($day_delayed != $result->days)
+        if($wd != $result->days)
         {
-            $model->update(['days' => $day_delayed], $id);
+            $model->update(['days' => $wd], $id);
         }
 
         $modelType  =   'Revlv\Procurements\DeliveryOrder\DeliveryOrderEloquent';
@@ -714,7 +730,7 @@ class DeliveryController extends Controller
         $data['project_name']       =  $result->upr->project_name;
         $data['center']             =  $result->upr->centers->name;
         $data['items']              =  $result->upr->items;
-        $data['signatory']          =  $result->signatory;
+        $data['signatory']          =  explode('/',$result->signatory);
         $data['winner']             =  $noa_model->name;
         $data['expected_date']      =  $result->expected_date;
         $data['header']             =  $result->upr->centers;

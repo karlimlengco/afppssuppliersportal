@@ -48,20 +48,20 @@
                             <td class="align-bottom" width="45%">
                                 <table class="signatory">
                                     <tr>
-                                        <td nowrap><strong>{{$data['signatory']->name}} </strong></td>
+                                        <td nowrap><strong>{{$data['signatory'][0]}} </strong></td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <div class="signatory-rank-justify">
-                                                <strong>{{$data['signatory']->ranks}} {{$data['signatory']->branch}} </strong>
+                                                <strong>{{$data['signatory'][1]}} {{$data['signatory'][2]}} </strong>
                                                 <span></span>
                                             </div>
                                         </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td>{{$data['signatory']->designation}} </td>
+                                        <td>{{$data['signatory'][3]}} </td>
                                         <td></td>
                                     </tr>
                                 </table>

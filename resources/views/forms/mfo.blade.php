@@ -81,8 +81,8 @@
                         <tr>
                             <td class="align-bottom align-left" width="45%" height="60px">
                                 @if($data['sao'])
-                                <strong>{{$data['sao']->ranks}} {{$data['sao']->name}} {{$data['sao']->branch}}</strong><br>
-                                {{$data['sao']->designation}}
+                                <strong>{{$data['sao'][1]}} {{$data['sao'][0]}} {{$data['sao'][2]}}</strong><br>
+                                {{$data['sao'][3]}}
                                 @endif
                             </td>
                             <td width="10%"></td>

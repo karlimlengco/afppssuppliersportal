@@ -41,11 +41,29 @@ Inspection And Acceptance Report
     <div class="twelve columns">
 
             <div class="row">
+                @if($data->accepted_date !=null)
                 <div class="six columns">
                     {!! Form::textField('accepted_date', 'Accepted Date') !!}
                 </div>
+                @endif
                 <div class="six columns">
                     {!! Form::textField('inspection_date', 'Inspection Date') !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::selectField('inspection_signatory', 'Inspection Signatory', $signatory_list) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::selectField('acceptance_signatory', 'Acceptance Signatory', $signatory_list) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::selectField('sao_signatory', 'SAO Signatory', $signatory_list) !!}
                 </div>
             </div>
         {!! Form::close() !!}

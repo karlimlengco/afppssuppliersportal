@@ -27,6 +27,7 @@ class CreateDeliveryOrders extends Migration
             $table->integer('received_by')->nullable();
             $table->integer('prepared_by')->nullable();
             $table->integer('signatory_id')->nullable();
+            $table->text('signatory')->nullable();
             $table->integer('created_by')->nullable();
             $table->text('notes')->nullable();
             $table->text('update_remarks')->nullable();

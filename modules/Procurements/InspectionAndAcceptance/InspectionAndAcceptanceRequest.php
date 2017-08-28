@@ -30,6 +30,9 @@ class InspectionAndAcceptanceRequest extends BaseRequest
         'sao_signatory',
         'action',
         'accept_action',
+        'inspection_name_signatory',
+        'acceptance_name_signatory',
+        'sao_name_signatory',
     ];
 
     /**

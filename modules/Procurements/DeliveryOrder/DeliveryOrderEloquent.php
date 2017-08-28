@@ -22,6 +22,7 @@ class DeliveryOrderEloquent extends Model implements  AuditableContract
         'date_completed',
         'date_delivered_to_coa',
         'update_remarks',
+        'signatory',
     ];
 
 
@@ -44,6 +45,7 @@ class DeliveryOrderEloquent extends Model implements  AuditableContract
         'upr_number',
         'po_id',
         'delivery_date',
+        'signatory',
         'delivery_number',
         'transaction_date',
         'expected_date',

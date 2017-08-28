@@ -39,6 +39,10 @@ class CreateInspectionAcceptanceReport extends Migration
             $table->text('accept_remarks')->nullable();
             $table->text('action')->nullable();
             $table->text('accept_action')->nullable();
+
+            $table->string('inspection_name_signatory')->nullable();
+            $table->string('acceptance_name_signatory')->nullable();
+            $table->string('sao_name_signatory')->nullable();
             $table->timestamps();
         });
     }
