@@ -119,6 +119,7 @@ class ISPQController extends Controller
         Request $request,
         ISPQRepository $model,
         UnitPurchaseRequestRepository $upr,
+        SignatoryRepository $signatories,
         BlankRFQRepository $rfq,
         HolidayRepository $holidays
         )
@@ -130,6 +131,7 @@ class ISPQController extends Controller
             'canvassing_time'           =>  'required',
             'transaction_dates'         =>  'required',
         ]);
+
         $upr_model              =   $upr->findById($id);
         // $rfq_model              =   $upr_model->rfq;
 
@@ -171,6 +173,12 @@ class ISPQController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
+
+
+        $signatory  =   $signatories->findById($request->signatory_id);
+        $signatory_text  =   $signatory->name."/".$signatory->ranks."/".$signatory->branch."/".$signatory->designation;
+
+
         // Validate Remarks when  delay
         $result =   $model->save([
             'prepared_by'       =>  \Sentinel::getUser()->id,
@@ -179,6 +187,7 @@ class ISPQController extends Controller
             'venue'             =>  $request->get('venue'),
             'signatory_id'      =>  $request->get('signatory_id'),
             'transaction_date'  =>  $request->get('transaction_dates'),
+            'signatory_text'  =>  $signatory_text,
         ]);
 
         $data           =   [
@@ -271,15 +280,17 @@ class ISPQController extends Controller
     {
         $result     =   $model->with(['quotations'])->findById($id);
         $center     =   '';
+
         if(\Sentinel::getUser()->units != null)
         {
             $center     =   \Sentinel::getUser()->units->centers;
         }
+
         $data['transaction_date']   =  $result->transaction_date;
         $data['venue']              =  $result->venue;
-        $data['signatories']        =  $result->signatories;
+        $data['signatories']        =  explode('/', $result->signatory_text);
         $data['quotations']         =  $result->quotations;
-        $pdf = PDF::loadView('forms.ispq', ['data' => $result, 'center' => $center])
+        $pdf = PDF::loadView('forms.ispq', ['data' => $data, 'center' => $center])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'));
 
@@ -319,7 +330,8 @@ class ISPQController extends Controller
             'modelConfig'       =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
-                    'method'    =>  'PUT'
+                    'method'    =>  'PUT',
+                    'novalidate'=> 'novalidate'
                 ],
                 'destroy'   => [
                     'route' => [$this->baseUrl.'destroy',$id],
@@ -348,32 +360,44 @@ class ISPQController extends Controller
         AuditLogRepository $audits,
         HolidayRepository $holidays,
         UserLogRepository $userLogs,
+        SignatoryRepository $signatories,
         ISPQRepository $model
         )
     {
-        $result =   $model->update($request->getData(), $id);
+        $ispq   =   $model->findById($id);
+        $inputs =   $request->getData();
+        if($ispq->signatory_id != $request->signatory_id)
+        {
+
+            $signatory  =   $signatories->findById($request->signatory_id);
+            $inputs['signatory_text']  =   $signatory->name."/".$signatory->ranks."/".$signatory->branch."/".$signatory->designation;
+        }
+
+        $result =   $model->update($inputs, $id);
 
         foreach($result->quotations as $quote)
         {
             $upr_model              =   $upr->findById($quote->upr_id);
             $rfq_model              =   $upr_model->rfq;
-
             $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
 
             $holiday_lists          =   $holidays->lists('id','holiday_date');
+            $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
 
-            $day_delayed            =   $rfq_model->completed_at->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
                 return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
             }, $transaction_date);
 
-            if($day_delayed != 0)
+            $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+            if($day_delayed  > 3)
             {
-                $day_delayed            =   $day_delayed - 1;
+                $day_delayed            =   $day_delayed - 3;
             }
 
-            if($day_delayed != $result->days)
+            if($wd != $result->days)
             {
-                $model->update(['days' => $day_delayed], $id);
+                $model->update(['days' => $wd], $id);
             }
         }
 

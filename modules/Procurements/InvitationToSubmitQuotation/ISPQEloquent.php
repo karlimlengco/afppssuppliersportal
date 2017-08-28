@@ -18,7 +18,7 @@ class ISPQEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $auditInclude = [
-        'signatory_id',
+        'signatory_text',
         'venue',
         'transaction_date',
         'update_remarks',
@@ -40,6 +40,7 @@ class ISPQEloquent extends Model implements  AuditableContract
     protected $fillable = [
         'signatory_id',
         'venue',
+        'signatory_text',
         'transaction_date',
         'prepared_by',
         'update_remarks',

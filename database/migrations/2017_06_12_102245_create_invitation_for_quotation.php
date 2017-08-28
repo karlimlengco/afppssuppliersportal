@@ -16,6 +16,7 @@ class CreateInvitationForQuotation extends Migration
         Schema::create('invitation_for_quotation', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('signatory_id');
+            $table->text('signatory_text')->nullable();
             $table->text('venue');
             $table->date('transaction_date');
             $table->text('action')->nullable();
