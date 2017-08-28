@@ -74,7 +74,7 @@ Unit Purchase Request
                 </div>
             </div>
 
-            <div class="row">
+       {{--      <div class="row">
                 <div class="six columns">
                     <div class="form-group">
                         <label>Old Account Code</label>
@@ -83,7 +83,7 @@ Unit Purchase Request
                     </div>
                 </div>
                 <div class="six columns">
-                    {{-- {!! Form::selectField('new_account_code', 'New Account Code', $account_codes) !!} --}}
+                    {!! Form::selectField('new_account_code', 'New Account Code', $account_codes) !!}
 
                     <div class="form-group">
                         <label>New Account Code</label>
@@ -91,7 +91,7 @@ Unit Purchase Request
                     {!! Form::select('new_account_code', $account_codes, null, ['id' => 'id-field-new_account_code', 'data-selectize' => 'selectField']) !!}
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="row">
                 <div class="six columns">
                     {!! Form::textField('fund_validity', 'Fund Validity') !!}
@@ -126,17 +126,21 @@ Unit Purchase Request
                     <table class='table' id="item_table">
                         <thead>
                             <tr>
-                                <th>Description</th>
-                                <th>Qty</th>
-                                <th>Unit</th>
-                                <th>Unit Price</th>
-                                <th>Amount</th>
-                                <th></th>
+                                <th width="30%">Description</th>
+                                <th width="20%">Account Code</th>
+                                <th width="5%">Qty</th>
+                                <th width="10%">Unit</th>
+                                <th width="15%">Unit Price</th>
+                                <th width="15%">Amount</th>
+                                <th width="5%"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td> {!! Form::text('a_item_description', null, ['class' => 'input', 'id' => 'item_description']) !!} </td>
+                                <td>
+                                    {!! Form::select('new_account_code[]', $account_codes,null, ['class'=>'select', 'id' => 'new_account_code']) !!}
+                                </td>
                                 <td> {!! Form::text('a_quantity', null, ['class' => 'input', 'id' => 'quantity']) !!} </td>
                                 <td> {!! Form::text('a_unit_measurement', null, ['class' => 'input', 'id' => 'unit_measurement']) !!} </td>
                                 <td> {!! Form::text('a_unit_price', null, ['class' => 'input', 'id' => 'unit_price']) !!} </td>
@@ -237,6 +241,10 @@ Unit Purchase Request
         var unit_measurement= $("#unit_measurement").val();
         var unit_price      = $("#unit_price").val();
         var total_amount    = $("#total_amount").val();
+        var new_account_code= $("#new_account_code").val();
+        var new_account_codetx= $("#new_account_code option:selected").text();
+
+        console.log(new_account_codetx);
         // end vars
 
         var table=document.getElementById("item_table");
@@ -246,6 +254,16 @@ Unit Purchase Request
             newRow += "<td id='desciption_row"+table_len+"'>";
             newRow += "<input type='text' name='item_description[]' value='"+item_desc+"' class='input'/>";
             newRow += "</td>";
+            newRow += "<td id='new_account_code_row"+table_len+"'>";
+
+            newRow += "<select type='text' name='new_account_code[]'  class='select'>";
+
+            newRow += "<option value='"+new_account_code+"'>";
+            newRow += new_account_codetx;
+            newRow += "</option>";
+            newRow += "</select>";
+            // newRow += "<input type='text' name='new_account_code[]' value='"+new_account_code+"' class='input'/>";
+
             newRow += "<td id='quantity_row"+table_len+"'>";
             newRow += "<input type='text' name='quantity[]' value='"+quantity+"' class='input'/>";
             newRow += "</td>";

@@ -133,10 +133,10 @@ Unit Purchase Request
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Procurement Program/Project :</strong> {{($data->types) ? $data->types->description :""}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Units :</strong>    {{($data->unit) ? $data->unit->short_code :""}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Chargeability :</strong> {{($data->charges) ? $data->charges->name :""}} </li>
-                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Account Code :</strong>
+              {{--   <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Account Code :</strong>
                     {{($data->accounts) ? $data->accounts->new_account_code  :""}}
                     {{($data->accounts) ? "(". $data->accounts->old_account_code .")"  :""}}
-                </li>
+                </li> --}}
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Fund Validity :</strong> {{$data->fund_validity}} </li>
             </ul>
     </div>
@@ -208,6 +208,7 @@ Unit Purchase Request
             <thead>
                 <tr>
                     <th>Description</th>
+                    <th>Account Code</th>
                     <th>Qty</th>
                     <th>Unit</th>
                     <th>Unit Price</th>
@@ -217,7 +218,7 @@ Unit Purchase Request
             <tbody>
                 @foreach($data->items as $item)
                     <tr>
-                        <td>{{$item->item_description}}</td>
+                        <td>{{$item->item_description}}</td> <td>{{($item->accounts) ? $item->accounts->new_account_code." (".$item->accounts->old_account_code .")" : ""}}</td>
                         <td>{{$item->quantity}}</td>
                         <td>{{$item->unit_measurement}}</td>
                         <td>{{$item->unit_price}}</td>

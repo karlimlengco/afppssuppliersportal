@@ -20,8 +20,8 @@ class CreateUnitPurchaseRequests extends Migration
             $table->string('procurement_office');
             $table->string('mode_of_procurement');
             $table->string('chargeability');
-            $table->string('old_account_code')->nullable();
-            $table->string('new_account_code')->nullable();
+            // $table->string('old_account_code')->nullable();
+            // $table->string('new_account_code')->nullable();
             $table->string('procurement_type');
             $table->string('total_amount');
 

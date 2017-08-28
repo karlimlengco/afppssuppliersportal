@@ -14,6 +14,8 @@ class ItemEloquent extends Model
      */
     protected $table = 'unit_purchase_request_items';
 
+    protected $with = 'accounts';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,7 +31,13 @@ class ItemEloquent extends Model
             'upr_number',
             'afpps_ref_number',
             'prepared_by',
-            'date_prepared'
+            'date_prepared',
+            'new_account_code'
     ];
+
+    public function accounts()
+    {
+        return $this->belongsTo('\Revlv\Settings\AccountCodes\AccountCodeEloquent', 'new_account_code');
+    }
 
 }

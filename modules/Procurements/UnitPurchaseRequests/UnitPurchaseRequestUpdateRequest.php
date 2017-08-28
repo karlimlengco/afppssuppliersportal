@@ -14,8 +14,8 @@ class UnitPurchaseRequestUpdateRequest extends BaseRequest
         'procurement_office',
         'mode_of_procurement',
         'chargeability',
-        'old_account_code',
-        'new_account_code',
+        // 'old_account_code',
+        // 'new_account_code',
         'procurement_type',
         'total_amount',
 
@@ -76,7 +76,7 @@ class UnitPurchaseRequestUpdateRequest extends BaseRequest
             'chargeability'         => 'required|integer',
             'units'                 => 'required|integer',
             'purpose'               => 'required',
-            'new_account_code'      => 'required|integer',
+            // 'new_account_code'      => 'required|integer',
             'date_prepared'         => 'required|date',
         ];
     }

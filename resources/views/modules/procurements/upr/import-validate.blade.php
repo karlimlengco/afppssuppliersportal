@@ -75,7 +75,7 @@ Unit Purchase Request Import Validate
                 </div>
             </div>
 
-            <div class="row">
+          {{--   <div class="row">
                 <div class="six columns">
                     <div class="form-group">
                         <label>Old Account Code</label>
@@ -84,7 +84,7 @@ Unit Purchase Request Import Validate
                     </div>
                 </div>
                 <div class="six columns">
-                    {{-- {!! Form::selectField('new_account_code', 'New Account Code', $account_codes) !!} --}}
+                    {!! Form::selectField('new_account_code', 'New Account Code', $account_codes) !!}
 
                     <div class="form-group">
                         <label>New Account Code</label>
@@ -92,7 +92,7 @@ Unit Purchase Request Import Validate
                     {!! Form::select('new_account_code', $account_codes, null, ['id' => 'id-field-new_account_code', 'data-selectize' => 'selectField']) !!}
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="row">
                 <div class="six columns">
                     {!! Form::textField('fund_validity', 'Fund Validity') !!}
@@ -118,11 +118,12 @@ Unit Purchase Request Import Validate
         <table class='table' id="item_table">
             <thead>
                 <tr>
-                    <th>Description</th>
-                    <th>Qty</th>
-                    <th>Unit</th>
-                    <th>Unit Price</th>
-                    <th>Amount</th>
+                    <th width="30%">Description</th>
+                    <th width="20%">Account Code</th>
+                    <th width="10%">Qty</th>
+                    <th width="10%">Unit</th>
+                    <th width="15%">Unit Price</th>
+                    <th width="15%">Amount</th>
                     <th></th>
                 </tr>
             </thead>
@@ -130,6 +131,11 @@ Unit Purchase Request Import Validate
                 @foreach($items as $item)
                 <tr>
                     <td> {!! Form::text('item_description[]',  $item['item_description'], ['class' => 'input', 'id' => 'item_description']) !!} </td>
+                    <td>
+                        {!! Form::select('new_account_code[]', $account_codes, $item['new_account_code'], ['class'=>'select']) !!}
+
+                        {{-- {!! Form::text('new_account_code[]', $item['new_account_code'], ['class' => 'input', 'id' => 'new_account_code']) !!} --}}
+                    </td>
                     <td> {!! Form::text('quantity[]', $item['quantity'], ['class' => 'input', 'id' => 'quantity']) !!} </td>
                     <td> {!! Form::text('unit_measurement[]', $item['unit'], ['class' => 'input', 'id' => 'unit_measurement']) !!} </td>
                     <td> {!! Form::text('unit_price[]', $item['unit_price'], ['class' => 'input', 'id' => 'unit_price']) !!} </td>

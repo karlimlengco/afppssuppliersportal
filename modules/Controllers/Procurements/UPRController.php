@@ -208,6 +208,7 @@ class UPRController extends Controller
         $items                  =   $request->only([
             'item_description',
             'quantity',
+            'new_account_code',
             'unit_measurement',
             'unit_price',
             'total_amount'
@@ -268,6 +269,7 @@ class UPRController extends Controller
             for ($i=0; $i < count($items['item_description']); $i++) {
                 $item_datas[]  =   [
                     'item_description'      =>  $items['item_description'][$i],
+                    'new_account_code'      =>  $items['new_account_code'][$i],
                     'quantity'              =>  $items['quantity'][$i],
                     'unit_measurement'      =>  $items['unit_measurement'][$i],
                     'unit_price'            =>  $items['unit_price'][$i],

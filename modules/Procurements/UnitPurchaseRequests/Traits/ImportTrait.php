@@ -98,7 +98,7 @@ trait ImportTrait
                     $array['upr_number'] = $row[2];
                     break;
                 case 'DATE PREPARED':
-                    $date   =   \Carbon\Carbon::createFromFormat('d F Y', ($row[2]));
+                    $date   =   \Carbon\Carbon::createFromFormat('m-d-Y h:i: A', ($row[2]));
                     $array['date_prepared'] = $date;
                     break;
                 case 'PROJECT NAME':
@@ -116,6 +116,13 @@ trait ImportTrait
                     if($modesModel != null)
                     {
                         $array['mode_of_procurement'] = $modesModel->id;
+                    }
+                    elseif($row[2] == 'Public Bidding'){
+                        $array['mode_of_procurement'] = 'public_bidding';
+                    }
+                    else
+                    {
+
                     }
                     break;
                 case 'CHARGEABILITY':
@@ -138,7 +145,7 @@ trait ImportTrait
                 case 'PLACE OF DELIVERY':
                     $array['place_of_delivery'] = $row[2];
                     break;
-                case 'TERMS OF PAYMENTS':
+                case 'TERMS OF PAYMENT':
                     $termsModel    =   $terms->findByName($row[2]);
                     if($termsModel != null)
                     {
@@ -163,12 +170,25 @@ trait ImportTrait
         {
             if($itemRow[0] != "ITEM DESCRIPTION")
             {
+                $accountsModel    =   $accounts->findByName(trim($itemRow[1]) );
+
+                if($accountsModel != null)
+                {
+                    $code = $accountsModel->id;
+                }
+                else
+                {
+                    $code = 0;
+                }
+
+
                 $itemArray[]    =   [
                     'item_description'      =>  $itemRow[0],
-                    'quantity'              =>  $itemRow[1],
-                    'unit'                  =>  $itemRow[2],
-                    'unit_price'            =>  $itemRow[3],
-                    'total_amount'          =>  $itemRow[4],
+                    'new_account_code'      =>  $code,
+                    'quantity'              =>  $itemRow[2],
+                    'unit'                  =>  $itemRow[3],
+                    'unit_price'            =>  $itemRow[4],
+                    'total_amount'          =>  $itemRow[5],
                 ];
             }
         }
@@ -242,6 +262,7 @@ trait ImportTrait
             'quantity',
             'unit_measurement',
             'unit_price',
+            'new_account_code',
             'total_amount'
         ]);
 
@@ -253,7 +274,7 @@ trait ImportTrait
         $item_datas             =   [];
 
 
-        $transaction_date       =   \Carbon\Carbon::createFromFormat('Y-m-d', $request->date_prepared);
+        $transaction_date       =   \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $request->date_prepared);
 
         $procs['total_amount']  =   $total_amount;
         $procs['prepared_by']   =   $prepared_by;
@@ -294,6 +315,7 @@ trait ImportTrait
             for ($i=0; $i < count($items['item_description']); $i++) {
                 $item_datas[]  =   [
                     'item_description'      =>  $items['item_description'][$i],
+                    'new_account_code'      =>  $items['new_account_code'][$i],
                     'quantity'              =>  $items['quantity'][$i],
                     'unit_measurement'      =>  $items['unit_measurement'][$i],
                     'unit_price'            =>  $items['unit_price'][$i],

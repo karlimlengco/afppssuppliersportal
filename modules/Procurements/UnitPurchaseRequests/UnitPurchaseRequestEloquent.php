@@ -36,7 +36,6 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
         'date_prepared',
         'date_processed',
         'total_amount',
-        'new_account_code',
         'approver_text',
         'fund_signatory_text',
         'requestor_text',
@@ -77,8 +76,6 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
         'procurement_office',
         'mode_of_procurement',
         'chargeability',
-        'old_account_code',
-        'new_account_code',
         'procurement_type',
         'total_amount',
 
@@ -474,15 +471,15 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
         return $this->belongsTo('\Revlv\Settings\CateredUnits\CateredUnitEloquent', 'units');
     }
 
-    /**
-     * [accounts description]
-     *
-     * @return [type] [description]
-     */
-    public function accounts()
-    {
-        return $this->belongsTo('\Revlv\Settings\AccountCodes\AccountCodeEloquent', 'new_account_code');
-    }
+    // /**
+    //  * [accounts description]
+    //  *
+    //  * @return [type] [description]
+    //  */
+    // public function accounts()
+    // {
+    //     return $this->belongsTo('\Revlv\Settings\AccountCodes\AccountCodeEloquent', 'new_account_code');
+    // }
 
     /**
      * [terms description]
