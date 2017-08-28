@@ -21,20 +21,67 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($signatory_info as $signee)
-                            <tr>
-                                <td>{{$signee->signatory->name}}</td>
-                                <td>
-                                    <input type="checkbox" name="attendance[]" @if($signee->is_present == 1) checked @endif value="{{$signee->id}}">
-                                </td>
-                                <td>
-                                    <input type="radio" name="cop" @if($signee->cop == 1) checked @endif  value="{{$signee->id}}">
-                                </td>
-                                <td>
-                                    <input type="radio" name="rop" @if($signee->rop == 1) checked @endif value="{{$signee->id}}">
-                                </td>
-                            </tr>
-                        @endforeach
+                        <tr>
+                            <td>{{$data->chieftain->name}}</td>
+                            <td>
+                                <input type="checkbox" name="attendance[]" @if($data->chief_attendance == 1) checked @endif value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="cop" @if($data->cop == 1) checked @endif  value="1">
+                            </td>
+                            <td>
+                                <input type="radio" name="rop" @if($data->rop == 1) checked @endif value="1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{$data->unit_head_name->name}}</td>
+                            <td>
+                                <input type="checkbox" name="attendance[]" @if($data->unit_head_attendance == 1) checked @endif value="2">
+                            </td>
+                            <td>
+                                <input type="radio" name="cop" @if($data->cop == 2) checked @endif  value="2">
+                            </td>
+                            <td>
+                                <input type="radio" name="rop" @if($data->rop == 2) checked @endif value="2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{$data->mfo_name->name}}</td>
+                            <td>
+                                <input type="checkbox" name="attendance[]" @if($data->mfo_attendance == 1) checked @endif value="3">
+                            </td>
+                            <td>
+                                <input type="radio" name="cop" @if($data->cop == 3) checked @endif  value="3">
+                            </td>
+                            <td>
+                                <input type="radio" name="rop" @if($data->rop == 3) checked @endif value="3">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{$data->legal_name->name}}</td>
+                            <td>
+                                <input type="checkbox" name="attendance[]" @if($data->legal_attendance == 1) checked @endif value="4">
+                            </td>
+                            <td>
+                                <input type="radio" name="cop" @if($data->cop == 4) checked @endif  value="4">
+                            </td>
+                            <td>
+                                <input type="radio" name="rop" @if($data->rop == 4) checked @endif value="4">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{$data->secretary_name->name}}</td>
+                            <td>
+                                <input type="checkbox" name="attendance[]" @if($data->secretary_attendance == 1) checked @endif value="5">
+                            </td>
+                            <td>
+                                <input type="radio" name="cop" @if($data->cop == 5) checked @endif  value="5">
+                            </td>
+                            <td>
+                                <input type="radio" name="rop" @if($data->rop == 5) checked @endif value="5">
+                            </td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>

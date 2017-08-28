@@ -43,23 +43,49 @@
                         <tr>
                             <td width="50px"></td>
                             <td width="50px"></td>
-                            <td class="align-left" width="35%">{{$data['officer']->ranks}} {{$data['officer']->name}} {{$data['officer']->branch}}</td>
-                            <td class="align-left" width="100px">{{$data['officer']->designation}}</td>
+                            <td class="align-left" width="35%">{{$data['presiding'][1]}} {{$data['presiding'][0]}} {{$data['presiding'][2]}}</td>
+                            <td class="align-left" width="100px">{{$data['presiding'][3]}}</td>
                             <td width="5%"></td>
                         </tr>
                         <tr>
                             <td width="50px"></td>
                             <td colspan="4"><strong>Members:</strong></td>
                         </tr>
-                        @foreach($data['members'] as $member)
                             <tr>
                                 <td width="50px"></td>
                                 <td width="50px"></td>
-                                <td class="align-left" width="300px">{{$member->signatory->ranks}} {{$member->signatory->name}} {{$member->signatory->branch}}</td>
-                                <td class="align-left" width="100px">{{$member->signatory->designation}}</td>
+                                <td class="align-left" width="300px">{{$data['chief_signatory'][1]}} {{$data['chief_signatory'][0]}} {{$data['chief_signatory'][2]}}</td>
+                                <td class="align-left" width="100px">{{$data['chief_signatory'][3]}}</td>
                                 <td width="40%"></td>
                             </tr>
-                        @endforeach
+                            <tr>
+                                <td width="50px"></td>
+                                <td width="50px"></td>
+                                <td class="align-left" width="300px">{{$data['unit_head_signatory'][1]}} {{$data['unit_head_signatory'][0]}} {{$data['unit_head_signatory'][2]}}</td>
+                                <td class="align-left" width="100px">{{$data['unit_head_signatory'][3]}}</td>
+                                <td width="40%"></td>
+                            </tr>
+                            <tr>
+                                <td width="50px"></td>
+                                <td width="50px"></td>
+                                <td class="align-left" width="300px">{{$data['mfo'][1]}} {{$data['mfo'][0]}} {{$data['mfo'][2]}}</td>
+                                <td class="align-left" width="100px">{{$data['mfo'][3]}}</td>
+                                <td width="40%"></td>
+                            </tr>
+                            <tr>
+                                <td width="50px"></td>
+                                <td width="50px"></td>
+                                <td class="align-left" width="300px">{{$data['legal'][1]}} {{$data['legal'][0]}} {{$data['legal'][2]}}</td>
+                                <td class="align-left" width="100px">{{$data['legal'][3]}}</td>
+                                <td width="40%"></td>
+                            </tr>
+                            <tr>
+                                <td width="50px"></td>
+                                <td width="50px"></td>
+                                <td class="align-left" width="300px">{{$data['sec'][1]}} {{$data['sec'][0]}} {{$data['sec'][2]}}</td>
+                                <td class="align-left" width="100px">{{$data['sec'][3]}}</td>
+                                <td width="40%"></td>
+                            </tr>
                         <tr>
                             <td width="50px"></td>
                             <td colspan="4"><strong>Other Attendees:</strong></td>

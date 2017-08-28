@@ -52,30 +52,28 @@
                             <td width="45%"></td>
                             <td width="10%"></td>
                             <td width="45%">
-                            @foreach($data['signatories'] as $signature)
-                            @if($signature->cop != null)
+                            @if($data['signatory'] != null)
                                 <table class="signatory">
                                     <tr>
-                                        <td nowrap><strong>{{$signature->signatory->name}}</strong></td>
+                                        <td nowrap><strong>{{$data['signatory'][0]}}</strong></td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <div class="signatory-rank-justify">
-                                                <strong>{{$signature->signatory->ranks}} {{$signature->signatory->branch}}</strong>
+                                                <strong>{{$data['signatory'][1]}} {{$data['signatory'][2]}}</strong>
                                                 <span></span>
                                             </div>
                                         </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td>{{$signature->signatory->designation}}</td>
+                                        <td>{{$data['signatory'][3]}}</td>
                                         <td></td>
                                     </tr>
                                 </table>
                             </td>
                             @endif
-                            @endforeach
                         </tr>
                     </table>
                 </div>

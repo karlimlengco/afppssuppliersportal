@@ -26,11 +26,25 @@
                         {!! Form::selectField('chief', 'Chief', $signatory_list) !!}
                     </div>
                 </div>
+
                 <div class="row">
-                    <div class="twelve columns">
-                        {!! Form::tagField('members', 'Members (Max 5 members)', $signatory_list) !!}
+                    <div class="six columns">
+                        {!! Form::selectField('unit_head', 'Unit Head', $signatory_list) !!}
+                    </div>
+                    <div class="six columns">
+                        {!! Form::selectField('mfo', 'MFO', $signatory_list) !!}
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="six columns">
+                        {!! Form::selectField('legal', 'Legal', $signatory_list) !!}
+                    </div>
+                    <div class="six columns">
+                        {!! Form::selectField('secretary', 'Secretary', $signatory_list) !!}
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="twelve columns">
                         {!! Form::textField('other_attendees', 'Other Attendees') !!}

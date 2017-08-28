@@ -23,6 +23,13 @@ class CanvassingEloquent extends Model implements  AuditableContract
         'canvass_time',
         'update_remarks',
         'order_time',
+
+        'chief_signatory',
+        'presiding_signatory',
+        'unit_head_signatory',
+        'mfo_signatory',
+        'legal_signatory',
+        'secretary_signatory',
     ];
 
     /**
@@ -60,6 +67,27 @@ class CanvassingEloquent extends Model implements  AuditableContract
         'chief',
         'presiding_officer',
         'other_attendees',
+
+        'chief_signatory',
+        'presiding_signatory',
+        'unit_head_signatory',
+        'mfo_signatory',
+        'legal_signatory',
+        'secretary_signatory',
+
+        'unit_head',
+        'mfo',
+        'legal',
+        'secretary',
+
+
+        'unit_head_attendance',
+        'mfo_attendance',
+        'legal_attendance',
+        'secretary_attendance',
+        'chief_attendance',
+        'cop',
+        'rop',
     ];
 
     /**
@@ -80,6 +108,56 @@ class CanvassingEloquent extends Model implements  AuditableContract
     public function officer()
     {
         return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'presiding_officer');
+    }
+
+    /**
+     * [chieftain description]
+     *
+     * @return [type] [description]
+     */
+    public function chieftain()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'chief');
+    }
+
+    /**
+     * [unit_head_name description]
+     *
+     * @return [type] [description]
+     */
+    public function unit_head_name()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'unit_head');
+    }
+
+    /**
+     * [mfo_name description]
+     *
+     * @return [type] [description]
+     */
+    public function mfo_name()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'mfo');
+    }
+
+    /**
+     * [legal_name description]
+     *
+     * @return [type] [description]
+     */
+    public function legal_name()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'legal');
+    }
+
+    /**
+     * [secretary_name description]
+     *
+     * @return [type] [description]
+     */
+    public function secretary_name()
+    {
+        return $this->belongsTo('\Revlv\Settings\Signatories\SignatoryEloquent', 'secretary');
     }
 
     /**

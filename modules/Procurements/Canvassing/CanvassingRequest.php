@@ -27,6 +27,18 @@ class CanvassingRequest extends BaseRequest
         'action',
         'resolution',
         'days',
+
+        'chief_signatory',
+        'presiding_signatory',
+        'unit_head_signatory',
+        'mfo_signatory',
+        'legal_signatory',
+        'secretary_signatory',
+
+        'unit_head',
+        'mfo',
+        'legal',
+        'secretary',
     ];
 
     /**
@@ -37,7 +49,12 @@ class CanvassingRequest extends BaseRequest
     public function rules()
     {
         return [
-            'canvass_date'              => 'required',
+            'unit_head'              => 'required',
+            'mfo'              => 'required',
+            'secretary'              => 'required',
+            'legal'              => 'required',
+            'chief'              => 'required',
+            'presiding_officer'              => 'required',
             // 'rfq_id'                    => 'required',
         ];
     }

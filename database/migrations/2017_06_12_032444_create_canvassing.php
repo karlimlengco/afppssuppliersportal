@@ -34,6 +34,27 @@ class CreateCanvassing extends Migration
             $table->integer('presiding_officer')->nullable();
             $table->integer('chief')->nullable();
             $table->text('other_attendees')->nullable();
+
+            $table->text('chief_signatory')->nullable();
+            $table->text('presiding_signatory')->nullable();
+            $table->text('unit_head_signatory')->nullable();
+            $table->text('mfo_signatory')->nullable();
+            $table->text('legal_signatory')->nullable();
+            $table->text('secretary_signatory')->nullable();
+
+            $table->integer('unit_head')->nullable();
+            $table->integer('mfo')->nullable();
+            $table->integer('legal')->nullable();
+            $table->integer('secretary')->nullable();
+
+            $table->integer('unit_head_attendance')->nullable();
+            $table->integer('mfo_attendance')->nullable();
+            $table->integer('legal_attendance')->nullable();
+            $table->integer('secretary_attendance')->nullable();
+            $table->integer('chief_attendance')->nullable();
+            $table->integer('cop')->nullable();
+            $table->integer('rop')->nullable();
+
             $table->timestamps();
         });
     }

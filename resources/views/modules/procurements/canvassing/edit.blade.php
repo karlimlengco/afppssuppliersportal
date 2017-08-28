@@ -50,9 +50,11 @@ Canvassing
                 <div class="four columns">
                     {!! Form::textField('canvass_time', 'Canvassing Time') !!}
                 </div>
+                @if($data->adjourned_time != null)
                 <div class="four columns">
                     {!! Form::textField('adjourned_time', 'Adjourned Time') !!}
                 </div>
+                @endif
             </div>
 
             <div class="row">
@@ -64,9 +66,22 @@ Canvassing
                 </div>
             </div>
 
+
             <div class="row">
-                <div class="twelve columns">
-                    {!! Form::tagField('members', 'Members', $signatory_list) !!}
+                <div class="six columns">
+                    {!! Form::selectField('unit_head', 'Unit Head', $signatory_list) !!}
+                </div>
+                <div class="six columns">
+                    {!! Form::selectField('mfo', 'MFO', $signatory_list) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="six columns">
+                    {!! Form::selectField('legal', 'Legal', $signatory_list) !!}
+                </div>
+                <div class="six columns">
+                    {!! Form::selectField('secretary', 'Secretary', $signatory_list) !!}
                 </div>
             </div>
 

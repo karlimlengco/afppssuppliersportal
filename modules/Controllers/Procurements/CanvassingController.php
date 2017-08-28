@@ -120,23 +120,17 @@ class CanvassingController extends Controller
      */
     public function openCanvass(
         $id,
-        Request $request,
+        CanvassingRequest $request,
         CanvassingRepository $model,
         BlankRFQRepository $rfq,
         UnitPurchaseRequestRepository $upr,
+        SignatoryRepository $signatories,
         CSignatoryRepository $mysignatories,
         HolidayRepository $holidays)
     {
         $upr_model              =   $upr->findById($id);
-        // $rfq_model              =   $rfq->with('invitations')->findById($id);
         $rfq_model              =   $upr_model->rfq;
 
-        // if($rfq_model->invitations == null)
-        // {
-        //     return redirect()->back()->with([
-        //         'error'     =>  'Create Invitation First'
-        //     ]);
-        // }
 
         $transaction_date       =   Carbon::createFromFormat('Y-m-d',$request->open_canvass_date);
 
@@ -192,15 +186,37 @@ class CanvassingController extends Controller
         $inputs['presiding_officer']     =   $request->presiding_officer;
         $inputs['chief']                =   $request->chief;
         $inputs['other_attendees']      =   $request->other_attendees;
+        $inputs['mfo']      =   $request->mfo;
+        $inputs['unit_head']      =   $request->unit_head;
+        $inputs['legal']      =   $request->legal;
+        $inputs['secretary']      =   $request->secretary;
+
+        $presiding  =   $signatories->findById($request->presiding_officer);
+        $inputs['presiding_signatory']   =   $presiding->name."/".$presiding->ranks."/".$presiding->branch."/".$presiding->designation;
+
+        $chief_sign  =   $signatories->findById($request->chief);
+        $inputs['chief_signatory']   =   $chief_sign->name."/".$chief_sign->ranks."/".$chief_sign->branch."/".$chief_sign->designation;
+
+        $unit_head  =   $signatories->findById($request->unit_head);
+        $inputs['unit_head_signatory']   =   $unit_head->name."/".$unit_head->ranks."/".$unit_head->branch."/".$unit_head->designation;
+
+        $mfo  =   $signatories->findById($request->mfo);
+        $inputs['mfo_signatory']   =   $mfo->name."/".$mfo->ranks."/".$mfo->branch."/".$mfo->designation;
+
+        $legal  =   $signatories->findById($request->legal);
+        $inputs['legal_signatory']   =   $legal->name."/".$legal->ranks."/".$legal->branch."/".$legal->designation;
+
+        $secretary  =   $signatories->findById($request->secretary);
+        $inputs['secretary_signatory']   =   $secretary->name."/".$secretary->ranks."/".$secretary->branch."/".$secretary->designation;
 
         $result = $model->save($inputs);
 
-        for ($i=0; $i < count($request->members); $i++) {
-            $mysignatories->save([
-                'signatory_id'  =>  $request->members[$i],
-                'canvass_id'    =>  $result->id
-            ]);
-        }
+        // for ($i=0; $i < count($request->members); $i++) {
+        //     $mysignatories->save([
+        //         'signatory_id'  =>  $request->members[$i],
+        //         'canvass_id'    =>  $result->id
+        //     ]);
+        // }
 
         $upr_result =   $upr->update([
             'next_allowable'=> 2,
@@ -298,10 +314,12 @@ class CanvassingController extends Controller
         $signatory_lists=   $signatories->lists('id', 'name');
         $proponent_list =   $proponents->findByRFQId($result->rfq_id);
 
-        $my_signtories  =   $result->signatories->pluck('signatory_id', 'signatory_id');
+        // $my_signtories  =   $result->signatories->pluck('signatory_id', 'signatory_id');
         $signatory_info     =   $result->signatories;
 
-        $current_signs  =   array_intersect_key( $signatory_lists, $my_signtories->toArray()  );
+        $my_signtories      =   [$result->chief => $result->chief, $result->unit_head => $result->unit_head, $result->mfo => $result->mfo, $result->legal => $result->legal, $result->secretary => $result->secretary, $result->presiding_officer => $result->presiding_officer];
+
+        $current_signs  =   array_intersect_key( $signatory_lists, $my_signtories);
 
         return $this->view('modules.procurements.canvassing.show',[
             'data'              =>  $result,
@@ -371,12 +389,52 @@ class CanvassingController extends Controller
         HolidayRepository $holidays,
         UserLogRepository $userLogs,
         UserRepository $users,
+        SignatoryRepository $signatories,
         CanvassingRepository $model)
     {
+        $canvass_model      =   $model->findById($id);
+
         $inputs                         =   $request->getData();
         $inputs['presiding_officer']    =   $request->presiding_officer;
         $inputs['chief']                =   $request->chief;
         $inputs['other_attendees']      =   $request->other_attendees;
+
+        if($canvass_model->presiding_officer != $request->presiding_officer)
+        {
+            $presiding  =   $signatories->findById($request->presiding_officer);
+            $inputs['presiding_signatory']   =   $presiding->name."/".$presiding->ranks."/".$presiding->branch."/".$presiding->designation;
+        }
+
+        if($canvass_model->chief != $request->chief)
+        {
+            $chief_sign  =   $signatories->findById($request->chief);
+            $inputs['chief_signatory']   =   $chief_sign->name."/".$chief_sign->ranks."/".$chief_sign->branch."/".$chief_sign->designation;
+        }
+
+        if($canvass_model->unit_head != $request->unit_head)
+        {
+            $unit_head  =   $signatories->findById($request->unit_head);
+            $inputs['unit_head_signatory']   =   $unit_head->name."/".$unit_head->ranks."/".$unit_head->branch."/".$unit_head->designation;
+        }
+
+        if($canvass_model->mfo != $request->mfo)
+        {
+            $mfo  =   $signatories->findById($request->mfo);
+            $inputs['mfo_signatory']   =   $mfo->name."/".$mfo->ranks."/".$mfo->branch."/".$mfo->designation;
+        }
+
+        if($canvass_model->legal != $request->legal)
+        {
+            $legal  =   $signatories->findById($request->legal);
+            $inputs['legal_signatory']   =   $legal->name."/".$legal->ranks."/".$legal->branch."/".$legal->designation;
+        }
+
+        if($canvass_model->secretary != $request->secretary)
+        {
+            $secretary  =   $signatories->findById($request->secretary);
+            $inputs['secretary_signatory']   =   $secretary->name."/".$secretary->ranks."/".$secretary->branch."/".$secretary->designation;
+        }
+
 
         $result                 =   $model->update($inputs, $id);
 
@@ -388,24 +446,25 @@ class CanvassingController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
-        // $ispq_transaction_date  =   $rfq_model->completed_at;
+        $ispq_transaction_date  =   $rfq_model->completed_at;
 
-        // $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
-        //     return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
-        // }, $transaction_date);
+        $cd                     =   $ispq_transaction_date->diffInDays($transaction_date);
 
-        // $cd                     =   $ispq_transaction_date->diffInDays($transaction_date);
-        // $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+        $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
 
-        // if($day_delayed != 0)
-        // {
-        //     $day_delayed            =   $day_delayed - 1;
-        // }
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        // if($wd != $result->days)
-        // {
-            // $model->update(['days' => $wd], $id);
-        // }
+        if($day_delayed >= 2)
+        {
+            $day_delayed            =   $day_delayed - 2;
+        }
+
+        if($wd != $result->days)
+        {
+            $model->update(['days' => $wd], $id);
+        }
 
         $modelType  =   'Revlv\Procurements\Canvassing\CanvassingEloquent';
         $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
@@ -438,29 +497,49 @@ class CanvassingController extends Controller
         CanvassingRepository $model
         )
     {
+        $canvass    =   $model->findById($id);
+        $canvass    =   $model->update([
+            'chief_attendance' => 0,
+            'unit_head_attendance' => 0,
+            'mfo_attendance' => 0,
+            'legal_attendance' => 0,
+            'secretary_attendance' => 0,
+        ], $id);
 
-        $canvass    =   $model->with('signatories')->findById($id);
+        $inputs         =   [
+            'cop' => $request->cop,
+            'rop' => $request->rop
+        ];
 
-        foreach($canvass->signatories as $signa)
+        foreach($request->attendance as $attendance)
         {
-            $mysignatories->update(['is_present' => 0, 'cop' => 0, 'rop' => 0], $signa->id);
+            if($attendance == 1)
+            {
+                $inputs['chief_attendance'] =   1;
+
+            }
+            elseif($attendance == 2)
+            {
+                $inputs['unit_head_attendance'] =   1;
+            }
+            elseif($attendance == 3)
+            {
+                $inputs['mfo_attendance'] =   1;
+            }
+            elseif($attendance == 4)
+            {
+                $inputs['legal_attendance'] =   1;
+            }
+            elseif($attendance == 5)
+            {
+                $inputs['secretary_attendance'] =   1;
+            }
+            else
+            {
+
+            }
         }
-
-        for ($i=0; $i < count($request->attendance); $i++) {
-            $mysignatories->update(['is_present' => 1], $request->attendance[$i]);
-        }
-
-        $mysignatories->update(['cop' => 1], $request->cop);
-        $mysignatories->update(['rop' => 1], $request->rop);
-
-        // $mysignatories->deleteAllByCanvass($id);
-
-        // for ($i=0; $i < count($request->signatory_id); $i++) {
-        //     $mysignatories->save([
-        //         'signatory_id'  =>  $request->signatory_id[$i],
-        //         'canvass_id'    =>  $id
-        //     ]);
-        // }
+        $canvass    =   $model->update($inputs, $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "New record has been successfully added."
@@ -503,6 +582,12 @@ class CanvassingController extends Controller
         $data['venue']              =  $result->rfq->invitations->ispq->venue;
         $data['signatories']        =  $result->signatories;
         $data['proponents']         =  $result->rfq->proponents;
+        $data['chief_signatory']    =  explode('/',$result->chief_signatory);
+        $data['presiding']          =  explode('/', $result->presiding_signatory);
+        $data['unit_head_signatory']          =  explode('/', $result->unit_head_signatory);
+        $data['mfo']                =  explode('/', $result->mfo_signatory);
+        $data['legal']              =  explode('/', $result->legal_signatory);
+        $data['sec']                =  explode('/', $result->secretary_signatory);
         $data['min_bid']            =  $min;
         $data['today']              =  Carbon::now()->format('Y-m-d');
 
@@ -526,15 +611,36 @@ class CanvassingController extends Controller
 
         $data['date']               =  $result->canvass_date." ". $result->canvass_time;
 
+        if($result->cop == 1)
+        {
+            $signatory      =   $result->chief_signatory;
+        }
+        elseif($result->cop == 2)
+        {
+            $signatory      =   $result->unit_head_signatory;
+        }
+        elseif($result->cop == 3)
+        {
+            $signatory      =   $result->mfo_signatory;
+        }
+        elseif($result->cop == 4)
+        {
+            $signatory      =   $result->legal_signatory;
+        }
+        else
+        {
+            $signatory      =   $result->secretary_signatory;
+        }
+
         $data['rfq_number']         =  $result->rfq->rfq_number;
         $data['total_amount']       =  $result->upr->total_amount;
         $data['header']             =  $result->upr->centers;
         $data['unit']               =  $result->upr->unit->short_code;
         $data['center']             =  $result->upr->centers->name;
         $data['venue']              =  $result->rfq->invitations->ispq->venue;
-        $data['signatories']        =  $result->signatories;
         $data['proponents']         =  $result->rfq->proponents;
         $data['min_bid']            =  $min;
+        $data['signatory']          =  explode('/', $signatory);
 
         $data['items']              =  $result->rfq->upr->items;
         $data['ref_number']         =  $result->rfq->upr->ref_number;
@@ -571,6 +677,28 @@ class CanvassingController extends Controller
 
         $data['items']              =  $result->rfq->upr->items;
         $data['ref_number']         =  $result->rfq->upr->ref_number;
+        if($result->rop == 1)
+        {
+            $signatory      =   $result->chief_signatory;
+        }
+        elseif($result->rop == 2)
+        {
+            $signatory      =   $result->unit_head_signatory;
+        }
+        elseif($result->rop == 3)
+        {
+            $signatory      =   $result->mfo_signatory;
+        }
+        elseif($result->rop == 4)
+        {
+            $signatory      =   $result->legal_signatory;
+        }
+        else
+        {
+            $signatory      =   $result->secretary_signatory;
+        }
+
+        $data['signatory']          =  explode('/', $signatory);
 
         $pdf = PDF::loadView('forms.rop', ['data' => $data])
             ->setOption('margin-bottom', 30)
@@ -607,6 +735,13 @@ class CanvassingController extends Controller
         $data['center']         =  $result->upr->centers->name;
         $data['officer']        =   $result->officer;
         $data['resolution']     =   $result->resolution;
+
+        $data['chief_signatory']    =  explode('/',$result->chief_signatory);
+        $data['presiding']          =  explode('/', $result->presiding_signatory);
+        $data['unit_head_signatory']          =  explode('/', $result->unit_head_signatory);
+        $data['mfo']                =  explode('/', $result->mfo_signatory);
+        $data['legal']              =  explode('/', $result->legal_signatory);
+        $data['sec']                =  explode('/', $result->secretary_signatory);
 
         $pdf = PDF::loadView('forms.mom', ['data' => $data])
         ->setOption('margin-bottom', 30)

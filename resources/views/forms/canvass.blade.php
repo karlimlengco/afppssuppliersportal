@@ -311,42 +311,34 @@
                     <table class="printable-form__body__table no-border no-padding">
                         <tr>
                             <td class="align-bottom align-left" width="45%" height="80px">
-                                @if(isset($data['signatories'][0]))
-                                <strong>{{$data['signatories'][0]->signatory->ranks}} {{$data['signatories'][0]->signatory->name}} {{$data['signatories'][0]->signatory->branch}}</strong><br>
-                                {{$data['signatories'][0]->signatory->designation}}
-                                @endif
+                                {{-- @if(isset($data['signatories'][0])) --}}
+                                <strong>{{$data['presiding'][1]}} {{$data['presiding'][0]}} {{$data['presiding'][2]}}</strong><br>
+                                {{$data['presiding'][3]}}
+                                {{-- @endif --}}
                             </td>
                             <td width="10%"></td>
                             <td class="align-bottom" width="45%"></td>
                         </tr>
                         <tr>
                             <td class="align-bottom align-left" height="80px">
-                                @if(isset($data['signatories'][1]))
-                                <strong>{{$data['signatories'][1]->signatory->ranks}} {{$data['signatories'][1]->signatory->name}} {{$data['signatories'][1]->signatory->branch}}</strong><br>
-                                {{$data['signatories'][1]->signatory->designation}}
-                                @endif
+                                <strong>{{$data['chief_signatory'][1]}} {{$data['chief_signatory'][0]}} {{$data['chief_signatory'][2]}}</strong><br>
+                                {{$data['chief_signatory'][3]}}
                             </td>
                             <td></td>
                             <td class="align-bottom align-left" height="80px">
-                                @if(isset($data['signatories'][2]))
-                                <strong>{{$data['signatories'][2]->signatory->ranks}} {{$data['signatories'][2]->signatory->name}} {{$data['signatories'][2]->signatory->branch}}</strong><br>
-                                {{$data['signatories'][2]->signatory->designation}}
-                                @endif
+                                <strong>{{$data['unit_head_signatory'][1]}} {{$data['unit_head_signatory'][0]}} {{$data['unit_head_signatory'][2]}}</strong><br>
+                                {{$data['unit_head_signatory'][3]}}
                             </td>
                         </tr>
                         <tr>
                             <td class="align-bottom align-left" height="80px">
-                                @if(isset($data['signatories'][3]))
-                                <strong>{{$data['signatories'][3]->signatory->ranks}} {{$data['signatories'][3]->signatory->name}} {{$data['signatories'][3]->signatory->branch}}</strong><br>
-                                {{$data['signatories'][3]->signatory->designation}}
-                                @endif
+                                <strong>{{$data['mfo'][1]}} {{$data['mfo'][0]}} {{$data['mfo'][2]}}</strong><br>
+                                {{$data['mfo'][3]}}
                             </td>
                             <td></td>
                             <td class="align-bottom align-left" height="80px">
-                                @if(isset($data['signatories'][4]))
-                                <strong>{{$data['signatories'][4]->signatory->ranks}} {{$data['signatories'][4]->signatory->name}} {{$data['signatories'][4]->signatory->branch}}</strong><br>
-                                {{$data['signatories'][4]->signatory->designation}}
-                                @endif
+                                <strong>{{$data['legal'][1]}} {{$data['legal'][0]}} {{$data['legal'][2]}}</strong><br>
+                                {{$data['legal'][3]}}
                             </td>
                         </tr>
                     </table>
