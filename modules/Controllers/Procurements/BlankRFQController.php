@@ -183,15 +183,6 @@ class BlankRFQController extends Controller
 
         $upr_result =   $upr->update([
             'status'        => 'Processing RFQ',
-            // 'next_allowable'=> 1,
-            // 'next_step'     => 'Close RFQ',
-            // 'state'         => 'On-Going',
-            // 'next_due'      => $transaction_date->addDays(1),
-            // 'last_date'     => $transaction_date,
-            // 'date_processed'=> \Carbon\Carbon::now(),
-            // 'processed_by'  => \Sentinel::getUser()->id,
-            // 'delay_count'   => $day_delayed,
-            // 'calendar_days' => $cd,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $upr_model->id);
@@ -301,32 +292,48 @@ class BlankRFQController extends Controller
         \Revlv\Users\UserRepository $users,
         AuditLogRepository $audits,
         HolidayRepository $holidays,
+        SignatoryRepository $signatories,
         UserLogRepository $userLogs,
         BlankRFQRepository $model)
     {
         $old                    =   $model->findById($id);
-        $result                 =   $model->update($request->getData(), $id);
-
-        $upr_model              =   $upr->findById($result->upr_id);
-        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
-        $holiday_lists          =   $holidays->lists('id','holiday_date');
-        $old_cd                 =   $upr_model->date_prepared->diffInDays($old->transaction_date);
-        $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
-
-        $new_cd                 =   $old_cd - $cd;
-
-        $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
-            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
-        }, $transaction_date);
-
-        if($day_delayed != 0)
+        $inputs                 =   $request->getData();
+        if($old->chief != $request->chief)
         {
-            $day_delayed            =   $day_delayed - 1;
+
+            $requestor  =   $signatories->findById($request->chief);
+            $inputs['signatory_chief']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
         }
 
-        if($day_delayed != $result->days)
+        $result                 =   $model->update($inputs, $id);
+
+        $upr_model              =   $upr->findById($result->upr_id);
+
+
+        if($request->completed_at != null)
         {
-            $model->update(['days' => $day_delayed], $id);
+
+            $completed_at       =   createCarbon('Y-m-d',$request->completed_at);
+
+            $ispq_transaction_date   = $upr_model->date_prepared;
+
+            $holiday_lists      =   $holidays->lists('id','holiday_date');
+            $day_delayed        =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+                return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+            }, $completed_at);
+
+            $cd                     =   $ispq_transaction_date->diffInDays($completed_at);
+            $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+            if($day_delayed >= 3)
+            {
+                $day_delayed            =   $day_delayed - 3;
+            }
+
+            if($wd != $result->days)
+            {
+                $model->update(['days' => $wd], $id);
+            }
         }
 
         $modelType  =   'Revlv\Procurements\BlankRequestForQuotation\BlankRFQEloquent';
@@ -343,14 +350,16 @@ class BlankRFQController extends Controller
             }
         }
 
-        $upr->update([
-            'next_due'      => $transaction_date->addDays(1),
-            'last_date'     => $transaction_date,
-            'date_processed'=> \Carbon\Carbon::now(),
-            'processed_by'  => \Sentinel::getUser()->id,
-            'delay_count'   => $day_delayed,
-            'calendar_days' => $cd + $new_cd
-            ], $upr_model->id);
+        if($request->completed_at != null)
+        {
+            $upr_result =   $upr->update([
+                'status'        => 'Close RFQ',
+                'next_allowable'=> 2,
+                'next_step'     => 'Canvassing',
+                'next_due'      => $completed_at->addDays(2),
+                'last_date'     => $completed_at,
+                ], $upr_model->id);
+        }
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -471,7 +480,7 @@ class BlankRFQController extends Controller
     {
         $result     =   $model->with(['upr'])->findById($id);
 
-        $data['chief']              =  $result->chieftain;
+        $data['chief']              =  explode('/', $result->signatory_chief);
         $data['total_amount']       =  $result->upr->total_amount;
         $data['header']             =  $result->upr->centers;
         $data['transaction_date']   =  $result->transaction_date;

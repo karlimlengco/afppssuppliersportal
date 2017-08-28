@@ -37,6 +37,7 @@ class CreateRequestForQuotations extends Migration
 
             $table->integer('awarded_to')->nullable();
             $table->integer('chief')->nullable();
+            $table->text('signatory_chief')->nullable();
             $table->date('awarded_date')->nullable();
             $table->timestamps();
         });

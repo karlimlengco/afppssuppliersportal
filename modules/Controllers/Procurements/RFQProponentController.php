@@ -309,7 +309,7 @@ class RFQProponentController extends Controller
         $data['deadline']           =  $rfq->upr->philgeps->deadline_rfq." ".$rfq->upr->philgeps->opening_time;
         $data['items']              =  $rfq->upr->items;
         $data['supplier']           =  $supplier;
-        $data['chief']              =  $rfq->chieftain;
+        $data['chief']              =  explode('/', $rfq->signatory_chief);;
 
         $pdf = PDF::loadView('forms.rfq-proponents', ['data' => $data])
             ->setOption('margin-bottom', 30)

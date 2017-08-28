@@ -63,9 +63,11 @@ Request For Quotation
                 <div class="six columns">
                     {!! Form::selectField('chief', 'Chief', $signatory_list) !!}
                 </div>
+                @if($data->completed_at != null)
                 <div class="six columns">
                     {!! Form::textField('completed_at', 'Completed Date') !!}
                 </div>
+                @endif
             </div>
 
             <div class="row">

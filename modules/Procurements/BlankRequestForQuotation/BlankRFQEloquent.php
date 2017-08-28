@@ -22,6 +22,7 @@ class BlankRFQEloquent extends Model implements  AuditableContract
         'update_remarks',
         'remarks',
         'transaction_date',
+        'signatory_chief',
         // 'completed_at',
     ];
 
@@ -55,6 +56,7 @@ class BlankRFQEloquent extends Model implements  AuditableContract
         'upr_number',
         'rfq_number',
         'chief',
+        'signatory_chief',
 
         'deadline',
         'opening_time',

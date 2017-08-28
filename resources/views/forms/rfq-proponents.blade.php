@@ -47,8 +47,8 @@
                                 <td class="align-bottom" width="45%"></td>
                                 <td width="10%"></td>
                                 <td class="align-bottom align-left" width="45%" height="60px">
-                                    <strong> @if($data['chief'] != null)  {{$data['chief']->ranks}} {{$data['chief']->name}} {{$data['chief']->branch}} </strong><br>
-                                    {{$data['chief']->designation}}
+                                    <strong> @if($data['chief'] != null)  {{$data['chief'][1]}} {{$data['chief'][0]}} {{$data['chief'][2]}} </strong><br>
+                                    {{$data['chief'][3]}}
                                     @endif
                                 </td>
                             </tr>

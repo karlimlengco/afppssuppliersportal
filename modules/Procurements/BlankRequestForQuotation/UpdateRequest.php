@@ -29,6 +29,7 @@ class UpdateRequest extends BaseRequest
         'awarded_date',
         'is_award_accepted',
         'chief',
+        'signatory_chief',
         'award_accepted_date',
     ];
 
@@ -41,6 +42,7 @@ class UpdateRequest extends BaseRequest
     {
         return [
             'transaction_date'      => 'required',
+            'chief'      => 'required',
         ];
     }
 }
