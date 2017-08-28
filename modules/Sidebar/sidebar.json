@@ -215,6 +215,11 @@
                     "route" :   "maintenance.bacsec.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "BacSec"
+                },
+                {
+                    "route" :   "maintenance.forms.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "RFQ Forms"
                 }
             ]
         }

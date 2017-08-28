@@ -19,6 +19,7 @@ use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
+use \Revlv\Settings\Forms\RFQ\RFQRepository;
 use Validator;
 
 class BlankRFQController extends Controller
@@ -37,6 +38,7 @@ class BlankRFQController extends Controller
      * @var [type]
      */
     protected $upr;
+    protected $rfqForms;
     protected $suppliers;
     protected $signatories;
     protected $audits;
@@ -476,18 +478,19 @@ class BlankRFQController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint($id, BlankRFQRepository $model)
+    public function viewPrint($id, BlankRFQRepository $model, RFQRepository $rfqForms)
     {
         $result     =   $model->with(['upr'])->findById($id);
 
         $data['chief']              =  explode('/', $result->signatory_chief);
         $data['total_amount']       =  $result->upr->total_amount;
         $data['header']             =  $result->upr->centers;
+        $rfqFormsContent            =   $rfqForms->findByPCCO($result->upr->centers->id);
+        $data['content']            =  ($rfqFormsContent) ? $rfqFormsContent->content : "";
         $data['transaction_date']   =  $result->transaction_date;
         $data['rfq_number']         =  $result->rfq_number;
         $data['deadline']           =  $result->upr->philgeps->deadline_rfq." ".$result->upr->philgeps->opening_time;
         $data['items']              =  $result->upr->items;
-
         $pdf = PDF::loadView('forms.rfq', ['data' => $data])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'));

@@ -16,7 +16,6 @@ class BroadcastServiceProvider extends ServiceProvider
     {
 
         Broadcast::routes();
-        // Broadcast::routes(['middleware' => 'revlv.auth']);
 
         require base_path('routes/channels.php');
     }
