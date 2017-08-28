@@ -40,7 +40,9 @@ Pre Bid Conference
     <div class="twelve columns">
 
         {!! Form::textField('transaction_date', 'Transaction Date') !!}
-        {!! Form::textField('closing_date', 'Closing Date') !!}
+        @if($data->closing_date != null)
+            {!! Form::textField('closing_date', 'Closing Date') !!}
+        @endif
         {!! Form::close() !!}
     </div>
 </div>

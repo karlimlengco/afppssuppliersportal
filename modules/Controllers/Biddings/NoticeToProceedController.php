@@ -238,13 +238,15 @@ class NoticeToProceedController extends Controller
      * [create description]
      * @return [type] [description]
      */
-    public function edit($id, NTPRepository $model)
+    public function edit($id, NTPRepository $model, SignatoryRepository $signatories)
     {
 
         $data   =   $model->findById($id);
+        $signatory_list     =   $signatories->lists('id','name');
 
         return $this->view('modules.biddings.ntp.edit',[
             'data'          =>  $data,
+            'signatory_list'=>  $signatory_list,
             'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
                 'update' =>  [
@@ -295,37 +297,33 @@ class NoticeToProceedController extends Controller
         HolidayRepository $holidays,
         PORepository $po,
         NOARepository $noa,
+        SignatoryRepository $signatories,
         UserLogRepository $userLogs,
         UserRepository $users)
     {
         $this->validate($request, [
             'prepared_date'         =>  'required',
             'update_remarks'        =>  'required',
+            'signatory_id'          =>  'required',
         ]);
+
+        $ntp_model  =   $model->findById($id);
+
 
         $input  =   [
             'prepared_date'         =>  $request->prepared_date,
             'update_remarks'        =>  $request->update_remarks,
             'award_accepted_date'   =>  $request->award_accepted_date,
+            'signatory_id'   =>  $request->signatory_id,
         ];
 
-        $result                 =   $model->update($input, $id);
-
-        $po_model               =   $po->findById($result->po_id);
-        $noa_model              =   $noa->findByUPR($po_model->upr_id);
-
-        $holiday_lists          =   $holidays->lists('id','holiday_date');
-        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('prepared_date') );
-        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_model->coa_approved_date );
-
-        $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
-            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
-        }, $transaction_date);
-
-        if($day_delayed != $result->days)
+        if($ntp_model->signatory_id != $request->signatory_id)
         {
-            $model->update(['days' => $day_delayed], $id);
+            $signatory  =   $signatories->findById($request->signatory_id);
+            $input['signatory']   =   $signatory->name."/".$signatory->ranks."/".$signatory->branch."/".$signatory->designation;
         }
+
+        $result                 =   $model->update($input, $id);
 
         $modelType  =   'Revlv\Procurements\NoticeToProceed\NTPEloquent';
         $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
@@ -438,7 +436,7 @@ class NoticeToProceedController extends Controller
     {
         $result                     =   $model->with(['signatory', 'po'])->findById($id);
         $supplier                   =   $result->winner->supplier;
-        $blank_model                =   $blank->findById($result->rfq_id);
+        // $blank_model                =   $blank->findById($result->rfq_id);
         $upr_model                  =   $upr->findById($result->upr_id);
 
         if($result->signatory == null)
@@ -452,21 +450,22 @@ class NoticeToProceedController extends Controller
         $data['supplier']           =   $supplier;
         $data['po_transaction_date']=   $result->po->created_at;
         $data['po_number']          =   $result->po->po_number;
-        $data['rfq_number']         =   $result->rfq_number;
-        $data['rfq_date']           =   $blank_model->transaction_date;
+        $data['po_type']            =   $result->po->type;
+        // $data['rfq_number']         =   $result->rfq_number;
+        // $data['rfq_date']           =   $blank_model->transaction_date;
         $data['total_amount']       =   $result->po->bid_amount;
-        $data['signatory']          =   $result->signatory;
+        $data['delivery_terms']     =   $result->po->delivery_terms;
+        $data['signatory']          =   explode('/',$result->signatory);
         $data['project_name']       =   $upr_model->project_name;
+        $data['items']              =   $upr_model->items;
+        $data['header']             =   $upr_model->centers;
         $data['today']              =   \Carbon\Carbon::now()->format("d F Y");
 
         $pdf = PDF::loadView('forms.ntp', ['data' => $data])
-            ->setOption('margin-left', 13)
-            ->setOption('margin-right', 13)
             ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+            ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('ntp.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('ntp.pdf');
     }
 
     /**

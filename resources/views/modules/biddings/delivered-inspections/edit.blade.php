@@ -39,11 +39,41 @@ Delivered Items Inspection
         <div class="twelve columns">
 
             <div class="row">
+                @if($data->start_date !=null)
                 <div class="six columns">
                     {!! Form::textField('start_date', 'Start Date') !!}
                 </div>
+                @endif
+                @if($data->closed_date !=null)
                 <div class="six columns">
                     {!! Form::textField('closed_date', 'Closed Date') !!}
+                </div>
+                @endif
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::selectField('requested_by', 'Requested By', $signatory_list) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::selectField('received_by', 'Witness By', $signatory_list) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::selectField('approved_by', 'Certify By', $signatory_list) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::selectField('issued_by', 'Note By', $signatory_list) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::selectField('inspected_by', 'Inspected By', $signatory_list) !!}
                 </div>
             </div>
 

@@ -428,12 +428,14 @@ class InspectionAndAcceptanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, InspectionAndAcceptanceRepository $model)
+    public function edit($id, InspectionAndAcceptanceRepository $model, SignatoryRepository $signatories)
     {
         $result =   $model->findById($id);
+        $signatory_list     =   $signatories->lists('id','name');
 
         return $this->view('modules.biddings.inspection-acceptance.edit',[
             'data'          =>  $result,
+            'signatory_list'=>  $signatory_list,
             'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
                 'update' =>  [
@@ -441,6 +443,11 @@ class InspectionAndAcceptanceController extends Controller
                     'method'    =>  'PUT',
                     'novalidate'=>  'novalidate'
                 ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Public Bidding'),
+                new Breadcrumb('TIAC', 'procurements.inspection-and-acceptance.show',$result->id),
+                new Breadcrumb('Update'),
             ]
         ]);
     }
@@ -460,18 +467,46 @@ class InspectionAndAcceptanceController extends Controller
         HolidayRepository $holidays,
         UserLogRepository $userLogs,
         UserRepository $users,
+        SignatoryRepository $signatories,
         InspectionAndAcceptanceRepository $model)
     {
+        $iar_model  =   $model->findById($id);
+
         $this->validate($request, [
-            "update_remarks"    => 'required',
-            // "accepted_date"     => 'required',
-            "inspection_date"   => 'required',
+            "update_remarks"        => 'required',
+            "inspection_date"       => 'required',
+            'acceptance_signatory'  =>  'required',
+            'inspection_signatory'  =>  'required',
+            'sao_signatory'         =>  'required',
         ]);
+
         $input  =[
-            "update_remarks"    => $request->update_remarks,
-            "accepted_date"     => $request->accepted_date,
-            "inspection_date"   => $request->inspection_date,
+            "update_remarks"        => $request->update_remarks,
+            "accepted_date"         => $request->accepted_date,
+            "inspection_date"       => $request->inspection_date,
+            "acceptance_signatory"  => $request->acceptance_signatory,
+            "inspection_signatory"  => $request->inspection_signatory,
+            "sao_signatory"         => $request->sao_signatory,
         ];
+
+        if($iar_model->acceptance_signatory != $request->acceptance_signatory)
+        {
+            $acceptor  =   $signatories->findById($request->acceptance_signatory);
+            $input['acceptance_name_signatory']   =   $acceptor->name."/".$acceptor->ranks."/".$acceptor->branch."/".$acceptor->designation;
+        }
+
+        if($iar_model->inspection_signatory != $request->inspection_signatory)
+        {
+            $inspector  =   $signatories->findById($request->inspection_signatory);
+            $input['inspection_name_signatory']   =   $inspector->name."/".$inspector->ranks."/".$inspector->branch."/".$inspector->designation;
+        }
+
+
+        if($iar_model->sao_signatory != $request->sao_signatory)
+        {
+            $sao  =   $signatories->findById($request->sao_signatory);
+            $input['sao_name_signatory']   =   $sao->name."/".$sao->ranks."/".$sao->branch."/".$sao->designation;
+        }
 
         $result     =   $model->update($input, $id);
 
@@ -480,19 +515,21 @@ class InspectionAndAcceptanceController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('inspection_date') );
         $dr_date                =   Carbon::createFromFormat('!Y-m-d', $dr_model->date_delivered_to_coa );
+        $cd                     =   $dr_date->diffInDays($transaction_date);
 
         $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed != 0)
+        if($day_delayed > 2)
         {
-            $day_delayed = $day_delayed - 1;
+            $day_delayed = $day_delayed - 2;
         }
 
-        if($day_delayed != $result->days)
+        if($wd != $result->days)
         {
-            $model->update(['days' => $day_delayed], $id);
+            $model->update(['days' => $wd], $id);
         }
 
         $modelType  =   'Revlv\Procurements\InspectionAndAcceptance\InspectionAndAcceptanceEloquent';
@@ -560,6 +597,7 @@ class InspectionAndAcceptanceController extends Controller
             $noa_model           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
         $data['po_number']          =  $result->po->po_number;
+        $data['header']             =  $result->upr->centers;
         $data['purchase_date']      =  $result->po->purchase_date;
         $data['bid_amount']         =  $result->po->bid_amount;
         $data['project_name']       =  $result->upr->project_name;
@@ -570,8 +608,8 @@ class InspectionAndAcceptanceController extends Controller
         $data['items']              =  $result->po->items;
         $data['accepted_date']      =  $model->accepted_date;
         $data['inspection_date']    =  $model->inspection_date;
-        $data['acceptor']           =  $model->acceptor;
-        $data['inspector']          =  $model->inspector;
+        $data['acceptor']           =  explode('/',$model->acceptance_name_signatory);
+        $data['inspector']          =  explode('/',$model->inspection_name_signatory);
 
         $pdf = PDF::loadView('forms.iar', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
 

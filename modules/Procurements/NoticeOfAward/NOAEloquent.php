@@ -138,7 +138,7 @@ class NOAEloquent extends Model implements  AuditableContract
      */
     public function pq()
     {
-        return $this->belongsTo('\Revlv\Procurements\PostQualification\PostQualificationEloquent', 'post_qual_id');
+        return $this->belongsTo('\Revlv\Biddings\PostQualification\PostQualificationEloquent', 'canvass_id');
     }
 
 

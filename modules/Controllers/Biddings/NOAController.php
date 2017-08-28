@@ -194,7 +194,6 @@ class NOAController extends Controller
         HolidayRepository $holidays
         )
     {
-
         $noaModel       =   $model->findById($id);
         $holiday_lists  =   $holidays->lists('id','holiday_date');
 
@@ -352,12 +351,15 @@ class NOAController extends Controller
      */
     public function edit(
         $id,
+        SignatoryRepository $signatories,
         NOARepository $model)
     {
         $result             =   $model->findById($id);
+        $signatory_list     =   $signatories->lists('id','name');
 
         return $this->view('modules.procurements.noa.edit',[
             'data'              =>  $result,
+            'signatory_lists'   =>  $signatory_list,
             'indexRoute'        =>  $this->baseUrl.'show',
             'modelConfig'       =>  [
                 'update' =>  [

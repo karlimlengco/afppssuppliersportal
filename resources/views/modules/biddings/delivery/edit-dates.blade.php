@@ -42,9 +42,11 @@ Notice Of Delivery
                 <div class="six columns">
                     {!! Form::textField('expected_date', 'Expexted Date') !!}
                 </div>
+                @if($data->delivery_date != null)
                 <div class="six columns">
                     {!! Form::textField('delivery_date', 'Delivery Date') !!}
                 </div>
+                @endif
             </div>
 
             <div class="row">
@@ -52,8 +54,17 @@ Notice Of Delivery
                 <div class="six columns">
                         {!! Form::textField('transaction_date', 'Transaction Date') !!}
                 </div>
+
+                @if($data->date_delivered_to_coa != null)
                 <div class="six columns">
-                        {!! Form::textField('date_delivered_to_coa', 'COA Delivery Date') !!}
+                    {!! Form::textField('date_delivered_to_coa', 'COA Delivery Date') !!}
+                </div>
+                @endif
+            </div>
+
+            <div class="row">
+                <div class="six columns">
+                    {!! Form::selectField('signatory_id', '', $signatory_list, $data->signatory_id) !!}
                 </div>
             </div>
 

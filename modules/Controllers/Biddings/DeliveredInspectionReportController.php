@@ -451,13 +451,16 @@ class DeliveredInspectionReportController extends Controller
      * @param  DeliveryInspectionRepository $model [description]
      * @return [type]                              [description]
      */
-    public function edit($id, DeliveryInspectionRepository $model)
+    public function edit($id, DeliveryInspectionRepository $model, SignatoryRepository $signatories)
     {
         $result   =   $model->findById($id);
+        $signatory_list     =   $signatories->lists('id','name');
+
 
         return $this->view('modules.biddings.delivered-inspections.edit',[
             'data'          =>  $result,
             'showRoute'     =>  $this->baseUrl.'show',
+            'signatory_list'=>  $signatory_list,
             'modelConfig'   =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
@@ -487,40 +490,110 @@ class DeliveredInspectionReportController extends Controller
         AuditLogRepository $audits,
         HolidayRepository $holidays,
         UserLogRepository $userLogs,
+        SignatoryRepository $signatories,
         UserRepository $users,
         DeliveryInspectionRepository $model)
     {
+        $diir_model =   $model->findById($id);
+
         $this->validate($request, [
-            'start_date'    => 'required',
-            // 'closed_date'   => 'required',
-            'update_remarks'=> 'required',
+            'received_by'   => 'required',
+            'approved_by'   => 'required',
+            'inspected_by'  => 'required',
+            'issued_by'     => 'required',
+            'requested_by'  => 'required'
         ]);
 
         $data   =   [
             'start_date'    =>  $request->start_date,
             'closed_date'   =>  $request->closed_date,
-            'update_remarks'=>  $request->update_remarks,
+            'received_by'   =>  $request->received_by,
+            'approved_by'   =>  $request->approved_by,
+            'inspected_by'  =>  $request->inspected_by,
+            'issued_by'     =>  $request->issued_by,
+            'requested_by'  =>  $request->requested_by,
         ];
+
+        if($diir_model->received_by != $request->received_by)
+        {
+            $receiver  =   $signatories->findById($request->received_by);
+            $data['received_signatory']   =   $receiver->name."/".$receiver->ranks."/".$receiver->branch."/".$receiver->designation;
+        }
+
+        if($diir_model->approved_by != $request->approved_by)
+        {
+            $approver  =   $signatories->findById($request->approved_by);
+            $data['approved_signatory']   =   $approver->name."/".$approver->ranks."/".$approver->branch."/".$approver->designation;
+        }
+
+        if($diir_model->inspected_by != $request->inspected_by)
+        {
+            $inpector  =   $signatories->findById($request->inspected_by);
+            $data['inspected_signatory']   =   $inpector->name."/".$inpector->ranks."/".$inpector->branch."/".$inpector->designation;
+        }
+
+        if($diir_model->issued_by != $request->issued_by)
+        {
+            $issuer  =   $signatories->findById($request->issued_by);
+            $data['issued_signatory']   =   $issuer->name."/".$issuer->ranks."/".$issuer->branch."/".$issuer->designation;
+        }
+
+        if($diir_model->requested_by != $request->requested_by)
+        {
+            $requestor  =   $signatories->findById($request->requested_by);
+            $data['requested_signatory']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
+        }
 
         $result =   $model->update($data, $id);
         $tiac                   =   $result->delivery->inspections;
 
-        $holiday_lists          =   $holidays->lists('id','holiday_date');
-        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('start_date') );
         $tiac_date              =   Carbon::createFromFormat('!Y-m-d', $tiac->accepted_date );
 
-        $day_delayed            =   $tiac_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
-            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
-        }, $transaction_date);
-
-        if($day_delayed != 0)
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        if($request->start_date != null && $request->start_date != $diir_model->start_date)
         {
-            $day_delayed = $day_delayed - 1;
+
+            $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('start_date') );
+            $day_delayed            =   $tiac_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+                return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+            }, $transaction_date);
+            $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+
+            if($day_delayed > 1)
+            {
+                $day_delayed = $day_delayed - 1;
+            }
+
+            if($wd != $result->days)
+            {
+                $model->update(['days' => $wd], $id);
+            }
+
         }
-
-        if($day_delayed != $result->days)
+        if($request->closed_date != null && $request->closed_date != $diir_model->closed_date)
         {
-            $model->update(['days' => $day_delayed], $id);
+
+            $holiday_lists          =   $holidays->lists('id','holiday_date');
+            $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('closed_date') );
+            $diir_date              =   Carbon::createFromFormat('!Y-m-d', $tiac->accepted_date );
+            $cd                     =   $diir_date->diffInDays($transaction_date);
+
+            $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+                return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+            }, $transaction_date);
+            $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+            if($day_delayed > 1)
+            {
+                $day_delayed = $day_delayed - 1;
+            }
+
+            if($wd != $result->days)
+            {
+                $model->update(['close_days' => $wd], $id);
+            }
+
         }
 
         $modelType  =   'Revlv\Procurements\DeliveryInspection\DeliveryInspectionEloquent';
@@ -586,21 +659,43 @@ class DeliveredInspectionReportController extends Controller
         NOARepository $noa
         )
     {
-        $result                     =   $model->with(['receiver', 'approver','issuer','requestor','upr' ,'delivery'])->findById($id);
+        $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
 
         $data['items']              =   $result->delivery->po->items;
+        $data['delivery_number']              =   $result->delivery->delivery_number;
+        $data['delivery_date']              =   $result->delivery->delivery_date;
         $data['purpose']            =   $result->upr->purpose;
+        $data['place']             =   $result->upr->place_of_delivery;
+        $data['centers']            =   $result->upr->centers->name;
+        $data['units']              =   $result->upr->unit->short_code;
         $data['ref_number']         =   $result->upr->ref_number;
-        $data['receiver']           =   $result->receiver;
-        $data['approver']           =   $result->approver;
-        $data['issuer']             =   $result->issuer;
-        $data['requestor']          =   $result->requestor;
-        $pdf = PDF::loadView('forms.diir', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'))
-            ->setPaper('a4');
+        $data['supplier']           =   $supplier;
+        $data['date']               =   $result->delivery->delivery_date;
+        $data['po_number']          =   $result->delivery->po->po_number;
+        $data['po_date']            =   $result->delivery->po->coa_approved_date;
+        $data['invoice']            =   $result->delivery->inspections->invoices;
+        $data['issues']             =   $result->delivery->diir->issues;
+        $data['header']             =   $result->upr->centers;
 
-        return $pdf->setOption('page-width', '8.27in')->setOption('page-height', '11.69in')->inline('diir.pdf');
+        $data['receiver']           =   explode('/',$result->received_signatory);
+        $data['inspector']          =   explode('/',$result->inspected_signatory);
+        $data['approver']           =   explode('/',$result->approved_signatory);
+        $data['issuer']             =   explode('/',$result->issued_signatory);
+        $data['requestor']          =   explode('/',$result->requested_signatory);
+        // dd($data);
+        $pdf = PDF::loadView('forms.new-diir', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'));
+
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('diir.pdf');
     }
 
     /**

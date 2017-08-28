@@ -42,6 +42,7 @@ Purchase Order
 
                 <a href="#" class="button__options__item" id="signatory-button"> Signatories</a>
                 <a target="_blank" href="{{route('procurements.purchase-orders.print-terms', $data->id)}}" class="button__options__item" id="signatory-button"> Print Terms</a>
+                <a target="_blank" href="{{route('procurements.purchase-orders.print-contract', $data->id)}}" class="button__options__item" > Print Contract</a>
                 <a target="_blank" href="{{route('procurements.purchase-orders.print-coa', $data->id)}}" class="button__options__item" id="signatory-button"> Print COA Approval</a>
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
