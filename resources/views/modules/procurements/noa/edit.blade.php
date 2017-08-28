@@ -39,14 +39,23 @@ Notice Of Award
     <div class="twelve columns">
 
             <div class="row">
-                <div class="four columns">
+                <div class="six columns">
                     {!! Form::textField('awarded_date', 'Award Date') !!}
                 </div>
-                <div class="four columns">
+                @if($data->award_accepted_date != null)
+                <div class="six columns">
                     {!! Form::textField('award_accepted_date', 'Received Date') !!}
                 </div>
-                <div class="four columns">
+                @endif
+            </div>
+            <div class="row">
+                @if($data->accepted_date != null)
+                <div class="six columns">
                     {!! Form::textField('accepted_date', 'Approved Date') !!}
+                </div>
+                @endif
+                <div class="six columns">
+                    {!! Form::selectField('signatory_id', 'Signatory', $signatory_lists) !!}
                 </div>
             </div>
 

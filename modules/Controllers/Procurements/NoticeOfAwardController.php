@@ -74,6 +74,7 @@ class NoticeOfAwardController extends Controller
         CanvassingRepository $model,
         RFQProponentRepository $proponents,
         BlankRFQRepository $blank,
+        SignatoryRepository $signatories,
         UnitPurchaseRequestRepository $upr,
         NOARepository $noa,
         $canvasId,
@@ -125,12 +126,16 @@ class NoticeOfAwardController extends Controller
                         ->withInput();
         }
 
+        $signatory  =    $signatories->findById($canvasModel->chief);
+        $signatory   =   $signatory->name."/".$signatory->ranks."/".$signatory->branch."/".$signatory->designation;
+
         $data   =   [
             'canvass_id'    =>  $canvasId,
             'upr_id'        =>  $canvasModel->upr_id,
             'rfq_id'        =>  $canvasModel->rfq_id,
             'rfq_number'    =>  $canvasModel->rfq_number,
             'signatory_id'  =>  $canvasModel->chief,
+            'signatory'     =>  $signatory,
             'upr_number'    =>  $canvasModel->upr_number,
             'proponent_id'  =>  $proponentId,
             'awarded_by'    =>  $request->awarded_by,
@@ -409,12 +414,16 @@ class NoticeOfAwardController extends Controller
      */
     public function edit(
         $id,
+        SignatoryRepository $signatories,
         NOARepository $model)
     {
         $result             =   $model->findById($id);
 
+        $signatory_list     =   $signatories->lists('id','name');
+
         return $this->view('modules.procurements.noa.edit',[
             'data'              =>  $result,
+            'signatory_lists'   =>  $signatory_list,
             'indexRoute'        =>  $this->baseUrl.'show',
             'modelConfig'       =>  [
                 'update' =>  [
@@ -533,13 +542,19 @@ class NoticeOfAwardController extends Controller
      * @param  [type]  $id      [description]
      * @return [type]           [description]
      */
-    public function updateSignatory(Request $request, $id, NOARepository $model)
+    public function updateSignatory(Request $request, $id, NOARepository $model, SignatoryRepository $signatories)
     {
         $this->validate($request, [
             'signatory_id'   =>  'required',
         ]);
 
-        $model->update(['signatory_id' =>$request->signatory_id], $id);
+        if($upr_model->signatory_id != $request->signatory_id)
+        {
+            $signatory  =   $signatories->findById($request->signatory_id);
+            $signatory   =   $signatory->name."/".$signatory->ranks."/".$signatory->branch."/".$signatory->designation;
+        }
+
+        $model->update(['signatory_id' =>$request->signatory_id, 'signatory' => $signatory], $id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -559,6 +574,7 @@ class NoticeOfAwardController extends Controller
         UnitPurchaseRequestRepository $upr,
         AuditLogRepository $audits,
         HolidayRepository $holidays,
+        SignatoryRepository $signatories,
         UserLogRepository $userLogs,
         UserRepository $users,
         NOARepository $model
@@ -606,14 +622,23 @@ class NoticeOfAwardController extends Controller
             }
         }
 
+        if($result->signatory_id != $request->signatory_id)
+        {
+            $signatory  =   $signatories->findById($request->signatory_id);
+            $signatory   =   $signatory->name."/".$signatory->ranks."/".$signatory->branch."/".$signatory->designation;
+        }
+
 
         $input  =   [
+            'signatory'                 =>  $signatory,
+            'signatory_id'              =>  $request->signatory_id,
             'awarded_date'              =>  $request->awarded_date,
             'award_accepted_date'       =>  $request->award_accepted_date,
             'accepted_date'             =>  $request->accepted_date,
             'update_remarks'            =>  $request->update_remarks,
             'days' => $day_delayed
         ];
+
 
 
         $model->update($input, $id);
@@ -698,7 +723,7 @@ class NoticeOfAwardController extends Controller
         $data['header']             =   $noa_modal->upr->centers;
 
 
-        $data['signatory']          =   $noa_modal->signatory;
+        $data['signatory']          =   explode('/', $noa_modal->signatory);
         $data['project_name']       =   $upr_model->project_name;
 
         $pdf = PDF::loadView('forms.noa', ['data' => $data])

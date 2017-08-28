@@ -22,6 +22,7 @@ class NOAEloquent extends Model implements  AuditableContract
         'update_remarks',
         'award_accepted_date',
         'accepted_date',
+        'signatory',
     ];
 
     /**
@@ -48,6 +49,7 @@ class NOAEloquent extends Model implements  AuditableContract
         'proponent_id',
         'awarded_by',
         'resolution',
+        'signatory',
         'awarded_date',
         'update_remarks',
         'remarks',

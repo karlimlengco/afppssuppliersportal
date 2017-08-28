@@ -27,6 +27,7 @@ class NOARequest extends BaseRequest
         'seconded_by',
         'resolution',
         'accepted_date',
+        'signatory',
 
         'days',
 

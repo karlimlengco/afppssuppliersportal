@@ -22,6 +22,7 @@ class CreateNoticeOfAwards extends Migration
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
             $table->integer('signatory_id')->nullable();
+            $table->text('signatory')->nullable();
             $table->integer('proponent_id');
 
             $table->integer('awarded_by')->nullable();
