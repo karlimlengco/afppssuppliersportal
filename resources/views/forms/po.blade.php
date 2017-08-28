@@ -146,9 +146,9 @@
                             @if($data['approver'] != null)
                             Very truly yours,
                             <br>
-                            <strong class="margin-top">{{$data['approver']->ranks}} {{$data['approver']->name}} {{$data['approver']->branch}}</strong>
+                            <strong class="margin-top">{{$data['approver'][1]}} {{$data['approver'][0]}} {{$data['approver'][2]}}</strong>
                             <br>
-                            {{$data['approver']->designation}}
+                            {{$data['approver'][3]}}
                             @endif
                         </td>
                     </tr>
@@ -186,7 +186,7 @@
                     </tr>
                     <tr>
                         <td class="no-padding border-left-only"></td>
-                        <td class="no-padding no-border" colspan="2"><strong>{{$data['accounting']->ranks}} {{$data['accounting']->name}}, {{$data['accounting']->branch}}</strong></td>
+                        <td class="no-padding no-border" colspan="2"><strong>{{$data['accounting'][1]}} {{$data['accounting'][0]}}, {{$data['accounting'][2]}}</strong></td>
                         <td class="no-padding no-border"></td>
                         <td class="no-padding no-border" nowrap>OBR/BUR No</td>
                         <td class="no-padding border-bottom-only"></td>
@@ -194,7 +194,7 @@
                     </tr>
                     <tr>
                         <td class="no-padding border-left-only"></td>
-                        <td class="no-padding no-border" colspan="2">{{$data['accounting']->designation}}</td>
+                        <td class="no-padding no-border" colspan="2">{{$data['accounting'][3]}}</td>
                         <td class="no-padding no-border"></td>
                         <td class="no-padding no-border"></td>
                         <td class="no-padding no-border"></td>
@@ -224,7 +224,7 @@
                     </tr>
                     <tr>
                         <td class="no-padding border-left-only"></td>
-                        <td class="no-padding no-border"><strong>{{$data['coa_signatories']->ranks}} {{$data['coa_signatories']->name}}, {{$data['coa_signatories']->branch}}</strong></td>
+                        <td class="no-padding no-border"><strong>{{$data['coa_signatories'][1]}} {{$data['coa_signatories'][0]}}, {{$data['coa_signatories'][2]}}</strong></td>
                         <td class="no-padding no-border"></td>
                         <td class="no-padding no-border" nowrap>Date</td>
                         <td class="no-padding border-bottom-only"></td>
@@ -232,7 +232,7 @@
                     </tr>
                     <tr>
                         <td class="no-padding border-left-only"></td>
-                        <td class="no-padding no-border">{{$data['coa_signatories']->designation}}</td>
+                        <td class="no-padding no-border">{{$data['coa_signatories'][3]}}</td>
                         <td class="no-padding no-border"></td>
                         <td class="no-padding no-border"></td>
                         <td class="no-padding no-border"></td>

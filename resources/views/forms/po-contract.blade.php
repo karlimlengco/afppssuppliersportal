@@ -97,20 +97,20 @@
                             <td width="35%">
                                 <table class="signatory">
                                     <tr>
-                                        <td nowrap><strong>ANNE MICHELLE R JOMENTO</strong></td>
+                                        <td nowrap><strong>{{$data['requestor'][0]}}</strong></td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <div class="signatory-rank-justify">
-                                                <strong>CPT DS</strong>
+                                                <strong>{{$data['requestor'][1]}} {{$data['requestor'][2]}}</strong>
                                                 <span></span>
                                             </div>
                                         </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td>Chief, Program & Budget Branch</td>
+                                        <td>{{$data['requestor'][3]}}</td>
                                         <td></td>
                                     </tr>
                                 </table>
@@ -149,20 +149,20 @@
                             <td width="35%">
                                 <table class="signatory">
                                     <tr>
-                                        <td nowrap><strong>FRANKLIN B BORTONI</strong></td>
+                                        <td nowrap><strong>{{$data['approver'][0]}}</strong></td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <div class="signatory-rank-justify">
-                                                <strong>CDR PN</strong>
+                                                <strong>{{$data['approver'][1]}} {{$data['approver'][2]}}</strong>
                                                 <span></span>
                                             </div>
                                         </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td>CO, GHQPC, AFPPS</td>
+                                        <td>{{$data['approver'][3]}}</td>
                                         <td></td>
                                     </tr>
                                 </table>
@@ -181,9 +181,9 @@
                         <tr>
                             <td></td>
                             <td class="align-bottom align-left" height="60px">
-                                <strong>MR NILO B ABAIGAR, DPA</strong><br>
-                                <strong>Chief Accountant</strong><br>
-                                AFP Accounting Center
+                                <strong>{{$data['accounting'][0]}}</strong><br>
+                                <strong>{{$data['accounting'][1]}}{{$data['accounting'][2]}}</strong><br>
+                                {{$data['accounting'][3]}}
                             </td>
                             <td></td>
                             <td></td>

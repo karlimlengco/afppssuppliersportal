@@ -33,12 +33,10 @@
                     <p>
                         Resident Auditor <br>
                         Commission on Audit<br>
-                        HEADER1<br>
-                        HEADER2
                     </p>
                     <p>Dear Sir/Madame,</p>
                     <p>This is in reference to COA Circular No. 2009-001 dated February 12, 2009 regarding submission of approved purchase order, work order and job order.</p>
-                    <p>In compliance with the above reference, submitted herewith is the approved PO/WO/JO of 302nd on.</p>
+                    <p>In compliance with the above reference, submitted herewith is the approved PO/WO/JO of {{$data['header']->short_code}}</p>
                     <table class="printable-form__body__table">
                         <tr>
                             <td class="align-center" width="25%"><strong>PO/WO/JO No.</strong></td>
@@ -64,20 +62,20 @@
                             <td>
                                 <table class="signatory">
                                     <tr>
-                                        <td nowrap>{{$data['coa_signatory']->name}}</td>
+                                        <td nowrap>{{$data['coa_signatories'][0]}}</td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <div class="signatory-rank-justify">
-                                                <strong>{{$data['coa_signatory']->ranks}} {{$data['coa_signatory']->branch}}</strong>
+                                                <strong>{{$data['coa_signatories'][1]}} {{$data['coa_signatories'][2]}}</strong>
                                                 <span></span>
                                             </div>
                                         </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td>{{$data['coa_signatory']->designation}}</td>
+                                        <td>{{$data['coa_signatories'][3]}}</td>
                                         <td></td>
                                     </tr>
                                 </table>

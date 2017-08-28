@@ -60,6 +60,11 @@ class CreatePurchaseOrders extends Migration
             $table->date('coa_approved_date')->nullable();
             $table->string('coa_approved')->nullable();
 
+            $table->string('requestor_signatory')->nullable();
+            $table->string('accounting_signatory')->nullable();
+            $table->string('approver_signatory')->nullable();
+            $table->string('coa_name_signatory')->nullable();
+
             $table->text('coa_file')->nullable();
             $table->date('award_accepted_date')->nullable();
             $table->timestamps();

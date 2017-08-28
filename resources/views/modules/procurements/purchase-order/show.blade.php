@@ -63,7 +63,7 @@ Purchase Order
             </div>
         </button>
 
-        <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
+        {{-- <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a> --}}
         @if($data->type != 'contract')
         <a target="_blank" href="{{route('procurements.purchase-orders.print', $data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>

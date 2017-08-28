@@ -55,23 +55,53 @@ Purchase Order
                 <div class="four columns">
                     {!! Form::textField('purchase_date', 'Purchase Date') !!}
                 </div>
+                @if($data->funding_released_date != null)
                 <div class="four columns">
                     {!! Form::textField('funding_released_date', 'Funding Released Date') !!}
                 </div>
+                @endif
+                @if($data->funding_received_date != null)
                 <div class="four columns">
                     {!! Form::textField('funding_received_date', 'Fundig Received Date') !!}
                 </div>
+                @endif
             </div>
 
             <div class="row">
+                @if($data->mfo_released_date != null)
                 <div class="four columns">
                     {!! Form::textField('mfo_released_date', 'MFO Released Date') !!}
                 </div>
+                @endif
+                @if($data->mfo_received_date != null)
                 <div class="four columns">
                     {!! Form::textField('mfo_received_date', 'MFO Received Date') !!}
                 </div>
+                @endif
+                @if($data->coa_approved_date != null)
                 <div class="four columns">
                     {!! Form::textField('coa_approved_date', 'COA Approved Date') !!}
+                </div>
+                @endif
+            </div>
+
+            <div class="row">
+                <div class="six columns">
+
+                {!! Form::selectField('requestor_id', 'Requestor', $signatory_list) !!}
+
+                </div>
+                <div class="six columns">
+                    {!! Form::selectField('accounting_id', 'Accounting', $signatory_list) !!}
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                   {!! Form::selectField('approver_id', 'Approver', $signatory_list) !!}
+                </div>
+                <div class="six columns">
+                    {!! Form::selectField('coa_signatory', 'COA Signatory', $signatory_list) !!}
                 </div>
             </div>
 

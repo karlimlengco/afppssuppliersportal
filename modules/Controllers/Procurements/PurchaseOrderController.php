@@ -787,14 +787,17 @@ class PurchaseOrderController extends Controller
     public function edit(
         $id,
         PaymentTermRepository $terms,
+        SignatoryRepository $signatories,
         PORepository $model)
     {
         $term_lists =   $terms->lists('id','name');
         $result     =   $model->findById($id);
 
+        $signatory_list     =   $signatories->lists('id','name');
         return $this->view('modules.procurements.purchase-order.edit',[
             'data'          =>  $result,
             'term_lists'    =>  $term_lists,
+            'signatory_list'=>  $signatory_list,
             'indexRoute'    =>  $this->baseUrl.'show',
             'modelConfig'   =>  [
                 'update' =>  [
@@ -825,6 +828,7 @@ class PurchaseOrderController extends Controller
     public function update(
         Request $request,
         $id,
+        SignatoryRepository $Signatories,
         RFQProponentRepository $rfq,
         BlankRFQRepository $blank,
         PORepository $model
@@ -862,12 +866,21 @@ class PurchaseOrderController extends Controller
         UserLogRepository $userLogs,
         UserRepository $users,
         NOARepository $noa,
+        SignatoryRepository $signatories,
         PORepository $model
         )
     {
+        $this->validate($request, [
+            'requestor_id'  =>  'required',
+            'accounting_id' =>  'required',
+            'approver_id'   =>  'required',
+            'coa_signatory' =>  'required',
+        ]);
+
+        $po_model =   $model->findById($id);
 
         $input  =   [
-            'payment_term'        =>  $request->payment_term,
+            'payment_term'          =>  $request->payment_term,
             'delivery_terms'        =>  $request->delivery_terms,
             'update_remarks'        =>  $request->update_remarks,
             'purchase_date'         =>  $request->purchase_date,
@@ -876,23 +889,51 @@ class PurchaseOrderController extends Controller
             'mfo_released_date'     =>  $request->mfo_released_date,
             'mfo_received_date'     =>  $request->mfo_received_date,
             'coa_approved_date'     =>  $request->coa_approved_date,
+            'requestor_id'  =>  $request->requestor_id,
+            'accounting_id' =>  $request->accounting_id,
+            'approver_id'   =>  $request->approver_id,
+            'coa_signatory' =>  $request->coa_signatory,
         ];
+
+        if($po_model->requestor_id != $request->requestor_id)
+        {
+            $requestor  =   $signatories->findById($request->requestor_id);
+            $input['requestor_signatory']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
+        }
+
+        if($po_model->accounting_id != $request->accounting_id)
+        {
+            $accounting  =   $signatories->findById($request->accounting_id);
+            $input['accounting_signatory']   =   $accounting->name."/".$accounting->ranks."/".$accounting->branch."/".$accounting->designation;
+        }
+
+        if($po_model->approver_id != $request->approver_id)
+        {
+            $approver  =   $signatories->findById($request->approver_id);
+            $input['approver_signatory']   =   $approver->name."/".$approver->ranks."/".$approver->branch."/".$approver->designation;
+        }
+
+        if($po_model->coa_signatory != $request->coa_signatory)
+        {
+            $coa  =   $signatories->findById($request->coa_signatory);
+            $input['coa_name_signatory']   =   $coa->name."/".$coa->ranks."/".$coa->branch."/".$coa->designation;
+        }
 
         $result =   $model->update($input, $id);
 
-        $noa_model              =   $noa->with('winner')->findByUPR($result->upr_id);
-        $award_accepted_date    =   Carbon::createFromFormat('!Y-m-d', $noa_model->award_accepted_date);
-        $holiday_lists          =   $holidays->lists('id','holiday_date');
-        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('purchase_date') );
-        // Delay
-        $day_delayed            =   $award_accepted_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
-            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
-        }, $transaction_date);
+        // $noa_model              =   $noa->with('winner')->findByUPR($result->upr_id);
+        // $award_accepted_date    =   Carbon::createFromFormat('!Y-m-d', $noa_model->award_accepted_date);
+        // $holiday_lists          =   $holidays->lists('id','holiday_date');
+        // $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('purchase_date') );
+        // // Delay
+        // $day_delayed            =   $award_accepted_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        //     return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        // }, $transaction_date);
 
-        if($day_delayed != $result->days)
-        {
-            $model->update(['days' => $day_delayed], $id);
-        }
+        // if($day_delayed != $result->days)
+        // {
+        //     $model->update(['days' => $day_delayed], $id);
+        // }
 
         $modelType  =   'Revlv\Procurements\PurchaseOrder\POEloquent';
         $resultLog  =   $audits->findLastByModelAndId($modelType, $id);
@@ -972,7 +1013,11 @@ class PurchaseOrderController extends Controller
         $data['items']              =  $result->items;
         $data['supplier']           =  $noa_model;
         $data['header']             =  $result->upr->centers;
-        $data['accounting']         =  $result->accounting;
+
+        $data['requestor']          =  explode('/', $result->requestor_signatory);
+        $data['accounting']         =  explode('/', $result->accounting_signatory);
+        $data['approver']           =  explode('/', $result->approver_signatory);
+        $data['coa_signatories']    =  explode('/', $result->coa_name_signatory);
 
         $pdf = PDF::loadView('forms.po-contract', ['data' => $data])
             ->setOption('margin-bottom', 30)
@@ -1024,10 +1069,12 @@ class PurchaseOrderController extends Controller
         $data['delivery_term']      =  $result->delivery_terms;
         $data['items']              =  $result->items;
         $data['bid_amount']         =  $result->bid_amount;
-        $data['requestor']          =  $result->requestor;
-        $data['accounting']         =  $result->accounting;
-        $data['approver']           =  $result->approver;
-        $data['coa_signatories']    =  $result->coa_signatories;
+
+        $data['requestor']          =  explode('/', $result->requestor_signatory);
+        $data['accounting']         =  explode('/', $result->accounting_signatory);
+        $data['approver']           =  explode('/', $result->approver_signatory);
+        $data['coa_signatories']    =  explode('/', $result->coa_name_signatory);
+
         $data['mfo_release_date']   =  $result->mfo_released_date;
         $data['coa_approved_date']  =  $result->coa_approved_date;
         $data['funding_release_date']  =  $result->funding_release_date;
@@ -1071,7 +1118,7 @@ class PurchaseOrderController extends Controller
         $data['bid_amount']         =  $result->bid_amount;
         $data['project_name']       =  $result->upr->project_name;
         $data['winner']             =  $noa_model->name;
-        $data['coa_signatory']      =  $result->coa_signatories;
+        $data['coa_signatories']    =  explode('/', $result->coa_name_signatory);
         $data['items']              =  $result->upr->items;
         $data['header']             =  $result->upr->centers;
 

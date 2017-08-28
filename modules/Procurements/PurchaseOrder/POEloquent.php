@@ -29,6 +29,11 @@ class POEloquent extends Model implements  AuditableContract
         'coa_approved_date',
         'update_remarks',
         'delivery_terms',
+
+        'requestor_signatory',
+        'accounting_signatory',
+        'approver_signatory',
+        'coa_name_signatory',
     ];
 
     /**
@@ -90,6 +95,10 @@ class POEloquent extends Model implements  AuditableContract
         'mfo_action',
         'coa_action',
 
+        'requestor_signatory',
+        'accounting_signatory',
+        'approver_signatory',
+        'coa_name_signatory',
     ];
 
     /**
