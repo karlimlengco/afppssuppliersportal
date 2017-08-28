@@ -309,7 +309,7 @@ class PreProcController extends Controller
     public function viewLogs($id, PreProcRepository $model, AuditLogRepository $audits)
     {
 
-        $modelType  =   'Revlv\Biddings\DocumentAcceptance\DocumentAcceptanceEloquent';
+        $modelType  =   'Revlv\Biddings\PreProc\PreProcEloquent';
         $result     =   $audits->findByModelAndId($modelType, $id);
         $rfq_model  =   $model->findById($id);
 

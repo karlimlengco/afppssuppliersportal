@@ -53,7 +53,14 @@ Document Acceptance
                             <tr style="background: #f0a35f; ">
                                 <td>Old</td>
                                 <td>{{$oldKey}}</td>
-                                <td>{{$oldValue}}</td>
+                                <td>
+
+                                    @if($oldKey == 'bac_id' )
+                                        {{( $office = \Revlv\Settings\BacSec\BacSecEloquent::where('id',$oldValue)->first() ) ? $office->name : "" }}
+                                    @else
+                                        {{$oldValue}}
+                                    @endif
+                                </td>
                             </tr>
                             @endif
                         @endforeach
@@ -65,7 +72,13 @@ Document Acceptance
                                 @if(is_object($newValue))
                                 <td>{{json_encode($newValue)}}</td>
                                 @else
-                                <td>{{$newValue}}</td>
+                                <td>
+                                    @if($newKey == 'bac_id' )
+                                        {{( $office = \Revlv\Settings\BacSec\BacSecEloquent::where('id',$newValue)->first() ) ? $office->name : "" }}
+                                    @else
+                                        {{$newValue}}
+                                    @endif
+                                </td>
                                 @endif
                             </tr>
                         @endforeach
