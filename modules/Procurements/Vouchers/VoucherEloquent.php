@@ -25,7 +25,9 @@ class VoucherEloquent extends Model implements  AuditableContract
         'journal_entry_date',
         'approval_date',
 
-
+        'certified_signatory',
+        'approver_signatory',
+        'receiver_signatory',
     ];
 
     /**
@@ -60,7 +62,6 @@ class VoucherEloquent extends Model implements  AuditableContract
         'payment_no',
         'bank',
         'payment_date',
-
 
         'preaudit_date',
 
@@ -97,7 +98,6 @@ class VoucherEloquent extends Model implements  AuditableContract
         'received_days',
         'received_remarks',
 
-
         'action',
         'preaudit_action',
         'jev_action',
@@ -106,6 +106,11 @@ class VoucherEloquent extends Model implements  AuditableContract
         'approved_action',
         'released_action',
         'received_action',
+
+        'certified_signatory',
+        'approver_signatory',
+        'receiver_signatory',
+
     ];
 
     /**

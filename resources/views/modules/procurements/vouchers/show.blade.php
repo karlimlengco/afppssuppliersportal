@@ -72,17 +72,18 @@ Vouchers
                     <a href="#" id="approval-button" class="button__options__item" tooltip="Approve Voucher"> Approve Voucher</a>
                 @endif
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
+                <a class="button__options__item" href="{{route('procurements.vouchers.logs', $data->id)}}">View Logs</a>
 
             </div>
         </button>
 
-        <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
+        {{-- <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a> --}}
       {{--   <a target="_blank" href="{{route('procurements.vouchers.print', $data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>
         </a> --}}
-        <a href="{{route('procurements.vouchers.logs', $data->id)}}" class="button" tooltip="Logs">
+       {{--  <a href="{{route('procurements.vouchers.logs', $data->id)}}" class="button" tooltip="Logs">
             <i class="nc-icon-mini files_archive-content"></i>
-        </a>
+        </a> --}}
         <a class="button" href="{{route($editRoute,$data->id)}}"><i class="nc-icon-mini design_pen-01"></i></a>
     </div>
 

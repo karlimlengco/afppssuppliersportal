@@ -229,14 +229,16 @@ class VoucherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, VoucherRepository $model)
+    public function edit($id, VoucherRepository $model, SignatoryRepository $signatories)
     {
         $result     =   $model->findById($id);
+        $signatory_lists=   $signatories->lists('id', 'name');
 
         return $this->view('modules.procurements.vouchers.edit',[
-            'data'          =>  $result,
-            'indexRoute'    =>  $this->baseUrl.'show',
-            'modelConfig'   =>  [
+            'data'              =>  $result,
+            'signatory_list'    =>  $signatory_lists,
+            'indexRoute'        =>  $this->baseUrl.'show',
+            'modelConfig'       =>  [
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update', $id],
                     'method'    =>  'PUT',
@@ -270,18 +272,18 @@ class VoucherController extends Controller
         HolidayRepository $holidays,
         UserLogRepository $userLogs,
         UserRepository $users,
+        SignatoryRepository $signatories,
         VoucherRepository $model)
     {
         $this->validate($request, [
             'update_remarks'        =>  'required',
             'transaction_date'      =>  'required',
-            // 'payment_release_date'  =>  'required',
-            // 'payment_received_date' =>  'required',
-            // 'preaudit_date'         =>  'required',
-            // 'certify_date'          =>  'required',
-            // 'journal_entry_date'    =>  'required',
-            // 'approval_date'         =>  'required'
+            'certified_by'          =>  'required',
+            'approver_id'           =>  'required',
+            'receiver_id'           =>  'required',
         ]);
+
+        $voucher_model  =   $model->findById($id);
 
         $data   =   [
             'update_remarks'        =>  $request->update_remarks,
@@ -291,8 +293,29 @@ class VoucherController extends Controller
             'preaudit_date'         =>  $request->preaudit_date,
             'certify_date'          =>  $request->certify_date,
             'journal_entry_date'    =>  $request->journal_entry_date,
-            'approval_date'         =>  $request->approval_date
+            'approval_date'         =>  $request->approval_date,
+            'certified_by'          =>  $request->certified_by,
+            'approver_id'           =>  $request->approver_id,
+            'receiver_id'           =>  $request->receiver_id
         ];
+
+        if($voucher_model->certified_by != $request->certified_by)
+        {
+            $certifier  =   $signatories->findById($request->certified_by);
+            $data['certified_signatory']   =   $certifier->name."/".$certifier->ranks."/".$certifier->branch."/".$certifier->designation;
+        }
+
+        if($voucher_model->approver_id != $request->approver_id)
+        {
+            $approver  =   $signatories->findById($request->approver_id);
+            $data['approver_signatory']   =   $approver->name."/".$approver->ranks."/".$approver->branch."/".$approver->designation;
+        }
+
+        if($voucher_model->receiver_id != $request->receiver_id)
+        {
+            $receiver  =   $signatories->findById($request->receiver_id);
+            $data['receiver_signatory']   =   $receiver->name."/".$receiver->ranks."/".$receiver->branch."/".$receiver->designation;
+        }
 
         $result                 =   $model->update($data, $id);
 
@@ -301,20 +324,22 @@ class VoucherController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
         $diir_date              =   Carbon::createFromFormat('!Y-m-d', $rfq_model->diir->closed_date );
+        $cd                     =   $diir_date->diffInDays($transaction_date);
 
         $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
-        if($day_delayed != 0)
+
+        if($day_delayed > 1)
         {
             $day_delayed = $day_delayed - 1;
         }
 
-        if($day_delayed != $result->days)
+        if($wd != $result->days)
         {
-            $model->update(['days' => $day_delayed], $id);
+            $model->update(['days' => $wd], $id);
         }
 
         $modelType  =   'Revlv\Procurements\Vouchers\VoucherEloquent';

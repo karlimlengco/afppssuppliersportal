@@ -78,6 +78,11 @@ class CreateVouchers extends Migration
             $table->text('approved_action')->nullable();
             $table->text('released_action')->nullable();
             $table->text('received_action')->nullable();
+
+            $table->string('certified_signatory')->nullable();
+            $table->string('approver_signatory')->nullable();
+            $table->string('receiver_signatory')->nullable();
+
             $table->timestamps();
         });
     }

@@ -68,6 +68,9 @@ class VoucherRequest extends BaseRequest
         'approved_action',
         'released_action',
         'received_action',
+        'certified_signatory',
+        'approver_signatory',
+        'receiver_signatory',
     ];
 
     /**
