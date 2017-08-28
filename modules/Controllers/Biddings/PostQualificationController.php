@@ -316,12 +316,21 @@ class PostQualificationController extends Controller
         $this->validate($request,[
             'failed_remarks'    =>  'required',
             'date_failed'    =>  'required',
+            'status'    =>  'required',
         ]);
 
         $result     =   $model->update(['date_failed' => $request->date_failed,'failed_remarks' => $request->failed_remarks, 'is_failed' => 1],$request->id);
 
         $upr_model  =   $result->upr;
-        $upr->update(['status' => 'Failed Post Qualification'], $upr_model->id);
+
+        if($request->status == 'continue')
+        {
+            $upr->update(['status' =>  'Failed Post Qualification'], $upr_model->id);
+        }
+        else
+        {
+            $upr->update(['status' => 'cancelled', 'state' => 'cancelled'], $upr_model->id);
+        }
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

@@ -14,6 +14,9 @@
                 <div class="row">
                     {!! Form::textareaField('failed_remarks', 'Remarks', null, ['rows'=>3])!!}
                 </div>
+                <div class="row">
+                    {!! Form::selectField('status', 'Status', ['continue' => 'Continue', 'cancel' => 'Cancelled'])!!}
+                </div>
 
                 <input name="id" type="hidden" value="{{ $data->id }}">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">

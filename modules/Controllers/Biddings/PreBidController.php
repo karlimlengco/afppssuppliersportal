@@ -132,13 +132,21 @@ class PreBidController extends Controller
     {
 
         $this->validate($request,[
-            'failed_remarks'    =>  'required'
+            'failed_remarks'    =>  'required',
+            'status'    =>  'required',
         ]);
 
         $result     =   $model->update(['failed_remarks' => $request->failed_remarks], $request->id);
         $upr_model  =   $result->upr;
 
-        $upr->update(['status' => 'Failed Pre Bid'], $upr_model->id);
+        if($request->status == 'continue')
+        {
+            $upr->update(['status' => 'Failed Pre Bid'], $upr_model->id);
+        }
+        else
+        {
+            $upr->update(['status' => 'cancelled', 'state' => 'cancelled'], $upr_model->id);
+        }
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
