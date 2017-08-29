@@ -31,7 +31,7 @@ trait DatatableTrait
         }
         else
         {
-        $model  =   $model->select(['delivery_inspection.*']);
+            $model  =   $model->select(['delivery_inspection.*']);
             $model  =   $model->whereNull('rfq_id');
         }
 

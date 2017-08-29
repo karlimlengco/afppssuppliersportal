@@ -182,6 +182,20 @@ trait PSRTrait
             $model  =   $model->where('procurement_centers.name', 'LIKE', "%$search%");
         }
 
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                $center =   $user->units->centers->id;
+            }
+
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+
+        }
+
         $model  =   $model->groupBy([
             'procurement_centers.name',
             'procurement_centers.id'
@@ -267,6 +281,22 @@ trait PSRTrait
             {
                 $model      =   $model->where('mode_of_procurement','=', 'public_bidding');
             }
+        }
+
+
+
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                $center =   $user->units->centers->id;
+            }
+
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+
         }
 
         $model  =   $model->groupBy([

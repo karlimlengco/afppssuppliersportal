@@ -266,6 +266,21 @@ trait TransactionDaysTrait
         }
 
 
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                $center =   $user->units->centers->id;
+            }
+
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+
+        }
+
+
         return $model->get();
     }
 
