@@ -34,7 +34,7 @@
                 <div class="login-logo">
                     <a href=""><img src="/img/logo.png" alt=""></a>
                 </div>
-                <h1 class="login-notice-title">AFP</h1>
+                <h1 class="login-notice-title">AFPPS</h1>
                 <p class="login-notice">Automated Procurement Processing,<br>Monitoring and Information System</p>
             </div>
 
