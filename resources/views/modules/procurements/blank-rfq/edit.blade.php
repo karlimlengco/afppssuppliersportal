@@ -23,6 +23,7 @@ Request For Quotation
 @stop
 
 @section('modal')
+    @include('modules.partials.create_signatory')
     @include('modules.partials.modals.delete')
     {!! Form::model($data, $modelConfig['update']) !!}
     @include('modules.partials.modals.edit-remarks')
@@ -61,7 +62,10 @@ Request For Quotation
 
             <div class="row">
                 <div class="six columns">
-                    {!! Form::selectField('chief', 'Chief', $signatory_list) !!}
+                    {{-- {!! Form::selectField('chief', 'Chief', $signatory_list) !!} --}}
+
+                    <label class="label">Chief</label>
+                    {!! Form::select('chief',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-chief']) !!}
                 </div>
                 @if($data->completed_at != null)
                 <div class="six columns">
@@ -103,6 +107,37 @@ Request For Quotation
     //     format  : 'Y-m-d',
     //     default_date: false
     // });
+
+    $approver = $('#id-field-chief').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    approver  = $approver[0].selectize;
+
+    $(document).on('submit', '#create-signatory-form', function(e){
+        e.preventDefault();
+        var inputs =  $("#create-signatory-form").serialize();
+
+        console.log(inputs);
+        $.ajax({
+            type: "POST",
+            url: '/api/signatories/store',
+            data: inputs,
+            success: function(result) {
+                console.log(result);
+                approver.addOption({value:result.id, text: result.name});
+
+                $('#create-signatory-modal').removeClass('is-visible');
+                $('#create-signatory-form')[0].reset();
+            }
+        });
+
+    });
 
     var picker = new Pikaday(
     {

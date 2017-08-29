@@ -1,9 +1,6 @@
-<div class="modal" id="create-signatory-modal">
+<div class="modal" id="create-signatory-modal" style="z-index:999999999">
     <div class="modal__dialogue modal__dialogue--round-corner">
         <form method="POST" id="create-signatory-form" accept-charset="UTF-8">
-            <button type="button" class="modal__close-button">
-                <i class="nc-icon-outline ui-1_simple-remove"></i>
-            </button>
 
             <div class="moda__dialogue__head">
                 <h1 class="modal__title">New Signatory</h1>
@@ -34,6 +31,7 @@
             </div>
 
             <div class="modal__dialogue__foot">
+                <button type="button" class="button pull-left" id='close-signatory-button'>Cancel</button>
                 <button class="button">Proceed</button>
             </div>
 

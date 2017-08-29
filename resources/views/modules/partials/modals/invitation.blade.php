@@ -26,7 +26,10 @@
 
                 <div class="row">
                     <div class="twelve columns">
-                        {!! Form::selectField('signatory_id', 'Signatories', $signatory_list) !!}
+                        {{-- {!! Form::selectField('signatory_id', 'Signatories', $signatory_list) !!} --}}
+
+                        <label class="label">Signatory</label>
+                        {!! Form::select('signatory_id',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-signatory_id']) !!}
                     </div>
                 </div>
 

@@ -20,28 +20,46 @@
                 </div>
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::selectField('presiding_officer', 'Presiding Officer', $signatory_list) !!}
+                        {{-- {!! Form::selectField('presiding_officer', 'Presiding Officer', $signatory_list) !!} --}}
+
+                        <label class="label">Presiding Officer</label>
+                        {!! Form::select('presiding_officer',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-presiding_officer']) !!}
                     </div>
                     <div class="six columns">
-                        {!! Form::selectField('chief', 'Chief', $signatory_list) !!}
+                        {{-- {!! Form::selectField('chief', 'Chief', $signatory_list) !!} --}}
+
+                        <label class="label">Chief</label>
+                        {!! Form::select('chief',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-chief']) !!}
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::selectField('unit_head', 'Unit Head', $signatory_list) !!}
+                        {{-- {!! Form::selectField('unit_head', 'Unit Head', $signatory_list) !!} --}}
+
+                        <label class="label">Unit Head</label>
+                        {!! Form::select('unit_head',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-unit_head']) !!}
                     </div>
                     <div class="six columns">
-                        {!! Form::selectField('mfo', 'MFO', $signatory_list) !!}
+                        {{-- {!! Form::selectField('mfo', 'MFO', $signatory_list) !!} --}}
+
+                        <label class="label">MFO</label>
+                        {!! Form::select('mfo',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-mfo']) !!}
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::selectField('legal', 'Legal', $signatory_list) !!}
+                        {{-- {!! Form::selectField('legal', 'Legal', $signatory_list) !!} --}}
+
+                        <label class="label">Legal</label>
+                        {!! Form::select('legal',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-legal']) !!}
                     </div>
                     <div class="six columns">
-                        {!! Form::selectField('secretary', 'Secretary', $signatory_list) !!}
+                        {{-- {!! Form::selectField('secretary', 'Secretary', $signatory_list) !!} --}}
+
+                        <label class="label">Secretary</label>
+                        {!! Form::select('secretary',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-secretary']) !!}
                     </div>
                 </div>
 

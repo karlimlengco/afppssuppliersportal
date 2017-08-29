@@ -48,6 +48,10 @@ $('.modal__close-button').click(function(){
     $('.modal').removeClass('is-visible');
 })
 
+$(document).on('click', '#close-signatory-button', function(e){
+    $('#create-signatory-modal').removeClass('is-visible');
+})
+
 
 // show chatbox
 $(document).on('click', '.topbar__utility__button--chat', function(e){
