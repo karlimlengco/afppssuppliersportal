@@ -29,42 +29,60 @@
 <body>
 
         <div class="login">
-            <div class="login__logo">
-                <h1 class="login__logo__text">Sign-in</h1>
+
+            <div class="left-panel">
+                <div class="login-logo">
+                    <a href=""><img src="/img/logo.png" alt=""></a>
+                </div>
+                <h1 class="login-notice-title">AFP</h1>
+                <p class="login-notice">Automated Procurement Processing,<br>Monitoring and Information System</p>
             </div>
-            <form method="POST" route="{{ route('auth.login') }}" class="login__form">
-                {{ csrf_field() }}
 
-                @if(count($errors))
-                <div class="message-box message-box--login message-box--error">
-                    <span class="message-box__message">
-                    @if($errors->has('login') or $errors->has('password'))
-                        Oooppsss! Please check your fields.
-                    @endif
-                    @if($errors->has('auth'))
-                        {{ $errors->first('auth') }}
-                    @endif
-                    @if($errors->has('expired'))
-                        {{ $errors->first('expired') }}
-                    @endif
-                    @if($errors->has('email'))
-                        {{ $errors->first('email') }}
-                    @endif
-                    </span>
-                </div>
-                @endif
+            <div class="right-panel">
+                <form method="POST" route="{{ route('auth.login') }}" class="login-form">
+                    {{ csrf_field() }}
 
-                <div class="input-group">
-                    <span class="login__form__input__icon"><i class="nc-icon-mini users_single-01"></i></span>
-                    <input type="text" class="login__form__input" placeholder="Username" name="login" value="{{ old('email') }}" required autofocus>
-                </div>
-                <div class="input-group">
-                    <span class="login__form__input__icon"><i class="nc-icon-mini gestures_pin"></i></span>
-                    <input type="password" class="login__form__input" placeholder="Password" name="password" required>
-                </div>
-                <button class="login__form__button">Sign-in</button>
-                {{-- <a href="#" class="forgot-password">Forgot your password?</a> --}}
-            </form>
+                    <h1>Sign-in</h1>
+
+                    @if(count($errors))
+                    <div class="message-box message-box--login message-box--error">
+                        <span class="message-box__message">
+                        @if($errors->has('login') or $errors->has('password'))
+                            Oooppsss! Please check your fields.
+                        @endif
+                        @if($errors->has('auth'))
+                            {{ $errors->first('auth') }}
+                        @endif
+                        @if($errors->has('expired'))
+                            {{ $errors->first('expired') }}
+                        @endif
+                        @if($errors->has('email'))
+                            {{ $errors->first('email') }}
+                        @endif
+                        </span>
+                    </div>
+                    @endif
+
+                    <div class="form-group">
+
+                        <div class="input-group">
+                            <span class="input-group-icon"><i class="nc-icon-outline users_circle-08"></i></span>
+                            <input type="text" class="login__form__input" placeholder="Username" name="login" value="{{ old('email') }}" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-icon"><i class="nc-icon-outline ui-1_lock"></i></span>
+                            <input type="password" placeholder="Password" name="password" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="button">Sign-in</button>
+                    </div>
+                    {{-- <a href="#" class="forgot-password">Forgot your password?</a> --}}
+                </form>
+            </div>
         </div>
 
 </body>

@@ -1208,130 +1208,152 @@ chatbox.less
   text-transform: uppercase;
 }
 /*
-login.less
+login page
 ------------------------------------------------------------------------- */
 .login {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+  background: url('../img/login-background.jpg');
+  background-position: -400px center;
+}
+.login .left-panel,
+.login .right-panel {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100vh;
-  background: #C9D6FF;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #E2E2E2, #C9D6FF);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  width: 50%;
 }
-.login__logo {
-  display: block;
+.login .left-panel {
+  background: rgba(0, 161, 228, 0.9);
   text-align: center;
-  width: 400px;
-  margin-bottom: 35px;
+  padding: 10%;
 }
-.login__logo__text {
-  font-size: 36px;
+.login .right-panel {
+  background: #F8F8F8;
+}
+.login .right-panel .version {
+  position: absolute;
+  bottom: 50px;
+  zoom: 1;
+  filter: alpha(opacity=70);
+  -webkit-opacity: 0.7;
+  -moz-opacity: 0.7;
+  opacity: 0.7;
+}
+.login .login-logo {
+  width: 250px;
+  height: 250px;
+}
+.login .login-logo img {
+  width: 100%;
+  vertical-align: bottom;
+}
+.login .login-notice-title {
+  font-size: 28px;
   font-weight: 700;
-  color: #2C363F;
-  margin: 0;
   padding: 0;
+  margin: 30px 0 0 0;
+  color: #FFFFFF;
 }
-.login__logo__icon {
-  display: inline-block;
-  height: 150px;
-  width: 150px;
+.login .login-notice {
+  font-size: 18px;
+  font-weight: 300;
+  padding: 0;
+  margin: 10px 0 0 0;
+  color: #FFFFFF;
+  zoom: 1;
+  filter: alpha(opacity=75);
+  -webkit-opacity: 0.75;
+  -moz-opacity: 0.75;
+  opacity: 0.75;
 }
-.login__logo__icon img {
+.login .login-form {
+  text-align: center;
+  width: 450px;
+  padding: 25px;
+}
+.login .login-form h1 {
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+.login .login-form input,
+.login .login-form button {
+  font-family: "Nunito Sans";
+  height: 56px;
   width: 100%;
+  padding: 0 20px;
+  margin: 0;
+  color: #FFFFFF;
+  outline: none;
 }
-.login__form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 400px;
+.login .login-form input::-webkit-input-placeholder,
+.login .login-form button::-webkit-input-placeholder {
+  color: #FFFFFF;
 }
-.login__form .input-group {
-  display: block;
-  width: 100%;
+.login .login-form input:-moz-placeholder,
+.login .login-form button:-moz-placeholder {
+  color: #FFFFFF;
+}
+.login .login-form input::-moz-placeholder,
+.login .login-form button::-moz-placeholder {
+  color: #FFFFFF;
+}
+.login .login-form input:-ms-input-placeholder,
+.login .login-form button:-ms-input-placeholder {
+  color: #FFFFFF;
+}
+.login .login-form input {
+  background: #b8b8b8;
+  border: none;
+}
+.login .login-form input:focus {
+  background: #9f9f9f;
+}
+.login .login-form .login-error-message {
+  padding: 20px;
+  margin-bottom: 10px;
+  background: #e9807f;
+}
+.login .login-form .login-error-message p {
+  margin: 0;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+.login .login-form .form-group {
   margin-bottom: 10px;
 }
-.login__form__input {
-  display: block;
-  font-family: "Nunito Sans";
-  font-size: 16px;
-  color: #FFFFFF;
-  width: 100%;
-  height: 56px;
-  padding: 0 15px;
-  background: #a8b6c2;
-  border: solid 1px #a8b6c2;
-  outline: none;
-  -webkit-transition: all 0.15s linear;
-  -moz-transition: all 0.15s linear;
-  -o-transition: all 0.15s linear;
-  transition: all 0.15s linear;
+.login .login-form .form-group.input-error input {
+  background: #e9807f;
 }
-.login__form__input::-webkit-input-placeholder {
-  color: #FFFFFF;
+.login .login-form .input-group {
+  position: relative;
 }
-.login__form__input:-moz-placeholder {
-  color: #FFFFFF;
-}
-.login__form__input::-moz-placeholder {
-  color: #FFFFFF;
-}
-.login__form__input:-ms-input-placeholder {
-  color: #FFFFFF;
-}
-.login__form__input:focus {
-  border: solid 1px #8a9cad;
-  background: #8a9cad;
-}
-.login__form__input__icon {
+.login .login-form .input-group .input-group-icon {
   position: absolute;
   top: 50%;
-  right: 20px;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
+  right: 18px;
+  margin: 0;
+  padding: 0;
+  font-size: 22px;
+  height: 24px;
+  width: 24px;
   color: #FFFFFF;
+  zoom: 1;
+  filter: alpha(opacity=75);
+  -webkit-opacity: 0.75;
+  -moz-opacity: 0.75;
+  opacity: 0.75;
 }
-.login__form__button {
-  display: block;
-  font-family: "Nunito Sans";
-  font-size: 16px;
-  color: #FFFFFF;
-  width: 100%;
-  height: 56px;
-  padding: 0 15px;
-  background: #00A1E4;
-  border: none;
-  cursor: pointer;
-  -webkit-transition: all 0.15s linear;
-  -moz-transition: all 0.15s linear;
-  -o-transition: all 0.15s linear;
-  transition: all 0.15s linear;
-}
-.login__form__button:hover {
-  background: #00b3fe;
-}
-.login__form__button:focus {
-  outline: none;
-  background: #008fcb;
-}
-.login__form .forgot-password {
-  display: inline-block;
-  font-family: "Nunito Sans";
-  font-weight: 400;
-  text-align: center;
-  margin-top: 125px;
-  color: #7a7a7a;
-}
-.login__form .forgot-password:hover {
-  color: #545454;
+.login .login-form .input-group .input-group-icon i {
+  vertical-align: top;
 }
 /*
 printable-form.less
@@ -3548,8 +3570,8 @@ table-custom.less
 }
 .table-name tr th,
 .table-name tr td {
-  width: 150px !important;
-  min-width: 150px !important;
+  width: 100px !important;
+  min-width: 100px !important;
 }
 .table-name tr th:first-child,
 .table-name tr td:first-child {
@@ -3568,8 +3590,8 @@ table-custom.less
 .table-name tr td.has-child .grand-child-table tr td,
 .table-name tr th.has-child .great-grand-child-table tr td,
 .table-name tr td.has-child .great-grand-child-table tr td {
-  width: 150px !important;
-  min-width: 150px !important;
+  width: 100px !important;
+  min-width: 100px !important;
 }
 .table-name tr th.has-child .child-table tr th:first-child,
 .table-name tr td.has-child .child-table tr th:first-child,
