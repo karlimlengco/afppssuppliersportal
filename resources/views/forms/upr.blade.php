@@ -59,11 +59,6 @@
                             <td class="align-center align-middle no-border-top" rowspan="2">{{$data['ref_number']}}</td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="200px" nowrap></td>
-                            <td class="border-bottom-only" width="300px"></td>
-                            <td class="border-right-only" width="10%"></td>
-                        </tr>
-                        <tr>
                             <td class="border-left-only" width="200px" nowrap>FUND VALIDITY</td>
                             <td class="border-bottom-only" width="300px">{{$data['fund_validity']}}</td>
                             <td class="border-right-only" width="10%"></td>
