@@ -58,6 +58,27 @@ trait OverviewTrait
         ]);
     }
 
+    /**
+     * [overviewCancelled description]
+     *
+     * @param  [type]                        $programs [description]
+     * @param  UnitPurchaseRequestRepository $upr      [description]
+     * @return [type]                                  [description]
+     */
+    public function overviewCancelled(Request $request, $programs, $pcco = null, $unit = null, UnitPurchaseRequestRepository $upr)
+    {
+        $result     =   $upr->findByPrograms($request->type, 'cancelled', $programs, $pcco, $unit);
+
+        return $this->view('modules.overview.cancelled',[
+            'result'    =>  $result,
+            'breadcrumbs' => [
+                new Breadcrumb('Overview'),
+                new Breadcrumb('Programs '.$programs),
+                new Breadcrumb('Completed'),
+            ]
+        ]);
+    }
+
 
     /**
      * [overviewOngoing description]

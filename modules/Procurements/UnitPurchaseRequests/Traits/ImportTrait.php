@@ -274,7 +274,7 @@ trait ImportTrait
         $item_datas             =   [];
 
 
-        $transaction_date       =   \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $request->date_prepared);
+        $transaction_date       =   \Carbon\Carbon::createFromFormat('Y-m-d', $request->date_prepared);
 
         $procs['total_amount']  =   $total_amount;
         $procs['prepared_by']   =   $prepared_by;

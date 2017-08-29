@@ -154,22 +154,22 @@ Unit Purchase Request Import Validate
 @section('scripts')
 <script>
     var xhr;
-    var select_state, $select_state;
-    var select_city, $select_city;
-    $select_state = $('#id-field-old_account_code').selectize({
-        onChange: function(value) {
-            select_city.addItem(value, false);
-        }
-    });
+    // var select_state, $select_state;
+    // var select_city, $select_city;
+    // // $select_state = $('#id-field-old_account_code').selectize({
+    // //     onChange: function(value) {
+    // //         select_city.addItem(value, false);
+    // //     }
+    // // });
 
-    $select_city = $('#id-field-new_account_code').selectize({
-        onChange: function(value) {
-            select_state.addItem(value, false);
-        }
-    });
+    // // $select_city = $('#id-field-new_account_code').selectize({
+    // //     onChange: function(value) {
+    // //         select_state.addItem(value, false);
+    // //     }
+    // // });
 
-    select_city  = $select_city[0].selectize;
-    select_state = $select_state[0].selectize;
+    // select_city  = $select_city[0].selectize;
+    // select_state = $select_state[0].selectize;
 
     var picker = new Pikaday(
     {

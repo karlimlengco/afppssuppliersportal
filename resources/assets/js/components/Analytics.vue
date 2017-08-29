@@ -52,6 +52,7 @@
                                 <span tooltip="Total" >{{item.upr_count}}</span>
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/completed/'+item.programs+'?type='+types" tooltip="Completed" class="blue">({{item.completed_count}})</a>
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/ongoing/'+item.programs+'?type='+types" tooltip="Ongoing" class="green">({{item.ongoing_count}})</a>
+                                <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/cancelled/'+item.programs+'?type='+types" tooltip="Cancelled" style="color:#7a7a7a" >({{item.cancelled_count}})</a>
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'?type='+types" tooltip="Delay" class="red">({{item.delay_count}})</a>
                             </td>
                             <td>{{formatPrice(item.total_abc)}}</td>
@@ -99,6 +100,14 @@
                                                                 class="green"
                                                             >
                                                                 ({{itemProgData.ongoing_count}})
+                                                            </a>
+                                                            <a
+                                                                target="_blank"
+                                                                v-bind:href="'/procurements/unit-purchase-requests/overview/cancelled/'+item.programs+'/'+itemProgData.name+'?type='+types"
+                                                                tooltip="Cancelled"
+                                                                style="color:#7a7a7a"
+                                                            >
+                                                                ({{itemProgData.cancelled_count}})
                                                             </a>
                                                             <a
                                                                 target="_blank"
@@ -157,6 +166,14 @@
 
                                                                                         <a
                                                                                             target="_blank"
+                                                                                            v-bind:href="'/procurements/unit-purchase-requests/overview/cancelled/'+item.programs+'/'+itemProgData.name+'/'+ itemUnitData.short_code+'?type='+types"
+                                                                                            tooltip="Cancelled"
+                                                                                            style="color:#7a7a7a">
+                                                                                                ({{itemUnitData.cancelled_count}})
+                                                                                        </a>
+
+                                                                                        <a
+                                                                                            target="_blank"
                                                                                             v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'/'+itemProgData.name+'/'+ itemUnitData.short_code+'?type='+types"
                                                                                             tooltip="Delay"
                                                                                             class="red">
@@ -186,17 +203,24 @@
                                                                                                     <td> <i class="green" style="font-family: Verdana;">{{itemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small></td>
                                                                                                     <td>
 
-                                                                                                        <span tooltip="Total" >{{itemProgCentData.upr_count}}</span>
+<!--                                                                                                         <span tooltip="Total" >{{itemProgCentData.upr_count}}</span>
                                                                                                         <span tooltip="Completed" class="blue">({{itemProgCentData.completed_count}})</span>
                                                                                                         <span tooltip="Ongoing" class="green">({{itemProgCentData.ongoing_count}})</span>
                                                                                                         <span tooltip="Delay" class="red">({{itemProgCentData.delay_count}})</span>
+ -->                                                                                                    <span class="blue" v-if="itemProgCentData.completed_count != 0 && itemProgCentData.completed_count != null">Completed</span>
+                                                                                                        <span  class="red" v-if="itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled' ">Delayed</span>
+                                                                                                        <span  v-if="itemProgCentData.status == 'cancelled' ">Cancelled</span>
+                                                                                                        <span class="green" v-if="itemProgCentData.delay_count == 0 && itemProgCentData.ongoing_count != 0 && itemProgCentData.status != 'cancelled' ">Ongoing</span>
+
                                                                                                     </td>
                                                                                                     <td>{{formatPrice(itemProgCentData.total_abc)}}</td>
                                                                                                     <td>{{formatPrice(itemProgCentData.total_bid)}}</td>
                                                                                                     <td>{{formatPrice(itemProgCentData.total_residual)}}</td>
                                                                                                     <td>{{itemProgCentData.avg_days}}</td>
 
-                                                                                                    <td v-if="show && itemProgCentData.status != 'completed'  "> {{itemProgCentData.delay}}</td>
+                                                                                                    <td v-if="show && itemProgCentData.status != 'completed'  ">
+                                                                                                    <span v-if="itemProgCentData.status != 'cancelled' && itemProgCentData.delay_count != 0">{{itemProgCentData.delay}}</span>
+                                                                                                    </td>
                                                                                                     <td v-if="itemProgCentData.status == 'completed'  "></td>
                                                                                                     <td v-if="show "  style="text-align:left">{{itemProgCentData.status}}</td>
                                                                                                     <td v-if="show"> {{itemProgCentData.last_remarks}}</td>

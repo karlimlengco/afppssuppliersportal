@@ -33,6 +33,7 @@ Route::get('api/signatories/lists', '\Revlv\Controllers\Settings\SignatoryContro
 
 Route::get('procurements/unit-purchase-requests/overview/delay/{programs}/{pcco?}/{unit?}', '\Revlv\Controllers\Procurements\UPRController@overviewDelay')->name('upr-overview.delay');
 Route::get('procurements/unit-purchase-requests/overview/ongoing/{programs}/{pcco?}/{unit?}', '\Revlv\Controllers\Procurements\UPRController@overviewOngoing')->name('upr-overview.ongoing');
+Route::get('procurements/unit-purchase-requests/overview/cancelled/{programs}/{pcco?}/{unit?}', '\Revlv\Controllers\Procurements\UPRController@overviewCancelled')->name('upr-overview.cancelled');
 Route::get('procurements/unit-purchase-requests/overview/completed/{programs}/{pcco?}/{unit?}', '\Revlv\Controllers\Procurements\UPRController@overviewCompleted')->name('upr-overview.completed');
 
 

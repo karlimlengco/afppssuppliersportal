@@ -16491,6 +16491,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var arrayIDs = [];
@@ -52449,6 +52473,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "tooltip": "Ongoing"
       }
     }, [_vm._v("(" + _vm._s(item.ongoing_count) + ")")]), _vm._v(" "), _c('a', {
+      staticStyle: {
+        "color": "#7a7a7a"
+      },
+      attrs: {
+        "target": "_blank",
+        "href": '/procurements/unit-purchase-requests/overview/cancelled/' + item.programs + '?type=' + _vm.types,
+        "tooltip": "Cancelled"
+      }
+    }, [_vm._v("(" + _vm._s(item.cancelled_count) + ")")]), _vm._v(" "), _c('a', {
       staticClass: "red",
       attrs: {
         "target": "_blank",
@@ -52492,6 +52525,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
             "tooltip": "Ongoing"
           }
         }, [_vm._v("\n                                                                (" + _vm._s(itemProgData.ongoing_count) + ")\n                                                            ")]), _vm._v(" "), _c('a', {
+          staticStyle: {
+            "color": "#7a7a7a"
+          },
+          attrs: {
+            "target": "_blank",
+            "href": '/procurements/unit-purchase-requests/overview/cancelled/' + item.programs + '/' + itemProgData.name + '?type=' + _vm.types,
+            "tooltip": "Cancelled"
+          }
+        }, [_vm._v("\n                                                                (" + _vm._s(itemProgData.cancelled_count) + ")\n                                                            ")]), _vm._v(" "), _c('a', {
           staticClass: "red",
           attrs: {
             "target": "_blank",
@@ -52535,6 +52577,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                 "tooltip": "Ongoing"
               }
             }, [_vm._v("\n                                                                                                (" + _vm._s(itemUnitData.ongoing_count) + ")\n                                                                                        ")]), _vm._v(" "), _c('a', {
+              staticStyle: {
+                "color": "#7a7a7a"
+              },
+              attrs: {
+                "target": "_blank",
+                "href": '/procurements/unit-purchase-requests/overview/cancelled/' + item.programs + '/' + itemProgData.name + '/' + itemUnitData.short_code + '?type=' + _vm.types,
+                "tooltip": "Cancelled"
+              }
+            }, [_vm._v("\n                                                                                                (" + _vm._s(itemUnitData.cancelled_count) + ")\n                                                                                        ")]), _vm._v(" "), _c('a', {
               staticClass: "red",
               attrs: {
                 "target": "_blank",
@@ -52568,26 +52619,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                     "target": "_blank",
                     "href": '/procurements/unit-purchase-requests/timelines/' + itemProgCentData.id
                   }
-                }, [_vm._v("(" + _vm._s(itemProgCentData.project_name) + ")")])])]), _vm._v(" "), _c('td', [_c('span', {
-                  attrs: {
-                    "tooltip": "Total"
-                  }
-                }, [_vm._v(_vm._s(itemProgCentData.upr_count))]), _vm._v(" "), _c('span', {
-                  staticClass: "blue",
-                  attrs: {
-                    "tooltip": "Completed"
-                  }
-                }, [_vm._v("(" + _vm._s(itemProgCentData.completed_count) + ")")]), _vm._v(" "), _c('span', {
-                  staticClass: "green",
-                  attrs: {
-                    "tooltip": "Ongoing"
-                  }
-                }, [_vm._v("(" + _vm._s(itemProgCentData.ongoing_count) + ")")]), _vm._v(" "), _c('span', {
-                  staticClass: "red",
-                  attrs: {
-                    "tooltip": "Delay"
-                  }
-                }, [_vm._v("(" + _vm._s(itemProgCentData.delay_count) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), (_vm.show && itemProgCentData.status != 'completed') ? _c('td', [_vm._v(" " + _vm._s(itemProgCentData.delay))]) : _vm._e(), _vm._v(" "), (itemProgCentData.status == 'completed') ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
+                }, [_vm._v("(" + _vm._s(itemProgCentData.project_name) + ")")])])]), _vm._v(" "), _c('td', [(itemProgCentData.completed_count != 0 && itemProgCentData.completed_count != null) ? _c('span', {
+                  staticClass: "blue"
+                }, [_vm._v("Completed")]) : _vm._e(), _vm._v(" "), (itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled') ? _c('span', {
+                  staticClass: "red"
+                }, [_vm._v("Delayed")]) : _vm._e(), _vm._v(" "), (itemProgCentData.status == 'cancelled') ? _c('span', [_vm._v("Cancelled")]) : _vm._e(), _vm._v(" "), (itemProgCentData.delay_count == 0 && itemProgCentData.ongoing_count != 0 && itemProgCentData.status != 'cancelled') ? _c('span', {
+                  staticClass: "green"
+                }, [_vm._v("Ongoing")]) : _vm._e()]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]), _vm._v(" "), (_vm.show && itemProgCentData.status != 'completed') ? _c('td', [(itemProgCentData.status != 'cancelled' && itemProgCentData.delay_count != 0) ? _c('span', [_vm._v(_vm._s(itemProgCentData.delay))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (itemProgCentData.status == 'completed') ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
                   staticStyle: {
                     "text-align": "left"
                   }

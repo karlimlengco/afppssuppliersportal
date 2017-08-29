@@ -492,6 +492,10 @@ class UnitPurchaseRequestRepository extends BaseRepository
         {
             $model  =   $model->where('unit_purchase_requests.status', '=', "completed");
         }
+        elseif($status == 'cancelled')
+        {
+            $model  =   $model->where('unit_purchase_requests.status', '=', "cancelled");
+        }
         elseif($status == 'ongoing')
         {
             $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
