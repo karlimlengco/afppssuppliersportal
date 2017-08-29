@@ -82,6 +82,7 @@
                     </div>
                     {{-- <a href="#" class="forgot-password">Forgot your password?</a> --}}
                 </form>
+                <p class="version">EPMIS V 4.0.0</p>
             </div>
         </div>
 
