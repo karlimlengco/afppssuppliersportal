@@ -23,6 +23,7 @@ use \Revlv\Settings\Banks\BankRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Users\UserRepository;
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 
 class VoucherController extends Controller
 {
@@ -40,6 +41,7 @@ class VoucherController extends Controller
      * @var [type]
      */
     protected $upr;
+    protected $headers;
     protected $noa;
     protected $rfq;
     protected $audits;
@@ -954,7 +956,7 @@ class VoucherController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint($id, VoucherRepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr)
+    public function viewPrint($id, VoucherRepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr, HeaderRepository $headers)
     {
         $result     =   $model->with(['receiver', 'approver', 'certifier'])->findById($id);
         $noa_model  =   $noa->with(['winner','upr'])->findByUPR($result->upr_id);
@@ -968,6 +970,8 @@ class VoucherController extends Controller
             $winner     =   $noa_model->biddingWinner->supplier;
         }
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']       =   $result->transaction_date;
         $data['bir_address']            =   $result->bir_address;
         $data['final_tax']              =   $result->final_tax;
@@ -1033,7 +1037,7 @@ class VoucherController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrintNoTax($id, VoucherRepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr)
+    public function viewPrintNoTax($id, VoucherRepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr, HeaderRepository $headers)
     {
         $result     =   $model->with(['receiver', 'approver', 'certifier'])->findById($id);
         $noa_model  =   $noa->with(['winner','upr'])->findByUPR($result->upr_id);
@@ -1047,6 +1051,8 @@ class VoucherController extends Controller
             $winner     =   $noa_model->biddingWinner->supplier;
         }
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']       =   $result->transaction_date;
         $data['bir_address']            =   $result->bir_address;
         $data['final_tax']              =   $result->final_tax;

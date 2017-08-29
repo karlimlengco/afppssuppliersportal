@@ -11,6 +11,7 @@ use \App\Support\Breadcrumb;
 use Validator;
 use App\Events\Event;
 
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\NoticeToProceed\NTPRepository;
 use \Revlv\Procurements\PurchaseOrder\PORepository;
@@ -41,6 +42,7 @@ class NoticeToProceedController extends Controller
      * @var [type]
      */
     protected $blank;
+    protected $headers;
     protected $upr;
     protected $rfq;
     protected $po;
@@ -483,6 +485,7 @@ class NoticeToProceedController extends Controller
         $id,
         NTPRepository $model,
         PORepository $po,
+        HeaderRepository $headers,
         UnitPurchaseRequestRepository $upr,
         BlankRFQRepository $blank,
         RFQProponentRepository $proponents)
@@ -499,6 +502,9 @@ class NoticeToProceedController extends Controller
             ]);
         }
 
+
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']   =   $result->prepared_date;
         $data['supplier']           =   $supplier;
         $data['po_transaction_date']=   $result->po->created_at;

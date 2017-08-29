@@ -23,6 +23,7 @@ use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Users\UserRepository;
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 
 class InspectionAndAcceptanceController extends Controller
 {
@@ -55,6 +56,7 @@ class InspectionAndAcceptanceController extends Controller
     protected $holidays;
     protected $users;
     protected $userLogs;
+    protected $headers;
 
     /**
      * @param model $model
@@ -574,7 +576,8 @@ class InspectionAndAcceptanceController extends Controller
         $id,
         InspectionAndAcceptanceRepository $model,
         DeliveryOrderRepository $delivery,
-        NOARepository $noa
+        NOARepository $noa,
+        HeaderRepository $headers
         )
     {
         $model                      =  $model->with(['acceptor', 'inspector'])->findById($id);
@@ -597,6 +600,8 @@ class InspectionAndAcceptanceController extends Controller
             $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['po_number']          =  $result->po->po_number;
         $data['header']             =  $result->upr->centers;
         $data['purchase_date']      =  $result->po->purchase_date;
@@ -629,7 +634,7 @@ class InspectionAndAcceptanceController extends Controller
         $id,
         InspectionAndAcceptanceRepository $model,
         DeliveryOrderRepository $delivery,
-        NOARepository $noa
+        NOARepository $noa, HeaderRepository $headers
         )
     {
         $model                      =  $model->with(['acceptor', 'inspector'])->findById($id);
@@ -649,6 +654,8 @@ class InspectionAndAcceptanceController extends Controller
             $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['po_number']          =  $result->po->po_number;
         $data['purchase_date']      =  $result->po->purchase_date;
         $data['bid_amount']         =  $result->po->bid_amount;

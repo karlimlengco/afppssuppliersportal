@@ -23,6 +23,7 @@ use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Users\UserRepository;
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 
 class DeliveredInspectionReportController extends Controller
 {
@@ -52,6 +53,7 @@ class DeliveredInspectionReportController extends Controller
     protected $inspections;
     protected $delivery;
     protected $issues;
+    protected $headers;
     protected $upr;
     protected $audits;
     protected $holidays;
@@ -693,7 +695,7 @@ class DeliveredInspectionReportController extends Controller
     public function viewPrint(
         $id,
         DeliveryInspectionRepository $model,
-        NOARepository $noa
+        NOARepository $noa, HeaderRepository $headers
         )
     {
         $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
@@ -706,6 +708,8 @@ class DeliveredInspectionReportController extends Controller
             $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['items']              =   $result->delivery->po->items;
         $data['delivery_number']              =   $result->delivery->delivery_number;
         $data['delivery_date']              =   $result->delivery->delivery_date;
@@ -744,7 +748,7 @@ class DeliveredInspectionReportController extends Controller
     public function viewPrintRIS(
         $id,
         DeliveryInspectionRepository $model,
-        NOARepository $noa
+        NOARepository $noa, HeaderRepository $headers
         )
     {
         $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
@@ -758,6 +762,8 @@ class DeliveredInspectionReportController extends Controller
             $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['items']              =   $result->delivery->po->items;
         $data['purpose']            =   $result->upr->purpose;
         $data['place']              =   $result->upr->place_of_delivery;
@@ -795,7 +801,7 @@ class DeliveredInspectionReportController extends Controller
     public function viewPrintRIS2(
         $id,
         DeliveryInspectionRepository $model,
-        NOARepository $noa
+        NOARepository $noa, HeaderRepository $headers
         )
     {
         $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
@@ -809,6 +815,8 @@ class DeliveredInspectionReportController extends Controller
             $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['items']              =   $result->delivery->po->items;
         $data['purpose']            =   $result->upr->purpose;
         $data['place']              =   $result->upr->place_of_delivery;
@@ -846,7 +854,7 @@ class DeliveredInspectionReportController extends Controller
     public function viewPrintRAR(
         $id,
         DeliveryInspectionRepository $model,
-        NOARepository $noa
+        NOARepository $noa, HeaderRepository $headers
         )
     {
         $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
@@ -860,6 +868,8 @@ class DeliveredInspectionReportController extends Controller
             $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['items']              =   $result->delivery->po->items;
         $data['delivery_number']    =   $result->delivery->delivery_number;
         $data['delivery_date']      =   $result->delivery->delivery_date;
@@ -899,7 +909,7 @@ class DeliveredInspectionReportController extends Controller
     public function viewPrintCOI(
         $id,
         DeliveryInspectionRepository $model,
-        NOARepository $noa
+        NOARepository $noa, HeaderRepository $headers
         )
     {
         $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
@@ -914,6 +924,8 @@ class DeliveredInspectionReportController extends Controller
         }
 
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['invoice']            =   $result->upr->inspections->invoices;
         $data['nature_of_delivery'] =   $result->upr->inspections->nature_of_delivery;
         $data['recommendation']     =   $result->upr->inspections->recommendation;
@@ -957,7 +969,7 @@ class DeliveredInspectionReportController extends Controller
     public function viewPrintRSMI(
         $id,
         DeliveryInspectionRepository $model,
-        NOARepository $noa
+        NOARepository $noa, HeaderRepository $headers
         )
     {
         $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
@@ -973,6 +985,8 @@ class DeliveredInspectionReportController extends Controller
             $win                =   $noa->with('winner')->findByUPR($result->upr_id)->winner;
         }
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['items']              =   $result->delivery->po->items;
         $data['purpose']            =   $result->upr->purpose;
         $data['place']              =   $result->upr->place_of_delivery;

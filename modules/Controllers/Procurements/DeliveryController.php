@@ -12,6 +12,8 @@ use \App\Support\Breadcrumb;
 use Validator;
 use App\Events\Event;
 
+
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRequest;
@@ -54,6 +56,7 @@ class DeliveryController extends Controller
     protected $upr;
     protected $signatories;
     protected $audits;
+    protected $headers;
     protected $holidays;
     protected $users;
     protected $userLogs;
@@ -699,6 +702,7 @@ class DeliveryController extends Controller
      */
     public function viewPrint(
         $id,
+        HeaderRepository $headers,
         DeliveryOrderRepository $model,
         NOARepository $noa
         )
@@ -722,7 +726,8 @@ class DeliveryController extends Controller
         {
             $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
-
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']   =  $result->delivery_date;
         $data['po_number']          =  $result->po->po_number;
         $data['bid_amount']         =  $result->po->bid_amount;

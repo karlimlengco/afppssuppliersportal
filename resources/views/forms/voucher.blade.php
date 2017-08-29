@@ -29,9 +29,7 @@
                     <table class="printable-form__body__table classic">
                         <tr>
                             <td class="align-center v-align-middle" colspan="11" height="60px">
-                            <strong>{{$data['header']->name}}</strong><br>
-                            Armed Forces of the Philippines Procurement Service<br>
-                            {{$data['header']->address}}
+                                {!!$data['unitHeader']!!}
                             </td>
                             <td>Fund Cluster:</td>
                         </tr>

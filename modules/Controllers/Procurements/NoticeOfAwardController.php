@@ -716,7 +716,7 @@ class NoticeOfAwardController extends Controller
         }
         $upr_model                  =   $upr->with(['unit'])->findById($noa_modal->upr_id);
 
-        $header                     =  $headers->findByUnit($result->upr->units);
+        $header                     =  $headers->findByUnit($noa_modal->upr->units);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']   =   $noa_modal->awarded_date;
         $data['supplier']           =   $proponent_awardee;

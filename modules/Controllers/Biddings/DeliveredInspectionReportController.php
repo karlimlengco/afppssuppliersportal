@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Validator;
 use \App\Support\Breadcrumb;
 
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Procurements\DeliveryInspection\DeliveryInspectionRepository;
@@ -46,6 +47,7 @@ class DeliveredInspectionReportController extends Controller
      * @var [type]
      */
     protected $proponents;
+    protected $headers;
     protected $noa;
     protected $signatories;
     protected $inspections;
@@ -656,6 +658,7 @@ class DeliveredInspectionReportController extends Controller
     public function viewPrint(
         $id,
         DeliveryInspectionRepository $model,
+        HeaderRepository $headers,
         NOARepository $noa
         )
     {
@@ -669,11 +672,13 @@ class DeliveredInspectionReportController extends Controller
             $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['items']              =   $result->delivery->po->items;
-        $data['delivery_number']              =   $result->delivery->delivery_number;
-        $data['delivery_date']              =   $result->delivery->delivery_date;
+        $data['delivery_number']    =   $result->delivery->delivery_number;
+        $data['delivery_date']      =   $result->delivery->delivery_date;
         $data['purpose']            =   $result->upr->purpose;
-        $data['place']             =   $result->upr->place_of_delivery;
+        $data['place']              =   $result->upr->place_of_delivery;
         $data['centers']            =   $result->upr->centers->name;
         $data['units']              =   $result->upr->unit->short_code;
         $data['ref_number']         =   $result->upr->ref_number;

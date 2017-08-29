@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Validator;
 use App\Events\Event;
 
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
@@ -55,6 +56,7 @@ class InspectionAndAcceptanceController extends Controller
     protected $holidays;
     protected $users;
     protected $userLogs;
+    protected $headers;
 
     /**
      * @param model $model
@@ -576,6 +578,7 @@ class InspectionAndAcceptanceController extends Controller
         $id,
         InspectionAndAcceptanceRepository $model,
         DeliveryOrderRepository $delivery,
+        HeaderRepository $headers,
         NOARepository $noa
         )
     {
@@ -596,6 +599,9 @@ class InspectionAndAcceptanceController extends Controller
         {
             $noa_model           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
+
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['po_number']          =  $result->po->po_number;
         $data['header']             =  $result->upr->centers;
         $data['purchase_date']      =  $result->po->purchase_date;
