@@ -762,6 +762,13 @@ class DeliveredInspectionReportController extends Controller
             $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
+        if($result->received_signatory == null)
+        {
+            return redirect()->back()->with([
+                'error'  => "Please select signatory first"
+            ]);
+        }
+
         $header                     =  $headers->findByUnit($result->upr->units);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['items']              =   $result->delivery->po->items;
@@ -815,6 +822,13 @@ class DeliveredInspectionReportController extends Controller
             $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
+        if($result->received_signatory == null || $result->inspected_signatory == null|| $result->approved_signatory == null|| $result->issued_signatory == null|| $result->requested_signatory == null)
+        {
+            return redirect()->back()->with([
+                'error'  => "Please select signatory first"
+            ]);
+        }
+
         $header                     =  $headers->findByUnit($result->upr->units);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['items']              =   $result->delivery->po->items;
@@ -866,6 +880,13 @@ class DeliveredInspectionReportController extends Controller
         else
         {
             $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
+
+        if($result->received_signatory == null || $result->inspected_signatory == null|| $result->approved_signatory == null|| $result->issued_signatory == null|| $result->requested_signatory == null)
+        {
+            return redirect()->back()->with([
+                'error'  => "Please select signatory first"
+            ]);
         }
 
         $header                     =  $headers->findByUnit($result->upr->units);
@@ -924,6 +945,12 @@ class DeliveredInspectionReportController extends Controller
         }
 
 
+        if($result->received_signatory == null || $result->inspected_signatory == null|| $result->approved_signatory == null|| $result->issued_signatory == null|| $result->requested_signatory == null)
+        {
+            return redirect()->back()->with([
+                'error'  => "Please select signatory first"
+            ]);
+        }
         $header                     =  $headers->findByUnit($result->upr->units);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['invoice']            =   $result->upr->inspections->invoices;
@@ -983,6 +1010,12 @@ class DeliveredInspectionReportController extends Controller
         {
             $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
             $win                =   $noa->with('winner')->findByUPR($result->upr_id)->winner;
+        }
+        if($result->received_signatory == null || $result->inspected_signatory == null|| $result->approved_signatory == null|| $result->issued_signatory == null|| $result->requested_signatory == null)
+        {
+            return redirect()->back()->with([
+                'error'  => "Please select signatory first"
+            ]);
         }
 
         $header                     =  $headers->findByUnit($result->upr->units);
