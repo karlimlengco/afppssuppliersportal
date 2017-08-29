@@ -59,6 +59,11 @@
                             <td class="align-center align-middle no-border-top" rowspan="2">{{$data['ref_number']}}</td>
                         </tr>
                         <tr>
+                            <td class="border-left-only" width="150px" nowrap></td>
+                            <td class="no-border-bottom no-border-left no-border-right" width="350px"></td>
+                            <td class="border-right-only" width="10%"></td>
+                        </tr>
+                        <tr>
                             <td class="border-left-only" width="200px" nowrap>FUND VALIDITY</td>
                             <td class="border-bottom-only" width="300px">{{$data['fund_validity']}}</td>
                             <td class="border-right-only" width="10%"></td>
@@ -81,15 +86,17 @@
                     </table>
                     <table class="printable-form__body__table">
                         <tr>
-                            <td class="no-border-top align-center" width="10%"><strong>ITEM NO</strong></td>
-                            <td class="no-border-top align-center" width="40%"><strong>ITEM DESCRIPTION</strong></td>
-                            <td class="no-border-top align-center" width="10%"><strong>QTY</strong></td>
+                            <td class="no-border-top align-center" width="15%"><strong>Account Code</strong></td>
+                            <td class="no-border-top align-center" width="5%"><strong>ITEM NO</strong></td>
+                            <td class="no-border-top align-center" width="35%"><strong>ITEM DESCRIPTION</strong></td>
+                            <td class="no-border-top align-center" width="5%"><strong>QTY</strong></td>
                             <td class="no-border-top align-center" width="10%"><strong>UNIT</strong></td>
                             <td class="no-border-top align-center" width="15%"><strong>UNIT PRICE</strong></td>
                             <td class="no-border-top align-center" width="15%"><strong>AMOUNT</strong></td>
                         </tr>
                             @foreach($data['items'] as $key => $item)
                             <tr>
+                                <td class="align-center"><small>{{($item->accounts) ? $item->accounts->new_account_code : ""}}</small></td>
                                 <td class="align-center">{{$key + 1}}</td>
                                 <td class="align-left">{{$item->item_description}}</td>
                                 <td class="align-center">{{$item->quantity}}</td>
@@ -99,17 +106,17 @@
                             </tr>
                             @endforeach
                         <tr>
-                            <td class="align-center" colspan="6"><strong>x-x-x-x-x Nothing Follows x-x-x-x-x</strong></td>
+                            <td class="align-center" colspan="7"><strong>x-x-x-x-x Nothing Follows x-x-x-x-x</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="6">{{$data['purpose']}}</td>
+                            <td colspan="7">{{$data['purpose']}}</td>
                         </tr>
                         <tr>
-                            <td class="align-right" colspan="4"><strong>Total Amount PhP</strong></td>
+                            <td class="align-right" colspan="5"><strong>Total Amount PhP</strong></td>
                             <td colspan="2" class="align-right"> <strong>{{formatPrice($data['total_amount'])}}</strong></td>
                         </tr>
                         <tr>
-                            <td class="align-center" colspan="6"><strong>NOTE: ALL SIGNATURES MUST BE OVER PRINTED NAME</strong></td>
+                            <td class="align-center" colspan="7"><strong>NOTE: ALL SIGNATURES MUST BE OVER PRINTED NAME</strong></td>
                         </tr>
                     </table>
 
