@@ -25,6 +25,11 @@ Route::get('messages/{sender}', '\Revlv\Controllers\Chat\MessageController@showC
 
 Route::get('api/get/new_code/{id}', '\Revlv\Controllers\Settings\AccountCodeController@getCode')->name('settings.account-codes.get-code');
 
+// create new signatory
+Route::post('api/signatories/store', '\Revlv\Controllers\Settings\SignatoryController@storeNew')->name('api.signatory.store');
+Route::get('api/signatories/lists', '\Revlv\Controllers\Settings\SignatoryController@getLists')->name('api.signatory.lists');
+// create new signatory
+
 
 Route::get('procurements/unit-purchase-requests/overview/delay/{programs}/{pcco?}/{unit?}', '\Revlv\Controllers\Procurements\UPRController@overviewDelay')->name('upr-overview.delay');
 Route::get('procurements/unit-purchase-requests/overview/ongoing/{programs}/{pcco?}/{unit?}', '\Revlv\Controllers\Procurements\UPRController@overviewOngoing')->name('upr-overview.ongoing');

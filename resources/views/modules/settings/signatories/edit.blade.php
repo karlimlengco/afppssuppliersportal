@@ -18,7 +18,7 @@ Signatories
         <i class="nc-icon-mini ui-2_disk"></i>
         </button>
 
-        <a href="" class="button topbar__utility__button--modal" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
+        <a href="#" class="button topbar__utility__button--modal" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
     </div>
 </div>
 

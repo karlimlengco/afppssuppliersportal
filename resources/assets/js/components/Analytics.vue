@@ -1,11 +1,11 @@
 <template>
 <div class=" ">
     <div class="row">
-        <div class="six columns">
+        <div class="five columns">
             <h1>Procurement Status Monitoring</h1>
         </div>
 
-        <div class="six columns align-right">
+        <div class="seven columns align-right">
             <div style="display: inline-block">
                 <input placeholder="Start Date" v-model="startDate" type="text" format="yyyy-MM-dd" id="start" name="date_from" class="input" onfocus="(this.type='date')">
             </div>

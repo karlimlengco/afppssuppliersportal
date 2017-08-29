@@ -90,6 +90,33 @@ class SignatoryController extends Controller
     }
 
     /**
+     * [storeNew description]
+     *
+     * @param  SignatoryRequest    $request [description]
+     * @param  SignatoryRepository $model   [description]
+     * @return [type]                       [description]
+     */
+    public function storeNew(SignatoryRequest $request, SignatoryRepository $model)
+    {
+        $result = $model->save($request->getData());
+
+        return $result;
+    }
+
+    /**
+     * [getLists description]
+     *
+     * @param  SignatoryRequest    $request [description]
+     * @param  SignatoryRepository $model   [description]
+     * @return [type]                       [description]
+     */
+    public function getLists(SignatoryRepository $model)
+    {
+        $result =   $model->all();
+        return $result;
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

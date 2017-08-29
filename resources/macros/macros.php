@@ -185,7 +185,7 @@ Form::macro('ajaxField', function($name, $label = null, $options, $value = null,
 Form::macro('selectField', function($name, $label = null, $options, $value = null, $attributes = array())
 {
     // selectize
-    $attributes = $attributes + ['class' => 'selectize', 'data-selectize' => 'selectField'];
+    $attributes = $attributes + ['class' => 'selectize selectizes', 'data-selectize' => 'selectField'];
 
     $element = Form::select($name, [null => 'Select One'] + $options, $value, fieldAttributes($name, $attributes));
 

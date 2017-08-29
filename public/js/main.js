@@ -61,7 +61,7 @@ $(document).on('click', '.close-chat', function(e){
     $('.chat').removeClass('is-visible');
 })
 
-$('.selectize').each(function () {
+$('.selectizes').each(function () {
     $(this).selectize();
 });
 

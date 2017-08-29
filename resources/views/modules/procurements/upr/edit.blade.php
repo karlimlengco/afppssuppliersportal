@@ -20,6 +20,7 @@ Unit Purchase Request
 
 @section('modal')
     @include('modules.partials.modals.delete')
+    @include('modules.partials.create_signatory')
 {!! Form::model($data, $modelConfig['update']) !!}
     @include('modules.partials.modals.edit-remarks')
 @stop
@@ -98,13 +99,21 @@ Unit Purchase Request
 
         <div class="row">
             <div class="four columns">
-                {!! Form::selectField('requestor_id', 'Requested By', $signatory_list) !!}
+                <div class="form-group">
+                    <label class="label">Request By</label>
+                    {!! Form::select('requestor_id',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-requestor_id']) !!}
+                </div>
             </div>
             <div class="four columns">
-                {!! Form::selectField('fund_signatory_id', 'Fund Certified Available', $signatory_list) !!}
+
+                <label class="label">Fund Certified Available</label>
+                {!! Form::select('fund_signatory_id',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-fund_signatory_id']) !!}
+                {{-- {!! Form::selectField('fund_signatory_id', 'Fund Certified Available', $signatory_list) !!} --}}
             </div>
             <div class="four columns">
-                {!! Form::selectField('approver_id', 'Approved By', $signatory_list) !!}
+                <label class="label">Approved By</label>
+                {!! Form::select('approver_id',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-approver_id']) !!}
+                {{-- {!! Form::selectField('approver_id', 'Approved By', $signatory_list) !!} --}}
             </div>
         </div>
 
@@ -118,17 +127,78 @@ Unit Purchase Request
 
 @section('scripts')
 <script>
+    // $( document ).ready(function() {
+    //     $.ajax({
+    //         type: "GET",
+    //         url: '/api/signatories/lists',
+    //         success: function(result) {
+    //             console.log(result);
+    //         }
+    //     });
+    // });
 
     $('#edit-button').click(function(e){
         e.preventDefault();
         $('#edit-modal').addClass('is-visible');
     })
 
+    $requestor = $('#id-field-requestor_id').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    $funder = $('#id-field-fund_signatory_id').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    $approver = $('#id-field-approver_id').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    requestor  = $requestor[0].selectize;
+    funder  = $funder[0].selectize;
+    approver  = $approver[0].selectize;
+
+    $(document).on('submit', '#create-signatory-form', function(e){
+        e.preventDefault();
+        var inputs =  $("#create-signatory-form").serialize();
+
+        console.log(inputs);
+        $.ajax({
+            type: "POST",
+            url: '/api/signatories/store',
+            data: inputs,
+            success: function(result) {
+                console.log(result);
+                requestor.addOption({value:result.id, text: result.name});
+                funder.addOption({value:result.id, text: result.name});
+                approver.addOption({value:result.id, text: result.name});
+
+                $('#create-signatory-modal').removeClass('is-visible');
+                $('#create-signatory-form')[0].reset();
+            }
+        });
+
+    });
+
     var picker = new Pikaday(
     {
         field: document.getElementById('id-field-date_prepared'),
         firstDay: 1,
-        // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]
     });
