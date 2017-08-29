@@ -92,7 +92,13 @@ class UPRController extends Controller
         {
             return $model->getDatatable(null, 'bidding');
         }
-        return $model->getDatatable($user->unit_id, 'bidding');
+        $center =   0;
+        if($user->units)
+        {
+            $center =   $user->units->centers->id;
+        }
+
+        return $model->getDatatable($center, 'bidding');
     }
 
 

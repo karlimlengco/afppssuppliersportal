@@ -72,6 +72,23 @@ trait DatatableTrait
             $model  =   $model->whereNull('notice_to_proceed.rfq_id');
         }
 
+        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'notice_to_proceed.upr_id');
+
+
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                $center =   $user->units->centers->id;
+            }
+
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+
+        }
+
         $model->orderBy('notice_to_proceed.created_at', 'desc');
 
         return $this->dataTable($model->get());

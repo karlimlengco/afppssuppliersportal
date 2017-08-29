@@ -39,6 +39,20 @@ trait DatatableTrait
             $model  =   $model->where('mode_of_procurement', '<>', 'public_bidding');
         }
 
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                $center =   $user->units->centers->id;
+            }
+
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+
+        }
+
         $model->orderBy('philgeps_posting.created_at', 'desc');
 
         return $this->dataTable($model->get());

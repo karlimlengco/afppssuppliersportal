@@ -62,7 +62,7 @@ trait DatatableTrait
 
         if($id != null)
         {
-            $model  =   $model->where('unit_purchase_requests.units','=', $id);
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $id);
         }
 
         if($mode != null)

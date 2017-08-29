@@ -38,6 +38,21 @@ trait DatatableTrait
             $model  =   $model->whereNull('mode_of_procurements.name');
         }
 
+
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                $center =   $user->units->centers->id;
+            }
+
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+
+        }
+
         $model  =   $model->orderBy('created_at', 'desc');
 
         return $this->dataTable($model->get());

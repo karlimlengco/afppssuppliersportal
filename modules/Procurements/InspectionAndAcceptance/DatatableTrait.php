@@ -34,6 +34,25 @@ trait DatatableTrait
             $model  =   $model->whereNull('rfq_id');
         }
 
+        $model  =   $model->select(['inspection_acceptance_report.*']);
+
+        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'inspection_acceptance_report.upr_id');
+
+
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                $center =   $user->units->centers->id;
+            }
+
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+
+        }
+
         $model  =   $model->orderBy('created_at', 'desc');
 
         return $this->dataTable($model->get());

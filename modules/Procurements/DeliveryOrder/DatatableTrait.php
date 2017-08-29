@@ -31,7 +31,27 @@ trait DatatableTrait
         }
         else
         {
+            $model  =   $model->select([
+                'delivery_orders.*',
+            ]);
             $model  =   $model->whereNull('rfq_id');
+        }
+
+        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'delivery_orders.upr_id');
+
+
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                $center =   $user->units->centers->id;
+            }
+
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+
         }
 
         $model  =   $model->orderBy('created_at', 'desc');

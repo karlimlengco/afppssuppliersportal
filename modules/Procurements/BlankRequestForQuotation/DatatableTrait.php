@@ -20,6 +20,25 @@ trait DatatableTrait
     {
         $model  =   $this->model;
 
+        $model  =   $model->select(['request_for_quotations.*']);
+
+        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'request_for_quotations.upr_id');
+
+
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                $center =   $user->units->centers->id;
+            }
+
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+
+        }
+
         $model->orderBy('created_at', 'desc');
 
         return $this->dataTable($model->get());

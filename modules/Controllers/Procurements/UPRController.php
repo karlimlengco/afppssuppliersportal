@@ -96,7 +96,13 @@ class UPRController extends Controller
             return $model->getDatatable();
         }
 
-        return $model->getDatatable($user->unit_id);
+        $center =   0;
+        if($user->units)
+        {
+            $center =   $user->units->centers->id;
+        }
+
+        return $model->getDatatable($center);
     }
 
     /**
@@ -113,7 +119,14 @@ class UPRController extends Controller
             return $model->getDatatable(null, null, 'Cancelled');
         }
 
-        return $model->getDatatable($user->unit_id, null, 'Cancelled');
+
+        $center =   0;
+        if($user->units)
+        {
+            $center =   $user->units->centers->id;
+        }
+
+        return $model->getDatatable($center, null, 'Cancelled');
     }
 
     /**

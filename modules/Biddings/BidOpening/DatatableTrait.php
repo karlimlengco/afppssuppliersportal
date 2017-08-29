@@ -19,6 +19,24 @@ trait DatatableTrait
     public function getDatatable()
     {
         $model  =   $this->model;
+        $model  =   $model->select(['bid_opening.*']);
+
+        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'bid_opening.upr_id');
+
+
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                $center =   $user->units->centers->id;
+            }
+
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+
+        }
 
         $model->orderBy('created_at', 'desc');
 

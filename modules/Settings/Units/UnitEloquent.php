@@ -26,4 +26,15 @@ class UnitEloquent extends Model
         'description',
     ];
 
+
+    /**
+     * [centers description]
+     *
+     * @return [type] [description]
+     */
+    public function centers()
+    {
+        return $this->belongsTo('\Revlv\Settings\ProcurementCenters\ProcurementCenterEloquent', 'pcco_id');
+    }
+
 }
