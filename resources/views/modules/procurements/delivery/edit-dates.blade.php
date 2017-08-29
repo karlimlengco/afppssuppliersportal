@@ -20,6 +20,7 @@ Notice Of Delivery
 @stop
 
 @section('modal')
+    @include('modules.partials.create_signatory')
     {!! Form::model($data, $modelConfig['update']) !!}
     @include('modules.partials.modals.edit-remarks')
 @stop
@@ -64,7 +65,10 @@ Notice Of Delivery
 
             <div class="row">
                 <div class="six columns">
-                    {!! Form::selectField('signatory_id', '', $signatory_list, $data->signatory_id) !!}
+                    {{-- {!! Form::selectField('signatory_id', 'Signatory', $signatory_list, $data->signatory_id) !!} --}}
+
+                    <label class="label">Signatory</label>
+                    {!! Form::select('signatory_id',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-signatory_id']) !!}
                 </div>
             </div>
 
@@ -81,6 +85,35 @@ Notice Of Delivery
 
 <script type="text/javascript">
 
+    $signatory = $('#id-field-signatory_id').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+    signatory  = $signatory[0].selectize;
+
+    $(document).on('submit', '#create-signatory-form', function(e){
+        e.preventDefault();
+        var inputs =  $("#create-signatory-form").serialize();
+
+        console.log(inputs);
+        $.ajax({
+            type: "POST",
+            url: '/api/signatories/store',
+            data: inputs,
+            success: function(result) {
+                console.log(result);
+                signatory.addOption({value:result.id, text: result.name});
+
+                $('#create-signatory-modal').removeClass('is-visible');
+                $('#create-signatory-form')[0].reset();
+            }
+        });
+
+    });
 
     $('#edit-button').click(function(e){
         e.preventDefault();

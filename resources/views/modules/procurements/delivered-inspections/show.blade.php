@@ -67,7 +67,7 @@ Delivered Items Inspection
             </div>
         </button>
 
-        <a href="#" id="signatories-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
+        {{-- <a href="#" id="signatories-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a> --}}
 
         <a target="_blank" class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>
 

@@ -20,6 +20,7 @@ Delivered Items Inspection
 @stop
 
 @section('modal')
+    @include('modules.partials.create_signatory')
     {!! Form::model($data, $modelConfig['update']) !!}
     @include('modules.partials.modals.edit-remarks')
 @stop
@@ -53,27 +54,39 @@ Delivered Items Inspection
 
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::selectField('requested_by', 'Requested By', $signatory_list) !!}
+                    {{-- {!! Form::selectField('requested_by', 'Requested By', $signatory_list) !!} --}}
+
+                    <label class="label">Requested By</label>
+                    {!! Form::select('requested_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-requested_by']) !!}
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::selectField('received_by', 'Witness By', $signatory_list) !!}
+                    {{-- {!! Form::selectField('received_by', 'Witness By', $signatory_list) !!} --}}
+                    <label class="label">Witness By</label>
+                    {!! Form::select('received_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-received_by']) !!}
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::selectField('approved_by', 'Certify By', $signatory_list) !!}
+                    {{-- {!! Form::selectField('approved_by', 'Certify By', $signatory_list) !!} --}}
+                    <label class="label">Certify By</label>
+                    {!! Form::select('approved_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-approved_by']) !!}
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::selectField('issued_by', 'Note By', $signatory_list) !!}
+                    {{-- {!! Form::selectField('issued_by', 'Note By', $signatory_list) !!} --}}
+
+                    <label class="label">Note By</label>
+                    {!! Form::select('issued_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-issued_by']) !!}
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::selectField('inspected_by', 'Inspected By', $signatory_list) !!}
+                    {{-- {!! Form::selectField('inspected_by', 'Inspected By', $signatory_list) !!} --}}
+                    <label class="label">Inspected By</label>
+                    {!! Form::select('inspected_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-inspected_by']) !!}
                 </div>
             </div>
 
@@ -90,6 +103,77 @@ Delivered Items Inspection
 
 <script type="text/javascript">
 
+    $requested_by = $('#id-field-requested_by').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+    $received_by = $('#id-field-received_by').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+    $approved_by = $('#id-field-approved_by').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+    $issued_by = $('#id-field-issued_by').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    $inspected_by = $('#id-field-inspected_by').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    requested_by  = $requested_by[0].selectize;
+    received_by  = $received_by[0].selectize;
+    approved_by  = $approved_by[0].selectize;
+    issued_by  = $issued_by[0].selectize;
+    inspected_by  = $inspected_by[0].selectize;
+
+    $(document).on('submit', '#create-signatory-form', function(e){
+        e.preventDefault();
+        var inputs =  $("#create-signatory-form").serialize();
+
+        console.log(inputs);
+        $.ajax({
+            type: "POST",
+            url: '/api/signatories/store',
+            data: inputs,
+            success: function(result) {
+                console.log(result);
+                requested_by.addOption({value:result.id, text: result.name});
+                received_by.addOption({value:result.id, text: result.name});
+                approved_by.addOption({value:result.id, text: result.name});
+                issued_by.addOption({value:result.id, text: result.name});
+                inspected_by.addOption({value:result.id, text: result.name});
+
+                $('#create-signatory-modal').removeClass('is-visible');
+                $('#create-signatory-form')[0].reset();
+            }
+        });
+
+    });
 
     $('#edit-button').click(function(e){
         e.preventDefault();

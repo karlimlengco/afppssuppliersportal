@@ -20,6 +20,7 @@ Vouchers
 @stop
 
 @section('modal')
+    @include('modules.partials.create_signatory')
     @include('modules.partials.modals.delete')
     {!! Form::model($data, $modelConfig['update']) !!}
     @include('modules.partials.modals.edit-remarks')
@@ -87,17 +88,24 @@ Vouchers
 
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::selectField('certified_by', 'Certified By', $signatory_list) !!}
+                    {{-- {!! Form::selectField('certified_by', 'Certified By', $signatory_list) !!} --}}
+
+                    <label class="label">Certified By</label>
+                    {!! Form::select('certified_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-certified_by']) !!}
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::selectField('approver_id', 'Approved By', $signatory_list) !!}
+                    {{-- {!! Form::selectField('approver_id', 'Approved By', $signatory_list) !!} --}}
+                    <label class="label">Approved By</label>
+                    {!! Form::select('approver_id',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-approver_id']) !!}
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::selectField('receiver_id', 'Conforme', $signatory_list) !!}
+                    {{-- {!! Form::selectField('receiver_id', 'Conforme', $signatory_list) !!} --}}
+                    <label class="label">Conforme</label>
+                    {!! Form::select('receiver_id',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-receiver_id']) !!}
                 </div>
             </div>
 
@@ -110,6 +118,59 @@ Vouchers
 
 @section('scripts')
 <script type="text/javascript">
+
+
+
+    $certified_by = $('#id-field-certified_by').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+    $approver_id = $('#id-field-approver_id').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+    $receiver_id = $('#id-field-receiver_id').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    certified_by  = $certified_by[0].selectize;
+    approver_id  = $approver_id[0].selectize;
+    receiver_id  = $receiver_id[0].selectize;
+
+    $(document).on('submit', '#create-signatory-form', function(e){
+        e.preventDefault();
+        var inputs =  $("#create-signatory-form").serialize();
+
+        console.log(inputs);
+        $.ajax({
+            type: "POST",
+            url: '/api/signatories/store',
+            data: inputs,
+            success: function(result) {
+                console.log(result);
+                certified_by.addOption({value:result.id, text: result.name});
+                approver_id.addOption({value:result.id, text: result.name});
+                receiver_id.addOption({value:result.id, text: result.name});
+
+                $('#create-signatory-modal').removeClass('is-visible');
+                $('#create-signatory-form')[0].reset();
+            }
+        });
+
+    });
 
     $('#edit-button').click(function(e){
         e.preventDefault();

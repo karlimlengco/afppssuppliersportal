@@ -21,6 +21,7 @@ Inspection And Acceptance Report
 @stop
 
 @section('modal')
+    @include('modules.partials.create_signatory')
     {!! Form::model($data, $modelConfig['update']) !!}
     @include('modules.partials.modals.edit-remarks')
 @stop
@@ -53,17 +54,26 @@ Inspection And Acceptance Report
 
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::selectField('inspection_signatory', 'Inspection Signatory', $signatory_list) !!}
+                    {{-- {!! Form::selectField('inspection_signatory', 'Inspection Signatory', $signatory_list) !!} --}}
+
+                    <label class="label">Inspection Signatory</label>
+                    {!! Form::select('inspection_signatory',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-inspection_signatory']) !!}
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::selectField('acceptance_signatory', 'Acceptance Signatory', $signatory_list) !!}
+                    {{-- {!! Form::selectField('acceptance_signatory', 'Acceptance Signatory', $signatory_list) !!} --}}
+
+                    <label class="label">Acceptance Signatory</label>
+                    {!! Form::select('acceptance_signatory',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-acceptance_signatory']) !!}
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::selectField('sao_signatory', 'SAO Signatory', $signatory_list) !!}
+                    {{-- {!! Form::selectField('sao_signatory', 'SAO Signatory', $signatory_list) !!} --}}
+
+                    <label class="label">SAO Signatory</label>
+                    {!! Form::select('sao_signatory',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-sao_signatory']) !!}
                 </div>
             </div>
         {!! Form::close() !!}
@@ -76,6 +86,58 @@ Inspection And Acceptance Report
 @section('scripts')
 
 <script type="text/javascript">
+
+    $signatory = $('#id-field-inspection_signatory').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    $acceptance = $('#id-field-acceptance_signatory').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+    $sao = $('#id-field-sao_signatory').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    signatory  = $signatory[0].selectize;
+    acceptance  = $acceptance[0].selectize;
+    sao  = $sao[0].selectize;
+
+    $(document).on('submit', '#create-signatory-form', function(e){
+        e.preventDefault();
+        var inputs =  $("#create-signatory-form").serialize();
+
+        console.log(inputs);
+        $.ajax({
+            type: "POST",
+            url: '/api/signatories/store',
+            data: inputs,
+            success: function(result) {
+                console.log(result);
+                signatory.addOption({value:result.id, text: result.name});
+                acceptance.addOption({value:result.id, text: result.name});
+                sao.addOption({value:result.id, text: result.name});
+
+                $('#create-signatory-modal').removeClass('is-visible');
+                $('#create-signatory-form')[0].reset();
+            }
+        });
+
+    });
 
     $('#edit-button').click(function(e){
         e.preventDefault();
