@@ -52464,6 +52464,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('i', {
       staticClass: "nc-icon-mini ui-1_circle-add"
     })]) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', {
+      staticStyle: {
+        "font-weight": "bolder",
+        "color": "#222222"
+      },
       attrs: {
         "tooltip": "Total"
       }
@@ -52516,6 +52520,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }, [_c('i', {
           staticClass: "nc-icon-mini ui-1_circle-add"
         })]), _vm._v("\n                                                            " + _vm._s(itemProgData.name) + "\n                                                        ")]), _vm._v(" "), _c('td', [_c('span', {
+          staticStyle: {
+            "font-weight": "bolder",
+            "color": "#222222"
+          },
           attrs: {
             "tooltip": "Total"
           }
@@ -52568,6 +52576,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
             }, [_c('i', {
               staticClass: "nc-icon-mini ui-1_circle-add"
             })])]), _vm._v(" "), _c('td', [_c('span', {
+              staticStyle: {
+                "font-weight": "bolder",
+                "color": "#222222"
+              },
               attrs: {
                 "tooltip": "Total"
               }
@@ -52646,6 +52658,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       })] : _vm._e()]
     })], 2)])])])]
   }), _vm._v(" "), _c('tr', [_c('td', [_vm._v("\n                            Total\n                        ")]), _vm._v(" "), _c('td', [_c('span', {
+    staticStyle: {
+      "font-weight": "bolder",
+      "color": "#222222"
+    },
     attrs: {
       "tooltip": "Total"
     }
@@ -52661,7 +52677,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("(" + _vm._s(_vm.total_ongoing) + ")")]), _vm._v(" "), _c('span', {
     staticStyle: {
-      "color": "7a7a7a"
+      "color": "#7a7a7a"
     },
     attrs: {
       "tooltip": "Cancelled"

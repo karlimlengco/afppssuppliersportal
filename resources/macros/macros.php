@@ -60,7 +60,7 @@ Form::macro('taggingField', function($name, $label = null, $value = null, $attri
 Form::macro('tagField', function($name, $label = null, $options, $value = null, $attributes = array())
 {
 
-       $attributes = $attributes + ['class' => 'selectize-tagging selectize', 'multiple', 'data-selectize' => 'taggingField'];
+       $attributes = $attributes + ['class' => 'selectize-tagging selectize selectizes', 'multiple', 'data-selectize' => 'taggingField'];
 
     $element = Form::select($name.'[]', [null => 'Select One'] + $options, $value, fieldAttributes($name, $attributes));
 
@@ -175,7 +175,7 @@ Form::macro('textareaField', function($name, $label = null, $value = null, $attr
 
 Form::macro('ajaxField', function($name, $label = null, $options, $value = null, $attributes = array())
 {
-    $attributes = $attributes + ['class' => 'selectize'];
+    $attributes = $attributes + ['class' => 'selectize selectizes'];
 
     $element = Form::select($name, [null => 'Select One'] + $options, $value, fieldAttributes($name, $attributes));
 

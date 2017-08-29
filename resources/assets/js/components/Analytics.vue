@@ -49,7 +49,7 @@
                                 <button v-if="item.upr_count > 0" v-on:click="clickItemProgram(item)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                             </td>
                             <td>
-                                <span tooltip="Total" >{{item.upr_count}}</span>
+                                <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{item.upr_count}}</span>
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/completed/'+item.programs+'?type='+types" tooltip="Completed" class="blue">({{item.completed_count}})</a>
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/ongoing/'+item.programs+'?type='+types" tooltip="Ongoing" class="green">({{item.ongoing_count}})</a>
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/cancelled/'+item.programs+'?type='+types" tooltip="Cancelled" style="color:#7a7a7a" >({{item.cancelled_count}})</a>
@@ -84,7 +84,7 @@
                                                             {{itemProgData.name}}
                                                         </td>
                                                         <td>
-                                                            <span tooltip="Total" >{{itemProgData.upr_count}}</span>
+                                                            <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{itemProgData.upr_count}}</span>
                                                             <a
                                                                 target="_blank"
                                                                 v-bind:href="'/procurements/unit-purchase-requests/overview/completed/'+item.programs+'/'+itemProgData.name+'/?type='+types"
@@ -146,7 +146,7 @@
                                                                                     </td>
                                                                                     <td>
 
-                                                                                        <span tooltip="Total" >{{itemUnitData.upr_count}}</span>
+                                                                                        <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{itemUnitData.upr_count}}</span>
 
                                                                                         <a
                                                                                             target="_blank"
@@ -203,7 +203,7 @@
                                                                                                     <td> <i class="green" style="font-family: Verdana;">{{itemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small></td>
                                                                                                     <td>
 
-<!--                                                                                                         <span tooltip="Total" >{{itemProgCentData.upr_count}}</span>
+<!--                                                                                                         <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{itemProgCentData.upr_count}}</span>
                                                                                                         <span tooltip="Completed" class="blue">({{itemProgCentData.completed_count}})</span>
                                                                                                         <span tooltip="Ongoing" class="green">({{itemProgCentData.ongoing_count}})</span>
                                                                                                         <span tooltip="Delay" class="red">({{itemProgCentData.delay_count}})</span>
@@ -261,10 +261,10 @@
                             Total
                         </td>
                         <td>
-                            <span tooltip="Total" >{{total}}</span>
+                            <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{total}}</span>
                             <span tooltip="Completed" class="blue">({{total_completed}})</span>
                             <span tooltip="Ongoing" class="green">({{total_ongoing}})</span>
-                            <span tooltip="Cancelled" style="color:7a7a7a">({{total_cancelled}})</span>
+                            <span tooltip="Cancelled" style="color:#7a7a7a">({{total_cancelled}})</span>
                             <span tooltip="Delay" class="red">({{total_delay}})</span>
                         </td>
                         <td>{{formatPrice(total_abc)}}</td>

@@ -21,9 +21,7 @@
                             <img src="{{base_path('public/img/form-logo.png')}}" alt="">
                         </span>
                         <span class="printable-form__letterhead__details">
-                            <strong>{{$data['header']->name}}</strong><br>
-                            Armed Forces of the Philippines Procurement Service<br>
-                            {{$data['header']->address}}
+                            {!!$data['unitHeader']!!}
                         </span>
                     </div>
                     <!-- title -->

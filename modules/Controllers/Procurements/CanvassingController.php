@@ -13,6 +13,7 @@ use App\Events\Event;
 
 use \Revlv\Procurements\Canvassing\CanvassingRepository;
 use \Revlv\Procurements\Canvassing\Signatories\SignatoryRepository as CSignatoryRepository;
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 use \Revlv\Procurements\Canvassing\CanvassingRequest;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
@@ -47,6 +48,7 @@ class CanvassingController extends Controller
     protected $holidays;
     protected $users;
     protected $userLogs;
+    protected $headers;
 
     /**
      * [$model description]
@@ -567,19 +569,22 @@ class CanvassingController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint($id, CanvassingRepository $model)
+    public function viewPrint($id, CanvassingRepository $model, HeaderRepository $headers)
     {
         $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
         $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
 
         $data['date']               =  $result->canvass_date." ". $result->canvass_time;
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
+
         $data['rfq_number']         =  $result->rfq->rfq_number;
         $data['header']             =  $result->upr->centers;
         $data['total_amount']       =  $result->upr->total_amount;
         $data['unit']               =  $result->upr->unit->short_code;
         $data['center']             =  $result->upr->centers->name;
-        $data['venue']              =  $result->rfq->invitations->ispq->venue;
+        $data['venue']              =  $result->upr->invitations->ispq->venue;
         $data['signatories']        =  $result->signatories;
         $data['proponents']         =  $result->rfq->proponents;
         $data['chief_signatory']    =  explode('/',$result->chief_signatory);
@@ -604,12 +609,15 @@ class CanvassingController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewCOP($id, CanvassingRepository $model)
+    public function viewCOP($id, CanvassingRepository $model, HeaderRepository $headers)
     {
         $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
         $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
 
         $data['date']               =  $result->canvass_date." ". $result->canvass_time;
+
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         if($result->cop == 1)
         {
@@ -637,7 +645,7 @@ class CanvassingController extends Controller
         $data['header']             =  $result->upr->centers;
         $data['unit']               =  $result->upr->unit->short_code;
         $data['center']             =  $result->upr->centers->name;
-        $data['venue']              =  $result->rfq->invitations->ispq->venue;
+        $data['venue']              =  $result->upr->invitations->ispq->venue;
         $data['proponents']         =  $result->rfq->proponents;
         $data['min_bid']            =  $min;
         $data['signatory']          =  explode('/', $signatory);
@@ -658,19 +666,22 @@ class CanvassingController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewROP($id, CanvassingRepository $model)
+    public function viewROP($id, CanvassingRepository $model, HeaderRepository $headers)
     {
         $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
         $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
 
         $data['date']               =  $result->canvass_date." ". $result->canvass_time;
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
+
         $data['rfq_number']         =  $result->rfq->rfq_number;
         $data['total_amount']       =  $result->upr->total_amount;
         $data['header']             =  $result->upr->centers;
         $data['unit']               =  $result->upr->unit->short_code;
         $data['center']             =  $result->upr->centers->name;
-        $data['venue']              =  $result->rfq->invitations->ispq->venue;
+        $data['venue']              =  $result->upr->invitations->ispq->venue;
         $data['signatories']        =  $result->signatories;
         $data['proponents']         =  $result->rfq->proponents;
         $data['min_bid']            =  $min;
@@ -714,7 +725,7 @@ class CanvassingController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewMOM($id, CanvassingRepository $model)
+    public function viewMOM($id, CanvassingRepository $model, HeaderRepository $headers)
     {
         $result                 =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
 
@@ -722,6 +733,9 @@ class CanvassingController extends Controller
         {
             return redirect()->back()->with(['error' => 'No winner']);
         }
+
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         $data['other_attendees']=   $result->other_attendees;
         $data['date_opened']    =   $result->canvass_date;

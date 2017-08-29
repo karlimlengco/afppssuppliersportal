@@ -9,6 +9,7 @@ use Datatables;
 use Excel;
 use PDF;
 use \App\Support\Breadcrumb;
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\AuditLogs\AuditLogRepository;
@@ -24,6 +25,7 @@ trait FileTrait
     protected $logs;
     protected $attachments;
     protected $models;
+    protected $headers;
 
     /**
      * [logs description]
@@ -57,7 +59,7 @@ trait FileTrait
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint($id, UnitPurchaseRequestRepository $model)
+    public function viewPrint($id, UnitPurchaseRequestRepository $model, HeaderRepository $headers)
     {
         $result     =   $model->findById($id);
 
@@ -65,6 +67,9 @@ trait FileTrait
         {
             return redirect()->back()->with(['error' => 'please add signatory']);
         }
+
+        $header                     =  $headers->findByUnit($result->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         $data['upr_number']         =  $result->upr_number;
         $data['ref_number']         =  $result->ref_number;

@@ -602,6 +602,7 @@ Route::group(['as' => 'maintenance.', 'prefix' => 'maintenance'], function () {
     Route::resource('units', '\Revlv\Controllers\Settings\UnitController');
     Route::resource('banks', '\Revlv\Controllers\Settings\BankController');
     Route::resource('forms', '\Revlv\Controllers\Settings\FormsController');
+    Route::resource('forms-headers', '\Revlv\Controllers\Settings\HeaderController');
     Route::resource('announcements', '\Revlv\Controllers\Settings\AnnouncementController');
 
     Route::post('catered-units/attachments/{id}', '\Revlv\Controllers\Settings\CateredUnitController@uploadAttachment')->name('catered-units.attachments.store');
@@ -726,6 +727,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('catered-units', '\Revlv\Controllers\Settings\CateredUnitController@getDatatable')->name('maintenance.catered-units');
     Route::get('bacsec', '\Revlv\Controllers\Settings\BacSecController@getDatatable')->name('maintenance.bacsec');
     Route::get('forms_rfq', '\Revlv\Controllers\Settings\FormsController@getDatatable')->name('maintenance.forms.rfq');
+    Route::get('forms_headers', '\Revlv\Controllers\Settings\HeaderController@getDatatable')->name('maintenance.forms.headers');
 
     /*
     |--------------------------------------------------------------------------

@@ -22,6 +22,7 @@ use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Users\UserRepository;
 use Validator;
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 
 class ISPQController extends Controller
@@ -47,6 +48,7 @@ class ISPQController extends Controller
     protected $holidays;
     protected $users;
     protected $userLogs;
+    protected $headers;
 
     /**
      * [$model description]
@@ -276,7 +278,7 @@ class ISPQController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint($id, ISPQRepository $model)
+    public function viewPrint($id, ISPQRepository $model, HeaderRepository $headers)
     {
         $result     =   $model->with(['quotations'])->findById($id);
         $center     =   '';
@@ -284,7 +286,10 @@ class ISPQController extends Controller
         if(\Sentinel::getUser()->units != null)
         {
             $center     =   \Sentinel::getUser()->units->centers;
+            $center1     =   \Sentinel::getUser()->units->id;
         }
+        $header                     =  $headers->findByUnit($center1);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         $data['transaction_date']   =  $result->transaction_date;
         $data['venue']              =  $result->venue;

@@ -30,6 +30,7 @@ use \Revlv\Settings\CateredUnits\CateredUnitRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\BacSec\BacSecRepository;
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 
 use Revlv\Procurements\UnitPurchaseRequests\Traits\FileTrait;
 use Revlv\Procurements\UnitPurchaseRequests\Traits\ImportTrait;

@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use \App\Support\Breadcrumb;
 use App\Events\Event;
 
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\UpdateRequest;
@@ -44,6 +45,7 @@ class BlankRFQController extends Controller
     protected $audits;
     protected $holidays;
     protected $userLogs;
+    protected $headers;
 
     /**
      * [$model description]
@@ -478,9 +480,12 @@ class BlankRFQController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint($id, BlankRFQRepository $model, RFQRepository $rfqForms)
+    public function viewPrint($id, BlankRFQRepository $model, RFQRepository $rfqForms, HeaderRepository $headers)
     {
         $result     =   $model->with(['upr'])->findById($id);
+
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         $data['chief']              =  explode('/', $result->signatory_chief);
         $data['total_amount']       =  $result->upr->total_amount;

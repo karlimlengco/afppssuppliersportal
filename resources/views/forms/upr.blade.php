@@ -26,9 +26,10 @@
                     <!-- letterhead -->
                     <div class="printable-form__letterhead">
                         <span class="printable-form__letterhead__details">
-                            <strong>{{$data['header']->name}}</strong><br>
+                            {!! $data['unitHeader'] !!}
+                            {{-- <strong>{{$data['header']->name}}</strong><br>
                             Armed Forces of the Philippines Procurement Service<br>
-                            {{$data['header']->address}}
+                            {{$data['header']->address}} --}}
                         </span>
                     </div>
                     <!-- content -->

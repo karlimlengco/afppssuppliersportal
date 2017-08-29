@@ -13,6 +13,7 @@ use Validator;
 use App\Events\Event;
 use Excel;
 
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 use \Revlv\Procurements\PurchaseOrder\PORepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\PurchaseOrder\Items\ItemRepository;
@@ -50,6 +51,7 @@ class PurchaseOrderController extends Controller
     protected $terms;
     protected $proponents;
     protected $signatories;
+    protected $headers;
     protected $audits;
     protected $holidays;
     protected $users;
@@ -976,10 +978,13 @@ class PurchaseOrderController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrintTerms($id, PORepository $model)
+    public function viewPrintTerms($id, PORepository $model, HeaderRepository $headers)
     {
         $result                     =  $model->with(['rfq'])->findById($id);
         $data['header']             =  $result->upr->centers;
+
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         $pdf = PDF::loadView('forms.po-terms', ['data' => $data])
             ->setOption('margin-bottom', 30)
@@ -995,10 +1000,12 @@ class PurchaseOrderController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrintContract($id, PORepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr)
+    public function viewPrintContract($id, PORepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr, HeaderRepository $headers)
     {
         $result                     =  $model->with(['rfq'])->findById($id);
         $upr_model                  =  $result->upr;
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         if($upr_model->mode_of_procurement == 'public_bidding')
         {
@@ -1033,11 +1040,13 @@ class PurchaseOrderController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint($id, PORepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr)
+    public function viewPrint($id, PORepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr, HeaderRepository $headers)
     {
         $result                     =  $model->with(['terms','delivery','rfq','items'])->findById($id);
         $upr_model                  =  $upr->findById($result->upr_id);
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         if($upr_model->mode_of_procurement == 'public_bidding')
         {
@@ -1094,11 +1103,13 @@ class PurchaseOrderController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrintCOA($id, PORepository $model, NOARepository $noa)
+    public function viewPrintCOA($id, PORepository $model, NOARepository $noa,  HeaderRepository $headers)
     {
         $result                     =  $model->with(['coa_signatories','rfq','upr'])->findById($id);
         // $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         if($result->upr->mode_of_procurement == 'public_bidding')
         {
             $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;

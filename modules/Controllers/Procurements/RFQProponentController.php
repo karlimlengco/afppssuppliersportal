@@ -9,6 +9,8 @@ use Auth;
 use PDF;
 use App\Events\Event;
 
+use \Revlv\Settings\Forms\Header\HeaderRepository;
+use \Revlv\Settings\Forms\RFQ\RFQRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRequest;
@@ -54,6 +56,8 @@ class RFQProponentController extends Controller
      */
     protected $attachments;
     protected $suppliers;
+    protected $rfqForms;
+    protected $headers;
 
     /**
      * @param model $model
@@ -295,12 +299,15 @@ class RFQProponentController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint($id, RFQProponentRepository $model)
+    public function viewPrint($id, RFQProponentRepository $model, RFQRepository $rfqForms, HeaderRepository $headers)
     {
         $result     =   $model->findById($id);
         $supplier   =   $result->supplier;
         $rfq        =   $result->rfq;
-
+        $header                     =  $headers->findByUnit($result->rfq->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
+        $rfqFormsContent            =   $rfqForms->findByPCCO($result->rfq->upr->centers->id);
+        $data['content']            =  ($rfqFormsContent) ? $rfqFormsContent->content : "";
 
         $data['total_amount']       =  $rfq->upr->total_amount;
         $data['header']             =  $rfq->upr->centers;

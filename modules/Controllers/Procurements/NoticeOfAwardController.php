@@ -22,6 +22,7 @@ use \Revlv\Settings\AuditLogs\AuditLogRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Users\UserRepository;
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 
 class NoticeOfAwardController extends Controller
 {
@@ -48,6 +49,7 @@ class NoticeOfAwardController extends Controller
     protected $holidays;
     protected $users;
     protected $userLogs;
+    protected $headers;
 
     /**
      * [$model description]
@@ -676,6 +678,7 @@ class NoticeOfAwardController extends Controller
         CanvassingRepository $model,
         BlankRFQRepository $blank,
         NOARepository $noa,
+        HeaderRepository $headers,
         UnitPurchaseRequestRepository $upr,
         RFQProponentRepository $rfq)
     {
@@ -713,6 +716,8 @@ class NoticeOfAwardController extends Controller
         }
         $upr_model                  =   $upr->with(['unit'])->findById($noa_modal->upr_id);
 
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']   =   $noa_modal->awarded_date;
         $data['supplier']           =   $proponent_awardee;
         $data['unit']               =   $upr_model->unit->description;

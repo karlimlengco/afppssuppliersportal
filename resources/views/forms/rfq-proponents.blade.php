@@ -26,9 +26,7 @@
                                 <img src="{{base_path('public/img/form-logo.png')}}" alt="">
                             </span>
                             <span class="printable-form__letterhead__details">
-                                <strong>{{$data['header']->name}}</strong><br>
-                                Armed Forces of the Philippines Procurement Service<br>
-                                {{$data['header']->address}}
+                                {!!$data['unitHeader']!!}
                             </span>
                         </div>
                         <!-- title -->
@@ -47,7 +45,7 @@
                                 <td class="align-bottom" width="45%"></td>
                                 <td width="10%"></td>
                                 <td class="align-bottom align-left" width="45%" height="60px">
-                                    <strong> @if($data['chief'] != null)  {{$data['chief'][1]}} {{$data['chief'][0]}} {{$data['chief'][2]}} </strong><br>
+                                    <strong> @if(count($data['chief']) > 1)  {{$data['chief'][1]}} {{$data['chief'][0]}} {{$data['chief'][2]}} </strong><br>
                                     {{$data['chief'][3]}}
                                     @endif
                                 </td>
@@ -57,12 +55,7 @@
                             </tr>
                         </table>
                         <ol>
-                            <li>DELIVERY PERIOD IS ATLEAST SEVEN (7) CALENDAR DAYS AT GHQ HEADQUARTERS</li>
-                            <li>WARRANTY SHALL BE FOR THE PERIOD OF THREE (3) MONTHS FOR SUPPLIES & MATERIALS, ONE (1) YEAR FOR EQUIPMENT, FROM DATE OF ACCEPTANCE BY THE PROCURING ENTITY OR PRODUCT WARRANTY WHICHEVER IS LONGER.</li>
-                            <li>PRICE VALIDITY SHALL BE FIXED DURING THE BIDDERS PERFORMANCE OF THE CONTRACT AND NOT SUBJECT TO VARIATION OR PRICE ESCALATION ON ANY ACCOUNT.</li>
-                            <li>PHILGEPS REGISTRATION SHALL BE ATTACHED UPON SUBMISSION OF THE QUOTATION.</li>
-                            <li>BIDDERS SHALL SUBMIT ORIGINAL DOCUMENTS SHOWING CERTIFICATIONS OF THE PROJECT BEING OFFERED OR ITS EQUIVALENT, IF NECESSARY.</li>
-                            <li>FOR INFRASTRUCTURE PROJECT, INTERESTED PROPONENTS SHOULD SUBMIT CERTIFICATE OF SITE INSPECTION ISSUED BY THE END USER.</li>
+                            {!!$data['content']!!}
                             <li>APPROVED BUDGET FOR THE CONTRACT IS: <strong><strong style="text-transform:uppercase">{{translateToWords($data['total_amount'])}} PESOS ONLY. ( Php{{formatPrice($data['total_amount'])}})</strong></strong></li>
                         </ol>
                         <table class="printable-form__body__table">
