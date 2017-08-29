@@ -264,6 +264,7 @@
                             <span tooltip="Total" >{{total}}</span>
                             <span tooltip="Completed" class="blue">({{total_completed}})</span>
                             <span tooltip="Ongoing" class="green">({{total_ongoing}})</span>
+                            <span tooltip="Cancelled" style="color:7a7a7a">({{total_cancelled}})</span>
                             <span tooltip="Delay" class="red">({{total_delay}})</span>
                         </td>
                         <td>{{formatPrice(total_abc)}}</td>
@@ -727,6 +728,14 @@ var tarray2IDs           =   [];
                 }
                 return this.items.reduce(function (total, value){
                     return total +  Number(value.ongoing_count);
+                },0);
+            },
+            total_cancelled: function(){
+                if(!this.items){
+                    return 0;
+                }
+                return this.items.reduce(function (total, value){
+                    return total +  Number(value.cancelled_count);
                 },0);
             },
             total_delay: function(){

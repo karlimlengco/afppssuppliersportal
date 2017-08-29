@@ -16515,6 +16515,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 var arrayIDs = [];
@@ -16760,6 +16761,14 @@ var tarray2IDs = [];
             }
             return this.items.reduce(function (total, value) {
                 return total + Number(value.ongoing_count);
+            }, 0);
+        },
+        total_cancelled: function total_cancelled() {
+            if (!this.items) {
+                return 0;
+            }
+            return this.items.reduce(function (total, value) {
+                return total + Number(value.cancelled_count);
             }, 0);
         },
         total_delay: function total_delay() {
@@ -52651,6 +52660,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "tooltip": "Ongoing"
     }
   }, [_vm._v("(" + _vm._s(_vm.total_ongoing) + ")")]), _vm._v(" "), _c('span', {
+    staticStyle: {
+      "color": "7a7a7a"
+    },
+    attrs: {
+      "tooltip": "Cancelled"
+    }
+  }, [_vm._v("(" + _vm._s(_vm.total_cancelled) + ")")]), _vm._v(" "), _c('span', {
     staticClass: "red",
     attrs: {
       "tooltip": "Delay"

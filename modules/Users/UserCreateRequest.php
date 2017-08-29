@@ -71,7 +71,6 @@ class UserCreateRequest extends BaseRequest
         return [
             'username'              => 'required|min:5|max:25|unique:users',
             'first_name'            => 'required',
-            'email'                 => 'email',
             'password'              => 'required|confirmed',
             'password_confirmation' => 'required',
             'middle_name'           => 'required',
