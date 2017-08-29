@@ -55,8 +55,8 @@
                     <tr>
                         <td class="border-left-only" nowrap>Telephone No</td>
                         <td class="no-border"><strong>{{$data['winner']->phone_1}}</strong></td>
-                        <td class="no-border" nowrap>Account Code</td>
-                        <td class="border-right-only"><strong>{{$data['accounts']}}</strong></td>
+                        <td class="no-border" nowrap>{{-- Account Code --}}</td>
+                        <td class="border-right-only"><strong>{{-- {{$data['accounts']}} --}}</strong></td>
                     </tr>
                     <tr>
                         <td class="border-left-only" nowrap>TIN</td>

@@ -1062,7 +1062,7 @@ class PurchaseOrderController extends Controller
         $data['rfq_number']         =  $result->rfq_number;
         $data['mode']               =  ($upr_model->modes != null) ?$upr_model->modes->name : "Public Bidding";
         $data['term']               =  $result->terms->name;
-        $data['accounts']           =  $upr_model->accounts->new_account_code;
+        // $data['accounts']           =  $upr_model->accounts->new_account_code;
         $data['centers']            =  $upr_model->centers->name;
         $data['purpose']            =  $upr_model->purpose;
         $data['delivery']           =  $result->delivery;
