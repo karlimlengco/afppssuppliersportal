@@ -3570,8 +3570,8 @@ table-custom.less
 }
 .table-name tr th,
 .table-name tr td {
-  width: 100px !important;
-  min-width: 100px !important;
+  width: 150px !important;
+  min-width: 150px !important;
 }
 .table-name tr th:first-child,
 .table-name tr td:first-child {
@@ -3590,8 +3590,8 @@ table-custom.less
 .table-name tr td.has-child .grand-child-table tr td,
 .table-name tr th.has-child .great-grand-child-table tr td,
 .table-name tr td.has-child .great-grand-child-table tr td {
-  width: 100px !important;
-  min-width: 100px !important;
+  width: 150px !important;
+  min-width: 150px !important;
 }
 .table-name tr th.has-child .child-table tr th:first-child,
 .table-name tr td.has-child .child-table tr th:first-child,
