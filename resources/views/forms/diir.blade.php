@@ -51,7 +51,7 @@
                         <td  class="align-right" >Php {{formatPrice($data['bid_amount'])}}</td>
                     </tr>
                     <tr>
-                        <td class="align-center" colspan="6"><strong>****************************************************************************************************************************************</strong></td>
+                        <td class="align-center" colspan="6"><strong>**************************************************************************************************************************</strong></td>
                     </tr>
                     <tr>
                         <td class="align-center" colspan="6">DEBIT PROPERTY ACCOUNTABILITY OF {{$data['receiver'][1]}} {{$data['receiver'][0]}}{{$data['receiver'][2]}}</td>
