@@ -184,64 +184,67 @@ class PSRController extends Controller
                 $sheet->mergeCells('A1:AA1');
                 $sheet->mergeCells('A2:AA2');
                 $sheet->mergeCells('A3:AA3');
+                if($result->last() != null)
+                {
 
-                if($result->last()->mode_of_procurement != 'public_bidding')
-                {
-                    $sheet->row(6, [
-                        'PC/CO',
-                        'UPR',
-                        'ISPQ',
-                        'PhilGeps Posting',
-                        'Close RFQ',
-                        'Canvassing',
-                        'Prepare NOA',
-                        'Approved NOA',
-                        'Received NOA',
-                        'PO/JO/WO Creation',
-                        'Funding',
-                        'MFO Funding/Obligation',
-                        'PO COA Approval',
-                        'Prepare NTP',
-                        'Received NTP',
-                        'Received Delivery',
-                        'Complete COA Delivery',
-                        'Technical Inspection',
-                        'IAR Acceptance',
-                        'DIIR Inspection Start',
-                        'DIIR Inspection Close',
-                        'Prepare Voucher',
-                        'Preaudit Voucher /End',
-                    ]);
-                }
-                else
-                {
-                    $sheet->row(6, [
-                        'UPR',
-                        'Document Acceptance',
-                        'Pre Proc',
-                        'ITB',
-                        'PhilGeps Posting',
-                        'Pre Bid Conference',
-                        'SOBE',
-                        'Post Qualification',
-                        'Prepare NOA',
-                        'Approved NOA',
-                        'Received NOA',
-                        'PO/Contract Creation',
-                        'Funding',
-                        'MFO Funding/Obligation',
-                        'PO/Contract COA Approval',
-                        'Prepare NTP',
-                        'Received NTP',
-                        'Received Delivery',
-                        'Complete COA Delivery',
-                        'Technical Inspection',
-                        'IAR Acceptance',
-                        'DIIR Inspection Start',
-                        'DIIR Inspection Close',
-                        'Prepare Voucher',
-                        'Preaudit Voucher /End',
-                    ]);
+                    if($result->last()->mode_of_procurement != 'public_bidding')
+                    {
+                        $sheet->row(6, [
+                            'PC/CO',
+                            'UPR',
+                            'ISPQ',
+                            'PhilGeps Posting',
+                            'Close RFQ',
+                            'Canvassing',
+                            'Prepare NOA',
+                            'Approved NOA',
+                            'Received NOA',
+                            'PO/JO/WO Creation',
+                            'Funding',
+                            'MFO Funding/Obligation',
+                            'PO COA Approval',
+                            'Prepare NTP',
+                            'Received NTP',
+                            'Received Delivery',
+                            'Complete COA Delivery',
+                            'Technical Inspection',
+                            'IAR Acceptance',
+                            'DIIR Inspection Start',
+                            'DIIR Inspection Close',
+                            'Prepare Voucher',
+                            'Preaudit Voucher /End',
+                        ]);
+                    }
+                    else
+                    {
+                        $sheet->row(6, [
+                            'UPR',
+                            'Document Acceptance',
+                            'Pre Proc',
+                            'ITB',
+                            'PhilGeps Posting',
+                            'Pre Bid Conference',
+                            'SOBE',
+                            'Post Qualification',
+                            'Prepare NOA',
+                            'Approved NOA',
+                            'Received NOA',
+                            'PO/Contract Creation',
+                            'Funding',
+                            'MFO Funding/Obligation',
+                            'PO/Contract COA Approval',
+                            'Prepare NTP',
+                            'Received NTP',
+                            'Received Delivery',
+                            'Complete COA Delivery',
+                            'Technical Inspection',
+                            'IAR Acceptance',
+                            'DIIR Inspection Start',
+                            'DIIR Inspection Close',
+                            'Prepare Voucher',
+                            'Preaudit Voucher /End',
+                        ]);
+                    }
                 }
 
                 foreach($result as $data)
