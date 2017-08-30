@@ -194,70 +194,75 @@ class TransactionDayController extends Controller
                 $sheet->mergeCells('A2:AA2');
                 $sheet->mergeCells('A3:AA3');
 
-                if($result->last()->mode_of_procurement != 'public_bidding')
+                if($result->last() != null)
                 {
-                    $sheet->row(2, ["ALTERNATIVE METHOD OF PROCUREMENT "]);
-                    $sheet->row(6, [
-                        'UPR',
-                        'ISPQ',
-                        'PhilGeps Posting',
-                        'Close RFQ',
-                        'Canvassing',
-                        'Prepare NOA',
-                        'Approved NOA',
-                        'Received NOA',
-                        'PO/JO/WO Creation',
-                        'Funding',
-                        'MFO Funding/Obligation',
-                        'PO COA Approval',
-                        'Prepare NTP',
-                        'Received NTP',
-                        'Received Delivery',
-                        'Complete COA Delivery',
-                        'Technical Inspection',
-                        'IAR Acceptance',
-                        'DIIR Inspection Start',
-                        'DIIR Inspection Close',
-                        'Prepare Voucher',
-                        'Preaudit Voucher /End',
-                        'Total Days',
-                    ]);
-                }
-                else
-                {
-                    $sheet->row(2, ["PUBLIC BIDDING "]);
 
-                    $sheet->row(6, [
-                        'UPR',
-                        'Document Acceptance',
-                        'Pre Proc',
-                        'ITB',
-                        'PhilGeps Posting',
-                        'Pre Bid Conference',
-                        'SOBE',
-                        'Post Qualification',
-                        'Prepare NOA',
-                        'Approved NOA',
-                        'Received NOA',
-                        'PO/Contract Creation',
-                        'Funding',
-                        'MFO Funding/Obligation',
-                        'PO/Contract COA Approval',
-                        'Prepare NTP',
-                        'Received NTP',
-                        'Received Delivery',
-                        'Complete COA Delivery',
-                        'Technical Inspection',
-                        'IAR Acceptance',
-                        'DIIR Inspection Start',
-                        'DIIR Inspection Close',
-                        'Prepare Voucher',
-                        'Preaudit Voucher /End',
-                        // 'Stage 30',
-                        'Total Days',
-                        // 'Received Payment',
-                    ]);
+                    if($result->last()->mode_of_procurement != 'public_bidding')
+                    {
+                        $sheet->row(2, ["ALTERNATIVE METHOD OF PROCUREMENT "]);
+                        $sheet->row(6, [
+                            'UPR',
+                            'ISPQ',
+                            'PhilGeps Posting',
+                            'Close RFQ',
+                            'Canvassing',
+                            'Prepare NOA',
+                            'Approved NOA',
+                            'Received NOA',
+                            'PO/JO/WO Creation',
+                            'Funding',
+                            'MFO Funding/Obligation',
+                            'PO COA Approval',
+                            'Prepare NTP',
+                            'Received NTP',
+                            'Received Delivery',
+                            'Complete COA Delivery',
+                            'Technical Inspection',
+                            'IAR Acceptance',
+                            'DIIR Inspection Start',
+                            'DIIR Inspection Close',
+                            'Prepare Voucher',
+                            'Preaudit Voucher /End',
+                            'Total Days',
+                        ]);
+                    }
+                    else
+                    {
+                        $sheet->row(2, ["PUBLIC BIDDING "]);
+
+                        $sheet->row(6, [
+                            'UPR',
+                            'Document Acceptance',
+                            'Pre Proc',
+                            'ITB',
+                            'PhilGeps Posting',
+                            'Pre Bid Conference',
+                            'SOBE',
+                            'Post Qualification',
+                            'Prepare NOA',
+                            'Approved NOA',
+                            'Received NOA',
+                            'PO/Contract Creation',
+                            'Funding',
+                            'MFO Funding/Obligation',
+                            'PO/Contract COA Approval',
+                            'Prepare NTP',
+                            'Received NTP',
+                            'Received Delivery',
+                            'Complete COA Delivery',
+                            'Technical Inspection',
+                            'IAR Acceptance',
+                            'DIIR Inspection Start',
+                            'DIIR Inspection Close',
+                            'Prepare Voucher',
+                            'Preaudit Voucher /End',
+                            // 'Stage 30',
+                            'Total Days',
+                            // 'Received Payment',
+                        ]);
+                    }
                 }
+
                 foreach($result as $data)
                 {
                     if($data->mode_of_procurement != 'public_bidding')
@@ -751,76 +756,80 @@ class TransactionDayController extends Controller
                 $sheet->mergeCells('A1:AA1');
                 $sheet->mergeCells('A2:AA2');
                 $sheet->mergeCells('A3:AA3');
-
-                if($result->last()->mode_of_procurement != 'public_bidding')
+                if($result->last() != null)
                 {
-                    $sheet->row(2, ["ALTERNATIVE METHOD OF PROCUREMENT "]);
-                    $sheet->row(6, [
-                        'UPR',
-                        'PROJECT',
-                        'ABC',
-                        'UPR',
-                        'ISPQ',
-                        'PhilGeps Posting',
-                        'Close RFQ',
-                        'Canvassing',
-                        'Prepare NOA',
-                        'Approved NOA',
-                        'Received NOA',
-                        'PO/JO/WO Creation',
-                        'Funding',
-                        'MFO Funding/Obligation',
-                        'PO COA Approval',
-                        'Prepare NTP',
-                        'Received NTP',
-                        'Received Delivery',
-                        'Complete COA Delivery',
-                        'Technical Inspection',
-                        'IAR Acceptance',
-                        'DIIR Inspection Start',
-                        'DIIR Inspection Close',
-                        'Prepare Voucher',
-                        'Preaudit Voucher /End',
-                        'Total Days',
-                    ]);
-                }
-                else
-                {
-                    $sheet->row(2, ["PUBLIC BIDDING "]);
 
-                    $sheet->row(6, [
-                        'UPR',
-                        'PROJECT',
-                        'ABC',
-                        'UPR',
-                        'Document Acceptance',
-                        'Pre Proc',
-                        'ITB',
-                        'PhilGeps Posting',
-                        'Pre Bid Conference',
-                        'SOBE',
-                        'Post Qualification',
-                        'Prepare NOA',
-                        'Approved NOA',
-                        'Received NOA',
-                        'PO/Contract Creation',
-                        'Funding',
-                        'MFO Funding/Obligation',
-                        'PO/Contract COA Approval',
-                        'Prepare NTP',
-                        'Received NTP',
-                        'Received Delivery',
-                        'Complete COA Delivery',
-                        'Technical Inspection',
-                        'IAR Acceptance',
-                        'DIIR Inspection Start',
-                        'DIIR Inspection Close',
-                        'Prepare Voucher',
-                        'Preaudit Voucher /End',
-                        // 'Stage 30',
-                        'Total Days',
-                    ]);
+                    if($result->last()->mode_of_procurement != 'public_bidding')
+                    {
+                        $sheet->row(2, ["ALTERNATIVE METHOD OF PROCUREMENT "]);
+                        $sheet->row(6, [
+                            'UPR',
+                            'PROJECT',
+                            'ABC',
+                            'UPR',
+                            'ISPQ',
+                            'PhilGeps Posting',
+                            'Close RFQ',
+                            'Canvassing',
+                            'Prepare NOA',
+                            'Approved NOA',
+                            'Received NOA',
+                            'PO/JO/WO Creation',
+                            'Funding',
+                            'MFO Funding/Obligation',
+                            'PO COA Approval',
+                            'Prepare NTP',
+                            'Received NTP',
+                            'Received Delivery',
+                            'Complete COA Delivery',
+                            'Technical Inspection',
+                            'IAR Acceptance',
+                            'DIIR Inspection Start',
+                            'DIIR Inspection Close',
+                            'Prepare Voucher',
+                            'Preaudit Voucher /End',
+                            'Total Days',
+                        ]);
+                    }
+                    else
+                    {
+                        $sheet->row(2, ["PUBLIC BIDDING "]);
+
+                        $sheet->row(6, [
+                            'UPR',
+                            'PROJECT',
+                            'ABC',
+                            'UPR',
+                            'Document Acceptance',
+                            'Pre Proc',
+                            'ITB',
+                            'PhilGeps Posting',
+                            'Pre Bid Conference',
+                            'SOBE',
+                            'Post Qualification',
+                            'Prepare NOA',
+                            'Approved NOA',
+                            'Received NOA',
+                            'PO/Contract Creation',
+                            'Funding',
+                            'MFO Funding/Obligation',
+                            'PO/Contract COA Approval',
+                            'Prepare NTP',
+                            'Received NTP',
+                            'Received Delivery',
+                            'Complete COA Delivery',
+                            'Technical Inspection',
+                            'IAR Acceptance',
+                            'DIIR Inspection Start',
+                            'DIIR Inspection Close',
+                            'Prepare Voucher',
+                            'Preaudit Voucher /End',
+                            // 'Stage 30',
+                            'Total Days',
+                        ]);
+                    }
                 }
+
 
                 foreach($result as $data)
                 {
