@@ -32,6 +32,9 @@ Overview Delay
            <th class="align-center" width="5%">Approved Contract</th>
            <th class="align-center" width="5%">Residual</th>
            <th class="align-center" width="10%">Date Prepared</th>
+           <th class="align-center" width="10%">Current Status</th>
+           <th class="align-center" width="10%">Justification</th>
+           <th class="align-center" width="10%">Action Taken</th>
         </tr>
     </thead>
     <tbody>
@@ -48,6 +51,9 @@ Overview Delay
                 <td>{{formatPrice($data->total_bid)}}</td>
                 <td>{{formatPrice($data->total_residual)}}</td>
                 <td>{{$data->date_prepared->format('d F Y')}}</td>
+                <td>{{$data->status}}</td>
+                <td>{{$data->last_remarks}}</td>
+                <td>{{$data->last_action}}</td>
             </tr>
         @endforeach
     </tbody>
