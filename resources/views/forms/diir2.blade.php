@@ -31,8 +31,8 @@
                 <table class="printable-form__body__table">
                     <tr>
                         <td class="align-center" width="10%"><strong>STOCK NO.</strong></td>
-                        <td class="align-center" width="10%"><strong>UOM</strong></td>
-                        <td class="align-center" width="35%"><strong>DESCRIPTION</strong></td>
+                        <td class="align-center" width="5%"><strong>UOM</strong></td>
+                        <td class="align-center" width="30%"><strong>DESCRIPTION</strong></td>
                         <td class="align-center" width="10%"><strong>QTY</strong></td>
                         <td class="align-center" width="15%"><strong>UNIT COST</strong></td>
                         <td class="align-center" width="20%"><strong>TOTAL COST</strong></td>
