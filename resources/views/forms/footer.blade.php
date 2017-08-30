@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <td style="width: 50%; padding: 0 15px;">
-                <span class="printable-form__foot__ref" style="display: block; width: 100%; font-size: 8px; font-weight: 800; text-transform: uppercase; text-align: left;">11111 1111 11111</span>
+                <span class="printable-form__foot__ref" style="display: block; width: 100%; font-size: 8px; font-weight: 800; text-transform: uppercase; text-align: left;"></span>
             </td>
         </tr>
     </table>
