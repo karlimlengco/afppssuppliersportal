@@ -46,6 +46,7 @@ class ProcurementCenters extends Seeder
             new ProcurementCenterEloquent(["name"=> '406TH Contracting Office', "short_code"=> '406TH CO', 'address' => "Camp General Aguinaldo, QC", 'programs' => '4']),
             new ProcurementCenterEloquent(["name"=> '407TH Contracting Office', "short_code"=> '407TH CO', 'address' => "Camp General Aguinaldo, QC", 'programs' => '4']),
             new ProcurementCenterEloquent(["name"=> '408TH Contracting Office', "short_code"=> '408TH CO', 'address' => "Camp General Aguinaldo, QC", 'programs' => '4'])
+            new ProcurementCenterEloquent(["name"=> 'HEADQUARTERS AFPPS', "short_code"=> 'HAFPPS', 'address' => "Camp General Emilio Aguinaldo, Quezon City" => '1'])
         ]);
 
         $procurements->each(function($procurement) {
