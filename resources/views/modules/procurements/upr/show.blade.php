@@ -454,5 +454,13 @@ Unit Purchase Request
       evt.element.value = value;
     });
 
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-resched_date'),
+        firstDay: 1,
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
 </script>
 @stop

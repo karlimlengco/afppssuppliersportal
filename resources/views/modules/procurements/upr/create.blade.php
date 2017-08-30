@@ -141,9 +141,9 @@ Unit Purchase Request
                                 <td>
                                     {!! Form::select('new_account_code[]', $account_codes,null, ['class'=>'select', 'id' => 'new_account_code']) !!}
                                 </td>
-                                <td> {!! Form::text('a_quantity', null, ['class' => 'input', 'id' => 'quantity']) !!} </td>
+                                <td> {!! Form::text('a_quantity', null, ['class' => 'input unit_price', 'id' => 'quantity']) !!} </td>
                                 <td> {!! Form::text('a_unit_measurement', null, ['class' => 'input', 'id' => 'unit_measurement']) !!} </td>
-                                <td> {!! Form::text('a_unit_price', null, ['class' => 'input', 'id' => 'unit_price']) !!} </td>
+                                <td> {!! Form::text('a_unit_price', null, ['class' => 'input unit_price', 'id' => 'unit_price']) !!} </td>
                                 <td> {!! Form::text('a_total_amount', null, ['class' => 'input', 'id' => 'total_amount', 'readonly']) !!} </td>
                                 <td> <button type="button" class="button" id="add_item">add</button> </td>
                             </tr>
@@ -265,13 +265,13 @@ Unit Purchase Request
             // newRow += "<input type='text' name='new_account_code[]' value='"+new_account_code+"' class='input'/>";
 
             newRow += "<td id='quantity_row"+table_len+"'>";
-            newRow += "<input type='text' name='quantity[]' value='"+quantity+"' class='input'/>";
+            newRow += "<input type='text' name='quantity[]' value='"+quantity+"' class='input unit_price'/>";
             newRow += "</td>";
             newRow += "<td id='unit_measurement_row"+table_len+"'>";
             newRow += "<input type='text' name='unit_measurement[]' value='"+unit_measurement+"' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='unit_price_row"+table_len+"'>";
-            newRow += "<input type='number' name='unit_price[]' value='"+unit_price+"' class='input'/>";
+            newRow += "<input type='number' name='unit_price[]' value='"+unit_price+"' class='input unit_price'/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
             newRow += "<input type='text' name='total_amount[]' value='"+total_amount+"' class='input' readonly/>";
@@ -297,23 +297,29 @@ Unit Purchase Request
     }
 
 
-    var xhr;
-    var select_state, $select_state;
-    var select_city, $select_city;
-    $select_state = $('#id-field-old_account_code').selectize({
-        onChange: function(value) {
-            select_city.addItem(value, false);
-        }
-    });
+    // var xhr;
+    // var select_state, $select_state;
+    // var select_city, $select_city;
+    // $select_state = $('#id-field-old_account_code').selectize({
+    //     onChange: function(value) {
+    //         select_city.addItem(value, false);
+    //     }
+    // });
 
-    $select_city = $('#id-field-new_account_code').selectize({
-        onChange: function(value) {
-            select_state.addItem(value, false);
-        }
-    });
+    // $select_city = $('#id-field-new_account_code').selectize({
+    //     onChange: function(value) {
+    //         select_state.addItem(value, false);
+    //     }
+    // });
 
-    select_city  = $select_city[0].selectize;
-    select_state = $select_state[0].selectize;
+    // select_city  = $select_city[0].selectize;
+    // select_state = $select_state[0].selectize;
 
+    $('.unit_price').on('keypress', function(evt){
+      if (evt.which < 48 || evt.which > 57)
+          {
+              evt.preventDefault();
+          }
+    })
 </script>
 @stop

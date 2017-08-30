@@ -136,9 +136,9 @@ Unit Purchase Request Import Validate
 
                         {{-- {!! Form::text('new_account_code[]', $item['new_account_code'], ['class' => 'input', 'id' => 'new_account_code']) !!} --}}
                     </td>
-                    <td> {!! Form::text('quantity[]', $item['quantity'], ['class' => 'input', 'id' => 'quantity']) !!} </td>
+                    <td> {!! Form::text('quantity[]', $item['quantity'], ['class' => 'input unit_price', 'id' => 'quantity']) !!} </td>
                     <td> {!! Form::text('unit_measurement[]', $item['unit'], ['class' => 'input', 'id' => 'unit_measurement']) !!} </td>
-                    <td> {!! Form::text('unit_price[]', $item['unit_price'], ['class' => 'input', 'id' => 'unit_price']) !!} </td>
+                    <td> {!! Form::text('unit_price[]', $item['unit_price'], ['class' => 'input unit_price', 'id' => 'unit_price']) !!} </td>
                     <td> {!! Form::text('total_amount[]', $item['total_amount'], ['class' => 'input', 'id' => 'total_amount', 'readonly']) !!} </td>
                     {{-- <td> <button type="button" class="button" id="add_item">add</button> </td> --}}
                 </tr>
@@ -153,6 +153,12 @@ Unit Purchase Request Import Validate
 
 @section('scripts')
 <script>
+    $('.unit_price').on('keypress', function(evt){
+      if (evt.which < 48 || evt.which > 57)
+          {
+              evt.preventDefault();
+          }
+    })
     var xhr;
     // var select_state, $select_state;
     // var select_city, $select_city;

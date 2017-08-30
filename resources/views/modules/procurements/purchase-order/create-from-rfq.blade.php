@@ -224,7 +224,7 @@ Purchase Order
 
     });
 
-    $('.unit_price').on('keypress', function(e){
+    $('.unit_price').on('keypress', function(evt){
       if (evt.which < 48 || evt.which > 57)
           {
               evt.preventDefault();
