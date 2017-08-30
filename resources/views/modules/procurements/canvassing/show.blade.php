@@ -33,6 +33,7 @@ Canvassing
     Add signatories first.
     <br>
     Click pen icon to edit proponents status, and click award icon to the corresponding proponent to prepare NOA.
+    <br>
     For attendance click pen icon.</span>
 </div>
 
