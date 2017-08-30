@@ -9,6 +9,7 @@ use Auth;
 
 use \Revlv\Chats\Message\MessageRepository;
 use \Revlv\Chats\ChatRepository;
+use \Revlv\Chats\ChatMemberRepository;
 use \Revlv\Settings\Units\UnitRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
@@ -25,6 +26,7 @@ class MessageController extends Controller
     protected $model;
     protected $messages;
     protected $chats;
+    protected $chatMembers;
     protected $units;
 
 
@@ -79,7 +81,7 @@ class MessageController extends Controller
      */
     public function getChatMessageBySender($sender, MessageRepository $messages, ChatRepository $chats)
     {
-        $chat       =   $chats->findBySender($sender);
+        $chat       =   $chats->findBySenderAndReceiver(\Sentinel::getUser()->id, $sender);
         $chatId     = 0;
         if($chat)
         {
@@ -97,10 +99,20 @@ class MessageController extends Controller
      * @param  MessageRepository $messages [description]
      * @return [type]                      [description]
      */
-    public function showChat($senderId, ChatRepository $chats, MessageRepository $messages)
+    public function showChat($senderId, $receiverId = null, ChatRepository $chats, MessageRepository $messages)
     {
-        $chat       =   $chats->findBySender($senderId);
+
+        if($receiverId == null)
+        {
+            $chat       =   $chats->findBySender($senderId);
+        }
+        else
+        {
+            $chat       =   $chats->findBySenderAndReceiver($senderId, $receiverId);
+        }
+
         $messages->markAsSeen(\Sentinel::getUser()->id);
+
         if($chat)
         {
             return $chat->messages;
@@ -130,7 +142,17 @@ class MessageController extends Controller
      */
     public function getAdminMessageAPI(Request $request,  ChatRepository $chats)
     {
+
         $items   =   $chats->getAllAdmin();
+        if(! \Sentinel::getUser()->hasRole('Admin') )
+        {
+            $items   =   $chats->getMyChats(20, \Sentinel::getUser()->id);
+        }
+        else
+        {
+            $items   =   $chats->getAllAdmin();
+        }
+
 
         $response = [
             'pagination' => [
@@ -153,7 +175,11 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ChatRepository $chats, MessageRepository $messages)
+    public function store(Request $request,
+        ChatRepository $chats,
+        MessageRepository $messages,
+        \Revlv\Users\UserRepository $users,
+        ChatMemberRepository $chatMembers)
     {
         $user   =   \Sentinel::getUser();
         $chat   = null;
@@ -170,15 +196,35 @@ class MessageController extends Controller
             }
         }
 
-        if($chat == null )
+        if($chat == null)
         {
             if(!$user->hasRole('Admin'))
             {
-                $chat = $chats->save(['sender_id' => $user->id]);
+                $userAdmins =   $users->getAllAdmins();
+                $userIds    =   [];
+
+                foreach($userAdmins as $admin)
+                {
+                    if($admin->hasRole('Admin'))
+                    {
+                        $userIds[] = $admin->id;
+                    }
+                }
+                $userIds[] = $user->id;
+
+                $chat = $chats->save(['sender_id' => $user->id, 'Title' => 'Admin Inquiry']);
+
+                foreach($userIds as $id)
+                {
+                    $chatMembers->save(['chat_id' => $chat->id, 'user_id' => $id]);
+                }
             }
             else
             {
-                $chat = $chats->save(['sender_id' => $request->receiverId]);
+                $chat = $chats->save(['sender_id' => $user->id, 'receiver_id' => $request->receiverId]);
+
+                $chatMembers->save(['chat_id' => $chat->id, 'user_id' => $request->receiverId]);
+                $chatMembers->save(['chat_id' => $chat->id, 'user_id' => $user->id]);
             }
         }
 

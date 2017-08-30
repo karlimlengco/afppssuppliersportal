@@ -9,6 +9,7 @@ use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use Revlv\Chats\Message\MessageRepository;
+use Revlv\Chats\ChatRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use Carbon\Carbon;
 use Revlv\Events\NotificationRepository;
@@ -25,6 +26,7 @@ class BaseComposer
     private $upr;
     private $holidays;
     private $logs;
+    private $chats;
     private $nofications;
 
     /**
@@ -35,11 +37,13 @@ class BaseComposer
         UserRepository $user,
         UnitPurchaseRequestRepository $upr,
         UserLogRepository $logs,
+        ChatRepository $chats,
         MessageRepository $messages,
         NotificationRepository $nofications,
         HolidayRepository $holidays)
     {
         $this->user     =   $user;
+        $this->chats    =   $chats;
         $this->logs     =   $logs;
         $this->upr      =   $upr;
         $this->holidays =   $holidays;
@@ -122,11 +126,13 @@ class BaseComposer
 
         $notifications  =   $this->nofications->getUnseenByUser($userId);
         $messagesCount  =   $this->messages->getUnseenByUser($userId);
+        $myMessages     =   $this->chats->findByReceiver($userId);
 
         $view->with('logCounts', count($logs) );
         $view->with('delayCounts', count($delays) );
         $view->with('notifCount', count($notifications) );
         $view->with('messageCount', count($messagesCount) );
         $view->with('currentUser', $userModel);
+        $view->with('myMessages',  count($myMessages));
     }
 }

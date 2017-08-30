@@ -50,16 +50,25 @@ $cRoute = explode('.', $currentRoute);
                     </button>
                 </a>
                 @if(!Sentinel::getUser()->hasRole('Admin'))
-                    <button type="button" class="topbar__utility__button topbar__utility__button--chat open-chat">
+
+                    @if($myMessages > 1)
+                        <button type="button" class="topbar__utility__button topbar__utility__button--chat open-chat">
                             @if($messageCount >= 1)
                                 <span class="topbar__utility__button__badge">{{$messageCount}}</span>
                             @endif
-                        <i class="nc-icon-mini ui-2_chat-round"></i>
+                            <i class="nc-icon-mini ui-2_chat-round"></i>
+                        </button>
+                    @else
 
-                    </button>
+                        <button v-link="'{{route('messages.admin')}}'" type="button" class="topbar__utility__button">
+                            @if($messageCount >= 1)
+                                <span class="topbar__utility__button__badge">{{$messageCount}}</span>
+                            @endif
+                            <i class="nc-icon-mini ui-2_chat-round"></i>
+                        </button>
+                    @endif
                 @else
                     <button v-link="'{{route('messages.admin')}}'" type="button" class="topbar__utility__button ">
-
                         @if($messageCount >= 1)
                             <span class="topbar__utility__button__badge">{{$messageCount}}</span>
                         @endif

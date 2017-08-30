@@ -21,7 +21,7 @@ Route::post('messages', '\Revlv\Controllers\Chat\MessageController@store')->name
 Route::get('messages', '\Revlv\Controllers\Chat\MessageController@getMessage')->name('messages.index');
 Route::get('admin-messages-view', '\Revlv\Controllers\Chat\MessageController@getAdminMessage')->name('messages.admin');
 Route::get('admin-messages/api', '\Revlv\Controllers\Chat\MessageController@getAdminMessageAPI')->name('messages.admin.api');
-Route::get('messages/{sender}', '\Revlv\Controllers\Chat\MessageController@showChat')->name('messages.show');
+Route::get('messages/{sender}/{receiver?}', '\Revlv\Controllers\Chat\MessageController@showChat')->name('messages.show');
 
 Route::get('api/get/new_code/{id}', '\Revlv\Controllers\Settings\AccountCodeController@getCode')->name('settings.account-codes.get-code');
 

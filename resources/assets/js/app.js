@@ -80,11 +80,19 @@ const app = new Vue({
     },
     created() {
         this.$on('getmessage', (item) =>{
+            console.log(item);
             this.chatId = item.message.id
             this.receiverId = item.message.receiver_id
-            axios.get('/messages/'+item.message.sender_id).then(response => {
-                this.messages = response.data;
-            });
+            if(item.message.receiver_id != null){
+                axios.get('/messages/'+item.message.sender_id+'/'+item.message.receiver_id).then(response => {
+                    this.messages = response.data;
+                });
+            }
+            else{
+                axios.get('/messages/'+item.message.sender_id).then(response => {
+                    this.messages = response.data;
+                });
+            }
         })
 
         this.getMessage();

@@ -15024,11 +15024,18 @@ var app = new Vue({
         var _this2 = this;
 
         this.$on('getmessage', function (item) {
+            console.log(item);
             _this2.chatId = item.message.id;
             _this2.receiverId = item.message.receiver_id;
-            axios.get('/messages/' + item.message.sender_id).then(function (response) {
-                _this2.messages = response.data;
-            });
+            if (item.message.receiver_id != null) {
+                axios.get('/messages/' + item.message.sender_id + '/' + item.message.receiver_id).then(function (response) {
+                    _this2.messages = response.data;
+                });
+            } else {
+                axios.get('/messages/' + item.message.sender_id).then(function (response) {
+                    _this2.messages = response.data;
+                });
+            }
         });
 
         this.getMessage();
@@ -17518,7 +17525,7 @@ var csrf_token = $('meta[name="csrf-token"]').attr('content');
             axios.get('/api/user-message/' + item.id).then(function (response) {
                 _this3.$parent.$emit('getmessage', {
                     message: {
-                        sender_id: item.id,
+                        sender_id: currentUser.id,
                         id: response.data,
                         receiver_id: item.id
                     }

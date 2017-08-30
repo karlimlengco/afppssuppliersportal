@@ -167,11 +167,11 @@
                 $('#chatHead').html(item.full_name);
                 axios.get('/api/user-message/'+item.id)
                     .then(response => {
-                    this.$parent.$emit('getmessage', {
-                        message: {
-                            sender_id: item.id,
-                            id: response.data,
-                            receiver_id : item.id
+                        this.$parent.$emit('getmessage', {
+                            message: {
+                                sender_id: currentUser.id,
+                                id: response.data,
+                                receiver_id : item.id
                         }
                     });
                 });
