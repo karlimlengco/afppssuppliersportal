@@ -12,14 +12,14 @@ class HeaderSeeder extends Seeder
      */
     public function run()
     {
-        $units =  \Revlv\Settings\CateredUnits\CateredUnitEloquent::pluck('id')->toArray();
+        $units =  \Revlv\Settings\CateredUnits\CateredUnitEloquent::get()->toArray();
 
         $inputs = [];
         foreach($units as $unit)
         {
             $inputs[]     =   new HeaderEloquent([
-                "unit_id" => $unit,
-                "content"   => "HEADQUARTERS <br> <strong>Armed Forces of the Philippines Procurement Service</strong><br> Camp General Emilio Aguinaldo, Quezon City"
+                "unit_id" => $unit['id'],
+                "content"   => "HEADQUARTERS <br>". $unit['description'] ."</br> <strong>Armed Forces of the Philippines Procurement Service</strong><br> Camp General Emilio Aguinaldo, Quezon City"
                 ]);
         }
 
