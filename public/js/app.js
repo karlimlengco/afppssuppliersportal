@@ -52386,20 +52386,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "nc-icon-mini ui-1_zoom"
-  })]), _vm._v(" "), _c('button', {
-    staticClass: "button",
-    attrs: {
-      "tooltip": "change overview",
-      "id": "dateSearch"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.changeOverview()
-      }
-    }
-  }, [_c('span', {
-    staticClass: "nc-icon-mini arrows-1_refresh-69"
   })])])]), _vm._v(" "), _c('div', {
     attrs: {
       "id": "programs"

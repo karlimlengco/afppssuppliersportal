@@ -14,7 +14,7 @@
                 <input style="width:160px" placeholder="End Date" v-model="endDate" type="text" format="yyyy-MM-dd" id="end" name="date_to" class="input" onfocus="(this.type='date')">
             </div>
             <button class="button" @click.prevent="search()" id="dateSearch"><span class="nc-icon-mini ui-1_zoom"></span></button>
-            <button tooltip="change overview" class="button" @click.prevent="changeOverview()" id="dateSearch"><span class="nc-icon-mini arrows-1_refresh-69"></span></button>
+            <!-- <button tooltip="change overview" class="button" @click.prevent="changeOverview()" id="dateSearch"><span class="nc-icon-mini arrows-1_refresh-69"></span></button> -->
         </div>
 
     </div>
