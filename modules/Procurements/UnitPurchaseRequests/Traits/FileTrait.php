@@ -158,4 +158,45 @@ trait FileTrait
 
         return response()->download($directory);
     }
+
+    /**
+     * [downloadItems description]
+     *
+     * @param  [type]                        $id  [description]
+     * @param  UnitPurchaseRequestRepository $upr [description]
+     * @return [type]                             [description]
+     */
+    public function downloadItems($id, UnitPurchaseRequestRepository $upr)
+    {
+        $upr_model     =    $upr->findById($id);
+
+        $items          =   $upr_model->items;
+
+        Excel::create("ItemList", function($excel)use ($items) {
+            $excel->sheet('Page1', function($sheet)use ($items) {
+                $sheet->row(1, [
+                    'ITEM DESCRIPTION',
+                    'QTY',
+                    'UNIT',
+                    'UNIT PRICE',
+                    'TOTAL AMOUNT',
+                ]);
+                $count = 1;
+                foreach($items as $item)
+                {
+                    $count ++;
+                    $newdata    =   [
+                        $item->item_description,
+                        $item->quantity,
+                        $item->unit_measurement,
+                    ];
+
+                    $sheet->row($count, $newdata);
+                }
+
+
+            });
+
+        })->export('xlsx');
+    }
 }

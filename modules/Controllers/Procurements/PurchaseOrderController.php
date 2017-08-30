@@ -414,18 +414,21 @@ class PurchaseOrderController extends Controller
         $id,
         BlankRFQRepository $rfq,
         PaymentTermRepository $terms,
+        UnitPurchaseRequestRepository $upr,
         PORepository $model)
     {
         $data           =   [];
 
         $fields         =   session('po_fields');
-        $rfq_model      =   $rfq->getInfo($id);
+
+        $upr_model      =   $upr->findById($id);
+        $items          =   $upr_model->items;
 
         foreach($fields->toArray() as $row)
         {
             if($row[0] != "ITEM DESCRIPTION")
             {
-                foreach($rfq_model as $upr_item)
+                foreach($items as $upr_item)
                 {
                     if($row[0] == $upr_item->item_description)
                     {
@@ -442,7 +445,7 @@ class PurchaseOrderController extends Controller
             'indexRoute'    =>  $this->baseUrl.'index',
             'term_lists'    =>  $term_lists,
             'rfq_id'        =>  $id,
-            'rfq_model'     =>  $rfq_model,
+            'rfq_model'     =>  $items,
             'modelConfig'   =>  [
                 'store' =>  [
                     'route'     =>  [$this->baseUrl.'store-from-rfq',$id]

@@ -355,6 +355,9 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('unit-purchase-requests/download-items/{id}', '\Revlv\Controllers\Procurements\UPRController@downloadItems')->name('unit-purchase-requests.download-items');
+
+
     Route::get('unit-purchase-requests/view-cancelled', '\Revlv\Controllers\Procurements\UPRController@viewCancelled')->name('unit-purchase-requests.view-cancel');
     Route::put('unit-purchase-requests/update-signatories/{id}', '\Revlv\Controllers\Procurements\UPRController@updateSignatory')->name('unit-purchase-requests.update-signatories');
     Route::put('unit-purchase-requests/cancelled/{id}', '\Revlv\Controllers\Procurements\UPRController@cancelled')->name('unit-purchase-requests.cancelled');
