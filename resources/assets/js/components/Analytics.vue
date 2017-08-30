@@ -7,11 +7,11 @@
 
         <div class="seven columns align-right">
             <div style="display: inline-block">
-                <input placeholder="Start Date" v-model="startDate" type="text" format="yyyy-MM-dd" id="start" name="date_from" class="input" onfocus="(this.type='date')">
+                <input style="width:160px" placeholder="Start Date" v-model="startDate" type="text" format="yyyy-MM-dd" id="start" name="date_from" class="input" onfocus="(this.type='date')">
             </div>
 
             <div style="display: inline-block">
-                <input placeholder="End Date" v-model="endDate" type="text" format="yyyy-MM-dd" id="end" name="date_to" class="input" onfocus="(this.type='date')">
+                <input style="width:160px" placeholder="End Date" v-model="endDate" type="text" format="yyyy-MM-dd" id="end" name="date_to" class="input" onfocus="(this.type='date')">
             </div>
             <button class="button" @click.prevent="search()" id="dateSearch"><span class="nc-icon-mini ui-1_zoom"></span></button>
             <button tooltip="change overview" class="button" @click.prevent="changeOverview()" id="dateSearch"><span class="nc-icon-mini arrows-1_refresh-69"></span></button>
@@ -31,10 +31,10 @@
                         <th>
                             # UPR
                         </th>
-                        <th>Total ABC</th>
-                        <th>Approved Contract Amount</th>
-                        <th>Residual Amount</th>
-                        <th>AVG Days to Complete</th>
+                        <th v-if="showInfo" >Total ABC</th>
+                        <th v-if="showInfo" >Approved Contract Amount</th>
+                        <th v-if="showInfo" >Residual Amount</th>
+                        <th v-if="showInfo" >AVG Days to Complete</th>
                         <th v-if="show" >Number of Days Delay</th>
                         <th style="text-align:center" v-if="show" >Current Status</th>
                         <th style="text-align:center" v-if="show" >Justification</th>
@@ -55,10 +55,10 @@
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/cancelled/'+item.programs+'?type='+types" tooltip="Cancelled" style="color:#7a7a7a" >({{item.cancelled_count}})</a>
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'?type='+types" tooltip="Delay" class="red">({{item.delay_count}})</a>
                             </td>
-                            <td>{{formatPrice(item.total_abc)}}</td>
-                            <td>{{formatPrice(item.total_bid)}}</td>
-                            <td>{{formatPrice(item.total_residual)}}</td>
-                            <td></td>
+                            <td v-if="showInfo">{{formatPrice(item.total_abc)}}</td>
+                            <td v-if="showInfo">{{formatPrice(item.total_bid)}}</td>
+                            <td v-if="showInfo">{{formatPrice(item.total_residual)}}</td>
+                            <td v-if="showInfo"></td>
                             <td v-if="show"></td>
                             <td v-if="show"></td>
                             <td v-if="show"></td>
@@ -118,10 +118,10 @@
                                                                 ({{itemProgData.delay_count}})
                                                             </a>
                                                         </td>
-                                                        <td>{{formatPrice(itemProgData.total_abc)}}</td>
-                                                        <td>{{formatPrice(itemProgData.total_bid)}}</td>
-                                                        <td>{{formatPrice(itemProgData.total_residual)}}</td>
-                                                        <td></td>
+                                                        <td v-if="showInfo">{{formatPrice(itemProgData.total_abc)}}</td>
+                                                        <td v-if="showInfo">{{formatPrice(itemProgData.total_bid)}}</td>
+                                                        <td v-if="showInfo">{{formatPrice(itemProgData.total_residual)}}</td>
+                                                        <td v-if="showInfo"></td>
 
                                                         <td v-if="show" ></td>
                                                         <td v-if="show" ></td>
@@ -181,10 +181,10 @@
                                                                                         </a>
 
                                                                                     </td>
-                                                                                    <td>{{formatPrice(itemUnitData.total_abc)}}</td>
-                                                                                    <td>{{formatPrice(itemUnitData.total_bid)}}</td>
-                                                                                    <td>{{formatPrice(itemUnitData.total_residual)}}</td>
-                                                                                    <td></td>
+                                                                                    <td v-if="showInfo" >{{formatPrice(itemUnitData.total_abc)}}</td>
+                                                                                    <td v-if="showInfo" >{{formatPrice(itemUnitData.total_bid)}}</td>
+                                                                                    <td v-if="showInfo" >{{formatPrice(itemUnitData.total_residual)}}</td>
+                                                                                    <td v-if="showInfo" ></td>
 
                                                                                     <td v-if="show" ></td>
                                                                                     <td v-if="show"   style="text-align:left"></td>
@@ -201,7 +201,7 @@
                                                                                                             <template v-if="itemProgCent.center == itemProgData.name">
                                                                                                         <tr  v-for="itemProgCentData in itemProgCent.data">
                                                                                                     <td> <i class="green" style="font-family: Verdana;">{{itemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small></td>
-                                                                                                    <td>
+                                                                                                    <td @click.prevent="changeInfo()">
 
 <!--                                                                                                         <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{itemProgCentData.upr_count}}</span>
                                                                                                         <span tooltip="Completed" class="blue">({{itemProgCentData.completed_count}})</span>
@@ -213,10 +213,10 @@
                                                                                                         <span class="green" v-if="itemProgCentData.delay_count == 0 && itemProgCentData.ongoing_count != 0 && itemProgCentData.status != 'cancelled' ">Ongoing</span>
 
                                                                                                     </td>
-                                                                                                    <td>{{formatPrice(itemProgCentData.total_abc)}}</td>
-                                                                                                    <td>{{formatPrice(itemProgCentData.total_bid)}}</td>
-                                                                                                    <td>{{formatPrice(itemProgCentData.total_residual)}}</td>
-                                                                                                    <td>{{itemProgCentData.avg_days}}</td>
+                                                                                                    <td v-if="showInfo" >{{formatPrice(itemProgCentData.total_abc)}}</td>
+                                                                                                    <td v-if="showInfo" >{{formatPrice(itemProgCentData.total_bid)}}</td>
+                                                                                                    <td v-if="showInfo" >{{formatPrice(itemProgCentData.total_residual)}}</td>
+                                                                                                    <td v-if="showInfo" >{{itemProgCentData.avg_days}}</td>
 
                                                                                                     <td v-if="show && itemProgCentData.status != 'completed'  ">
                                                                                                     <span v-if="itemProgCentData.status != 'cancelled' && itemProgCentData.delay_count != 0">{{itemProgCentData.delay}}</span>
@@ -271,10 +271,10 @@
                             <span tooltip="Cancelled" style="color:#7a7a7a">({{total_cancelled}})</span>
                             <span tooltip="Delay" class="red">({{total_delay}})</span>
                         </td>
-                        <td>{{formatPrice(total_abc)}}</td>
-                        <td>{{formatPrice(total_bid)}}</td>
-                        <td>{{formatPrice(total_residual)}}</td>
-                        <td></td>
+                        <td v-if="showInfo" >{{formatPrice(total_abc)}}</td>
+                        <td v-if="showInfo" >{{formatPrice(total_bid)}}</td>
+                        <td v-if="showInfo" >{{formatPrice(total_residual)}}</td>
+                        <td v-if="showInfo" ></td>
                         <td v-if="show" ></td>
                         <td v-if="show" ></td>
                         <td v-if="show" ></td>
@@ -494,6 +494,7 @@ var tarray2IDs           =   [];
                 types:"bidding",
                 psrTypes:"psr-bidding",
                 show:false,
+                showInfo:true,
                 show2:true,
                 show3:false,
                 endDate: "",
@@ -580,6 +581,13 @@ var tarray2IDs           =   [];
                     }
                 }
             },
+            changeInfo: function(item){
+                if(this.showInfo == false){
+                    this.showInfo = true;
+                }else{
+                    this.showInfo = false;
+                }
+            },
             clickItemUnit: function(item){
                 if(this.show == false){
                     this.show = true;
@@ -613,6 +621,7 @@ var tarray2IDs           =   [];
                 $('.table-name').removeClass('is-visible');
                 $('i').addClass('ui-1_circle-add');
                 this.show = false;
+                this.showInfo = true;
                 this.fetchUprAnalytics(type)
             },
             fetchTimeline: function(type) {
