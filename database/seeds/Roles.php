@@ -21,7 +21,7 @@ class Roles extends Seeder
                     'bidding.*' =>  true,
                 ]
             ]),
-            new Role(["name" => 'End User', "slug" => 'end_user', 'permissions' => [
+            new Role(["name" => 'Operation', "slug" => 'end_user', 'permissions' => [
                     'procurements.*' =>  true,
                 ]
             ]),

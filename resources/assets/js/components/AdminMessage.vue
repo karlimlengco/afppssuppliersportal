@@ -16,7 +16,7 @@
                                 <img v-bind:src="avatar(item)" alt="" style="width:50px">
                             </span>
 
-                            <p style="line-height:30px;margin-bottom:0">{{item.sender.first_name}} {{item.sender.middle_name}} {{item.sender.surname}}</p>
+                            <p style="line-height:30px;margin-bottom:0">{{item.sender.first_name}} {{item.sender.middle_name}} {{item.sender.surname}} ({{item.title}})</p>
                             <p style="line-height:5px;margin-bottom:0" v-if="item.last_message != null">{{item.last_message.created_at}}</p>
                         </td>
                     </tr>

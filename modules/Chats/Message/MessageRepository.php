@@ -49,18 +49,46 @@ class MessageRepository extends BaseRepository
 
         $model  =   $model->leftJoin('chats','chats.id', '=', 'messages.chat_id');
 
+        $model  =   $model->leftJoin('chat_members', 'chat_members.chat_id', '=','messages.chat_id');
+
         if(\Sentinel::getUser()->hasRole('Admin'))
         {
 
-            $model  =   $model->whereNull('receiver_id');
+
+            $model  =   $model->Where(function($query) {
+                     $query->where('chat_members.user_id', '=', \Sentinel::getUser()->id);
+                 });
         }
         else
         {
-            $model  =   $model->where('sender_id', '=', $user);
+            $model  =   $model->where('receiver_id', '=', $user);
+            $model  =   $model->where('chat_members.user_id', '=', \Sentinel::getUser()->id);
+
+
+            $model  =   $model->orWhere(function($query) use ($user){
+                     $query->whereNull('receiver_id');
+                     $query->where('sender_id', '=', $user);
+                 });
+
+            $model  =   $model->orwhere('chat_members.user_id', '=', \Sentinel::getUser()->id);
         }
 
-        $model  =   $model->where('user_id', '!=', $user);
+        $model  =   $model->where('messages.user_id', '!=', $user);
         $model  =   $model->whereNull('is_seen');
+
+        $model->groupBy([
+            'messages.id',
+            'messages.message',
+            'messages.user_id',
+            'messages.created_at',
+            'messages.updated_at',
+            'messages.chat_id',
+            'messages.status',
+            'messages.seen_by',
+            'messages.is_seen',
+            'chats.sender_id',
+            'chats.receiver_id',
+        ]);
 
         return $model->get();
     }
@@ -84,14 +112,14 @@ class MessageRepository extends BaseRepository
 
         $model  =   $model->leftJoin('chats','chats.id', '=', 'messages.chat_id');
 
-        if(\Sentinel::getUser()->hasRole('Admin'))
-        {
-            $model  =   $model->whereNull('receiver_id');
-        }
-        else
-        {
+        // if(\Sentinel::getUser()->hasRole('Admin'))
+        // {
+        //     $model  =   $model->whereNull('receiver_id');
+        // }
+        // else
+        // {
             $model  =   $model->where('sender_id', '=', $user);
-        }
+        // }
 
         $model  =   $model->where('user_id', '!=', $user);
         $model  =   $model->whereNull('is_seen');

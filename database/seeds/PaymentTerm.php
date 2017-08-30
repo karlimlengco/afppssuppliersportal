@@ -13,10 +13,7 @@ class PaymentTerm extends Seeder
     public function run()
     {
         $datas = collect([
-            new PaymentTermEloquent(["name" => '7PDC', "description"   => '7 Days PDC']),
-            new PaymentTermEloquent(["name" => '15PDC', "description"   => '15 Days PDC']),
-            new PaymentTermEloquent(["name" => '30PDC', "description"   => '30 Days PDC']),
-            new PaymentTermEloquent(["name" => 'Cash', "description"   => 'Cash On Delivery']),
+            new PaymentTermEloquent(["name" => 'OTP', "description"   => 'One Time Payment']),
             new PaymentTermEloquent(["name" => 'TT', "description"   => 'Teligraphic Transfer']),
         ]);
 

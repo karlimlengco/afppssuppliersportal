@@ -61,6 +61,7 @@ class MessageController extends Controller
         $user       =   \Sentinel::getUser();
         $chat       =   $chats->findBySender($user->id);
         $chatId     = 0;
+
         $messages->markAsSeen($user->id);
         if($chat)
         {
@@ -234,17 +235,20 @@ class MessageController extends Controller
             {
                 $uprModel   =   $upr->findById($request->get('uprId'));
                 $unt        =   $uprModel->units;
-                $unitUsers  =   $users->findByUnit($unt);
+                $unitUsers  =   $users->getAllAdmins();
                 $userIds    =   [];
 
-                foreach($unitUsers as $user)
+                foreach($unitUsers as $userU)
                 {
-                    $userIds[] = $user->id;
+                    if($userU->hasRole('Operation') && $userU->unit_id == $unt)
+                    {
+                        $userIds[] = $userU->id;
+                    }
                 }
 
                 $userIds[] = $user->id;
 
-                $chat = $chats->save(['sender_id' => $user->id, 'upr_id' => $request->get('uprId')]);
+                $chat = $chats->save(['sender_id' => $user->id, 'upr_id' => $request->get('uprId'), 'title' => 'UPR-'.$uprModel->upr_number]);
 
                 foreach($userIds as $id)
                 {

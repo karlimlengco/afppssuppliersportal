@@ -95,14 +95,12 @@ class ChatRepository extends BaseRepository
 
         $model  =   $model->leftJoin('chat_members', 'chat_members.chat_id', '=','chats.id');
 
-        $model  =   $model->whereNull('receiver_id');
-        $model  =   $model->where('chat_members.user_id', '=', \Sentinel::getUser()->id);
+        // $model  =   $model->whereNull('receiver_id');
+        // $model  =   $model->where('chat_members.user_id', '=', \Sentinel::getUser()->id);
 
-        $model  =   $model->orWhere(function($query) {
+        $model  =   $model->Where(function($query) {
                  $query->where('chat_members.user_id', '=', \Sentinel::getUser()->id);
              });
-
-
 
         $model  =   $model->groupBy([
             'chats.title',
@@ -135,11 +133,12 @@ class ChatRepository extends BaseRepository
         $model  =   $model->where('receiver_id', '=', $receiver);
         $model  =   $model->where('chat_members.user_id', '=', \Sentinel::getUser()->id);
 
-
         $model  =   $model->orWhere(function($query) use ($receiver){
                  $query->whereNull('receiver_id');
                  $query->where('sender_id', '=', $receiver);
-             });
+            });
+
+        $model  =   $model->orwhere('chat_members.user_id', '=', \Sentinel::getUser()->id);
 
         $model  =   $model->groupBy([
             'chats.title',

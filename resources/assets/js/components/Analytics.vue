@@ -225,8 +225,8 @@
                                                                                                     <td v-if="show "  style="text-align:left">{{itemProgCentData.status}}</td>
                                                                                                     <td v-if="show"> <span v-if="itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled' ">{{itemProgCentData.last_remarks}}</span> </td>
                                                                                                     <td v-if="show">
-                                                                                                        <a href="#" @click.prevent="viewChat(itemProgCentData)"><i class="nc-icon-mini ui-2_chat-round"></i></a>
                                                                                                         <span v-if="itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled' ">{{itemProgCentData.last_action}}</span>
+                                                                                                        <a href="#" @click.prevent="viewChat(itemProgCentData)" position="left" tooltip="Unit Operation"><i class="nc-icon-mini ui-2_chat-round"></i></a>
                                                                                                     </td>
 
                                                                                                 </tr>
@@ -581,11 +581,11 @@ var tarray2IDs           =   [];
                 }
             },
             clickItemUnit: function(item){
-                // if(this.show == false){
+                if(this.show == false){
                     this.show = true;
-                // }else{
-                //     this.show = false;
-                // }
+                }else{
+                    this.show = false;
+                }
 
 
                 if( arrayProgramCenter.indexOf(item.name) == -1 && arrayProgramCenter[item.name] == item.name)

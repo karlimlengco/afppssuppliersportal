@@ -16641,12 +16641,11 @@ var tarray2IDs = [];
             }
         },
         clickItemUnit: function clickItemUnit(item) {
-            // if(this.show == false){
-            this.show = true;
-            // }else{
-            //     this.show = false;
-            // }
-
+            if (this.show == false) {
+                this.show = true;
+            } else {
+                this.show = false;
+            }
 
             if (arrayProgramCenter.indexOf(item.name) == -1 && arrayProgramCenter[item.name] == item.name) {
                 if (array2IDs.indexOf(item.short_code) == -1) {
@@ -52217,7 +52216,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "line-height": "30px",
         "margin-bottom": "0"
       }
-    }, [_vm._v(_vm._s(item.sender.first_name) + " " + _vm._s(item.sender.middle_name) + " " + _vm._s(item.sender.surname))]), _vm._v(" "), (item.last_message != null) ? _c('p', {
+    }, [_vm._v(_vm._s(item.sender.first_name) + " " + _vm._s(item.sender.middle_name) + " " + _vm._s(item.sender.surname) + " (" + _vm._s(item.title) + ")")]), _vm._v(" "), (item.last_message != null) ? _c('p', {
       staticStyle: {
         "line-height": "5px",
         "margin-bottom": "0"
@@ -52682,9 +52681,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   staticStyle: {
                     "text-align": "left"
                   }
-                }, [_vm._v(_vm._s(itemProgCentData.status))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', [(itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled') ? _c('span', [_vm._v(_vm._s(itemProgCentData.last_remarks))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', [_c('a', {
+                }, [_vm._v(_vm._s(itemProgCentData.status))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', [(itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled') ? _c('span', [_vm._v(_vm._s(itemProgCentData.last_remarks))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', [(itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled') ? _c('span', [_vm._v(_vm._s(itemProgCentData.last_action))]) : _vm._e(), _vm._v(" "), _c('a', {
                   attrs: {
-                    "href": "#"
+                    "href": "#",
+                    "position": "left",
+                    "tooltip": "Unit Operation"
                   },
                   on: {
                     "click": function($event) {
@@ -52694,7 +52695,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   }
                 }, [_c('i', {
                   staticClass: "nc-icon-mini ui-2_chat-round"
-                })]), _vm._v(" "), (itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled') ? _c('span', [_vm._v(_vm._s(itemProgCentData.last_action))]) : _vm._e()]) : _vm._e()])
+                })])]) : _vm._e()])
               }) : _vm._e()] : _vm._e()]
             })], 2)])])])]
           })] : _vm._e()] : _vm._e()]
