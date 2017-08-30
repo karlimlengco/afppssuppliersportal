@@ -91,6 +91,7 @@ Unit Purchase Request
                 <a class="button__options__item" id="view-attachments-button" href="#">View Attachments</a>
 
                 <a href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}" class="button__options__item" id="view-attachments-button" href="#">View Logs</a>
+                <a class="button__options__item" id="view-attachments-button" href="{{route('procurements.unit-purchase-requests.download-items', $data->id)}}">Download Items</a>
 
                 @if(count($data->delivery_order)  >= 1)
                     <a class="button__options__item" href="{{route('procurements.delivery-orders.lists', $data->id)}}">View Deliveries</a>
