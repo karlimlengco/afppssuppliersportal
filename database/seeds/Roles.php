@@ -45,18 +45,6 @@ class Roles extends Seeder
                     'procurements.*' =>  true,
                     'biddings.*' =>  true,
                 ]
-            ]),
-            new Role(["name" => 'Unit Admin', "slug" => 'unit_admin', 'permissions' => [
-                    'procurements.*' =>  true,
-                    'biddings.*' =>  true,
-                    'reports.*' =>  true,
-                    'library.*' =>  true,
-                ]
-            ]),
-            new Role(["name" => 'Unit Operation', "slug" => 'unit_operation', 'permissions' => [
-                    'procurements.*' =>  true,
-                    'biddings.*' =>  true,
-                ]
             ])
         ]);
 

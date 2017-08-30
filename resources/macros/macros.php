@@ -211,7 +211,7 @@ Form::macro('selectMultipleField', function($name, $label = null, $options, $val
 
 Form::macro('booleanField', function($name, $label = null, $value = null, $attributes = array())
 {
-    $attributes = $attributes + ['class' => 'selectize'];
+    $attributes = $attributes + ['class' => 'selectize selectizes'];
 
     $element = Form::select($name, [null => 'Select One', 1 => 'Yes', 0 => 'No'], $value, fieldAttributes($name, $attributes));
 
