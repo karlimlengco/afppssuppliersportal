@@ -80,11 +80,12 @@ Purchase Order
         <table class='table' id="item_table">
             <thead>
                 <tr>
-                    <th>Description</th>
-                    <th>Qty</th>
-                    <th>Unit</th>
-                    <th>Unit Price</th>
-                    <th>Amount</th>
+                    <th width="35%">Description</th>
+                    <th width="5%">Qty</th>
+                    <th width="10%">Unit</th>
+                    <th width="15%">Unit Price</th>
+                    <th width="20%">Amount</th>
+                    <th width="15%" >Type</th>
                 </tr>
             </thead>
             <tbody>
@@ -136,6 +137,9 @@ Purchase Order
                             class='input'
                             readonly/>
 
+                        </td>
+                        <td>
+                            <select class='select' name='item_type[]' id='type"+table_len+"' tabindex='-1'><option value='purchase_order'>Purchase Order</option><option value='contract'>Contract</option></select>
                         </td>
                     </tr>
                 @endforeach
