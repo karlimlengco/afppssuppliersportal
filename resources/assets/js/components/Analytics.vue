@@ -300,6 +300,7 @@
                         <th style="text-align:center">UNITS</th>
                         <th># UPR</th>
                         <th v-if="show2" >Document Acceptance</th>
+                        <th v-if="show2" >Pre Proc</th>
                         <th v-if="show2" >ITB</th>
                         <th v-if="show2" >PhilGeps</th>
                         <th v-if="show2" >PRE Bid</th>
@@ -327,6 +328,7 @@
                             </td>
                             <td>{{tItem.upr}}</td>
                             <td v-if="show2" >{{tItem.doc}}</td>
+                            <td v-if="show2" >{{tItem.preproc}}</td>
                             <td v-if="show2" >{{tItem.itb}}</td>
                             <td v-if="show2" >{{tItem.philgeps}}</td>
                             <td v-if="show2" >{{tItem.prebid}}</td>
@@ -359,8 +361,9 @@
                                                 </td>
                                                 <td>{{tItemProgData.upr}}</td>
                                                 <td v-if="show2">{{tItemProgData.doc}}</td>
-                                                <td v-if="show2">{{tItemProgData.philgeps}}</td>
+                                                <td v-if="show2">{{tItemProgData.preproc}}</td>
                                                 <td v-if="show2">{{tItemProgData.itb}}</td>
+                                                <td v-if="show2">{{tItemProgData.philgeps}}</td>
                                                 <td v-if="show2">{{tItemProgData.prebid}}</td>
                                                 <td v-if="show2">{{tItemProgData.bidop}}</td>
                                                 <td v-if="show2">{{tItemProgData.pq}}</td>
@@ -392,8 +395,9 @@
                                                                 </td>
                                                                 <td>{{tItemUnitData.upr}}</td>
                                                                 <td v-if="show2" >{{tItemUnitData.doc}}</td>
-                                                                <td v-if="show2" >{{tItemUnitData.philgeps}}</td>
+                                                                <td v-if="show2" >{{tItemUnitData.preproc}}</td>
                                                                 <td v-if="show2" >{{tItemUnitData.itb}}</td>
+                                                                <td v-if="show2" >{{tItemUnitData.philgeps}}</td>
                                                                 <td v-if="show2" >{{tItemUnitData.prebid}}</td>
                                                                 <td v-if="show2" >{{tItemUnitData.bidop}}</td>
                                                                 <td v-if="show2" >{{tItemUnitData.pq}}</td>
@@ -421,8 +425,9 @@
                                                                                 <td> <i class="green" style="font-family: Verdana;">{{tItemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+tItemProgCentData.id ">({{tItemProgCentData.project_name}})</a></small></td>
                                                                                 <td>{{tItemProgCentData.upr}}</td>
                                                                                 <td v-if="show2" >{{tItemProgCentData.doc}}</td>
-                                                                                <td v-if="show2" >{{tItemProgCentData.philgeps}}</td>
+                                                                                <td v-if="show2" >{{tItemProgCentData.preproc}}</td>
                                                                                 <td v-if="show2" >{{tItemProgCentData.itb}}</td>
+                                                                                <td v-if="show2" >{{tItemProgCentData.philgeps}}</td>
                                                                                 <td v-if="show2" >{{tItemProgCentData.prebid}}</td>
                                                                                 <td v-if="show2" >{{tItemProgCentData.bidop}}</td>
                                                                                 <td v-if="show2" >{{tItemProgCentData.pq}}</td>

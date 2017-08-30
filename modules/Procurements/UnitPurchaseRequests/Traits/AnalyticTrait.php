@@ -373,6 +373,7 @@ trait AnalyticTrait
             'procurement_centers.programs',
             DB::raw("COUNT(unit_purchase_requests.id) AS upr"),
             DB::raw("COUNT(request_for_quotations.id) AS rfq"),
+            DB::raw("COUNT(pre_proc.id) AS preproc"),
             DB::raw("COUNT(invitation_for_quotation.id) AS ispq"),
             DB::raw("COUNT(philgeps_posting.id) AS philgeps"),
             DB::raw("COUNT(canvassing.id) AS canvass"),
@@ -407,6 +408,7 @@ trait AnalyticTrait
 
 
         $model  =   $model->leftJoin('document_acceptance', 'document_acceptance.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('pre_proc', 'pre_proc.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('invitation_to_bid', 'invitation_to_bid.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('pre_bid_conferences', 'pre_bid_conferences.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('bid_opening', 'bid_opening.upr_id', '=', 'unit_purchase_requests.id');
@@ -448,6 +450,7 @@ trait AnalyticTrait
             'catered_units.short_code',
             DB::raw("COUNT(unit_purchase_requests.id) AS upr"),
             DB::raw("COUNT(request_for_quotations.id) AS rfq"),
+            DB::raw("COUNT(pre_proc.id) AS preproc"),
             DB::raw("COUNT(invitation_for_quotation.id) AS ispq"),
             DB::raw("COUNT(philgeps_posting.id) AS philgeps"),
             DB::raw("COUNT(canvassing.id) AS canvass"),
@@ -483,6 +486,7 @@ trait AnalyticTrait
 
         $model  =   $model->leftJoin('document_acceptance', 'document_acceptance.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('invitation_to_bid', 'invitation_to_bid.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('pre_proc', 'pre_proc.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('pre_bid_conferences', 'pre_bid_conferences.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('bid_opening', 'bid_opening.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('post_qualification', 'post_qualification.upr_id', '=', 'unit_purchase_requests.id');
@@ -532,6 +536,7 @@ trait AnalyticTrait
             'catered_units.short_code',
             DB::raw("COUNT(unit_purchase_requests.id) AS upr"),
             DB::raw("COUNT(request_for_quotations.id) AS rfq"),
+            DB::raw("COUNT(pre_proc.id) AS preproc"),
             DB::raw("COUNT(invitation_for_quotation.id) AS ispq"),
             DB::raw("COUNT(philgeps_posting.id) AS philgeps"),
             DB::raw("COUNT(canvassing.id) AS canvass"),
@@ -568,6 +573,7 @@ trait AnalyticTrait
 
         $model  =   $model->leftJoin('document_acceptance', 'document_acceptance.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('invitation_to_bid', 'invitation_to_bid.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('pre_proc', 'pre_proc.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('pre_bid_conferences', 'pre_bid_conferences.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('bid_opening', 'bid_opening.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('post_qualification', 'post_qualification.upr_id', '=', 'unit_purchase_requests.id');

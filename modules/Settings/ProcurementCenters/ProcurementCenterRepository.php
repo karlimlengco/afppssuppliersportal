@@ -51,6 +51,7 @@ class ProcurementCenterRepository extends BaseRepository
             DB::raw("COUNT(unit_purchase_requests.id) AS upr"),
             DB::raw("COUNT(request_for_quotations.id) AS rfq"),
             DB::raw("COUNT(invitation_for_quotation.id) AS ispq"),
+            DB::raw("COUNT(pre_proc.id) AS preproc"),
             DB::raw("COUNT(philgeps_posting.id) AS philgeps"),
             DB::raw("COUNT(canvassing.id) AS canvass"),
             DB::raw("COUNT(notice_of_awards.id) AS noa"),
@@ -92,6 +93,8 @@ class ProcurementCenterRepository extends BaseRepository
         $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('ispq_quotations', 'ispq_quotations.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('canvassing', 'canvassing.upr_id', '=', 'unit_purchase_requests.id');
+
+        $model  =   $model->leftJoin('pre_proc', 'pre_proc.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('notice_of_awards', 'notice_of_awards.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('invitation_for_quotation', 'invitation_for_quotation.id', '=', 'ispq_quotations.ispq_id');
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
