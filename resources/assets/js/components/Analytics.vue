@@ -223,8 +223,12 @@
                                                                                                     </td>
                                                                                                     <td v-if="itemProgCentData.status == 'completed'  "></td>
                                                                                                     <td v-if="show "  style="text-align:left">{{itemProgCentData.status}}</td>
-                                                                                                    <td v-if="show"> {{itemProgCentData.last_remarks}}</td>
-                                                                                                    <td v-if="show"> {{itemProgCentData.last_action}}</td>
+                                                                                                    <td v-if="show"> <span v-if="itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled' ">{{itemProgCentData.last_remarks}}</span> </td>
+                                                                                                    <td v-if="show">
+                                                                                                        <a href="#" @click.prevent="viewChat(itemProgCentData)"><i class="nc-icon-mini ui-2_chat-round"></i></a>
+                                                                                                        <span v-if="itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled' ">{{itemProgCentData.last_action}}</span>
+                                                                                                    </td>
+
                                                                                                 </tr>
                                                                                                         </template>
                                                                                                     </template>
@@ -503,6 +507,21 @@ var tarray2IDs           =   [];
         },
 
         methods: {
+            viewChat(item){
+                $('.chat').addClass('is-visible');
+                $('#chatHead').html(item.upr_number);
+                axios.get('/api/upr-message/'+item.id)
+                    .then(response => {
+                        this.$parent.$emit('getmessage', {
+                            message: {
+                                sender_id: currentUser.id,
+                                id: response.data,
+                                upr_id : item.id
+                        }
+                    });
+                });
+
+            },
             formatPrice(value) {
                 let val = (value/1).toFixed(2).replace('.', ',')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")

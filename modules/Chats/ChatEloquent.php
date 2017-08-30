@@ -24,6 +24,7 @@ class ChatEloquent extends Model
     protected $fillable = [
         'sender_id',
         'title',
+        'upr_id',
         'receiver_id'
     ];
 

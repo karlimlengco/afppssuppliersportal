@@ -38,6 +38,7 @@ const app = new Vue({
         usersInRoom: [],
         chatId:"",
         receiverId:"",
+        uprId:"",
         searchText:""
     },
     methods: {
@@ -51,7 +52,8 @@ const app = new Vue({
                     surname: ""
                 },
                 chatId : this.chatId,
-                receiverId : this.receiverId
+                receiverId : this.receiverId,
+                uprId : this.uprId,
 
             };
             // Add to existing messages
@@ -80,11 +82,16 @@ const app = new Vue({
     },
     created() {
         this.$on('getmessage', (item) =>{
-            console.log(item);
             this.chatId = item.message.id
             this.receiverId = item.message.receiver_id
+            this.uprId = item.message.upr_id
             if(item.message.receiver_id != null){
                 axios.get('/messages/'+item.message.sender_id+'/'+item.message.receiver_id).then(response => {
+                    this.messages = response.data;
+                });
+            }
+            else if(item.message.upr_id != null){
+                axios.get('/upr-messages/'+item.message.upr_id).then(response => {
                     this.messages = response.data;
                 });
             }

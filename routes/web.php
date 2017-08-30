@@ -22,6 +22,7 @@ Route::get('messages', '\Revlv\Controllers\Chat\MessageController@getMessage')->
 Route::get('admin-messages-view', '\Revlv\Controllers\Chat\MessageController@getAdminMessage')->name('messages.admin');
 Route::get('admin-messages/api', '\Revlv\Controllers\Chat\MessageController@getAdminMessageAPI')->name('messages.admin.api');
 Route::get('messages/{sender}/{receiver?}', '\Revlv\Controllers\Chat\MessageController@showChat')->name('messages.show');
+Route::get('upr-messages/{upr}', '\Revlv\Controllers\Chat\MessageController@showUPRChat')->name('messages.show');
 
 Route::get('api/get/new_code/{id}', '\Revlv\Controllers\Settings\AccountCodeController@getCode')->name('settings.account-codes.get-code');
 
@@ -42,6 +43,7 @@ Route::get('timelines/print/{id}', '\Revlv\Controllers\Reports\UPRController@dow
 Route::group(['as' => 'api.', 'prefix' => 'api'], function () {
     Route::get('users', '\Revlv\Controllers\Sentinel\UserController@userLists')->name('users');
     Route::get('user-message/{id}', '\Revlv\Controllers\Chat\MessageController@getChatMessageBySender')->name('users');
+    Route::get('upr-message/{id}', '\Revlv\Controllers\Chat\MessageController@getChatMessageByUPR')->name('users');
 
 });
 // Route::get('messages', function(){

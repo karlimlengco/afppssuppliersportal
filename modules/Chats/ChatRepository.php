@@ -47,6 +47,21 @@ class ChatRepository extends BaseRepository
         return $model->first();
     }
 
+    /**
+     * [findByUPR description]
+     *
+     * @param  [type] $receiver [description]
+     * @return [type]           [description]
+     */
+    public function findByUPR($upr)
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->where('upr_id', '=', $upr);
+
+        return $model->first();
+    }
+
 
     /**
      * [findBySenderAndReceiver description]

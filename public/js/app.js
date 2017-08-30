@@ -14979,6 +14979,7 @@ var app = new Vue({
         usersInRoom: [],
         chatId: "",
         receiverId: "",
+        uprId: "",
         searchText: ""
     },
     methods: {
@@ -14992,7 +14993,8 @@ var app = new Vue({
                     surname: ""
                 },
                 chatId: this.chatId,
-                receiverId: this.receiverId
+                receiverId: this.receiverId,
+                uprId: this.uprId
 
             };
             // Add to existing messages
@@ -15024,11 +15026,15 @@ var app = new Vue({
         var _this2 = this;
 
         this.$on('getmessage', function (item) {
-            console.log(item);
             _this2.chatId = item.message.id;
             _this2.receiverId = item.message.receiver_id;
+            _this2.uprId = item.message.upr_id;
             if (item.message.receiver_id != null) {
                 axios.get('/messages/' + item.message.sender_id + '/' + item.message.receiver_id).then(function (response) {
+                    _this2.messages = response.data;
+                });
+            } else if (item.message.upr_id != null) {
+                axios.get('/upr-messages/' + item.message.upr_id).then(function (response) {
                     _this2.messages = response.data;
                 });
             } else {
@@ -16523,6 +16529,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 var arrayIDs = [];
@@ -16559,44 +16569,59 @@ var tarray2IDs = [];
 
 
     methods: {
+        viewChat: function viewChat(item) {
+            var _this = this;
+
+            $('.chat').addClass('is-visible');
+            $('#chatHead').html(item.upr_number);
+            axios.get('/api/upr-message/' + item.id).then(function (response) {
+                _this.$parent.$emit('getmessage', {
+                    message: {
+                        sender_id: currentUser.id,
+                        id: response.data,
+                        upr_id: item.id
+                    }
+                });
+            });
+        },
         formatPrice: function formatPrice(value) {
             var val = (value / 1).toFixed(2).replace('.', ',');
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         },
 
         fetchUprAnalytics: function fetchUprAnalytics(type) {
-            var _this = this;
+            var _this2 = this;
 
             axios.get('/reports/programs/' + type + '?date_from=' + this.startDate + '&&date_to=' + this.endDate).then(function (response) {
-                _this.items = response.data;
+                _this2.items = response.data;
             }).catch(function (e) {
                 console.log(e);
             });
         },
         fetchUPRCenters: function fetchUPRCenters(program) {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('/reports/upr-centers/' + program + '/' + this.types).then(function (response) {
-                _this2.itemProgram.push(response.data);
+                _this3.itemProgram.push(response.data);
             }).catch(function (e) {
                 console.log(e);
             });
         },
         fetchUnits: function fetchUnits(program, center) {
-            var _this3 = this;
+            var _this4 = this;
 
             axios.get('/reports/units/' + program + '/' + center + '/' + this.types).then(function (response) {
-                _this3.itemUnits.push(response.data);
+                _this4.itemUnits.push(response.data);
             }).catch(function (e) {
                 console.log(e);
             });
         },
         fetchUPRs: function fetchUPRs(program, center) {
-            var _this4 = this;
+            var _this5 = this;
 
             axios.get('/reports/uprs/' + program + '/' + center + '/' + this.types).then(function (response) {
-                _this4.itemProgramCenters.push(response.data);
-                console.log(_this4.itemProgramCenters);
+                _this5.itemProgramCenters.push(response.data);
+                console.log(_this5.itemProgramCenters);
             }).catch(function (e) {
                 console.log(e);
             });
@@ -16648,37 +16673,37 @@ var tarray2IDs = [];
             this.fetchUprAnalytics(type);
         },
         fetchTimeline: function fetchTimeline(type) {
-            var _this5 = this;
+            var _this6 = this;
 
             axios.get('/reports/program/timeline/' + type + '?date_from=' + this.startDate + '&&date_to=' + this.endDate).then(function (response) {
-                _this5.timelineItem = response.data;
+                _this6.timelineItem = response.data;
             }).catch(function (e) {
                 console.log(e);
             });
         },
         fetchTimelineUPRCenters: function fetchTimelineUPRCenters(program) {
-            var _this6 = this;
+            var _this7 = this;
 
             axios.get('/reports/upr-centers/timeline/' + program + '/' + this.psrTypes).then(function (response) {
-                _this6.timelineItemProgram.push(response.data);
+                _this7.timelineItemProgram.push(response.data);
             }).catch(function (e) {
                 console.log(e);
             });
         },
         fetchTimelineUnits: function fetchTimelineUnits(program, center) {
-            var _this7 = this;
+            var _this8 = this;
 
             axios.get('/reports/units/timeline/' + program + '/' + center + '/' + this.psrTypes).then(function (response) {
-                _this7.timelineitemUnits.push(response.data);
+                _this8.timelineitemUnits.push(response.data);
             }).catch(function (e) {
                 console.log(e);
             });
         },
         fetchPSRUPRs: function fetchPSRUPRs(program, center) {
-            var _this8 = this;
+            var _this9 = this;
 
             axios.get('/reports/uprs/timeline/' + program + '/' + center + '/' + this.psrTypes).then(function (response) {
-                _this8.timelineitemProgramCenters.push(response.data);
+                _this9.timelineitemProgramCenters.push(response.data);
             }).catch(function (e) {
                 console.log(e);
             });
@@ -52657,7 +52682,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   staticStyle: {
                     "text-align": "left"
                   }
-                }, [_vm._v(_vm._s(itemProgCentData.status))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', [_vm._v(" " + _vm._s(itemProgCentData.last_remarks))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', [_vm._v(" " + _vm._s(itemProgCentData.last_action))]) : _vm._e()])
+                }, [_vm._v(_vm._s(itemProgCentData.status))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', [(itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled') ? _c('span', [_vm._v(_vm._s(itemProgCentData.last_remarks))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', [_c('a', {
+                  attrs: {
+                    "href": "#"
+                  },
+                  on: {
+                    "click": function($event) {
+                      $event.preventDefault();
+                      _vm.viewChat(itemProgCentData)
+                    }
+                  }
+                }, [_c('i', {
+                  staticClass: "nc-icon-mini ui-2_chat-round"
+                })]), _vm._v(" "), (itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled') ? _c('span', [_vm._v(_vm._s(itemProgCentData.last_action))]) : _vm._e()]) : _vm._e()])
               }) : _vm._e()] : _vm._e()]
             })], 2)])])])]
           })] : _vm._e()] : _vm._e()]

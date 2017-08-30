@@ -92,6 +92,26 @@ class MessageController extends Controller
     }
 
     /**
+     * [getMessage description]
+     *
+     * @param  MessageRepository $messages [description]
+     * @param  ChatRepository    $chats    [description]
+     * @return [type]                      [description]
+     */
+    public function getChatMessageByUPR($upr, MessageRepository $messages, ChatRepository $chats)
+    {
+        $chat       =   $chats->findByUPR($upr);
+
+        $chatId     = 0;
+        if($chat)
+        {
+            $chatId =   $chat->id;
+        }
+
+        return $chatId;
+    }
+
+    /**
      * [showChat description]
      *
      * @param  [type]            $senderId [description]
@@ -118,7 +138,28 @@ class MessageController extends Controller
             return $chat->messages;
         }
         return [];
+    }
 
+    /**
+     * [showUPRChat description]
+     *
+     * @param  [type]            $senderId [description]
+     * @param  ChatRepository    $chats    [description]
+     * @param  MessageRepository $messages [description]
+     * @return [type]                      [description]
+     */
+    public function showUPRChat($upr, ChatRepository $chats, MessageRepository $messages)
+    {
+
+        $chat       =   $chats->findByUPR($upr);
+
+        $messages->markAsSeen(\Sentinel::getUser()->id);
+
+        if($chat)
+        {
+            return $chat->messages;
+        }
+        return [];
     }
 
     /**
@@ -179,52 +220,82 @@ class MessageController extends Controller
         ChatRepository $chats,
         MessageRepository $messages,
         \Revlv\Users\UserRepository $users,
+        UnitPurchaseRequestRepository $upr,
         ChatMemberRepository $chatMembers)
     {
         $user   =   \Sentinel::getUser();
         $chat   = null;
 
-        if($request->has('chatId') && $request->chatId != null)
+        if($request->has("uprId") && $request->get('uprId') != null)
         {
-            $chat   =   $chats->findById($request->chatId);
-        }
-        else
-        {
-            if(!$user->hasRole('Admin'))
-            {
-                $chat   =   $chats->findBySender($user->id);
-            }
-        }
+            $chat   =   $chats->findByUPR($request->get('uprId'));
 
-        if($chat == null)
-        {
-            if(!$user->hasRole('Admin'))
+            if($chat == null)
             {
-                $userAdmins =   $users->getAllAdmins();
+                $uprModel   =   $upr->findById($request->get('uprId'));
+                $unt        =   $uprModel->units;
+                $unitUsers  =   $users->findByUnit($unt);
                 $userIds    =   [];
 
-                foreach($userAdmins as $admin)
+                foreach($unitUsers as $user)
                 {
-                    if($admin->hasRole('Admin'))
-                    {
-                        $userIds[] = $admin->id;
-                    }
+                    $userIds[] = $user->id;
                 }
+
                 $userIds[] = $user->id;
 
-                $chat = $chats->save(['sender_id' => $user->id, 'Title' => 'Admin Inquiry']);
+                $chat = $chats->save(['sender_id' => $user->id, 'upr_id' => $request->get('uprId')]);
 
                 foreach($userIds as $id)
                 {
                     $chatMembers->save(['chat_id' => $chat->id, 'user_id' => $id]);
                 }
             }
+        }
+        else
+        {
+            if($request->has('chatId') && $request->chatId != null)
+            {
+                $chat   =   $chats->findById($request->chatId);
+            }
             else
             {
-                $chat = $chats->save(['sender_id' => $user->id, 'receiver_id' => $request->receiverId]);
+                if(!$user->hasRole('Admin'))
+                {
+                    $chat   =   $chats->findBySender($user->id);
+                }
+            }
 
-                $chatMembers->save(['chat_id' => $chat->id, 'user_id' => $request->receiverId]);
-                $chatMembers->save(['chat_id' => $chat->id, 'user_id' => $user->id]);
+            if($chat == null)
+            {
+                if(!$user->hasRole('Admin'))
+                {
+                    $userAdmins =   $users->getAllAdmins();
+                    $userIds    =   [];
+
+                    foreach($userAdmins as $admin)
+                    {
+                        if($admin->hasRole('Admin'))
+                        {
+                            $userIds[] = $admin->id;
+                        }
+                    }
+                    $userIds[] = $user->id;
+
+                    $chat = $chats->save(['sender_id' => $user->id, 'Title' => 'Admin Inquiry']);
+
+                    foreach($userIds as $id)
+                    {
+                        $chatMembers->save(['chat_id' => $chat->id, 'user_id' => $id]);
+                    }
+                }
+                else
+                {
+                    $chat = $chats->save(['sender_id' => $user->id, 'receiver_id' => $request->receiverId]);
+
+                    $chatMembers->save(['chat_id' => $chat->id, 'user_id' => $request->receiverId]);
+                    $chatMembers->save(['chat_id' => $chat->id, 'user_id' => $user->id]);
+                }
             }
         }
 

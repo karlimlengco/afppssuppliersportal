@@ -45,6 +45,19 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * [findByUnit description]
+     *
+     * @return [type] [description]
+     */
+    public function findByUnit($unit)
+    {
+        $model  =   $this->model;
+        $model  =   $model->where('unit_id', '=', $unit);
+
+        return $model->get();
+    }
+
+    /**
      * [getAllAdmins description]
      *
      * @return [type] [description]
