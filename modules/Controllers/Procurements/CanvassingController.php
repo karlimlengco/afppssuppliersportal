@@ -139,7 +139,7 @@ class CanvassingController extends Controller
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
         $ispq_transaction_date  =   $rfq_model->completed_at;
-
+        // dd($transaction_date);
         $cd                     =   $ispq_transaction_date->diffInDays($transaction_date);
 
         $day_delayed            =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
