@@ -205,7 +205,7 @@ class BidDocsController extends Controller
     {
         $model->delete($id);
 
-        return redirect()->route($this->baseUrl.'index')->with([
+        return redirect()->back()->with([
             'success'  => "Record has been successfully deleted."
         ]);
     }

@@ -136,6 +136,7 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('bid-docs/delete/{id}', '\Revlv\Controllers\Biddings\BidDocsController@destroy')->name('bid-docs.delete');
     Route::resource('bid-docs', '\Revlv\Controllers\Biddings\BidDocsController');
 
     /*

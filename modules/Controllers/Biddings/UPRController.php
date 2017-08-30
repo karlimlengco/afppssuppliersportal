@@ -258,6 +258,16 @@ class UPRController extends Controller
     {
         $result         =   $model->with(['attachments'])->findById($id);
         $signatory_lists=   $signatories->lists('id', 'name');
+        $bid_issuance   =   $suppliers->lists('id', 'name');
+
+        if($result->bid_issuances != null)
+        {
+            foreach($result->bid_issuances as $list)
+            {
+                unset($bid_issuance[$list->proponent_id]);
+            }
+
+        }
 
         return $this->view('modules.biddings.upr.show',[
             'data'              =>  $result,
@@ -265,6 +275,7 @@ class UPRController extends Controller
             'bacsec_list'       =>  $bacsec->lists('id', 'name'),
             'indexRoute'        =>  $this->baseUrl.'index',
             'signatory_list'    =>  $signatory_lists,
+            'bid_issuance'      =>  $bid_issuance,
             'editRoute'         =>  $this->baseUrl.'edit',
             'modelConfig'       =>  [
                 'request_quotation' =>  [

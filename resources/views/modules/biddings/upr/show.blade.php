@@ -112,6 +112,37 @@ Unit Purchase Request
 </div>
 
 
+
+{{-- Proponents --}}
+@if($data->status == 'Philgeps Approved' || $data->status == 'Pre Bid Conference')
+<h3>Bid Docs Issuance</h3>
+<div class="row">
+    <div class="twelve columns">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Processed Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($data->bid_issuances as $proponent)
+                <tr>
+                    <td>{{($proponent->supplier) ? $proponent->supplier->name :""}}</td>
+                    <td>{{$proponent->date_processed}}</td>
+                    <td>
+                        <a href="{{route('biddings.bid-docs.delete',$proponent->id)}}" tooltip="Remove"> <span class="nc-icon-glyph ui-1_trash-simple"></span> </a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+@endif
+<br>
+
 <div class="data-panel">
     <div class="data-panel__section">
             <ul class="data-panel__list">
@@ -159,6 +190,7 @@ Unit Purchase Request
             </ul>
     </div>
 </div>
+
 {{-- Main --}}
 <div class="data-panel">
     <div class="data-panel__section">

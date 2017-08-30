@@ -222,6 +222,16 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
     }
 
     /**
+     * [bid_issuances description]
+     *
+     * @return [type] [description]
+     */
+    public function bid_issuances()
+    {
+        return $this->hasMany('\Revlv\Biddings\BidDocs\BidDocsEloquent',  'upr_id');
+    }
+
+    /**
      * [post_qual description]
      *
      * @return [type] [description]

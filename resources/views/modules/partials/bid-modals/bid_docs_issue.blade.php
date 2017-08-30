@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="row">
-                    {!! Form::selectField('proponent_id', 'Proponents', $proponent_lists)!!}
+                    {!! Form::selectField('proponent_id', 'Proponents', $bid_issuance)!!}
                 </div>
 
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
