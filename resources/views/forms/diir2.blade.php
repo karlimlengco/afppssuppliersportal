@@ -28,21 +28,21 @@
                 <!-- title -->
                 <span class="printable-form__body__title">Requisition and Issue Slip</span>
                 <!-- content -->
-                <table class="printable-form__body__table">
+                <table class="printable-form__body__table" width="100%">
                     <tr>
                         <td class="align-center" width="10%"><strong>STOCK NO.</strong></td>
                         <td class="align-center" width="5%"><strong>UOM</strong></td>
                         <td class="align-center" width="30%"><strong>DESCRIPTION</strong></td>
                         <td class="align-center" width="10%"><strong>QTY</strong></td>
                         <td class="align-center" width="15%"><strong>UNIT COST</strong></td>
-                        <td class="align-center" width="20%"><strong>TOTAL COST</strong></td>
+                        <td class="align-center" width="15%"><strong>TOTAL COST</strong></td>
                     </tr>
                     @foreach($data['items'] as $key=>$item)
                     <tr>
                         <td class="align-center" >{{$key+1}}</td>
                         <td class="align-center" >{{$item->unit}}</td>
                         <td class="align-left">{{$item->description}}</td>
-                        <td class="align-center" >{{$item->quantity}}</td>
+                        <td class="align-center">{{$item->quantity}}</td>
                         <td class="align-right" >{{formatPrice($item->price_unit)}}</td>
                         <td class="align-right" >{{formatPrice($item->total_amount)}}</td>
                     </tr>
