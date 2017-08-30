@@ -18,13 +18,46 @@ class Roles extends Seeder
                     'reports.*' =>  true,
                     'maintenance.*' =>  true,
                     'procurements.*' =>  true,
-                    'bidding.*' =>  true,
+                    'biddings.*' =>  true,
+                    'library.*' =>  true,
                 ]
             ]),
-            new Role(["name" => 'Operation', "slug" => 'end_user', 'permissions' => [
+            new Role(["name" => 'PCCO Admin', "slug" => 'pcco_admin', 'permissions' => [
                     'procurements.*' =>  true,
+                    'biddings.*' =>  true,
+                    'reports.*' =>  true,
+                    'library.*' =>  true,
                 ]
             ]),
+            new Role(["name" => 'PCCO Operation', "slug" => 'pcco_operation', 'permissions' => [
+                    'procurements.*' =>  true,
+                    'biddings.*' =>  true,
+                ]
+            ]),
+            new Role(["name" => 'BAC Admin', "slug" => 'bac_admin', 'permissions' => [
+                    'procurements.*' =>  true,
+                    'biddings.*' =>  true,
+                    'reports.*' =>  true,
+                    'library.*' =>  true,
+                ]
+            ]),
+            new Role(["name" => 'BAC Operation', "slug" => 'bac_operation', 'permissions' => [
+                    'procurements.*' =>  true,
+                    'biddings.*' =>  true,
+                ]
+            ]),
+            new Role(["name" => 'Unit Admin', "slug" => 'unit_admin', 'permissions' => [
+                    'procurements.*' =>  true,
+                    'biddings.*' =>  true,
+                    'reports.*' =>  true,
+                    'library.*' =>  true,
+                ]
+            ]),
+            new Role(["name" => 'Unit Operation', "slug" => 'unit_operation', 'permissions' => [
+                    'procurements.*' =>  true,
+                    'biddings.*' =>  true,
+                ]
+            ])
         ]);
 
         $datas->each(function($data) {

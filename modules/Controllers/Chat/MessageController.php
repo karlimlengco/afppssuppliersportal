@@ -240,7 +240,7 @@ class MessageController extends Controller
 
                 foreach($unitUsers as $userU)
                 {
-                    if($userU->hasRole('Operation') && $userU->unit_id == $unt)
+                    if($userU->hasRole('PCCO Operation') && $userU->unit_id == $unt || $userU->hasRole('BAC Operation') && $userU->unit_id == $unt || $userU->hasRole('Unit Operation') && $userU->unit_id == $unt)
                     {
                         $userIds[] = $userU->id;
                     }

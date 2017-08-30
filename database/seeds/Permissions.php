@@ -17,7 +17,8 @@ class Permissions extends Seeder
             new PermissionEloquent(["permission" => 'reports.*', "description" => 'Reports']),
             new PermissionEloquent(["permission" => 'maintenance.*', "description" => 'Maintenance']),
             new PermissionEloquent(["permission" => 'procurements.*', "description" => 'Alternatice Mode of Procurement']),
-            new PermissionEloquent(["permission" => 'bidding.*', "description" => 'Competitive Bidding'])
+            new PermissionEloquent(["permission" => 'biddings.*', "description" => 'Competitive Bidding']),
+            new PermissionEloquent(["permission" => 'library.*', "description" => 'Library'])
         ]);
 
         $datas->each(function($data) {
