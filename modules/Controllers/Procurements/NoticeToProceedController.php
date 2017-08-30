@@ -491,7 +491,14 @@ class NoticeToProceedController extends Controller
         RFQProponentRepository $proponents)
     {
         $result                     =   $model->with(['signatory', 'po'])->findById($id);
-        $supplier                   =   $result->winner->supplier;
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $result->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $result->winner->supplier;
+        }
         // $blank_model                =   $blank->findById($result->rfq_id);
         $upr_model                  =   $upr->findById($result->upr_id);
 
