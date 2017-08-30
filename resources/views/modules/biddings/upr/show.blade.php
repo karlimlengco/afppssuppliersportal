@@ -356,7 +356,7 @@ Unit Purchase Request
     })
 
 
-    var timepicker = new TimePicker(['id-field-opening_time', 'id-field-canvassing_time','id-field-pp_opening_time' ], {
+    var timepicker = new TimePicker([ 'id-field-canvassing_time','id-field-pp_opening_time' ], {
         lang: 'en',
         theme: 'dark'
     });

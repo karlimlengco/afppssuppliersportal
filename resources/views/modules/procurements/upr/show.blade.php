@@ -33,24 +33,24 @@ Unit Purchase Request
     @include('modules.partials.modals.invitation')
     @include('modules.partials.modals.open_canvass')
 
-    @if($data->status == 'PO Approved' ||  $data->status == 'NTP Accepted')
+    {{-- @if($data->status == 'PO Approved' ||  $data->status == 'NTP Accepted') --}}
         @include('modules.partials.modals.ntp')
         @include('modules.partials.modals.create_delivery')
-    @endif
+    {{-- @endif --}}
 
     {{-- @if($data->mode_of_procurement != 'public_bidding' ) --}}
         @include('modules.partials.modals.philgeps_posting')
     {{-- @endif --}}
 
-    @if($data->mode_of_procurement == 'public_bidding')
+    @include('modules.partials.bid-modals.philgeps_posting')
+    {{-- @if($data->mode_of_procurement == 'public_bidding') --}}
     @include('modules.partials.bid-modals.rfb-process')
     @include('modules.partials.bid-modals.dq')
     @include('modules.partials.bid-modals.preproc')
-    @include('modules.partials.bid-modals.philgeps_posting')
     @include('modules.partials.bid-modals.bid_docs_issue')
     @include('modules.partials.bid-modals.open-bid')
     @include('modules.partials.bid-modals.post_qual')
-    @endif
+    {{-- @endif --}}
 @stop
 
 @section('contents')
@@ -430,6 +430,15 @@ Unit Purchase Request
 
     $('.datepicker').pikaday({ firstDay: 1 });
 
+
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-resched_date'),
+        firstDay: 1,
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
     $(document).on('change', '#id-field-final_tax', function(e){
         var final_tax  = $("#id-field-final_tax").val();
         var total_amount  = "{{$data->total_amount}}";
@@ -452,14 +461,6 @@ Unit Purchase Request
     timepicker.on('change', function(evt){
       var value = (evt.hour || '00') + ':' + (evt.minute || '00');
       evt.element.value = value;
-    });
-
-    var picker = new Pikaday(
-    {
-        field: document.getElementById('id-field-resched_date'),
-        firstDay: 1,
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
     });
 
 </script>
