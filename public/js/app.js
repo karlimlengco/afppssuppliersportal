@@ -16649,11 +16649,12 @@ var tarray2IDs = [];
             }
         },
         clickItemUnit: function clickItemUnit(item) {
-            if (this.show == false) {
-                this.show = true;
-            } else {
-                this.show = false;
-            }
+            // if(this.show == false){
+            this.show = true;
+            // }else{
+            //     this.show = false;
+            // }
+
 
             if (arrayProgramCenter.indexOf(item.name) == -1 && arrayProgramCenter[item.name] == item.name) {
                 if (array2IDs.indexOf(item.short_code) == -1) {
