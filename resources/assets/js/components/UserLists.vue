@@ -164,6 +164,7 @@
             },
             viewChat(item){
                 $('.chat').addClass('is-visible');
+                $('.inbox').addClass('is-visible');
                 $('#chatHead').html(item.full_name);
                 axios.get('/api/user-message/'+item.id)
                     .then(response => {

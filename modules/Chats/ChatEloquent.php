@@ -55,7 +55,7 @@ class ChatEloquent extends Model
      */
     public function  lastMessage()
     {
-        return $this->hasOne('\Revlv\Chats\Message\MessageEloquent', 'chat_id');
+        return $this->hasOne('\Revlv\Chats\Message\MessageEloquent', 'chat_id')->orderBy('created_at', 'desc');
     }
 
     /**

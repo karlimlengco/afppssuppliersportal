@@ -2,6 +2,7 @@
 
 namespace Revlv\Chats;
 
+use DB;
 use Revlv\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 
@@ -91,6 +92,7 @@ class ChatRepository extends BaseRepository
             'chats.title',
             'chats.id',
             'chats.sender_id',
+            DB::raw(" (select messages.created_at from messages left join chats as chat on messages.chat_id  = chat.id  limit 1  ) as last_message "),
         ]);
 
         $model  =   $model->leftJoin('chat_members', 'chat_members.chat_id', '=','chats.id');
@@ -107,6 +109,7 @@ class ChatRepository extends BaseRepository
             'chats.id',
             'chats.sender_id',
         ]);
+        $model  =   $model->orderBy('last_message');
 
         return $model->paginate($pagintate);
     }

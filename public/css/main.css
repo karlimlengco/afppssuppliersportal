@@ -280,6 +280,10 @@ body,
 html {
   background: #fff;
 }
+body.no-scroll,
+html.no-scroll {
+  overflow: hidden;
+}
 /*
 components
 ------------------------------------------- */
@@ -975,19 +979,169 @@ modal.less
   text-align: right;
 }
 /*
+inbox.less
+------------------------------------------------------------------------- */
+.inbox {
+  position: fixed;
+  z-index: 8;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(44, 54, 63, 0.85);
+  visibility: hidden;
+  zoom: 1;
+  filter: alpha(opacity=0);
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+  -webkit-transform: translateX(-50px);
+  -moz-transform: translateX(-50px);
+  -ms-transform: translateX(-50px);
+  -o-transform: translateX(-50px);
+  transform: translateX(-50px);
+  -webkit-transition: all 0.15s linear;
+  -moz-transition: all 0.15s linear;
+  -o-transition: all 0.15s linear;
+  transition: all 0.15s linear;
+}
+.inbox.is-visible {
+  visibility: visible;
+  zoom: 1;
+  filter: alpha(opacity=100);
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition: all 0.15s linear;
+  -moz-transition: all 0.15s linear;
+  -o-transition: all 0.15s linear;
+  transition: all 0.15s linear;
+}
+.inbox__data {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 410px;
+  height: 100%;
+  background: #FFFFFF;
+}
+.inbox__close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  height: auto;
+  width: auto;
+  font-size: 20px;
+  background: none;
+  border: none;
+  color: #7a7a7a;
+  cursor: pointer;
+  zoom: 1;
+  filter: alpha(opacity=50);
+  -webkit-opacity: 0.5;
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+  outline: none;
+}
+.inbox__close:hover {
+  zoom: 1;
+  filter: alpha(opacity=100);
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+}
+.inbox__list {
+  display: block;
+  margin: 50px 0 0 0;
+  padding: 0;
+}
+.inbox__item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+  padding: 15px 25px;
+  border-bottom: solid 1px #d9d9d9;
+  cursor: pointer;
+}
+.inbox__item:last-child {
+  border-bottom: none;
+}
+.inbox__item:hover {
+  background: #ededed;
+}
+.inbox__item__avatar {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  width: 56px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: #56697b;
+  color: #FFFFFF;
+  overflow: hidden;
+}
+.inbox__item__avatar img {
+  display: block;
+  width: 100%;
+}
+.inbox__item__details {
+  position: relative;
+  flex-grow: 1;
+}
+.inbox__item__name,
+.inbox__item__message,
+.inbox__item__date {
+  display: block;
+  font-size: 14px;
+  line-height: 1.2;
+}
+.inbox__item__status {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #a8b5c2;
+}
+.inbox__item__status--unread {
+  background: #3BB273;
+}
+.inbox__item__name {
+  font-weight: 900;
+  color: #2e2e2e;
+}
+.inbox__item__date {
+  text-transform: uppercase;
+  line-height: 1.4;
+  font-size: 12px;
+  zoom: 1;
+  filter: alpha(opacity=75);
+  -webkit-opacity: 0.75;
+  -moz-opacity: 0.75;
+  opacity: 0.75;
+}
+/*
 chatbox.less
 ------------------------------------------------------------------------- */
 .chat {
   position: fixed;
   z-index: 9;
-  bottom: 30px;
-  right: 30px;
-  width: 350px;
+  bottom: 0;
+  right: 0;
+  width: 410px;
   background: #FFFFFF;
-  border: solid 1px #dfdfdf;
-  -webkit-box-shadow: 0 1px 15px rgba(20, 20, 20, 0.25);
-  -moz-box-shadow: 0 1px 15px rgba(20, 20, 20, 0.25);
-  box-shadow: 0 1px 15px rgba(20, 20, 20, 0.25);
   visibility: hidden;
   zoom: 1;
   filter: alpha(opacity=0);
@@ -1021,7 +1175,7 @@ chatbox.less
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 15px 15px;
+  padding: 25px;
   background: #2C363F;
 }
 .chat__head__title {
@@ -1070,7 +1224,8 @@ chatbox.less
   display: block;
   height: 300px;
   max-height: 300px;
-  padding: 15px 15px 0 15px;
+  padding: 25px 25px 0 25px;
+  background: #d9d9d9;
 }
 .chat__thread__breaker {
   display: block;
@@ -1078,7 +1233,7 @@ chatbox.less
   height: 1px;
   width: 100%;
   margin: 25px 0 20px 0;
-  border-top: solid 1px #dfdfdf;
+  border-top: solid 1px #c5c5c5;
 }
 .chat__thread__breaker__time {
   position: absolute;
@@ -1092,8 +1247,8 @@ chatbox.less
   font-size: 12px;
   font-weight: 300;
   padding: 5px 10px;
-  background: #FFFFFF;
-  color: #bababa;
+  background: #d9d9d9;
+  color: #878787;
 }
 .chat__thread__item {
   display: flex;
@@ -1148,7 +1303,7 @@ chatbox.less
   font-size: 14px;
   font-weight: 400;
   letter-spacing: .5px;
-  padding: 5px 8px;
+  padding: 8px 10px;
   background: #3BB273;
   color: #FFFFFF;
   border-radius: 5px;
@@ -1159,7 +1314,8 @@ chatbox.less
 }
 .chat__compose {
   display: block;
-  padding: 15px;
+  padding: 25px;
+  background: #d9d9d9;
 }
 .chat__compose__textarea {
   font-family: "Nunito Sans";
@@ -1191,7 +1347,7 @@ chatbox.less
   font-size: 12px;
   font-weight: 400;
   text-transform: uppercase;
-  color: #bababa;
+  color: #878787;
   margin: 0 4px;
 }
 .chat__compose__options__item:first-child {
@@ -1203,7 +1359,7 @@ chatbox.less
 .chat__compose__word-count {
   flex-grow: 1;
   font-size: 12px;
-  color: #bababa;
+  color: #878787;
   font-weight: 300;
   text-transform: uppercase;
 }
@@ -3570,8 +3726,8 @@ table-custom.less
 }
 .table-name tr th,
 .table-name tr td {
-  width: 150px !important;
-  min-width: 150px !important;
+  width: 170px !important;
+  min-width: 170px !important;
 }
 .table-name tr th:first-child,
 .table-name tr td:first-child {
@@ -3590,8 +3746,8 @@ table-custom.less
 .table-name tr td.has-child .grand-child-table tr td,
 .table-name tr th.has-child .great-grand-child-table tr td,
 .table-name tr td.has-child .great-grand-child-table tr td {
-  width: 150px !important;
-  min-width: 150px !important;
+  width: 170px !important;
+  min-width: 170px !important;
 }
 .table-name tr th.has-child .child-table tr th:first-child,
 .table-name tr td.has-child .child-table tr th:first-child,

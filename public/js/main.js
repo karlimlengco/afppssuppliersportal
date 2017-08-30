@@ -31,6 +31,7 @@ $(document).keydown(function(e) {
     if (e.keyCode == 27) {
         $('.notifier').removeClass('is-visible');
         $('.modal').removeClass('is-visible');
+        $('.inbox').removeClass('is-visible');
     }
 });
 
@@ -50,6 +51,18 @@ $('.modal__close-button').click(function(){
 
 $(document).on('click', '#close-signatory-button', function(e){
     $('#create-signatory-modal').removeClass('is-visible');
+})
+
+//show inbox
+$('.open-inbox').click(function(){
+    $('.inbox').addClass('is-visible');
+    $('body').addClass('no-scroll');
+})
+
+//close inbox
+$('.inbox__close').click(function(){
+    $('.inbox').removeClass('is-visible');
+    $('.chat').removeClass('is-visible');
 })
 
 

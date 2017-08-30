@@ -37,7 +37,7 @@
                 </div>
             </div>
             <!-- content -->
-
+            {{-- Chat --}}
             <div class="chat">
                 <div class="chat__head">
                     <div class="chat__head__title" id="chatHead">Admin</div>
@@ -57,6 +57,19 @@
                 <chat-composer v-on:messagesent="addMessage"></chat-composer>
 
             </div>
+            {{-- Chat --}}
+
+            <!-- chat inbox -->
+            {{--  is-visible --}}
+            <div class="inbox">
+                <div class="inbox__data">
+                    <button class="inbox__close">
+                        <i class="nc-icon-outline ui-1_simple-remove"></i>
+                    </button>
+                    <admin-messages ></admin-messages>
+                </div>
+            </div>
+            <!-- chat inbox -->
 
         </div>
     </div>

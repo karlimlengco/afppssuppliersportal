@@ -15968,6 +15968,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -16574,6 +16585,7 @@ var tarray2IDs = [];
             var _this = this;
 
             $('.chat').addClass('is-visible');
+            $('.inbox').addClass('is-visible');
             $('#chatHead').html(item.upr_number);
             axios.get('/api/upr-message/' + item.id).then(function (response) {
                 _this.$parent.$emit('getmessage', {
@@ -16622,7 +16634,6 @@ var tarray2IDs = [];
 
             axios.get('/reports/uprs/' + program + '/' + center + '/' + this.types).then(function (response) {
                 _this5.itemProgramCenters.push(response.data);
-                console.log(_this5.itemProgramCenters);
             }).catch(function (e) {
                 console.log(e);
             });
@@ -16673,7 +16684,6 @@ var tarray2IDs = [];
             arrayIDs = [];
             arrayProgramCenter = [];
             array2IDs = [];
-            console.log(type);
             $('i').removeClass('ui-1_circle-delete');
             $('.table-name').removeClass('is-visible');
             $('i').addClass('ui-1_circle-add');
@@ -16755,7 +16765,6 @@ var tarray2IDs = [];
             $('i').addClass('ui-1_circle-add');
             this.show = false;
             this.fetchTimeline(type);
-            console.log(type);
 
             if (type == 'psr-bidding') {
                 this.show2 = true;
@@ -17555,6 +17564,7 @@ var csrf_token = $('meta[name="csrf-token"]').attr('content');
             var _this3 = this;
 
             $('.chat').addClass('is-visible');
+            $('.inbox').addClass('is-visible');
             $('#chatHead').html(item.full_name);
             axios.get('/api/user-message/' + item.id).then(function (response) {
                 _this3.$parent.$emit('getmessage', {
@@ -52187,102 +52197,34 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: " "
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "table-scroll"
-  }, [_c('table', {
-    staticClass: "table table--with-border "
-  }, [_c('tbody', [_vm._l((_vm.items), function(item, index) {
-    return [_c('tr', {
-      staticStyle: {
-        "cursor": "pointer"
-      },
+  return _c('ul', {
+    staticClass: "inbox__list"
+  }, [_vm._l((_vm.items), function(item, index) {
+    return [_c('li', {
+      staticClass: "inbox__item",
       on: {
         "click": function($event) {
           $event.preventDefault();
           _vm.viewChat(item)
         }
       }
-    }, [_c('td', {
-      staticStyle: {
-        "text-align": "left"
-      }
-    }, [_c('span', {
-      staticStyle: {
-        "float": "left",
-        "margin-right": "10px"
-      }
     }, [_c('img', {
-      staticStyle: {
-        "width": "50px"
-      },
+      staticClass: "inbox__item__avatar",
       attrs: {
         "src": _vm.avatar(item),
         "alt": ""
       }
-    })]), _vm._v(" "), _c('p', {
-      staticStyle: {
-        "line-height": "30px",
-        "margin-bottom": "0"
-      }
-    }, [_vm._v(_vm._s(item.sender.first_name) + " " + _vm._s(item.sender.middle_name) + " " + _vm._s(item.sender.surname) + " (" + _vm._s(item.title) + ")")]), _vm._v(" "), (item.last_message != null) ? _c('p', {
-      staticStyle: {
-        "line-height": "5px",
-        "margin-bottom": "0"
-      }
-    }, [_vm._v(_vm._s(item.last_message.created_at))]) : _vm._e()])])]
-  })], 2)]), _vm._v(" "), _c('div', {
-    staticClass: "pagination"
-  }, [_c('div', {
-    staticClass: "pagination__list pagination__list--solid"
-  }, [_c('a', {
-    class: [_vm.pagination.current_page > 1 ? 'pagination__list__item' : 'pagination__list__item pagination__list__item--disabled'],
-    attrs: {
-      "href": ""
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.changePage(_vm.pagination.current_page - 1)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nc-icon-outline arrows-1_tail-left"
-  })]), _vm._v(" "), _vm._l((_vm.pagesNumber), function(page) {
-    return [_c('a', {
-      class: [page == _vm.isActived ? 'pagination__list__item pagination__list__item--active' : 'pagination__list__item'],
-      attrs: {
-        "href": "#"
-      },
-      on: {
-        "click": function($event) {
-          $event.preventDefault();
-          _vm.changePage(page)
-        }
-      }
-    }, [_vm._v(_vm._s(page))])]
-  }), _vm._v(" "), _c('a', {
-    class: [_vm.pagination.current_page < _vm.pagination.last_page ? 'pagination__list__item' : 'pagination__list__item pagination__list__item--disabled'],
-    attrs: {
-      "href": ""
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.changePage(_vm.pagination.current_page + 1)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "nc-icon-outline arrows-1_tail-right"
-  })])], 2)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "six columns"
-  })])
-}]}
+    }), _vm._v(" "), _c('div', {
+      staticClass: "inbox__item__details"
+    }, [_c('span', {
+      staticClass: "inbox__item__date"
+    }, [_vm._v(_vm._s(item.last_message.created_at))]), _vm._v(" "), _c('span', {
+      staticClass: "inbox__item__name"
+    }, [_vm._v(_vm._s(item.sender.first_name) + " " + _vm._s(item.sender.middle_name) + " " + _vm._s(item.sender.surname))]), _vm._v(" "), _c('span', {
+      staticClass: "inbox__item__message"
+    }, [_vm._v(_vm._s(item.title))])])])]
+  })], 2)
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

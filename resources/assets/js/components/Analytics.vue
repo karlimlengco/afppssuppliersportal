@@ -510,6 +510,7 @@ var tarray2IDs           =   [];
         methods: {
             viewChat(item){
                 $('.chat').addClass('is-visible');
+                $('.inbox').addClass('is-visible');
                 $('#chatHead').html(item.upr_number);
                 axios.get('/api/upr-message/'+item.id)
                     .then(response => {
@@ -558,7 +559,6 @@ var tarray2IDs           =   [];
                 axios.get('/reports/uprs/'+program+'/'+center+'/'+this.types)
                     .then(response => {
                         this.itemProgramCenters.push(response.data)
-                        console.log(this.itemProgramCenters)
                     })
                     .catch(e => {
                         console.log(e)
@@ -616,7 +616,6 @@ var tarray2IDs           =   [];
                 arrayIDs = []
                 arrayProgramCenter = []
                 array2IDs = []
-                console.log(type)
                 $('i').removeClass('ui-1_circle-delete');
                 $('.table-name').removeClass('is-visible');
                 $('i').addClass('ui-1_circle-add');
@@ -704,7 +703,6 @@ var tarray2IDs           =   [];
                 $('i').addClass('ui-1_circle-add');
                 this.show = false;
                 this.fetchTimeline(type)
-                console.log(type)
 
                 if(type == 'psr-bidding')
                 {

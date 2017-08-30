@@ -1,8 +1,19 @@
 <template>
-<div class=" ">
-    <div class="row">
+<ul class="inbox__list">
+    <template v-for="(item, index) in items">
+        <li class="inbox__item"  @click.prevent="viewChat(item)">
+            <img v-bind:src="avatar(item)" alt="" class="inbox__item__avatar">
+            <div class="inbox__item__details">
+                <!-- <span class="inbox__item__status inbox__item__status--unread"></span> -->
+                <span class="inbox__item__date">{{item.last_message.created_at}}</span>
+                <span class="inbox__item__name">{{item.sender.first_name}} {{item.sender.middle_name}} {{item.sender.surname}}</span>
+                <span class="inbox__item__message">{{item.title}}</span>
+            </div>
+        </li>
+    </template>
+
+    <!-- <div class="row">
         <div class="six columns">
-            <!-- <h1>Messages</h1> -->
         </div>
     </div>
 
@@ -42,8 +53,8 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </div> -->
+</ul>
 </template>
 
 <script>
