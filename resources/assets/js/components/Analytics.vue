@@ -530,8 +530,8 @@ var tarray2IDs           =   [];
 
             },
             formatPrice(value) {
-                let val = (value/1).toFixed(2).replace('.', ',')
-                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                let val = (value/1).toFixed(2).replace('.', '.')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             },
             fetchUprAnalytics: function(type) {
                 axios.get('/reports/programs/'+type+'?date_from='+this.startDate+'&&date_to='+this.endDate)
