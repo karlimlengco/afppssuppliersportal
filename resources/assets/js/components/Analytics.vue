@@ -530,7 +530,7 @@ var tarray2IDs           =   [];
 
             },
             formatPrice(value) {
-                let val = (value/1).toFixed(2).replace('.', ',')
+                let val = (value/1).toFixed(2).replace(',', '.')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             },
             fetchUprAnalytics: function(type) {
