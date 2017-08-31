@@ -47,9 +47,9 @@ Canvassing
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class=" button__options__item">Unit Purchase Request</a>
 
                 @if(count($data->winners) == 0)
-                    @if($data->is_failed != 1)
+                    {{-- @if($data->is_failed != 1) --}}
                     <a href="#" id="failed-button" class=" button__options__item">Failed Bid</a>
-                    @endif
+                    {{-- @endif --}}
                 @endif
 
                 <a target="_blank" href="{{route('procurements.canvassing.print',$data->id)}}" class=" button__options__item">Print Abstract</a>

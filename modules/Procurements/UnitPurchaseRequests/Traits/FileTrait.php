@@ -73,6 +73,7 @@ trait FileTrait
 
         $data['upr_number']         =  $result->upr_number;
         $data['ref_number']         =  $result->ref_number;
+        $data['place_of_delivery']  =  $result->place_of_delivery;
         $data['date_prepared']      =  $result->date_prepared;
         $data['mode']               =  ($result->modes) ? $result->modes->name : "Public Bidding";
         $data['center']             =  $result->centers->name;
@@ -87,7 +88,7 @@ trait FileTrait
         $data['header']             =  $result->centers;
         $data['requestor']          =  explode('/', $result->requestor_text);
         $data['funder']             =  explode('/', $result->fund_signatory_text);
-        $data['approver']           =  explode('/', $result->requestor_text);
+        $data['approver']           =  explode('/', $result->approver_text);
         $pdf = PDF::loadView('forms.upr', ['data' => $data])
         ->setOption('margin-bottom', 30)
         ->setOption('footer-html', route('pdf.footer'));

@@ -44,7 +44,7 @@
                         </tr>
                         <tr>
                             <td class="border-left-only" width="200px" nowrap>PLACE OF DELIVERY</td>
-                            <td class="border-bottom-only" width="300px">{{$data['center']}}</td>
+                            <td class="border-bottom-only" width="300px">{{$data['place_of_delivery']}}</td>
                             <td class="border-right-only" width="10%"></td>
                         </tr>
                         <tr>
