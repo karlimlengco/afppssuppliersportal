@@ -209,7 +209,7 @@
                                                                                                         <span tooltip="Delay" class="red">({{itemProgCentData.delay_count}})</span>
  -->                                                                                                    <span class="blue" v-if="itemProgCentData.completed_count != 0 && itemProgCentData.completed_count != null">Completed</span>
                                                                                                         <span  class="red" v-if="itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled' ">Delayed</span>
-                                                                                                        <span  v-if="itemProgCentData.status == 'cancelled' ">Cancelled</span>
+                                                                                                        <span  v-if="itemProgCentData.status == 'cancelled' || itemProgCentData.status =='Cancelled' ">Cancelled</span>
                                                                                                         <span class="green" v-if="itemProgCentData.delay_count == 0 && itemProgCentData.ongoing_count != 0 && itemProgCentData.status != 'cancelled' ">Ongoing</span>
 
                                                                                                     </td>
@@ -530,7 +530,7 @@ var tarray2IDs           =   [];
 
             },
             formatPrice(value) {
-                let val = (value/1).toFixed(2).replace(',', '.')
+                let val = (value/1).toFixed(2).replace('.', ',')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             },
             fetchUprAnalytics: function(type) {

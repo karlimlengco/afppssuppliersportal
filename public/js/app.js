@@ -16603,7 +16603,7 @@ var tarray2IDs = [];
             });
         },
         formatPrice: function formatPrice(value) {
-            var val = (value / 1).toFixed(2).replace(',', '.');
+            var val = (value / 1).toFixed(2).replace('.', ',');
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         },
 
@@ -52631,7 +52631,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   staticClass: "blue"
                 }, [_vm._v("Completed")]) : _vm._e(), _vm._v(" "), (itemProgCentData.delay_count != 0 && itemProgCentData.status != 'cancelled') ? _c('span', {
                   staticClass: "red"
-                }, [_vm._v("Delayed")]) : _vm._e(), _vm._v(" "), (itemProgCentData.status == 'cancelled') ? _c('span', [_vm._v("Cancelled")]) : _vm._e(), _vm._v(" "), (itemProgCentData.delay_count == 0 && itemProgCentData.ongoing_count != 0 && itemProgCentData.status != 'cancelled') ? _c('span', {
+                }, [_vm._v("Delayed")]) : _vm._e(), _vm._v(" "), (itemProgCentData.status == 'cancelled' || itemProgCentData.status == 'Cancelled') ? _c('span', [_vm._v("Cancelled")]) : _vm._e(), _vm._v(" "), (itemProgCentData.delay_count == 0 && itemProgCentData.ongoing_count != 0 && itemProgCentData.status != 'cancelled') ? _c('span', {
                   staticClass: "green"
                 }, [_vm._v("Ongoing")]) : _vm._e()]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(itemProgCentData.avg_days))]) : _vm._e(), _vm._v(" "), (_vm.show && itemProgCentData.status != 'completed') ? _c('td', [(itemProgCentData.status != 'cancelled' && itemProgCentData.delay_count != 0) ? _c('span', [_vm._v(_vm._s(itemProgCentData.delay))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (itemProgCentData.status == 'completed') ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
                   staticStyle: {
