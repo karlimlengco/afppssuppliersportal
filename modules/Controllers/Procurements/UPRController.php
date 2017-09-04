@@ -174,7 +174,6 @@ class UPRController extends Controller
         ProcurementTypeRepository $types,
         PaymentTermRepository $terms)
     {
-
         $account_codes      =    $accounts->lists('id', 'new_account_code');
         $charges            =    $chargeability->lists('id', 'name');
         $procurement_modes  =    $modes->lists('id', 'name');
@@ -192,6 +191,7 @@ class UPRController extends Controller
             'payment_terms'     =>  $payment_terms,
             'unit'              =>  $unit,
             'charges'           =>  $charges,
+            'user'              =>  \Sentinel::getUser(),
             'procurement_modes' =>  $procurement_modes,
             'procurement_center'=>  $procurement_center,
             'modelConfig'   =>  [

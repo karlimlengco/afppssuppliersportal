@@ -233,6 +233,7 @@ trait ImportTrait
         return $this->view('modules.procurements.upr.import-validate',[
             'indexRoute'        =>  $this->baseUrl."index",
             'data'              =>  $data,
+            'user'              =>  \Sentinel::getUser(),
             'items'             =>  $items,
             'account_codes'     =>  $account_codes,
             'old_codes'         =>  $old_codes,
