@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 
 use \Revlv\Settings\Forms\RFQ\RFQRepository;
+use \Revlv\Settings\ProcurementCenters\ProcurementCenterRepository;
 
 class FormsController extends Controller
 {
@@ -36,6 +37,7 @@ class FormsController extends Controller
      * @var [type]
      */
     protected $model;
+    protected $pccos;
 
     /**
      * @param model $model
@@ -61,9 +63,10 @@ class FormsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(ProcurementCenterRepository $pccos)
     {
         $this->view('modules.settings.forms.create',[
+            'pcco_list'     =>  $pccos->lists('id', 'name'),
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [
                 'store' =>  [
@@ -81,7 +84,12 @@ class FormsController extends Controller
      */
     public function store(Request $request, RFQRepository $model)
     {
-        $result = $model->save($request->getData());
+        $this->validate($request, [
+            'pcco_id'   =>  'required|unique:forms_rfq,pcco_id',
+            'content'   =>  'required'
+        ]);
+
+        $result = $model->save($request->all());
 
         return redirect()->route($this->baseUrl.'edit', $result->id)->with([
             'success'  => "New record has been successfully added."

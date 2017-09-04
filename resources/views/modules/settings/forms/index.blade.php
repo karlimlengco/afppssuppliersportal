@@ -9,7 +9,7 @@ Forms
         <h3></h3>
     </div>
     <div class="six columns utility utility--align-right" >
-        <a class="button" href="{{route('maintenance.forms-headers.create')}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
+        <a class="button" href="{{route('maintenance.forms.create')}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
     </div>
 </div>
 
@@ -44,7 +44,7 @@ Forms
             },
         columns: [
             {data: 'short_code', name: 'short_code'},
-            {data: 'id', name: 'id'},
+            {data: 'content', name: 'content'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

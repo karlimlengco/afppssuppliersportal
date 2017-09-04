@@ -15,7 +15,7 @@ RFQ Content
 </div>
 <div class="row">
     <div class="twelve columns">
-        {!! Form::selectField('unit_id', 'Unit', $unit_lists) !!}
+        {!! Form::selectField('pcco_id', 'PCCO', $pcco_list) !!}
         {!! Form::textareaField('content', 'Content') !!}
 
     </div>
