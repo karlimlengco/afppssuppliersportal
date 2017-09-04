@@ -355,8 +355,9 @@ function obfuscateFileName($ext)
 
 function formatPrice($number)
 {
-    $number =   str_replace(',', '', $number);
-    return number_format($number, 2);
+    return $number;
+    // $number =   str_replace(',', '', $number);
+    // return number_format($number, 2);
 }
 
 function translateToWords($number)
