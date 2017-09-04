@@ -386,6 +386,11 @@ class BlankRFQController extends Controller
     {
         $rfq                =   $model->findById($request->rfq_id);
 
+        if(count($rfq->proponents) < 1)
+        {
+            return redirect()->back()->with(['error' => 'No Proponents Added. to add proponents click options and add proponent']);
+        }
+
         $completed_at       =   createCarbon('Y-m-d',$request->completed_at);
 
         $ispq_transaction_date   = $rfq->upr->date_prepared;
