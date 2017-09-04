@@ -7,10 +7,10 @@ use App\Http\Controllers\Controller;
 use Auth;
 
 use \Revlv\Settings\Forms\Header\HeaderRepository;
+use \Revlv\Settings\CateredUnits\CateredUnitRepository;
 
 class HeaderController extends Controller
 {
-
 
     /**
      * [getDatatable description]
@@ -36,6 +36,7 @@ class HeaderController extends Controller
      * @var [type]
      */
     protected $model;
+    protected $units;
 
     /**
      * @param model $model
@@ -61,9 +62,12 @@ class HeaderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CateredUnitRepository $units)
     {
+
+
         $this->view('modules.settings.forms.headers.create',[
+            'unit_lists'    =>  $units->lists('id', 'short_code'),
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [
                 'store' =>  [
@@ -81,11 +85,16 @@ class HeaderController extends Controller
      */
     public function store(Request $request, HeaderRepository $model)
     {
-        $result = $model->save($request->getData());
+        $this->validate($request, [
+            'unit_id'   =>  'required|unique:form_headers,unit_id',
+            'content'   =>  'required'
+        ]);
+
+        $result = $model->save($request->all());
 
         return redirect()->route($this->baseUrl.'edit', $result->id)->with([
             'success'  => "New record has been successfully added."
-        ]);        //
+        ]);
     }
 
     /**

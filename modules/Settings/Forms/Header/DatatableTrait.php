@@ -21,6 +21,7 @@ trait DatatableTrait
         $model  =   $this->model;
         $model  =   $model->select([
             'form_headers.id',
+            'form_headers.content',
             'catered_units.short_code'
             ]);
 
@@ -42,6 +43,9 @@ trait DatatableTrait
             ->addColumn('short_code', function ($data) {
                 $route  =  route( 'maintenance.forms-headers.edit',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->short_code .'</a>';
+            })
+            ->editColumn('content', function ($data) {
+                return  $data->content;
             })
             ->rawColumns(['short_code'])
             ->make(true);
