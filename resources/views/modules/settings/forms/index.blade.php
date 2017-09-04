@@ -8,6 +8,9 @@ Forms
     <div class="six columns align-left">
         <h3></h3>
     </div>
+    <div class="six columns utility utility--align-right" >
+        <a class="button" href="{{route('maintenance.forms-headers.create')}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
+    </div>
 </div>
 
 <div class="row">

@@ -29,8 +29,7 @@
             </a>
         @endif
         @if( $data->status == 'Philgeps Need Repost' || $data->status == 'Failed Bid')
-            <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
-            <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
+
 
             {{-- <a href="#" class="button__options__item" id="philgeps-posting-button">PhilGeps Posting</a> --}}
             <span >PhilGeps Posting</span>

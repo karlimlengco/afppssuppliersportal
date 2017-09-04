@@ -1,5 +1,5 @@
 @section('title')
-Form Header
+RFQ Content
 @stop
 
 @section('contents')
