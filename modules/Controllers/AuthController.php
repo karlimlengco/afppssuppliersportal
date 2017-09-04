@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Revlv\Users\Traits\AuthenticatesUsers;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
+use Cartalyst\Sentinel\Checkpoints\ThrottleCheckpoint;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 
 use Revlv\Users\UserCreateRequest;
@@ -101,6 +102,10 @@ class AuthController extends Controller
         catch(ThrottlingException $e)
         {
             return "Your account is temporarily blocked.";
+        }
+        catch(ThrottleCheckpoint $e)
+        {
+            return "Too many unsuccessful attempts have been made globally login is temporarily blocked.";
         }
 
         return "Invalid username or password.";
