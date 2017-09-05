@@ -993,7 +993,10 @@ class VoucherController extends Controller
         $data['delivery_date']          =   $noa_model->upr->delivery_order->delivery_date;
         $data['ntp_date']               =   $noa_model->upr->ntp->award_accepted_date;
         $data['header']                 =   $result->upr->centers;
-
+        $data['bid_amount']             =   $result->upr->purchase_order->bid_amount;
+        $data['items']                  =   $result->upr->items;
+        $data['po_type']                =   $result->upr->purchase_order->type;
+        $data['po_number']                =   $result->upr->purchase_order->po_number;
         $ntp_date                       =   Carbon::createFromFormat('!Y-m-d',$data['ntp_date']);
         $delivery_date                  =   Carbon::createFromFormat('!Y-m-d',$data['delivery_date']);
 
@@ -1067,7 +1070,11 @@ class VoucherController extends Controller
         $data['delivery_terms']         =   $noa_model->upr->purchase_order->delivery_terms;
         $data['delivery_date']          =   $noa_model->upr->delivery_order->delivery_date;
         $data['ntp_date']               =   $noa_model->upr->ntp->award_accepted_date;
-        $data['header']             =   $result->upr->centers;
+        $data['header']                 =   $result->upr->centers;
+        $data['bid_amount']             =   $result->upr->purchase_order->bid_amount;
+        $data['items']                  =   $result->upr->items;
+        $data['po_type']                =   $result->upr->purchase_order->type;
+        $data['po_number']              =   $result->upr->purchase_order->po_number;
 
         $ntp_date                       =   Carbon::createFromFormat('!Y-m-d',$data['ntp_date']);
         $delivery_date                  =   Carbon::createFromFormat('!Y-m-d',$data['delivery_date']);

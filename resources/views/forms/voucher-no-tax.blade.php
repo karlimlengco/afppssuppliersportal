@@ -80,10 +80,10 @@
                             <td class="v-align-middle no-border-top align-center" width="15%"><strong>Amount</strong></td>
                         </tr>
                         <tr>
-                            <td class="no-border-top no-border-bottom" colspan="3">To payment for the ten (10) Line Items(s) spicified and delivered under Purchase Order Number GHQPC-OCSAFP-SPOF-001-17 in the amount of <strong>THIRTY THREE THOUSAND EIGHT HUNDRED SEVENTY FIVE PESOS ONLY (Php 33,875.00)</strong></td>
+                            <td class="no-border-top no-border-bottom" style="text-indent: justify" colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To payment for the ten ({{count($data['items'])}}) Line Items(s) spicified and delivered under @if($data['po_type'] == 'purchase_order')PURCHASE ORDER No.@elseif($data['po_type'] == 'work_order')WORK ORDER No.@elseif($data['po_type'] == 'job_order')JOB ORDER No.@else CONTRACT ORDER No.@endif {{$data['po_number']}} in the amount of <strong style="text-transform: uppercase">{{translateToWords($data['bid_amount'])}} PESOS ONLY (Php {{ formatPrice($data['bid_amount'])}})</strong></td>
                             <td class="no-border-top no-border-bottom"></td>
                             <td class="no-border-top no-border-bottom"></td>
-                            <td class="no-border-top no-border-bottom align-right"><strong>Php 33,875.00</strong></td>
+                            <td class="no-border-top no-border-bottom align-right"><strong>Php {{ formatPrice($data['bid_amount'])}}</strong></td>
                         </tr>
                         <tr>
                             <td class="border-left-only" width="5%" height="30px"></td>
@@ -119,7 +119,7 @@
                         </tr>
                         <tr>
                             <td class="align-center" colspan="5"><strong>Amount Due</strong></td>
-                            <td class="v-align-middle align-right"><strong>Php 33,875.00</strong></td>
+                            <td class="v-align-middle align-right"><strong></strong></td>
                         </tr>
                     </table>
                     <table class="printable-form__body__table classic">
