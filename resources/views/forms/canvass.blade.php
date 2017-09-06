@@ -339,6 +339,13 @@
                                 {{$data['legal'][3]}}
                             </td>
                         </tr>
+                        <tr>
+                            <td class="align-bottom align-left" height="80px">
+                                <strong>{{$data['sec'][1]}} {{$data['sec'][0]}} {{$data['sec'][2]}}</strong><br>
+                                {{$data['sec'][3]}}
+                            </td>
+                            <td></td>
+                        </tr>
                     </table>
                 </div>
             </div>

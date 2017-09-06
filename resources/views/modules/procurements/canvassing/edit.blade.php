@@ -164,7 +164,6 @@ Canvassing
         }
     });
 
-    approver        = $approver[0].selectize;
     presiding_officer= $presiding_officer[0].selectize;
     chief           = $chief[0].selectize;
     unit_head       = $unit_head[0].selectize;

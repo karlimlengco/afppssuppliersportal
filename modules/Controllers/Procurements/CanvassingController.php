@@ -589,7 +589,7 @@ class CanvassingController extends Controller
         $data['proponents']         =  $result->rfq->proponents;
         $data['chief_signatory']    =  explode('/',$result->chief_signatory);
         $data['presiding']          =  explode('/', $result->presiding_signatory);
-        $data['unit_head_signatory']          =  explode('/', $result->unit_head_signatory);
+        $data['unit_head_signatory']=  explode('/', $result->unit_head_signatory);
         $data['mfo']                =  explode('/', $result->mfo_signatory);
         $data['legal']              =  explode('/', $result->legal_signatory);
         $data['sec']                =  explode('/', $result->secretary_signatory);
