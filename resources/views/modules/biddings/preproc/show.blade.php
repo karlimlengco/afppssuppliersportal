@@ -28,8 +28,6 @@ PreProc Conference
 
 
 @section('contents')
-
-
 @if($data->upr->status == 'PreProc Conference')
 <div class="message-box message-box--large message-box--success" role="alert">
     <span class="message-box__icon"><i class="nc-icon-outline ui-1_check-circle-08"></i></span>

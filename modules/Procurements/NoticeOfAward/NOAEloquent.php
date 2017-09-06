@@ -23,6 +23,9 @@ class NOAEloquent extends Model implements  AuditableContract
         'award_accepted_date',
         'accepted_date',
         'signatory',
+        'perfomance_bond',
+        'amount',
+        'notes',
     ];
 
     /**
@@ -71,6 +74,9 @@ class NOAEloquent extends Model implements  AuditableContract
         'action',
         'approved_action',
         'received_action',
+        'perfomance_bond',
+        'amount',
+        'notes',
     ];
 
     /**

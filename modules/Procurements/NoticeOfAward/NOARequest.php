@@ -36,6 +36,10 @@ class NOARequest extends BaseRequest
 
         'received_remarks',
         'received_days',
+
+        'perfomance_bond',
+        'amount',
+        'notes',
     ];
 
     /**

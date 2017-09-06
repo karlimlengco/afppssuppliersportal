@@ -223,6 +223,8 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     Route::put('noa/update-signatory/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@updateSignatory')->name('noa.update-signatory');
     Route::put('noa/update-signatory/{id}', '\Revlv\Controllers\Biddings\NOAController@updateSignatory')->name('noa.update-signatory');
 
+    Route::post('noa/performance-bond', '\Revlv\Controllers\Biddings\NOAController@addPerformanceBond')->name('noa.performance-bond');
+
     Route::resource('noa', '\Revlv\Controllers\Biddings\NOAController');
 
 

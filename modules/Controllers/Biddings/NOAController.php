@@ -258,6 +258,32 @@ class NOAController extends Controller
     }
 
     /**
+     * [addPerformanceBond description]
+     *
+     * @param Request       $request [description]
+     * @param NOARepository $model   [description]
+     */
+    public function addPerformanceBond(Request $request, NOARepository $model)
+    {
+
+        $this->validate($request,[
+            'perfomance_bond'=>  'required',
+            'noa_id'=>  'required',
+        ]);
+
+        $model->update([
+            'perfomance_bond'   =>  $request->perfomance_bond,
+            'amount'            =>  $request->amount,
+            'notes'             =>  $request->notes,
+        ], $request->noa_id);
+
+        return redirect()->route($this->baseUrl.'show', $request->noa_id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+
+    }
+
+    /**
      * [acceptNOA description]
      *
      * @param  Request $request [description]

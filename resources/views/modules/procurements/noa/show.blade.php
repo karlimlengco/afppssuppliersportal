@@ -23,16 +23,29 @@ Notice Of Award
     @include('modules.partials.modals.signatory')
     @include('modules.partials.modals.accept-noa')
     @include('modules.partials.modals.received')
+    @include('modules.partials.bid-modals.performance')
 @stop
 
 @section('contents')
 
+@if($data->upr->mode_of_procurement =='public_bidding' && $data->perfomance_bond == null)
+<div class="message-box message-box--large message-box--success" role="alert">
+    <span class="message-box__icon"><i class="nc-icon-outline ui-1_check-circle-08"></i></span>
+    <span class="message-box__message">
+    You can add performance bond
+    <br>
+    Click option icon to Add performance bond </span>
+</div>
+@endif
 <div class="row">
 
     <div class="twelve columns align-right utility utility--align-right">
         <button type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
+                @if($data->upr->mode_of_procurement =='public_bidding' &&  $data->perfomance_bond == null)
+                    <a href="#"  id="performance-button" class="button__options__item">Performance Bond</a>
+                @endif
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item">Unit Purchase Request</a>
 
 
@@ -99,6 +112,11 @@ Notice Of Award
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Award By :</strong> {{($data->awarder) ? $data->awarder->name : ""}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Seconded By :</strong> {{($data->seconder) ? $data->seconder->name : ""}} </li>
             @endif
+            @if($data->perfomance_bond != null)
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Performance Bond Date :</strong> {{$data->perfomance_bond}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Performance Bond Amount :</strong> {{$data->amount}} </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Notes :</strong> {{$data->notes}} </li>
+            @endif
         </ul>
         @endif
     </div>
@@ -144,10 +162,14 @@ Notice Of Award
         $('#received-modal').addClass('is-visible');
     })
 
-
     $('#accept-button').click(function(e){
         e.preventDefault();
         $('#accept-modal').addClass('is-visible');
+    })
+
+    $('#performance-button').click(function(e){
+        e.preventDefault();
+        $('#performance-modal').addClass('is-visible');
     })
 
     var picker = new Pikaday(
