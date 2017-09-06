@@ -128,6 +128,21 @@ class SupplierController extends Controller
     }
 
     /**
+     * [storeNew description]
+     *
+     * @param  Request            $request [description]
+     * @param  SupplierRepository $model   [description]
+     * @return [type]                      [description]
+     */
+    public function storeNew(Request $request, SupplierRepository $model)
+    {
+        $result = $model->save($request->all()+['status' => 'accepted']);
+
+        return $result;
+
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

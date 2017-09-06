@@ -23,6 +23,7 @@ Unit Purchase Request
 @stop
 
 @section('modal')
+    @include('modules.partials.create_supplier')
     @include('modules.partials.modals.request_quotation')
     @include('modules.partials.modals.view-attachments')
     @include('modules.partials.modals.reject-upr')
@@ -54,6 +55,16 @@ Unit Purchase Request
 @stop
 
 @section('contents')
+@if($data->status == 'Philgeps Approved' && $data->mode_of_procurement == 'public_bidding'|| $data->status == 'Pre Bid Conference')
+
+<div class="message-box message-box--large message-box--success" role="alert">
+    <span class="message-box__icon"><i class="nc-icon-outline ui-1_check-circle-08"></i></span>
+    <span class="message-box__message">
+    Bid Docs Issuance
+    <br>
+    Click icon options to add bid docs issuance</span>
+</div>
+@endif
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
 
@@ -132,7 +143,7 @@ Unit Purchase Request
                 @foreach($data->bid_issuances as $proponent)
                 <tr>
                     <td>{{($proponent->supplier) ? $proponent->supplier->name :""}}</td>
-                    <td>{{$proponent->date_processed}}</td>
+                    <td>{{$proponent->transaction_date}}</td>
                     <td>
                         <a href="{{route('biddings.bid-docs.delete',$proponent->id)}}" tooltip="Remove"> <span class="nc-icon-glyph ui-1_trash-simple"></span> </a>
                     </td>
@@ -356,6 +367,37 @@ Unit Purchase Request
         e.preventDefault();
         $('#create-delivery-modal').addClass('is-visible');
     })
+
+
+    // Create new Supplier
+    $proponent_id = $('#id-field-proponent_id').selectize({
+        create: true,
+        create:function (input){
+            $('#create-supplier-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    proponent_id        = $proponent_id[0].selectize;
+
+    $(document).on('submit', '#create-supplier-form', function(e){
+        e.preventDefault();
+        var inputs =  $("#create-supplier-form").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: '/api/suppliers/store',
+            data: inputs,
+            success: function(result) {
+                proponent_id.addOption({value:result.id, text: result.name});
+
+                $('#create-supplier-modal').removeClass('is-visible');
+                $('#create-supplier-form')[0].reset();
+            }
+        });
+
+    });
 
 
     var timepicker = new TimePicker([ 'id-field-canvassing_time','id-field-pp_opening_time' ], {

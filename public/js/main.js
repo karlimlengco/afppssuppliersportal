@@ -53,6 +53,10 @@ $(document).on('click', '#close-signatory-button', function(e){
     $('#create-signatory-modal').removeClass('is-visible');
 })
 
+$(document).on('click', '#close-supplier-button', function(e){
+    $('#create-supplier-modal').removeClass('is-visible');
+})
+
 //show inbox
 $('.open-inbox').click(function(){
     $('.inbox').addClass('is-visible');

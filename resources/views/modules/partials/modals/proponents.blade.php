@@ -12,7 +12,10 @@
             <div class="modal__dialogue__body">
                 <div class="row">
                     <div class="twelve columns">
-                        {!! Form::selectField('proponents', 'Proponents', $supplier_lists) !!}
+                        {{-- {!! Form::selectField('proponents', 'Proponents', $supplier_lists) !!} --}}
+
+                        <label class="label">Proponents</label>
+                        {!! Form::select('proponents',  $supplier_lists, null, ['class' => 'selectize', 'id' => 'id-field-proponent_id']) !!}
                     </div>
                 </div>
                 <div class="row">

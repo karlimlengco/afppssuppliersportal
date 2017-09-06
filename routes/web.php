@@ -28,6 +28,9 @@ Route::get('api/get/new_code/{id}', '\Revlv\Controllers\Settings\AccountCodeCont
 
 // create new signatory
 Route::post('api/signatories/store', '\Revlv\Controllers\Settings\SignatoryController@storeNew')->name('api.signatory.store');
+
+Route::post('api/suppliers/store', '\Revlv\Controllers\Settings\SupplierController@storeNew')->name('api.signatory.store');
+
 Route::get('api/signatories/lists', '\Revlv\Controllers\Settings\SignatoryController@getLists')->name('api.signatory.lists');
 // create new signatory
 

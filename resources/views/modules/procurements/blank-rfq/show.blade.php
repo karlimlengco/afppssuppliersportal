@@ -9,6 +9,7 @@ Request For Quotation
 @section('modal')
     @include('modules.partials.modals.proponents')
     @include('modules.partials.modals.close_rfq')
+    @include('modules.partials.create_supplier')
     {{-- @include('modules.partials.modals.invitation') --}}
 @stop
 
@@ -200,5 +201,37 @@ Request For Quotation
         e.preventDefault();
         $('#invitation-modal').addClass('is-visible');
     })
+
+
+
+    // Create new Supplier
+    $proponent_id = $('#id-field-proponent_id').selectize({
+        create: true,
+        create:function (input){
+            $('#create-supplier-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    proponent_id        = $proponent_id[0].selectize;
+
+    $(document).on('submit', '#create-supplier-form', function(e){
+        e.preventDefault();
+        var inputs =  $("#create-supplier-form").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: '/api/suppliers/store',
+            data: inputs,
+            success: function(result) {
+                proponent_id.addOption({value:result.id, text: result.name});
+
+                $('#create-supplier-modal').removeClass('is-visible');
+                $('#create-supplier-form')[0].reset();
+            }
+        });
+
+    });
 </script>
 @stop
