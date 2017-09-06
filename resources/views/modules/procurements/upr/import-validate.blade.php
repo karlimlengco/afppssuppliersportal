@@ -154,12 +154,12 @@ Unit Purchase Request Import Validate
 
 @section('scripts')
 <script>
-    $('.unit_price').on('keypress', function(evt){
-      if (evt.which < 48 || evt.which > 57)
-          {
-              evt.preventDefault();
-          }
-    })
+    // $('.unit_price').on('keypress', function(evt){
+    //   if (evt.which < 48 || evt.which > 57)
+    //       {
+    //           evt.preventDefault();
+    //       }
+    // })
     var xhr;
     // var select_state, $select_state;
     // var select_city, $select_city;

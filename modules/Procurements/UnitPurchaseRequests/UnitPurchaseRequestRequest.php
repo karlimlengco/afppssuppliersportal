@@ -79,10 +79,10 @@ class UnitPurchaseRequestRequest extends BaseRequest
             // 'new_account_code'      => 'required|integer',
             'date_prepared'         => 'required|date',
             'item_description.*'    => 'required',
-            'quantity.*'            => 'required|integer',
+            'quantity.*'            => 'required',
             'unit_measurement.*'    => 'required',
-            'unit_price.*'          => 'required|numeric',
-            'total_amount.*'        => 'required|numeric',
+            'unit_price.*'          => 'required',
+            'total_amount.*'        => 'required',
         ];
     }
 }

@@ -172,12 +172,12 @@ Purchase Order
     // onchange rfq_number
     // onchange unit_price
 
-    $('.unit_price').on('keypress', function(e){
-      if (evt.which < 48 || evt.which > 57)
-          {
-              evt.preventDefault();
-          }
-    })
+    // $('.unit_price').on('keypress', function(e){
+    //   if (evt.which < 48 || evt.which > 57)
+    //       {
+    //           evt.preventDefault();
+    //       }
+    // })
 
     $(document).on('click', '#upload-button', function(e){
         $("#file-input").click();

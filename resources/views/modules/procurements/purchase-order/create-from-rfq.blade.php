@@ -174,7 +174,7 @@ Purchase Order
             newRow += "<input type='text' name='unit_measurement[]' tabindex='-1' readonly value='"+entry.unit_measurement+"' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='unit_price_row"+table_len+"'>";
-            newRow += "<input type='number' name='unit_price[]' id='rows"+table_len+"' class='input numeric unit_price'/>";
+            newRow += "<input type='text' name='unit_price[]' id='rows"+table_len+"' class='input numeric unit_price'/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
             newRow += "<input type='text' id='total_amount"+table_len+"' tabindex='-1' name='total_amount[]' value='' class='input' readonly/>";
@@ -217,6 +217,7 @@ Purchase Order
 
         if(quants != "" && price != "")
         {
+            price = price.replace(/,/g , "");
             total_amount    =   quants * price;
             console.log(total_amount);
             var total_amount    = $("#total_amount"+splited[1]).val(total_amount);
@@ -224,12 +225,12 @@ Purchase Order
 
     });
 
-    $('.unit_price').on('keypress', function(evt){
-      if (evt.which < 48 || evt.which > 57)
-          {
-              evt.preventDefault();
-          }
-    })
+    // $('.unit_price').on('keypress', function(evt){
+    //   if (evt.which < 48 || evt.which > 57)
+    //       {
+    //           evt.preventDefault();
+    //       }
+    // })
 
     $(document).on('click', '#upload-button', function(e){
         $("#file-input").click();

@@ -227,8 +227,8 @@ Unit Purchase Request
     // Change total Amount
     function changeTotalAmount(quantity, price)
     {
+        price = price.replace(/,/g , "");
         total_amount    =   quantity * price;
-        console.log(total_amount);
         var total_amount    = $("#total_amount").val(total_amount);
     }
     // Change total Amount
@@ -271,7 +271,7 @@ Unit Purchase Request
             newRow += "<input type='text' name='unit_measurement[]' value='"+unit_measurement+"' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='unit_price_row"+table_len+"'>";
-            newRow += "<input type='number' name='unit_price[]' value='"+unit_price+"' class='input unit_price'/>";
+            newRow += "<input type='text' name='unit_price[]' value='"+unit_price+"' class='input unit_price'/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
             newRow += "<input type='text' name='total_amount[]' value='"+total_amount+"' class='input' readonly/>";
@@ -315,11 +315,11 @@ Unit Purchase Request
     // select_city  = $select_city[0].selectize;
     // select_state = $select_state[0].selectize;
 
-    $('.unit_price').on('keypress', function(evt){
-      if (evt.which < 48 || evt.which > 57)
-          {
-              evt.preventDefault();
-          }
-    })
+      // $('.unit_price').on('keypress', function(evt){
+    //   if (evt.which < 48 || evt.which > 57)
+    //       {
+    //           evt.preventDefault();
+    //       }
+    // })
 </script>
 @stop
