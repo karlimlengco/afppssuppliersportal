@@ -99,7 +99,6 @@ Request For Quotation
         <ul class="data-panel__list">
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">RFQ No. :</strong> {{$data->rfq_number}} </li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Status :</strong> {{ ucfirst($data->status) }} </li>
             @if($data->status == 'closed')
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Closed At :</strong> {{$data->completed_at->format('d M Y')}} </li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Closed Remarks :</strong> {{ $data->close_remarks }} </li>
@@ -109,13 +108,14 @@ Request For Quotation
     </div>
     <div class="data-panel__section">
         <ul>
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">ABC :</strong> {{ formatPrice($data->upr->total_amount) }} </li>
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Deadline to Submit :</strong> {{ createCarbon('Y-m-d',$data->upr->philgeps->deadline_rfq)->format('d M Y') }} </li>
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Canvas Opening Time :</strong> {{ $data->upr->philgeps->opening_time }} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">ABC :</strong> Php {{ formatPrice($data->upr->total_amount) }} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Status :</strong> {{ ucfirst($data->status) }} </li>
+            {{-- <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Deadline to Submit :</strong> {{ createCarbon('Y-m-d',$data->upr->philgeps->deadline_rfq)->format('d M Y') }} </li> --}}
+            {{-- <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Canvas Opening Time :</strong> {{ $data->upr->philgeps->opening_time }} </li> --}}
     </div>
     <div class="data-panel__section">
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">TransactionDate :</strong> {{ $data->transaction_date->format('d M Y') }} </li>
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Remarks :</strong> {{ $data->remarks }} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Remarks :</strong> {{ $data->remarks }} &nbsp;</li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Processed By :</strong> {{($data->processor) ? $data->processor->first_name ." ". $data->processor->surname :""}} </li>
         </ul>
     </div>

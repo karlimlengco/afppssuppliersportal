@@ -499,7 +499,15 @@ class BlankRFQController extends Controller
         $data['content']            =  ($rfqFormsContent) ? $rfqFormsContent->content : "";
         $data['transaction_date']   =  $result->transaction_date;
         $data['rfq_number']         =  $result->rfq_number;
-        $data['deadline']           =  $result->upr->philgeps->deadline_rfq." ".$result->upr->philgeps->opening_time;
+        if($result->upr->philgeps)
+        {
+
+            $data['deadline']           =  \Carbon\Carbon::createFromFormat( 'Y-m-d H:i', $result->upr->philgeps->deadline_rfq." ".$result->upr->philgeps->opening_time);
+        }
+        else
+        {
+            $data['deadline']           = \Carbon\Carbon::createFromFormat( 'Y-m-d H:i:s', $result->upr->invitations->canvassing_date ." ". $result->upr->invitations->canvassing_time);
+        }
         $data['items']              =  $result->upr->items;
         $pdf = PDF::loadView('forms.rfq', ['data' => $data])
             ->setOption('margin-bottom', 30)
