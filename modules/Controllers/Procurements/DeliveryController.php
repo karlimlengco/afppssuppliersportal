@@ -734,6 +734,7 @@ class DeliveryController extends Controller
         $data['po_type']            =  $result->po->type;
         $data['project_name']       =  $result->upr->project_name;
         $data['center']             =  $result->upr->centers->name;
+        $data['place']              =  $result->upr->place_of_delivery;
         $data['items']              =  $result->upr->items;
         $data['signatory']          =  explode('/',$result->signatory);
         $data['winner']             =  $noa_model->name;

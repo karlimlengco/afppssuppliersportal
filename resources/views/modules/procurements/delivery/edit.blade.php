@@ -40,7 +40,7 @@ Notice Of Delivery
                     {!! Form::textField('delivery_date', 'Delivery Date') !!}
                 </div>
                 <div class="six columns">
-                    {!! Form::textField('delivery_number', 'Delivery Number') !!}
+                    {!! Form::textField('delivery_number', 'Delivery Receipt') !!}
                 </div>
 
             </div>
