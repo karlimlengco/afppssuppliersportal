@@ -196,6 +196,31 @@ class BidDocsController extends Controller
     }
 
     /**
+     * [disqualify description]
+     *
+     * @param  [type]  $id      [description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function disqualify($id, Request $request, BidDocsRepository $model)
+    {
+
+        $this->validate($request, [
+            'disqualification_date'    =>  'required',
+            'disqualification_remarks' =>  'required',
+        ]);
+
+        $result =   $model->update([
+            'status'   => 'Disqualify',
+            'remarks'  => $request->disqualification_remarks." dated: ". $request->disqualification_date
+            ], $id);
+
+        return redirect()->route('biddings.post-qualifications.show', $result->upr->post_qual->id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

@@ -19,11 +19,26 @@ PreProc Conference
 
 @stop
 
+@section('modal')
+    @include('modules.partials.bid-modals.preproc2')
+@stop
+
 @section('styles')
 @stop
 
 
 @section('contents')
+
+
+@if($data->upr->status == 'PreProc Conference')
+<div class="message-box message-box--large message-box--success" role="alert">
+    <span class="message-box__icon"><i class="nc-icon-outline ui-1_check-circle-08"></i></span>
+    <span class="message-box__message">
+    New PreProc?
+    <br>
+    Click option icon to apply new preproc </span>
+</div>
+@endif
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
@@ -33,6 +48,10 @@ PreProc Conference
         <button type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
+
+                @if($data->upr->status == 'PreProc Conference')
+                    <a class="button__options__item" id="preproc-button" href="#">Apply New PreProc</a>
+                @endif
                 <a class="button__options__item" href="{{route('biddings.preproc.logs', $data->id)}}">View Logs</a>
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
             </div>
@@ -79,4 +98,12 @@ PreProc Conference
 @stop
 
 @section('scripts')
+
+<script type="text/javascript">
+
+$('#preproc-button').click(function(e){
+    e.preventDefault();
+    $('#preproc-modal').addClass('is-visible');
+})
+</script>
 @stop

@@ -24,6 +24,7 @@ Post Qualification
 
 @section('modal')
     @include('modules.partials.bid-modals.failed-post-qual')
+    @include('modules.partials.bid-modals.disqualify')
     @include('modules.partials.modals.notice_of_award')
 @stop
 
@@ -109,11 +110,28 @@ Post Qualification
             <tbody>
                 @foreach($data->upr->bid_proponents as $proponent)
                 <tr>
-                    <td>{{$proponent->proponent_name}}</td>
+                    <td>
+
+                        @if($proponent->status != 'Disqualify')
+                        <a href="#" class='disqualify-button' data-id="{{$proponent->id}}" data-name="{{$proponent->proponent_name}}" tooltip="Disqualify">
+                            <i class="red nc-icon-mini ui-1_bold-remove"></i>
+                        </a>
+                        @endif
+                        {{$proponent->proponent_name}}
+                    </td>
                     <td>@if($proponent->bid_amount != null) {{formatPrice($proponent->bid_amount)}} @endif</td>
                     <td>{{ formatPrice($data->upr->total_amount - $proponent->bid_amount) }}</td>
                     <td style="text-transform: capitalize">{{$proponent->status}}</td>
-                    <td><a href="#" class="award-button award"  data-id="{{$proponent->id}}" data-name="{{$proponent->proponent_name}}">winner</a></td>
+                    <td>
+                        @if($proponent->status == 'eligible')
+                        <a href="#" class="award-button award"  data-id="{{$proponent->id}}" data-name="{{$proponent->proponent_name}}">
+                            Mark this as Winner
+                        </a>
+                        @else
+                            {{$proponent->remarks}}
+                        @endif
+
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -130,10 +148,23 @@ Post Qualification
         $('#fail-pq-modal').addClass('is-visible');
     })
 
-
     $('.award-button').click(function(e){
         e.preventDefault();
         $('#award-modal').addClass('is-visible');
+    })
+
+    $('.disqualify-button').click(function(e){
+        e.preventDefault();
+
+        var name = $(this).data('name');
+        var id  = $(this).data('id');
+        $("#proponent").html('');
+        $("#proponent").html(name);
+        var form = document.getElementById('dq-form').action;
+        document.getElementById('dq-form').action = "/biddings/disqualify-proponent/"+id;
+
+
+        $('#disqualify-modal').addClass('is-visible');
     })
 
     $(document).on('click', '.award', function(e){
