@@ -462,16 +462,17 @@ class PurchaseOrderController extends Controller
     public function createFromRfq(
         $id,
         BlankRFQRepository $rfq,
+        UnitPurchaseRequestRepository $upr,
         PaymentTermRepository $terms,
         PORepository $model)
     {
-
         $term_lists =   $terms->lists('id','name');
 
         $this->view('modules.procurements.purchase-order.create-from-rfq',[
             'indexRoute'    =>  $this->baseUrl.'index',
             'term_lists'    =>  $term_lists,
             'rfq_id'        =>  $id,
+            'data'          =>  $upr->findById($id),
             'modelConfig'   =>  [
                 'store' =>  [
                     'route'     =>  [$this->baseUrl.'store-from-rfq',$id]
@@ -557,13 +558,25 @@ class PurchaseOrderController extends Controller
             $day_delayed = $day_delayed - $poAllowed;
         }
 
-        $validator = Validator::make($request->all(),[
-            'purchase_date'     => 'required|after_or_equal:'. $noa_model->award_accepted_date,
-            'payment_term'      => 'required',
-            'delivery_terms'    => 'required|integer',
-            'unit_price.*'      => 'required',
-            'type.*'            => 'required',
-        ]);
+        if($noa_model->upr->mode_of_procurement != 'public_bidding')
+        {
+            $validator = Validator::make($request->all(),[
+                'purchase_date'     => 'required|after_or_equal:'. $noa_model->award_accepted_date,
+                'payment_term'      => 'required',
+                'delivery_terms'    => 'required|integer',
+                'unit_price.*'      => 'required',
+                'item_type.*'            => 'required',
+            ]);
+        }
+        else
+        {
+            $validator = Validator::make($request->all(),[
+                'purchase_date'     => 'required|after_or_equal:'. $noa_model->award_accepted_date,
+                'payment_term'      => 'required',
+                'delivery_terms'    => 'required|integer',
+                'unit_price.*'      => 'required',
+            ]);
+        }
 
         $validator->after(function ($validator)use($day_delayed, $request, $poAllowed) {
             if ( $request->get('remarks') == null && $day_delayed > $poAllowed) {
@@ -592,6 +605,7 @@ class PurchaseOrderController extends Controller
             'remarks'       =>  $request->remarks,
             'days'          =>  $wd
         ];
+
 
         $items                  =   $request->only([
             'item_description', 'quantity', 'unit_measurement', 'unit_price', 'total_amount', 'item_type'
@@ -625,16 +639,34 @@ class PurchaseOrderController extends Controller
         if($result)
         {
             for ($i=0; $i < count($items['item_description']); $i++) {
-                $item_datas[]  =   [
-                    'description'           =>  $items['item_description'][$i],
-                    'quantity'              =>  $items['quantity'][$i],
-                    'unit'                  =>  $items['unit_measurement'][$i],
-                    'price_unit'            =>  $items['unit_price'][$i],
-                    'total_amount'          =>  $items['total_amount'][$i],
-                    'type'                  =>  $items['item_type'][$i],
-                    'order_id'              =>  $result->id,
-                    'created_at'            =>  Carbon::now()
-                ];
+
+                if($noa_model->upr->mode_of_procurement != 'public_bidding')
+                {
+                    $item_datas[]  =   [
+                        'description'           =>  $items['item_description'][$i],
+                        'quantity'              =>  $items['quantity'][$i],
+                        'unit'                  =>  $items['unit_measurement'][$i],
+                        'price_unit'            =>  $items['unit_price'][$i],
+                        'total_amount'          =>  $items['total_amount'][$i],
+                        'type'                  =>  $items['item_type'][$i],
+                        'order_id'              =>  $result->id,
+                        'created_at'            =>  Carbon::now()
+                    ];
+                }
+                else
+                {
+
+                    $item_datas[]  =   [
+                        'description'           =>  $items['item_description'][$i],
+                        'quantity'              =>  $items['quantity'][$i],
+                        'unit'                  =>  $items['unit_measurement'][$i],
+                        'price_unit'            =>  $items['unit_price'][$i],
+                        'total_amount'          =>  $items['total_amount'][$i],
+                        'type'                  =>  $request->type,
+                        'order_id'              =>  $result->id,
+                        'created_at'            =>  Carbon::now()
+                    ];
+                }
             }
 
             DB::table('purchase_order_items')->insert($item_datas);

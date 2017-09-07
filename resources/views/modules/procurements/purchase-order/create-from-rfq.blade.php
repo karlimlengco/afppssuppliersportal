@@ -78,12 +78,15 @@ Purchase Order
     <div class="six columns">
         <h3>Items</h3>
     </div>
+    @if($data->mode_of_procurement != 'public_bidding')
     <div class="six columns align-right">
         <a class="button" id="upload-button"><i class="nc-icon-mini arrows-2_square-upload"></i></a>
     </div>
+    @endif
 </div>
 <br>
 
+@if($data->mode_of_procurement != 'public_bidding')
 <div class="row">
     <div class="twelve columns">
         <table class='table' id="item_table">
@@ -103,11 +106,50 @@ Purchase Order
         </table>
     </div>
 </div>
+@else
+
+<div class="row">
+    <div class="twelve columns">
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th width="35%">Description</th>
+                    <th width="10%">Qty</th>
+                    <th width="10%">Unit</th>
+                    <th width="15%">Unit Price</th>
+                    <th width="15">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type='text' name='item_description[]' tabindex='-1'   class='input'/>
+                    </td>
+                    <td>
+                        <input type='text' id='quantity_row' tabindex='-1' name='quantity[]'   class='input'/>
+                    </td>
+                    <td>
+                        <input type='text' name='unit_measurement[]' tabindex='-1'   class='input'/>
+                    </td>
+                    <td>
+                        <input type='text' name='unit_price[]' id='rows' class='input numeric unit_price'/>
+                    </td>
+                    <td>
+                        <input type='text' id='total_amount' tabindex='-1' name='total_amount[]' class='input' readonly/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@endif
 
 {!!Form::close()!!}
+@if($data->mode_of_procurement != 'public_bidding')
 {!! Form::open(['route' => ['procurements.purchase-orders.import',$rfq_id], 'files' => true, 'id' => 'target']) !!}
     <input type="file" name="file" style="display: none" id="file-input">
 {!!Form::close()!!}
+@endif
 
 @stop
 @section('scripts')
