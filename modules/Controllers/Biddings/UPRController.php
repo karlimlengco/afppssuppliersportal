@@ -9,6 +9,7 @@ use DB;
 use Excel;
 use PDF;
 use \App\Support\Breadcrumb;
+use App\Events\Event;
 
 use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
@@ -29,9 +30,11 @@ use \Revlv\Settings\CateredUnits\CateredUnitRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\BacSec\BacSecRepository;
+use \Revlv\Settings\Forms\Header\HeaderRepository;
 
 use Revlv\Procurements\UnitPurchaseRequests\Traits\FileTrait;
 use Revlv\Procurements\UnitPurchaseRequests\Traits\ImportTrait;
+use Revlv\Procurements\UnitPurchaseRequests\Traits\OverviewTrait;
 
 class UPRController extends Controller
 {
@@ -121,6 +124,44 @@ class UPRController extends Controller
     }
 
     /**
+     * [getCancelledDatatable description]
+     *
+     * @return [type]            [description]
+     */
+    public function getCancelledDatatable(UnitPurchaseRequestRepository $model)
+    {
+        $user   =   \Sentinel::getUser();
+
+        if($user->hasRole('Admin'))
+        {
+            return $model->getDatatable(null, 'bidding', 'Cancelled');
+        }
+
+        $center =   0;
+        if($user->units)
+        {
+            $center =   $user->units->centers->id;
+        }
+
+        return $model->getDatatable($center, 'bidding', 'Cancelled');
+    }
+
+    /**
+     * [viewCancelled description]
+     *
+     * @return [type] [description]
+     */
+    public function viewCancelled()
+    {
+        return $this->view('modules.procurements.upr.cancelled',[
+            'backRoute'   =>  $this->baseUrl."index",
+            'breadcrumbs' => [
+                new Breadcrumb('Unit Purchase Request Cancelled')
+            ]
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -142,14 +183,17 @@ class UPRController extends Controller
         $payment_terms      =    $terms->lists('id', 'name');
         $procurement_types  =    $types->lists('id', 'code');
         $unit               =    $units->lists('id', 'short_code');
+        $old_codes          =    $accounts->listOld();
         // $this->permissions->lists('permission','description')
         $this->view('modules.biddings.upr.create',[
             'indexRoute'        =>  $this->baseUrl.'index',
             'account_codes'     =>  $account_codes,
+            'old_codes'         =>  $old_codes,
             'procurement_types' =>  $procurement_types,
             'payment_terms'     =>  $payment_terms,
             'unit'              =>  $unit,
             'charges'           =>  $charges,
+            'user'              =>  \Sentinel::getUser(),
             'procurement_modes' =>  $procurement_modes,
             'procurement_center'=>  $procurement_center,
             'modelConfig'   =>  [
@@ -158,7 +202,7 @@ class UPRController extends Controller
                 ]
             ],
             'breadcrumbs' => [
-                new Breadcrumb('Unit Purhcase Request', 'biddings.unit-purchase-requests.index'),
+                new Breadcrumb('Unit Purchase Request', 'biddings.unit-purchase-requests.index'),
                 new Breadcrumb('Create'),
             ]
         ]);
@@ -179,27 +223,49 @@ class UPRController extends Controller
         $items                  =   $request->only([
             'item_description',
             'quantity',
+            'new_account_code',
             'unit_measurement',
             'unit_price',
             'total_amount'
         ]);
 
-        if($items['item_description'] == null)
+        if($request->items == null)
         {
             return redirect()->back()->with([
                 'error' =>  'Pleased add item to continue.'
-            ]);
+            ])->withInput();
         }
 
         $procs                  =   $request->getData();
         $date                   =   \Carbon\Carbon::now();
 
-        $total_amount           =   array_sum($items['total_amount']);
+        $total_sum              =   0;
+        foreach($request->items as $item)
+        {
+            $total_sum          += $item['total_amount'];
+        }
+        $total_amount           =   $total_sum;
         $prepared_by            =   \Sentinel::getUser()->id;
         $item_datas             =   [];
 
+        $transaction_date       =   \Carbon\Carbon::createFromFormat('Y-m-d', $request->date_prepared);
+
         $procs['total_amount']  =   $total_amount;
         $procs['prepared_by']   =   $prepared_by;
+        $procs['last_date']     =   $transaction_date;
+
+
+        if($request->mode_of_procurement != 'public_bidding'){
+            $procs['next_allowable']=   3;
+            $procs['next_step']     =   "Create Invitation";
+            $procs['next_due']      =   $transaction_date->addDays(3);
+        }
+        else{
+
+            $procs['next_allowable']=   1;
+            $procs['next_step']     =   "Document Acceptance";
+            $procs['next_due']      =   $transaction_date->addDays(1);
+        }
 
         $result = $model->save($procs);
 
@@ -207,11 +273,11 @@ class UPRController extends Controller
 
         if($result->mode_of_procurement != 'public_bidding')
         {
-            $ref_name   =   "AMP-". $result->centers->name ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
+            $ref_name   =   "AMP-". $result->centers->short_code ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
         }
         else
         {
-            $ref_name   =   "PB-". $result->centers->name ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
+            $ref_name   =   "PB-". $result->centers->short_code ."-". $counts ."-". $result->unit->short_code ."-". $date->format('Y');
         }
 
         $ref_name   =   str_replace(" ", "", $ref_name);
@@ -220,13 +286,15 @@ class UPRController extends Controller
 
         if($result)
         {
-            for ($i=0; $i < count($items['item_description']); $i++) {
+            foreach($request->items as $item)
+            {
                 $item_datas[]  =   [
-                    'item_description'      =>  $items['item_description'][$i],
-                    'quantity'              =>  $items['quantity'][$i],
-                    'unit_measurement'      =>  $items['unit_measurement'][$i],
-                    'unit_price'            =>  $items['unit_price'][$i],
-                    'total_amount'          =>  $items['total_amount'][$i],
+                    'item_description'      =>  $item['item_description'],
+                    'new_account_code'      =>  $item['new_account_code'],
+                    'quantity'              =>  $item['quantity'],
+                    'unit_measurement'      =>  $item['unit_measurement'],
+                    'unit_price'            =>  $item['unit_price'],
+                    'total_amount'          =>  $item['total_amount'],
                     'upr_number'            =>  $request->get('upr_number'),
                     'ref_number'            =>  $request->get('ref_number'),
                     'prepared_by'           =>  $prepared_by,
@@ -237,6 +305,7 @@ class UPRController extends Controller
 
             DB::table('unit_purchase_request_items')->insert($item_datas);
         }
+        event(new Event($result, "UPR Created"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

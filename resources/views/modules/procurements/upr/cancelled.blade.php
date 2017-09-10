@@ -23,7 +23,7 @@ Unit Purchase Request
 <div class="row">
 
     <div class="twelve columns">
-        <a href="{{route('procurements.unit-purchase-requests.index')}}" class="button button--pull-left" tooltip="Back">Go Back</a>
+        <a href="{{route($backRoute)}}" class="button button--pull-left" tooltip="Back">Go Back</a>
     </div>
 </div>
 

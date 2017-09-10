@@ -51,4 +51,23 @@ class AccountCodeRepository extends BaseRepository
         return $model->pluck('old_account_code', 'id')->all();
 
     }
+
+    /**
+     * [listCodes description]
+     *
+     *
+     * @return [type] [description]
+     */
+    public function lists($id = 'id', $value = 'name')
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->select([
+            'id',
+            \DB::raw("CONCAT(new_account_code,' (', old_account_code,')') AS new_account_code")
+            ]);
+
+        return $model->pluck('new_account_code', 'id')->all();
+
+    }
 }

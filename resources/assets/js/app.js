@@ -13,6 +13,10 @@ window.Vue = require('vue');
  */
 require('./directives/v-link')
 require('./directives/v-form-check')
+/**
+ * Require vue plugins
+ */
+Vue.use(require('vee-validate'))
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -30,6 +34,7 @@ Vue.component('chat-composer', require('./components/ChatComposer.vue'));
 Vue.component('admin-messages', require('./components/AdminMessage.vue'));
 Vue.component('user-lists', require('./components/UserLists.vue'));
 Vue.component('delivery-order', require('./components/DeliveryOrder.vue'));
+Vue.component('line-items', require('./components/LineItems.vue'));
 
 const app = new Vue({
     el: '#app',

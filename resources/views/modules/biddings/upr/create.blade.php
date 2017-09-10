@@ -18,6 +18,10 @@ Unit Purchase Request
 
 @stop
 
+@section('modal')
+    {{-- @include('modules.partials.new_account_code') --}}
+@stop
+
 @section('styles')
     <style type="text/css">
         #item_table td{
@@ -55,7 +59,7 @@ Unit Purchase Request
                     {!! Form::textField('date_prepared', 'Date Prepared') !!}
                 </div>
                 <div class="four columns">
-                    {!! Form::selectField('units', 'Units', $unit) !!}
+                    {!! Form::selectField('units', 'Units', $unit, ($user) ? $user->unit_id : "") !!}
                 </div>
                 <div class="four columns">
                     {!! Form::selectField('procurement_type', 'Procurement Program/Project', $procurement_types) !!}
@@ -64,24 +68,39 @@ Unit Purchase Request
 
             <div class="row">
                 <div class="four columns">
-                    {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center) !!}
+                    {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center, ($user->units) ? $user->units->pcco_id : "" ) !!}
                 </div>
                 <div class="four columns">
-                    {!! Form::selectField('mode_of_procurement', 'Mode of Procurement', ['public_bidding' => 'Public Bidding']+$procurement_modes) !!}
+                    {!! Form::selectField('mode_of_procurement', 'Mode of Procurement', ['public_bidding' => 'Public Bidding'] + $procurement_modes) !!}
                 </div>
                 <div class="four columns">
                     {!! Form::selectField('chargeability', 'Chargeability', $charges) !!}
                 </div>
             </div>
 
-            <div class="row">
-                <div class="four columns">
-                    {!! Form::selectField('new_account_code', 'New Account Code', $account_codes) !!}
+       {{--      <div class="row">
+                <div class="six columns">
+                    <div class="form-group">
+                        <label>Old Account Code</label>
+
+                    {!! Form::select('old_account_code', $old_codes, null, ['id' => 'id-field-old_account_code', 'data-selectize' => 'selectField']) !!}
+                    </div>
                 </div>
-                <div class="four columns">
+                <div class="six columns">
+                    {!! Form::selectField('new_account_code', 'New Account Code', $account_codes) !!}
+
+                    <div class="form-group">
+                        <label>New Account Code</label>
+
+                    {!! Form::select('new_account_code', $account_codes, null, ['id' => 'id-field-new_account_code', 'data-selectize' => 'selectField']) !!}
+                    </div>
+                </div>
+            </div> --}}
+            <div class="row">
+                <div class="six columns">
                     {!! Form::textField('fund_validity', 'Fund Validity') !!}
                 </div>
-                <div class="four columns">
+                <div class="six columns">
                     {!! Form::selectField('terms_of_payment', 'Terms of Payment', $payment_terms) !!}
                 </div>
             </div>
@@ -106,32 +125,41 @@ Unit Purchase Request
             </div>
             <br>
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="twelve columns">
                     <table class='table' id="item_table">
                         <thead>
                             <tr>
-                                <th>Description</th>
-                                <th>Qty</th>
-                                <th>Unit</th>
-                                <th>Unit Price</th>
-                                <th>Amount</th>
-                                <th></th>
+                                <th width="30%">Description</th>
+                                <th width="20%">Account Code</th>
+                                <th width="5%">Qty</th>
+                                <th width="10%">Unit</th>
+                                <th width="15%">Unit Price</th>
+                                <th width="15%">Amount</th>
+                                <th width="5%"></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody> --}}
+                            <line-items
+                              :codes="{{ json_encode($account_codes) }}"
+                              :old="{{ old() ? json_encode(old()) : '{}' }}"
+                              :readonly="false">
+                            </line-items>
+                            {{-- <tr>
                                 <td> {!! Form::text('a_item_description', null, ['class' => 'input', 'id' => 'item_description']) !!} </td>
-                                <td> {!! Form::text('a_quantity', null, ['class' => 'input', 'id' => 'quantity']) !!} </td>
+                                <td>
+                                    {!! Form::select('new_account_code[]', $account_codes,null, ['class'=>'select', 'id' => 'new_account_code']) !!}
+                                </td>
+                                <td> {!! Form::text('a_quantity', null, ['class' => 'input unit_price', 'id' => 'quantity']) !!} </td>
                                 <td> {!! Form::text('a_unit_measurement', null, ['class' => 'input', 'id' => 'unit_measurement']) !!} </td>
-                                <td> {!! Form::text('a_unit_price', null, ['class' => 'input', 'id' => 'unit_price']) !!} </td>
+                                <td> {!! Form::text('a_unit_price', null, ['class' => 'input unit_price', 'id' => 'unit_price']) !!} </td>
                                 <td> {!! Form::text('a_total_amount', null, ['class' => 'input', 'id' => 'total_amount', 'readonly']) !!} </td>
                                 <td> <button type="button" class="button" id="add_item">add</button> </td>
-                            </tr>
-                        </tbody>
+                            </tr> --}}
+                      {{--   </tbody>
                     </table>
                 </div>
-            </div>
+            </div> --}}
 
     </div>
 </div>
@@ -208,8 +236,8 @@ Unit Purchase Request
     // Change total Amount
     function changeTotalAmount(quantity, price)
     {
+        price = price.replace(/,/g , "");
         total_amount    =   quantity * price;
-        console.log(total_amount);
         var total_amount    = $("#total_amount").val(total_amount);
     }
     // Change total Amount
@@ -222,6 +250,10 @@ Unit Purchase Request
         var unit_measurement= $("#unit_measurement").val();
         var unit_price      = $("#unit_price").val();
         var total_amount    = $("#total_amount").val();
+        var new_account_code= $("#new_account_code").val();
+        var new_account_codetx= $("#new_account_code option:selected").text();
+
+        console.log(new_account_codetx);
         // end vars
 
         var table=document.getElementById("item_table");
@@ -231,20 +263,30 @@ Unit Purchase Request
             newRow += "<td id='desciption_row"+table_len+"'>";
             newRow += "<input type='text' name='item_description[]' value='"+item_desc+"' class='input'/>";
             newRow += "</td>";
+            newRow += "<td id='new_account_code_row"+table_len+"'>";
+
+            newRow += "<select type='text' name='new_account_code[]'  class='select'>";
+
+            newRow += "<option value='"+new_account_code+"'>";
+            newRow += new_account_codetx;
+            newRow += "</option>";
+            newRow += "</select>";
+            // newRow += "<input type='text' name='new_account_code[]' value='"+new_account_code+"' class='input'/>";
+
             newRow += "<td id='quantity_row"+table_len+"'>";
-            newRow += "<input readonly type='text' name='quantity[]' value='"+quantity+"' class='input'/>";
+            newRow += "<input type='text' name='quantity[]' value='"+quantity+"' class='input unit_price'/>";
             newRow += "</td>";
             newRow += "<td id='unit_measurement_row"+table_len+"'>";
-            newRow += "<input readonly type='text' name='unit_measurement[]' value='"+unit_measurement+"' class='input'/>";
+            newRow += "<input type='text' name='unit_measurement[]' value='"+unit_measurement+"' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='unit_price_row"+table_len+"'>";
-            newRow += "<input readonly type='text' name='unit_price[]' value='"+unit_price+"' class='input'/>";
+            newRow += "<input type='text' name='unit_price[]' value='"+unit_price+"' class='input unit_price'/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
-            newRow += "<input readonly type='text' name='total_amount[]' value='"+total_amount+"' class='input' readonly/>";
+            newRow += "<input type='text' name='total_amount[]' value='"+total_amount+"' class='input' readonly/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
-            newRow += "<input readonly type='button' value='Delete' class='button delete' onclick='delete_row("+table_len+")'";
+            newRow += "<input type='button' value='Delete' class='button delete' onclick='delete_row("+table_len+")'";
             newRow += "</td>";
             newRow += "</tr>";
 
@@ -262,5 +304,31 @@ Unit Purchase Request
         console.log(no);
          document.getElementById("row"+no+"").outerHTML="";
     }
+
+
+    // var xhr;
+    // var select_state, $select_state;
+    // var select_city, $select_city;
+    // $select_state = $('#id-field-old_account_code').selectize({
+    //     onChange: function(value) {
+    //         select_city.addItem(value, false);
+    //     }
+    // });
+
+    // $select_city = $('#id-field-new_account_code').selectize({
+    //     onChange: function(value) {
+    //         select_state.addItem(value, false);
+    //     }
+    // });
+
+    // select_city  = $select_city[0].selectize;
+    // select_state = $select_state[0].selectize;
+
+      // $('.unit_price').on('keypress', function(evt){
+    //   if (evt.which < 48 || evt.which > 57)
+    //       {
+    //           evt.preventDefault();
+    //       }
+    // })
 </script>
 @stop

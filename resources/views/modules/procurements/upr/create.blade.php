@@ -18,6 +18,10 @@ Unit Purchase Request
 
 @stop
 
+@section('modal')
+    {{-- @include('modules.partials.new_account_code') --}}
+@stop
+
 @section('styles')
     <style type="text/css">
         #item_table td{
@@ -121,7 +125,7 @@ Unit Purchase Request
             </div>
             <br>
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="twelve columns">
                     <table class='table' id="item_table">
                         <thead>
@@ -135,8 +139,13 @@ Unit Purchase Request
                                 <th width="5%"></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody> --}}
+                            <line-items
+                              :codes="{{ json_encode($account_codes) }}"
+                              :old="{{ old() ? json_encode(old()) : '{}' }}"
+                              :readonly="false">
+                            </line-items>
+                            {{-- <tr>
                                 <td> {!! Form::text('a_item_description', null, ['class' => 'input', 'id' => 'item_description']) !!} </td>
                                 <td>
                                     {!! Form::select('new_account_code[]', $account_codes,null, ['class'=>'select', 'id' => 'new_account_code']) !!}
@@ -146,11 +155,11 @@ Unit Purchase Request
                                 <td> {!! Form::text('a_unit_price', null, ['class' => 'input unit_price', 'id' => 'unit_price']) !!} </td>
                                 <td> {!! Form::text('a_total_amount', null, ['class' => 'input', 'id' => 'total_amount', 'readonly']) !!} </td>
                                 <td> <button type="button" class="button" id="add_item">add</button> </td>
-                            </tr>
-                        </tbody>
+                            </tr> --}}
+                      {{--   </tbody>
                     </table>
                 </div>
-            </div>
+            </div> --}}
 
     </div>
 </div>

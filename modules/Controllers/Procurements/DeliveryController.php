@@ -196,31 +196,15 @@ class DeliveryController extends Controller
 
         $items  =   [];
 
-        if($po_model->upr->mode_of_procurement != 'public_bidding')
-        {
-            foreach ($po_model->items as $item) {
-                $items[]  =   [
-                    'order_id'      =>  $result->id,
-                    'description'   =>  $item->description,
-                    'quantity'      =>  $item->quantity,
-                    'unit'          =>  $item->unit,
-                    'price_unit'    =>  $item->price_unit,
-                    'total_amount'  =>  $item->total_amount,
-                ];
-            }
-        }
-        else
-        {
-            foreach ($po_model->upr->items as $item) {
-                $items[]  =   [
-                    'order_id'      =>  $result->id,
-                    'description'   =>  $item->item_description,
-                    'quantity'      =>  $item->quantity,
-                    'unit'          =>  $item->unit_measurement,
-                    'price_unit'    =>  $item->unit_price,
-                    'total_amount'  =>  $item->total_amount,
-                ];
-            }
+        foreach ($po_model->items as $item) {
+            $items[]  =   [
+                'order_id'      =>  $result->id,
+                'description'   =>  $item->description,
+                'quantity'      =>  $item->quantity,
+                'unit'          =>  $item->unit,
+                'price_unit'    =>  $item->price_unit,
+                'total_amount'  =>  $item->total_amount,
+            ];
         }
 
         DB::table('delivery_order_items')->insert($items);

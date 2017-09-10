@@ -565,7 +565,7 @@ class PurchaseOrderController extends Controller
                 'payment_term'      => 'required',
                 'delivery_terms'    => 'required|integer',
                 'unit_price.*'      => 'required',
-                'item_type.*'            => 'required',
+                'item_type.*'       => 'required',
             ]);
         }
         else

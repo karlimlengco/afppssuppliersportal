@@ -20,6 +20,17 @@ Unit Purchase Request
 @stop
 
 @section('contents')
+<div class="row">
+    <div class="six columns ">
+        {{-- <a class="button" href="{{route('procurements.unit-purchase-requests.view-cancel')}}" tooltip="View All Cancelled"><i class="nc-icon-mini ui-1_circle-remove"></i></a> --}}
+        <a  class="button" href="{{route('biddings.unit-purchase-requests.view-cancel')}}"> View All Cancelled UPR</a>
+    </div>
+    <div class="six columns align-right" >
+
+        <a class="button" href="{{route($createRoute)}}" tooltip="Add UPR">Add UPR</a>
+        <a class="button" href="{{route($importRoute)}}" tooltip="Import UPR">Import UPR</a>
+    </div>
+</div>
 
 <div class="row">
     <br>

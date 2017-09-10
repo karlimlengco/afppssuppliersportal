@@ -138,6 +138,7 @@ class UPRController extends Controller
     public function viewCancelled()
     {
         return $this->view('modules.procurements.upr.cancelled',[
+            'backRoute'   =>  $this->baseUrl."index",
             'breadcrumbs' => [
                 new Breadcrumb('Unit Purchase Request Cancelled')
             ]
@@ -218,7 +219,6 @@ class UPRController extends Controller
         UnitPurchaseRequestRequest $request,
         UnitPurchaseRequestRepository $model)
     {
-
         $items                  =   $request->only([
             'item_description',
             'quantity',
@@ -228,17 +228,22 @@ class UPRController extends Controller
             'total_amount'
         ]);
 
-        if($items['item_description'] == null)
+        if($request->items == null)
         {
             return redirect()->back()->with([
                 'error' =>  'Pleased add item to continue.'
-            ]);
+            ])->withInput();
         }
 
         $procs                  =   $request->getData();
         $date                   =   \Carbon\Carbon::now();
 
-        $total_amount           =   array_sum($items['total_amount']);
+        $total_sum              =   0;
+        foreach($request->items as $item)
+        {
+            $total_sum          += $item['total_amount'];
+        }
+        $total_amount           =   $total_sum;
         $prepared_by            =   \Sentinel::getUser()->id;
         $item_datas             =   [];
 
@@ -280,14 +285,15 @@ class UPRController extends Controller
 
         if($result)
         {
-            for ($i=0; $i < count($items['item_description']); $i++) {
+            foreach($request->items as $item)
+            {
                 $item_datas[]  =   [
-                    'item_description'      =>  $items['item_description'][$i],
-                    'new_account_code'      =>  $items['new_account_code'][$i],
-                    'quantity'              =>  $items['quantity'][$i],
-                    'unit_measurement'      =>  $items['unit_measurement'][$i],
-                    'unit_price'            =>  $items['unit_price'][$i],
-                    'total_amount'          =>  $items['total_amount'][$i],
+                    'item_description'      =>  $item['item_description'],
+                    'new_account_code'      =>  $item['new_account_code'],
+                    'quantity'              =>  $item['quantity'],
+                    'unit_measurement'      =>  $item['unit_measurement'],
+                    'unit_price'            =>  $item['unit_price'],
+                    'total_amount'          =>  $item['total_amount'],
                     'upr_number'            =>  $request->get('upr_number'),
                     'ref_number'            =>  $request->get('ref_number'),
                     'prepared_by'           =>  $prepared_by,
