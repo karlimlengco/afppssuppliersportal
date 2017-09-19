@@ -50,7 +50,6 @@ Users
     </div>
 </div>
 
-
 <div class="row">
     <div class="six columns">
         {!! Form::textField('contact_number', 'Contact Number') !!}

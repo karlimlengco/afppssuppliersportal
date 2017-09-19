@@ -3,8 +3,11 @@
 use Illuminate\Database\Seeder;
 use League\Csv\Reader;
 
+
 class CateredUnits extends Seeder
 {
+
+
     /**
      * Run the database seeds.
      *
@@ -12,9 +15,12 @@ class CateredUnits extends Seeder
      */
     public function run()
     {
+        $faker = \Faker\Factory::create();
+
         $reader = Reader::createFromPath(database_path().'/csv/pcco_units.csv');
-        $reader->each(function($row, $rowOffset) {
+        $reader->each(function($row, $rowOffset)use ($faker) {
             \Revlv\Settings\CateredUnits\CateredUnitEloquent::create([
+                'id' => $faker->uuid,
                 'short_code' => $row[1],
                 'description' => $row[2],
                 'pcco_id' => $row[0],

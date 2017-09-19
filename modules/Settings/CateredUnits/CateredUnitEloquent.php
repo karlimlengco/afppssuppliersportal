@@ -14,6 +14,10 @@ class CateredUnitEloquent extends Model
      */
     protected $table = 'catered_units';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

@@ -388,7 +388,6 @@ class UserRepository extends BaseRepository
         $model  =   $model->leftJoin('role_users', 'role_users.user_id', '=', 'users.id');
         $model  =   $model->leftJoin('roles', 'roles.id', '=', 'role_users.role_id');
 
-
         return $model->get();
     }
 }

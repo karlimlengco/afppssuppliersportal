@@ -20,12 +20,12 @@ trait DatatableTrait
     {
         $model  =   $this->model;
         $model  =   $model->select([
+            'catered_units.id',
             'catered_units.*',
             'procurement_centers.name as procurement_name'
         ]);
 
         $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'catered_units.pcco_id');
-
 
         $model->orderBy('created_at', 'desc');
 

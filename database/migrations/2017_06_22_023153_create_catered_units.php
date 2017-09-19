@@ -14,7 +14,7 @@ class CreateCateredUnits extends Migration
     public function up()
     {
         Schema::create('catered_units', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('pcco_id');
             $table->string('short_code');
             $table->text('description');
