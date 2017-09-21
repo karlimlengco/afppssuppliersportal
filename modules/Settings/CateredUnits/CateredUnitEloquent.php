@@ -24,6 +24,7 @@ class CateredUnitEloquent extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'pcco_id',
         'short_code',
         'description',

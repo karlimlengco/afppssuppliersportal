@@ -14,8 +14,8 @@ class CreateUnitPurchaseRequestItems extends Migration
     public function up()
     {
         Schema::create('unit_purchase_request_items', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('upr_id');
+            $table->uuid('id');
+            $table->string('upr_id');
             $table->string('item_description');
             $table->string('quantity');
             $table->string('unit_measurement');
@@ -25,7 +25,7 @@ class CreateUnitPurchaseRequestItems extends Migration
             $table->string('ref_number')->nullable();
             $table->string('new_account_code')->nullable();
             $table->string('type')->nullable();
-            $table->integer('prepared_by')->nullable();
+            $table->string('prepared_by')->nullable();
             $table->date('date_prepared')->nullable();
 
             $table->timestamps();

@@ -46,16 +46,7 @@ class CateredUnitController extends ApiController
     {
         foreach($request->model as $data)
         {
-            unset($data['permissions']);
-            $data['unit_id'] = '1';
-            $model = $units->create($data);
-
-            $role = \Sentinel::findRoleById(2);
-
-            if($role != null && $role->users() != null)
-            {
-                $role->users()->attach($model);
-            }
+            $model = $units->save($data);
         }
         return $request->all();
     }

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Role;
+use Faker\Factory as Faker;
 
 class Roles extends Seeder
 {
@@ -12,8 +13,9 @@ class Roles extends Seeder
      */
     public function run()
     {
+        $faker = Faker::create();
         $datas = collect([
-            new Role(["name" => 'Admin', "slug" => 'admin', 'permissions' => [
+            new Role(["id" => $faker->unique()->uuid, "name" => 'Admin', "slug" => 'admin', 'permissions' => [
                     'settings.*' =>  true,
                     'reports.*' =>  true,
                     'maintenance.*' =>  true,
@@ -22,26 +24,26 @@ class Roles extends Seeder
                     'library.*' =>  true,
                 ]
             ]),
-            new Role(["name" => 'PCCO Admin', "slug" => 'pcco_admin', 'permissions' => [
+            new Role(["id" => $faker->unique()->uuid, "name" => 'PCCO Admin', "slug" => 'pcco_admin', 'permissions' => [
                     'procurements.*' =>  true,
                     'biddings.*' =>  true,
                     'reports.*' =>  true,
                     'library.*' =>  true,
                 ]
             ]),
-            new Role(["name" => 'PCCO Operation', "slug" => 'pcco_operation', 'permissions' => [
+            new Role(["id" => $faker->unique()->uuid, "name" => 'PCCO Operation', "slug" => 'pcco_operation', 'permissions' => [
                     'procurements.*' =>  true,
                     'biddings.*' =>  true,
                 ]
             ]),
-            new Role(["name" => 'BAC Admin', "slug" => 'bac_admin', 'permissions' => [
+            new Role(["id" => $faker->unique()->uuid, "name" => 'BAC Admin', "slug" => 'bac_admin', 'permissions' => [
                     'procurements.*' =>  true,
                     'biddings.*' =>  true,
                     'reports.*' =>  true,
                     'library.*' =>  true,
                 ]
             ]),
-            new Role(["name" => 'BAC Operation', "slug" => 'bac_operation', 'permissions' => [
+            new Role(["id" => $faker->unique()->uuid, "name" => 'BAC Operation', "slug" => 'bac_operation', 'permissions' => [
                     'procurements.*' =>  true,
                     'biddings.*' =>  true,
                 ]

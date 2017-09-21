@@ -46,7 +46,6 @@ class UserController extends ApiController
         foreach($request->model as $data)
         {
             unset($data['permissions']);
-            $data['unit_id'] = '1';
             $model = $user->create($data);
 
             $role = \Sentinel::findRoleById(2);

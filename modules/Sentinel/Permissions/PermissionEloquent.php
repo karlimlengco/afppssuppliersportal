@@ -20,6 +20,9 @@ class PermissionEloquent extends Model implements AuditableContract
         'description'
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
     /**
      * The database table used by the model.
      *
@@ -32,5 +35,5 @@ class PermissionEloquent extends Model implements AuditableContract
      *
      * @var array
      */
-    protected $fillable = ['permission', 'description'];
+    protected $fillable = ['id', 'permission', 'description'];
 }

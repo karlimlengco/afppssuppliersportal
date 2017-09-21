@@ -70,13 +70,13 @@ class UnitPurchaseRequestUpdateRequest extends BaseRequest
             'project_name'          => 'required',
             'upr_number'            => 'required|unique:unit_purchase_requests,upr_number,'.$this->route('unit_purchase_request'),
             'place_of_delivery'     => 'required',
-            'procurement_office'    => 'required|integer',
+            'procurement_office'    => 'required',
             'mode_of_procurement'   => 'required',
-            'procurement_type'      => 'required|integer',
-            'chargeability'         => 'required|integer',
-            'units'                 => 'required|integer',
+            'procurement_type'      => 'required',
+            'chargeability'         => 'required',
+            'units'                 => 'required',
             'purpose'               => 'required',
-            // 'new_account_code'      => 'required|integer',
+            // 'new_account_code'      => 'required',
             'date_prepared'         => 'required|date',
         ];
     }

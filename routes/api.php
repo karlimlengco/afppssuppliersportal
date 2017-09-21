@@ -37,6 +37,11 @@ Route::group(['middleware' => ['api']], function () {
         ]);
 
         Route::resource('catered-units', 'Maintenance\CateredUnitController');
+        Route::resource('permissions', 'Maintenance\PermissionController');
+        Route::resource('roles', 'Maintenance\RoleController');
+        Route::resource('account-codes', 'Maintenance\AccountController');
+        Route::resource('unit-purchase-requests', 'Procurement\UPRController');
+        Route::resource('upr-items', 'Procurement\UPRItemController');
     });
 
 });

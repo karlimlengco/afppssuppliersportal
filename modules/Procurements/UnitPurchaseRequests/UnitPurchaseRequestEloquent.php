@@ -10,6 +10,10 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
 {
     use Auditable;
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * Attributes to include in the Audit.
      *
@@ -72,6 +76,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'id',
         'place_of_delivery',
         'procurement_office',
         'mode_of_procurement',

@@ -14,7 +14,7 @@ class CreateAccountCodes extends Migration
     public function up()
     {
         Schema::create('account_codes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('name');
             $table->integer('expense_class_id')->nullable();
             $table->string('old_account_code')->nullable();

@@ -27,7 +27,7 @@ class AuthController extends ApiController
               $data = [];
               $meta = [];
 
-              $data['name'] = $user->username;
+              $data['name'] = $user;
               $meta['token'] = $token;
 
               return response()->json([

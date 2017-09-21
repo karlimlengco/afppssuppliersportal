@@ -16,12 +16,17 @@ class ItemEloquent extends Model
 
     protected $with = 'accounts';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+            'id',
             'upr_id',
             'item_description',
             'quantity',

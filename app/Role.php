@@ -22,6 +22,9 @@ class Role extends EloquentRole implements AuditableContract
         'permissions',
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
     /**
      * The database table used by the model.
      *
@@ -34,7 +37,7 @@ class Role extends EloquentRole implements AuditableContract
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'permissions'];
+    protected $fillable = ['id','name', 'slug', 'permissions'];
 
     /**
     //  * The Users relationship.

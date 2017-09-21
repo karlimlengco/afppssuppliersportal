@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 use Revlv\Sentinel\Permissions\PermissionEloquent;
 
 class Permissions extends Seeder
@@ -12,13 +13,20 @@ class Permissions extends Seeder
      */
     public function run()
     {
+        $faker =  Faker::create();
         $datas = collect([
-            new PermissionEloquent(["permission" => 'settings.*', "description" => 'Settings']),
-            new PermissionEloquent(["permission" => 'reports.*', "description" => 'Reports']),
-            new PermissionEloquent(["permission" => 'maintenance.*', "description" => 'Maintenance']),
-            new PermissionEloquent(["permission" => 'procurements.*', "description" => 'Alternatice Mode of Procurement']),
-            new PermissionEloquent(["permission" => 'biddings.*', "description" => 'Competitive Bidding']),
-            new PermissionEloquent(["permission" => 'library.*', "description" => 'Library'])
+            new PermissionEloquent([
+              "id" => $faker->unique()->uuid, "permission" => 'settings.*', "description" => 'Settings']),
+            new PermissionEloquent([
+              "id" => $faker->unique()->uuid, "permission" => 'reports.*', "description" => 'Reports']),
+            new PermissionEloquent([
+              "id" => $faker->unique()->uuid, "permission" => 'maintenance.*', "description" => 'Maintenance']),
+            new PermissionEloquent([
+              "id" => $faker->unique()->uuid, "permission" => 'procurements.*', "description" => 'Alternatice Mode of Procurement']),
+            new PermissionEloquent([
+              "id" => $faker->unique()->uuid, "permission" => 'biddings.*', "description" => 'Competitive Bidding']),
+            new PermissionEloquent([
+              "id" => $faker->unique()->uuid, "permission" => 'library.*', "description" => 'Library'])
         ]);
 
         $datas->each(function($data) {

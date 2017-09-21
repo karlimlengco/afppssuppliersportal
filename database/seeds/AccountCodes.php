@@ -12,9 +12,11 @@ class AccountCodes extends Seeder
      */
     public function run()
     {
+        $faker = \Faker\Factory::create();
         $reader = Reader::createFromPath(database_path().'/csv/account_codes.csv');
-        $reader->each(function($row, $rowOffset) {
+        $reader->each(function($row, $rowOffset) use($faker) {
             \Revlv\Settings\AccountCodes\AccountCodeEloquent::create([
+                'id' => $faker->unique()->uuid,
                 'old_account_code' => $row[0],
                 'new_account_code' => $row[1],
                 'name' => $row[2],

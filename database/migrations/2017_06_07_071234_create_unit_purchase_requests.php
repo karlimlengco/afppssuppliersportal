@@ -14,14 +14,12 @@ class CreateUnitPurchaseRequests extends Migration
     public function up()
     {
         Schema::create('unit_purchase_requests', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->unique();
 
             $table->string('place_of_delivery');
             $table->string('procurement_office');
             $table->string('mode_of_procurement');
             $table->string('chargeability');
-            // $table->string('old_account_code')->nullable();
-            // $table->string('new_account_code')->nullable();
             $table->string('procurement_type');
             $table->string('total_amount');
 
@@ -37,7 +35,7 @@ class CreateUnitPurchaseRequests extends Migration
             $table->string('ref_number')->nullable();
 
             $table->date('date_prepared');
-            $table->integer('prepared_by');
+            $table->string('prepared_by');
 
             $table->date('completed_at')->nullable();
 
@@ -48,17 +46,17 @@ class CreateUnitPurchaseRequests extends Migration
             $table->text('update_remarks')->nullable();
 
             $table->timestamp('date_processed')->nullable();
-            $table->integer('processed_by')->nullable();
+            $table->string('processed_by')->nullable();
 
             $table->timestamp('terminated_date')->nullable();
             $table->string('terminate_status')->nullable();
-            $table->integer('terminated_by')->nullable();
+            $table->string('terminated_by')->nullable();
 
-            $table->integer('requestor_id')->nullable();
+            $table->string('requestor_id')->nullable();
             $table->text('requestor_text')->nullable();
-            $table->integer('fund_signatory_id')->nullable();
+            $table->string('fund_signatory_id')->nullable();
             $table->text('fund_signatory_text')->nullable();
-            $table->integer('approver_id')->nullable();
+            $table->string('approver_id')->nullable();
             $table->text('approver_text')->nullable();
 
 

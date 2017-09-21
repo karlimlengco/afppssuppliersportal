@@ -21,6 +21,10 @@ class Permission extends StandardPermissions implements AuditableContract
         'description'
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The database table used by the model.
      *
@@ -33,5 +37,5 @@ class Permission extends StandardPermissions implements AuditableContract
      *
      * @var array
      */
-    protected $fillable = ['permission', 'description'];
+    protected $fillable = ['id', 'permission', 'description'];
 }
