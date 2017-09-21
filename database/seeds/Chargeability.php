@@ -13,13 +13,14 @@ class Chargeability extends Seeder
     public function run()
     {
 
+        $faker = \Faker\Factory::create();
         $datas = collect([
-            new ChargeabilityEloquent(["name" => 'MOOE', "description"   => 'Maintenance and Other Operating Expenses']),
-            new ChargeabilityEloquent(["name" => 'CO', "description"   => 'Capital Outlay']),
-            new ChargeabilityEloquent(["name" => 'TR', "description"   => 'Trust Receipts']),
-            new ChargeabilityEloquent(["name" => 'UNRF', "description"   => 'UNRF']),
-            new ChargeabilityEloquent(["name" => 'IATF', "description"   => 'IATF']),
-            new ChargeabilityEloquent(["name" => 'SPAPS', "description"   => 'SPAPS']),
+            new ChargeabilityEloquent(["id" => $faker->unique()->uuid, "name" => 'MOOE', "description"   => 'Maintenance and Other Operating Expenses']),
+            new ChargeabilityEloquent(["id" => $faker->unique()->uuid, "name" => 'CO', "description"   => 'Capital Outlay']),
+            new ChargeabilityEloquent(["id" => $faker->unique()->uuid, "name" => 'TR', "description"   => 'Trust Receipts']),
+            new ChargeabilityEloquent(["id" => $faker->unique()->uuid, "name" => 'UNRF', "description"   => 'UNRF']),
+            new ChargeabilityEloquent(["id" => $faker->unique()->uuid, "name" => 'IATF', "description"   => 'IATF']),
+            new ChargeabilityEloquent(["id" => $faker->unique()->uuid, "name" => 'SPAPS', "description"   => 'SPAPS']),
         ]);
 
         $datas->each(function($data) {

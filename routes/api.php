@@ -41,7 +41,13 @@ Route::group(['middleware' => ['api']], function () {
         Route::resource('roles', 'Maintenance\RoleController');
         Route::resource('account-codes', 'Maintenance\AccountController');
         Route::resource('unit-purchase-requests', 'Procurement\UPRController');
+        Route::resource('signatories', 'Maintenance\SignatoryController');
         Route::resource('upr-items', 'Procurement\UPRItemController');
+        Route::resource('procurement-centers', 'Maintenance\PCCOController');
+        Route::resource('procurement-types', 'Maintenance\TypesController');
+        Route::resource('mode-of-procurements', 'Maintenance\ModesController');
+        Route::resource('chargeability', 'Maintenance\ChargeabilityController');
+        Route::resource('payment-terms', 'Maintenance\TermsController');
     });
 
 });

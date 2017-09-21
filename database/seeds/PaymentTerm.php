@@ -12,9 +12,10 @@ class PaymentTerm extends Seeder
      */
     public function run()
     {
+        $faker = \Faker\Factory::create();
         $datas = collect([
-            new PaymentTermEloquent(["name" => 'OTP', "description"   => 'One Time Payment']),
-            new PaymentTermEloquent(["name" => 'TT', "description"   => 'Teligraphic Transfer']),
+            new PaymentTermEloquent(['id' => $faker->unique()->uuid, "name" => 'OTP', "description"   => 'One Time Payment']),
+            new PaymentTermEloquent(['id' => $faker->unique()->uuid, "name" => 'TT', "description"   => 'Teligraphic Transfer']),
         ]);
 
         $datas->each(function($data) {

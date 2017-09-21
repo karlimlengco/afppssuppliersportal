@@ -14,12 +14,17 @@ class ChargeabilityEloquent extends Model
      */
     protected $table = 'chargeability';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'name',
         'description',
     ];

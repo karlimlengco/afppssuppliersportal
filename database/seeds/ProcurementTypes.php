@@ -12,10 +12,11 @@ class ProcurementTypes extends Seeder
      */
     public function run()
     {
+        $faker = \Faker\Factory::create();
         $datas = collect([
-            new ProcurementTypeEloquent(["code" => 'GSM', "description"   => 'General Supplies & Materials']),
-            new ProcurementTypeEloquent(["code" => 'SVCS', "description"   => 'Services']),
-            new ProcurementTypeEloquent(["code" => 'GSMSVSC', "description"   => 'General Supplies & Services']),
+            new ProcurementTypeEloquent(['id' => $faker->unique()->uuid, "code" => 'GSM', "description"   => 'General Supplies & Materials']),
+            new ProcurementTypeEloquent(['id' => $faker->unique()->uuid, "code" => 'SVCS', "description"   => 'Services']),
+            new ProcurementTypeEloquent(['id' => $faker->unique()->uuid, "code" => 'GSMSVSC', "description"   => 'General Supplies & Services']),
         ]);
 
         $datas->each(function($data) {

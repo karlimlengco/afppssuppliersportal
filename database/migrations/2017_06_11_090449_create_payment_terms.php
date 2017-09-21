@@ -14,7 +14,7 @@ class CreatePaymentTerms extends Migration
     public function up()
     {
         Schema::create('payment_terms', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('name');
             $table->text('description');
             $table->timestamps();

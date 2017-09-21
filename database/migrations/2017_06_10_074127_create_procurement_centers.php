@@ -14,7 +14,7 @@ class CreateProcurementCenters extends Migration
     public function up()
     {
         Schema::create('procurement_centers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('name')->unique();
             $table->string('short_code')->unique();
             $table->text('address');

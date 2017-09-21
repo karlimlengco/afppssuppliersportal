@@ -14,12 +14,17 @@ class ProcurementTypeEloquent extends Model
      */
     protected $table = 'procurement_types';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'code',
         'description',
     ];

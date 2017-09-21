@@ -14,7 +14,7 @@ class CreateProcurementTypes extends Migration
     public function up()
     {
         Schema::create('procurement_types', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('code')->unique();
             $table->string('description');
             $table->timestamps();

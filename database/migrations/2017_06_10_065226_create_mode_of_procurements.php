@@ -14,7 +14,7 @@ class CreateModeOfProcurements extends Migration
     public function up()
     {
         Schema::create('mode_of_procurements', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('name');
             $table->text('description')->nullable();
             $table->timestamps();

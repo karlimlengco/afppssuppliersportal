@@ -14,7 +14,7 @@ class CreateSignatories extends Migration
     public function up()
     {
         Schema::create('signatories', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('name');
             $table->string('ranks');
             $table->string('branch')->nullable();

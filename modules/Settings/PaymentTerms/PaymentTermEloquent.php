@@ -14,12 +14,17 @@ class PaymentTermEloquent extends Model
      */
     protected $table = 'payment_terms';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'name',
         'description',
     ];

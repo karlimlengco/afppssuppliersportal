@@ -14,12 +14,17 @@ class ProcurementCenterEloquent extends Model
      */
     protected $table = 'procurement_centers';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'name',
         'programs',
         'short_code',
