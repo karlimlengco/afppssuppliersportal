@@ -24,6 +24,9 @@ class NTPEloquent extends Model implements  AuditableContract
         'signatory',
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
 
     /**
      * The database table used by the model.
@@ -38,6 +41,7 @@ class NTPEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'id',
         'po_id',
         'rfq_id',
         'upr_id',

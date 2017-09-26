@@ -14,6 +14,9 @@ class LibraryEloquent extends Model
      */
     protected $table = 'library';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +24,7 @@ class LibraryEloquent extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'name',
         'catalog_id',
         'tags',

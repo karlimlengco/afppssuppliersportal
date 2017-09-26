@@ -14,27 +14,27 @@ class CreateInspectionAcceptanceReport extends Migration
     public function up()
     {
         Schema::create('inspection_acceptance_report', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('rfq_id')->nullable();
-            $table->integer('upr_id');
-            $table->integer('dr_id');
+            $table->uuid('id');
+            $table->string('rfq_id')->nullable();
+            $table->string('upr_id');
+            $table->string('dr_id');
             $table->string('delivery_number')->nullable();
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
             $table->date('inspection_date');
             $table->date('accepted_date')->nullable();
-            $table->integer('accepted_by')->nullable();
+            $table->string('accepted_by')->nullable();
             $table->string('nature_of_delivery')->nullable();
             $table->string('status')->nullable();
             $table->text('findings')->nullable();
             $table->text('recommendation')->nullable();
             $table->text('update_remarks')->nullable();
-            $table->integer('prepared_by')->nullable();
-            $table->integer('inspection_signatory')->nullable();
-            $table->integer('acceptance_signatory')->nullable();
+            $table->string('prepared_by')->nullable();
+            $table->string('inspection_signatory')->nullable();
+            $table->string('acceptance_signatory')->nullable();
             $table->integer('days')->nullable();
             $table->integer('accept_days')->nullable();
-            $table->integer('sao_signatory')->nullable();
+            $table->string('sao_signatory')->nullable();
             $table->text('remarks')->nullable();
             $table->text('accept_remarks')->nullable();
             $table->text('action')->nullable();

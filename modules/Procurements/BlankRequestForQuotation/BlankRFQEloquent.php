@@ -26,6 +26,9 @@ class BlankRFQEloquent extends Model implements  AuditableContract
         // 'completed_at',
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
 
     protected $dates = [
         'created_at',
@@ -51,6 +54,7 @@ class BlankRFQEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'id',
         'upr_id',
 
         'upr_number',

@@ -30,6 +30,10 @@ class VoucherEloquent extends Model implements  AuditableContract
         'receiver_signatory',
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The database table used by the model.
      *
@@ -43,6 +47,7 @@ class VoucherEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'id',
         'upr_id',
         'rfq_id',
         'prepared_by',

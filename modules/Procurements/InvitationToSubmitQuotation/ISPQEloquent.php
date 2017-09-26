@@ -25,6 +25,10 @@ class ISPQEloquent extends Model implements  AuditableContract
         'remarks',
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The database table used by the model.
      *
@@ -38,6 +42,7 @@ class ISPQEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'id',
         'signatory_id',
         'venue',
         'signatory_text',

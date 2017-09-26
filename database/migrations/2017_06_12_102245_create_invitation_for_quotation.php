@@ -14,7 +14,7 @@ class CreateInvitationForQuotation extends Migration
     public function up()
     {
         Schema::create('invitation_for_quotation', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->integer('signatory_id');
             $table->text('signatory_text')->nullable();
             $table->text('venue');

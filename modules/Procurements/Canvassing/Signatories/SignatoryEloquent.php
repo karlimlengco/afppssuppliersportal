@@ -15,13 +15,18 @@ class SignatoryEloquent extends Model
     protected $table = 'canvass_signatories';
     protected $with = 'signatory';
 
+
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'canvass_id',
+        'id',
         'signatory_id',
         'is_present',
         'cop',

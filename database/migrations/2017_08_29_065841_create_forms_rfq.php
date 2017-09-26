@@ -14,8 +14,8 @@ class CreateFormsRfq extends Migration
     public function up()
     {
         Schema::create('forms_rfq', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('pcco_id');
+            $table->uuid('id');
+            $table->string('pcco_id');
             $table->text('content');
             $table->timestamps();
         });

@@ -33,6 +33,10 @@ class DocumentAcceptanceEloquent extends Model implements  AuditableContract
         'processed_by',
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The database table used by the model.
      *
@@ -47,6 +51,7 @@ class DocumentAcceptanceEloquent extends Model implements  AuditableContract
      */
     protected $fillable = [
         'upr_id',
+        'id',
         'bac_id',
         'upr_number',
         'ref_number',

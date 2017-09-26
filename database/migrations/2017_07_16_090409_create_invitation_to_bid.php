@@ -14,14 +14,14 @@ class CreateInvitationToBid extends Migration
     public function up()
     {
         Schema::create('invitation_to_bid', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('upr_id');
+            $table->uuid('id');
+            $table->string('upr_id');
             $table->string('upr_number')->nullable();
             $table->string('ref_number')->nullable();
             $table->date('transaction_date');
             $table->text('update_remarks')->nullable();
             $table->date('approved_date')->nullable();
-            $table->integer('approved_by')->nullable();
+            $table->string('approved_by')->nullable();
             $table->text('action')->nullable();
             $table->text('remarks')->nullable();
             $table->integer('days')->nullable();

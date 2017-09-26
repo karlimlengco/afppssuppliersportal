@@ -14,11 +14,11 @@ class CreatePhilgepsAttachments extends Migration
     public function up()
     {
         Schema::create('philgeps_attachments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('philgeps_id');
+            $table->uuid('id');
+            $table->string('philgeps_id');
             $table->string('name');
             $table->string('file_name');
-            $table->integer('user_id');
+            $table->string('user_id');
             $table->date('upload_date');
             $table->timestamps();
         });

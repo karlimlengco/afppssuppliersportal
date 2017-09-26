@@ -39,6 +39,7 @@ class PostQualificationEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'id',
         'upr_id',
         'upr_number',
         'update_remarks',

@@ -25,12 +25,17 @@ class BidDocsEloquent extends Model implements  AuditableContract
      */
     protected $table = 'bid_docs_issuance';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'upr_id',
         'upr_number',
         'action',

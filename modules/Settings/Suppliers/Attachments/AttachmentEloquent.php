@@ -14,12 +14,17 @@ class AttachmentEloquent extends Model
      */
     protected $table = 'supplier_attachments';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'supplier_id',
         'name',
         'file_name',

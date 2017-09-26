@@ -14,12 +14,17 @@ class RFQEloquent extends Model
      */
     protected $table = 'forms_rfq';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'pcco_id',
         'content',
     ];

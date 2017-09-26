@@ -14,7 +14,7 @@ class CreateBidDocsFinalized extends Migration
     public function up()
     {
         Schema::create('bid_docs_finalized', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->integer('upr_id');
             $table->string('upr_number')->nullable();
             $table->string('ref_number')->nullable();

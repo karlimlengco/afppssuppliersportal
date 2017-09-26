@@ -14,8 +14,8 @@ class CreateFormHeaders extends Migration
     public function up()
     {
         Schema::create('form_headers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('unit_id');
+            $table->uuid('id');
+            $table->string('unit_id');
             $table->text('content');
             $table->timestamps();
         });

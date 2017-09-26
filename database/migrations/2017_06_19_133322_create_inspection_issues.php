@@ -14,12 +14,12 @@ class CreateInspectionIssues extends Migration
     public function up()
     {
         Schema::create('inspection_issues', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('inspection_id');
+            $table->uuid('id');
+            $table->string('inspection_id');
             $table->string('issue');
             $table->text('remarks')->nullable();
             $table->string('is_corrected')->nullable();
-            $table->integer('prepared_by');
+            $table->string('prepared_by');
             $table->timestamps();
         });
     }

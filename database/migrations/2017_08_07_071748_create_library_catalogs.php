@@ -14,7 +14,7 @@ class CreateLibraryCatalogs extends Migration
     public function up()
     {
         Schema::create('library_catalogs', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('name')->unique();
             $table->text('description')->nullable();
             $table->timestamps();

@@ -20,6 +20,7 @@ class IssueEloquent extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'inspection_id',
         'dr_id',
         'upr_id',
@@ -30,6 +31,10 @@ class IssueEloquent extends Model
         'prepared_by',
         'remarks',
         'is_corrected',
+    ];
+
+    protected $casts = [
+        'id' => 'string'
     ];
 
     /**

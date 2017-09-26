@@ -14,7 +14,7 @@ class CreateBacsec extends Migration
     public function up()
     {
         Schema::create('bacsec', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('name')->unique();
             $table->string('description');
             $table->timestamps();

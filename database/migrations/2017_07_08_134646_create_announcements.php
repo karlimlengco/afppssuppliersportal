@@ -14,7 +14,7 @@ class CreateAnnouncements extends Migration
     public function up()
     {
         Schema::create('announcements', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('title');
             $table->text('message');
             $table->date('post_at');

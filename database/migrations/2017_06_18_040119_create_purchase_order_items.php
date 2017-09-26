@@ -14,8 +14,8 @@ class CreatePurchaseOrderItems extends Migration
     public function up()
     {
         Schema::create('purchase_order_items', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('order_id');
+            $table->uuid('id');
+            $table->string('order_id');
             $table->string('description');
             $table->string('quantity');
             $table->string('unit');

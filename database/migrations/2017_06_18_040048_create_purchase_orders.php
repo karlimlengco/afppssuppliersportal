@@ -14,18 +14,18 @@ class CreatePurchaseOrders extends Migration
     public function up()
     {
         Schema::create('purchase_orders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('rfq_id')->nullable();
-            $table->integer('upr_id');
+            $table->uuid('id');
+            $table->string('rfq_id')->nullable();
+            $table->string('upr_id');
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
             $table->string('po_number')->nullable();
             $table->date('purchase_date');
             $table->string('bid_amount');
-            $table->integer('payment_term');
+            $table->string('payment_term');
             $table->integer('delivery_terms');
             $table->integer('delivery_date')->nullable();
-            $table->integer('prepared_by');
+            $table->string('prepared_by');
             $table->string('type')->nullable();
             $table->string('status')->nullable();
 

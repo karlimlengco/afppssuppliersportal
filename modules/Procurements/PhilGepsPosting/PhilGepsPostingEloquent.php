@@ -28,6 +28,9 @@ class PhilGepsPostingEloquent extends Model implements  AuditableContract
         'status',
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
 
     /**
      * The database table used by the model.
@@ -42,6 +45,7 @@ class PhilGepsPostingEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'id',
         'rfq_id',
         'upr_id',
         'philgeps_number',

@@ -14,12 +14,17 @@ class ProponentAttachmentEloquent extends Model
      */
     protected $table = 'proponents_attachments';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'proponent_id',
         'name',
         'file_name',

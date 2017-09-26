@@ -14,7 +14,7 @@ class CreateLibrary extends Migration
     public function up()
     {
         Schema::create('library', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('name');
             $table->string('catalog_id');
             $table->text('tags')->nullable();

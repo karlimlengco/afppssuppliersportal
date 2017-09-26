@@ -33,12 +33,17 @@ class DeliveryOrderEloquent extends Model implements  AuditableContract
      */
     protected $table = 'delivery_orders';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'rfq_id',
         'upr_id',
         'rfq_number',

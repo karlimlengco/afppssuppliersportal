@@ -14,9 +14,9 @@ class CreateMeetingCanvass extends Migration
     public function up()
     {
         Schema::create('meeting_canvass', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('meeting_id');
-            $table->integer('canvass_id');
+            $table->uuid('id');
+            $table->string('meeting_id');
+            $table->string('canvass_id');
             $table->timestamps();
         });
     }

@@ -14,9 +14,9 @@ class CreateCanvassing extends Migration
     public function up()
     {
         Schema::create('canvassing', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('rfq_id');
-            $table->integer('upr_id');
+            $table->uuid('id');
+            $table->string('rfq_id');
+            $table->string('upr_id');
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
             $table->date('canvass_date');
@@ -31,8 +31,8 @@ class CreateCanvassing extends Migration
             $table->text('remarks')->nullable();
             $table->text('action')->nullable();
             $table->text('resolution')->nullable();
-            $table->integer('presiding_officer')->nullable();
-            $table->integer('chief')->nullable();
+            $table->string('presiding_officer')->nullable();
+            $table->string('chief')->nullable();
             $table->text('other_attendees')->nullable();
 
             $table->text('chief_signatory')->nullable();
@@ -42,10 +42,10 @@ class CreateCanvassing extends Migration
             $table->text('legal_signatory')->nullable();
             $table->text('secretary_signatory')->nullable();
 
-            $table->integer('unit_head')->nullable();
-            $table->integer('mfo')->nullable();
-            $table->integer('legal')->nullable();
-            $table->integer('secretary')->nullable();
+            $table->string('unit_head')->nullable();
+            $table->string('mfo')->nullable();
+            $table->string('legal')->nullable();
+            $table->string('secretary')->nullable();
 
             $table->integer('unit_head_attendance')->nullable();
             $table->integer('mfo_attendance')->nullable();

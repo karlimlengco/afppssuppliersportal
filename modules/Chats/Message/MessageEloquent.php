@@ -22,12 +22,17 @@ class MessageEloquent extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'user_id',
         'message',
         'chat_id',
         'status',
         'seen_by',
         'is_seen'
+    ];
+
+    protected $casts = [
+        'id' => 'string'
     ];
 
     /**

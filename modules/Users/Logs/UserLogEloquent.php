@@ -14,12 +14,17 @@ class UserLogEloquent extends Model
      */
     protected $table = 'user_logs';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'audit_id',
         'admin_id',
         'is_viewed',

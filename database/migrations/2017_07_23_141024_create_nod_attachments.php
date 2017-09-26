@@ -14,7 +14,7 @@ class CreateNodAttachments extends Migration
     public function up()
     {
         Schema::create('nod_attachments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->integer('nod_id');
             $table->string('name');
             $table->string('file_name');

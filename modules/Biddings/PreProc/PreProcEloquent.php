@@ -30,6 +30,10 @@ class PreProcEloquent extends Model implements  AuditableContract
         'processed_by',
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The database table used by the model.
      *
@@ -43,6 +47,7 @@ class PreProcEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'id',
         'upr_id',
         'upr_number',
         'ref_number',

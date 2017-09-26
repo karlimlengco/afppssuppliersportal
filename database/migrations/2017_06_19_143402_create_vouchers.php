@@ -14,17 +14,17 @@ class CreateVouchers extends Migration
     public function up()
     {
         Schema::create('vouchers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('upr_id');
-            $table->integer('rfq_id')->nullable();
-            $table->integer('prepared_by')->nullable();
+            $table->uuid('id');
+            $table->string('upr_id');
+            $table->string('rfq_id')->nullable();
+            $table->string('prepared_by')->nullable();
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
             $table->date('transaction_date');
             $table->date('payment_release_date')->nullable();
             $table->date('payment_received_date')->nullable();
-            $table->integer('process_releaser')->nullable();
-            $table->integer('payment_receiver')->nullable();
+            $table->string('process_releaser')->nullable();
+            $table->string('payment_receiver')->nullable();
             $table->string('bir_address');
             $table->string('final_tax')->nullable();
             $table->string('expanded_witholding_tax')->nullable();
@@ -48,9 +48,9 @@ class CreateVouchers extends Migration
 
             $table->date('approval_date')->nullable();
 
-            $table->integer('certified_by')->nullable();
-            $table->integer('approver_id')->nullable();
-            $table->integer('receiver_id')->nullable();
+            $table->string('certified_by')->nullable();
+            $table->string('approver_id')->nullable();
+            $table->string('receiver_id')->nullable();
 
             $table->integer('days')->nullable();
             $table->text('remarks')->nullable();

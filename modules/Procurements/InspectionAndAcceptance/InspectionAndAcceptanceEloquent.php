@@ -25,6 +25,9 @@ class InspectionAndAcceptanceEloquent extends Model implements  AuditableContrac
         'sao_name_signatory',
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
 
     /**
      * The database table used by the model.
@@ -40,6 +43,7 @@ class InspectionAndAcceptanceEloquent extends Model implements  AuditableContrac
      */
     protected $fillable = [
         'rfq_id',
+        'id',
         'upr_id',
         'dr_id',
         'delivery_number',

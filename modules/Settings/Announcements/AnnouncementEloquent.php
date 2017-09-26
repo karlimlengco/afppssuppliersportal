@@ -14,12 +14,17 @@ class AnnouncementEloquent extends Model
      */
     protected $table = 'announcements';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'title',
         'message',
         'post_at',

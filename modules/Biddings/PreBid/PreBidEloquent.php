@@ -37,12 +37,17 @@ class PreBidEloquent extends Model implements  AuditableContract
      */
     protected $table = 'pre_bid_conferences';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'upr_id',
         'update_remarks',
         'action',

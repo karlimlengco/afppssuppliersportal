@@ -14,10 +14,10 @@ class CreateIspqQuotations extends Migration
     public function up()
     {
         Schema::create('ispq_quotations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('ispq_id');
-            $table->integer('rfq_id');
-            $table->integer('upr_id');
+            $table->uuid('id');
+            $table->string('ispq_id');
+            $table->string('rfq_id');
+            $table->string('upr_id');
             $table->string('description');
             $table->string('total_amount')->nullable();
             $table->date('canvassing_date')->nullable();

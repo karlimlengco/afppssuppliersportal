@@ -16,12 +16,17 @@ class CanvassEloquent extends Model
 
     protected $with = 'canvass';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'meeting_id',
         'canvass_id',
     ];

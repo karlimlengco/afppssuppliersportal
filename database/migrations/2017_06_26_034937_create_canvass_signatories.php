@@ -14,9 +14,9 @@ class CreateCanvassSignatories extends Migration
     public function up()
     {
         Schema::create('canvass_signatories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('canvass_id');
-            $table->integer('signatory_id');
+            $table->uuid('id');
+            $table->string('canvass_id');
+            $table->string('signatory_id');
             $table->integer('is_present')->nullable();
             $table->integer('cop')->nullable();
             $table->integer('rop')->nullable();

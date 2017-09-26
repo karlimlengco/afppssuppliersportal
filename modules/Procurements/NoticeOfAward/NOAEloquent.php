@@ -28,6 +28,11 @@ class NOAEloquent extends Model implements  AuditableContract
         'notes',
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
+
     /**
      * The database table used by the model.
      *
@@ -43,6 +48,7 @@ class NOAEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'id',
         'rfq_id',
         'upr_id',
         'rfq_number',

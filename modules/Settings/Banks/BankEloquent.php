@@ -14,12 +14,17 @@ class BankEloquent extends Model
      */
     protected $table = 'banks';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'code',
         'description',
     ];

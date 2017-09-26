@@ -14,8 +14,8 @@ class CreateInspectionAcceptanceInvoices extends Migration
     public function up()
     {
         Schema::create('inspection_acceptance_invoices', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('acceptance_id');
+            $table->uuid('id');
+            $table->string('acceptance_id');
             $table->string('invoice_number');
             $table->date('invoice_date');
             $table->timestamps();

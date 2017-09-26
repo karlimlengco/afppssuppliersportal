@@ -14,11 +14,11 @@ class CreateUprAttachments extends Migration
     public function up()
     {
         Schema::create('upr_attachments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('upr_id');
+            $table->uuid('id');
+            $table->string('upr_id');
             $table->string('name');
             $table->string('file_name');
-            $table->integer('user_id');
+            $table->string('user_id');
             $table->date('upload_date');
             $table->timestamps();
         });

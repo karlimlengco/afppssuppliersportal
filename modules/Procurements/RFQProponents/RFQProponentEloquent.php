@@ -15,6 +15,10 @@ class RFQProponentEloquent extends Model
     protected $table = 'rfq_proponents';
     protected $with  = ['supplier', 'winners'];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,6 +26,7 @@ class RFQProponentEloquent extends Model
      */
     protected $fillable = [
         'rfq_id',
+        'id',
         'proponents',
         'note',
         'date_processed',

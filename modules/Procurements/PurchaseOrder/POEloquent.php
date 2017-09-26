@@ -36,6 +36,10 @@ class POEloquent extends Model implements  AuditableContract
         'coa_name_signatory',
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The database table used by the model.
      *
@@ -49,6 +53,7 @@ class POEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'id',
         'rfq_id',
         'upr_id',
         'rfq_number',

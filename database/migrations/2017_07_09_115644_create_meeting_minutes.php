@@ -14,12 +14,12 @@ class CreateMeetingMinutes extends Migration
     public function up()
     {
         Schema::create('meeting_minutes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->date('date_opened');
             $table->time('time_opened');
             $table->string('venue');
-            $table->integer('officer_id');
-            $table->integer('prepared_by');
+            $table->string('officer_id');
+            $table->string('prepared_by');
             $table->time('time_closed')->nullable();
             $table->timestamps();
         });

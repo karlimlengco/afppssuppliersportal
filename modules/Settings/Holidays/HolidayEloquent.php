@@ -14,12 +14,17 @@ class HolidayEloquent extends Model
      */
     protected $table = 'holidays';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'name',
         'holiday_date',
     ];

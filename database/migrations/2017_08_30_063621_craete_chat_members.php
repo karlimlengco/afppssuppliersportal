@@ -14,9 +14,9 @@ class CraeteChatMembers extends Migration
     public function up()
     {
         Schema::create('chat_members', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('chat_id');
-            $table->integer('user_id');
+            $table->uuid('id');
+            $table->string('chat_id');
+            $table->string('user_id');
             $table->timestamps();
         });
     }

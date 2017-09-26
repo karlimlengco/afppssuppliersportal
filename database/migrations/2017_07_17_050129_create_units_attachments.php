@@ -14,7 +14,7 @@ class CreateUnitsAttachments extends Migration
     public function up()
     {
         Schema::create('unit_attachments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->integer('unit_id');
             $table->string('name');
             $table->string('file_name');

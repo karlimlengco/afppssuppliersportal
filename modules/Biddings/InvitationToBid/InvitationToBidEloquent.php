@@ -31,6 +31,7 @@ class InvitationToBidEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'id',
         'upr_id',
         'action',
         'upr_number',
@@ -41,6 +42,10 @@ class InvitationToBidEloquent extends Model implements  AuditableContract
         'approved_by',
         'remarks',
         'days',
+    ];
+
+    protected $casts = [
+        'id' => 'string'
     ];
 
     /**

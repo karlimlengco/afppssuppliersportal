@@ -15,12 +15,18 @@ class QuotationEloquent extends Model
     protected $table = 'ispq_quotations';
     protected $with =   'ispq';
 
+
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'ispq_id',
         'rfq_id',
         'upr_id',

@@ -14,19 +14,23 @@ class NotificationEloquent extends Model
      */
     protected $table = 'notifications';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'user_id',
         'event',
         'model',
         'model_id',
         'is_seen',
     ];
-
 
     /**
      * [receiver description]

@@ -14,16 +14,16 @@ class CreateNoticeToProceed extends Migration
     public function up()
     {
         Schema::create('notice_to_proceed', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('po_id');
-            $table->integer('rfq_id')->nullable();
-            $table->integer('upr_id');
+            $table->uuid('id');
+            $table->string('po_id');
+            $table->string('rfq_id')->nullable();
+            $table->string('upr_id');
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
-            $table->integer('signatory_id')->nullable();
+            $table->string('signatory_id')->nullable();
             $table->text('signatory')->nullable();
-            $table->integer('proponent_id');
-            $table->integer('prepared_by')->nullable();
+            $table->string('proponent_id');
+            $table->string('prepared_by')->nullable();
             $table->timestamp('prepared_date')->nullable();
             $table->string('status')->nullable();
             $table->text('remarks')->nullable();

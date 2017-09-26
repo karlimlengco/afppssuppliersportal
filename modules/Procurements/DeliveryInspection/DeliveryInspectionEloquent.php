@@ -34,12 +34,17 @@ class DeliveryInspectionEloquent extends Model implements  AuditableContract
      */
     protected $table = 'delivery_inspection';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'dr_id',
         'upr_id',
         'rfq_id',

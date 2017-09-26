@@ -14,7 +14,7 @@ class CreateUnits extends Migration
     public function up()
     {
         Schema::create('units', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
             $table->string('pcco_id');
             $table->string('name');
             $table->text('description');

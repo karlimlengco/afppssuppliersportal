@@ -14,8 +14,8 @@ class CreatePreBidConferences extends Migration
     public function up()
     {
         Schema::create('pre_bid_conferences', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('upr_id');
+            $table->uuid('id');
+            $table->string('upr_id');
             $table->string('upr_number')->nullable();
             $table->string('ref_number')->nullable();
             $table->date('transaction_date');
@@ -30,7 +30,7 @@ class CreatePreBidConferences extends Migration
             $table->text('remarks')->nullable();
             $table->text('failed_remarks')->nullable();
             $table->integer('days')->nullable();
-            $table->integer('processed_by')->nullable();
+            $table->string('processed_by')->nullable();
 
             $table->timestamps();
         });

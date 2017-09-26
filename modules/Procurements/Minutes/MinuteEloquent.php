@@ -14,12 +14,17 @@ class MinuteEloquent extends Model
      */
     protected $table = 'meeting_minutes';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'date_opened',
         'time_opened',
         'venue',

@@ -14,13 +14,13 @@ class CreateSupplierAttachments extends Migration
     public function up()
     {
         Schema::create('supplier_attachments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('supplier_id');
+            $table->uuid('id');
+            $table->string('supplier_id');
             $table->string('name');
             $table->string('ref_number')->nullable();
             $table->string('place')->nullable();
             $table->string('file_name');
-            $table->integer('user_id');
+            $table->string('user_id');
             $table->string('type');
             $table->date('issued_date')->nullable();
             $table->date('validity_date')->nullable();

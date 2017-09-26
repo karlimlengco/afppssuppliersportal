@@ -14,8 +14,8 @@ class CreateRequestForQuotations extends Migration
     public function up()
     {
         Schema::create('request_for_quotations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('upr_id');
+            $table->uuid('id');
+            $table->string('upr_id');
 
             $table->string('upr_number')->nullable();
             $table->string('rfq_number')->nullable();
@@ -29,14 +29,14 @@ class CreateRequestForQuotations extends Migration
             $table->text('remarks')->nullable();
             $table->string('action')->nullable();
             $table->text('update_remarks')->nullable();
-            $table->integer('processed_by')->nullable();
+            $table->string('processed_by')->nullable();
             $table->integer('days')->nullable();
             $table->integer('close_days')->nullable();
             $table->text('close_remarks')->nullable();
             $table->text('close_action')->nullable();
 
-            $table->integer('awarded_to')->nullable();
-            $table->integer('chief')->nullable();
+            $table->string('awarded_to')->nullable();
+            $table->string('chief')->nullable();
             $table->text('signatory_chief')->nullable();
             $table->date('awarded_date')->nullable();
             $table->timestamps();

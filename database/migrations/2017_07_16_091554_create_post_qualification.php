@@ -14,8 +14,8 @@ class CreatePostQualification extends Migration
     public function up()
     {
         Schema::create('post_qualification', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('upr_id');
+            $table->uuid('id');
+            $table->string('upr_id');
             $table->string('upr_number')->nullable();
             $table->string('ref_number')->nullable();
             $table->date('transaction_date');
@@ -27,9 +27,9 @@ class CreatePostQualification extends Migration
             $table->text('action')->nullable();
             $table->text('failed_remarks')->nullable();
             $table->text('remarks')->nullable();
-            $table->integer('proponent_id')->nullable();
+            $table->string('proponent_id')->nullable();
             $table->integer('days')->nullable();
-            $table->integer('processed_by')->nullable();
+            $table->string('processed_by')->nullable();
             $table->timestamps();
         });
     }

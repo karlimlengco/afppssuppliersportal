@@ -14,12 +14,17 @@ class InvoiceEloquent extends Model
      */
     protected $table = 'inspection_acceptance_invoices';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'acceptance_id',
         'invoice_number',
         'invoice_date',

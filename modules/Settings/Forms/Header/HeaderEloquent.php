@@ -14,12 +14,17 @@ class HeaderEloquent extends Model
      */
     protected $table = 'form_headers';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'unit_id',
         'content',
     ];

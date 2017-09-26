@@ -14,14 +14,14 @@ class CreateRfqProponents extends Migration
     public function up()
     {
         Schema::create('rfq_proponents', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('rfq_id');
-            $table->integer('proponents');
+            $table->uuid('id');
+            $table->string('rfq_id');
+            $table->string('proponents');
             $table->string('note')->nullable();
             $table->string('bid_amount')->nullable();
             $table->text('remarks')->nullable();
             $table->date('date_processed');
-            $table->integer('prepared_by');
+            $table->string('prepared_by');
             $table->string('status')->nullable();
             $table->string('is_awarded')->nullable();
             $table->string('is_award_accepted')->nullable();

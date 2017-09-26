@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use \Revlv\Settings\Banks\BankEloquent;
+use Faker\Factory as Faker;
 
 class Banks extends Seeder
 {
@@ -13,12 +14,13 @@ class Banks extends Seeder
     public function run()
     {
 
+        $faker = Faker::create();
         $datas = collect([
-            new BankEloquent(["code" => 'BPI', "description"   => 'BPI']),
-            new BankEloquent(["code" => 'UPCB', "description"   => 'United Coconut Planters Bank']),
-            new BankEloquent(["code" => 'AUB', "description"   => 'Asia United Bank']),
-            new BankEloquent(["code" => 'CHINABANK', "description"   => 'China Banking Corporation']),
-            new BankEloquent(["code" => 'CITIBANK', "description"   => 'CITIBANK'])
+            new BankEloquent(["id" => $faker->unique()->uuid, "code" => 'BPI', "description"   => 'BPI']),
+            new BankEloquent(["id" => $faker->unique()->uuid, "code" => 'UPCB', "description"   => 'United Coconut Planters Bank']),
+            new BankEloquent(["id" => $faker->unique()->uuid, "code" => 'AUB', "description"   => 'Asia United Bank']),
+            new BankEloquent(["id" => $faker->unique()->uuid, "code" => 'CHINABANK', "description"   => 'China Banking Corporation']),
+            new BankEloquent(["id" => $faker->unique()->uuid, "code" => 'CITIBANK', "description"   => 'CITIBANK'])
         ]);
 
         $datas->each(function($data) {

@@ -14,21 +14,21 @@ class CreateDeliveryOrders extends Migration
     public function up()
     {
         Schema::create('delivery_orders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('rfq_id')->nullable();
-            $table->integer('upr_id');
+            $table->uuid('id');
+            $table->string('rfq_id')->nullable();
+            $table->string('upr_id');
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
-            $table->integer('po_id');
+            $table->string('po_id');
             $table->date('expected_date');
             $table->string('delivery_number')->nullable();
             $table->string('status')->nullable();
             $table->string('inspection_status')->nullable();
-            $table->integer('received_by')->nullable();
-            $table->integer('prepared_by')->nullable();
-            $table->integer('signatory_id')->nullable();
+            $table->string('received_by')->nullable();
+            $table->string('prepared_by')->nullable();
+            $table->string('signatory_id')->nullable();
             $table->text('signatory')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->string('created_by')->nullable();
             $table->text('notes')->nullable();
             $table->text('update_remarks')->nullable();
 

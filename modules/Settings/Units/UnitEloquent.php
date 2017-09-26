@@ -14,12 +14,17 @@ class UnitEloquent extends Model
      */
     protected $table = 'units';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'name',
         'pcco_id',
         'coa_address',

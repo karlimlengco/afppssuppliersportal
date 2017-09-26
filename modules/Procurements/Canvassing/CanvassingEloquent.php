@@ -32,6 +32,10 @@ class CanvassingEloquent extends Model implements  AuditableContract
         'secretary_signatory',
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The database table used by the model.
      *
@@ -45,6 +49,7 @@ class CanvassingEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'id',
         'canvass_date',
         'adjourned_time',
         'closebox_time',

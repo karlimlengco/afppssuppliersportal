@@ -14,9 +14,9 @@ class CreateUserLogs extends Migration
     public function up()
     {
         Schema::create('user_logs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('audit_id');
-            $table->integer('admin_id');
+            $table->uuid('id');
+            $table->string('audit_id');
+            $table->string('admin_id');
             $table->integer('is_viewed')->nullable();
             $table->timestamps();
         });

@@ -14,19 +14,19 @@ class CreateNoticeOfAwards extends Migration
     public function up()
     {
         Schema::create('notice_of_awards', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('canvass_id')->nullable();
-            $table->integer('post_qual_id')->nullable();
-            $table->integer('rfq_id')->nullable();
-            $table->integer('upr_id');
+            $table->uuid('id');
+            $table->string('canvass_id')->nullable();
+            $table->string('post_qual_id')->nullable();
+            $table->string('rfq_id')->nullable();
+            $table->string('upr_id');
             $table->string('rfq_number')->nullable();
             $table->string('upr_number')->nullable();
-            $table->integer('signatory_id')->nullable();
+            $table->string('signatory_id')->nullable();
             $table->text('signatory')->nullable();
-            $table->integer('proponent_id');
+            $table->string('proponent_id');
 
-            $table->integer('awarded_by')->nullable();
-            $table->integer('seconded_by')->nullable();
+            $table->string('awarded_by')->nullable();
+            $table->string('seconded_by')->nullable();
             $table->string('resolution')->nullable();
 
             $table->timestamp('awarded_date')->nullable();

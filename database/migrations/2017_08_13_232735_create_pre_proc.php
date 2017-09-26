@@ -14,8 +14,8 @@ class CreatePreProc extends Migration
     public function up()
     {
         Schema::create('pre_proc', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('upr_id');
+            $table->uuid('id');
+            $table->string('upr_id');
             $table->string('upr_number')->nullable();
             $table->string('ref_number')->nullable();
             $table->date('pre_proc_date')->nullable();
@@ -25,7 +25,7 @@ class CreatePreProc extends Migration
             $table->text('action')->nullable();
             $table->text('update_remarks')->nullable();
             $table->integer('days')->nullable();
-            $table->integer('processed_by')->nullable();
+            $table->string('processed_by')->nullable();
             $table->timestamps();
         });
     }

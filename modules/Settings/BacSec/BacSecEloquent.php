@@ -14,12 +14,17 @@ class BacSecEloquent extends Model
      */
     protected $table = 'bacsec';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'name',
         'description',
     ];

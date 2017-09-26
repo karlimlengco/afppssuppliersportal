@@ -20,6 +20,7 @@ class SupplierEloquent extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'name',
         'owner',
         'address',
@@ -41,6 +42,10 @@ class SupplierEloquent extends Model
         'is_blocked',
         'date_blocked',
         'blocked_remarks',
+    ];
+
+    protected $casts = [
+        'id' => 'string'
     ];
 
     /**

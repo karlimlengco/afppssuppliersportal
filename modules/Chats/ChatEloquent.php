@@ -16,12 +16,17 @@ class ChatEloquent extends Model
 
     protected $with =   ['sender', 'receiver', 'lastMessage', 'messages'];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'id',
         'sender_id',
         'title',
         'upr_id',
