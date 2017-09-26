@@ -969,16 +969,18 @@ class VoucherController extends Controller
         {
             $winner     =   $noa_model->biddingWinner->supplier;
         }
-
+        $certifier                     =   explode('/', $result->certified_signatory);
+        $approver                      =   explode('/', $result->approver_signatory);
+        $receiver                      =   explode('/', $result->receiver_signatory);
         $header                     =  $headers->findByUnit($result->upr->units);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']       =   $result->transaction_date;
         $data['bir_address']            =   $result->bir_address;
         $data['final_tax']              =   $result->final_tax;
-        $data['receiver']               =   $result->receiver;
+        $data['receiver']               =   $receiver;
         $data['or']                     =   $result->or;
-        $data['approver']               =   $result->approver;
-        $data['certifier']              =   $result->certifier;
+        $data['approver']               =   $approver;
+        $data['certifier']              =   $certifier;
         $data['expanded_witholding_tax']=   $result->expanded_witholding_tax;
         $data['ewt_amount']             =   $result->ewt_amount;
         $data['final_tax_amount']       =   $result->final_tax_amount;
@@ -996,7 +998,7 @@ class VoucherController extends Controller
         $data['bid_amount']             =   $result->upr->purchase_order->bid_amount;
         $data['items']                  =   $result->upr->items;
         $data['po_type']                =   $result->upr->purchase_order->type;
-        $data['po_number']                =   $result->upr->purchase_order->po_number;
+        $data['po_number']              =   $result->upr->purchase_order->po_number;
         $ntp_date                       =   Carbon::createFromFormat('!Y-m-d',$data['ntp_date']);
         $delivery_date                  =   Carbon::createFromFormat('!Y-m-d',$data['delivery_date']);
 
@@ -1054,15 +1056,19 @@ class VoucherController extends Controller
             $winner     =   $noa_model->biddingWinner->supplier;
         }
 
+
+        $certifier                     =   explode('/', $result->certified_signatory);
+        $approver                      =   explode('/', $result->approver_signatory);
+        $receiver                      =   explode('/', $result->receiver_signatory);
         $header                     =  $headers->findByUnit($result->upr->units);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']       =   $result->transaction_date;
         $data['bir_address']            =   $result->bir_address;
         $data['final_tax']              =   $result->final_tax;
-        $data['receiver']               =   $result->receiver;
+        $data['receiver']               =   $receiver;
         $data['or']                     =   $result->or;
-        $data['approver']               =   $result->approver;
-        $data['certifier']              =   $result->certifier;
+        $data['approver']               =   $approver;
+        $data['certifier']              =   $certifier;
         $data['amount']                 =   $result->amount;
         $data['payee']                  =   $winner;
         $data['upr']                    =   $noa_model->upr;

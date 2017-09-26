@@ -315,14 +315,6 @@
                                 {{-- @endif --}}
                             </td>
                             <td width="10%"></td>
-                            <td class="align-bottom" width="45%"></td>
-                        </tr>
-                        <tr>
-                            <td class="align-bottom align-left" height="80px">
-                                <strong>{{$data['chief_signatory'][1]}} {{$data['chief_signatory'][0]}} {{$data['chief_signatory'][2]}}</strong><br>
-                                {{$data['chief_signatory'][3]}}
-                            </td>
-                            <td></td>
                             <td class="align-bottom align-left" height="80px">
                                 <strong>{{$data['unit_head_signatory'][1]}} {{$data['unit_head_signatory'][0]}} {{$data['unit_head_signatory'][2]}}</strong><br>
                                 {{$data['unit_head_signatory'][3]}}

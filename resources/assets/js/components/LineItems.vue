@@ -44,91 +44,93 @@
                 </tr>
             </thead>
             <tbody>
-            <tr v-for="(codes, index) in accounts">
-                <tr>
-                    <td class="row align-left" colspan="6">
-                        <h3 class="align-left" v-model="codes.code">{{ codes.code }}</h3>
-                    </td>
-                </tr>
-            </tr>
-            <tr v-for="(items, index) in model">
+            <template v-for="(codes, index) in accounts">
 
-                <td class="row">
-                    <p v-if="readonly">{{ items.item_description }}</p>
-                    <input type="text"
-                      placeholder="Item Description"
-                      class="input"
-                      :name="'items[' + index + '][item_description]'"
-                      v-validate="'required'"
-                      v-if="!readonly"
-                      v-model="items.item_description">
-                </td>
-                <!-- <td class="row"> -->
-                    <p v-if="readonly">{{ items.new_account_code }}</p>
-                    <input type="text"
-                      class="input"
-                      style="display:none"
-                      readOnly
-                      :name="'items[' + index + '][new_account_code]'"
-                      v-validate="'required'"
-                      v-if="!readonly"
-                      v-model="items.new_account_code">
-                <!-- </td> -->
-                <td class="row">
-                    <p v-if="readonly">{{ items.quantity }}</p>
-                    <input type="text"
-                      class="input"
-                      :name="'items[' + index + '][quantity]'"
-                      v-validate="'required'"
-                      v-if="!readonly"
-                      v-model="items.quantity">
-                </td>
-                <td class="row">
-                    <p v-if="readonly">{{ items.unit_measurement }}</p>
-                    <input type="text"
-                      class="input"
-                      :name="'items[' + index + '][unit_measurement]'"
-                      v-validate="'required'"
-                      v-if="!readonly"
-                      v-model="items.unit_measurement">
-                </td>
-                <td class="row">
-                    <p v-if="readonly">{{ items.unit_price }}</p>
-                    <input type="text"
-                      class="input"
-                      :name="'items[' + index + '][unit_price]'"
-                      v-validate="'required'"
-                      v-if="!readonly"
-                      v-model="items.unit_price">
-                </td>
-                <td class="row">
-                    <p v-if="readonly">{{ items.total_amount }}</p>
-                    <input type="text"
-                      class="input"
-                      :name="'items[' + index + '][total_amount]'"
-                      v-validate="'required'"
-                      v-if="!readonly"
-                      v-model="items.total_amount">
-                </td>
-                <td>
-                    <button
-                      v-if="!readonly"
-                      @click.stop.prevent="deleteItem(index)"
-                      class="button">
-                      <i class="nc-icon-outline ui-1_simple-remove"></i>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="7">
-                        <button v-if="account_codeId != null" class="button" @click.prevent="addItem">Add Item</button>
-                        <button  class="button" @click.prevent="addAccount">Add Account Code</button>
+              <tr>
+                  <tr>
+                      <td class="row align-left" colspan="6" style="padding-bottom:0; margin-bottom:0">
+                          <h5 class="align-left" v-model="codes.code">{{ codes.code }}</h5>
+                      </td>
+                  </tr>
+              </tr>
+              <template v-for="(items, index) in model">
+                <tr   v-if="codes.id == items.new_account_code">
+                    <td class="row">
+                        <p v-if="readonly">{{ items.item_description }}</p>
+                        <input type="text"
+                          placeholder="Item Description"
+                          class="input"
+                          :name="'items[' + index + '][item_description]'"
+                          v-validate="'required'"
+                          v-if="!readonly"
+                          v-model="items.item_description">
+                    </td>
+                    <!-- <td class="row"> -->
+                        <p v-if="readonly">{{ items.new_account_code }}</p>
+                        <input type="text"
+                          class="input"
+                          style="display:none"
+                          readOnly
+                          :name="'items[' + index + '][new_account_code]'"
+                          v-validate="'required'"
+                          v-if="!readonly"
+                          v-model="items.new_account_code">
+                    <!-- </td> -->
+                    <td class="row">
+                        <p v-if="readonly">{{ items.quantity }}</p>
+                        <input type="text"
+                          class="input"
+                          :name="'items[' + index + '][quantity]'"
+                          v-validate="'required'"
+                          v-if="!readonly"
+                          v-model="items.quantity">
+                    </td>
+                    <td class="row">
+                        <p v-if="readonly">{{ items.unit_measurement }}</p>
+                        <input type="text"
+                          class="input"
+                          :name="'items[' + index + '][unit_measurement]'"
+                          v-validate="'required'"
+                          v-if="!readonly"
+                          v-model="items.unit_measurement">
+                    </td>
+                    <td class="row">
+                        <p v-if="readonly">{{ items.unit_price }}</p>
+                        <input type="text"
+                          class="input"
+                          :name="'items[' + index + '][unit_price]'"
+                          v-validate="'required'"
+                          v-if="!readonly"
+                          v-model="items.unit_price">
+                    </td>
+                    <td class="row">
+                        <p v-if="readonly">{{ items.total_amount }}</p>
+                        <input type="text"
+                          class="input"
+                          :name="'items[' + index + '][total_amount]'"
+                          v-validate="'required'"
+                          v-if="!readonly"
+                          v-model="items.total_amount">
+                    </td>
+                    <td>
+                        <button
+                          v-if="!readonly"
+                          @click.stop.prevent="deleteItem(index)"
+                          class="button">
+                          <i class="nc-icon-outline ui-1_simple-remove"></i>
+                        </button>
                     </td>
                 </tr>
-            </tfoot>
+              </template>
+            </template>
+
+            </tbody>
+
         </table>
+        <div class="row">
+          <button v-if="account_codeId != null" class="button" @click.prevent="addItem">Add Item</button>
+          <button  class="button" @click.prevent="addAccount">Add Account Code</button>
+        </div>
     <!-- Footer -->
     </div>
 </div>
@@ -179,7 +181,8 @@
         $('#add-account-code-modal').removeClass('is-visible');
 
         this.accounts.push({
-          code: code
+          code: code,
+          id: this.account_codeId
         })
       },
       closeModal () {

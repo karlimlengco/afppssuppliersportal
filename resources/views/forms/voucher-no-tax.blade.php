@@ -128,8 +128,11 @@
                         </tr>
                         <tr>
                             <td class="v-align-bottom align-center" height="80px">
-                                <strong>MAJ STEFFANI C CIMINI PA</strong><br>
-                                MFO, OCSAFP<br>
+
+                                @if($data['certifier'] != null)
+                                <strong>{{$data['certifier'][1]}} {{$data['certifier'][0]}} {{$data['certifier'][2]}}</strong><br>
+                                {{$data['certifier'][3]}}<br>
+                                @endif
                                 Printed Name, Designation and Signature of Supervisor
                             </td>
                         </tr>
@@ -200,15 +203,34 @@
                         </tr>
                         <tr>
                             <td class="align-center">Printed Name</td>
-                            <td class="align-center"><strong>NILO B ABAIGAR, DPA</strong></td>
+                            <td class="align-center"><strong>
+
+                            @if($data['receiver'] != null)
+                            {{$data['receiver'][1]}} {{$data['receiver'][0]}} {{$data['receiver'][2]}}
+                            @endif
+                            </strong></td>
                             <td class="align-center">Printed Name</td>
-                            <td class="align-center"><strong>CDR FRANKLIN B ROTONI PN</strong></td>
+                            <td class="align-center"><strong>
+
+                            @if($data['approver'] != null)
+                            {{$data['approver'][1]}} {{$data['approver'][0]}} {{$data['approver'][2]}}
+                            @endif
+                            </strong></td>
                         </tr>
                         <tr>
                             <td class="align-center v-align-middle" rowspan="2">Position</td>
-                            <td class="align-center">CHIEF ACCOUNTANT</td>
+                            <td class="align-center">
+                              @if($data['receiver'] != null)
+                                 {{$data['receiver'][3]}}
+                              @endif
+                            </td>
                             <td class="align-center v-align-middle" rowspan="2">Position</td>
-                            <td class="align-center">CO, GHQPC, AFPPS</td>
+                            <td class="align-center">
+
+                              @if($data['approver'] != null)
+                                 {{$data['approver'][3]}}
+                              @endif
+                            </td>
                         </tr>
                         <tr>
                             <td class="align-center">Head, Accounting Unit/Authorized Representative</td>

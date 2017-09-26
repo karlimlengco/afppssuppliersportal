@@ -285,11 +285,11 @@ class ISPQController extends Controller
 
         if(\Sentinel::getUser()->units != null)
         {
-            $center     =   \Sentinel::getUser()->units->centers;
+            $center       =   \Sentinel::getUser()->units->centers;
             $center1     =   \Sentinel::getUser()->units->id;
+            $header      =  $headers->findByUnit($center1);
         }
-        $header                     =  $headers->findByUnit($center1);
-        $data['unitHeader']         =  ($header) ? $header->content : "" ;
+        $data['unitHeader']         =  (isset($header)) ? $header->content : "" ;
 
         $data['transaction_date']   =  $result->transaction_date;
         $data['venue']              =  $result->venue;

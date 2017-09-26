@@ -29,6 +29,19 @@ class InspectionAndAcceptanceEloquent extends Model implements  AuditableContrac
         'id' => 'string'
     ];
 
+    public $incrementing = false;
+
+    /**
+     *  Setup model event hooks
+     */
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->id = (string) \Uuid::generate();
+        });
+    }
+
     /**
      * The database table used by the model.
      *

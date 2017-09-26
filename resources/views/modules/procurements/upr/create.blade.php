@@ -44,31 +44,31 @@ Unit Purchase Request
     <div class="twelve columns">
             <div class="row">
                 <div class="four columns">
+                    {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center, ($user->units) ? $user->units->pcco_id : "" ) !!}
+                </div>
+                <div class="four columns">
+                    {!! Form::selectField('units', 'Units', $unit, ($user) ? $user->unit_id : "") !!}
+                </div>
+                <div class="four columns">
                     {!! Form::textField('project_name', 'Project Name') !!}
                 </div>
+            </div>
+
+            <div class="row">
                 <div class="four columns">
                     {!! Form::textField('upr_number', 'UPR Number') !!}
                 </div>
                 <div class="four columns">
                     {!! Form::textField('place_of_delivery', 'Place Of Delivery') !!}
                 </div>
-            </div>
-
-            <div class="row">
                 <div class="four columns">
                     {!! Form::textField('date_prepared', 'Date Prepared') !!}
                 </div>
-                <div class="four columns">
-                    {!! Form::selectField('units', 'Units', $unit, ($user) ? $user->unit_id : "") !!}
-                </div>
-                <div class="four columns">
-                    {!! Form::selectField('procurement_type', 'Procurement Program/Project', $procurement_types) !!}
-                </div>
             </div>
 
             <div class="row">
                 <div class="four columns">
-                    {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center, ($user->units) ? $user->units->pcco_id : "" ) !!}
+                    {!! Form::selectField('procurement_type', 'Procurement Program/Project', $procurement_types) !!}
                 </div>
                 <div class="four columns">
                     {!! Form::selectField('mode_of_procurement', 'Mode of Procurement', ['public_bidding' => 'Public Bidding'] + $procurement_modes) !!}

@@ -15,7 +15,7 @@ class CreateInvitationForQuotation extends Migration
     {
         Schema::create('invitation_for_quotation', function (Blueprint $table) {
             $table->uuid('id');
-            $table->integer('signatory_id');
+            $table->string('signatory_id');
             $table->text('signatory_text')->nullable();
             $table->text('venue');
             $table->date('transaction_date');
@@ -23,7 +23,7 @@ class CreateInvitationForQuotation extends Migration
             $table->text('remarks')->nullable();
             $table->text('update_remarks')->nullable();
             $table->integer('days')->nullable();
-            $table->integer('prepared_by')->nullable();
+            $table->string('prepared_by')->nullable();
             $table->timestamps();
         });
     }

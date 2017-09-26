@@ -14,6 +14,19 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
         'id' => 'string'
     ];
 
+    public $incrementing = false;
+
+    /**
+     *  Setup model event hooks
+     */
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->id = (string) \Uuid::generate();
+        });
+    }
+
     /**
      * Attributes to include in the Audit.
      *
@@ -76,7 +89,6 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
-        'id',
         'place_of_delivery',
         'procurement_office',
         'mode_of_procurement',

@@ -643,6 +643,7 @@ class PurchaseOrderController extends Controller
                 if($noa_model->upr->mode_of_procurement != 'public_bidding')
                 {
                     $item_datas[]  =   [
+                        'id'                    =>  (string) \Uuid::generate(),
                         'description'           =>  $items['item_description'][$i],
                         'quantity'              =>  $items['quantity'][$i],
                         'unit'                  =>  $items['unit_measurement'][$i],
@@ -657,6 +658,7 @@ class PurchaseOrderController extends Controller
                 {
 
                     $item_datas[]  =   [
+                        'id'                    =>  (string) \Uuid::generate(),
                         'description'           =>  $items['item_description'][$i],
                         'quantity'              =>  $items['quantity'][$i],
                         'unit'                  =>  $items['unit_measurement'][$i],
@@ -742,6 +744,7 @@ class PurchaseOrderController extends Controller
         {
             for ($i=0; $i < count($items['item_description']); $i++) {
                 $item_datas[]  =   [
+                    'id'                    =>  (string) \Uuid::generate(),
                     'description'           =>  $items['item_description'][$i],
                     'quantity'              =>  $items['quantity'][$i],
                     'unit'                  =>  $items['unit_measurement'][$i],

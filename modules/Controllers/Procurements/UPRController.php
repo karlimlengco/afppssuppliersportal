@@ -267,8 +267,6 @@ class UPRController extends Controller
             $procs['next_due']      =   $transaction_date->addDays(1);
         }
 
-        $procs['id']                =   Uuid::generate()->string;
-
         $result = $model->save($procs);
 
         $counts                 =   $model->getCountByYear($date->format('Y'))->total;
@@ -284,7 +282,7 @@ class UPRController extends Controller
 
         $ref_name   =   str_replace(" ", "", $ref_name);
 
-        $model->update(['ref_number' => $ref_name], $procs['id'] );
+        $model->update(['ref_number' => $ref_name], $result->id );
 
         if($result)
         {
@@ -301,7 +299,7 @@ class UPRController extends Controller
                     'ref_number'            =>  $request->get('ref_number'),
                     'prepared_by'           =>  $prepared_by,
                     'date_prepared'         =>  $request->get('date_prepared'),
-                    'upr_id'                =>  $procs['id'],
+                    'upr_id'                =>  $result->id,
                     'id'                    =>  Uuid::generate()->string
                 ];
             }
@@ -310,7 +308,7 @@ class UPRController extends Controller
         }
         event(new Event($result, "UPR Created"));
 
-        return redirect()->route($this->baseUrl.'show', $procs['id'] )->with([
+        return redirect()->route($this->baseUrl.'show', $result->id )->with([
             'success'  => "New record has been successfully added."
         ]);
     }
