@@ -28,5 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Permissions::class);
         $this->call(Roles::class);
         $this->call(BacSec::class);
+        $this->call(HeaderSeeder::class);
+        $this->call(PCCOHeader::class);
     }
 }
