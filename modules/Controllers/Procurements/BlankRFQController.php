@@ -11,6 +11,7 @@ use \App\Support\Breadcrumb;
 use App\Events\Event;
 
 use \Revlv\Settings\Forms\Header\HeaderRepository;
+use \Revlv\Settings\Forms\PCCOHeader\PCCOHeaderRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\UpdateRequest;
@@ -46,6 +47,7 @@ class BlankRFQController extends Controller
     protected $holidays;
     protected $userLogs;
     protected $headers;
+    protected $pccoHeaders;
 
     /**
      * [$model description]
@@ -485,11 +487,11 @@ class BlankRFQController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint($id, BlankRFQRepository $model, RFQRepository $rfqForms, HeaderRepository $headers)
+    public function viewPrint($id, BlankRFQRepository $model, RFQRepository $rfqForms, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
     {
         $result     =   $model->with(['upr'])->findById($id);
 
-        $header                     =  $headers->findByUnit($result->upr->units);
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         $data['chief']              =  explode('/', $result->signatory_chief);

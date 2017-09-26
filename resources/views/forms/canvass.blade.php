@@ -62,14 +62,14 @@
                             <td class="align-middle" width="20%"><strong>Name of Supplier</strong></td>
                             <td width="20%">{{$data['proponents'][0]->supplier->name}}</td>
                             <td width="20%">{{$data['proponents'][1]->supplier->name}}</td>
-                            <td width="20%">{{$data['proponents'][2]->supplier->name}}</td>
+                            <td width="20%"> @if(isset($data['proponents'][2])) {{$data['proponents'][2]->supplier->name}} @endif </td>
                             <td class="align-middle" width="20%">Remarks (Lowest Price Quotation/Proposal)</td>
                         </tr>
                         <tr>
                             <td><strong>Canvass Amount</strong></td>
                             <td>PHP {{formatPrice($data['proponents'][0]->bid_amount)}}</td>
                             <td>PHP {{formatPrice($data['proponents'][1]->bid_amount)}}</td>
-                            <td>PHP {{formatPrice($data['proponents'][2]->bid_amount)}}</td>
+                            <td> @if(isset($data['proponents'][2])) PHP {{formatPrice($data['proponents'][2]->bid_amount)}} @endif </td>
                             <td rowspan="4" class="v-align-middle align-center"><strong>{{$data['proponents'][0]->supplier->name}}</strong></td>
                         </tr>
                         <tr>
@@ -110,6 +110,7 @@
                                 @endif
                             </td>
                             <td class="align-center">
+                                @if(isset($data['proponents'][2]))
                                 @if($data['proponents'][2]->supplier->attachmentByType("dti") != null && $data['proponents'][2]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
 
                                     <span>
@@ -125,6 +126,7 @@
 
                                      @else
                                          failed
+                                @endif
                                 @endif
                             </td>
                         </tr>
@@ -168,6 +170,7 @@
                             </td>
 
                             <td class="align-center">
+                                @if(isset($data['proponents'][2]))
                                 @if($data['proponents'][2]->supplier->attachmentByType("mayors_permit") != null && $data['proponents'][2]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'] == 1)
                                     <span>
                                     {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][2]->supplier->attachmentByType("mayors_permit")->issued_date )->format('d F Y')}}
@@ -182,6 +185,7 @@
 
                                      @else
                                         failed
+                                @endif
                                 @endif
                             </td>
                         </tr>
@@ -224,6 +228,7 @@
                             </td>
 
                             <td class="align-center">
+                                @if(isset($data['proponents'][2]))
                                 @if($data['proponents'][2]->supplier->attachmentByType("tax_clearance") != null && $data['proponents'][2]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'])
                                     <span>
                                     {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][2]->supplier->attachmentByType("tax_clearance")->issued_date )->format('d F Y')}}
@@ -238,6 +243,7 @@
 
                                      @else
                                          failed
+                                @endif
                                 @endif
                             </td>
                         </tr>
@@ -280,6 +286,7 @@
                             </td>
 
                             <td class="align-center">
+                                @if(isset($data['proponents'][2]))
                                 @if($data['proponents'][2]->supplier->attachmentByType("philgeps_registraion") != null && $data['proponents'][2]->supplier->attachmentByType("philgeps_registraion")->validity_date >= $data['today'] == 1)
                                     <span>
                                     {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][2]->supplier->attachmentByType("philgeps_registraion")->issued_date )->format('d F Y')}}
@@ -295,6 +302,7 @@
                                      @else
                                          failed
                                 @endif
+                                @endif
                             </td>
                             <td rowspan="2" class="v-align-middle align-center"><strong>PHP {{formatPrice($data['proponents'][0]->bid_amount)}}</strong></td>
                         </tr>
@@ -302,7 +310,7 @@
                             <td><strong>Remarks</strong></td>
                             <td>{{$data['proponents'][0]->status}}</td>
                             <td>{{$data['proponents'][1]->status}}</td>
-                            <td>{{$data['proponents'][2]->status}}</td>
+                            <td> @if(isset($data['proponents'][2])) {{$data['proponents'][2]->status}} @endif</td>
                         </tr>
                     </table>
                     <p><strong>WE HEREBY CERTIFY</strong> that the Above Abstract of Canvass is correct and complying and therefore recommend the award to <strong>{{$data['proponents'][0]->supplier->name}}</strong> having the lowest and most responsive calculated price offer.</p>

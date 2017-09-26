@@ -14,6 +14,7 @@ use App\Events\Event;
 use Excel;
 
 use \Revlv\Settings\Forms\Header\HeaderRepository;
+use \Revlv\Settings\Forms\PCCOHeader\PCCOHeaderRepository;
 use \Revlv\Procurements\PurchaseOrder\PORepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\PurchaseOrder\Items\ItemRepository;
@@ -52,6 +53,7 @@ class PurchaseOrderController extends Controller
     protected $proponents;
     protected $signatories;
     protected $headers;
+    protected $pccoHeaders;
     protected $audits;
     protected $holidays;
     protected $users;
@@ -1038,11 +1040,11 @@ class PurchaseOrderController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrintContract($id, PORepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr, HeaderRepository $headers)
+    public function viewPrintContract($id, PORepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
     {
         $result                     =  $model->with(['rfq'])->findById($id);
         $upr_model                  =  $result->upr;
-        $header                     =  $headers->findByUnit($result->upr->units);
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         if($upr_model->mode_of_procurement == 'public_bidding')
@@ -1078,12 +1080,12 @@ class PurchaseOrderController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint($id, PORepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr, HeaderRepository $headers)
+    public function viewPrint($id, PORepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
     {
         $result                     =  $model->with(['terms','delivery','rfq','items'])->findById($id);
         $upr_model                  =  $upr->findById($result->upr_id);
 
-        $header                     =  $headers->findByUnit($result->upr->units);
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         if($upr_model->mode_of_procurement == 'public_bidding')
@@ -1141,12 +1143,12 @@ class PurchaseOrderController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrintCOA($id, PORepository $model, NOARepository $noa,  HeaderRepository $headers)
+    public function viewPrintCOA($id, PORepository $model, NOARepository $noa,  HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
     {
         $result                     =  $model->with(['coa_signatories','rfq','upr'])->findById($id);
         // $noa_model                  =   $noa->with('winner')->findByRFQ($result->rfq_id)->winner->supplier;
 
-        $header                     =  $headers->findByUnit($result->upr->units);
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         if($result->upr->mode_of_procurement == 'public_bidding')
         {
@@ -1157,10 +1159,11 @@ class PurchaseOrderController extends Controller
             $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
-        if($result->coa_signatories == null)
+        if($result->coa_name_signatory == null)
         {
             return redirect()->back()->with(['error' => 'Please add signatory for COA']);
         }
+
         $data['transaction_date']   =  $result->coa_approved_date;
         $data['rfq_number']         =  $result->rfq_number;
         $data['po_number']          =  $result->po_number;

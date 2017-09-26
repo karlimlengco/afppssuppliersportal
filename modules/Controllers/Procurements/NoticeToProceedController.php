@@ -12,6 +12,7 @@ use Validator;
 use App\Events\Event;
 
 use \Revlv\Settings\Forms\Header\HeaderRepository;
+use \Revlv\Settings\Forms\PCCOHeader\PCCOHeaderRepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\NoticeToProceed\NTPRepository;
 use \Revlv\Procurements\PurchaseOrder\PORepository;
@@ -43,6 +44,7 @@ class NoticeToProceedController extends Controller
      */
     protected $blank;
     protected $headers;
+    protected $pccoHeaders;
     protected $upr;
     protected $rfq;
     protected $po;
@@ -486,6 +488,7 @@ class NoticeToProceedController extends Controller
         NTPRepository $model,
         PORepository $po,
         HeaderRepository $headers,
+        PCCOHeaderRepository $pccoHeaders,
         UnitPurchaseRequestRepository $upr,
         BlankRFQRepository $blank,
         RFQProponentRepository $proponents)
@@ -510,7 +513,7 @@ class NoticeToProceedController extends Controller
         }
 
 
-        $header                     =  $headers->findByUnit($result->upr->units);
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']   =   $result->prepared_date;
         $data['supplier']           =   $supplier;

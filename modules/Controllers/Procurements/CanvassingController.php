@@ -14,6 +14,7 @@ use App\Events\Event;
 use \Revlv\Procurements\Canvassing\CanvassingRepository;
 use \Revlv\Procurements\Canvassing\Signatories\SignatoryRepository as CSignatoryRepository;
 use \Revlv\Settings\Forms\Header\HeaderRepository;
+use \Revlv\Settings\Forms\PCCOHeader\PCCOHeaderRepository;
 use \Revlv\Procurements\Canvassing\CanvassingRequest;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
@@ -49,6 +50,7 @@ class CanvassingController extends Controller
     protected $users;
     protected $userLogs;
     protected $headers;
+    protected $pccoHeaders;
 
     /**
      * [$model description]
@@ -569,14 +571,14 @@ class CanvassingController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint($id, CanvassingRepository $model, HeaderRepository $headers)
+    public function viewPrint($id, CanvassingRepository $model, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
     {
         $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
         $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
 
         $data['date']               =  $result->canvass_date." ". $result->canvass_time;
 
-        $header                     =  $headers->findByUnit($result->upr->units);
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         $data['rfq_number']         =  $result->rfq->rfq_number;
@@ -609,14 +611,15 @@ class CanvassingController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewCOP($id, CanvassingRepository $model, HeaderRepository $headers)
+    public function viewCOP($id, CanvassingRepository $model, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
     {
         $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
         $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
 
         $data['date']               =  $result->canvass_date." ". $result->canvass_time;
 
-        $header                     =  $headers->findByUnit($result->upr->units);
+
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         if($result->cop == 1)
@@ -666,14 +669,15 @@ class CanvassingController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewROP($id, CanvassingRepository $model, HeaderRepository $headers)
+    public function viewROP($id, CanvassingRepository $model, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
     {
         $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
         $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
 
         $data['date']               =  $result->canvass_date." ". $result->canvass_time;
 
-        $header                     =  $headers->findByUnit($result->upr->units);
+
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         $data['rfq_number']         =  $result->rfq->rfq_number;
@@ -725,7 +729,7 @@ class CanvassingController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewMOM($id, CanvassingRepository $model, HeaderRepository $headers)
+    public function viewMOM($id, CanvassingRepository $model, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
     {
         $result                 =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
 
@@ -734,7 +738,7 @@ class CanvassingController extends Controller
             return redirect()->back()->with(['error' => 'No winner']);
         }
 
-        $header                     =  $headers->findByUnit($result->upr->units);
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
         $data['other_attendees']=   $result->other_attendees;

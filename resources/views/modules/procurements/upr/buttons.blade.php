@@ -36,7 +36,7 @@
             <a href="#" class="button" id="philgeps-posting-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif
         @if($data->status == 'Invitation Created')
-            <a href="{{route('procurements.ispq.edit', $data->invitations->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+            <a href="{{route('procurements.ispq.edit', $data->invitations->ispq_id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
             @if($data->total_amount > 50000)
                 <span >PhilGeps Posting</span>

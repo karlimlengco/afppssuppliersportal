@@ -16,7 +16,7 @@ Form Header
 <div class="row">
     <div class="twelve columns">
         {!! Form::selectField('unit_id', 'Unit', $unit_lists) !!}
-        {!! Form::textareaField('content', 'Content') !!}
+        {!! Form::textareaField('content', 'Content', "HEADQUARTERS <br>1ST AIR DIVISION</br> <strong>Armed Forces of the Philippines Procurement Service</strong><br> Camp General Emilio Aguinaldo, Quezon City") !!}
 
     </div>
 </div>

@@ -23,6 +23,7 @@ use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Users\UserRepository;
 use Validator;
 use \Revlv\Settings\Forms\Header\HeaderRepository;
+use \Revlv\Settings\Forms\PCCOHeader\PCCOHeaderRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 
 class ISPQController extends Controller
@@ -49,6 +50,7 @@ class ISPQController extends Controller
     protected $users;
     protected $userLogs;
     protected $headers;
+    protected $pccoHeaders;
 
     /**
      * [$model description]
@@ -278,17 +280,11 @@ class ISPQController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint($id, ISPQRepository $model, HeaderRepository $headers)
+    public function viewPrint($id, ISPQRepository $model, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
     {
         $result     =   $model->with(['quotations'])->findById($id);
-        $center     =   '';
-
-        if(\Sentinel::getUser()->units != null)
-        {
-            $center       =   \Sentinel::getUser()->units->centers;
-            $center1     =   \Sentinel::getUser()->units->id;
-            $header      =  $headers->findByUnit($center1);
-        }
+        $center     =   $result->quotations->first()->upr->centers;
+        $header                     =  $pccoHeaders->findByPCCO($result->quotations->first()->upr->procurement_office);
         $data['unitHeader']         =  (isset($header)) ? $header->content : "" ;
 
         $data['transaction_date']   =  $result->transaction_date;

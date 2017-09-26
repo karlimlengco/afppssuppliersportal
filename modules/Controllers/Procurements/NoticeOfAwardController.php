@@ -23,6 +23,7 @@ use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use \Revlv\Users\UserRepository;
 use \Revlv\Settings\Forms\Header\HeaderRepository;
+use \Revlv\Settings\Forms\PCCOHeader\PCCOHeaderRepository;
 
 class NoticeOfAwardController extends Controller
 {
@@ -50,6 +51,7 @@ class NoticeOfAwardController extends Controller
     protected $users;
     protected $userLogs;
     protected $headers;
+    protected $pccoHeaders;
 
     /**
      * [$model description]
@@ -679,6 +681,7 @@ class NoticeOfAwardController extends Controller
         BlankRFQRepository $blank,
         NOARepository $noa,
         HeaderRepository $headers,
+        PCCOHeaderRepository $pccoHeaders,
         UnitPurchaseRequestRepository $upr,
         RFQProponentRepository $rfq)
     {
@@ -716,7 +719,7 @@ class NoticeOfAwardController extends Controller
         }
         $upr_model                  =   $upr->with(['unit'])->findById($noa_modal->upr_id);
 
-        $header                     =  $headers->findByUnit($noa_modal->upr->units);
+        $header                     =  $pccoHeaders->findByPCCO($noa_modal->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']   =   $noa_modal->awarded_date;
         $data['supplier']           =   $proponent_awardee;
