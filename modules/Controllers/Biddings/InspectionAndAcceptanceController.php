@@ -13,6 +13,7 @@ use Validator;
 use App\Events\Event;
 
 use \Revlv\Settings\Forms\Header\HeaderRepository;
+use \Revlv\Settings\Forms\PCCOHeader\PCCOHeaderRepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
@@ -57,6 +58,7 @@ class InspectionAndAcceptanceController extends Controller
     protected $users;
     protected $userLogs;
     protected $headers;
+    protected $pccoHeaders;
 
     /**
      * @param model $model
@@ -579,6 +581,7 @@ class InspectionAndAcceptanceController extends Controller
         InspectionAndAcceptanceRepository $model,
         DeliveryOrderRepository $delivery,
         HeaderRepository $headers,
+        PCCOHeaderRepository $pccoHeaders,
         NOARepository $noa
         )
     {
@@ -600,7 +603,7 @@ class InspectionAndAcceptanceController extends Controller
             $noa_model           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
-        $header                     =  $headers->findByUnit($result->upr->units);
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['po_number']          =  $result->po->po_number;
         $data['header']             =  $result->upr->centers;

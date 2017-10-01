@@ -95,8 +95,8 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
      *
      * @var array
      */
-    protected $hidden = ['remember_token'];
-    // protected $hidden = ['password', 'remember_token'];
+    // protected $hidden = ['remember_token'];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
      * {@inheritDoc}
