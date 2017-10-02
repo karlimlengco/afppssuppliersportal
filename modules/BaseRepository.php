@@ -183,10 +183,11 @@ abstract class BaseRepository
      *
      * @return mixed
      */
-    public function all()
+    public function all($relations = [])
     {
         return $this
             ->applyQueryFilter($this->query())
+            ->with($relations)
             ->get();
     }
 

@@ -298,6 +298,8 @@ class InspectionAndAcceptanceController extends Controller
             $invoices                   =   [];
             for ($i=0; $i < count($items['invoice_number']); $i++) {
                 $invoices[]  =   [
+
+                    'id'                =>  (string) \Uuid::generate(),
                     'invoice_number'    =>  $items['invoice_number'][$i],
                     'invoice_date'      =>  $items['invoice_date'][$i],
                     'acceptance_id'     =>  $result->id,
