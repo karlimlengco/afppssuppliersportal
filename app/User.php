@@ -42,6 +42,7 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
     protected $casts = [
         'unit_id' => 'string'
     ];
+    public $incrementing = false;
 
     /**
      * The database table used by the model.
