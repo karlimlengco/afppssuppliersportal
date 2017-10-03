@@ -26,12 +26,29 @@ class BidOpeningEloquent extends Model implements  AuditableContract
         'remarks',
     ];
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     /**
      * The database table used by the model.
      *
      * @var string
      */
     protected $table = 'bid_opening';
+
+    public $incrementing = false;
+
+    /**
+     *  Setup model event hooks
+     */
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->id = (string) \Uuid::generate();
+        });
+    }
 
     /**
      * The attributes that are mass assignable.

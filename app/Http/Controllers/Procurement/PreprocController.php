@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Procurement;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use JWTAuth;
-use \Revlv\Procurements\InspectionAndAcceptance\Invoices\InvoiceRepository;
+use Revlv\Biddings\PreProc\PreProcRepository;
 
-class IAARInvoiceController extends ApiController
+class PreprocController extends ApiController
 {
     protected $model;
 
-    public function index(Request $request, InvoiceRepository $model)
+    public function index(Request $request, PreProcRepository $model)
     {
         $unitList = $model->all();
 
@@ -24,10 +24,10 @@ class IAARInvoiceController extends ApiController
      * [store description]
      *
      * @param  Request        $request [description]
-     * @param  InvoiceRepository $model    [description]
+     * @param  PreProcRepository $model    [description]
      * @return [type]                  [description]
      */
-    public function store(Request $request, InvoiceRepository $model)
+    public function store(Request $request, PreProcRepository $model)
     {
         foreach($request->model as $data)
         {

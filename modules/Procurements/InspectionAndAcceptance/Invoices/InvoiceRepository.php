@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class InvoiceRepository extends BaseRepository
 {
-    use  DatatableTrait;
-
     /**
      * Specify Model class name
      *

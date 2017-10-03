@@ -151,7 +151,6 @@ class UserController extends Controller
     public function store(UserCreateRequest $request)
     {
         $inputs                 =   $request->getData();
-        $inputs['uuid']         =   \Uuid::generate()->string;
 
         $user = $this->userRepository->create($inputs);
 

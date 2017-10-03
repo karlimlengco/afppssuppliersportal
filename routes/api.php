@@ -62,6 +62,17 @@ Route::group(['middleware' => ['api']], function () {
         Route::resource('purchase-orders', 'Procurement\POController');
         Route::resource('purchase-orders-item', 'Procurement\POItemController');
         Route::resource('iaar-invoice', 'Procurement\IAARInvoiceController');
+        Route::resource('diir', 'Procurement\DIIRController');
+        Route::resource('diir-issue', 'Procurement\DIIRIssueController');
+        Route::resource('vouchers', 'Procurement\VoucherController');
+
+        Route::resource('document-acceptance', 'Procurement\DocumentAcceptanceController');
+        Route::resource('preproc', 'Procurement\PreprocController');
+        Route::resource('itb', 'Procurement\ITBController');
+        Route::resource('bid-docs', 'Procurement\BidsController');
+        Route::resource('pre-bid', 'Procurement\PrebidController');
+        Route::resource('sobe', 'Procurement\SOBEController');
+        Route::resource('post-qual', 'Procurement\PostController');
     });
 
 });
