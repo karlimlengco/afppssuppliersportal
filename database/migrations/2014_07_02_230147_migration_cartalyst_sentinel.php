@@ -32,7 +32,7 @@ class MigrationCartalystSentinel extends Migration
     {
         Schema::create('activations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id')->unsigned();
+            $table->string('user_id');
             $table->string('code');
             $table->boolean('completed')->default(0);
             $table->timestamp('completed_at')->nullable();
@@ -43,7 +43,7 @@ class MigrationCartalystSentinel extends Migration
 
         Schema::create('persistences', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id')->unsigned();
+            $table->string('user_id');
             $table->string('code');
             $table->timestamps();
 
@@ -53,7 +53,7 @@ class MigrationCartalystSentinel extends Migration
 
         Schema::create('reminders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id')->unsigned();
+            $table->string('user_id');
             $table->string('code');
             $table->boolean('completed')->default(0);
             $table->timestamp('completed_at')->nullable();
@@ -84,7 +84,7 @@ class MigrationCartalystSentinel extends Migration
 
         Schema::create('throttle', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id')->unsigned()->nullable();
+            $table->string('user_id')->nullable();
             $table->string('type');
             $table->string('ip')->nullable();
             $table->timestamps();
