@@ -101,7 +101,10 @@ class UPRController extends Controller
         $center =   0;
         if($user->units)
         {
-            $center =   $user->units->centers->id;
+            if($user->units->centers)
+            {
+                $center =   $user->units->centers->id;
+            }
         }
 
         return $model->getDatatable($center);
@@ -127,7 +130,7 @@ class UPRController extends Controller
         {
             if($user->units->centers)
             {
-              $center =   $user->units->centers->id;
+                $center =   $user->units->centers->id;
             }
         }
 
