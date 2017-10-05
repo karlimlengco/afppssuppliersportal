@@ -331,6 +331,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
         $model  =   $model->where('state', '!=', 'completed');
         $model  =   $model->where('state', '!=', 'Terminated pass');
         $model  =   $model->where('state', '!=', 'Terminated failed');
+        $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
         $model  =   $model->groupBy([
             'unit_purchase_requests.id',
@@ -502,6 +503,8 @@ class UnitPurchaseRequestRepository extends BaseRepository
         // $model  =   $model->where('procurement_centers.name', '=', $name);
         // $model  =   $model->where('catered_units.short_code', '=', $programs);
         $model  =   $model->where('procurement_centers.programs', '=', $programs);
+
+        $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
         if($status == 'completed')
         {

@@ -264,6 +264,7 @@ trait TransactionDaysTrait
         {
             $model  =   $model->where('unit_purchase_requests.upr_number', 'LIKE', "%$search%");
         }
+        $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
 
         if(!\Sentinel::getUser()->hasRole('Admin') )

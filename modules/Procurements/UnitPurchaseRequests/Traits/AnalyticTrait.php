@@ -59,6 +59,7 @@ trait AnalyticTrait
         {
             $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
         }
+        $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
         $model  =   $model->groupBy([
             'procurement_centers.programs',
@@ -144,6 +145,7 @@ trait AnalyticTrait
             $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
 
         }
+        $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
         $model  =   $model->groupBy([
             'procurement_centers.programs',
@@ -233,6 +235,7 @@ trait AnalyticTrait
 
             $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
         }
+        $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
         $model  =   $model->orderBy('delay_count','desc');
         $model  =   $model->orderBy('ongoing_count','asc');
@@ -319,6 +322,7 @@ trait AnalyticTrait
         {
             $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
         }
+        $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
 
         if(!\Sentinel::getUser()->hasRole('Admin') )
@@ -424,6 +428,7 @@ trait AnalyticTrait
         {
             $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
         }
+        $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
         $model  =   $model->groupBy([
             'procurement_centers.programs',
@@ -504,6 +509,7 @@ trait AnalyticTrait
         {
             $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
         }
+        $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
         $model  =   $model->groupBy([
             'procurement_centers.name',
@@ -589,6 +595,7 @@ trait AnalyticTrait
         {
             $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
         }
+        $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
         $model  =   $model->groupBy([
             'procurement_centers.name',

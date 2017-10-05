@@ -81,39 +81,40 @@ trait ImportTrait
 
         $data           =   [];
         $reader         =   Excel::load($path, function($reader) {});
+        // Loop through all sheets
         // $reader->formatDates(true, 'd F Y');
         // $fields         =   $reader->limitColumns(10)->get();
-        $fields         =   $reader->limitColumns(10)->limitRows(10)->get();
-        $items          =   $reader->skipRows(12)->limitColumns(10)->get();
-        // dd($fields);
+        $fields         =   $reader->limitColumns(10)->limitRows(97)->get();
+        $items          =   $reader->skipRows(97)->limitColumns(10)->get();
         $array          =   [];
         $itemArray      =   [];
 
         $array['units'] =   \Sentinel::getUser()->unit_id;
 
-        foreach($fields->toArray() as $row)
+        foreach($fields->toArray() as $key => $row)
         {
+            $val = $key + 3;
             switch ($row[0]) {
                 case 'UPR NO':
-                    $array['upr_number'] = $row[2];
+                    $array['upr_number'] = $fields->toArray()[$val][0];
                     break;
                 case 'DATE PREPARED':
-                    $date   =   \Carbon\Carbon::createFromFormat('m-d-Y h:i: A', ($row[2]));
+                    $date   =   \Carbon\Carbon::createFromFormat('Y-m-d', ($fields->toArray()[$val][0]));
                     $array['date_prepared'] = $date;
                     break;
                 case 'PROJECT NAME':
-                    $array['project_name'] = $row[2];
+                    $array['project_name'] = $fields->toArray()[$val][0];
                     break;
                 case 'Procurement Center / Office':
-                    $centerModel    =   $centers->findByName($row[2]);
+                    $centerModel    =   $centers->findById($fields->toArray()[$val][0]);
                     if($centerModel != null)
                     {
                         $array['procurement_office'] = $centerModel->id;
                     }
                     break;
                 case 'MODE OF PROCUREMENT':
-                    $modesModel    =   $modes->findByName($row[2]);
-                    if($modesModel != null)
+                    $modesModel    =   $modes->findById($fields->toArray()[$val][0]);
+                    if($modesModel != null || $modesModel->name != 'Public Bidding')
                     {
                         $array['mode_of_procurement'] = $modesModel->id;
                     }
@@ -126,7 +127,7 @@ trait ImportTrait
                     }
                     break;
                 case 'CHARGEABILITY':
-                    $chargeabilityModel    =   $chargeability->findByName($row[2]);
+                    $chargeabilityModel    =   $chargeability->findById($fields->toArray()[$val][0]);
                     if($chargeabilityModel != null)
                     {
                         $array['chargeability'] = $chargeabilityModel->id;
@@ -140,23 +141,23 @@ trait ImportTrait
                     }
                     break;
                 case 'FUND VALIDITY':
-                    $array['fund_validity'] = $row[2];
+                    $array['fund_validity'] = $fields->toArray()[$val][0];
                     break;
                 case 'PLACE OF DELIVERY':
-                    $array['place_of_delivery'] = $row[2];
+                    $array['place_of_delivery'] = $fields->toArray()[$val][0];
                     break;
                 case 'TERMS OF PAYMENT':
-                    $termsModel    =   $terms->findByName($row[2]);
+                    $termsModel    =   $terms->findByName($fields->toArray()[$val][0]);
                     if($termsModel != null)
                     {
                         $array['terms_of_payment'] = $termsModel->id;
                     }
                         break;
                 case 'OTHER ESSENTIAL INFO':
-                    $array['other_infos'] = $row[2];
+                    $array['other_infos'] = $fields->toArray()[$val][0];
                     break;
                 case 'PURPOSE':
-                    $array['purpose'] = $row[2];
+                    $array['purpose'] = $fields->toArray()[$val][0];
                         break;
 
                 default:
@@ -166,31 +167,74 @@ trait ImportTrait
 
         }
 
+        $item = [];
         foreach($items->toArray() as $itemRow)
         {
-            if($itemRow[0] != "ITEM DESCRIPTION")
+          if($itemRow[0] != "<tr></tr><tr> <td> ITEM DESCRIPTION</td> <td>QTY</td> <td>UNIT</td> <td>UNIT PRICE</td> <td>TOTAL AMOUNT</td><td>Account Code</td> </tr><tr>" && trim($itemRow[0]) != "<td>" && trim($itemRow[0]) != "</thead>" && trim($itemRow[0]) != "</tbody>" && trim($itemRow[0]) != "</table>" && trim($itemRow[0]) != "</html>" && trim($itemRow[0]) != "</body>"&& trim($itemRow[0]) != "</td>" && trim($itemRow[0]) != "<tr>")
+          {
+            array_push($item, $itemRow[0]);
+          }
+
+            // if($itemRow[0] != "ITEM DESCRIPTION")
+            // {
+            //     $accountsModel    =   $accounts->findByName(trim($itemRow[1]) );
+
+            //     if($accountsModel != null)
+            //     {
+            //         $code = $accountsModel->id;
+            //     }
+            //     else
+            //     {
+            //         $code = 0;
+            //     }
+
+
+            //     $itemArray[]    =   [
+            //         'item_description'      =>  $itemRow[0],
+            //         'new_account_code'      =>  $code,
+            //         'quantity'              =>  $itemRow[2],
+            //         'unit'                  =>  $itemRow[3],
+            //         'unit_price'            =>  $itemRow[4],
+            //         'total_amount'          =>  $itemRow[5],
+            //     ];
+            // }
+        }
+        $decodes = [];
+        $count  = 0;
+        foreach($item as $newItem)
+        {
+          if($newItem == '</tr>')
+          {
+            $count ++;
+          }
+          else{
+            if($newItem != null)
             {
-                $accountsModel    =   $accounts->findByName(trim($itemRow[1]) );
-
-                if($accountsModel != null)
-                {
-                    $code = $accountsModel->id;
-                }
-                else
-                {
-                    $code = 0;
-                }
-
-
-                $itemArray[]    =   [
-                    'item_description'      =>  $itemRow[0],
-                    'new_account_code'      =>  $code,
-                    'quantity'              =>  $itemRow[2],
-                    'unit'                  =>  $itemRow[3],
-                    'unit_price'            =>  $itemRow[4],
-                    'total_amount'          =>  $itemRow[5],
-                ];
+              $decodes[$count][] = $newItem;
             }
+          }
+
+        }
+        foreach($decodes as $new)
+        {
+          $accountsModel    =   $accounts->findById($new[5] );
+          if($accountsModel != null)
+          {
+              $code = $accountsModel->id;
+          }
+          else
+          {
+              $code = 0;
+          }
+
+          $itemArray[]    =   [
+              'item_description'      =>  $new[0],
+              'new_account_code'      =>  $code,
+              'quantity'              =>  $new[1],
+              'unit'                  =>  $new[2],
+              'unit_price'            =>  $new[3],
+              'total_amount'          =>  $new[4],
+          ];
         }
 
         session([
