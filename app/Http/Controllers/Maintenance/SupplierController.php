@@ -46,7 +46,17 @@ class SupplierController extends ApiController
     {
         foreach($request->model as $data)
         {
-            $model = $units->save($data);
+            if(! $upr = $units->getById($data['id']) )
+            {
+                $units->save($data);
+            }
+            else
+            {
+                $last_update = $data['updated_at'];
+                if($upr->updated_at < $last_update){
+                    $units->update($data, $upr->id);
+                }
+            }
         }
         return $request->all();
     }

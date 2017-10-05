@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Procurement;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use JWTAuth;
-use \Revlv\Procurements\InvitationToSubmitQuotation\ISPQRepository;
+use \Revlv\Procurements\InvitationToSubmitQuotation\Quotations\QuotationRepository;
+
 
 class ISPQController extends ApiController
 {
     protected $model;
 
-    public function index(Request $request, ISPQRepository $model)
+    public function index(Request $request, QuotationRepository $model)
     {
         $unitList = $model->all();
 
@@ -24,14 +25,24 @@ class ISPQController extends ApiController
      * [store description]
      *
      * @param  Request        $request [description]
-     * @param  ISPQRepository $model    [description]
+     * @param  QuotationRepository $model    [description]
      * @return [type]                  [description]
      */
-    public function store(Request $request, ISPQRepository $model)
+    public function store(Request $request, QuotationRepository $model)
     {
         foreach($request->model as $data)
         {
-            $model->save($data);
+            if(! $upr = $model->getById($data['id']) )
+            {
+                $model->save($data);
+            }
+            else
+            {
+                $last_update = $data['updated_at'];
+                if($upr->updated_at < $last_update){
+                    $model->update($data, $upr->id);
+                }
+            }
         }
         return $request->all();
     }

@@ -31,7 +31,17 @@ class PermissionController extends ApiController
     {
         foreach($request->model as $data)
         {
-            $model = $permissions->save($data);
+            if(! $upr = $permissions->getById($data['id']) )
+            {
+                $permissions->save($data);
+            }
+            else
+            {
+                $last_update = $data['updated_at'];
+                if($upr->updated_at < $last_update){
+                    $permissions->update($data, $upr->id);
+                }
+            }
         }
         return $request->all();
     }

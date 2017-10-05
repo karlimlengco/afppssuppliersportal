@@ -29,9 +29,20 @@ class UPRController extends ApiController
      */
     public function store(Request $request, UnitPurchaseRequestRepository $model)
     {
+
         foreach($request->model as $data)
         {
-            $model->save($data);
+            if(! $upr = $model->getById($data['id']) )
+            {
+                $model->save($data);
+            }
+            else
+            {
+                $last_update = $data['updated_at'];
+                if($upr->updated_at < $last_update){
+                    $model->update($data, $upr->id);
+                }
+            }
         }
         return $request->all();
     }

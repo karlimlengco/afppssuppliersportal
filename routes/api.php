@@ -73,6 +73,7 @@ Route::group(['middleware' => ['api']], function () {
         Route::resource('pre-bid', 'Procurement\PrebidController');
         Route::resource('sobe', 'Procurement\SOBEController');
         Route::resource('post-qual', 'Procurement\PostController');
+        Route::resource('invitations', 'Procurement\InvitationController');
     });
 
 });

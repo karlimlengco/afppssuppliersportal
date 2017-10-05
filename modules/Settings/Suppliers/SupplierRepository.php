@@ -21,6 +21,21 @@ class SupplierRepository extends BaseRepository
     }
 
     /**
+     * [findByRFQId description]
+     *
+     * @param  [type] $rfq [description]
+     * @return [type]      [description]
+     */
+    public function getById($id)
+    {
+        $model  =    $this->model;
+
+        $model  =   $model->where('id', '=', $id);
+
+        return $model->first();
+    }
+
+    /**
      * Return the model by its key valued pair
      *
      * @param string $id

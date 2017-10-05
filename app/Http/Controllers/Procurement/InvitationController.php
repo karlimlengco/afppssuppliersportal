@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Procurement;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use JWTAuth;
-use \Revlv\Procurements\NoticeOfAward\NOARepository;
+use \Revlv\Procurements\InvitationToSubmitQuotation\ISPQRepository;
 
-class NOAController extends ApiController
+class InvitationController extends ApiController
 {
     protected $model;
 
-    public function index(Request $request, NOARepository $model)
+    public function index(Request $request, ISPQRepository $model)
     {
         $unitList = $model->all();
 
@@ -24,10 +24,10 @@ class NOAController extends ApiController
      * [store description]
      *
      * @param  Request        $request [description]
-     * @param  NOARepository $model    [description]
+     * @param  ISPQRepository $model    [description]
      * @return [type]                  [description]
      */
-    public function store(Request $request, NOARepository $model)
+    public function store(Request $request, ISPQRepository $model)
     {
         foreach($request->model as $data)
         {

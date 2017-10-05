@@ -31,7 +31,6 @@ Invitation to Submit Price Quotation
 
 @section('contents')
 
-
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
 

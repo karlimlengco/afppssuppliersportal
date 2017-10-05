@@ -57,7 +57,10 @@ class SupplierEloquent extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->id = (string) \Uuid::generate();
+            if($model->id == null)
+            {
+              $model->id = (string) \Uuid::generate();
+            }
         });
     }
 

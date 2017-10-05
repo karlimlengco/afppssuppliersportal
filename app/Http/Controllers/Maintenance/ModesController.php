@@ -46,7 +46,17 @@ class ModesController extends ApiController
     {
         foreach($request->model as $data)
         {
-            $units->save($data);
+            if(! $upr = $model->getById($data['id']) )
+            {
+                $model->save($data);
+            }
+            else
+            {
+                $last_update = $data['updated_at'];
+                if($upr->updated_at < $last_update){
+                    $model->update($data, $upr->id);
+                }
+            }
         }
         return $request->all();
     }
