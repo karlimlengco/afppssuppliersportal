@@ -68,14 +68,18 @@
                                 <td class="align-center" width="10%"><strong>Unit Price</strong></td>
                                 <td class="align-center" width="20%"><strong>Total Price</strong></td>
                             </tr>
+
+                            <?php $count = 1; ?>
+                            @foreach($data['items'] as $key=>$item)
                             <tr>
-                                <td  class="align-center" >1</td>
-                                <td  class="align-center" >100</td>
-                                <td  class="align-center" >RM</td>
-                                <td  class="align-left" >BOND PAPER A4</td>
-                                <td  class="align-center" ></td>
-                                <td  class="align-center" ></td>
+                                <td class="align-center">{{$count++}}</td>
+                                <td class="align-center">{{$item->quantity}}</td>
+                                <td class="align-center">{{$item->unit_measurement}}</td>
+                                <td class="align-left">{{$item->item_description}}</td>
+                                <td class="align-right">{{formatPrice($item->unit_price)}}</td>
+                                <td class="align-right">{{formatPrice($item->total_amount)}}</td>
                             </tr>
+                            @endforeach
                             <tr>
                                 <td class="align-center" colspan="5">x-x-x-x-x Nothing Follows x-x-x-x-x</td>
                                 <td></td>
