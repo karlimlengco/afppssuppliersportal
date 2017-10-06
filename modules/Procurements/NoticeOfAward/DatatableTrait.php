@@ -63,7 +63,10 @@ trait DatatableTrait
             $user = \Sentinel::getUser();
             if($user->units)
             {
-                $center =   $user->units->centers->id;
+                if($user->units->centers)
+                {
+                    $center =   $user->units->centers->id;
+                }
             }
 
             $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
