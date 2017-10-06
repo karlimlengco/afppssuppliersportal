@@ -18,6 +18,7 @@ Route::get('pdf/footer', '\Revlv\Controllers\PDFController@getFooter')->name('pd
 Route::get('chat', '\Revlv\Controllers\ChatController@index')->name('messages.index');
 Route::post('messages', '\Revlv\Controllers\Chat\MessageController@store')->name('messages.store');
 
+Route::get('upr-drafts', '\Revlv\Controllers\Procurements\UPRController@drafts')->name('upr-drafts.index');
 Route::get('messages', '\Revlv\Controllers\Chat\MessageController@getMessage')->name('messages.index');
 Route::get('admin-messages-view', '\Revlv\Controllers\Chat\MessageController@getAdminMessage')->name('messages.admin');
 Route::get('admin-messages/api', '\Revlv\Controllers\Chat\MessageController@getAdminMessageAPI')->name('messages.admin.api');
@@ -754,6 +755,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     */
     Route::get('procurements.unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController@getDatatable')->name('procurements.unit-purchase-request');
     Route::get('procurements/unit-purchase-requests/cancelled', '\Revlv\Controllers\Procurements\UPRController@getCancelledDatatable')->name('procurements.unit-purchase-request.cancelled');
+    Route::get('procurements/unit-purchase-requests/drafts', '\Revlv\Controllers\Procurements\UPRController@getDraftDatatable')->name('procurements.unit-purchase-request.drafts');
     Route::get('biddings/unit-purchase-requests/cancelled', '\Revlv\Controllers\Biddings\UPRController@getCancelledDatatable')->name('biddings.unit-purchase-request.cancelled');
     Route::get('biddings.unit-purchase-requests', '\Revlv\Controllers\Biddings\UPRController@getDatatable')->name('biddings.unit-purchase-request');
     Route::get('blank-rfq', '\Revlv\Controllers\Procurements\BlankRFQController@getDatatable')->name('procurements.blank-rfq');

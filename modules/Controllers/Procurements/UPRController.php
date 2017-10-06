@@ -111,6 +111,42 @@ class UPRController extends Controller
     }
 
     /**
+     * [getDatatable description]
+     *
+     * @return [type]            [description]
+     */
+    public function getDraftDatatable(UnitPurchaseRequestRepository $model)
+    {
+        $user   =   \Sentinel::getUser();
+
+        if($user->hasRole('Admin'))
+        {
+            return $model->getDatatable(null, null, 'draft');
+        }
+
+        $center =   0;
+        if($user->units)
+        {
+            if($user->units->centers)
+            {
+                $center =   $user->units->centers->id;
+            }
+        }
+
+        return $model->getDatatable($center, null, 'draft');
+    }
+
+    public function drafts()
+    {
+      return $this->view('modules.procurements.upr.drafts',[
+          'backRoute'   =>  $this->baseUrl."index",
+          'breadcrumbs' => [
+              new Breadcrumb('Unit Purchase Request Cancelled')
+          ]
+      ]);
+    }
+
+    /**
      * [getCancelledDatatable description]
      *
      * @return [type]            [description]

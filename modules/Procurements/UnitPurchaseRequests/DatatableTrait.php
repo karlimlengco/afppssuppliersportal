@@ -60,7 +60,11 @@ trait DatatableTrait
         ]);
         $model  =   $model->orderBy('created_at', 'desc');
 
-        $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
+        if($status != 'draft')
+        {
+          $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
+        }
+
         if($id != null)
         {
             $model  =   $model->where('unit_purchase_requests.procurement_office','=', $id);
