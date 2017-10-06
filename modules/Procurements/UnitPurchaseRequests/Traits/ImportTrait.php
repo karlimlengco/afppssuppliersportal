@@ -114,7 +114,7 @@ trait ImportTrait
                     break;
                 case 'MODE OF PROCUREMENT':
                     $modesModel    =   $modes->findById($fields->toArray()[$val][0]);
-                    if($modesModel != null || $modesModel->name != 'Public Bidding')
+                    if($modesModel != null && $modesModel->name != 'Public Bidding')
                     {
                         $array['mode_of_procurement'] = $modesModel->id;
                     }
