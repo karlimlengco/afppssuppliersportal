@@ -514,34 +514,36 @@ class CanvassingController extends Controller
             'cop' => $request->cop,
             'rop' => $request->rop
         ];
+        if($request->attendace != null){
 
-        foreach($request->attendance as $attendance)
-        {
-            if($attendance == 1)
-            {
-                $inputs['chief_attendance'] =   1;
+          foreach($request->attendance as $attendance)
+          {
+              if($attendance == 1)
+              {
+                  $inputs['chief_attendance'] =   1;
 
-            }
-            elseif($attendance == 2)
-            {
-                $inputs['unit_head_attendance'] =   1;
-            }
-            elseif($attendance == 3)
-            {
-                $inputs['mfo_attendance'] =   1;
-            }
-            elseif($attendance == 4)
-            {
-                $inputs['legal_attendance'] =   1;
-            }
-            elseif($attendance == 5)
-            {
-                $inputs['secretary_attendance'] =   1;
-            }
-            else
-            {
+              }
+              elseif($attendance == 2)
+              {
+                  $inputs['unit_head_attendance'] =   1;
+              }
+              elseif($attendance == 3)
+              {
+                  $inputs['mfo_attendance'] =   1;
+              }
+              elseif($attendance == 4)
+              {
+                  $inputs['legal_attendance'] =   1;
+              }
+              elseif($attendance == 5)
+              {
+                  $inputs['secretary_attendance'] =   1;
+              }
+              else
+              {
 
-            }
+              }
+          }
         }
         $canvass    =   $model->update($inputs, $id);
 
