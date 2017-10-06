@@ -442,7 +442,7 @@ class CanvassingController extends Controller
 
         $result                 =   $model->update($inputs, $id);
 
-        $upr_model              =   $upr->findById($result->id);
+        $upr_model              =   $upr->findById($result->upr_id);
         // $rfq_model              =   $rfq->with('invitations')->findById($id);
         $rfq_model              =   $upr_model->rfq;
 
