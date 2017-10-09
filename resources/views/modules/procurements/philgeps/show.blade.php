@@ -46,6 +46,17 @@ PhilGeps Posting
             <i class="nc-icon-mini design_pen-01"></i></a>
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
     </div>
+
+    <hr>
+    <br>
+    <div class="twelve columns align-right utility utility--align-right">
+        <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Go to UPR</span>
+
+        Go to UPR
+        <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="Accept NOA" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+
+    </div>
 </div>
 
 <div class="data-panel">
