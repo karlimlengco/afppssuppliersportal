@@ -24,7 +24,7 @@ class ProcurementCenterRequest extends BaseRequest
     public function rules()
     {
         return [
-            'name'          => 'required',
+            'name'          => 'required|unique:procurement_centers,name,'. $this->route('procurement_center'),
             'address'       => 'required',
             'programs'      => 'required',
             'short_code'    => 'required',
