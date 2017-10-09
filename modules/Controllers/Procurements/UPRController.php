@@ -364,10 +364,12 @@ class UPRController extends Controller
     public function show(
         $id,
         BacSecRepository $bacsec,
+        AccountCodeRepository $accounts,
         UnitPurchaseRequestRepository $model,
         SupplierRepository $suppliers,
         SignatoryRepository $signatories)
     {
+        $account_codes      =    $accounts->lists('id', 'new_account_code');
         $result         =   $model->with(['attachments'])->findById($id);
         $signatory_lists=   $signatories->lists('id', 'name');
         $bid_issuance   =   $suppliers->lists('id', 'name');
@@ -382,6 +384,7 @@ class UPRController extends Controller
         }
 
         return $this->view('modules.procurements.upr.show',[
+            'accounts'          =>  $accounts->lists('id', 'new_account_code'),
             'data'              =>  $result,
             'bid_issuance'      =>  $bid_issuance,
             'proponent_lists'   =>  $suppliers->lists('id', 'name'),
@@ -408,6 +411,55 @@ class UPRController extends Controller
                 new Breadcrumb('Unit Purchase Request', 'procurements.unit-purchase-requests.index'),
                 new Breadcrumb($result->upr_number),
             ]
+        ]);
+    }
+
+    /**
+     * [itemStore description]
+     *
+     * @param  [type]  $uprId   [description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function itemStore(
+        $uprId,
+        Request $request,
+        UnitPurchaseRequestRepository $model,
+        ItemRepository $items)
+    {
+      $this->validate($request, [
+        'new_account_code'  => 'required',
+        'item_description'  => 'required',
+        'quantity'          => 'required',
+        'unit_measurement'  => 'required',
+        'unit_price'        => 'required',
+      ]);
+
+      $upr = $model->findById($uprId);
+      $amount = $upr->total_amount;
+      $total  = $request->unit_price * $request->quantity;
+      $total_amount = $total + $amount;
+      $id = Uuid::generate()->string;
+      $inputs   =  $request->only([
+        'new_account_code',
+        'item_description',
+        'quantity',
+        'unit_measurement',
+        'unit_price'
+      ]);
+
+      $inputs['upr_number'] = $upr->upr_number;
+      $inputs['ref_number'] = $upr->ref_number;
+      $inputs['upr_id'] = $upr->id;
+      $inputs['prepared_by'] = \Sentinel::getUser()->id;
+      $inputs['date_prepared'] = \Carbon\Carbon::now();
+      $inputs['total_amount'] = $total_amount;
+      $inputs['id'] = $id;
+      $items->save($inputs);
+      $model->update(['total_amount' => $total_amount], $uprId);
+
+        return redirect()->route($this->baseUrl.'show', $uprId)->with([
+            'success'  => "Record has been successfully updated."
         ]);
     }
 

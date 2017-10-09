@@ -10,6 +10,7 @@ use Excel;
 use PDF;
 use \App\Support\Breadcrumb;
 use App\Events\Event;
+use Uuid;
 
 use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
@@ -300,7 +301,8 @@ class UPRController extends Controller
                     'ref_number'            =>  $request->get('ref_number'),
                     'prepared_by'           =>  $prepared_by,
                     'date_prepared'         =>  $request->get('date_prepared'),
-                    'upr_id'                =>  $result->id
+                    'upr_id'                =>  $result->id,
+                    'id'                    =>  Uuid::generate()->string
                 ];
             }
 
@@ -322,6 +324,7 @@ class UPRController extends Controller
     public function show(
         $id,
         BacSecRepository $bacsec,
+        AccountCodeRepository $accounts,
         UnitPurchaseRequestRepository $model,
         SupplierRepository $suppliers,
         SignatoryRepository $signatories)
@@ -340,6 +343,7 @@ class UPRController extends Controller
         }
 
         return $this->view('modules.biddings.upr.show',[
+            'accounts'          =>  $accounts->lists('id', 'new_account_code'),
             'data'              =>  $result,
             'proponent_lists'   =>  $suppliers->lists('id', 'name'),
             'bacsec_list'       =>  $bacsec->lists('id', 'name'),

@@ -23,6 +23,46 @@ Unit Purchase Request
 @stop
 
 @section('modal')
+    <div class="modal" id="add-item-modal">
+        <div class="modal__dialogue modal__dialogue--round-corner">
+             <form method="POST" action="{{route('procurements.upr-items.store', $data->id)}}" accept-charset="UTF-8">
+                <button type="button" class="modal__close-button">
+                    <i class="nc-icon-outline ui-1_simple-remove"></i>
+                </button>
+
+                <div class="moda__dialogue__head">
+                    <h1 class="modal__title">Add New Item</h1>
+                </div>
+
+                <div class="modal__dialogue__body">
+                    {!! Form::selectField('new_account_code', 'Account Code', $accounts) !!}
+                    {!! Form::textField('item_description', 'Item Description', null, ['required']) !!}
+                    <div class="row">
+                      <div class="six columns">
+                        {!! Form::textField('quantity', 'Quantity', null, ['required']) !!}
+                      </div>
+                      <div class="six columns">
+                        {!! Form::textField('unit_measurement', 'Unit of Measurement', null, ['required']) !!}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="six columns">
+                        {!! Form::textField('unit_price', 'Unit Price', null, ['required']) !!}
+                      </div>
+                    </div>
+
+
+                    <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                    <input name="_method" type="hidden" value="POST">
+                </div>
+
+                <div class="modal__dialogue__foot">
+                    <button class="button">Proceed</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
     @include('modules.partials.create_signatory')
     @include('modules.partials.create_supplier')
     @include('modules.partials.modals.request_quotation')
@@ -242,8 +282,12 @@ Unit Purchase Request
     </div>
     @endif
 </div>
+
 <div >
     <div>
+        @if($data->status == 'upr_processing')
+        <button id="add-item-button" class="button">ADD ITEM</button>
+        @endif
         <table class='table' id="item_table">
             <thead>
                 <tr>
@@ -458,6 +502,11 @@ Unit Purchase Request
     $('#create-delivery-button').click(function(e){
         e.preventDefault();
         $('#create-delivery-modal').addClass('is-visible');
+    })
+
+    $('#add-item-button').click(function(e){
+        e.preventDefault();
+        $('#add-item-modal').addClass('is-visible');
     })
 
 
