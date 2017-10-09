@@ -19,10 +19,10 @@
             </a>
         @endif
         @if($data->status == 'Processing RFQ')
-
+            @if($data->philgeps)
             <a href="{{route('procurements.philgeps-posting.show', $data->philgeps->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
-
+            @endif
             <span >View RFQ</span>
             <a href="{{route('procurements.blank-rfq.show',$data->rfq->id)}}" class="button" tooltip="Next Stage">
                 <i class="nc-icon-mini arrows-1_bold-right"></i>
