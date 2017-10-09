@@ -453,7 +453,7 @@ class UPRController extends Controller
       $inputs['upr_id'] = $upr->id;
       $inputs['prepared_by'] = \Sentinel::getUser()->id;
       $inputs['date_prepared'] = \Carbon\Carbon::now();
-      $inputs['total_amount'] = $total_amount;
+      $inputs['total_amount'] = $total;
       $inputs['id'] = $id;
       $items->save($inputs);
       $model->update(['total_amount' => $total_amount], $uprId);
@@ -461,6 +461,35 @@ class UPRController extends Controller
         return redirect()->route($this->baseUrl.'show', $uprId)->with([
             'success'  => "Record has been successfully updated."
         ]);
+    }
+
+    /**
+     * [itemStore description]
+     *
+     * @param  [type]  $uprId   [description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function itemDelete(
+        $id,
+        Request $request,
+        UnitPurchaseRequestRepository $model,
+        ItemRepository $items)
+    {
+
+      $item = $items->findById($id);
+      $upr = $model->findById($item->upr_id);
+      $amount = $upr->total_amount;
+      $total  = $item->unit_price * $item->quantity;
+      $total_amount = $amount - $total;
+
+      $items->delete($id);
+
+      $model->update(['total_amount' => $total_amount], $item->upr_id);
+
+      return redirect()->route($this->baseUrl.'show', $item->upr_id)->with([
+          'success'  => "Record has been successfully deleted."
+      ]);
     }
 
     /**

@@ -301,6 +301,7 @@ Unit Purchase Request
                     <th>Unit</th>
                     <th>Unit Price</th>
                     <th>Amount</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -311,6 +312,12 @@ Unit Purchase Request
                         <td>{{$item->unit_measurement}}</td>
                         <td>{{$item->unit_price}}</td>
                         <td>{{formatPrice($item->total_amount)}}</td>
+                        <td tooltip="remove">
+
+                        @if($data->status == 'upr_processing')
+                          <a href="{{route('procurements.upr-items.destroy', $item->id)}}"><i class="nc-icon-mini ui-1_trash"></i></a>
+                        @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
