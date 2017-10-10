@@ -14,6 +14,7 @@ use App\Events\Event;
 
 
 use \Revlv\Settings\Forms\Header\HeaderRepository;
+use \Revlv\Settings\Forms\PCCOHeader\PCCOHeaderRepository;
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRequest;
@@ -57,6 +58,7 @@ class DeliveryController extends Controller
     protected $signatories;
     protected $audits;
     protected $headers;
+    protected $pccoHeaders;
     protected $holidays;
     protected $users;
     protected $userLogs;
@@ -705,7 +707,7 @@ class DeliveryController extends Controller
         $id,
         HeaderRepository $headers,
         DeliveryOrderRepository $model,
-        NOARepository $noa
+        NOARepository $noa, PCCOHeaderRepository $pccoHeaders
         )
     {
         $result                     =  $model->with(['signatory','upr', 'po'])->findById($id);
@@ -727,7 +729,9 @@ class DeliveryController extends Controller
         {
             $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
-        $header                     =  $headers->findByUnit($result->upr->units);
+
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
+        // $header                     =  $headers->findByUnit($result->upr->units);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']   =  $result->delivery_date;
         $data['po_number']          =  $result->po->po_number;
