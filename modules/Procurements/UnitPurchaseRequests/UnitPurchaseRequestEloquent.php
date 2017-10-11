@@ -92,6 +92,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      * @var array
      */
     protected $fillable = [
+        'id',
         'place_of_delivery',
         'procurement_office',
         'mode_of_procurement',

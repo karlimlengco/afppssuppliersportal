@@ -63,7 +63,8 @@ Proponent
     </div>
 
     <div class="data-panel__section">
-        <ul class="data-panel__list">hone # :</strong> {{$data->supplier->phone_1}} </li>
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Phone # :</strong> {{$data->supplier->phone_1}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Fax # :</strong> {{$data->supplier->fax_1}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Address :</strong> {{$data->supplier->address}} </li>
         </ul>

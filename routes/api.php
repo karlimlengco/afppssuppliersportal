@@ -36,6 +36,10 @@ Route::group(['middleware' => ['api']], function () {
             'uses' => 'UserController@store',
         ]);
 
+        Route::get('/user-roles-lists', [
+            'uses' => 'UserController@userRole',
+        ]);
+
         Route::resource('catered-units', 'Maintenance\CateredUnitController');
         Route::resource('permissions', 'Maintenance\PermissionController');
         Route::resource('roles', 'Maintenance\RoleController');

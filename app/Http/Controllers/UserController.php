@@ -6,16 +6,33 @@ use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Revlv\Users\UserRepository;
+use Revlv\Users\RoleUserRepository;
 
 class UserController extends ApiController
 {
     protected $user;
+    protected $roles;
 
     public function index(Request $request)
     {
         $user = JWTAuth::parseToken()->authenticate();
         return response()->json([
             'data' => $user,
+        ]);
+    }
+
+    /**
+     * [userRole description]
+     *
+     * @param  Request            $request [description]
+     * @param  RoleUserRepository $roles   [description]
+     * @return [type]                      [description]
+     */
+    public function userRole(Request $request, RoleUserRepository $roles)
+    {
+        $role_list = $roles->all();
+        return response()->json([
+            'data' => $role_list,
         ]);
     }
 
