@@ -723,7 +723,7 @@ class NoticeOfAwardController extends Controller
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']   =   $noa_modal->awarded_date;
         $data['supplier']           =   $proponent_awardee;
-        $data['unit']               =   $upr_model->unit->description;
+        $data['unit']               =   $upr_model->unit->short_code;
         $data['center']             =   $noa_modal->upr->centers->name;
         $data['total_amount']       =   $upr_model->total_amount;
         $data['bid_amount']         =   $bidamount;

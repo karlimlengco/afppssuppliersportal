@@ -29,7 +29,7 @@
                     <!-- title -->
                     <span class="printable-form__body__title">
                         Contract Agreement<br>
-                        GHQPC-OTCDS-REPE-600-17
+                        {{$data['ref_number']}}
                     </span>
                     <!-- content -->
                     <p>KNOW ALL MEN BY THESE PRESENTS:</p>
@@ -38,8 +38,8 @@
                     <p class="indent-first-line"><strong>AFPPS</strong> at Camp General Emilio Aguinaldo, Quezon City represented by CO, GHQ Procurement Center in behalf of End-user and its duty authorized representative, herein after referred to as the "Second Party:.</p>
                     <p class="align-center">WITNESSETH</p>
                     <p class="align-center">That the parties hereto, agree and stipulate:</p>
-                    <p class="indent-first-line">That for and in consideration of the payment to be made by <strong>CPT ANNE MICHELLE R JOMENTO DS</strong> the First Party willfully and faithfully agrees to perform the following services:</p>
-                    <p class="indent-first-line">To provide catering service used by OTCDS, AFP (see attached training/event schedule), 2017:</p>
+                    <p class="indent-first-line">That for and in consideration of the payment to be made by <strong>{{$data['accounting'][1]}}{{$data['accounting'][0]}}{{$data['accounting'][2]}}</strong> the First Party willfully and faithfully agrees to perform the following services:</p>
+                    <p class="indent-first-line">To provide catering service used by {{$data['unit']}} (see attached training/event schedule), 2017:</p>
                     <table class="printable-form__body__table">
                         <tr>
                             <td class="align-center" width="5%"><strong>L/I</strong></td>
@@ -123,7 +123,7 @@
                                     <tr>
                                         <td>
                                             <div class="signatory-rank-justify">
-                                                <strong>Proprietress</strong>
+                                                <strong>Proprietor</strong>
                                                 <span></span>
                                             </div>
                                         </td>

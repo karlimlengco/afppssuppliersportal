@@ -1060,6 +1060,8 @@ class PurchaseOrderController extends Controller
         $data['items']              =  $result->items;
         $data['supplier']           =  $noa_model;
         $data['header']             =  $result->upr->centers;
+        $data['ref_number']         =  $result->upr->ref_number;
+        $data['unit']               =  $result->upr->unit->short_code;
 
         $data['requestor']          =  explode('/', $result->requestor_signatory);
         $data['accounting']         =  explode('/', $result->accounting_signatory);
