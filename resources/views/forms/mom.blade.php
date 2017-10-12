@@ -91,9 +91,7 @@
 
                         <tr>
                             <td width="50px"></td>
-                            <td class="align-left" width="300px"> {{$data['others']}}</td>
-                            <td class="align-left" width="100px"></td>
-                            <td width="40%"></td>
+                            <td class="align-left" colspan="3"> {{$data['others']}}</td>
                         </tr>
                     </table>
                     <p><strong>III. CALL TO ORDER:</strong></p>
