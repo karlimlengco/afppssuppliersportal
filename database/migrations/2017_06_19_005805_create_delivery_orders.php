@@ -48,7 +48,7 @@ class CreateDeliveryOrders extends Migration
             $table->text('delivery_action')->nullable();
             $table->text('dr_coa_action')->nullable();
 
-            $table->integer('delivered_to_coa_by')->nullable();
+            $table->string('delivered_to_coa_by')->nullable();
             $table->timestamps();
         });
     }

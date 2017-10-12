@@ -27,7 +27,7 @@
                     <!-- title -->
                     <span class="printable-form__body__title">Minutes of Meeting</span>
                     <!-- content -->
-                    <span class="printable-form__body__subtitle">Opening of Canvass Proposal for the procurement of NLC Requirements</span>
+                    <span class="printable-form__body__subtitle">Opening of Canvass Proposal for the procurement of {{$data['unit']}} Requirements</span>
 
                     <p><strong>I. DATE/TIME AND VENUE:</strong></p>
                     <p class="indent">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s' ,$data['date_opened']." ".$data['time_opened'])->format('dHi M Y')}}
@@ -123,7 +123,7 @@
                     <p>That after reading the price quotation submitted of the proponent for {{$data['canvass']->rfq_number}}, {{$data['canvass']->winners->awarder->name}} be declared as the winner for having the lowest price among other bidder. {{$data['canvass']->winners->seconder->name}} seconded it. Since no objection was raised, the Chairman declared {{$data['canvass']->winners->awarder->name}} as the winner.</p>
                     <p>Resolution: {{$data['resolution']}}</p>
                     <p><strong>VI. ADJOURNMENT:</strong> </p>
-                    <p class="indent-first-line">The Chairman thanked the attendees and declared the meeting adjourned at exactly {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_closed'])->format('Hi')}}H</p>
+                    <p class="indent-first-line">The Chairman thanked the attendees and declared the meeting adjourned at exactly {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_opened'])->format('Hi')}}H</p>
                     <table class="printable-form__body__table no-border no-padding" style="page-break-inside:avoid">
                         <tr>
                             <td class="align-bottom align-left" width="45%" height="80px">

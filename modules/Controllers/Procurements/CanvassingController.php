@@ -743,6 +743,7 @@ class CanvassingController extends Controller
         $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
+        $data['unit']           =  $result->upr->unit->short_code;
         $data['other_attendees']=   $result->other_attendees;
         $data['date_opened']    =   $result->canvass_date;
         $data['time_opened']    =   $result->canvass_time;

@@ -88,7 +88,7 @@
                                     <p style='margin-bottom:5px'>{{$data['proponents'][0]->supplier->attachmentByType("dti")->ref_number}}</p>
                                     <p style='margin-bottom:5px'>{{$data['proponents'][0]->supplier->attachmentByType("dti")->place}}</p>
                                 @else
-                                    failed
+                                    &nbsp;
                                 @endif
                             </td>
                             <td class="align-center">
@@ -106,7 +106,7 @@
                                     <p style='margin-bottom:5px'>{{$data['proponents'][1]->supplier->attachmentByType("dti")->place}}</p>
 
                                      @else
-                                         failed
+                                         &nbsp;
                                 @endif
                             </td>
                             <td class="align-center">
@@ -125,7 +125,7 @@
                                     <p style='margin-bottom:5px'>{{$data['proponents'][2]->supplier->attachmentByType("dti")->place}}</p>
 
                                      @else
-                                         failed
+                                         &nbsp;
                                 @endif
                                 @endif
                             </td>
@@ -147,7 +147,7 @@
                                     <p style='margin-bottom:5px'>{{$data['proponents'][0]->supplier->attachmentByType("mayors_permit")->place}}</p>
 
                                      @else
-                                         failed
+                                         &nbsp;
                                 @endif
                             </td>
 
@@ -165,7 +165,7 @@
                                     <p style='margin-bottom:5px'>{{$data['proponents'][1]->supplier->attachmentByType("mayors_permit")->place}}</p>
 
                                      @else
-                                         failed
+                                         &nbsp;
                                 @endif
                             </td>
 
@@ -184,7 +184,7 @@
                                     <p style='margin-bottom:5px'>{{$data['proponents'][2]->supplier->attachmentByType("mayors_permit")->place}}</p>
 
                                      @else
-                                        failed
+                                        &nbsp;
                                 @endif
                                 @endif
                             </td>
@@ -205,7 +205,7 @@
                                     <p style='margin-bottom:5px'>{{$data['proponents'][0]->supplier->attachmentByType("tax_clearance")->place}}</p>
 
                                      @else
-                                         failed
+                                         &nbsp;
                                 @endif
                             </td>
 
@@ -223,7 +223,7 @@
                                     <p style='margin-bottom:5px'>{{$data['proponents'][1]->supplier->attachmentByType("tax_clearance")->place}}</p>
 
                                      @else
-                                         failed
+                                         &nbsp;
                                 @endif
                             </td>
 
@@ -242,7 +242,7 @@
                                     <p style='margin-bottom:5px'>{{$data['proponents'][2]->supplier->attachmentByType("tax_clearance")->place}}</p>
 
                                      @else
-                                         failed
+                                         &nbsp;
                                 @endif
                                 @endif
                             </td>
@@ -263,7 +263,7 @@
                                     <p style='margin-bottom:5px'>{{$data['proponents'][0]->supplier->attachmentByType("philgeps_registraion")->place}}</p>
 
                                      @else
-                                         failed
+                                         &nbsp;
                                 @endif
                             </td>
 
@@ -281,7 +281,7 @@
                                     <p style='margin-bottom:5px'>{{$data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->place}}</p>
 
                                      @else
-                                         failed
+                                         &nbsp;
                                 @endif
                             </td>
 
@@ -300,7 +300,7 @@
                                     <p style='margin-bottom:5px'>{{$data['proponents'][2]->supplier->attachmentByType("philgeps_registraion")->place}}</p>
 
                                      @else
-                                         failed
+                                         &nbsp;
                                 @endif
                                 @endif
                             </td>
