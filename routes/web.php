@@ -583,6 +583,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::put('vouchers/update-signatories/{id}', '\Revlv\Controllers\Procurements\VoucherController@updateSignatory')->name('vouchers.update-signatories');
 
     Route::get('vouchers/print/{id}', '\Revlv\Controllers\Procurements\VoucherController@viewPrint')->name('vouchers.print');
+    Route::get('vouchers/print2/{id}', '\Revlv\Controllers\Procurements\VoucherController@viewPrint2')->name('vouchers.print2');
     Route::get('vouchers/print-wotax/{id}', '\Revlv\Controllers\Procurements\VoucherController@viewPrintNoTax')->name('vouchers.print-wotax');
 
     Route::get('vouchers/logs/{id}', '\Revlv\Controllers\Procurements\VoucherController@viewLogs')->name('vouchers.logs');

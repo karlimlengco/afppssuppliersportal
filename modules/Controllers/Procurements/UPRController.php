@@ -596,16 +596,21 @@ class UPRController extends Controller
         // $inputs['ref_number']   =   $ref_name;
 
         $result     =   $model->update($inputs, $id);
+        $ref_name   =   "";
 
         // update ref number
         $ref        =   explode('-', $result->ref_number);
-        if($result->mode_of_procurement != 'public_bidding')
+        if(count($ref) != 1)
         {
-            $ref_name   =   "AMP-". $result->centers->short_code ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
-        }
-        else
-        {
-            $ref_name   =   "PB-". $result->centers->short_code ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
+
+          if($result->mode_of_procurement != 'public_bidding')
+          {
+              $ref_name   =   "AMP-". $result->centers->short_code ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
+          }
+          else
+          {
+              $ref_name   =   "PB-". $result->centers->short_code ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
+          }
         }
 
         $ref_name   =   str_replace(" ", "", $ref_name);

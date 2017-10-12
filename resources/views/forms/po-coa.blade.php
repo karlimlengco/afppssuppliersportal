@@ -60,7 +60,7 @@
                             <td>
                                 <table class="signatory">
                                     <tr>
-                                        <td nowrap>{{$data['coa_signatories'][0]}}</td>
+                                        <td nowrap><strong>{{$data['coa_signatories'][0]}}</strong></td>
                                         <td></td>
                                     </tr>
                                     <tr>

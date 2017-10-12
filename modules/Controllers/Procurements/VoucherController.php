@@ -1042,6 +1042,92 @@ class VoucherController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
+    public function viewPrint2($id, VoucherRepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr, HeaderRepository $headers)
+    {
+        $result     =   $model->with(['receiver', 'approver', 'certifier'])->findById($id);
+        $noa_model  =   $noa->with(['winner','upr'])->findByUPR($result->upr_id);
+
+        if($noa_model->upr->mode_of_procurement != 'public_bidding')
+        {
+            $winner     =   $noa_model->winner->supplier;
+        }
+        else
+        {
+            $winner     =   $noa_model->biddingWinner->supplier;
+        }
+        $certifier                     =   explode('/', $result->certified_signatory);
+        $approver                      =   explode('/', $result->approver_signatory);
+        $receiver                      =   explode('/', $result->receiver_signatory);
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
+        $data['transaction_date']       =   $result->transaction_date;
+        $data['bir_address']            =   $result->bir_address;
+        $data['final_tax']              =   $result->final_tax;
+        $data['receiver']               =   $receiver;
+        $data['or']                     =   $result->or;
+        $data['approver']               =   $approver;
+        $data['certifier']              =   $certifier;
+        $data['expanded_witholding_tax']=   $result->expanded_witholding_tax;
+        $data['ewt_amount']             =   $result->ewt_amount;
+        $data['final_tax_amount']       =   $result->final_tax_amount;
+        $data['amount']                 =   $result->amount;
+        $data['payment_no']             =   $result->payment_no;
+        $data['payment_date']           =   $result->payment_date;
+        $data['payment_bank']           =   ($result->banks) ? $result->banks->code : "";
+        $data['payee']                  =   $winner;
+        $data['upr']                    =   $noa_model->upr;
+        $data['po']                     =   $noa_model->upr->purchase_order;
+        $data['delivery_terms']         =   $noa_model->upr->purchase_order->delivery_terms;
+        $data['delivery_date']          =   $noa_model->upr->delivery_order->delivery_date;
+        $data['ntp_date']               =   $noa_model->upr->ntp->award_accepted_date;
+        $data['header']                 =   $result->upr->centers;
+        $data['bid_amount']             =   $result->upr->purchase_order->bid_amount;
+        $data['items']                  =   $result->upr->items;
+        $data['po_type']                =   $result->upr->purchase_order->type;
+        $data['po_number']              =   $result->upr->purchase_order->po_number;
+        $ntp_date                       =   Carbon::createFromFormat('!Y-m-d',$data['ntp_date']);
+        $delivery_date                  =   Carbon::createFromFormat('!Y-m-d',$data['delivery_date']);
+
+        $penalty_amount = 0;
+        $po_term        =   $result->upr->purchase_order->delivery_terms;
+
+        foreach($result->upr->delivery_orders as $dr)
+        {
+            if($ntp_date < $dr->delivery_date)
+            {
+                $delivery_date                  =   Carbon::createFromFormat('!Y-m-d', $dr->delivery_date);
+                $nr_delay                       =   $ntp_date->diffInDays($delivery_date, false);
+                if($nr_delay > $po_term)
+                {
+                    $penalty_day    =   $nr_delay  - $po_term;
+                    foreach($dr->items as $item)
+                    {
+                        $amount =   $item->total_amount;
+                        $penalty_amount += (($amount * 0.01) * 0.1) * $penalty_day;
+                    }
+                }
+                // $penalty                        =   (($result->amount * 0.01) * 0.1) * $nr_delay;
+            }
+        }
+
+        // $nr_delay                       =   $ntp_date->diffInDays($delivery_date, false);
+        // $penalty                        =   (($result->amount * 0.01) * 0.1) * $nr_delay;
+        // $data['nr_delay']               =   $nr_delay;
+
+        $data['penalty']                =   $penalty_amount;
+        $pdf = PDF::loadView('forms.voucher-form-2', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'));
+
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('voucher.pdf');
+    }
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
     public function viewPrintNoTax($id, VoucherRepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr, HeaderRepository $headers)
     {
         $result     =   $model->with(['receiver', 'approver', 'certifier'])->findById($id);

@@ -49,6 +49,7 @@ Vouchers
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}">Unit of Purchase Request</a>
 
                 <a target="_blank" class="button__options__item" href="{{route('procurements.vouchers.print', $data->id)}}">Print With TAX</a>
+                <a target="_blank" class="button__options__item" href="{{route('procurements.vouchers.print2', $data->id)}}">Print With TAX (Form 2)</a>
 
                 <a target="_blank" class="button__options__item" href="{{route('procurements.vouchers.print-wotax', $data->id)}}">Print Without TAX</a>
 
