@@ -118,7 +118,7 @@
                         @endforeach
                     </table>
 
-                    <p>That after reading the price quotation submitted of the proponent for {{$data['canvass']->rfq_number}}, {{$data['canvass']->winners->awarder->name}} moved {{$data['canvass']->winners->winner->supplier->name}} be declared as the winner for having the lowest price among other bidder. {{$data['canvass']->winners->seconder->name}} seconded it. Since no objection was raised, the Chairman declared {{$data['canvass']->winners->winner->supplier->name}} as the winner.</p>
+                    <p>That after reading the price quotation submitted of the proponent for {{$data['canvass']->rfq_number}}, {{$data['canvass']->winners->awarder->ranks}} {{$data['canvass']->winners->awarder->name}} {{$data['canvass']->winners->awarder->branch}} moved {{$data['canvass']->winners->winner->supplier->name}} be declared as the winner for having the lowest price among other bidder. {{$data['canvass']->winners->seconder->ranks}} {{$data['canvass']->winners->seconder->name}} {{$data['canvass']->winners->seconder->branch}} seconded it. Since no objection was raised, the Chairman declared {{$data['canvass']->winners->winner->supplier->name}} as the winner.</p>
                     <p>Resolution: {{$data['resolution']}}</p>
                     <p><strong>VI. ADJOURNMENT:</strong> </p>
                     <p class="indent-first-line">The Chairman thanked the attendees and declared the meeting adjourned at exactly {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_opened'])->format('Hi')}}H</p>
