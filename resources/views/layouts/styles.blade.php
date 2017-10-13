@@ -15,11 +15,13 @@
 
 {{-- vendors --}}
 <link rel="stylesheet" href="/vendors/pickmeup/pickmeup.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" />
 
 <!-- main style -->
 <link rel="stylesheet" href="/css/normalize.css">
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/summernote.min.css">
 
 <!-- scripts -->
 <script src="/js/vendor/modernizr-2.8.3.min.js"></script>

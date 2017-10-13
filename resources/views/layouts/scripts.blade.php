@@ -23,6 +23,8 @@
 <script src="/js/main.js"></script>
 <script src="/js/jquery-mousewheel.min.js"></script>
 <script src="/js/jquery.mCustomScrollbar.js"></script>
+<script src="/js/summernote.js"></script>
+
 <script>
     (function($){
         $(window).on("load",function(){
@@ -71,7 +73,6 @@
     {
         field: document.getElementById('datepicker'),
         firstDay: 1,
-        // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]
     });

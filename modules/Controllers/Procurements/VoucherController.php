@@ -12,6 +12,7 @@ use App\Events\Event;
 use \App\Support\Breadcrumb;
 
 
+use \Revlv\Settings\Forms\Voucher\VoucherRepository as VoucherForm;
 use \Revlv\Procurements\Vouchers\VoucherRepository;
 use \Revlv\Procurements\Vouchers\VoucherRequest;
 use \Revlv\Settings\Signatories\SignatoryRepository;
@@ -49,6 +50,7 @@ class VoucherController extends Controller
     protected $banks;
     protected $holidays;
     protected $users;
+    protected $voucherForm;
     protected $userLogs;
 
     /**
@@ -1042,7 +1044,12 @@ class VoucherController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint2($id, VoucherRepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr, HeaderRepository $headers)
+    public function viewPrint2($id,
+      VoucherRepository $model,
+      NOARepository $noa,
+      UnitPurchaseRequestRepository $upr,
+      VoucherForm $voucherForm,
+      HeaderRepository $headers)
     {
         $result     =   $model->with(['receiver', 'approver', 'certifier'])->findById($id);
         $noa_model  =   $noa->with(['winner','upr'])->findByUPR($result->upr_id);
@@ -1084,7 +1091,6 @@ class VoucherController extends Controller
         $data['bid_amount']             =   $result->upr->purchase_order->bid_amount;
         $data['items']                  =   $result->upr->items;
         $data['po_type']                =   $result->upr->purchase_order->type;
-        $data['po_number']              =   $result->upr->purchase_order->po_number;
         $ntp_date                       =   Carbon::createFromFormat('!Y-m-d',$data['ntp_date']);
         $delivery_date                  =   Carbon::createFromFormat('!Y-m-d',$data['delivery_date']);
 
@@ -1113,8 +1119,77 @@ class VoucherController extends Controller
         // $nr_delay                       =   $ntp_date->diffInDays($delivery_date, false);
         // $penalty                        =   (($result->amount * 0.01) * 0.1) * $nr_delay;
         // $data['nr_delay']               =   $nr_delay;
-
+        switch ($data['po_type']) {
+          case 'purchase_order':
+            $data['poType']  = "PURCHASE ORDER No.";
+            break;
+          case 'work_order':
+            $data['poType']  = "WORK ORDER No.";
+            break;
+          case 'job_order':
+            $data['poType']  = "JOB ORDER No.";
+            break;
+          default:
+            $data['poType']  = "CONTRACT ORDER No.";
+            # code...
+            break;
+        }
         $data['penalty']                =   $penalty_amount;
+
+        $form       =   $voucherForm->findByUnit($result->upr->units);
+        $contents   =   "";
+        if($form != null) {
+
+          $contents   =   $form->content;
+        }
+        else
+        {
+          $file_path = base_path()."/resources/views/forms/default-voucher.blade.php";
+          if(file_exists($file_path))
+          {
+            $contents = \File::get($file_path);
+          }
+        }
+
+        $output = preg_replace_callback('~\{{(.*?)\}}~', function($key)use($data, $receiver, $approver, $certifier, $result) {
+            $variable['$data["bid_amount_word"]']      = translateToWords($data['bid_amount']);
+            $variable['$data["receiver_name"]']        = ($receiver) ? $receiver[0] : "";
+            $variable['$data["receiver_ranks"]']       = ($receiver) ? $receiver[1] : "";
+            $variable['$data["receiver_branch"]']      = ($receiver) ? $receiver[2] : "";
+            $variable['$data["receiver_designation"]'] = ($receiver) ? $receiver[3] : "";
+            $variable['$data["approver_name"]']        = ($approver) ? $approver[0] : "";
+            $variable['$data["approver_ranks"]']       = ($approver) ? $approver[1] : "";
+            $variable['$data["approver_branch"]']      = ($approver) ? $approver[2] : "";
+            $variable['$data["approver_designation"]'] = ($approver) ? $approver[3] : "";
+            $variable['$data["certifier_name"]']       = ($certifier) ? $certifier[0] : "";
+            $variable['$data["certifier_ranks"]']      = ($certifier) ? $certifier[1] : "";
+            $variable['$data["certifier_branch"]']     = ($certifier) ? $certifier[2] : "";
+            $variable['$data["certifier_designation"]']= ($certifier) ? $certifier[3] : "";
+            $variable['$data["po_number"]']         = $result->upr->purchase_order->po_number;
+            $variable['$data["poType"]']            = $data['poType'];
+            $variable['$data["itemCount"]']         = count($data['items']);
+            $variable['$data["bid_amount"]']        = formatPrice($data['bid_amount']);
+            $variable['$data["final_tax"]']         = $data['final_tax'];
+            $variable['$data["expanded_witholding_tax"]']= $data['expanded_witholding_tax'];
+            $variable['$data["final_tax_amount"]']  = formatPrice($data['final_tax_amount']);
+            $variable['$data["ewt_amount"]']        = formatPrice($data['ewt_amount']);
+            $variable['$data["penalty"]']           = formatPrice($data['penalty']);
+            $variable['$data["unitHeader"]']        = $data['unitHeader'];
+            $variable['$data["payee"]-&gt;tin']     = $data['payee']->tin;
+            $variable['$data["payee"]-&gt;name']    = $data['payee']->name;
+            $variable['$data["payee"]-&gt;address'] = $data['payee']->address;
+            if(isset($variable[$key[1]]) ){
+              return $variable[$key[1]];
+            }
+            return $key[1];
+        },
+        $contents);
+
+        $pdf = PDF::loadView('forms.voucher-form-2', ['content' => $output, 'data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'));
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('voucher.pdf');
+
         $pdf = PDF::loadView('forms.voucher-form-2', ['data' => $data])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'));

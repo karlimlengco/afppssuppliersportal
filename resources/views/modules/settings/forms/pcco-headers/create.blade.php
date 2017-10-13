@@ -1,7 +1,6 @@
 @section('title')
 PCCO Form Header
 @stop
-
 @section('contents')
 
 {!! Form::open($modelConfig['store']) !!}

@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/', '\Revlv\Controllers\DashboardController@store')->name('dashboard.store');
 Route::post('/guard/auth/broadcasting', '\Revlv\Controllers\ChatController@authenticate')->name('messages.auth');
 Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard.index');
 
@@ -623,6 +624,7 @@ Route::group(['as' => 'maintenance.', 'prefix' => 'maintenance'], function () {
     Route::resource('forms', '\Revlv\Controllers\Settings\FormsController');
     Route::resource('forms-headers', '\Revlv\Controllers\Settings\HeaderController');
     Route::resource('forms-pcco-headers', '\Revlv\Controllers\Settings\PCCOHeaderController');
+    Route::resource('forms-vouchers', '\Revlv\Controllers\Settings\VoucherFormController');
     Route::resource('announcements', '\Revlv\Controllers\Settings\AnnouncementController');
 
     Route::post('catered-units/attachments/{id}', '\Revlv\Controllers\Settings\CateredUnitController@uploadAttachment')->name('catered-units.attachments.store');
@@ -749,6 +751,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('forms_rfq', '\Revlv\Controllers\Settings\FormsController@getDatatable')->name('maintenance.forms.rfq');
     Route::get('forms_headers', '\Revlv\Controllers\Settings\HeaderController@getDatatable')->name('maintenance.forms.headers');
     Route::get('forms_pcco_headers', '\Revlv\Controllers\Settings\PCCOHeaderController@getDatatable')->name('maintenance.forms.pcco-headers');
+    Route::get('forms-vouchers', '\Revlv\Controllers\Settings\VoucherFormController@getDatatable')->name('maintenance.forms.vouchers');
 
     /*
     |--------------------------------------------------------------------------

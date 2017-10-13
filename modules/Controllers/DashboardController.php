@@ -6,8 +6,8 @@ namespace Revlv\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use PDF;
 use Sentinel;
-
 
 use \Revlv\Settings\Units\UnitRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
@@ -42,8 +42,8 @@ class DashboardController extends Controller
      */
     public function index(BlankRFQRepository $blankRfq, UnitRepository $units, UnitPurchaseRequestRepository $model)
     {
-        return $this->view('modules.dashboard',[
-        ]);
+
+        return $this->view('modules.dashboard');
     }
 
     /**
@@ -84,7 +84,7 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
