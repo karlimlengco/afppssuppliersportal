@@ -764,10 +764,10 @@ class InspectionAndAcceptanceController extends Controller
             $variable['$data["venue"]']             = $result->upr->place_of_delivery;
             $variable['$data["winner"]']            = $noa_model->name;
             $variable['$data["invoice"]']           = $invoices;
-            $variable['$data["sao_name"]']          = ($sao) ? $sao[0] : "";;
-            $variable['$data["sao_ranks"]']         = ($sao) ? $sao[1] : "";;
-            $variable['$data["sao_branch"]']        = ($sao) ? $sao[2] : "";;
-            $variable['$data["sao_designation"]']   = ($sao) ? $sao[3] : "";;
+            $variable['$data["sao_name"]']          = (count($sao) > 1) ? $sao[0] : "";;
+            $variable['$data["sao_ranks"]']         = (count($sao) > 1) ? $sao[1] : "";;
+            $variable['$data["sao_branch"]']        = (count($sao) > 1) ? $sao[2] : "";;
+            $variable['$data["sao_designation"]']   = (count($sao) > 1) ? $sao[3] : "";;
             $variable['$data["delivery_number"]']   = $result->delivery_number;
             $variable['$data["delivery_date"]']     = \Carbon\Carbon::createFromFormat('!Y-m-d',$result->delivery_date)->format('d F Y');
             if(isset($variable[$key[1]]) ){
