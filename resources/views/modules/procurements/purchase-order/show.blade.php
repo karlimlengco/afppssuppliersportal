@@ -54,6 +54,9 @@ Purchase Order
                 <a target="_blank" href="{{route('procurements.purchase-orders.print-contract', $data->id)}}" class="button__options__item" > Print Contract</a>
                 <a target="_blank" href="{{route('procurements.purchase-orders.print-terms', $data->id)}}" class="button__options__item" > Print Terms</a>
                 <a target="_blank" href="{{route('procurements.purchase-orders.print-coa', $data->id)}}" class="button__options__item" > Print COA Approval</a>
+                <a target="_blank" href="{{route('procurements.purchase-orders.print2', $data->id)}}" class="button__options__item" tooltip="Print">
+                    PRINT Form 2
+                </a>
 
                 <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" class="button__options__item" tooltip="UPR"> Unit Purchase Request</a>
                 <a href="{{route('procurements.purchase-orders.logs', $data->id)}}" class="button__options__item">View Logs</a>

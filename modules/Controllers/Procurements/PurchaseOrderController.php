@@ -14,6 +14,7 @@ use App\Events\Event;
 use Excel;
 
 use \Revlv\Settings\Forms\Header\HeaderRepository;
+use \Revlv\Settings\Forms\PO\PORepository as POForm;
 use \Revlv\Settings\Forms\PCCOHeader\PCCOHeaderRepository;
 use \Revlv\Procurements\PurchaseOrder\PORepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
@@ -58,6 +59,7 @@ class PurchaseOrderController extends Controller
     protected $holidays;
     protected $users;
     protected $userLogs;
+    protected $poForm;
 
 
     /**
@@ -1132,6 +1134,189 @@ class PurchaseOrderController extends Controller
         $data['funding_release_date']  =  $result->funding_release_date;
         $data['header']             =   $upr_model->centers;
 
+
+        $pdf = PDF::loadView('forms.po', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'));
+
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po.pdf');
+    }
+
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint2($id, POForm $poForm, PORepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
+    {
+        $result                     =  $model->with(['terms','delivery','rfq','items'])->findById($id);
+        $upr_model                  =  $upr->findById($result->upr_id);
+
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
+
+        if($upr_model->mode_of_procurement == 'public_bidding')
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        } ;
+
+        if($result->coa_signatories == null || $result->requestor == null || $result->accounting == null )
+        {
+            return redirect()->back()->with(['error' => 'Please add signatories']);
+        }
+        $data['type']               =  $result->type;
+        $data['upr_number']         =  $upr_model->upr_number;
+        $data['remarks']            =  $result->remarks;
+        $data['rfq_number']         =  $result->rfq_number;
+        $data['mode']               =  ($upr_model->modes != null) ?$upr_model->modes->name : "Public Bidding";
+        $data['term']               =  $result->terms->name;
+        // $data['accounts']           =  $upr_model->accounts->new_account_code;
+        $data['centers']            =  $upr_model->centers->name;
+        $data['unit']               =  $result->upr->unit->short_code;
+        $data['purpose']            =  $upr_model->purpose;
+        $data['delivery']           =  $result->delivery;
+        $data['delivery_term']      =  $result->delivery_terms;
+        $data['items']              =  $result->items;
+        $data['bid_amount']         =  $result->bid_amount;
+
+        $requestor          =  explode('/', $result->requestor_signatory);
+        $accounting         =  explode('/', $result->accounting_signatory);
+        $approver           =  explode('/', $result->approver_signatory);
+        $coa_signatories    =  explode('/', $result->coa_name_signatory);
+
+        $data['mfo_release_date']   =  $result->mfo_released_date;
+        $data['coa_approved_date']  =  $result->coa_approved_date;
+        $data['funding_release_date']  =  $result->funding_release_date;
+        $data['header']             =   $upr_model->centers;
+
+        $form       =   $poForm->findByUnit($result->upr->units);
+        $contents   =   "";
+        if($form != null) {
+
+          $contents   =   $form->content;
+        }
+        else
+        {
+          $file_path = base_path()."/resources/views/forms/default-po.blade.php";
+          if(file_exists($file_path))
+          {
+            $contents = \File::get($file_path);
+          }
+        }
+
+
+        $total = 0;
+        $count = 1;
+
+        $itemContent = "";
+        foreach($result->items as $key=>$item)
+        {
+            if($result->type != 'contract' && $result->type != 'contract_and_po')
+            {
+              $itemContent .= "<tr>";
+              $itemContent .= "<td class='align-center'>";
+              $itemContent .= $count++;
+              $itemContent .= "</td>";
+              $itemContent .= "<td class='align-center'>";
+              $itemContent .= $item->unit;
+              $itemContent .= "</td>";
+              $itemContent .= "<td class='align-left'>";
+              $itemContent .= $item->description;
+              $itemContent .= "</td>";
+              $itemContent .= "<td class='align-center'>";
+              $itemContent .= $item->quantity;
+              $itemContent .= "</td>";
+              $itemContent .= "<td class='align-right'>";
+              $itemContent .= formatPrice($item->price_unit);
+              $itemContent .= "</td>";
+              $itemContent .= "<td class='align-right'>";
+              $itemContent .= formatPrice($item->total_amount);
+              $itemContent .= "</td>";
+              $itemContent .= "</tr>";
+              $total += $item->total_amount;
+            }
+            else if($item->type != 'contract')
+            {
+
+              $itemContent .= "<tr>";
+              $itemContent .= "<td class='align-center'>";
+              $itemContent .= $count++;
+              $itemContent .= "</td>";
+              $itemContent .= "<td class='align-center'>";
+              $itemContent .= $item->unit;
+              $itemContent .= "</td>";
+              $itemContent .= "<td class='align-left'>";
+              $itemContent .= $item->description;
+              $itemContent .= "</td>";
+              $itemContent .= "<td class='align-center'>";
+              $itemContent .= $item->quantity;
+              $itemContent .= "</td>";
+              $itemContent .= "<td class='align-right'>";
+              $itemContent .= formatPrice($item->price_unit);
+              $itemContent .= "</td>";
+              $itemContent .= "<td class='align-right'>";
+              $itemContent .= formatPrice($item->total_amount);
+              $itemContent .= "</td>";
+              $itemContent .= "</tr>";
+              $total += $item->total_amount;
+            }
+
+        }
+
+        $output = preg_replace_callback('~\{{(.*?)\}}~', function($key)use($data, $total, $itemContent, $noa_model, $coa_signatories, $requestor, $accounting, $approver, $result) {
+            $variable['$data["bid_amount_word"]']       = translateToWords($data['bid_amount']);
+            $variable['$data["bid_amount"]']            = formatPrice($data['bid_amount']);
+            $variable['$data["unitHeader"]']            = $data['unitHeader'];
+            $variable['$data["items"]']                 = $itemContent;
+            $variable['$data["total_word"]']            = translateToWords($total);
+            $variable['$data["total"]']                 = formatPrice($total);
+            $variable['$data["mode"]']                  = $data['mode'];
+            $variable['$data["upr_number"]']            = $data['upr_number'];
+            $variable['$data["purpose"]']               = $data['purpose'];
+            $variable['$data["delivery_term"]']         = $data['delivery_term'];
+            $variable['$data["term"]']                  = $data['term'];
+            $variable['$data["unit"]']                  = $data['unit'];
+            $variable['$data["winner_name"]']           = $noa_model->name;
+            $variable['$data["delivery_expected_date"]']= ($result->delivery) ? $result->delivery->expected_date : "";
+            $variable['$data["winner_tin"]']            = $noa_model->tin;
+            $variable['$data["winner_address"]']        = $noa_model->address;
+            $variable['$data["winner_email"]']          = $noa_model->email_1;
+            $variable['$data["winner_phone"]']          = $noa_model->phone_1;
+            $variable['$data["purchase_date"]']         = \Carbon\Carbon::createFromFormat('!Y-m-d',$result->purchase_date)->format('d F Y');
+            $variable['$data["po_number"]']             = $result->po_number;
+            $variable['$data["requestor_name"]']        = (count($requestor) > 1) ? $requestor[0] : "";
+            $variable['$data["requestor_ranks"]']       = (count($requestor) > 1) ? $requestor[1] : "";
+            $variable['$data["requestor_branch"]']      = (count($requestor) > 1) ? $requestor[2] : "";
+            $variable['$data["requestor_designation"]'] = (count($requestor) > 1) ? $requestor[3] : "";
+            $variable['$data["accounting_name"]']        = (count($accounting) > 1) ? $accounting[0] : "";
+            $variable['$data["accounting_ranks"]']       = (count($accounting) > 1) ? $accounting[1] : "";
+            $variable['$data["accounting_branch"]']      = (count($accounting) > 1) ? $accounting[2] : "";
+            $variable['$data["accounting_designation"]'] = (count($accounting) > 1) ? $accounting[3] : "";
+            $variable['$data["approver_name"]']       = (count($approver) > 1) ? $approver[0] : "";
+            $variable['$data["approver_ranks"]']      = (count($approver) > 1) ? $approver[1] : "";
+            $variable['$data["approver_branch"]']     = (count($approver) > 1) ? $approver[2] : "";
+            $variable['$data["approver_designation"]']= (count($approver) > 1) ? $approver[3] : "";
+            $variable['$data["coa_signatories_name"]']       = (count($coa_signatories) > 1) ? $coa_signatories[0] : "";
+            $variable['$data["coa_signatories_ranks"]']      = (count($coa_signatories) > 1) ? $coa_signatories[1] : "";
+            $variable['$data["coa_signatories_branch"]']     = (count($coa_signatories) > 1) ? $coa_signatories[2] : "";
+            $variable['$data["coa_signatories_designation"]']= (count($coa_signatories) > 1) ? $coa_signatories[3] : "";
+            if(isset($variable[$key[1]]) ){
+              return $variable[$key[1]];
+            }
+            return $key[1];
+        },
+        $contents);
+
+        $pdf = PDF::loadView('forms.po-form2', ['content' => $output, 'data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'));
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('voucher.pdf');
 
         $pdf = PDF::loadView('forms.po', ['data' => $data])
             ->setOption('margin-bottom', 30)

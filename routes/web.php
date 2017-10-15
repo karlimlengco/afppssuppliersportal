@@ -247,6 +247,7 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     */
     Route::get('purchase-orders/logs/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewLogs')->name('purchase-orders.logs');
     Route::get('purchase-orders/print/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewPrint')->name('purchase-orders.print');
+    Route::get('purchase-orders/print2/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewPrint2')->name('purchase-orders.print');
     Route::get('purchase-orders/print-terms/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewPrintTerms')->name('purchase-orders.print-terms');
     Route::get('purchase-orders/print-coa/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewPrintCOA')->name('purchase-orders.print-coa');
     Route::get('purchase-orders/rfq/{rfq_id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@createFromRfq')->name('purchase-orders.rfq');
@@ -482,6 +483,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     */
     Route::get('purchase-orders/logs/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@viewLogs')->name('purchase-orders.logs');
     Route::get('purchase-orders/print/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@viewPrint')->name('purchase-orders.print');
+    Route::get('purchase-orders/print2/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@viewPrint2')->name('purchase-orders.print2');
     Route::get('purchase-orders/print-terms/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@viewPrintTerms')->name('purchase-orders.print-terms');
     Route::get('purchase-orders/print-contract/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@viewPrintContract')->name('purchase-orders.print-contract');
     Route::get('purchase-orders/print-coa/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@viewPrintCOA')->name('purchase-orders.print-coa');
@@ -637,6 +639,7 @@ Route::group(['as' => 'maintenance.', 'prefix' => 'maintenance'], function () {
     Route::resource('forms-rsmi', '\Revlv\Controllers\Settings\RSMIFormController');
     Route::resource('forms-rar', '\Revlv\Controllers\Settings\RARFormController');
     Route::resource('forms-coi', '\Revlv\Controllers\Settings\COIFormController');
+    Route::resource('forms-po', '\Revlv\Controllers\Settings\POFormController');
     Route::resource('announcements', '\Revlv\Controllers\Settings\AnnouncementController');
 
     Route::post('catered-units/attachments/{id}', '\Revlv\Controllers\Settings\CateredUnitController@uploadAttachment')->name('catered-units.attachments.store');
@@ -770,6 +773,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('forms-rsmi', '\Revlv\Controllers\Settings\RSMIFormController@getDatatable')->name('maintenance.forms.rsmi');
     Route::get('forms-rar', '\Revlv\Controllers\Settings\RARFormController@getDatatable')->name('maintenance.forms.rar');
     Route::get('forms-coi', '\Revlv\Controllers\Settings\COIFormController@getDatatable')->name('maintenance.forms.coi');
+    Route::get('forms-po', '\Revlv\Controllers\Settings\POFormController@getDatatable')->name('maintenance.forms.po');
 
 
     /*
