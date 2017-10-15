@@ -61,7 +61,8 @@ $(document).ready(function() {
     ]
   });
 });
-console.log(rawContents)F
+console.log(rawContents)
+$('#id-field-content').val(JSON.parse($("script", rawContents).remove()) )
 </script>
 
 @stop
