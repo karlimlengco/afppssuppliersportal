@@ -11,6 +11,7 @@ use Validator;
 use \App\Support\Breadcrumb;
 use App\Events\Event;
 
+use \Revlv\Settings\Forms\RIS\RISRepository;
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
 use \Revlv\Procurements\DeliveryInspection\DeliveryInspectionRepository;
@@ -59,6 +60,7 @@ class DeliveredInspectionReportController extends Controller
     protected $holidays;
     protected $users;
     protected $userLogs;
+    protected $ris;
 
     /**
      * @param model $model
@@ -798,6 +800,138 @@ class DeliveredInspectionReportController extends Controller
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('ris.pdf');
     }
+
+
+    /**
+     * [viewPrintRIS description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrintRISForm2(
+        $id,
+        RISRepository $ris,
+        DeliveryInspectionRepository $model,
+        NOARepository $noa, HeaderRepository $headers
+        )
+    {
+        $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
+
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
+
+        if($result->received_signatory == null)
+        {
+            return redirect()->back()->with([
+                'error'  => "Please select signatory first"
+            ]);
+        }
+
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
+        $data['items']              =   $result->delivery->po->items;
+        $data['purpose']            =   $result->upr->purpose;
+        $data['place']              =   $result->upr->place_of_delivery;
+        $data['centers']            =   $result->upr->centers->name;
+        $data['units']              =   $result->upr->unit->short_code;
+        $data['ref_number']         =   $result->upr->ref_number;
+        $data['supplier']           =   $supplier->name;
+        $data['date']               =   $result->delivery->delivery_date;
+        $data['po_number']          =   $result->delivery->po->po_number;
+        $data['po_date']            =   $result->delivery->po->coa_approved_date;
+        $data['invoice']            =   $result->delivery->inspections->invoices;
+        $data['issues']             =   $result->delivery->diir->issues;
+        $data['header']             =   $result->upr->centers;
+
+        $data['inspector']          =   explode('/',$result->inspected_signatory);
+        $data['bid_amount']         =   $result->delivery->po->bid_amount;
+
+        $issuer                     =   explode('/',$result->issued_signatory);
+        $approver                   =   explode('/',$result->approved_signatory);
+        $receiver                   =   explode('/',$result->received_signatory);
+        $requestor                  =   explode('/',$result->requested_signatory);
+        // dd($data);
+
+        $form       =   $ris->findByUnit($result->upr->units);
+        $contents   =   "";
+        if($form != null) {
+
+          $contents   =   $form->content;
+        }
+        else
+        {
+          $file_path = base_path()."/resources/views/forms/default-ris.blade.php";
+          if(file_exists($file_path))
+          {
+            $contents = \File::get($file_path);
+          }
+        }
+        $itemContent = "";
+        foreach($data['items'] as $key=>$item)
+        {
+          $itemContent .= "<tr>";
+          $itemContent .= "<td class='align-center'>";
+          $itemContent .= $key+1;
+          $itemContent .= "</td>";
+          $itemContent .= "<td class='align-center'>";
+          $itemContent .= $item->unit;
+          $itemContent .= "</td>";
+          $itemContent .= "<td class='align-left'>";
+          $itemContent .= $item->description;
+          $itemContent .= "</td>";
+          $itemContent .= "<td class='align-center'>";
+          $itemContent .= $item->quantity;
+          $itemContent .= "</td>";
+          $itemContent .= "<td class='align-right'>";
+          $itemContent .= formatPrice($item->price_unit);
+          $itemContent .= "</td>";
+          $itemContent .= "<td class='align-right'>";
+          $itemContent .= formatPrice($item->total_amount);
+          $itemContent .= "</td>";
+          $itemContent .= "</tr>";
+
+        }
+        $output = preg_replace_callback('~\{{(.*?)\}}~', function($key)use($data, $itemContent, $receiver, $requestor, $issuer, $approver, $result) {
+            $variable['$data["unitHeader"]']            = $data['unitHeader'];
+            $variable['$data["items"]']                 = $itemContent;
+            $variable['$data["purpose"]']               = $result->upr->purpose;
+            $variable['$data["bid_amount"]']            = formatPrice($data['bid_amount']);
+            $variable['$data["bid_amount_word"]']       = translateToWords($data['bid_amount']);
+            $variable['$data["receiver_name"]']         = ($receiver) ? $receiver[0] : "";
+            $variable['$data["receiver_ranks"]']        = ($receiver) ? $receiver[1] : "";
+            $variable['$data["receiver_branch"]']       = ($receiver) ? $receiver[2] : "";
+            $variable['$data["receiver_designation"]']  = ($receiver) ? $receiver[3] : "";
+            $variable['$data["requestor_name"]']         = ($requestor) ? $requestor[0] : "";
+            $variable['$data["requestor_ranks"]']        = ($requestor) ? $requestor[1] : "";
+            $variable['$data["requestor_branch"]']       = ($requestor) ? $requestor[2] : "";
+            $variable['$data["requestor_designation"]']  = ($requestor) ? $requestor[3] : "";
+            $variable['$data["approver_name"]']         = ($approver) ? $approver[0] : "";
+            $variable['$data["approver_ranks"]']        = ($approver) ? $approver[1] : "";
+            $variable['$data["approver_branch"]']       = ($approver) ? $approver[2] : "";
+            $variable['$data["approver_designation"]']  = ($approver) ? $approver[3] : "";
+            $variable['$data["issuer_name"]']           = ($issuer) ? $issuer[0] : "";
+            $variable['$data["issuer_ranks"]']          = ($issuer) ? $issuer[1] : "";
+            $variable['$data["issuer_branch"]']         = ($issuer) ? $issuer[2] : "";
+            $variable['$data["issuer_designation"]']    = ($issuer) ? $issuer[3] : "";
+            if(isset($variable[$key[1]]) ){
+              return $variable[$key[1]];
+            }
+            return $key[1];
+        },
+        $contents);
+
+        $pdf = PDF::loadView('forms.ris-form2', ['content' => $output])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'));
+
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('rsi2.pdf');
+      }
 
     /**
      * [viewPrintRIS2 description]

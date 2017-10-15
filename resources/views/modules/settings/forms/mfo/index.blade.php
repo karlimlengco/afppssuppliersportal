@@ -1,5 +1,5 @@
 @section('title')
-Voucher Form2
+MFO Form2
 @stop
 
 @section('contents')
@@ -9,7 +9,7 @@ Voucher Form2
         <h3></h3>
     </div>
     <div class="six columns utility utility--align-right" >
-        <a class="button" href="{{route('maintenance.forms-vouchers.create')}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
+        <a class="button" href="{{route('maintenance.forms-mfo.create')}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
     </div>
 </div>
 
@@ -40,7 +40,7 @@ Voucher Form2
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.maintenance.forms.vouchers')}}",
+                url: "{{route('datatables.maintenance.forms.mfo')}}",
             },
         columns: [
             {data: 'short_code', name: 'short_code'},

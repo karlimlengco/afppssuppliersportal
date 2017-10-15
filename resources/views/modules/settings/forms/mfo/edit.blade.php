@@ -1,6 +1,7 @@
 @section('title')
-Voucher Form2
+MFO Form 2
 @stop
+
 @section('styles')
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" />
 
@@ -16,26 +17,31 @@ Voucher Form2
 }
 </style>
 @stop
+
+@section('modal')
+@stop
+
 @section('contents')
 
-{!! Form::open($modelConfig['store']) !!}
+{!! Form::open($modelConfig['update']) !!}
 
 <div class="row">
     <div class="twelve columns align-left utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-        <button type="submit" id="submit-form"  class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+
+
+            <button type="submit" id="submit-form" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
 
     </div>
 </div>
+
 <div class="row">
     <div class="twelve columns">
-        {!! Form::selectField('unit_id', 'Unit', $unit_lists) !!}
         {!! Form::textareaField('content', 'Content') !!}
-
     </div>
 </div>
+{!! Form::close() !!}
 
-{!!Form::close()!!}
 @stop
 
 @section('scripts')
@@ -47,6 +53,7 @@ $("#submit-form").click(function(e){
     $('#id-field-content').summernote('codeview.deactivate');
   }
 })
+
 $(document).ready(function() {
   $('#id-field-content').summernote({
     toolbar: [
@@ -56,7 +63,13 @@ $(document).ready(function() {
   });
 });
 
-$('#id-field-content').val(JSON.parse(rawContents) )
+function noscript(strCode){
+   var html = $(strCode.bold());
+   html.find('script').remove();
+ return html.html();
+}
+
+$('#id-field-content').val( noscript(JSON.parse(rawContents)) )
 </script>
 
 @stop

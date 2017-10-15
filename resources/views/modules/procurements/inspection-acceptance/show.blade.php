@@ -36,6 +36,7 @@ Inspection And Acceptance Report
             <div class="button__options">
                 <a  href="{{route('procurements.unit-purchase-requests.show', $data->upr->id)}}" class="button__options__item" > Unit Purchase Request</a>
                 <a target="_blank" href="{{route('procurements.inspection-and-acceptance.print-mfo', $data->id)}}" class="button__options__item" > Print MFO Inspection</a>
+                <a target="_blank" href="{{route('procurements.inspection-and-acceptance.print-mfo2', $data->id)}}" class="button__options__item" > Print MFO Inspection (Form 2)</a>
 
                 <a href="{{route('procurements.inspection-and-acceptance.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
                     View Logs

@@ -52,6 +52,7 @@ Delivered Items Inspection
                 @endif
 
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-ris', $data->id)}}" class="button__options__item" > PRINT  RIS</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-ris-form2', $data->id)}}" class="button__options__item" > PRINT  RIS (FORM 2)</a>
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-ris2', $data->id)}}" class="button__options__item" > PRINT  RIS2</a>
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-rsmi', $data->id)}}" class="button__options__item" > PRINT  RSMI</a>
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-rar', $data->id)}}" class="button__options__item" > PRINT  RAR</a>

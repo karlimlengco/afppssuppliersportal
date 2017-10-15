@@ -12,6 +12,7 @@ use \App\Support\Breadcrumb;
 use Validator;
 use App\Events\Event;
 
+use \Revlv\Settings\Forms\MFO\MFORepository;
 use \Revlv\Procurements\NoticeOfAward\NOARepository;
 use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Procurements\DeliveryOrder\DeliveryOrderRepository;
@@ -57,6 +58,7 @@ class InspectionAndAcceptanceController extends Controller
     protected $users;
     protected $userLogs;
     protected $headers;
+    protected $mfoForm;
 
     /**
      * @param model $model
@@ -679,6 +681,103 @@ class InspectionAndAcceptanceController extends Controller
         $data['invoices']          =  $model->invoices;
 
         $pdf = PDF::loadView('forms.mfo', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'));
+
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('iar.pdf');
+    }
+
+
+
+    /**
+     * [viewPrintMFO description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrintMFO2(
+        $id,
+        MFORepository $mfoForm,
+        InspectionAndAcceptanceRepository $model,
+        DeliveryOrderRepository $delivery,
+        NOARepository $noa, HeaderRepository $headers
+        )
+    {
+        $model                      =  $model->with(['acceptor', 'inspector'])->findById($id);
+        if($model->acceptor ==null || $model->inspector == null)
+        {
+            return redirect()->back()->with(['error' => 'please add signatory']);
+        }
+
+        $result                     =  $delivery->with(['upr', 'po'])->findById($model->dr_id);
+
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
+
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
+        $data['purchase_date']      =  $result->po->purchase_date;
+        $data['bid_amount']         =  $result->po->bid_amount;
+        $data['project_name']       =  $result->upr->project_name;
+        $data['center']             =  $result->upr->centers->name;
+        $data['signatory']          =  $result->signatory;
+        $data['expected_date']      =  $result->expected_date;
+        $data['items']              =  $result->po->items;
+        $data['accepted_date']      =  $model->accepted_date;
+        $data['inspection_date']    =  $model->inspection_date;
+        $data['header']             =  $result->upr->centers;
+        $data['acceptor']           =  $model->acceptor;
+        $data['inspector']          =  $model->inspector;
+        $sao                        =  explode('/',$model->sao_name_signatory);
+
+        $form       =   $mfoForm->findByUnit($result->upr->units);
+
+        $contents   =   "";
+        if($form != null) {
+
+          $contents   =   $form->content;
+        }
+        else
+        {
+          $file_path = base_path()."/resources/views/forms/default-mfo.blade.php";
+          if(file_exists($file_path))
+          {
+            $contents = \File::get($file_path);
+          }
+        }
+        $invoices = "";
+        foreach($model->invoices as $inv)
+        {
+            $invoice = $inv->invoice_number ." ". \Carbon\Carbon::createFromFormat('!Y-m-d',$inv->invoice_date)->format('d F Y')."<br>";
+            $invoices .=  $invoice;
+        }
+
+        $output = preg_replace_callback('~\{{(.*?)\}}~', function($key)use($data, $result, $sao, $noa_model, $invoices) {
+            $variable['$data["unitHeader"]']        = $data['unitHeader'];
+            $variable['$data["po_number"]']         = $result->po->po_number;
+            $variable['$data["venue"]']             = $result->upr->place_of_delivery;
+            $variable['$data["winner"]']            = $noa_model->name;
+            $variable['$data["invoice"]']           = $invoices;
+            $variable['$data["sao_name"]']          = ($sao) ? $sao[0] : "";;
+            $variable['$data["sao_ranks"]']         = ($sao) ? $sao[1] : "";;
+            $variable['$data["sao_branch"]']        = ($sao) ? $sao[2] : "";;
+            $variable['$data["sao_designation"]']   = ($sao) ? $sao[3] : "";;
+            $variable['$data["delivery_number"]']   = $result->delivery_number;
+            $variable['$data["delivery_date"]']     = \Carbon\Carbon::createFromFormat('!Y-m-d',$result->delivery_date)->format('d F Y');
+            if(isset($variable[$key[1]]) ){
+              return $variable[$key[1]];
+            }
+            return $key[1];
+        },
+        $contents);
+        // dd($contents);
+        $pdf = PDF::loadView('forms.mfo-form-2', ['content' => $output])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'));
 

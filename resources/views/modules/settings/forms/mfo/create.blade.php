@@ -1,5 +1,5 @@
 @section('title')
-Voucher Form2
+MFO Form2
 @stop
 @section('styles')
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" />
@@ -23,7 +23,7 @@ Voucher Form2
 <div class="row">
     <div class="twelve columns align-left utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-        <button type="submit" id="submit-form"  class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+        <button type="submit" id="submit-form" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
 
     </div>
 </div>

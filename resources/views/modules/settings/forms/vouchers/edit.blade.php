@@ -1,7 +1,22 @@
 @section('title')
-PCCO Form Headers
+Voucher Form 2
 @stop
 
+@section('styles')
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" />
+
+<link rel="stylesheet" href="/css/summernote.min.css">
+<style>
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    font-family: "Nunito Sans";
+    font-size: 16px;
+}
+</style>
+@stop
 @section('modal')
 @stop
 
@@ -47,7 +62,7 @@ $(document).ready(function() {
   });
 });
 
-$('#id-field-content').val(JSON.parse(rawContents) )
+$('#id-field-content').val(JSON.parse($("script", rawContents).remove()) )
 </script>
 
 @stop
