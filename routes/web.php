@@ -568,9 +568,13 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('delivered-inspections/print-ris/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRIS')->name('delivered-inspections.print-ris');
     Route::get('delivered-inspections/print-ris-form-2/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRISForm2')->name('delivered-inspections.print-ris-form2');
     Route::get('delivered-inspections/print-ris2/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRIS2')->name('delivered-inspections.print-ris2');
+    Route::get('delivered-inspections/print-ris2-form2/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRIS2Form2')->name('delivered-inspections.print-ris2-form2');
     Route::get('delivered-inspections/print-rsmi/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRSMI')->name('delivered-inspections.print-rsmi');
+    Route::get('delivered-inspections/print-rsmi2/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRSMI2')->name('delivered-inspections.print-rsmi2');
     Route::get('delivered-inspections/print-rar/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRAR')->name('delivered-inspections.print-rar');
+    Route::get('delivered-inspections/print-rar2/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRAR2')->name('delivered-inspections.print-rar2');
     Route::get('delivered-inspections/print-coi/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintCOI')->name('delivered-inspections.print-coi');
+    Route::get('delivered-inspections/print-coi2/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintCOI2')->name('delivered-inspections.print-coi2');
     Route::post('delivered-inspections/add-issue/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@addIssue')->name('delivered-inspections.add-issue');
     Route::post('delivered-inspections/start-inspection/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@startInspection')->name('delivered-inspections.start-inspection');
     Route::post('delivered-inspections/close-inspection/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@closeInspection')->name('delivered-inspections.close-inspection');
@@ -629,6 +633,10 @@ Route::group(['as' => 'maintenance.', 'prefix' => 'maintenance'], function () {
     Route::resource('forms-vouchers', '\Revlv\Controllers\Settings\VoucherFormController');
     Route::resource('forms-mfo', '\Revlv\Controllers\Settings\MFOFormController');
     Route::resource('forms-ris', '\Revlv\Controllers\Settings\RISFormController');
+    Route::resource('forms-ris2', '\Revlv\Controllers\Settings\RIS2FormController');
+    Route::resource('forms-rsmi', '\Revlv\Controllers\Settings\RSMIFormController');
+    Route::resource('forms-rar', '\Revlv\Controllers\Settings\RARFormController');
+    Route::resource('forms-coi', '\Revlv\Controllers\Settings\COIFormController');
     Route::resource('announcements', '\Revlv\Controllers\Settings\AnnouncementController');
 
     Route::post('catered-units/attachments/{id}', '\Revlv\Controllers\Settings\CateredUnitController@uploadAttachment')->name('catered-units.attachments.store');
@@ -758,6 +766,11 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     Route::get('forms-vouchers', '\Revlv\Controllers\Settings\VoucherFormController@getDatatable')->name('maintenance.forms.vouchers');
     Route::get('forms-mfo', '\Revlv\Controllers\Settings\MFOFormController@getDatatable')->name('maintenance.forms.mfo');
     Route::get('forms-ris', '\Revlv\Controllers\Settings\RISFormController@getDatatable')->name('maintenance.forms.ris');
+    Route::get('forms-ris2', '\Revlv\Controllers\Settings\RIS2FormController@getDatatable')->name('maintenance.forms.ris2');
+    Route::get('forms-rsmi', '\Revlv\Controllers\Settings\RSMIFormController@getDatatable')->name('maintenance.forms.rsmi');
+    Route::get('forms-rar', '\Revlv\Controllers\Settings\RARFormController@getDatatable')->name('maintenance.forms.rar');
+    Route::get('forms-coi', '\Revlv\Controllers\Settings\COIFormController@getDatatable')->name('maintenance.forms.coi');
+
 
     /*
     |--------------------------------------------------------------------------

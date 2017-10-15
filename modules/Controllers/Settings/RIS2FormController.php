@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 
-use \Revlv\Settings\Forms\RIS\RISRepository;
+use \Revlv\Settings\Forms\RIS2\RIS2Repository;
 use \Revlv\Settings\CateredUnits\CateredUnitRepository;
 
-class RISFormController extends Controller
+class RIS2FormController extends Controller
 {
 
     /**
@@ -17,7 +17,7 @@ class RISFormController extends Controller
      *
      * @return [type]            [description]
      */
-    public function getDatatable(RISRepository $model)
+    public function getDatatable(RIS2Repository $model)
     {
         return $model->getDatatable();
     }
@@ -28,7 +28,7 @@ class RISFormController extends Controller
      *
      * @var string
      */
-    protected $baseUrl  =   "maintenance.forms-ris.";
+    protected $baseUrl  =   "maintenance.forms-ris2.";
 
     /**
      * [$model description]
@@ -54,7 +54,7 @@ class RISFormController extends Controller
      */
     public function index()
     {
-        return $this->view('modules.settings.forms.ris.index');
+        return $this->view('modules.settings.forms.ris2.index');
     }
 
     /**
@@ -65,14 +65,14 @@ class RISFormController extends Controller
     public function create(CateredUnitRepository $units)
     {
 
-        $filePath = base_path()."/resources/views/forms/default-ris.blade.php";
+        $filePath = base_path()."/resources/views/forms/default-ris2.blade.php";
         $contents = \File::get($filePath);
 
         \JavaScript::put([
           ' rawContents' => json_encode($contents)
         ]);
 
-        $this->view('modules.settings.forms.ris.create',[
+        $this->view('modules.settings.forms.ris2.create',[
             'unit_lists'    =>  $units->lists('id', 'short_code'),
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [
@@ -89,10 +89,10 @@ class RISFormController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, RISRepository $model)
+    public function store(Request $request, RIS2Repository $model)
     {
         $this->validate($request, [
-            'unit_id'   =>  'required|unique:ris_forms,unit_id',
+            'unit_id'   =>  'required|unique:ris2_forms,unit_id',
             'content'   =>  'required'
         ]);
 
@@ -119,7 +119,7 @@ class RISFormController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, RISRepository $model)
+    public function edit($id, RIS2Repository $model)
     {
         $result =   $model->findById($id);
 
@@ -127,7 +127,7 @@ class RISFormController extends Controller
           ' rawContents' => json_encode($result->content)
         ]);
 
-        return $this->view('modules.settings.forms.ris.edit',[
+        return $this->view('modules.settings.forms.ris2.edit',[
             'data'          =>  $result,
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [
@@ -150,7 +150,7 @@ class RISFormController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, RISRepository $model)
+    public function update(Request $request, $id, RIS2Repository $model)
     {
         $this->validate($request,[
             'content'   =>  'required'
@@ -168,7 +168,7 @@ class RISFormController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, RISRepository $model)
+    public function destroy($id, RIS2Repository $model)
     {
         //
     }

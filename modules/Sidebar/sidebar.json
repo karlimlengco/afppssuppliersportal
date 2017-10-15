@@ -240,6 +240,31 @@
                     "route" :   "maintenance.forms-mfo.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "MFO Form 2"
+                },
+                {
+                    "route" :   "maintenance.forms-ris.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "RIS Form 2"
+                },
+                {
+                    "route" :   "maintenance.forms-ris2.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "RIS2 Form 2"
+                },
+                {
+                    "route" :   "maintenance.forms-rsmi.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "RSMI Form 2"
+                },
+                {
+                    "route" :   "maintenance.forms-rar.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "RAR Form 2"
+                },
+                {
+                    "route" :   "maintenance.forms-coi.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "COI Form 2"
                 }
             ]
         }
