@@ -62,7 +62,7 @@ $(document).ready(function() {
   });
 });
 console.log(rawContents)
-$('#id-field-content').val(JSON.parse($("script", rawContents).remove()) )
+$('#id-field-content').val(JSON.parse(rawContents) )
 </script>
 
 @stop
