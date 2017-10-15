@@ -178,7 +178,6 @@ return [
         Barryvdh\Snappy\ServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
-        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
 
         /*
          * Revlv
@@ -260,7 +259,6 @@ return [
         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
         'Uuid' => Webpatser\Uuid\Uuid::class,
-        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
     ],
 
 ];
