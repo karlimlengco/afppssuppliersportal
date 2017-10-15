@@ -31,8 +31,8 @@
     </tr>
     <tr>
         <td class="v-align-middle" rowspan="2">Payee</td>
-        <td class="v-align-middle" colspan="9" rowspan="2"><strong>{{$data["payee"]->name}}</strong></td>
-        <td class="no-border-bottom">TIN/Employee No.: {{$data["payee"]->tin}}</td>
+        <td class="v-align-middle" colspan="9" rowspan="2"><strong>{{$data["payee_name"]}}</strong></td>
+        <td class="no-border-bottom">TIN/Employee No.: {{$data["payee_tin"]}}</td>
         <td rowspan="2">ORS/BURS No.:</td>
     </tr>
     <tr>
@@ -40,7 +40,7 @@
     </tr>
     <tr>
         <td>Address</td>
-        <td colspan="11"><strong>{{$data["payee"]->address}}</strong></td>
+        <td colspan="11"><strong>{{$data["payee_address"]}}</strong></td>
     </tr>
 </table>
 <table class="printable-form__body__table classic">

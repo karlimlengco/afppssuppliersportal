@@ -1175,9 +1175,9 @@ class VoucherController extends Controller
             $variable['$data["ewt_amount"]']        = formatPrice($data['ewt_amount']);
             $variable['$data["penalty"]']           = formatPrice($data['penalty']);
             $variable['$data["unitHeader"]']        = $data['unitHeader'];
-            $variable['$data["payee"]-&gt;tin']     = $data['payee']->tin;
-            $variable['$data["payee"]-&gt;name']    = $data['payee']->name;
-            $variable['$data["payee"]-&gt;address'] = $data['payee']->address;
+            $variable['$data["payee_tin"]']     = $data['payee']->tin;
+            $variable['$data["payee_name"]']    = $data['payee']->name;
+            $variable['$data["payee_address"]'] = $data['payee']->address;
             if(isset($variable[$key[1]]) ){
               return $variable[$key[1]];
             }
