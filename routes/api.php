@@ -44,6 +44,7 @@ Route::group(['middleware' => ['api']], function () {
         Route::resource('permissions', 'Maintenance\PermissionController');
         Route::resource('roles', 'Maintenance\RoleController');
         Route::resource('account-codes', 'Maintenance\AccountController');
+        Route::resource('bacsec', 'Maintenance\BacSecController');
         Route::resource('unit-purchase-requests', 'Procurement\UPRController');
         Route::resource('signatories', 'Maintenance\SignatoryController');
         Route::resource('suppliers', 'Maintenance\SupplierController');

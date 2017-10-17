@@ -78,7 +78,7 @@ trait DatatableTrait
                 $route  =  route( 'biddings.philgeps.show',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->philgeps_number .'</a>';
             })
-            ->rawColumns(['philgeps_number'])
+            ->rawColumns(['philgeps_number', 'bid_philgeps_number'])
             ->make(true);
     }
 }

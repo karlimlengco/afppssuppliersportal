@@ -182,6 +182,7 @@ class DeliveryController extends Controller
 
         foreach ($po_model->items as $item) {
             $items[]  =   [
+                'id'            =>  (string) \Uuid::generate(),
                 'order_id'      =>  $result->id,
                 'description'   =>  $item->description,
                 'quantity'      =>  $item->quantity,

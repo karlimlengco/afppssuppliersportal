@@ -123,7 +123,7 @@ Post Qualification
                     <td>{{ formatPrice($data->upr->total_amount - $proponent->bid_amount) }}</td>
                     <td style="text-transform: capitalize">{{$proponent->status}}</td>
                     <td>
-                        @if($proponent->status == 'eligible')
+                        @if($proponent->status == 'eligible' || $proponent->status == 'passed')
                         <a href="#" class="award-button award"  data-id="{{$proponent->id}}" data-name="{{$proponent->proponent_name}}">
                             Mark this as Winner
                         </a>

@@ -46,15 +46,15 @@ class ChargeabilityController extends ApiController
     {
         foreach($request->model as $data)
         {
-            if(! $upr = $model->getById($data['id']) )
+            if(! $upr = $units->getById($data['id']) )
             {
-                $model->save($data);
+                $units->save($data);
             }
             else
             {
                 $last_update = $data['updated_at'];
                 if($upr->updated_at < $last_update){
-                    $model->update($data, $upr->id);
+                    $units->update($data, $upr->id);
                 }
             }
         }

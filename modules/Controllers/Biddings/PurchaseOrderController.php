@@ -236,11 +236,14 @@ class PurchaseOrderController extends Controller
 
         $model->update(['status' => 'MFO Approved'], $id);
 
-
         $upr_result  = $upr->update([
-            'status' => "PO MFO Approved",
+            'next_allowable'=> 1,
+            'next_step'     => 'COA Approval',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => "PO MFO Approved",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
-            'calendar_days' => $day_delayed + $po->upr->calendar_days,
+            'calendar_days' => $cd + $po->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $po->upr_id);

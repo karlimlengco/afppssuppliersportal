@@ -219,14 +219,18 @@ class NoticeToProceedController extends Controller
             'action'           =>  $request->action
         ];
 
-
-        $upr_result  = $upr->update([
-            'status' => "NTP Created",
+        $upr_result =  $upr->update([
+            'next_allowable'=> 1,
+            'next_step'     => 'Receive NTP',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => "NTP Created",
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $po_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $po_model->upr_id);
+
 
 
 

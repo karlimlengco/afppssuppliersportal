@@ -77,7 +77,7 @@ Document Acceptance
     </div>
     <div class="data-panel__section">
         <ul class="data-panel__list">
-            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Processed By:</strong> {{$data->user->first_name ." ". $data->user->surname}} </li>
+            <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Processed By:</strong> @if($data->user) {{$data->user->first_name ." ". $data->user->surname}}  @endif</li>
             <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Days To Complete :</strong> {{$data->days}} </li>
         </ul>
     </div>
