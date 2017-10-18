@@ -147,6 +147,39 @@ class UPRController extends Controller
     }
 
     /**
+     * [confirmDrafts description]
+     *
+      * @param  [type]                        $id      [description]
+     * @param  Request                       $request [description]
+     * @param  UnitPurchaseRequestRepository $model   [description]
+     * @return [type]                                 [description]
+     */
+    public function confirmDrafts($id, Request $request, UnitPurchaseRequestRepository $model)
+    {
+        $upr  = $model->findById($id);
+
+        $date                   =   \Carbon\Carbon::now();
+        $counts                 =   $model->getCountByYear($date->format('Y'))->total;
+        if($upr->mode_of_procurement != 'public_bidding')
+        {
+            $ref_name   =   "AMP-". $upr->centers->short_code ."-". $counts ."-". $upr->unit->short_code ."-". $date->format('Y');
+        }
+        else
+        {
+            $ref_name   =   "PB-". $upr->centers->short_code ."-". $counts ."-". $upr->unit->short_code ."-". $date->format('Y');
+        }
+
+        $ref_name   =   str_replace(" ", "", $ref_name);
+
+        $model->update(['ref_number' => $ref_name, 'date_prepared' => $request->date_prepared, 'status' => "upr_processing", 'state' => 'on-going'], $upr->id );
+
+
+        return redirect()->route($this->baseUrl.'show', $upr->id )->with([
+            'success'  => "New record has been successfully added."
+        ]);
+    }
+
+    /**
      * [getCancelledDatatable description]
      *
      * @return [type]            [description]

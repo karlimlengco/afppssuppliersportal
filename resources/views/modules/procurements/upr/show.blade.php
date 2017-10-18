@@ -23,6 +23,31 @@ Unit Purchase Request
 @stop
 
 @section('modal')
+    <div class="modal" id="confirm-upr-modal">
+        <div class="modal__dialogue modal__dialogue--round-corner">
+             <form method="POST" action="{{route('procurements.upr-drafts.confirm', $data->id)}}" accept-charset="UTF-8">
+                <button type="button" class="modal__close-button">
+                    <i class="nc-icon-outline ui-1_simple-remove"></i>
+                </button>
+
+                <div class="moda__dialogue__head">
+                    <h1 class="modal__title">Confirm UPR</h1>
+                </div>
+
+                <div class="modal__dialogue__body">
+
+                    {!!Form::dateField('date_prepared', 'Date Confirmed')!!}
+                    <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                    <input name="_method" type="hidden" value="POST">
+                </div>
+
+                <div class="modal__dialogue__foot">
+                    <button class="button">Proceed</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
     <div class="modal" id="add-item-modal">
         <div class="modal__dialogue modal__dialogue--round-corner">
              <form method="POST" action="{{route('procurements.upr-items.store', $data->id)}}" accept-charset="UTF-8">
@@ -158,6 +183,14 @@ Unit Purchase Request
     <hr>
     <br>
     @include('modules.procurements.upr.buttons')
+    @if($data->status == 'draft')
+    <div class="twelve columns align-right utility utility--align-right">
+        <span >Confirm UPR</span>
+        <a href="#" class="button" id="confirm-upr-button" tooltip="Next Stage">
+            <i class="nc-icon-mini arrows-1_bold-right"></i>
+        </a>
+    </div>
+    @endif
 </div>
 
 
@@ -465,6 +498,11 @@ Unit Purchase Request
     $('#itb-button').click(function(e){
         e.preventDefault();
         $('#itb-button-modal').addClass('is-visible');
+    })
+
+    $('#confirm-upr-button').click(function(e){
+        e.preventDefault();
+        $('#confirm-upr-modal').addClass('is-visible');
     })
 
     $('#preproc-button').click(function(e){

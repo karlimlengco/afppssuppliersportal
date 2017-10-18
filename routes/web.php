@@ -20,6 +20,7 @@ Route::get('chat', '\Revlv\Controllers\ChatController@index')->name('messages.in
 Route::post('messages', '\Revlv\Controllers\Chat\MessageController@store')->name('messages.store');
 
 Route::get('upr-drafts', '\Revlv\Controllers\Procurements\UPRController@drafts')->name('upr-drafts.index');
+Route::post('procurements/upr-drafts/confirm/{id}', '\Revlv\Controllers\Procurements\UPRController@confirmDrafts')->name('procurements.upr-drafts.confirm');
 Route::get('messages', '\Revlv\Controllers\Chat\MessageController@getMessage')->name('messages.index');
 Route::get('admin-messages-view', '\Revlv\Controllers\Chat\MessageController@getAdminMessage')->name('messages.admin');
 Route::get('admin-messages/api', '\Revlv\Controllers\Chat\MessageController@getAdminMessageAPI')->name('messages.admin.api');
