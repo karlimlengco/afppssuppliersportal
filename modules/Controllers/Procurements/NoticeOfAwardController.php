@@ -625,7 +625,9 @@ class NoticeOfAwardController extends Controller
                 $x = $userLogs->save($data);
             }
         }
-        $signatory = $result->signatory
+
+        $signatory = $result->signatory;
+
         if($result->signatory_id != $request->signatory_id)
         {
             $signatory  =   $signatories->findById($request->signatory_id);
