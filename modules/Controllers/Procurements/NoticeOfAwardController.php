@@ -704,8 +704,6 @@ class NoticeOfAwardController extends Controller
             $data['rfq_date']           =   $noa_modal->awarded_date;
 
             $data['rfq_number']         =   "";
-
-
         }
         else
         {

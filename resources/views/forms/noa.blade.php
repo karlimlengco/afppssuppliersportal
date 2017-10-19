@@ -42,7 +42,7 @@
                     </p>
                     <p>Dear Sir/Madam,</p>
 
-                    <p style="text-align: justify">We are pleased to notify you that your price offer/s for the {{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) < 1) and {{count($data['items']) - 1}}@endif only of RFQ No.{{$data['rfq_number']}} dated {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['transaction_date'])->format('d F Y')}} for the use of {{$data['unit']}} in the amount of {{translateToWords($data['bid_amount'])}} PESOS ONLY (Php {{formatPrice($data['bid_amount'])}}) is hereby accepted. A contract for the procurement of this item/s is being awarded to your company/firm.</p>
+                    <p style="text-align: justify">We are pleased to notify you that your price offer/s for the {{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) < 1) and {{count($data['items']) - 1}}@endif only of RFQ No.{{$data['rfq_number']}} dated {{$data['rfq_date']}} for the use of {{$data['unit']}} in the amount of {{translateToWords($data['bid_amount'])}} PESOS ONLY (Php {{formatPrice($data['bid_amount'])}}) is hereby accepted. A contract for the procurement of this item/s is being awarded to your company/firm.</p>
                     <p  style="text-align: justify">You shall subsequently be informed (thru your contact number or email address specified below) accordingly to appear before this office for the requirements.</p>
                     <p class="indent">
                         - Signing of PURCHASE ORDER<br>
