@@ -308,12 +308,21 @@ class RFQProponentController extends Controller
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $rfqFormsContent            =   $rfqForms->findByPCCO($result->rfq->upr->centers->id);
         $data['content']            =  ($rfqFormsContent) ? $rfqFormsContent->content : "";
+        $deadline = "";
+
+        if($rfq->upr->philgeps) {
+          $deadline = $rfq->upr->philgeps->deadline_rfq." ".$rfq->upr->philgeps->opening_time;
+        }elseif($rfq->completed_at)
+        {
+          $deadline = $rfq->completed_at->format('Y-m-d H:i');
+        }
+
 
         $data['total_amount']       =  $rfq->upr->total_amount;
         $data['header']             =  $rfq->upr->centers;
         $data['transaction_date']   =  $rfq->transaction_date;
         $data['rfq_number']         =  $rfq->rfq_number;
-        $data['deadline']           =  $rfq->upr->philgeps->deadline_rfq." ".$rfq->upr->philgeps->opening_time;
+        $data['deadline']           =  $deadline;
         $data['items']              =  $rfq->upr->items;
         $data['supplier']           =  $supplier;
         $data['chief']              =  explode('/', $rfq->signatory_chief);;
