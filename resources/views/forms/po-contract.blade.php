@@ -168,25 +168,42 @@
                             <td width="30%"></td>
                         </tr>
                     </table>
-                    <table class="signatory">
+
+
+                    <table class="printable-form__body__table no-border no-padding">
                         <tr>
-                            <td width="18%"></td>
-                            <td width="35%" height="50px">Funds Available:</td>
+                            <td colspan="1" height="60px"></td>
+                            <td colspan="1">Funds Available:</td>
+                        </tr>
+                        <tr>
+                            <td width="10%"></td>
+                            <td width="35%">
+                                <table class="signatory">
+                                    <tr>
+                                        <td nowrap><strong>{{$data['accounting'][0]}}</strong></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="signatory-rank-justify">
+                                                <strong>{{$data['accounting'][1]}} {{$data['accounting'][2]}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{$data['accounting'][3]}}</td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </td>
                             <td width="10%"></td>
                             <td width="35%"></td>
                             <td width="10%"></td>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td class="align-bottom align-left" height="60px">
-                                <strong>{{$data['accounting'][0]}}</strong><br>
-                                <strong>{{$data['accounting'][1]}}{{$data['accounting'][2]}}</strong><br>
-                                {{$data['accounting'][3]}}
-                            </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
                     </table>
+
                 </div>
             </div>
 

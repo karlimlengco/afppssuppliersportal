@@ -118,9 +118,6 @@ Vouchers
 
 @section('scripts')
 <script type="text/javascript">
-
-
-
     $certified_by = $('#id-field-certified_by').selectize({
         create: true,
         create:function (input){

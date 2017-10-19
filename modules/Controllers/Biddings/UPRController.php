@@ -386,6 +386,7 @@ class UPRController extends Controller
         ProcurementCenterRepository $centers,
         UnitPurchaseRequestRepository $model,
         CateredUnitRepository $units,
+        SignatoryRepository $signatories,
         ProcurementTypeRepository $types,
         PaymentTermRepository $terms)
     {
@@ -398,12 +399,14 @@ class UPRController extends Controller
         $procurement_types  =    $types->lists('id', 'code');
         $payment_terms      =    $terms->lists('id', 'name');
         $unit               =    $units->lists('id', 'short_code');
+        $signatory_lists=   $signatories->lists('id', 'name');
 
         return $this->view('modules.biddings.upr.edit',[
             'data'              =>  $result,
             'indexRoute'        =>  $this->baseUrl.'show',
             'account_codes'     =>  $account_codes,
             'payment_terms'     =>  $payment_terms,
+            'signatory_list'    =>  $signatory_lists,
             'procurement_types' =>  $procurement_types,
             'charges'           =>  $charges,
             'unit'              =>  $unit,
@@ -446,13 +449,17 @@ class UPRController extends Controller
         $result     =   $model->update($request->getData(), $id);
 
         $ref        =   explode('-', $result->ref_number);
-        if($result->mode_of_procurement != 'public_bidding')
-        {
-            $ref_name   =   "AMP-". $result->centers->name ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
-        }
-        else
-        {
-            $ref_name   =   "PB-". $result->centers->name ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
+        $ref_name   =    "";
+
+        if(count($ref) > 1){
+            if($result->mode_of_procurement != 'public_bidding')
+            {
+                $ref_name   =   "AMP-". $result->centers->name ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
+            }
+            else
+            {
+                $ref_name   =   "PB-". $result->centers->name ."-". $ref[2] ."-". $result->unit->short_code ."-". $ref[4];
+            }
         }
 
         $ref_name   =   str_replace(" ", "", $ref_name);

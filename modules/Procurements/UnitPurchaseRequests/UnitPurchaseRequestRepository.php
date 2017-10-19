@@ -523,6 +523,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
         {
 
             $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
+            $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
             $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_prepared and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) > 0");
 
             $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");

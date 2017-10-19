@@ -127,16 +127,6 @@ Unit Purchase Request
 
 @section('scripts')
 <script>
-    // $( document ).ready(function() {
-    //     $.ajax({
-    //         type: "GET",
-    //         url: '/api/signatories/lists',
-    //         success: function(result) {
-    //             console.log(result);
-    //         }
-    //     });
-    // });
-
     $('#edit-button').click(function(e){
         e.preventDefault();
         $('#edit-modal').addClass('is-visible');
