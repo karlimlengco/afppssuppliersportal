@@ -701,7 +701,7 @@ class NoticeOfAwardController extends Controller
         {
             $proponent_awardee  =   $noa_modal->biddingWinner->supplier;
             $bidamount          =   $noa_modal->biddingWinner->bid_amount;
-            $data['rfq_date']           =   "";
+            $data['rfq_date']           =   $noa_modal->awarded_date;
 
             $data['rfq_number']         =   "";
 
