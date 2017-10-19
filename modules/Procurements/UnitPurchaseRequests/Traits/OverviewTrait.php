@@ -74,7 +74,7 @@ trait OverviewTrait
             'breadcrumbs' => [
                 new Breadcrumb('Overview'),
                 new Breadcrumb('Programs '.$programs),
-                new Breadcrumb('Completed'),
+                new Breadcrumb('Cancelled'),
             ]
         ]);
     }
