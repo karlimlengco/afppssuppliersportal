@@ -205,18 +205,10 @@ Unit Purchase Request
     // End Add item button
 
     // onchange quantity
-    $(document).on('change', '#quantity', function(e){
-        var quants  = $("#quantity").val();
-        var price   = $("#unit_price").val();
-
-        $("#total_amount").val(0)
-
-        if(quants != "" && price != "")
-        {
-            changeTotalAmount(quants, price);
-        }
-    });
-    // end onchange quantity
+    // onchange quantity
+    $(document).on('change', '.quantity', function(e){
+        update_amounts();
+    });onchange quantity
     //
     // onchange unit_price
     $(document).on('change', '#unit_price', function(e){
