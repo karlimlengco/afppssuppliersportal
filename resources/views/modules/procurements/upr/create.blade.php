@@ -205,16 +205,8 @@ Unit Purchase Request
     // End Add item button
 
     // onchange quantity
-    $(document).on('change', '#quantity', function(e){
-        var quants  = $("#quantity").val();
-        var price   = $("#unit_price").val();
-
-        $("#total_amount").val(0)
-
-        if(quants != "" && price != "")
-        {
-            changeTotalAmount(quants, price);
-        }
+    $(document).on('change', '.quantity', function(e){
+        update_amounts();
     });
     // end onchange quantity
     //
@@ -274,7 +266,7 @@ Unit Purchase Request
             // newRow += "<input type='text' name='new_account_code[]' value='"+new_account_code+"' class='input'/>";
 
             newRow += "<td id='quantity_row"+table_len+"'>";
-            newRow += "<input type='text' name='quantity[]' value='"+quantity+"' class='input unit_price'/>";
+            newRow += "<input type='text' name='quantity[]' value='"+quantity+"' class='input quantity'/>";
             newRow += "</td>";
             newRow += "<td id='unit_measurement_row"+table_len+"'>";
             newRow += "<input type='text' name='unit_measurement[]' value='"+unit_measurement+"' class='input'/>";
@@ -283,7 +275,7 @@ Unit Purchase Request
             newRow += "<input type='text' name='unit_price[]' value='"+unit_price+"' class='input unit_price'/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
-            newRow += "<input type='text' name='total_amount[]' value='"+total_amount+"' class='input' readonly/>";
+            newRow += "<input type='text' name='total_amount[]' value='"+total_amount+"' class='input total_amount' readonly/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
             newRow += "<input type='button' value='Delete' class='button delete' onclick='delete_row("+table_len+")'";
@@ -303,6 +295,21 @@ Unit Purchase Request
     {
         console.log(no);
          document.getElementById("row"+no+"").outerHTML="";
+    }
+
+    function update_amounts()
+    {
+        var sum = 0.0;
+        $('#myTable > tbody  > tr').each(function() {
+            var qty = $(this).find('.quantity').val();
+            var price = $(this).find('.unit_price').val();
+            var amount = (qty*price)
+            sum+=amount;
+            $(this).find('.total_amount').text(''+amount);
+        });
+        console.log('asds')
+        //just update the total to sum
+        // $('.total').text(sum);
     }
 
 

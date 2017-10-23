@@ -41816,6 +41816,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -41828,6 +41829,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     codes: Object,
     old: Object
+  },
+  computed: {
+    total: function total() {
+      return this.model.reduce(function (prev, product) {
+        var price = product.unit_price;
+        if (price != null) {
+          price = price.replace(/\,/g, "");
+        }
+        product.total_amount = product.quantity * price;
+        return product.quantity * price;
+      }, 0);
+    }
   },
   data: function data() {
     return {
@@ -61204,6 +61217,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           "name": 'items[' + index + '][total_amount]'
         },
         domProps: {
+          "value": _vm.total,
           "value": (items.total_amount)
         },
         on: {

@@ -110,6 +110,7 @@
                           :name="'items[' + index + '][total_amount]'"
                           v-validate="'required'"
                           v-if="!readonly"
+                          :value="total"
                           v-model="items.total_amount">
                     </td>
                     <td>
@@ -148,6 +149,18 @@
       },
       codes: Object,
       old: Object
+    },
+    computed: {
+      total: function () {
+        return this.model.reduce(function (prev, product) {
+          var price = product.unit_price
+          if (price != null ) {
+            price = price.replace(/\,/g,"");
+          }
+          product.total_amount = product.quantity * price
+          return product.quantity * price
+        }, 0)
+      }
     },
     data: () => ({
       active: null,
