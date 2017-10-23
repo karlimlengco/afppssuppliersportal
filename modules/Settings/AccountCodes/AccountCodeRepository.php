@@ -73,6 +73,19 @@ class AccountCodeRepository extends BaseRepository
      *
      * @return [type] [description]
      */
+    public function listCodes()
+    {
+        $model  =   $this->model;
+
+        return $model->all();
+    }
+
+    /**
+     * [listCodes description]
+     *
+     *
+     * @return [type] [description]
+     */
     public function lists($id = 'id', $value = 'name')
     {
         $model  =   $this->model;

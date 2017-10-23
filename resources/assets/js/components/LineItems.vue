@@ -9,14 +9,9 @@
 
                 <div class="row">
                     <div class="twelve columns">
-                        <select id="accountCode" class="selectize selectizes" v-model="account_code">
-
-                            <option :value="null">Select Account Code</option>
-                            <option
-                                v-for="(code, index) in codes"
-                                :value="index">{{ code }}
-                            </option>
-                        </select>
+                      <selectize v-validate="'required'" id="accountCode" name="account_code" v-model="account_code" :settings="accountSettings" >
+                        <option value=''>Select One</option>
+                      </selectize>
                     </div>
                 </div>
 
@@ -39,7 +34,7 @@
                     <th width="10%">Qty</th>
                     <th width="10%">Unit</th>
                     <th width="15%">Unit Price</th>
-                    <th width="15%">Amount</th>
+                    <th width="15%">Amount ({{total_amount}})</th>
                     <th width="5%"></th>
                 </tr>
             </thead>
@@ -140,14 +135,16 @@
 <script>
   import _ from 'lodash'
   import { Validator } from 'vee-validate';
+  import Selectize from 'vue2-selectize'
 
   export default {
+    components: {Selectize },
     props: {
       readonly: {
         default: true,
         type: Boolean
       },
-      codes: Object,
+      codes: Array,
       old: Object
     },
     computed: {
@@ -160,6 +157,33 @@
           product.total_amount = product.quantity * price
           return product.quantity * price
         }, 0)
+      },
+      total_amount: function () {
+        let total = []
+        Object.entries(this.model).forEach(([key, val]) => {
+          total.push(val.total_amount) // the value of the current key.
+        })
+        console.log(total)
+        // return total
+        return total.reduce(function (total, num) { return total + num }, 0)
+      },
+      accountSettings: function () {
+        return {
+           options: this.codes,
+           optgroups: [
+             {id: 'nac', name: 'New Account'},
+             {id: 'oac', name: 'Old Account'},
+             {id: 'title', name: 'Title'}
+           ],
+           labelField: 'model',
+           valueField: 'id',
+           optgroupField: 'make',
+           optgroupLabelField: 'name',
+           optgroupValueField: 'id',
+           optgroupOrder: ['title', 'nac', 'oac'],
+           searchField: ['model'],
+           plugins: ['optgroup_columns']
+        }
       }
     },
     data: () => ({
@@ -187,6 +211,9 @@
         var code = $('#accountCode').find(":selected").text();
         // console.log(code);
         var codeId = $('#accountCode').find(":selected").val();
+
+        var codeId = codeId.replace("old-", "");
+        var codeId = codeId.replace("title-", "");
         this.account_code = code;
         this.account_codeId = codeId;
         // this.account_code = code;

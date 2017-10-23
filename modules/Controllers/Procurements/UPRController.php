@@ -251,7 +251,16 @@ class UPRController extends Controller
         ProcurementTypeRepository $types,
         PaymentTermRepository $terms)
     {
-        $account_codes      =    $accounts->lists('id', 'new_account_code');
+        $account_codes      =    $accounts->listCodes('id', 'new_account_code');
+
+        $data = [];
+        foreach($account_codes as $key)
+        {
+          $data[] = ['id' => $key->id, 'make' => 'nac', 'model' => $key->new_account_code];
+          $data[] = ['id' => "old-".$key->id, 'make' => 'oac', 'model' => $key->old_account_code];
+          $data[] = ['id' => "title-".$key->id, 'make' => 'title', 'model' => $key->name];
+        }
+
         $charges            =    $chargeability->lists('id', 'name');
         $procurement_modes  =    $modes->lists('id', 'name');
         $procurement_center =    $centers->lists('id', 'short_code');
@@ -262,7 +271,7 @@ class UPRController extends Controller
         // $this->permissions->lists('permission','description')
         $this->view('modules.procurements.upr.create',[
             'indexRoute'        =>  $this->baseUrl.'index',
-            'account_codes'     =>  $account_codes,
+            'account_codes'     =>  $data,
             'old_codes'         =>  $old_codes,
             'procurement_types' =>  $procurement_types,
             'payment_terms'     =>  $payment_terms,
