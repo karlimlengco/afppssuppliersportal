@@ -129,7 +129,7 @@
                         <tr>
                             <td class="v-align-bottom align-center" height="80px">
 
-                                @if($data['certifier'] != null)
+                                @if(count($data['certifier']) > 1)
                                 <strong>{{$data['certifier'][1]}} {{$data['certifier'][0]}} {{$data['certifier'][2]}}</strong><br>
                                 {{$data['certifier'][3]}}<br>
                                 @endif
@@ -205,14 +205,14 @@
                             <td class="align-center">Printed Name</td>
                             <td class="align-center"><strong>
 
-                            @if($data['receiver'] != null)
+                            @if(count($data['receiver']) > 1)
                             {{$data['receiver'][1]}} {{$data['receiver'][0]}} {{$data['receiver'][2]}}
                             @endif
                             </strong></td>
                             <td class="align-center">Printed Name</td>
                             <td class="align-center"><strong>
 
-                            @if($data['approver'] != null)
+                            @if(count($data['approver']) > 1)
                             {{$data['approver'][1]}} {{$data['approver'][0]}} {{$data['approver'][2]}}
                             @endif
                             </strong></td>
@@ -220,14 +220,14 @@
                         <tr>
                             <td class="align-center v-align-middle" rowspan="2">Position</td>
                             <td class="align-center">
-                              @if($data['receiver'] != null)
+                              @if(count($data['receiver']) > 1)
                                  {{$data['receiver'][3]}}
                               @endif
                             </td>
                             <td class="align-center v-align-middle" rowspan="2">Position</td>
                             <td class="align-center">
 
-                              @if($data['approver'] != null)
+                              @if(count($data['approver']) > 1)
                                  {{$data['approver'][3]}}
                               @endif
                             </td>

@@ -142,6 +142,9 @@ class DeliveredInspectionReportController extends Controller
         HolidayRepository $holidays
         )
     {
+        $this->validate($request,[
+          'start_date'  =>  'required'
+        ]);
         $diir                   =   $model->findById($id);
         $tiac                   =   $diir->delivery->inspections;
 
@@ -209,6 +212,9 @@ class DeliveredInspectionReportController extends Controller
         UnitPurchaseRequestRepository $upr,
         HolidayRepository $holidays)
     {
+        $this->validate($request,[
+          'closed_date'  =>  'required'
+        ]);
         $diir                   =   $model->findById($id);
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');

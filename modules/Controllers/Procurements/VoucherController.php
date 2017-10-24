@@ -345,7 +345,6 @@ class VoucherController extends Controller
             $receiver  =   $signatories->findById($request->receiver_id);
             $data['receiver_signatory']   =   $receiver->name."/".$receiver->ranks."/".$receiver->branch."/".$receiver->designation;
         }
-
         $result                 =   $model->update($data, $id);
 
         $rfq_model              =   $result->upr;
