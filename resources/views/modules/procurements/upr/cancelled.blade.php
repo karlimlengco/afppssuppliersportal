@@ -42,7 +42,6 @@ Unit Purchase Request
                     <th>TYPE</th>
                     <th>Status</th>
                     {{-- <th>State</th> --}}
-                    <th>Calendar Days</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,7 +74,6 @@ Unit Purchase Request
             {data: 'type', name: 'type'},
             {data: 'status', name: 'status'},
             // {data: 'state', name: 'state'},
-            {data: 'calendar_days', name: 'calendar_days'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

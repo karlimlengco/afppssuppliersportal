@@ -208,7 +208,7 @@ Unit Purchase Request
     // onchange quantity
     $(document).on('change', '.quantity', function(e){
         update_amounts();
-    });onchange quantity
+    });
     //
     // onchange unit_price
     $(document).on('change', '#unit_price', function(e){
