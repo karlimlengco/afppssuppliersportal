@@ -1752,7 +1752,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Voucher Received/Complete RFQ</td>
+                    <td>Voucher Received</td>
                     <td>
                         @if($data->vou_received != null)
                         <?php $vou_received = createCarbon('Y-m-d',$data->vou_received); ?>

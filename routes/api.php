@@ -17,6 +17,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::resource('catered-units', 'Maintenance\CateredUnitController');
+Route::resource('account-codes', 'Maintenance\AccountController');
+Route::resource('form-headers', 'Maintenance\FormHeaderController');
+Route::resource('form-rfq', 'Maintenance\FormRFQController');
+Route::resource('pcco-headers', 'Maintenance\PCCOHeaderController');
+Route::resource('signatories', 'Maintenance\SignatoryController');
+Route::resource('procurement-centers', 'Maintenance\PCCOController');
+Route::resource('procurement-types', 'Maintenance\TypesController');
+Route::resource('mode-of-procurements', 'Maintenance\ModesController');
+Route::resource('chargeability', 'Maintenance\ChargeabilityController');
+Route::resource('payment-terms', 'Maintenance\TermsController');
+Route::resource('suppliers', 'Maintenance\SupplierController');
+
 Route::group(['middleware' => ['api']], function () {
     Route::post('/signin', [
         'uses' => 'AuthController@signin',
@@ -40,20 +53,11 @@ Route::group(['middleware' => ['api']], function () {
             'uses' => 'UserController@userRole',
         ]);
 
-        Route::resource('catered-units', 'Maintenance\CateredUnitController');
         Route::resource('permissions', 'Maintenance\PermissionController');
         Route::resource('roles', 'Maintenance\RoleController');
-        Route::resource('account-codes', 'Maintenance\AccountController');
         Route::resource('bacsec', 'Maintenance\BacSecController');
         Route::resource('unit-purchase-requests', 'Procurement\UPRController');
-        Route::resource('signatories', 'Maintenance\SignatoryController');
-        Route::resource('suppliers', 'Maintenance\SupplierController');
         Route::resource('upr-items', 'Procurement\UPRItemController');
-        Route::resource('procurement-centers', 'Maintenance\PCCOController');
-        Route::resource('procurement-types', 'Maintenance\TypesController');
-        Route::resource('mode-of-procurements', 'Maintenance\ModesController');
-        Route::resource('chargeability', 'Maintenance\ChargeabilityController');
-        Route::resource('payment-terms', 'Maintenance\TermsController');
         Route::resource('ispq', 'Procurement\ISPQController');
         Route::resource('philgeps', 'Procurement\PhilgepsController');
         Route::resource('rfq', 'Procurement\RFQController');
