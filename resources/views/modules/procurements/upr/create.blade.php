@@ -37,7 +37,7 @@ Unit Purchase Request
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-        <button type="submit" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+        <button id="submit-button" type="submit" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
     </div>
 </div>
 <div class="row">
@@ -203,6 +203,13 @@ Unit Purchase Request
         }
     });
     // End Add item button
+
+    // // onchange quantity
+    // $(document).on('click', '#submit-button', function(e){
+    //   e.preventDefault()
+    //   alert('asds');
+    //   console.log( $("input.item_description") )
+    // });
 
     // onchange quantity
     $(document).on('change', '.quantity', function(e){

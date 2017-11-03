@@ -320,6 +320,16 @@ class UPRController extends Controller
             ])->withInput();
         }
 
+
+        foreach($request->items as $item)
+        {
+            if($item['item_description'] == null || $item['quantity'] == null || $item['unit_measurement'] == null || $item['unit_price'] == null || $item['total_amount'] == null) {
+              return redirect()->back()->with([
+                  'error' =>  'Pleased add item to continue.'
+              ])->withInput();
+            }
+        }
+
         $procs                  =   $request->getData();
         $date                   =   \Carbon\Carbon::now();
 

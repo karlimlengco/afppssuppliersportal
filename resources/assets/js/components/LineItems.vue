@@ -54,10 +54,11 @@
                         <p v-if="readonly">{{ items.item_description }}</p>
                         <input type="text"
                           placeholder="Item Description"
-                          class="input"
+                          class="input item_description"
                           :name="'items[' + index + '][item_description]'"
                           v-validate="'required'"
                           v-if="!readonly"
+                          required="required"
                           v-model="items.item_description">
                     </td>
                     <!-- <td class="row"> -->
@@ -69,6 +70,7 @@
                           :name="'items[' + index + '][new_account_code]'"
                           v-validate="'required'"
                           v-if="!readonly"
+                          required
                           v-model="items.new_account_code">
                     <!-- </td> -->
                     <td class="row">
@@ -87,6 +89,7 @@
                           :name="'items[' + index + '][unit_measurement]'"
                           v-validate="'required'"
                           v-if="!readonly"
+                          required
                           v-model="items.unit_measurement">
                     </td>
                     <td class="row">
@@ -96,6 +99,7 @@
                           :name="'items[' + index + '][unit_price]'"
                           v-validate="'required'"
                           v-if="!readonly"
+                          required
                           v-model="items.unit_price">
                     </td>
                     <td class="row">
@@ -105,6 +109,7 @@
                           :name="'items[' + index + '][total_amount]'"
                           v-validate="'required'"
                           v-if="!readonly"
+                          required
                           :value="total"
                           v-model="items.total_amount">
                     </td>
@@ -237,22 +242,22 @@
 
       // this.model.push(...this.addresses)
 
-      if (!_(this.old).isEmpty()) {
-        this.model.splice(0, this.model.length)
+      // if (!_(this.old).isEmpty()) {
+      //   this.model.splice(0, this.model.length)
 
-        if (this.old.items) {
-          this.old.items.forEach(items => {
-            console.log(items)
-            this.model.push(_.clone(items))
-          })
+      //   if (this.old.items) {
+      //     this.old.items.forEach(items => {
+      //       console.log(items)
+      //       this.model.push(_.clone(items))
+      //     })
 
-          this.active = 0
-        }
+      //     this.active = 0
+      //   }
 
-        setTimeout(() => {
-          this.$validator.validateAll()
-        }, 200)
-      }
+      //   setTimeout(() => {
+      //     this.$validator.validateAll()
+      //   }, 200)
+      // }
 
     }
   }
