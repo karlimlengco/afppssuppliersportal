@@ -44,7 +44,7 @@
               <tr>
                   <tr>
                       <td class="row align-left" colspan="6" style="padding-bottom:0; margin-bottom:0">
-                          <h5 class="align-left" v-model="codes.code">{{ codes.code }}</h5>
+                          <h5 class="align-left" v-model="codes.code">{{ codes.code }} <a href="#" @click.prevent="removeCode(codes, index)"><small>remove</small></a></h5>
                       </td>
                   </tr>
               </tr>
@@ -229,6 +229,13 @@
           code: code,
           id: this.account_codeId
         })
+      },
+      removeCode (code, index)
+      {
+        // delete this.accounts[index];
+        this.accounts.pop(index);
+        console.log(this.accounts)
+        this.account_codeId = null;
       },
       closeModal () {
         $('#add-account-code-modal').removeClass('is-visible');

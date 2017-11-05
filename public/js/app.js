@@ -52076,6 +52076,11 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -52173,6 +52178,12 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         id: this.account_codeId
       });
     },
+    removeCode: function removeCode(code, index) {
+      // delete this.accounts[index];
+      this.accounts.pop(index);
+      console.log(this.accounts);
+      this.account_codeId = null;
+    },
     closeModal: function closeModal() {
       $('#add-account-code-modal').removeClass('is-visible');
     },
@@ -52182,26 +52193,26 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     }
   },
   created: function created() {
-    var _this = this;
 
     // this.model.push(...this.addresses)
 
-    if (!__WEBPACK_IMPORTED_MODULE_0_lodash___default()(this.old).isEmpty()) {
-      this.model.splice(0, this.model.length);
+    // if (!_(this.old).isEmpty()) {
+    //   this.model.splice(0, this.model.length)
 
-      if (this.old.items) {
-        this.old.items.forEach(function (items) {
-          console.log(items);
-          _this.model.push(__WEBPACK_IMPORTED_MODULE_0_lodash___default.a.clone(items));
-        });
+    //   if (this.old.items) {
+    //     this.old.items.forEach(items => {
+    //       console.log(items)
+    //       this.model.push(_.clone(items))
+    //     })
 
-        this.active = 0;
-      }
+    //     this.active = 0
+    //   }
 
-      setTimeout(function () {
-        _this.$validator.validateAll();
-      }, 200);
-    }
+    //   setTimeout(() => {
+    //     this.$validator.validateAll()
+    //   }, 200)
+    // }
+
   }
 });
 
@@ -61101,7 +61112,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         },
         expression: "codes.code"
       }
-    }, [_vm._v(_vm._s(codes.code))])])]), _vm._v(" "), _vm._l((_vm.model), function(items, index) {
+    }, [_vm._v(_vm._s(codes.code) + " "), _c('a', {
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.removeCode(codes, index)
+        }
+      }
+    }, [_c('small', [_vm._v("remove")])])])])]), _vm._v(" "), _vm._l((_vm.model), function(items, index) {
       return [(codes.id == items.new_account_code) ? _c('tr', [_c('td', {
         staticClass: "row"
       }, [(_vm.readonly) ? _c('p', [_vm._v(_vm._s(items.item_description))]) : _vm._e(), _vm._v(" "), (!_vm.readonly) ? _c('input', {
@@ -61116,11 +61137,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           value: (items.item_description),
           expression: "items.item_description"
         }],
-        staticClass: "input",
+        staticClass: "input item_description",
         attrs: {
           "type": "text",
           "placeholder": "Item Description",
-          "name": 'items[' + index + '][item_description]'
+          "name": 'items[' + index + '][item_description]',
+          "required": "required"
         },
         domProps: {
           "value": (items.item_description)
@@ -61150,7 +61172,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         attrs: {
           "type": "text",
           "readOnly": "",
-          "name": 'items[' + index + '][new_account_code]'
+          "name": 'items[' + index + '][new_account_code]',
+          "required": ""
         },
         domProps: {
           "value": (items.new_account_code)
@@ -61206,7 +61229,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticClass: "input",
         attrs: {
           "type": "text",
-          "name": 'items[' + index + '][unit_measurement]'
+          "name": 'items[' + index + '][unit_measurement]',
+          "required": ""
         },
         domProps: {
           "value": (items.unit_measurement)
@@ -61234,7 +61258,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticClass: "input",
         attrs: {
           "type": "text",
-          "name": 'items[' + index + '][unit_price]'
+          "name": 'items[' + index + '][unit_price]',
+          "required": ""
         },
         domProps: {
           "value": (items.unit_price)
@@ -61262,7 +61287,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticClass: "input",
         attrs: {
           "type": "text",
-          "name": 'items[' + index + '][total_amount]'
+          "name": 'items[' + index + '][total_amount]',
+          "required": ""
         },
         domProps: {
           "value": _vm.total,
