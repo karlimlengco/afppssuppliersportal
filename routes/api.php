@@ -53,6 +53,15 @@ Route::group(['middleware' => ['api']], function () {
             'uses' => 'UserController@userRole',
         ]);
 
+        Route::resource('coi-forms', 'Maintenance\COIFormController');
+        Route::resource('mfo-forms', 'Maintenance\MFOFormController');
+        Route::resource('po-forms', 'Maintenance\POFormController');
+        Route::resource('rar-forms', 'Maintenance\RARFormController');
+        Route::resource('ris-forms', 'Maintenance\RISFormController');
+        Route::resource('ris2-forms', 'Maintenance\RIS2FormController');
+        Route::resource('rsmi-forms', 'Maintenance\RSMIFormController');
+        Route::resource('voucher-forms', 'Maintenance\VoucherFormController');
+
         Route::resource('permissions', 'Maintenance\PermissionController');
         Route::resource('roles', 'Maintenance\RoleController');
         Route::resource('bacsec', 'Maintenance\BacSecController');
