@@ -1,7 +1,7 @@
 <table class="printable-form__body__table classic">
     <tr>
         <td class="align-center v-align-middle" colspan="11" height="60px">
-            {{$data["unitHeader"]}}
+            {{unitHeader}}
         </td>
         <td>Fund Cluster:</td>
     </tr>
@@ -31,8 +31,8 @@
     </tr>
     <tr>
         <td class="v-align-middle" rowspan="2">Payee</td>
-        <td class="v-align-middle" colspan="9" rowspan="2"><strong>{{$data["payee_name"]}}</strong></td>
-        <td class="no-border-bottom">TIN/Employee No.: {{$data["payee_tin"]}}</td>
+        <td class="v-align-middle" colspan="9" rowspan="2"><strong>{{payee_name}}</strong></td>
+        <td class="no-border-bottom">TIN/Employee No.: {{payee_tin}}</td>
         <td rowspan="2">ORS/BURS No.:</td>
     </tr>
     <tr>
@@ -40,7 +40,7 @@
     </tr>
     <tr>
         <td>Address</td>
-        <td colspan="11"><strong>{{$data["payee_address"]}}</strong></td>
+        <td colspan="11"><strong>{{payee_address}}</strong></td>
     </tr>
 </table>
 <table class="printable-form__body__table classic">
@@ -51,10 +51,10 @@
         <td class="v-align-middle no-border-top align-center" width="15%"><strong>Amount</strong></td>
     </tr>
     <tr>
-        <td class="no-border-top no-border-bottom" style="text-indent: justify" colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To payment for the ten ({{$data["itemCount"]}}) Line Items(s) spicified and delivered under {{$data["poType"]}} {{$data["po_number"]}} in the amount of <strong style="text-transform: uppercase">{{$data["bid_amount_word"]}} PESOS ONLY (Php {{$data["bid_amount"]}})</strong></td>
+        <td class="no-border-top no-border-bottom" style="text-indent: justify" colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To payment for the ten ({{itemCount}}) Line Items(s) spicified and delivered under {{poType}} {{po_number}} in the amount of <strong style="text-transform: uppercase">{{bid_amount_word}} PESOS ONLY (Php {{bid_amount}})</strong></td>
         <td class="no-border-top no-border-bottom"></td>
         <td class="no-border-top no-border-bottom"></td>
-        <td class="no-border-top no-border-bottom align-right"><strong>Php {{$data["bid_amount"]}}</strong></td>
+        <td class="no-border-top no-border-bottom align-right"><strong>Php {{bid_amount}}</strong></td>
     </tr>
     <tr>
         <td class="border-left-only" width="5%" height="30px"></td>
@@ -66,16 +66,16 @@
     </tr>
     <tr>
         <td class="border-left-only"></td>
-        <td class="no-padding no-border">{{$data["final_tax"]}}% Final Tax</td>
-        <td class="no-padding no-border">{{$data["final_tax_amount"]}}</td>
+        <td class="no-padding no-border">{{final_tax}}% Final Tax</td>
+        <td class="no-padding no-border">{{final_tax_amount}}</td>
         <td class="no-border-top no-border-bottom"></td>
         <td class="no-border-top no-border-bottom"></td>
         <td class="no-border-top no-border-bottom"></td>
     </tr>
     <tr>
         <td class="border-left-only"></td>
-        <td class="no-padding no-border">{{$data["expanded_witholding_tax"]}}% Expanded Withholding Tax</td>
-        <td class="no-padding no-border">{{$data["ewt_amount"]}}</td>
+        <td class="no-padding no-border">{{expanded_witholding_tax}}% Expanded Withholding Tax</td>
+        <td class="no-padding no-border">{{ewt_amount}}</td>
         <td class="no-border-top no-border-bottom"></td>
         <td class="no-border-top no-border-bottom"></td>
         <td class="no-border-top no-border-bottom"></td>
@@ -83,7 +83,7 @@
     <tr>
         <td class="v-align-top border-left-only" height="30px"></td>
         <td class="no-padding no-border">Penalty Deduction</td>
-        <td class="no-padding no-border">{{$data["penalty"]}}</td>
+        <td class="no-padding no-border">{{penalty}}</td>
         <td class="no-border-top no-border-bottom"></td>
         <td class="no-border-top no-border-bottom"></td>
         <td class="no-border-top no-border-bottom"></td>
@@ -100,8 +100,8 @@
     </tr>
     <tr>
         <td class="v-align-bottom align-center" height="80px">
-            <strong>{{$data["certifier_ranks"]}} {{$data["certifier_name"]}} {{$data["certifier_branch"]}}</strong><br>
-            {{$data["certifier_designation"]}}<br>
+            <strong>{{certifier_ranks}} {{certifier_name}} {{certifier_branch}}</strong><br>
+            {{certifier_designation}}<br>
             Printed Name, Designation and Signature of Supervisor
         </td>
     </tr>
@@ -176,22 +176,22 @@
     <tr>
         <td class="align-center">Printed Name</td>
         <td class="align-center"><strong>
-        {{$data["receiver_ranks"]}} {{$data["receiver_name"]}} {{$data["receiver_branch"]}}
+        {{receiver_ranks}} {{receiver_name}} {{receiver_branch}}
         </strong></td>
         <td class="align-center">Printed Name</td>
         <td class="align-center"><strong>
 
-        {{$data["approver_ranks"]}} {{$data["approver_name"]}} {{$data["approver_branch"]}}
+        {{approver_ranks}} {{approver_name}} {{approver_branch}}
         </strong></td>
     </tr>
     <tr>
         <td class="align-center v-align-middle" rowspan="2">Position</td>
         <td class="align-center">
-             {{$data["receiver_designation"]}}
+             {{receiver_designation}}
         </td>
         <td class="align-center v-align-middle" rowspan="2">Position</td>
         <td class="align-center">
-             {{$data["approver_designation"]}}
+             {{approver_designation}}
         </td>
     </tr>
     <tr>

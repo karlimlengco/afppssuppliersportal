@@ -1,7 +1,7 @@
 <!-- letterhead -->
 <div class="printable-form__letterhead">
     <span class="printable-form__letterhead__details">
-        {{$data["unitHeader"]}}
+        {{unitHeader}}
     </span>
 </div>
 
@@ -19,24 +19,24 @@
     </tr>
     <tr>
     <td>
-      {{$data["items"]}}
+      {{items}}
     </td>
     </tr>
     <tr>
-        <td class="align-center"  colspan="5" style="text-transform:uppercase">{{$data["bid_amount_word"]}} Pesos Only</td>
-        <td  class="align-right" >Php {{$data["bid_amount"]}}</td>
+        <td class="align-center"  colspan="5" style="text-transform:uppercase">{{bid_amount_word}} Pesos Only</td>
+        <td  class="align-right" >Php {{bid_amount}}</td>
     </tr>
     <tr>
         <td class="align-center" colspan="6"><strong>**************************************************************************************************************************</strong></td>
     </tr>
     <tr>
-        <td class="align-center" colspan="6">DEBIT PROPERTY ACCOUNTABILITY OF {{$data["receiver_ranks"]}} {{$data["receiver_name"]}} {{$data["receiver_branch"]}}</td>
+        <td class="align-center" colspan="6">DEBIT PROPERTY ACCOUNTABILITY OF {{receiver_ranks}} {{receiver_name}} {{receiver_branch}}</td>
     </tr>
     <tr>
-        <td class="align-center" colspan="6">{{$data["receiver_designation"]}}</td>
+        <td class="align-center" colspan="6">{{receiver_designation}}</td>
     </tr>
     <tr>
-        <td colspan="6">PURPOSE: <strong>{{$data["purpose"]}}</strong></td>
+        <td colspan="6">PURPOSE: <strong>{{purpose}}</strong></td>
     </tr>
     <tr>
         <td class="align-bottom no-border-bottom" height="60px">Signature</td>
@@ -45,12 +45,12 @@
     <tr>
         <td class="no-border-top no-border-bottom">Name</td>
         <td class="align-center no-border-top no-border-bottom" colspan="5">
-            <strong>{{$data["approver_ranks"]}} {{$data["approver_name"]}} {{$data["approver_branch"]}}</strong>
+            <strong>{{approver_ranks}} {{approver_name}} {{approver_branch}}</strong>
         </td>
     </tr>
     <tr>
         <td class="no-border-top no-border-bottom">Designation</td>
-        <td class="align-center no-border-top no-border-bottom" colspan="5">{{$data["approver_designation"]}}</td>
+        <td class="align-center no-border-top no-border-bottom" colspan="5">{{approver_designation}}</td>
     </tr>
     <tr>
         <td class="no-border-top">Date</td>
@@ -64,19 +64,19 @@
     <tr>
         <td class="no-border-top no-border-bottom">Name</td>
         <td class="align-center no-border-top no-border-bottom" colspan="2">
-            <strong>{{$data["requestor_ranks"]}} {{$data["requestor_name"]}} {{$data["requestor_branch"]}}</strong>
+            <strong>{{requestor_ranks}} {{requestor_name}} {{requestor_branch}}</strong>
         </td>
         <td class="align-center no-border-top no-border-bottom" colspan="3">
-            <strong>{{$data["receiver_ranks"]}} {{$data["receiver_name"]}} {{$data["receiver_branch"]}}</strong>
+            <strong>{{receiver_ranks}} {{receiver_name}} {{receiver_branch}}</strong>
         </td>
     </tr>
     <tr>
         <td class="no-border-top no-border-bottom">Designation</td>
         <td class="align-center no-border-top no-border-bottom" colspan="2">
-            {{$data["requestor_designation"]}}
+            {{requestor_designation}}
         </td>
         <td class="align-center no-border-top no-border-bottom" colspan="3">
-            {{$data["recceiver_designation"]}}
+            {{recceiver_designation}}
         </td>
     </tr>
     <tr>

@@ -1,7 +1,7 @@
 <!-- letterhead -->
 <div class="printable-form__letterhead">
     <span class="printable-form__letterhead__details">
-        {{$data["unitHeader"]}}
+        {{unitHeader}}
     </span>
 </div>
 
@@ -14,31 +14,31 @@
     </tr>
     <tr>
         <td class="border-left-only" width="80px" nowrap>Supplier</td>
-        <td class="no-border" width="50%"><strong>{{$data["winner_name"]}}</strong></td>
+        <td class="no-border" width="50%"><strong>{{winner_name}}</strong></td>
         <td class="no-border" width="80px" nowrap>P.O. No.</td>
-        <td class="border-right-only" width="30%"><strong>{{$data["po_number"]}}</strong></td>
+        <td class="border-right-only" width="30%"><strong>{{po_number}}</strong></td>
     </tr>
     <tr>
         <td class="border-left-only" nowrap>Address</td>
-        <td class="no-border"><strong>{{$data["winner_address"]}}</strong></td>
+        <td class="no-border"><strong>{{winner_address}}</strong></td>
         <td class="no-border" nowrap>Date</td>
-        <td class="border-right-only"><strong>{{$data["purchase_date"]}}</strong></td>
+        <td class="border-right-only"><strong>{{purchase_date}}</strong></td>
     </tr>
     <tr>
         <td class="border-left-only" nowrap>Email Address</td>
-        <td class="no-border"><strong>{{$data["winner_email"]}}</strong></td>
+        <td class="no-border"><strong>{{winner_email}}</strong></td>
         <td class="no-border" nowrap>Proc Mode</td>
-        <td class="border-right-only"><strong>{{$data["mode"]}}</strong></td>
+        <td class="border-right-only"><strong>{{mode}}</strong></td>
     </tr>
     <tr>
         <td class="border-left-only" nowrap>Telephone No</td>
-        <td class="no-border"><strong>{{$data["winner_phone"]}}</strong></td>
+        <td class="no-border"><strong>{{winner_phone}}</strong></td>
         <td class="no-border" nowrap></td>
         <td class="border-right-only"><strong></strong></td>
     </tr>
     <tr>
         <td class="border-left-only" nowrap>TIN</td>
-        <td class="border-right-only" colspan="3"><strong>{{$data["winner_tin"]}}</strong></td>
+        <td class="border-right-only" colspan="3"><strong>{{winner_tin}}</strong></td>
     </tr>
     <tr>
         <td class="no-border-top no-border-bottom" colspan="4"></td>
@@ -53,15 +53,15 @@
     </tr>
     <tr>
         <td class="border-left-only" nowrap>Place of Delivery</td>
-        <td class="no-border"><strong>{{$data["unit"]}}</strong></td>
+        <td class="no-border"><strong>{{unit}}</strong></td>
         <td class="no-border" nowrap>Delivery Schedule</td>
-        <td class="border-right-only"><strong>{{$data["delivery_expected_date"]}}</strong></td>
+        <td class="border-right-only"><strong>{{delivery_expected_date}}</strong></td>
     </tr>
     <tr>
         <td class="border-left-only" nowrap>Delivery Term</td>
-        <td class="no-border"><strong>{{$data["delivery_term"]}} Calendar Days upon conformed of this PURCHASE ORDER</strong></td>
+        <td class="no-border"><strong>{{delivery_term}} Calendar Days upon conformed of this PURCHASE ORDER</strong></td>
         <td class="no-border" nowrap>Payment Term</td>
-        <td class="border-right-only"><strong>{{$data["term"]}}</strong></td>
+        <td class="border-right-only"><strong>{{term}}</strong></td>
     </tr>
     <tr>
         <td class="no-border-top no-border-bottom" colspan="4"></td>
@@ -79,17 +79,17 @@
         <td class="align-center" width="15%"><strong>AMOUNT</strong></td>
     </tr>
     <tr>
-      <td> {{$data["items"]}} </td>
+      <td> {{items}} </td>
     </tr>
 
     <tr>
-        <td class="align-center" colspan="4"><strong style="text-transform:uppercase">{{$data["total_word"]}}PESOS ONLY.</strong></td>
-        <td colspan="2" class="align-right"><strong>{{$data["total"]}}</strong></td>
+        <td class="align-center" colspan="4"><strong style="text-transform:uppercase">{{total_word}}PESOS ONLY.</strong></td>
+        <td colspan="2" class="align-right"><strong>{{total}}</strong></td>
     </tr>
     <tr>
         <td colspan="6">
-            BASIS: {{$data["purpose"]}}<br>
-            REFERENCES: UPR No. {{$data["upr_number"]}}
+            BASIS: {{purpose}}<br>
+            REFERENCES: UPR No. {{upr_number}}
         </td>
     </tr>
     <tr>
@@ -103,9 +103,9 @@
             <td class="border-right-only" width="45%">
                 Very truly yours,
                 <br>
-                <strong class="margin-top">{{$data["approver_ranks"]}} {{$data["approver_name"]}} {{$data["approver_branch"]}}</strong>
+                <strong class="margin-top">{{approver_ranks}} {{approver_name}} {{approver_branch}}</strong>
                 <br>
-                {{$data["approver_designation"]}}
+                {{approver_designation}}
             </td>
         </tr>
     </table>
@@ -146,7 +146,7 @@
     </tr>
     <tr>
         <td class="no-padding border-left-only"></td>
-        <td class="no-padding no-border" colspan="2"><strong>{{$data["accounting_ranks"]}} {{$data["accounting_name"]}} {{$data["accounting_branch"]}}</strong></td>
+        <td class="no-padding no-border" colspan="2"><strong>{{accounting_ranks}} {{accounting_name}} {{accounting_branch}}</strong></td>
         <td class="no-padding no-border"></td>
         <td class="no-padding no-border" nowrap>OBR/BUR No</td>
         <td class="no-padding border-bottom-only"></td>
@@ -155,7 +155,7 @@
     <tr>
         <td class="no-padding border-left-only"></td>
         <td class="no-padding no-border" colspan="2">
-                {{$data["accounting_designation"]}}</td>
+                {{accounting_designation}}</td>
         <td class="no-padding no-border"></td>
         <td class="no-padding no-border"></td>
         <td class="no-padding no-border"></td>
@@ -187,7 +187,7 @@
     </tr>
     <tr>
         <td class="no-padding border-left-only"></td>
-        <td class="no-padding no-border"><strong>{{$data["coa_signatories_ranks"]}} {{$data["coa_signatories_name"]}} {{$data["coa_signatories_branch"]}}</strong></td>
+        <td class="no-padding no-border"><strong>{{coa_signatories_ranks}} {{coa_signatories_name}} {{coa_signatories_branch}}</strong></td>
         <td class="no-padding no-border"></td>
         <td class="no-padding no-border" nowrap>Date</td>
         <td class="no-padding border-bottom-only"></td>
@@ -195,7 +195,7 @@
     </tr>
     <tr>
         <td class="no-padding border-left-only"></td>
-        <td class="no-padding no-border">{{$data["coa_signatories_designation"]}}</td>
+        <td class="no-padding no-border">{{coa_signatories_designation}}</td>
         <td class="no-padding no-border"></td>
         <td class="no-padding no-border"></td>
         <td class="no-padding no-border"></td>

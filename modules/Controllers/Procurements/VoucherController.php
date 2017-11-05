@@ -1151,32 +1151,32 @@ class VoucherController extends Controller
         }
 
         $output = preg_replace_callback('~\{{(.*?)\}}~', function($key)use($data, $receiver, $approver, $certifier, $result) {
-            $variable['$data["bid_amount_word"]']      = translateToWords($data['bid_amount']);
-            $variable['$data["receiver_name"]']        = (count($receiver) > 1) ? $receiver[0] : "";
-            $variable['$data["receiver_ranks"]']       = (count($receiver) > 1) ? $receiver[1] : "";
-            $variable['$data["receiver_branch"]']      = (count($receiver) > 1) ? $receiver[2] : "";
-            $variable['$data["receiver_designation"]'] = (count($receiver) > 1) ? $receiver[3] : "";
-            $variable['$data["approver_name"]']        = (count($approver) > 1) ? $approver[0] : "";
-            $variable['$data["approver_ranks"]']       = (count($approver) > 1) ? $approver[1] : "";
-            $variable['$data["approver_branch"]']      = (count($approver) > 1) ? $approver[2] : "";
-            $variable['$data["approver_designation"]'] = (count($approver) > 1) ? $approver[3] : "";
-            $variable['$data["certifier_name"]']       = (count($certifier) > 1) ? $certifier[0] : "";
-            $variable['$data["certifier_ranks"]']      = (count($certifier) > 1) ? $certifier[1] : "";
-            $variable['$data["certifier_branch"]']     = (count($certifier) > 1) ? $certifier[2] : "";
-            $variable['$data["certifier_designation"]']= (count($certifier) > 1) ? $certifier[3] : "";
-            $variable['$data["po_number"]']         = $result->upr->purchase_order->po_number;
-            $variable['$data["poType"]']            = $data['poType'];
-            $variable['$data["itemCount"]']         = count($data['items']);
-            $variable['$data["bid_amount"]']        = formatPrice($data['bid_amount']);
-            $variable['$data["final_tax"]']         = $data['final_tax'];
-            $variable['$data["expanded_witholding_tax"]']= $data['expanded_witholding_tax'];
-            $variable['$data["final_tax_amount"]']  = formatPrice($data['final_tax_amount']);
-            $variable['$data["ewt_amount"]']        = formatPrice($data['ewt_amount']);
-            $variable['$data["penalty"]']           = formatPrice($data['penalty']);
-            $variable['$data["unitHeader"]']        = $data['unitHeader'];
-            $variable['$data["payee_tin"]']     = $data['payee']->tin;
-            $variable['$data["payee_name"]']    = $data['payee']->name;
-            $variable['$data["payee_address"]'] = $data['payee']->address;
+            $variable['bid_amount_word']      = translateToWords($data['bid_amount']);
+            $variable['receiver_name']        = (count($receiver) > 1) ? $receiver[0] : "";
+            $variable['receiver_ranks']       = (count($receiver) > 1) ? $receiver[1] : "";
+            $variable['receiver_branch']      = (count($receiver) > 1) ? $receiver[2] : "";
+            $variable['receiver_designation'] = (count($receiver) > 1) ? $receiver[3] : "";
+            $variable['approver_name']        = (count($approver) > 1) ? $approver[0] : "";
+            $variable['approver_ranks']       = (count($approver) > 1) ? $approver[1] : "";
+            $variable['approver_branch']      = (count($approver) > 1) ? $approver[2] : "";
+            $variable['approver_designation'] = (count($approver) > 1) ? $approver[3] : "";
+            $variable['certifier_name']       = (count($certifier) > 1) ? $certifier[0] : "";
+            $variable['certifier_ranks']      = (count($certifier) > 1) ? $certifier[1] : "";
+            $variable['certifier_branch']     = (count($certifier) > 1) ? $certifier[2] : "";
+            $variable['certifier_designation']= (count($certifier) > 1) ? $certifier[3] : "";
+            $variable['po_number']         = $result->upr->purchase_order->po_number;
+            $variable['poType']            = $data['poType'];
+            $variable['itemCount']         = count($data['items']);
+            $variable['bid_amount']        = formatPrice($data['bid_amount']);
+            $variable['final_tax']         = $data['final_tax'];
+            $variable['expanded_witholding_tax']= $data['expanded_witholding_tax'];
+            $variable['final_tax_amount']  = formatPrice($data['final_tax_amount']);
+            $variable['ewt_amount']        = formatPrice($data['ewt_amount']);
+            $variable['penalty']           = formatPrice($data['penalty']);
+            $variable['unitHeader']        = $data['unitHeader'];
+            $variable['payee_tin']     = $data['payee']->tin;
+            $variable['payee_name']    = $data['payee']->name;
+            $variable['payee_address'] = $data['payee']->address;
             if(isset($variable[$key[1]]) ){
               return $variable[$key[1]];
             }

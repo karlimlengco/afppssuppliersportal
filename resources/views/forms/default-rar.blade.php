@@ -1,7 +1,7 @@
 <!-- letterhead -->
 <div class="printable-form__letterhead">
     <span class="printable-form__letterhead__details">
-        {{$data["unitHeader"]}}
+        {{unitHeader}}
     </span>
 </div>
 
@@ -17,32 +17,32 @@ Camp General Emilio Aguinaldo, Quezon City</p>
 <table class="printable-form__body__table ">
     <tr>
         <td width="20%">SUPPLIER:</td>
-        <td class="align-left" width="40%"><strong>{{$data["supplier"]}}</strong></td>
+        <td class="align-left" width="40%"><strong>{{supplier}}</strong></td>
         <td width="40%"></td>
     </tr>
     <tr>
         <td>PURCHASE ORDER</td>
-        <td class="align-left"><strong>{{$data["po_number"]}}</strong></td>
+        <td class="align-left"><strong>{{po_number}}</strong></td>
         <td></td>
     </tr>
     <tr>
         <td>DELIVERY RECEIPT:</td>
-        <td class="align-left"><strong>{{$data["delivery_number"]}} ({{$data["delivery_date"]}})</strong></td>
+        <td class="align-left"><strong>{{delivery_number}} ({{delivery_date}})</strong></td>
         <td></td>
     </tr>
     <tr>
         <td>INVOICE NUMBER:</td>
-        <td class="align-left"><strong>{{$data["invoices"]}}</strong></td>
+        <td class="align-left"><strong>{{invoices}}</strong></td>
         <td></td>
     </tr>
     <tr>
         <td>PLACE OF DELIVERY:</td>
-        <td class="align-left"><strong>{{$data["place"]}}</strong></td>
+        <td class="align-left"><strong>{{place}}</strong></td>
         <td></td>
     </tr>
     <tr>
         <td>AMOUNT:</td>
-        <td class="align-left"><strong>Php {{$data["bid_amount"]}}</strong></td>
+        <td class="align-left"><strong>Php {{bid_amount}}</strong></td>
         <td></td>
     </tr>
 </table>
@@ -51,8 +51,8 @@ Camp General Emilio Aguinaldo, Quezon City</p>
 <table class="printable-form__body__table no-border no-padding">
     <tr>
         <td class="align-bottom align-left" width="45%" height="80px">
-          <strong>{{$data["requestor_ranks"]}} {{$data["requestor_name"]}} {{$data["requestor_branch"]}}</strong><br>
-          {{$data["requestor_designation"]}}
+          <strong>{{requestor_ranks}} {{requestor_name}} {{requestor_branch}}</strong><br>
+          {{requestor_designation}}
         </td>
         <td width="10%"></td>
         <td class="align-bottom" width="45%"></td>

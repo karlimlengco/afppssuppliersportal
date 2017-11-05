@@ -1,7 +1,7 @@
 <!-- letterhead -->
 <div class="printable-form__letterhead">
     <span class="printable-form__letterhead__details">
-        {{$data["unitHeader"]}}
+        {{unitHeader}}
     </span>
 </div>
 
@@ -15,17 +15,17 @@
     </tr>
     <tr>
         <td class="border-left-only" width="10%">Supplier</td>
-        <td class="border-right-only" width="50%"><strong>{{$data["supplier"]}}</strong></td>
+        <td class="border-right-only" width="50%"><strong>{{supplier}}</strong></td>
         <td class="border-right-only" width="40%">Date:</td>
     </tr>
     <tr>
         <td class="border-left-only">PO No.</td>
-        <td class="border-right-only"><strong>{{$data["po_number"]}}</strong></td>
+        <td class="border-right-only"><strong>{{po_number}}</strong></td>
         <td class="border-right-only">No:</td>
     </tr>
     <tr>
         <td class="border-left-only">Amount:</td>
-        <td class="border-right-only"><strong>{{$data["bid_amount"]}}</strong></td>
+        <td class="border-right-only"><strong>{{bid_amount}}</strong></td>
         <td class="border-right-only"></td>
     </tr>
     <tr>
@@ -51,12 +51,12 @@
     </tr>
     <tr>
     <td>
-      {{$data["items"]}}
+      {{items}}
     </td>
     </tr>
     <tr>
-        <td class="align-center"  colspan="7" style="text-transform:uppercase">{{$data["bid_amount_word"]}} Pesos Only</td>
-        <td  class="align-right" >Php {{$data["bid_amount"]}}</td>
+        <td class="align-center"  colspan="7" style="text-transform:uppercase">{{bid_amount_word}} Pesos Only</td>
+        <td  class="align-right" >Php {{bid_amount}}</td>
     </tr>
     <tr>
         <td colspan="8" height="80px"></td>
@@ -106,8 +106,8 @@
     </tr>
     <tr>
         <td class="align-center no-border-top" colspan="4">
-            {{$data["receiver_ranks"]}} {{$data["receiver_name"]}} {{$data["receiver_branch"]}}</strong><br>
-            {{$data["receiver_designation"]}}
+            {{receiver_ranks}} {{receiver_name}} {{receiver_branch}}</strong><br>
+            {{receiver_designation}}
         </td>
         <td class="align-middle align-center" colspan="4">Accounting Clerk</td>
     </tr>

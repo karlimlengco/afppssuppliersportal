@@ -911,27 +911,27 @@ class DeliveredInspectionReportController extends Controller
 
         }
         $output = preg_replace_callback('~\{{(.*?)\}}~', function($key)use($data, $itemContent, $receiver, $requestor, $issuer, $approver, $result) {
-            $variable['$data["unitHeader"]']            = $data['unitHeader'];
-            $variable['$data["items"]']                 = $itemContent;
-            $variable['$data["purpose"]']               = $result->upr->purpose;
-            $variable['$data["bid_amount"]']            = formatPrice($data['bid_amount']);
-            $variable['$data["bid_amount_word"]']       = translateToWords($data['bid_amount']);
-            $variable['$data["receiver_name"]']         = (count($receiver) > 1) ? $receiver[0] : "";
-            $variable['$data["receiver_ranks"]']        = (count($receiver) > 1) ? $receiver[1] : "";
-            $variable['$data["receiver_branch"]']       = (count($receiver) > 1) ? $receiver[2] : "";
-            $variable['$data["receiver_designation"]']  = (count($receiver) > 1) ? $receiver[3] : "";
-            $variable['$data["requestor_name"]']         = (count($requestor) > 1) ? $requestor[0] : "";
-            $variable['$data["requestor_ranks"]']        = (count($requestor) > 1) ? $requestor[1] : "";
-            $variable['$data["requestor_branch"]']       = (count($requestor) > 1) ? $requestor[2] : "";
-            $variable['$data["requestor_designation"]']  = (count($requestor) > 1) ? $requestor[3] : "";
-            $variable['$data["approver_name"]']         = (count($approver) > 1) ? $approver[0] : "";
-            $variable['$data["approver_ranks"]']        = (count($approver) > 1) ? $approver[1] : "";
-            $variable['$data["approver_branch"]']       = (count($approver) > 1) ? $approver[2] : "";
-            $variable['$data["approver_designation"]']  = (count($approver) > 1) ? $approver[3] : "";
-            $variable['$data["issuer_name"]']           = (count($issuer) > 1) ? $issuer[0] : "";
-            $variable['$data["issuer_ranks"]']          = (count($issuer) > 1) ? $issuer[1] : "";
-            $variable['$data["issuer_branch"]']         = (count($issuer) > 1) ? $issuer[2] : "";
-            $variable['$data["issuer_designation"]']    = (count($issuer) > 1) ? $issuer[3] : "";
+            $variable['unitHeader']            = $data['unitHeader'];
+            $variable['itemContent']                 = $itemContent;
+            $variable['purpose']               = $result->upr->purpose;
+            $variable['bid_amount']            = formatPrice($data['bid_amount']);
+            $variable['bid_amount_word']       = translateToWords($data['bid_amount']);
+            $variable['receiver_name']         = (count($receiver) > 1) ? $receiver[0] : "";
+            $variable['receiver_ranks']        = (count($receiver) > 1) ? $receiver[1] : "";
+            $variable['receiver_branch']       = (count($receiver) > 1) ? $receiver[2] : "";
+            $variable['receiver_designation']  = (count($receiver) > 1) ? $receiver[3] : "";
+            $variable['requestor_name']         = (count($requestor) > 1) ? $requestor[0] : "";
+            $variable['requestor_ranks']        = (count($requestor) > 1) ? $requestor[1] : "";
+            $variable['requestor_branch']       = (count($requestor) > 1) ? $requestor[2] : "";
+            $variable['requestor_designation']  = (count($requestor) > 1) ? $requestor[3] : "";
+            $variable['approver_name']         = (count($approver) > 1) ? $approver[0] : "";
+            $variable['approver_ranks']        = (count($approver) > 1) ? $approver[1] : "";
+            $variable['approver_branch']       = (count($approver) > 1) ? $approver[2] : "";
+            $variable['approver_designation']  = (count($approver) > 1) ? $approver[3] : "";
+            $variable['issuer_name']           = (count($issuer) > 1) ? $issuer[0] : "";
+            $variable['issuer_ranks']          = (count($issuer) > 1) ? $issuer[1] : "";
+            $variable['issuer_branch']         = (count($issuer) > 1) ? $issuer[2] : "";
+            $variable['issuer_designation']    = (count($issuer) > 1) ? $issuer[3] : "";
             if(isset($variable[$key[1]]) ){
               return $variable[$key[1]];
             }
@@ -1042,27 +1042,27 @@ class DeliveredInspectionReportController extends Controller
 
         }
         $output = preg_replace_callback('~\{{(.*?)\}}~', function($key)use($data, $itemContent, $receiver, $requestor, $issuer, $approver, $result) {
-            $variable['$data["unitHeader"]']            = $data['unitHeader'];
-            $variable['$data["items"]']                 = $itemContent;
-            $variable['$data["purpose"]']               = $result->upr->purpose;
-            $variable['$data["bid_amount"]']            = formatPrice($data['bid_amount']);
-            $variable['$data["bid_amount_word"]']       = translateToWords($data['bid_amount']);
-            $variable['$data["receiver_name"]']         = (count($receiver) > 1) ? $receiver[0] : "";
-            $variable['$data["receiver_ranks"]']        = (count($receiver) > 1) ? $receiver[1] : "";
-            $variable['$data["receiver_branch"]']       = (count($receiver) > 1) ? $receiver[2] : "";
-            $variable['$data["receiver_designation"]']  = (count($receiver) > 1) ? $receiver[3] : "";
-            $variable['$data["requestor_name"]']         = (count($requestor) > 1) ? $requestor[0] : "";
-            $variable['$data["requestor_ranks"]']        = (count($requestor) > 1) ? $requestor[1] : "";
-            $variable['$data["requestor_branch"]']       = (count($requestor) > 1) ? $requestor[2] : "";
-            $variable['$data["requestor_designation"]']  = (count($requestor) > 1) ? $requestor[3] : "";
-            $variable['$data["approver_name"]']         = (count($approver) > 1) ? $approver[0] : "";
-            $variable['$data["approver_ranks"]']        = (count($approver) > 1) ? $approver[1] : "";
-            $variable['$data["approver_branch"]']       = (count($approver) > 1) ? $approver[2] : "";
-            $variable['$data["approver_designation"]']  = (count($approver) > 1) ? $approver[3] : "";
-            $variable['$data["issuer_name"]']           = (count($issuer) > 1) ? $issuer[0] : "";
-            $variable['$data["issuer_ranks"]']          = (count($issuer) > 1) ? $issuer[1] : "";
-            $variable['$data["issuer_branch"]']         = (count($issuer) > 1) ? $issuer[2] : "";
-            $variable['$data["issuer_designation"]']    = (count($issuer) > 1) ? $issuer[3] : "";
+            $variable['unitHeader']            = $data['unitHeader'];
+            $variable['items']                 = $itemContent;
+            $variable['purpose']               = $result->upr->purpose;
+            $variable['bid_amount']            = formatPrice($data['bid_amount']);
+            $variable['bid_amount_word']       = translateToWords($data['bid_amount']);
+            $variable['receiver_name']         = (count($receiver) > 1) ? $receiver[0] : "";
+            $variable['receiver_ranks']        = (count($receiver) > 1) ? $receiver[1] : "";
+            $variable['receiver_branch']       = (count($receiver) > 1) ? $receiver[2] : "";
+            $variable['receiver_designation']  = (count($receiver) > 1) ? $receiver[3] : "";
+            $variable['requestor_name']         = (count($requestor) > 1) ? $requestor[0] : "";
+            $variable['requestor_ranks']        = (count($requestor) > 1) ? $requestor[1] : "";
+            $variable['requestor_branch']       = (count($requestor) > 1) ? $requestor[2] : "";
+            $variable['requestor_designation']  = (count($requestor) > 1) ? $requestor[3] : "";
+            $variable['approver_name']         = (count($approver) > 1) ? $approver[0] : "";
+            $variable['approver_ranks']        = (count($approver) > 1) ? $approver[1] : "";
+            $variable['approver_branch']       = (count($approver) > 1) ? $approver[2] : "";
+            $variable['approver_designation']  = (count($approver) > 1) ? $approver[3] : "";
+            $variable['issuer_name']           = (count($issuer) > 1) ? $issuer[0] : "";
+            $variable['issuer_ranks']          = (count($issuer) > 1) ? $issuer[1] : "";
+            $variable['issuer_branch']         = (count($issuer) > 1) ? $issuer[2] : "";
+            $variable['issuer_designation']    = (count($issuer) > 1) ? $issuer[3] : "";
             if(isset($variable[$key[1]]) ){
               return $variable[$key[1]];
             }
@@ -1186,29 +1186,29 @@ class DeliveredInspectionReportController extends Controller
 
         }
         $output = preg_replace_callback('~\{{(.*?)\}}~', function($key)use($data, $itemContent, $receiver, $requestor, $issuer, $approver, $result) {
-            $variable['$data["unitHeader"]']            = $data['unitHeader'];
-            $variable['$data["po_number"]']            = $data['po_number'];
-            $variable['$data["supplier"]']            = $data['supplier'];
-            $variable['$data["items"]']                 = $itemContent;
-            $variable['$data["purpose"]']               = $result->upr->purpose;
-            $variable['$data["bid_amount"]']            = formatPrice($data['bid_amount']);
-            $variable['$data["bid_amount_word"]']       = translateToWords($data['bid_amount']);
-            $variable['$data["receiver_name"]']         = (count($receiver) > 1) ? $receiver[0] : "";
-            $variable['$data["receiver_ranks"]']        = (count($receiver) > 1) ? $receiver[1] : "";
-            $variable['$data["receiver_branch"]']       = (count($receiver) > 1) ? $receiver[2] : "";
-            $variable['$data["receiver_designation"]']  = (count($receiver) > 1) ? $receiver[3] : "";
-            $variable['$data["requestor_name"]']         = (count($requestor) > 1) ? $requestor[0] : "";
-            $variable['$data["requestor_ranks"]']        = (count($requestor) > 1) ? $requestor[1] : "";
-            $variable['$data["requestor_branch"]']       = (count($requestor) > 1) ? $requestor[2] : "";
-            $variable['$data["requestor_designation"]']  = (count($requestor) > 1) ? $requestor[3] : "";
-            $variable['$data["approver_name"]']         = (count($approver) > 1) ? $approver[0] : "";
-            $variable['$data["approver_ranks"]']        = (count($approver) > 1) ? $approver[1] : "";
-            $variable['$data["approver_branch"]']       = (count($approver) > 1) ? $approver[2] : "";
-            $variable['$data["approver_designation"]']  = (count($approver) > 1) ? $approver[3] : "";
-            $variable['$data["issuer_name"]']           = (count($issuer) > 1) ? $issuer[0] : "";
-            $variable['$data["issuer_ranks"]']          = (count($issuer) > 1) ? $issuer[1] : "";
-            $variable['$data["issuer_branch"]']         = (count($issuer) > 1) ? $issuer[2] : "";
-            $variable['$data["issuer_designation"]']    = (count($issuer) > 1) ? $issuer[3] : "";
+            $variable['unitHeader']            = $data['unitHeader'];
+            $variable['po_number']            = $data['po_number'];
+            $variable['supplier']            = $data['supplier'];
+            $variable['items']                 = $itemContent;
+            $variable['purpose']               = $result->upr->purpose;
+            $variable['bid_amount']            = formatPrice($data['bid_amount']);
+            $variable['bid_amount_word']       = translateToWords($data['bid_amount']);
+            $variable['receiver_name']         = (count($receiver) > 1) ? $receiver[0] : "";
+            $variable['receiver_ranks']        = (count($receiver) > 1) ? $receiver[1] : "";
+            $variable['receiver_branch']       = (count($receiver) > 1) ? $receiver[2] : "";
+            $variable['receiver_designation']  = (count($receiver) > 1) ? $receiver[3] : "";
+            $variable['requestor_name']         = (count($requestor) > 1) ? $requestor[0] : "";
+            $variable['requestor_ranks']        = (count($requestor) > 1) ? $requestor[1] : "";
+            $variable['requestor_branch']       = (count($requestor) > 1) ? $requestor[2] : "";
+            $variable['requestor_designation']  = (count($requestor) > 1) ? $requestor[3] : "";
+            $variable['approver_name']         = (count($approver) > 1) ? $approver[0] : "";
+            $variable['approver_ranks']        = (count($approver) > 1) ? $approver[1] : "";
+            $variable['approver_branch']       = (count($approver) > 1) ? $approver[2] : "";
+            $variable['approver_designation']  = (count($approver) > 1) ? $approver[3] : "";
+            $variable['issuer_name']           = (count($issuer) > 1) ? $issuer[0] : "";
+            $variable['issuer_ranks']          = (count($issuer) > 1) ? $issuer[1] : "";
+            $variable['issuer_branch']         = (count($issuer) > 1) ? $issuer[2] : "";
+            $variable['issuer_designation']    = (count($issuer) > 1) ? $issuer[3] : "";
             if(isset($variable[$key[1]]) ){
               return $variable[$key[1]];
             }
@@ -1329,32 +1329,32 @@ class DeliveredInspectionReportController extends Controller
         }
 
         $output = preg_replace_callback('~\{{(.*?)\}}~', function($key)use($data,$invoices, $itemContent, $receiver, $requestor, $issuer, $approver, $result) {
-            $variable['$data["unitHeader"]']            = $data['unitHeader'];
-            $variable['$data["supplier"]']              = $data['supplier'];
-            $variable['$data["place"]']                 = $data['place'];
-            $variable['$data["delivery_number"]']       = $data['delivery_number'];
-            $variable['$data["items"]']                 = $itemContent;
-            $variable['$data["invoices"]']              = $invoices;
-            $variable['$data["purpose"]']               = $result->upr->purpose;
-            $variable['$data["delivery_date"]']         = \Carbon\Carbon::createFromFormat('!Y-m-d',$data['date'])->format('d F Y');
-            $variable['$data["bid_amount"]']            = formatPrice($data['bid_amount']);
-            $variable['$data["bid_amount_word"]']       = translateToWords($data['bid_amount']);
-            $variable['$data["receiver_name"]']         = (count($receiver) > 1) ? $receiver[0] : "";
-            $variable['$data["receiver_ranks"]']        = (count($receiver) > 1) ? $receiver[1] : "";
-            $variable['$data["receiver_branch"]']       = (count($receiver) > 1) ? $receiver[2] : "";
-            $variable['$data["receiver_designation"]']  = (count($receiver) > 1) ? $receiver[3] : "";
-            $variable['$data["requestor_name"]']         = (count($requestor) > 1) ? $requestor[0] : "";
-            $variable['$data["requestor_ranks"]']        = (count($requestor) > 1) ? $requestor[1] : "";
-            $variable['$data["requestor_branch"]']       = (count($requestor) > 1) ? $requestor[2] : "";
-            $variable['$data["requestor_designation"]']  = (count($requestor) > 1) ? $requestor[3] : "";
-            $variable['$data["approver_name"]']         = (count($approver) > 1) ? $approver[0] : "";
-            $variable['$data["approver_ranks"]']        = (count($approver) > 1) ? $approver[1] : "";
-            $variable['$data["approver_branch"]']       = (count($approver) > 1) ? $approver[2] : "";
-            $variable['$data["approver_designation"]']  = (count($approver) > 1) ? $approver[3] : "";
-            $variable['$data["issuer_name"]']           = (count($issuer) > 1) ? $issuer[0] : "";
-            $variable['$data["issuer_ranks"]']          = (count($issuer) > 1) ? $issuer[1] : "";
-            $variable['$data["issuer_branch"]']         = (count($issuer) > 1) ? $issuer[2] : "";
-            $variable['$data["issuer_designation"]']    = (count($issuer) > 1) ? $issuer[3] : "";
+            $variable['unitHeader']            = $data['unitHeader'];
+            $variable['supplier']              = $data['supplier'];
+            $variable['place']                 = $data['place'];
+            $variable['delivery_number']       = $data['delivery_number'];
+            $variable['items']                 = $itemContent;
+            $variable['invoices']              = $invoices;
+            $variable['purpose']               = $result->upr->purpose;
+            $variable['delivery_date']         = \Carbon\Carbon::createFromFormat('!Y-m-d',$data['date'])->format('d F Y');
+            $variable['bid_amount']            = formatPrice($data['bid_amount']);
+            $variable['bid_amount_word']       = translateToWords($data['bid_amount']);
+            $variable['receiver_name']         = (count($receiver) > 1) ? $receiver[0] : "";
+            $variable['receiver_ranks']        = (count($receiver) > 1) ? $receiver[1] : "";
+            $variable['receiver_branch']       = (count($receiver) > 1) ? $receiver[2] : "";
+            $variable['receiver_designation']  = (count($receiver) > 1) ? $receiver[3] : "";
+            $variable['requestor_name']         = (count($requestor) > 1) ? $requestor[0] : "";
+            $variable['requestor_ranks']        = (count($requestor) > 1) ? $requestor[1] : "";
+            $variable['requestor_branch']       = (count($requestor) > 1) ? $requestor[2] : "";
+            $variable['requestor_designation']  = (count($requestor) > 1) ? $requestor[3] : "";
+            $variable['approver_name']         = (count($approver) > 1) ? $approver[0] : "";
+            $variable['approver_ranks']        = (count($approver) > 1) ? $approver[1] : "";
+            $variable['approver_branch']       = (count($approver) > 1) ? $approver[2] : "";
+            $variable['approver_designation']  = (count($approver) > 1) ? $approver[3] : "";
+            $variable['issuer_name']           = (count($issuer) > 1) ? $issuer[0] : "";
+            $variable['issuer_ranks']          = (count($issuer) > 1) ? $issuer[1] : "";
+            $variable['issuer_branch']         = (count($issuer) > 1) ? $issuer[2] : "";
+            $variable['issuer_designation']    = (count($issuer) > 1) ? $issuer[3] : "";
             if(isset($variable[$key[1]]) ){
               return $variable[$key[1]];
             }
