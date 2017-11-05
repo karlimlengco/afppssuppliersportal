@@ -759,17 +759,17 @@ class InspectionAndAcceptanceController extends Controller
         }
 
         $output = preg_replace_callback('~\{{(.*?)\}}~', function($key)use($data, $result, $sao, $noa_model, $invoices) {
-            $variable['$data["unitHeader"]']        = $data['unitHeader'];
-            $variable['$data["po_number"]']         = $result->po->po_number;
-            $variable['$data["venue"]']             = $result->upr->place_of_delivery;
-            $variable['$data["winner"]']            = $noa_model->name;
-            $variable['$data["invoice"]']           = $invoices;
-            $variable['$data["sao_name"]']          = (count($sao) > 1) ? $sao[0] : "";;
-            $variable['$data["sao_ranks"]']         = (count($sao) > 1) ? $sao[1] : "";;
-            $variable['$data["sao_branch"]']        = (count($sao) > 1) ? $sao[2] : "";;
-            $variable['$data["sao_designation"]']   = (count($sao) > 1) ? $sao[3] : "";;
-            $variable['$data["delivery_number"]']   = $result->delivery_number;
-            $variable['$data["delivery_date"]']     = \Carbon\Carbon::createFromFormat('!Y-m-d',$result->delivery_date)->format('d F Y');
+            $variable['unitHeader']        = $data['unitHeader'];
+            $variable['po_number']         = $result->po->po_number;
+            $variable['venue']             = $result->upr->place_of_delivery;
+            $variable['winner']            = $noa_model->name;
+            $variable['invoice']           = $invoices;
+            $variable['sao_name']          = (count($sao) > 1) ? $sao[0] : "";;
+            $variable['sao_ranks']         = (count($sao) > 1) ? $sao[1] : "";;
+            $variable['sao_branch']        = (count($sao) > 1) ? $sao[2] : "";;
+            $variable['sao_designation']   = (count($sao) > 1) ? $sao[3] : "";;
+            $variable['delivery_number']   = $result->delivery_number;
+            $variable['delivery_date']     = \Carbon\Carbon::createFromFormat('!Y-m-d',$result->delivery_date)->format('d F Y');
             if(isset($variable[$key[1]]) ){
               return $variable[$key[1]];
             }
