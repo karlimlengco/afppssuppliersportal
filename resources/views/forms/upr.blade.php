@@ -188,7 +188,12 @@
                                 <table class="signatory no-padding no-border">
                                     <tr>
                                         <td width="50%"></td>
-                                        <td nowrap><strong>{{$data['approver'][0]}}</strong></td>
+                                        <td nowrap>
+                                          <div class="signatory-name-justify">
+                                            <strong>{{$data['approver'][0]}}</strong>
+                                            <span></span>
+                                          </div>
+                                        </td>
                                         <td width="50%"></td>
                                     </tr>
                                     <tr>

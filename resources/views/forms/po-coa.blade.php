@@ -58,25 +58,30 @@
                         </tr>
                         <tr>
                             <td>
-                                <table class="signatory">
-                                    <tr>
-                                        <td nowrap><strong>{{$data['coa_signatories'][0]}}</strong></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="signatory-rank-justify">
-                                                <strong>{{$data['coa_signatories'][1]}} {{$data['coa_signatories'][2]}}</strong>
-                                                <span></span>
-                                            </div>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{$data['coa_signatories'][3]}}</td>
-                                        <td></td>
-                                    </tr>
-                                </table>
+                              <table class="signatory">
+                                  <tr>
+                                      <td>
+                                          <div class="signatory-name-justify">
+                                              <strong>{{$data['coa_signatories'][0]}}</strong>
+                                              <span></span>
+                                          </div>
+                                      </td>
+                                      <td></td>
+                                  </tr>
+                                  <tr>
+                                      <td>
+                                          <div class="signatory-rank-justify">
+                                              <strong>{{$data['coa_signatories'][1]}} {{$data['coa_signatories'][2]}}</strong>
+                                              <span></span>
+                                          </div>
+                                      </td>
+                                      <td></td>
+                                  </tr>
+                                  <tr>
+                                      <td nowrap>{{$data['coa_signatories'][3]}}</td>
+                                      <td></td>
+                                  </tr>
+                              </table>
                             </td>
                             <td></td>
                             <td></td>

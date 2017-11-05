@@ -46,20 +46,25 @@
                             <td class="align-bottom" width="45%">
                                 <table class="signatory">
                                     <tr>
-                                        <td nowrap><strong>{{$data['signatory'][0]}} </strong></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
                                         <td>
-                                            <div class="signatory-rank-justify">
-                                                <strong>{{$data['signatory'][1]}} {{$data['signatory'][2]}} </strong>
+                                            <div class="signatory-name-justify">
+                                                <strong>{{$data['signatory'][0]}}</strong>
                                                 <span></span>
                                             </div>
                                         </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td>{{$data['signatory'][3]}} </td>
+                                        <td>
+                                            <div class="signatory-rank-justify">
+                                                <strong>{{$data['signatory'][1]}} {{$data['signatory'][2]}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td nowrap>{{$data['signatory'][3]}}</td>
                                         <td></td>
                                     </tr>
                                 </table>

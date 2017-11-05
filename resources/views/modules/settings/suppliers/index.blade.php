@@ -10,12 +10,12 @@ Suppliers
     </div>
     <div class="six columns utility utility--align-right" >
 
-        <button class="button button--options-trigger" tooltip="Options">
+        <span class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 <a href="{{route($draftRoute)}}" class="button__options__item">Drafts</a>
             </div>
-        </button>
+        </span>
 
         <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
     </div>

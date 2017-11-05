@@ -1675,14 +1675,16 @@ printable-form.less
 .printable-form__body__table tr td .signatory.no-padding tr td {
   padding: 0;
 }
-.printable-form__body__table tr td .signatory .signatory-rank-justify {
+.printable-form__body__table tr td .signatory .signatory-rank-justify,
+.printable-form__body__table tr td .signatory .signatory-name-justify {
   text-align: justify;
   margin: 0;
   padding: 0;
   height: 12px;
   line-height: 1;
 }
-.printable-form__body__table tr td .signatory .signatory-rank-justify span {
+.printable-form__body__table tr td .signatory .signatory-rank-justify span,
+.printable-form__body__table tr td .signatory .signatory-name-justify span {
   display: inline-block;
   width: 100%;
   height: 1px;
@@ -3559,6 +3561,7 @@ utility.less
 }
 .utility .button__options {
   position: absolute;
+  z-index: 80;
   left: 50%;
   width: auto;
   list-style: none;
@@ -3639,6 +3642,16 @@ utility.less
   text-align: left;
   white-space: nowrap;
   border-bottom: solid 1px #e6e6e6;
+}
+.utility .button__options__item .button {
+  display: block;
+  height: auto;
+  width: auto;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  background: inherit;
+  border: none;
 }
 .utility .button__options__item:first-child {
   padding-top: 0;

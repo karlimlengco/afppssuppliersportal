@@ -28,7 +28,7 @@ PhilGeps Posting
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
 
-        <button class="button button--options-trigger" tooltip="Options">
+        <span class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 <a href="#" class=" topbar__utility__button--modal button__options__item">Add Attachment</a>
@@ -39,7 +39,7 @@ PhilGeps Posting
 
                 {{-- <a href="{{route('procurements.blank-rfq.show',$data->rfq_id)}}" class=" button__options__item">Request For Quotation</a> --}}
             </div>
-        </button>
+        </span>
 
 
         <a class="button" href="{{route($editRoute,$data->id)}}">

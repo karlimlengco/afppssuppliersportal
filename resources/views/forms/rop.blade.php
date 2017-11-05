@@ -52,7 +52,12 @@
                                 @if($data['signatory'] != null)
                                     <table class="signatory">
                                         <tr>
-                                            <td nowrap><strong>{{$data['signatory'][0]}}</strong></td>
+                                            <td>
+                                                <div class="signatory-name-justify">
+                                                    <strong>{{$data['signatory'][0]}}</strong>
+                                                    <span></span>
+                                                </div>
+                                            </td>
                                             <td></td>
                                         </tr>
                                         <tr>
@@ -65,7 +70,7 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td>{{$data['signatory'][3]}}</td>
+                                            <td nowrap>{{$data['signatory'][3]}}</td>
                                             <td></td>
                                         </tr>
                                     </table>

@@ -71,25 +71,31 @@
                             <td width="45%"></td>
                             <td width="10%"></td>
                             <td width="45%">
-                                <table class="signatory">
-                                    <tr>
-                                        <td nowrap><strong>{{$data['signatories'][0]}}</strong></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="signatory-rank-justify">
-                                                <strong>{{$data['signatories'][1]}} {{$data['signatories'][2]}}</strong>
-                                                <span></span>
-                                            </div>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{$data['signatories'][3]}}</td>
-                                        <td></td>
-                                    </tr>
-                                </table>
+
+                              <table class="signatory">
+                                  <tr>
+                                      <td>
+                                          <div class="signatory-name-justify">
+                                              <strong>{{$data['signatories'][0]}}</strong>
+                                              <span></span>
+                                          </div>
+                                      </td>
+                                      <td></td>
+                                  </tr>
+                                  <tr>
+                                      <td>
+                                          <div class="signatory-rank-justify">
+                                              <strong>{{$data['signatories'][1]}} {{$data['signatories'][2]}}</strong>
+                                              <span></span>
+                                          </div>
+                                      </td>
+                                      <td></td>
+                                  </tr>
+                                  <tr>
+                                      <td nowrap>{{$data['signatories'][3]}}</td>
+                                      <td></td>
+                                  </tr>
+                              </table>
                             </td>
                         </tr>
                     </table>

@@ -134,7 +134,7 @@ Unit Purchase Request
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
 
-        <button class="button button--options-trigger" tooltip="Options" style="z-index:999999999">
+        <span class="button button--options-trigger" tooltip="Options" style="z-index:999999999">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
 
@@ -164,7 +164,7 @@ Unit Purchase Request
                 @endif
 
             </div>
-        </button>
+        </span>
 
         <a href="#" id="attachment-button" class="button" tooltip="Attachments"><i class="nc-icon-mini ui-1_attach-86"></i> </a>
 

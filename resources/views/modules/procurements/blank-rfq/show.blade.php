@@ -44,7 +44,7 @@ Request For Quotation
 
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
-        <button class="button button--options-trigger" tooltip="Options">
+        <span class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 {{-- @if($data->status != 'closed') --}}
@@ -63,7 +63,7 @@ Request For Quotation
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
 
             </div>
-        </button>
+        </span>
 
         <a target="_blank" href="{{route($printRoute,$data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>

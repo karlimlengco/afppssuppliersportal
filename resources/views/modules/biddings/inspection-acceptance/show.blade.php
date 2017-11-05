@@ -31,7 +31,7 @@ Inspection And Acceptance Report
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
 
-        <button class="button button--options-trigger" tooltip="Options">
+        <span class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 <a id="signatory-button" href="#" class="button__options__item" > Signatories</a>
@@ -44,7 +44,7 @@ Inspection And Acceptance Report
 
 
             </div>
-        </button>
+        </span>
 
 
         <a target="_blank" class="button" href="{{route($printRoute, $data->id)}}"><i class="nc-icon-mini tech_print"></i></a>

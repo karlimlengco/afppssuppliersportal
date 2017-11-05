@@ -39,7 +39,7 @@ Canvassing
 
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
-        <button class="button button--options-trigger" tooltip="Options">
+        <span class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
 
@@ -63,7 +63,7 @@ Canvassing
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
 
             </div>
-        </button>
+        </span>
 
         <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a>
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back">

@@ -28,7 +28,7 @@ Notice To Proceed
 
 <div class="row">
     <div class="twelve columns utility utility--align-right">
-        <button class="button button--options-trigger" tooltip="Options">
+        <span class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 <a id="signatory-button" href="#" class="button__options__item" > Signatories</a>
@@ -43,7 +43,7 @@ Notice To Proceed
 
 
             </div>
-        </button>
+        </span>
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
 
