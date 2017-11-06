@@ -24,6 +24,7 @@
 <script src="/js/jquery-mousewheel.min.js"></script>
 <script src="/js/jquery.mCustomScrollbar.js"></script>
 <script src="/js/summernote.js"></script>
+<script src="//cdn.polyfill.io/v2/polyfill.min.js"></script>
 
 <script>
     (function($){
