@@ -1,4 +1,28 @@
 <!-- jQuery -->
+<script type="text/javascript">
+
+if (typeof Object.assign != 'function') {
+  Object.assign = function(target) {
+    'use strict';
+    if (target == null) {
+      throw new TypeError('Cannot convert undefined or null to object');
+    }
+
+    target = Object(target);
+    for (var index = 1; index < arguments.length; index++) {
+      var source = arguments[index];
+      if (source != null) {
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+    }
+    return target;
+  };
+}
+</script>
 <script src="/vendors/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap -->
 {{-- <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script> --}}
@@ -24,7 +48,6 @@
 <script src="/js/jquery-mousewheel.min.js"></script>
 <script src="/js/jquery.mCustomScrollbar.js"></script>
 <script src="/js/summernote.js"></script>
-<script src="//cdn.polyfill.io/v2/polyfill.min.js"></script>
 
 <script>
     (function($){
