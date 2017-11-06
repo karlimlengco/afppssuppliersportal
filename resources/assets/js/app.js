@@ -17,7 +17,7 @@ require('./directives/v-form-check')
  * Require vue plugins
  */
 Vue.use(require('vee-validate'))
-
+require('es6-promise').polyfill();
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
