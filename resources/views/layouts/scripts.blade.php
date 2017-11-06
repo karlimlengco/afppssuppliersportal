@@ -35,6 +35,10 @@ if (typeof Object.assign != 'function') {
   }
 }
 </script>
+
+<!-- Minified version of `es6-promise-auto` below. -->
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 <script src="/vendors/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap -->
 {{-- <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script> --}}
