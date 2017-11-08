@@ -248,6 +248,7 @@ class UPRController extends Controller
         ModeOfProcurementRepository $modes,
         ProcurementCenterRepository $centers,
         CateredUnitRepository $units,
+        SignatoryRepository $signatories,
         ProcurementTypeRepository $types,
         PaymentTermRepository $terms)
     {
@@ -261,6 +262,8 @@ class UPRController extends Controller
           $data[] = ['id' => "title-".$key->id, 'make' => 'title', 'model' => $key->name];
         }
 
+        $signatory_lists=   $signatories->lists('id', 'name');
+
         $charges            =    $chargeability->lists('id', 'name');
         $procurement_modes  =    $modes->lists('id', 'name');
         $procurement_center =    $centers->lists('id', 'short_code');
@@ -272,6 +275,7 @@ class UPRController extends Controller
         $this->view('modules.procurements.upr.create',[
             'indexRoute'        =>  $this->baseUrl.'index',
             'account_codes'     =>  $data,
+            'signatory_list'    =>  $signatory_lists,
             'old_codes'         =>  $old_codes,
             'procurement_types' =>  $procurement_types,
             'payment_terms'     =>  $payment_terms,
@@ -302,6 +306,7 @@ class UPRController extends Controller
      */
     public function store(
         UnitPurchaseRequestRequest $request,
+        SignatoryRepository $signatories,
         UnitPurchaseRequestRepository $model)
     {
         $items                  =   $request->only([
@@ -347,6 +352,23 @@ class UPRController extends Controller
         $procs['total_amount']  =   $total_amount;
         $procs['prepared_by']   =   $prepared_by;
         $procs['last_date']     =   $transaction_date;
+
+        if($request->requestor_id)
+        {
+            $requestor  =   $signatories->findById($request->requestor_id);
+            $inputs['requestor_text']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
+        }
+        if($request->fund_signatory_id)
+        {
+            $funder  =   $signatories->findById($request->fund_signatory_id);
+            $inputs['fund_signatory_text']   =   $funder->name."/".$funder->ranks."/".$funder->branch."/".$funder->designation;
+        }
+
+        if($request->approver_id)
+        {
+            $approver  =   $signatories->findById($request->approver_id);
+            $inputs['approver_text']   =   $approver->name."/".$approver->ranks."/".$approver->branch."/".$approver->designation;
+        }
 
 
         if($request->mode_of_procurement != 'public_bidding'){

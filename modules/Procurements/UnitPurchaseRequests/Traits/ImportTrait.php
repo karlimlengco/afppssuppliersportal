@@ -13,6 +13,7 @@ use App\Events\Event;
 
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Settings\AccountCodes\AccountCodeRepository;
+use \Revlv\Settings\Signatories\SignatoryRepository;
 use \Revlv\Settings\Chargeability\ChargeabilityRepository;
 use \Revlv\Settings\ModeOfProcurements\ModeOfProcurementRepository;
 use \Revlv\Settings\ProcurementCenters\ProcurementCenterRepository;
@@ -71,6 +72,7 @@ trait ImportTrait
         UnitPurchaseRequestRepository $model,
         AccountCodeRepository $accounts,
         ChargeabilityRepository $chargeability,
+        SignatoryRepository $signatories,
         ModeOfProcurementRepository $modes,
         ProcurementCenterRepository $centers,
         ProcurementTypeRepository $types,
@@ -85,13 +87,12 @@ trait ImportTrait
         // Loop through all sheets
         // $reader->formatDates(true, 'd F Y');
         // $fields         =   $reader->limitColumns(10)->get();
-        $fields         =   $reader->limitColumns(10)->limitRows(97)->get();
-        $items          =   $reader->skipRows(97)->limitColumns(10)->get();
+        $fields         =   $reader->limitColumns(10)->limitRows(124)->get();
+        $items          =   $reader->skipRows(124)->limitColumns(10)->get();
         $array          =   [];
         $itemArray      =   [];
 
         $array['units'] =   \Sentinel::getUser()->unit_id;
-
         foreach($fields->toArray() as $key => $row)
         {
             $val = $key + 3;
@@ -132,6 +133,27 @@ trait ImportTrait
                     if($chargeabilityModel != null)
                     {
                         $array['chargeability'] = $chargeabilityModel->id;
+                    }
+                    break;
+                case 'Approved By':
+                    $approverModel    =   $signatories->findById($fields->toArray()[$val][0]);
+                    if($approverModel != null)
+                    {
+                        $array['approver_id'] = $approverModel->id;
+                    }
+                    break;
+                case 'Request By':
+                    $requestorModel    =   $signatories->findById($fields->toArray()[$val][0]);
+                    if($requestorModel != null)
+                    {
+                        $array['requestor_id'] = $requestorModel->id;
+                    }
+                    break;
+                case 'Fund Certified Available':
+                    $funderModel    =   $signatories->findById($fields->toArray()[$val][0]);
+                    if($funderModel != null)
+                    {
+                        $array['fund_signatory_id'] = $funderModel->id;
                     }
                     break;
                 case 'ACCOUNT CODE':
@@ -260,6 +282,7 @@ trait ImportTrait
         ProcurementCenterRepository $centers,
         ProcurementTypeRepository $types,
         CateredUnitRepository $units,
+        SignatoryRepository $signatories,
         PaymentTermRepository $terms)
     {
         $data               =    session('data');
@@ -273,6 +296,7 @@ trait ImportTrait
         $payment_terms      =    $terms->lists('id', 'name');
         $unit               =    $units->lists('id', 'short_code');
         $procurement_types  =    $types->lists('id', 'code');
+        $signatory_lists    =    $signatories->lists('id', 'name');
 
 
         return $this->view('modules.procurements.upr.import-validate',[
@@ -280,6 +304,7 @@ trait ImportTrait
             'data'              =>  $data,
             'user'              =>  \Sentinel::getUser(),
             'items'             =>  $items,
+            'signatory_list'    =>  $signatory_lists,
             'account_codes'     =>  $account_codes,
             'old_codes'         =>  $old_codes,
             'procurement_types' =>  $procurement_types,
@@ -301,7 +326,7 @@ trait ImportTrait
      * @param  UnitPurchaseRequestRepository $model   [description]
      * @return [type]                                 [description]
      */
-    public function saveFile(UnitPurchaseRequestRequest $request, UnitPurchaseRequestRepository $model)
+    public function saveFile(UnitPurchaseRequestRequest $request, SignatoryRepository $signatories, UnitPurchaseRequestRepository $model)
     {
         $items                  =   $request->only([
             'item_description',
@@ -336,6 +361,23 @@ trait ImportTrait
             $procs['next_allowable']=   1;
             $procs['next_step']     =   "Document Acceptance";
             $procs['next_due']      =   $transaction_date->addDays(1);
+        }
+
+        if($request->requestor_id)
+        {
+            $requestor  =   $signatories->findById($request->requestor_id);
+            $procs['requestor_text']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
+        }
+        if($request->fund_signatory_id)
+        {
+            $funder  =   $signatories->findById($request->fund_signatory_id);
+            $procs['fund_signatory_text']   =   $funder->name."/".$funder->ranks."/".$funder->branch."/".$funder->designation;
+        }
+
+        if($request->approver_id)
+        {
+            $approver  =   $signatories->findById($request->approver_id);
+            $procs['approver_text']   =   $approver->name."/".$approver->ranks."/".$approver->branch."/".$approver->designation;
         }
 
         $result = $model->save($procs);
@@ -374,7 +416,6 @@ trait ImportTrait
                     'id'                    =>  Uuid::generate()->string
                 ];
             }
-
             DB::table('unit_purchase_request_items')->insert($item_datas);
         }
         event(new Event($result, "UPR Created"));
