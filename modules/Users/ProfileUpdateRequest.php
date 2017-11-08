@@ -40,7 +40,7 @@ class ProfileUpdateRequest extends BaseRequest
     public function rules()
     {
         return [
-            'email'                 => 'required|unique:users,email,'. $this->id,
+            'email'                 => 'required',
             'firstname'             => 'required',
             'lastname'              => 'required',
             'telephone'             => 'required',

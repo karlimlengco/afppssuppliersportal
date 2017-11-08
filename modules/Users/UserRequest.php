@@ -60,7 +60,6 @@ class UserRequest extends BaseRequest
             'unit_id'               => 'required',
             'designation'           => 'required',
             'first_name'            => 'required',
-            'middle_name'           => 'required',
             'surname'               => 'required',
             'contact_number'        => 'required',
             'gender'                => 'required',

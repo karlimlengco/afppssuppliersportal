@@ -43,7 +43,6 @@ class ProfileRequest extends BaseRequest
             'contact_number'        => 'required',
             'address'               => 'required',
             'first_name'            => 'required',
-            'middle_name'           => 'required',
             'surname'               => 'required',
             'password'              => 'confirmed',
         ];

@@ -40,7 +40,7 @@ class UserRegisterRequest extends BaseRequest
     public function rules()
     {
         return [
-            'email'                 => 'required|unique:users,email',
+            'email'                 => 'required',
             'password'              => 'required|min:6|confirmed',
             'firstname'             => 'required',
             'lastname'              => 'required',

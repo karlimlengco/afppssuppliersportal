@@ -73,7 +73,6 @@ class UserCreateRequest extends BaseRequest
             'first_name'            => 'required',
             'password'              => 'required|confirmed',
             'password_confirmation' => 'required',
-            'middle_name'           => 'required',
             'surname'               => 'required',
             'contact_number'        => 'required',
             'gender'                => 'required',
