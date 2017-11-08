@@ -369,7 +369,8 @@ trait ImportTrait
                     'ref_number'            =>  $request->get('ref_number'),
                     'prepared_by'           =>  $prepared_by,
                     'date_prepared'         =>  $request->get('date_prepared'),
-                    'upr_id'                =>  $result->id
+                    'upr_id'                =>  $result->id,
+                    'id'                    =>  Uuid::generate()->string
                 ];
             }
 
