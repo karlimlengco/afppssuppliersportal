@@ -5,6 +5,7 @@ namespace Revlv\Procurements\UnitPurchaseRequests\Traits;
 use Illuminate\Http\Request;
 use DB;
 use Datatables;
+use Uuid;
 use Excel;
 use PDF;
 use \App\Support\Breadcrumb;
