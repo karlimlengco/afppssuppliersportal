@@ -43,46 +43,45 @@
                             <td class="align-center align-middle no-border-top" rowspan="2">{{$data['upr_number']}}</td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="200px" nowrap>PLACE OF DELIVERY</td>
-                            <td class="border-bottom-only" width="300px">{{$data['place_of_delivery']}}</td>
+                            <td class="border-left-only" width="150px" nowrap>PLACE OF DELIVERY</td>
+                            <td class="border-bottom-only" width="350px">{{$data['place_of_delivery']}}</td>
                             <td class="border-right-only" width="10%"></td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="200px" nowrap>MODE OF PROCUREMENT</td>
-                            <td class="border-bottom-only" width="300px">{{$data['mode']}}</td>
+                            <td class="border-left-only" width="150px" nowrap>MODE OF PROCUREMENT</td>
+                            <td class="border-bottom-only" width="350px">{{$data['mode']}}</td>
                             <td class="border-right-only" width="10%"></td>
                             <td class="no-border-bottom">AFPPS REF NO:</td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="200px" nowrap>CHARGEABILITY</td>
-                            <td class="border-bottom-only" width="300px">{{$data['charge']}}</td>
+                            <td class="border-left-only" width="150px" nowrap>CHARGEABILITY</td>
+                            <td class="border-bottom-only" width="350px">{{$data['charge']}}</td>
                             <td class="border-right-only" width="10%"></td>
                             <td class="align-center align-middle no-border-top" rowspan="2">{{$data['ref_number']}}</td>
                         </tr>
                         <tr>
                             <td class="border-left-only" width="150px" nowrap>ACCOUNT CODE</td>
-                            <td class="border-bottom-only" width="300px">
-                              @foreach($data['items'] as $key => $item)
-                                {{($item->accounts) ? $item->accounts->new_account_code."," : ""}}
-                              @endforeach
+                            <td class="border-bottom-only" width="350px">
+                            @foreach($data['items'] as $key => $item)
+                              {{($item->accounts) ? $item->accounts->new_account_code."," : ""}}
+                            @endforeach
                             </td>
-                            <td class="no-border-bottom no-border-left no-border-right" width="350px"></td>
                             <td class="border-right-only" width="10%"></td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="200px" nowrap>FUND VALIDITY</td>
-                            <td class="border-bottom-only" width="300px">{{$data['fund_validity']}}</td>
+                            <td class="border-left-only" width="150px" nowrap>FUND VALIDITY</td>
+                            <td class="border-bottom-only" width="350px">{{$data['fund_validity']}}</td>
                             <td class="border-right-only" width="10%"></td>
                             <td class="no-border-bottom">Date Prepared:</td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="200px" nowrap>TERMS OF PAYMENT</td>
-                            <td class="border-bottom-only" width="300px">{{$data['terms']}}</td>
+                            <td class="border-left-only" width="150px" nowrap>TERMS OF PAYMENT</td>
+                            <td class="border-bottom-only" width="350px">{{$data['terms']}}</td>
                             <td class="border-right-only" width="10%"></td>
                             <td class="align-center align-middle no-border-top" rowspan="3">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['date_prepared'])->format('d F Y') }}</td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="200px" nowrap>OTHER ESSENTIAL INFO</td>
+                            <td class="border-left-only" width="150px" nowrap>OTHER ESSENTIAL INFO</td>
                             <td class="border-bottom-only" width="350px">{{$data['other_infos']}}</td>
                             <td class="border-right-only" width="10%"></td>
                         </tr>
