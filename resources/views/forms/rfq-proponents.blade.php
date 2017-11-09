@@ -74,8 +74,8 @@
                                 <td class="align-center">{{$item->quantity}}</td>
                                 <td class="align-center">{{$item->unit_measurement}}</td>
                                 <td class="align-left">{{$item->item_description}}</td>
-                                <td class="align-right">{{formatPrice($item->unit_price)}}</td>
-                                <td class="align-right">{{formatPrice($item->total_amount)}}</td>
+                                <td class="align-right"></td>
+                                <td class="align-right"></td>
                             </tr>
                             @endforeach
                             <tr>
