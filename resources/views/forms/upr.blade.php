@@ -62,8 +62,14 @@
                         <tr>
                             <td class="border-left-only" width="150px" nowrap>ACCOUNT CODE</td>
                             <td class="border-bottom-only" width="350px">
+                            <?php $arr = []; ?>
                             @foreach($data['items'] as $key => $item)
-                              {{($item->accounts) ? $item->accounts->new_account_code."," : ""}}
+                              @if($item->accounts)
+                                @if (!in_array($item->accounts->new_account_code, $arr))
+                                  {{($item->accounts) ? $item->accounts->new_account_code."," : ""}}
+                                @endif
+                                <?php $arr = [$item->accounts->new_account_code]; ?>
+                              @endif
                             @endforeach
                             </td>
                             <td class="border-right-only" width="10%"></td>
