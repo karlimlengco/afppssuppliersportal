@@ -15,7 +15,7 @@ class InsertIntoChatsId extends Migration
     {
         Schema::table('chats', function($table)
         {
-            $table->integer('upr_id')->nullable();
+            $table->string('upr_id')->nullable();
         });
     }
 

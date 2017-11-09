@@ -15,7 +15,7 @@ class InsertIntoMessages extends Migration
     {
         Schema::table('messages', function($table)
         {
-            $table->integer('chat_id')->unsigned();
+            $table->string('chat_id')->unsigned();
             $table->string('status')->nullable();
             $table->string('seen_by')->nullable();
             $table->integer('is_seen')->nullable();

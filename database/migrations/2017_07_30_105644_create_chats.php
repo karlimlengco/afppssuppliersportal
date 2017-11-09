@@ -15,8 +15,8 @@ class CreateChats extends Migration
     {
         Schema::create('chats', function (Blueprint $table) {
             $table->uuid('id');
-            $table->integer('receiver_id')->nullable();
-            $table->integer('sender_id');
+            $table->string('receiver_id')->nullable();
+            $table->string('sender_id');
             $table->timestamps();
         });
     }

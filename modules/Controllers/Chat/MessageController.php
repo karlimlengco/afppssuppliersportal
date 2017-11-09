@@ -226,7 +226,6 @@ class MessageController extends Controller
     {
         $user   =   \Sentinel::getUser();
         $chat   = null;
-
         if($request->has("uprId") && $request->get('uprId') != null)
         {
             $chat   =   $chats->findByUPR($request->get('uprId'));
