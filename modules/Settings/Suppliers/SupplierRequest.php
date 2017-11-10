@@ -50,7 +50,7 @@ class SupplierRequest extends BaseRequest
     public function rules()
     {
         return [
-            'name'              => 'required|unique:suppliers,name',
+            'name'              => 'required',
             'owner'             => 'required',
             'address'           => 'required',
             'cell_1'            => 'required',
