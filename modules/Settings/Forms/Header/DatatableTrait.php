@@ -21,9 +21,20 @@ trait DatatableTrait
         $model  =   $this->model;
         $model  =   $model->select([
             'form_headers.id',
+            'form_headers.unit_id',
             'form_headers.content',
             'catered_units.short_code'
             ]);
+
+
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+            $user = \Sentinel::getUser();
+            if($user->unit_id)
+            {
+              $model  =   $model->where('form_headers.unit_id','=', $user->unit_id);
+            }
+        }
 
         $model  =   $model->leftJoin('catered_units', 'catered_units.id', 'form_headers.unit_id');
 

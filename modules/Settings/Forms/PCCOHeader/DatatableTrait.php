@@ -20,10 +20,27 @@ trait DatatableTrait
     {
         $model  =   $this->model;
         $model  =   $model->select([
+            'pcco_headers.pcco_id',
             'pcco_headers.id',
             'pcco_headers.content',
             'procurement_centers.name'
             ]);
+
+
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                if($user->units->centers)
+                {
+                    $center =   $user->units->centers->id;
+                }
+            }
+            $model  =   $model->where('pcco_headers.pcco_id','=', $center);
+        }
 
         $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', 'pcco_headers.pcco_id');
 
