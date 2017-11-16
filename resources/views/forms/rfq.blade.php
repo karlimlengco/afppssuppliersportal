@@ -91,7 +91,7 @@
                         </table>
                         <p>After having carefully read and accepted your General Conditions, I/We hereby certify the item/s quoted is of the quality/standard at the price/s noted above.</p>
                         <!-- form signatories -->
-                        <table class="printable-form__body__table no-border no-padding">
+                        <table class="printable-form__body__table no-border no-padding" style="page-break-inside: auto;">
                             <tr>
                                 <td width="45%"></td>
                                 <td width="10%"></td>
