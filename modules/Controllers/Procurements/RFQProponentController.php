@@ -258,7 +258,6 @@ class RFQProponentController extends Controller
           return redirect()
                       ->back()
                       ->with(['error' => 'Please Add bid amount on canvassing only.'])
-                      ->withErrors($validator)
                       ->withInput();
         }
         $this->validate($request, ['bid_amount' => 'required', 'status' => 'required', 'remarks' => 'required_if:status,failed']);
