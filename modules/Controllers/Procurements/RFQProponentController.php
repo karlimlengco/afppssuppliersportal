@@ -252,7 +252,8 @@ class RFQProponentController extends Controller
      */
     public function update(Request $request, $id, RFQProponentRepository $model)
     {
-        if($result->rfq->canvassing == null)
+        $rfq  = $model->findById($id);
+        if($rfq->rfq->canvassing == null)
         {
           return redirect()
                       ->back()
