@@ -36,7 +36,7 @@ Purchase Order
 
 
 
-        <button type="button" class="button button--options-trigger" tooltip="Options">
+        <span type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
 
@@ -64,7 +64,7 @@ Purchase Order
 
 
             </div>
-        </button>
+        </span>
 
         {{-- <a href="#" id="signatory-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a> --}}
         @if($data->type != 'contract')

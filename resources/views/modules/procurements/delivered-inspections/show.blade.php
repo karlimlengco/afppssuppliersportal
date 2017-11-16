@@ -41,7 +41,7 @@ Delivered Items Inspection
 <div class="row">
     <div class="twelve columns utility utility--align-right" >
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-        <button type="button" class="button button--options-trigger" tooltip="Options">
+        <span type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
 
@@ -70,7 +70,7 @@ Delivered Items Inspection
 
 
             </div>
-        </button>
+        </span>
 
         {{-- <a href="#" id="signatories-button" class="button" tooltip="Signatories"><i class="nc-icon-mini business_sign"></i> </a> --}}
 

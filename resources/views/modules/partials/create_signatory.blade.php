@@ -14,7 +14,7 @@
                     {!! Form::textField('ranks', 'Rank', null, ['required']) !!}
                 </div>
                 <div class="four columns">
-                    {!! Form::textField('branch', 'Branch', null, ['required']) !!}
+                    {!! Form::textField('branch', 'Branch') !!}
                 </div>
             </div>
 

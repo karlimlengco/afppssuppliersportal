@@ -36,7 +36,7 @@ Purchase Order
 
 
 
-        <button type="button" class="button button--options-trigger" tooltip="Options">
+        <span type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
 
@@ -56,7 +56,7 @@ Purchase Order
                     <a href="{{route('procurements.delivery-orders.show', $data->delivery->id)}}" class="button__options__item" tooltip="Delivery"> Delivery</a>
                 @endif
             </div>
-        </button>
+        </span>
 
         <a target="_blank" href="{{route('procurements.purchase-orders.print', $data->id)}}" class="button" tooltip="Print">
             <i class="nc-icon-mini tech_print"></i>

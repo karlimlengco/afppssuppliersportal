@@ -40,7 +40,7 @@ Notice Of Award
 <div class="row">
 
     <div class="twelve columns align-right utility utility--align-right">
-        <button type="button" class="button button--options-trigger" tooltip="Options">
+        <span type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 @if($data->upr->mode_of_procurement =='public_bidding' &&  $data->perfomance_bond == null)
@@ -55,7 +55,7 @@ Notice Of Award
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
 
             </div>
-        </button>
+        </span>
 
 {{--         @if(!$data->received_by && !$data->award_accepted_date)
             <a class="button" id="received-button" href="#">Received</a>

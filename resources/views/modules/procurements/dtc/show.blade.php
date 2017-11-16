@@ -28,7 +28,7 @@ Delivery To COA
 <div class="row">
     <div class="twelve columns utility utility--align-right" >
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-        <button type="button" style="margin-right:40px" class="button button--options-trigger" tooltip="Options">
+        <span type="button" style="margin-right:40px" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 @if(!$data->date_delivered_to_coa)
@@ -41,7 +41,7 @@ Delivery To COA
 
                 <a href="{{route('procurements.purchase-orders.show', $data->po_id)}}" class="button__options__item" tooltip="NTP"> Purchase Order</a>
             </div>
-        </button>
+        </span>
     </div>
 </div>
 

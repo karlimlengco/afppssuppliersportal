@@ -134,7 +134,7 @@ Unit Purchase Request
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
 
-        <span class="button button--options-trigger" tooltip="Options" style="z-index:999999999">
+        <span class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
 

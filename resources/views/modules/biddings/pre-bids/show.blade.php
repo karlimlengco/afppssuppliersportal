@@ -31,13 +31,13 @@ Pre-Bid Conference
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
-        <button type="button" class="button button--options-trigger" tooltip="Options">
+        <span type="button" class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
                 <a class="button__options__item" href="{{route('biddings.pre-bids.logs', $data->id)}}">View Logs</a>
             </div>
-        </button>
+        </span>
 
         @if($data->failed_remarks == null)
         <a href="#" class="button" id="fail-pq-button" tooltip="Failed"><i class="nc-icon-mini ui-1_bold-remove"></i></a>
