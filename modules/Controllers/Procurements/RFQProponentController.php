@@ -252,6 +252,14 @@ class RFQProponentController extends Controller
      */
     public function update(Request $request, $id, RFQProponentRepository $model)
     {
+        if($result->rfq->canvassing == null)
+        {
+          return redirect()
+                      ->back()
+                      ->with(['error' => 'Please Add bid amount on canvassing only.'])
+                      ->withErrors($validator)
+                      ->withInput();
+        }
         $this->validate($request, ['bid_amount' => 'required', 'status' => 'required', 'remarks' => 'required_if:status,failed']);
 
         $result =   $model->update(['remarks' => $request->remarks, 'bid_amount' => $request->bid_amount, 'status' => $request->status], $id);
