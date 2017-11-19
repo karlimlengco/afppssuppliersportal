@@ -619,7 +619,7 @@ class CanvassingController extends Controller
         $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
         $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
 
-        // $data['date']               =  $result->canvass_date." ". $result->canvass_time;
+        $data['date_to']               =  $result->canvass_date." ". $result->canvass_time;
 
         $data['date']               =  $result->upr->date_prepared;
 
