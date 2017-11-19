@@ -585,6 +585,7 @@ class CanvassingController extends Controller
 
         $data['rfq_number']         =  $result->rfq->rfq_number;
         $data['header']             =  $result->upr->centers;
+        $data['place_of_delivery']  =  $result->upr->place_of_delivery;
         $data['total_amount']       =  $result->upr->total_amount;
         $data['unit']               =  $result->upr->unit->short_code;
         $data['center']             =  $result->upr->centers->name;

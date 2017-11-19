@@ -54,7 +54,7 @@
                         </tr>
                         <tr>
                             <td><strong>Place of Delivery</strong></td>
-                            <td colspan="3">{{$data['center']}}</td>
+                            <td colspan="3">{{$data['place_of_delivery']}}</td>
                         </tr>
                     </table>
                     <table class="printable-form__body__table">
