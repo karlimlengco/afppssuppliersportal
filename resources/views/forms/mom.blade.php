@@ -125,8 +125,8 @@
                     <table class="printable-form__body__table no-border no-padding" style="page-break-inside:avoid">
                         <tr>
                             <td class="align-bottom align-left" width="45%" height="80px">
-                                <strong>{{$data['secretary'][1]}} {{$data['secretary'][0]}} {{$data['secretary'][2]}}</strong><br>
-                                {{$data['secretary'][3]}}
+                                <strong>{{$data['sec'][1]}} {{$data['sec'][0]}} {{$data['sec'][2]}}</strong><br>
+                                {{$data['sec'][3]}}
                             </td>
                             <td width="10%"></td>
                             <td class="align-bottom" width="45%"></td>
