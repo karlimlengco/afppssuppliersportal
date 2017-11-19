@@ -125,16 +125,16 @@
                     <table class="printable-form__body__table no-border no-padding" style="page-break-inside:avoid">
                         <tr>
                             <td class="align-bottom align-left" width="45%" height="80px">
-                                <strong>{{$data['sec'][1]}} {{$data['sec'][0]}} {{$data['sec'][2]}}</strong><br>
-                                {{$data['sec'][3]}}
+                                <strong>{{$data['chief_signatory'][1]}} {{$data['chief_signatory'][0]}} {{$data['chief_signatory'][2]}}</strong><br>
+                                {{$data['chief_signatory'][3]}}
                             </td>
                             <td width="10%"></td>
                             <td class="align-bottom" width="45%"></td>
                         </tr>
                         <tr>
                             <td class="align-bottom align-left"  height="80px">
-                                <strong>{{$data['chief_signatory'][1]}} {{$data['chief_signatory'][0]}} {{$data['chief_signatory'][2]}}</strong><br>
-                                {{$data['chief_signatory'][3]}}
+                                <strong>{{$data['sec'][1]}} {{$data['sec'][0]}} {{$data['sec'][2]}}</strong><br>
+                                {{$data['sec'][3]}}
                             </td>
                             <td></td>
                             <td class="align-bottom align-left"  height="80px">
