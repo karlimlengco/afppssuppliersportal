@@ -32,11 +32,20 @@ trait DatatableTrait
             $user = \Sentinel::getUser();
             if($user->unit_id)
             {
-              $model  =   $model->where('form_headers.unit_id','=', $user->unit_id);
+
+              if($user->units->centers)
+              {
+                  $center =   $user->units->centers->id;
+              }
+              // $model  =   $model->where('form_headers.unit_id','=', $user->unit_id);
+
+              $model  =   $model->where('procurement_centers.id','=', $center);
             }
         }
 
         $model  =   $model->leftJoin('catered_units', 'catered_units.id', 'form_headers.unit_id');
+
+        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', 'catered_units.pcco_id');
 
 
         return $this->dataTable($model->get());
