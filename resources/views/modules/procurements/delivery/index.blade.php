@@ -34,7 +34,6 @@ Notice Of Delivery
 
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>RFQ Number</th>
                     <th>UPR Number</th>
                     <th>DR Number</th>
@@ -61,7 +60,6 @@ Notice Of Delivery
                 url: "{{route('datatables.procurements.delivery-orders')}}",
             },
         columns: [
-            {data: 'id', name: 'id'},
             {data: 'rfq_number', name: 'rfq_number'},
             {data: 'upr_number', name: 'upr_number'},
             {data: 'delivery_number', name: 'delivery_number'},

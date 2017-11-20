@@ -56,9 +56,9 @@ trait DatatableTrait
     public function dataTable($model)
     {
         return Datatables::of($model)
-            ->addColumn('id', function ($data) {
+            ->addColumn('rfq_number', function ($data) {
                 $route  =  route( 'procurements.canvassing.show',[$data->id] );
-                return ' <a  href="'.$route.'" > '. $data->id .'</a>';
+                return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
             })
             ->editColumn('canvass_rfq', function($data){
                 $route  =  route( 'procurements.noa.show',[$data->canvass_id] );
@@ -71,7 +71,7 @@ trait DatatableTrait
                 }
                 return "Passed";
             })
-            ->rawColumns(['id', 'canvass_rfq'])
+            ->rawColumns(['rfq_number', 'canvass_rfq'])
             ->make(true);
     }
 }

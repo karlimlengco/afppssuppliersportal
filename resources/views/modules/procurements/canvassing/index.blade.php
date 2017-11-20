@@ -36,7 +36,6 @@ Canvassing
 
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>RFQ Number</th>
                     <th>UPR Number</th>
                     <th>Canvassing Date</th>
@@ -62,7 +61,6 @@ Canvassing
                 url: "{{route('datatables.procurements.canvassing')}}",
             },
         columns: [
-            {data: 'id', name: 'id'},
             {data: 'rfq_number', name: 'rfq_number'},
             {data: 'upr_number', name: 'upr_number'},
             {data: 'canvass_date', name: 'canvass_date'},
