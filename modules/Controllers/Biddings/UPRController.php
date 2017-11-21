@@ -645,4 +645,52 @@ class UPRController extends Controller
             ]
         ]);
     }
+
+
+    /**
+     * [destroy description]
+     *
+     * @param  [type]                        $id    [description]
+     * @param  UnitPurchaseRequestRepository $model [description]
+     * @return [type]                               [description]
+     */
+    public function destroy($id, UnitPurchaseRequestRepository $model)
+    {
+      $upr  = $model->findById($id);
+      $upr->itb()->delete();
+      $upr->itbs()->delete();
+      $upr->document_accept()->delete();
+      $upr->preproc()->delete();
+      $upr->preprocs()->delete();
+      $upr->documents()->delete();
+      $upr->bid_conference()->delete();
+      $upr->bid_conferences()->delete();
+      $upr->bid_issuance()->delete();
+      $upr->bid_issuances()->delete();
+      $upr->bid_open()->delete();
+      $upr->bid_opens()->delete();
+      $upr->post_qual()->delete();
+      $upr->post_quals()->delete();
+      $upr->bid_proponents()->delete();
+      $upr->philgeps()->delete();
+      $upr->philgeps_many()->delete();
+      $upr->rfq()->delete();
+      $upr->invitations()->delete();
+      $upr->canvassing()->delete();
+      $upr->noa()->delete();
+      $upr->ntp()->delete();
+      $upr->purchase_order()->delete();
+      $upr->delivery_order()->delete();
+      $upr->delivery_orders()->delete();
+      $upr->diir()->delete();
+      $upr->inspections()->delete();
+      $upr->voucher()->delete();
+      $upr->items()->delete();
+      $upr->delete();
+
+
+      return redirect()->route($this->baseUrl.'index')->with([
+          'success'  => "Record has been successfully deleted."
+      ]);
+    }
 }

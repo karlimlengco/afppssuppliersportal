@@ -33,8 +33,7 @@ Purchase Order
     <div class="twelve columns utility utility--align-right" >
         <a href="{{route($indexRoute, $data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
         <button type="button" class="button" id="edit-button" ><i class="nc-icon-mini ui-2_disk"></i></button>
-
-        <a href="#" class="button topbar__utility__button--modal" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
+        <a class="button" tooltip="Delete" id="delete-button"><i class="nc-icon-mini ui-1_trash"></i></a>
     </div>
 </div>
 

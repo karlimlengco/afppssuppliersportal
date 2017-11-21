@@ -31,6 +31,10 @@ Unit Purchase Request
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route($indexRoute,$data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
         <a class="button" tooltip="Save" id="edit-button"><i class="nc-icon-mini ui-2_disk"></i></a>
+
+        @if(\Sentinel::getUser()->hasRole('Admin'))
+        <a href="#" id="delete-button" class="button " tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
+        @endif
     </div>
 </div>
 
@@ -130,6 +134,11 @@ Unit Purchase Request
     $('#edit-button').click(function(e){
         e.preventDefault();
         $('#edit-modal').addClass('is-visible');
+    })
+
+    $('#delete-button').click(function(e){
+        e.preventDefault();
+        $('#delete-modal').addClass('is-visible');
     })
 
     $requestor = $('#id-field-requestor_id').selectize({
