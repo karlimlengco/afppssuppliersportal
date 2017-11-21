@@ -352,22 +352,21 @@ class UPRController extends Controller
         $procs['total_amount']  =   $total_amount;
         $procs['prepared_by']   =   $prepared_by;
         $procs['last_date']     =   $transaction_date;
-
         if($request->requestor_id)
         {
             $requestor  =   $signatories->findById($request->requestor_id);
-            $inputs['requestor_text']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
+            $procs['requestor_text']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
         }
         if($request->fund_signatory_id)
         {
             $funder  =   $signatories->findById($request->fund_signatory_id);
-            $inputs['fund_signatory_text']   =   $funder->name."/".$funder->ranks."/".$funder->branch."/".$funder->designation;
+            $procs['fund_signatory_text']   =   $funder->name."/".$funder->ranks."/".$funder->branch."/".$funder->designation;
         }
 
         if($request->approver_id)
         {
             $approver  =   $signatories->findById($request->approver_id);
-            $inputs['approver_text']   =   $approver->name."/".$approver->ranks."/".$approver->branch."/".$approver->designation;
+            $procs['approver_text']   =   $approver->name."/".$approver->ranks."/".$approver->branch."/".$approver->designation;
         }
 
 

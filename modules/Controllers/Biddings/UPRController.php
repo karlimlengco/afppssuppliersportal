@@ -232,6 +232,7 @@ class UPRController extends Controller
      */
     public function store(
         UnitPurchaseRequestRequest $request,
+        SignatoryRepository $signatories,
         UnitPurchaseRequestRepository $model)
     {
         $items                  =   $request->only([
@@ -277,6 +278,22 @@ class UPRController extends Controller
         $procs['total_amount']  =   $total_amount;
         $procs['prepared_by']   =   $prepared_by;
         $procs['last_date']     =   $transaction_date;
+        if($request->requestor_id)
+        {
+            $requestor  =   $signatories->findById($request->requestor_id);
+            $procs['requestor_text']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
+        }
+        if($request->fund_signatory_id)
+        {
+            $funder  =   $signatories->findById($request->fund_signatory_id);
+            $procs['fund_signatory_text']   =   $funder->name."/".$funder->ranks."/".$funder->branch."/".$funder->designation;
+        }
+
+        if($request->approver_id)
+        {
+            $approver  =   $signatories->findById($request->approver_id);
+            $procs['approver_text']   =   $approver->name."/".$approver->ranks."/".$approver->branch."/".$approver->designation;
+        }
 
 
         if($request->mode_of_procurement != 'public_bidding'){
