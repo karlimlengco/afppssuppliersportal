@@ -177,6 +177,7 @@ class UPRController extends Controller
         ModeOfProcurementRepository $modes,
         ProcurementCenterRepository $centers,
         CateredUnitRepository $units,
+        SignatoryRepository $signatories,
         ProcurementTypeRepository $types,
         PaymentTermRepository $terms)
     {
@@ -184,6 +185,7 @@ class UPRController extends Controller
 
         $account_codes      =    $accounts->listCodes('id', 'new_account_code');
 
+        $signatory_lists=   $signatories->lists('id', 'name');
         $data = [];
         foreach($account_codes as $key)
         {
@@ -203,6 +205,7 @@ class UPRController extends Controller
             'indexRoute'        =>  $this->baseUrl.'index',
             'account_codes'     =>  $data,
             'old_codes'         =>  $old_codes,
+            'signatory_list'    =>  $signatory_lists,
             'procurement_types' =>  $procurement_types,
             'payment_terms'     =>  $payment_terms,
             'unit'              =>  $unit,

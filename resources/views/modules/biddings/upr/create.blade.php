@@ -17,9 +17,9 @@ Unit Purchase Request
     @endif
 
 @stop
-
 @section('modal')
     {{-- @include('modules.partials.new_account_code') --}}
+    @include('modules.partials.create_signatory')
 @stop
 
 @section('styles')
@@ -113,6 +113,25 @@ Unit Purchase Request
                     {!! Form::textareaField('other_infos', 'Other Essential Info', null, ['rows' => 3]) !!}
                 </div>
             </div>
+            <div class="row">
+                <div class="four columns">
+                    <div class="form-group">
+                        <label class="label">Request By</label>
+                        {!! Form::select('requestor_id',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-requestor_id']) !!}
+                    </div>
+                </div>
+                <div class="four columns">
+
+                    <label class="label">Fund Certified Available</label>
+                    {!! Form::select('fund_signatory_id',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-fund_signatory_id']) !!}
+                    {{-- {!! Form::selectField('fund_signatory_id', 'Fund Certified Available', $signatory_list) !!} --}}
+                </div>
+                <div class="four columns">
+                    <label class="label">Approved By</label>
+                    {!! Form::select('approver_id',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-approver_id']) !!}
+                    {{-- {!! Form::selectField('approver_id', 'Approved By', $signatory_list) !!} --}}
+                </div>
+            </div>
 
             <br>
             <div class="row">
@@ -203,6 +222,59 @@ Unit Purchase Request
         }
     });
     // End Add item button
+
+    $requestor = $('#id-field-requestor_id').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    $funder = $('#id-field-fund_signatory_id').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    $approver = $('#id-field-approver_id').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+
+    requestor  = $requestor[0].selectize;
+    funder  = $funder[0].selectize;
+    approver  = $approver[0].selectize;
+
+    $(document).on('submit', '#create-signatory-form', function(e){
+        e.preventDefault();
+        var inputs =  $("#create-signatory-form").serialize();
+
+        console.log(inputs);
+        $.ajax({
+            type: "POST",
+            url: '/api/signatories/store',
+            data: inputs,
+            success: function(result) {
+                console.log(result);
+                requestor.addOption({value:result.id, text: result.name});
+                funder.addOption({value:result.id, text: result.name});
+                approver.addOption({value:result.id, text: result.name});
+
+                $('#create-signatory-modal').removeClass('is-visible');
+                $('#create-signatory-form')[0].reset();
+            }
+        });
+
+    });
 
     // onchange quantity
     // onchange quantity
