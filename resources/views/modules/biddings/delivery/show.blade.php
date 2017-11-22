@@ -31,7 +31,7 @@ Notice Of Delivery
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
-        <span type="button" class="button button--options-trigger" tooltip="Options">
+        <span class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 <a class="button__options__item" id="view-attachments-button" href="#">Attachments</a>

@@ -141,12 +141,12 @@
                         <td class="border-left-only" width="45%"></td>
                         <td class="no-border" width="10%"></td>
                         <td class="border-right-only" width="45%">
-                            @if($data['approver'] != null)
+                            @if($data['requestor'] != null)
                             Very truly yours,
                             <br>
-                            <strong class="margin-top">{{$data['approver'][1]}} {{$data['approver'][0]}} {{$data['approver'][2]}}</strong>
+                            <strong class="margin-top">{{$data['requestor'][1]}} {{$data['requestor'][0]}} {{$data['requestor'][2]}}</strong>
                             <br>
-                            {{$data['approver'][3]}}
+                            {{$data['requestor'][3]}}
                             @endif
                         </td>
                     </tr>
@@ -222,7 +222,7 @@
                     </tr>
                     <tr>
                         <td class="no-padding border-left-only"></td>
-                        <td class="no-padding no-border"><strong>{{$data['coa_signatories'][1]}} {{$data['coa_signatories'][0]}}, {{$data['coa_signatories'][2]}}</strong></td>
+                        <td class="no-padding no-border"><strong>{{$data['approver'][1]}} {{$data['approver'][0]}}, {{$data['approver'][2]}}</strong></td>
                         <td class="no-padding no-border"></td>
                         <td class="no-padding no-border" nowrap>Date</td>
                         <td class="no-padding border-bottom-only"></td>
@@ -230,7 +230,7 @@
                     </tr>
                     <tr>
                         <td class="no-padding border-left-only"></td>
-                        <td class="no-padding no-border">{{$data['coa_signatories'][3]}}</td>
+                        <td class="no-padding no-border">{{$data['approver'][3]}}</td>
                         <td class="no-padding no-border"></td>
                         <td class="no-padding no-border"></td>
                         <td class="no-padding no-border"></td>

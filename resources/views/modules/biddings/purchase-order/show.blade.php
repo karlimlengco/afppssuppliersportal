@@ -36,7 +36,7 @@ Purchase Order
 
 
 
-        <span type="button" class="button button--options-trigger" tooltip="Options">
+        <span class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
 
