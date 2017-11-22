@@ -40,7 +40,7 @@ Notice Of Award
 <div class="row">
 
     <div class="twelve columns align-right utility utility--align-right">
-        <span type="button" class="button button--options-trigger" tooltip="Options">
+        <span class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
                 @if($data->upr->mode_of_procurement =='public_bidding' &&  $data->perfomance_bond == null)

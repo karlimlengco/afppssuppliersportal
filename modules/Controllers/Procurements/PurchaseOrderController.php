@@ -427,7 +427,6 @@ class PurchaseOrderController extends Controller
 
         $upr_model      =   $upr->findById($id);
         $items          =   $upr_model->items;
-
         foreach($fields->toArray() as $row)
         {
             if($row[0] != "ITEM DESCRIPTION")
@@ -471,9 +470,18 @@ class PurchaseOrderController extends Controller
         PORepository $model)
     {
         $term_lists =   $terms->lists('id','name');
-
+        $upr_model      =   $upr->findById($id);
+        if($upr_model->mode_of_procurement != 'public_bidding')
+        {
+          $winner = $upr_model->noa->winner;
+        }
+        else
+        {
+          $winner = $upr_model->noa->biddingWinner;
+        }
         $this->view('modules.procurements.purchase-order.create-from-rfq',[
             'indexRoute'    =>  $this->baseUrl.'index',
+            'bid_amount'    =>  $winner->bid_amount,
             'term_lists'    =>  $term_lists,
             'rfq_id'        =>  $id,
             'data'          =>  $upr->findById($id),

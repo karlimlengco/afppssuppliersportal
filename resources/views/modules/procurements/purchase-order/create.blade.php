@@ -177,9 +177,9 @@ Purchase Order
         if(quants != "" && price != "")
         {
             total_amount    =   quants * price;
-            console.log(total_amount);
             var total_amount    = $("#total_amount"+splited[1]).val(total_amount);
         }
+
 
     });
 

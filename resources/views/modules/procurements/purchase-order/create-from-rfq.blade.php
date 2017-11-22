@@ -76,7 +76,7 @@ Purchase Order
 <br>
 <div class="row">
     <div class="six columns">
-        <h3>Items</h3>
+        <h3>Items <small>(bid amount: <i id='total_value'>0</i>/{{$bid_amount}})</small> </h3>
     </div>
     @if($data->mode_of_procurement != 'public_bidding')
     <div class="six columns align-right">
@@ -219,7 +219,7 @@ Purchase Order
             newRow += "<input type='text' name='unit_price[]' id='rows"+table_len+"' class='input numeric unit_price'/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
-            newRow += "<input type='text' id='total_amount"+table_len+"' tabindex='-1' name='total_amount[]' value='' class='input' readonly/>";
+            newRow += "<input type='text' id='total_amount"+table_len+"' tabindex='-1' name='total_amount[]' value='' class='input total_amount' readonly/>";
             newRow += "</td>";
             newRow += "<td id='type_row"+table_len+"'>";
             newRow += "<select class='select' name='item_type[]' id='type"+table_len+"' tabindex='-1'><option value='purchase_order'>Purchase Order</option><option value='contract'>Contract</option></select>";
@@ -261,9 +261,18 @@ Purchase Order
         {
             price = price.replace(/,/g , "");
             total_amount    =   quants * price;
-            console.log(total_amount);
             var total_amount    = $("#total_amount"+splited[1]).val(total_amount);
         }
+
+        var sum = 0;
+        $('.total_amount').each(function(){
+            var vals = parseFloat($(this).val())
+            if(isNaN(vals)) {
+              vals = 0
+            }
+            sum += vals;  // Or this.innerHTML, this.innerText
+        });
+        $('#total_value').text(sum)
 
     });
 
