@@ -35,6 +35,23 @@ trait DatatableTrait
                 'delivery_orders.*',
             ]);
             $model  =   $model->whereNull('rfq_id');
+
+            $user = \Sentinel::getUser();
+            if($user->hasRole('BAC Operation') || $user->hasRole('BAC Admin'))
+            {
+              $model  =   $model->leftJoin('document_acceptance', 'document_acceptance.upr_id','=', 'delivery_orders.upr_id');
+              $model  =   $model->leftJoin('bacsec', 'bacsec.id','=', 'document_acceptance.bac_id');
+              $center =   0;
+              if($user->units)
+              {
+                  if($user->units->centers)
+                  {
+                      $center =   $user->units->centers->id;
+                  }
+              }
+
+              $model  =   $model->Where('bacsec.pcco_id','=', $center);
+            }
         }
 
         $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'delivery_orders.upr_id');

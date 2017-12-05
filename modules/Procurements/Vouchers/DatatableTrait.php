@@ -36,6 +36,23 @@ trait DatatableTrait
         else
         {
             $model  =   $model->whereNull('mode_of_procurements.name');
+
+            $user = \Sentinel::getUser();
+            if($user->hasRole('BAC Operation') || $user->hasRole('BAC Admin'))
+            {
+              $model  =   $model->leftJoin('document_acceptance', 'document_acceptance.upr_id','=', 'notice_of_awards.upr_id');
+              $model  =   $model->leftJoin('bacsec', 'bacsec.id','=', 'document_acceptance.bac_id');
+              $center =   0;
+              if($user->units)
+              {
+                  if($user->units->centers)
+                  {
+                      $center =   $user->units->centers->id;
+                  }
+              }
+
+              $model  =   $model->orWhere('bacsec.pcco_id','=', $center);
+            }
         }
 
 

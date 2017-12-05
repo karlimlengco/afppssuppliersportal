@@ -66,7 +66,7 @@ trait DatatableTrait
                   }
               }
 
-              $model  =   $model->orWhere('bacsec.pcco_id','=', $center);
+              $model  =   $model->Where('bacsec.pcco_id','=', $center);
             }
         }
 
