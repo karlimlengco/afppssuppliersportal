@@ -51,7 +51,7 @@ trait DatatableTrait
                   }
               }
 
-              $model  =   $model->orWhere('bacsec.pcco_id','=', $center);
+              $model  =   $model->where('bacsec.pcco_id','=', $center);
             }
         }
 
@@ -69,7 +69,7 @@ trait DatatableTrait
                 }
             }
 
-            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+            $model  =   $model->orWhere('unit_purchase_requests.procurement_office','=', $center);
 
         }
 
