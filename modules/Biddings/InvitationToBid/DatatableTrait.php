@@ -25,11 +25,11 @@ trait DatatableTrait
         $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'invitation_to_bid.upr_id');
 
 
+        $user = \Sentinel::getUser();
         if(!\Sentinel::getUser()->hasRole('Admin') )
         {
 
             $center =   0;
-            $user = \Sentinel::getUser();
             if($user->units)
             {
                 if($user->units->centers)

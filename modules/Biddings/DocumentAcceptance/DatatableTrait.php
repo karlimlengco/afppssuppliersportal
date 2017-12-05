@@ -26,11 +26,11 @@ trait DatatableTrait
         $model  =   $model->leftJoin('bacsec', 'bacsec.id','=', 'document_acceptance.bac_id');
 
 
+        $user = \Sentinel::getUser();
         if(!\Sentinel::getUser()->hasRole('Admin') )
         {
 
             $center =   0;
-            $user = \Sentinel::getUser();
             if($user->units)
             {
                 if($user->units->centers)

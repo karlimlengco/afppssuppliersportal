@@ -52,12 +52,12 @@ trait DatatableTrait
 
             $model  =   $model->whereNull('rfq_number');
 
+            $user = \Sentinel::getUser();
             if($user->hasRole('BAC Operation') || $user->hasRole('BAC Admin'))
             {
               $model  =   $model->leftJoin('document_acceptance', 'document_acceptance.upr_id','=', 'notice_of_awards.upr_id');
               $model  =   $model->leftJoin('bacsec', 'bacsec.id','=', 'document_acceptance.bac_id');
               $center =   0;
-              $user = \Sentinel::getUser();
               if($user->units)
               {
                   if($user->units->centers)
