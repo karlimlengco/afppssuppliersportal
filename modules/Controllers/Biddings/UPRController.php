@@ -97,6 +97,22 @@ class UPRController extends Controller
         {
             return $model->getDatatable(null, 'bidding');
         }
+
+        if($user->hasRole('BAC Operation') || $user->hasRole('BAC Admin'))
+        {
+
+            $center =   0;
+            if($user->units)
+            {
+                if($user->units->centers)
+                {
+                  $center =   $user->units->centers->id;
+                }
+            }
+
+            return $model->getBacDatatable($center, 'bidding');
+        }
+
         $center =   0;
         if($user->units)
         {

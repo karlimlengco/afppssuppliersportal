@@ -23,6 +23,7 @@ trait DatatableTrait
         $model  =   $model->select(['document_acceptance.*']);
 
         $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'document_acceptance.upr_id');
+        $model  =   $model->leftJoin('bacsec', 'bacsec.id','=', 'document_acceptance.bac_id');
 
 
         if(!\Sentinel::getUser()->hasRole('Admin') )
@@ -40,6 +41,21 @@ trait DatatableTrait
 
             $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
 
+        }
+
+        if($user->hasRole('BAC Operation') || $user->hasRole('BAC Admin'))
+        {
+          $center =   0;
+          $user = \Sentinel::getUser();
+          if($user->units)
+          {
+              if($user->units->centers)
+              {
+                  $center =   $user->units->centers->id;
+              }
+          }
+
+          $model  =   $model->orWhere('bacsec.pcco_id','=', $center);
         }
 
         $model->orderBy('created_at', 'desc');

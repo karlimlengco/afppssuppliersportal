@@ -42,6 +42,7 @@ class BacSecEloquent extends Model
     protected $fillable = [
         'id',
         'name',
+        'pcco_id',
         'description',
     ];
 

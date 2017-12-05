@@ -12,6 +12,7 @@ class BacSecRequest extends BaseRequest
     protected $whitelist = [
         'name',
         'description',
+        'pcco_id',
     ];
 
     /**
@@ -23,6 +24,7 @@ class BacSecRequest extends BaseRequest
     {
         return [
             'name'              => 'required',
+            'pcco_id'           => 'required',
             'description'       => 'required',
         ];
     }

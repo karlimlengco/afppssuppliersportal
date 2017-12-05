@@ -8,6 +8,7 @@ use Auth;
 
 use \Revlv\Settings\BacSec\BacSecRepository;
 use \Revlv\Settings\BacSec\BacSecRequest;
+use \Revlv\Settings\ProcurementCenters\ProcurementCenterRepository;
 
 class BacSecController extends Controller
 {
@@ -18,6 +19,13 @@ class BacSecController extends Controller
      * @var string
      */
     protected $baseUrl  =   "maintenance.bacsec.";
+
+    /**
+     *
+     *
+     * @var [type]
+     */
+    protected $centers;
 
     /**
      * [$model description]
@@ -61,9 +69,11 @@ class BacSecController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(ProcurementCenterRepository $centers)
     {
+        $center_list    =   $centers->lists("id","name");
         $this->view('modules.settings.bacsec.create',[
+            'pcco'          =>  $center_list,
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [
                 'store' =>  [
@@ -105,11 +115,14 @@ class BacSecController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, BacSecRepository $model)
+    public function edit($id, BacSecRepository $model, ProcurementCenterRepository $centers)
     {
+
+        $center_list    =   $centers->lists("id","name");
         $result =   $model->findById($id);
 
         return $this->view('modules.settings.bacsec.edit',[
+            'pcco'          =>  $center_list,
             'data'          =>  $result,
             'indexRoute'    =>  $this->baseUrl.'index',
             'modelConfig'   =>  [

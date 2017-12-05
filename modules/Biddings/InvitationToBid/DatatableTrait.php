@@ -42,6 +42,24 @@ trait DatatableTrait
 
         }
 
+
+        if($user->hasRole('BAC Operation') || $user->hasRole('BAC Admin'))
+        {
+          $model  =   $model->leftJoin('document_acceptance', 'document_acceptance.upr_id','=', 'unit_purchase_requests.id');
+          $model  =   $model->leftJoin('bacsec', 'bacsec.id','=', 'document_acceptance.bac_id');
+          $center =   0;
+          $user = \Sentinel::getUser();
+          if($user->units)
+          {
+              if($user->units->centers)
+              {
+                  $center =   $user->units->centers->id;
+              }
+          }
+
+          $model  =   $model->orWhere('bacsec.pcco_id','=', $center);
+        }
+
         $model->orderBy('created_at', 'desc');
 
         return $this->dataTable($model->get());
