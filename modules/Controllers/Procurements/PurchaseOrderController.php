@@ -1425,4 +1425,26 @@ class PurchaseOrderController extends Controller
             ]
         ]);
     }
+
+    /**
+     * [updateItemPrice description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function updateItemPrice(Request $request, $id, ItemRepository $items)
+    {
+        $this->validate($request, ['price_unit' => 'required']);
+        $item = $items->findById($id);
+        $total  = $item->quantity * $request->price_unit;
+
+        $data = ['price_unit' => $request->price_unit, 'total_amount' => $total];
+
+        $items->update($data, $id);
+
+        return redirect()->route($this->baseUrl.'show', $item->order_id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
 }

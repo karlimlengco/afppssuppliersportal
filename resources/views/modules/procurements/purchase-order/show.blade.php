@@ -20,6 +20,7 @@ Purchase Order
 @stop
 
 @section('modal')
+    @include('modules.partials.edit-price')
     @include('modules.partials.modals.mfo')
     @include('modules.partials.modals.pcco')
     {{-- @include('modules.partials.modals.ntp') --}}
@@ -177,6 +178,7 @@ Purchase Order
                     <th>Unit Price</th>
                     <th>Amount</th>
                     <th>Type</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -188,6 +190,11 @@ Purchase Order
                         <td>{{formatPrice($item->price_unit)}}</td>
                         <td>{{formatPrice($item->total_amount)}}</td>
                         <td style="text-transform: uppercase;">{{$item->type}}</td>
+                        <td>
+                          <a href="#" data-id="{{$item->id}}" data-price="{{$item->price_unit}}" data-description="{{$item->description}}" class="edit-price-button" tooltip="Edit">
+                              <i class="nc-icon-mini design_pen-01"></i>
+                          </a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -226,6 +233,26 @@ $('#signatory-button').click(function(e){
 $('#proceed-ntp-button').click(function(e){
     e.preventDefault();
     $('#proceed-ntp-modal').addClass('is-visible');
+})
+
+$('#proceed-ntp-button').click(function(e){
+    e.preventDefault();
+    $('#proceed-ntp-modal').addClass('is-visible');
+})
+$('#close-supplier-button').click(function(e){
+    e.preventDefault();
+    $('#edit-price-modal').removeClass('is-visible');
+})
+
+$('.edit-price-button').click(function(e){
+    e.preventDefault();
+    var id = $(this).data('id')
+    var description = $(this).data('description')
+    var price_unit = $(this).data('price')
+    $('#update-item-form').attr('action', '/item-price/update/'+id);
+    $("#id-field-price_unit").val(price_unit)
+    $("#title_description").text(description)
+    $('#edit-price-modal').addClass('is-visible');
 })
 
 

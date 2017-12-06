@@ -355,6 +355,9 @@ Route::group(['as' => 'library.', 'prefix' => 'library'], function () {
     Route::resource('files', '\Revlv\Controllers\Library\FileController');
 });
 
+
+Route::get('/item-price/update/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@updateItemPrice')->name('item-price.update');
+
 /*
 |--------------------------------------------------------------------------
 | Procurements Routes
