@@ -1364,7 +1364,7 @@ class PurchaseOrderController extends Controller
         $data['rfq_number']         =  $result->rfq_number;
         $data['po_number']          =  $result->po_number;
         $data['bid_amount']         =  $result->bid_amount;
-        $data['purchase_date']      =  $result->purchase_date;
+        $data['purchase_date']      =  $result->coa_approved_date;
         $data['project_name']       =  $result->upr->project_name;
         $data['winner']             =  $noa_model->name;
         $data['coa_signatories']    =  explode('/', $result->coa_name_signatory);
