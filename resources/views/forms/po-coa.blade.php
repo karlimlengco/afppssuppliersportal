@@ -27,7 +27,7 @@
                     <!-- title -->
                     <span class="printable-form__body__title">APPROVED PURCHASE ORDER/WORK ORDER/JOB ORDER</span>
                     <!-- content -->
-                    <p>28 December 2015</p>
+                    <p>{{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['purchase_date'])->format('d F Y')}}</p>
                     <p>
                         Resident Auditor <br>
                         Commission on Audit<br>
