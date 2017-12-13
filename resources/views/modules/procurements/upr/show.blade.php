@@ -98,6 +98,7 @@ Unit Purchase Request
     @include('modules.partials.modals.voucher')
     @include('modules.partials.modals.invitation')
     @include('modules.partials.modals.open_canvass')
+    @include('modules.partials.edit_line_item_modal')
 
     {{-- @if($data->status == 'PO Approved' ||  $data->status == 'NTP Accepted') --}}
         @include('modules.partials.modals.ntp')
@@ -182,7 +183,11 @@ Unit Purchase Request
     </div>
     <hr>
     <br>
-    @include('modules.procurements.upr.buttons')
+
+    @if(count($data->items) > 0)
+      @include('modules.procurements.upr.buttons')
+    @endif
+
     @if($data->status == 'draft')
     <div class="twelve columns align-right utility utility--align-right">
         <span >Confirm UPR</span>
@@ -337,13 +342,24 @@ Unit Purchase Request
                 @foreach($data->items as $item)
                     <tr>
                         <td>{{$item->item_description}}</td>
-                        <td>{{($item->accounts) ? $item->accounts->new_account_code." (".$item->accounts->old_account_code .")" : ""}}</td>
+                        <td>{{($item->accounts) ? $item->accounts->new_account_code : ""}}</td>
                         <td>{{$item->quantity}}</td>
                         <td>{{$item->unit_measurement}}</td>
                         <td>{{$item->unit_price}}</td>
                         <td>{{formatPrice($item->total_amount)}}</td>
-                        <td tooltip="remove">
-                        @if($data->status == 'upr_processing')<a href="{{route('procurements.upr-items.destroy', $item->id)}}"><i class="nc-icon-mini ui-1_trash"></i></a>@endif</td>
+                        <td>
+
+                        @if($data->status == 'upr_processing')
+
+                          <a  tooltip="edit" href="#" data-id="{{$item->id}}" data-quantity="{{$item->quantity}}" data-unit_measurement="{{$item->unit_measurement}}" data-price="{{$item->unit_price}}" data-description="{{$item->item_description}}" class="edit-price-button" tooltip="Edit">
+                              <i class="nc-icon-mini design_pen-01"></i>
+                          </a>
+
+                          <a tooltip="remove" href="{{route('procurements.upr-items.destroy', $item->id)}}"><i class="nc-icon-mini ui-1_trash"></i></a>
+
+                        @endif
+
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -550,6 +566,25 @@ Unit Purchase Request
         $('#add-item-modal').addClass('is-visible');
     })
 
+
+    $('#close-line-item-button').click(function(e){
+        $('#edit-line-item-modal').removeClass('is-visible');
+    })
+
+    $('.edit-price-button').click(function(e){
+        e.preventDefault();
+        var id = $(this).data('id')
+        var description = $(this).data('description')
+        var price_unit = $(this).data('price')
+        var quantity = $(this).data('quantity')
+        var unit_measurement = $(this).data('unit_measurement')
+        $('#update-line-item-form').attr('action', '/line-item/update/'+id);
+        $(".id-field-quantity").val(quantity)
+        $(".id-field-unit_price").val(price_unit)
+        $(".id-field-unit_measurement").val(unit_measurement)
+        $("#title_description").text(description)
+        $('#edit-line-item-modal').addClass('is-visible');
+    })
 
     $('.datepicker').pikaday({ firstDay: 1 });
 

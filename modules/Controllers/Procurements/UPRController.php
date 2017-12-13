@@ -318,30 +318,38 @@ class UPRController extends Controller
             'total_amount'
         ]);
 
-        if($request->items == null)
-        {
-            return redirect()->back()->with([
-                'error' =>  'Pleased add item to continue.'
-            ])->withInput();
-        }
+        // if($request->items == null)
+        // {
+        //     return redirect()->back()->with([
+        //         'error' =>  'Pleased add item to continue.'
+        //     ])->withInput();
+        // }
 
-
-        foreach($request->items as $item)
+        if($request->has('items'))
         {
-            if($item['item_description'] == null || $item['quantity'] == null || $item['unit_measurement'] == null || $item['unit_price'] == null || $item['total_amount'] == null) {
-              return redirect()->back()->with([
-                  'error' =>  'Pleased add item to continue.'
-              ])->withInput();
-            }
+
+          foreach($request->items as $item)
+          {
+              if($item['item_description'] == null || $item['quantity'] == null || $item['unit_measurement'] == null || $item['unit_price'] == null || $item['total_amount'] == null) {
+                return redirect()->back()->with([
+                    'error' =>  'Pleased add item to continue.'
+                ])->withInput();
+              }
+          }
         }
 
         $procs                  =   $request->getData();
         $date                   =   \Carbon\Carbon::now();
 
         $total_sum              =   0;
-        foreach($request->items as $item)
+
+
+        if($request->has('items'))
         {
-            $total_sum          += $item['total_amount'];
+          foreach($request->items as $item)
+          {
+              $total_sum          += $item['total_amount'];
+          }
         }
         $total_amount           =   $total_sum;
         $prepared_by            =   \Sentinel::getUser()->id;
@@ -399,7 +407,7 @@ class UPRController extends Controller
 
         $model->update(['ref_number' => $ref_name], $result->id );
 
-        if($result)
+        if($result && $request->has('items'))
         {
             foreach($request->items as $item)
             {
@@ -563,6 +571,48 @@ class UPRController extends Controller
       return redirect()->route($this->baseUrl.'show', $item->upr_id)->with([
           'success'  => "Record has been successfully deleted."
       ]);
+    }
+
+    /**
+     * [updateLineItem description]
+     *
+     * @param  Request                       $request [description]
+     * @param  [type]                        $id      [description]
+     * @param  UnitPurchaseRequestRepository $model   [description]
+     * @param  ItemRepository                $item    [description]
+     * @return [type]                                 [description]
+     */
+    public function updateLineItem(
+        Request $request,
+        $id,
+        UnitPurchaseRequestRepository $model,
+        ItemRepository $item)
+    {
+        $this->validate($request, [
+          'unit_measurement' => 'required',
+          'quantity' => 'required',
+          'unit_price' => 'required'
+        ]);
+
+        $item = $item->update([
+            'unit_measurement' => $request->unit_measurement,
+            'quantity' => $request->quantity,
+            'unit_price' => $request->unit_price,
+            'total_amount' => $request->unit_price * $request->quantity
+        ], $id);
+
+        $upr = $model->findById($item->upr_id);
+        $total = 0;
+        foreach($upr->items as $it)
+        {
+          $total += $it['total_amount'];
+        }
+
+        $model->update(['total_amount' => $total], $item->upr_id);
+
+        return redirect()->route($this->baseUrl.'show', $item->upr_id)->with([
+            'success'  => "Record has been successfully deleted."
+        ]);
     }
 
     /**

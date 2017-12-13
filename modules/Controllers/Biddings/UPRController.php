@@ -263,20 +263,22 @@ class UPRController extends Controller
             'total_amount'
         ]);
 
-        if($request->items == null)
-        {
-            return redirect()->back()->with([
-                'error' =>  'Pleased add item to continue.'
-            ])->withInput();
-        }
+        // if($request->items == null)
+        // {
+        //     return redirect()->back()->with([
+        //         'error' =>  'Pleased add item to continue.'
+        //     ])->withInput();
+        // }
 
-
-        foreach($request->items as $item)
+        if($request->has('items'))
         {
-            if($item['item_description'] == null || $item['quantity'] == null || $item['unit_measurement'] == null || $item['unit_price'] == null || $item['total_amount'] == null) {
-              return redirect()->back()->with([
-                  'error' =>  'Pleased add item to continue.'
-              ])->withInput();
+            foreach($request->items as $item)
+            {
+                if($item['item_description'] == null || $item['quantity'] == null || $item['unit_measurement'] == null || $item['unit_price'] == null || $item['total_amount'] == null) {
+                  return redirect()->back()->with([
+                      'error' =>  'Pleased add item to continue.'
+                  ])->withInput();
+                }
             }
         }
 
@@ -284,9 +286,12 @@ class UPRController extends Controller
         $date                   =   \Carbon\Carbon::now();
 
         $total_sum              =   0;
-        foreach($request->items as $item)
+        if($request->has('items'))
         {
-            $total_sum          += $item['total_amount'];
+            foreach($request->items as $item)
+            {
+                $total_sum          += $item['total_amount'];
+            }
         }
         $total_amount           =   $total_sum;
         $prepared_by            =   \Sentinel::getUser()->id;
@@ -344,7 +349,7 @@ class UPRController extends Controller
 
         $model->update(['ref_number' => $ref_name], $result->id);
 
-        if($result)
+        if($result && $request->has('items') )
         {
             foreach($request->items as $item)
             {

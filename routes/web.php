@@ -357,6 +357,7 @@ Route::group(['as' => 'library.', 'prefix' => 'library'], function () {
 
 
 Route::get('/item-price/update/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@updateItemPrice')->name('item-price.update');
+Route::put('line-item/update/{id}', '\Revlv\Controllers\Procurements\UPRController@updateLineItem')->name('line-item.update');
 
 /*
 |--------------------------------------------------------------------------
