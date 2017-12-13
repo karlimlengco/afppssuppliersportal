@@ -32,7 +32,8 @@ class MessageEloquent extends Model
     ];
 
     protected $casts = [
-        'id' => 'string'
+        'id' => 'string',
+        'chat_id' => 'string'
     ];
 
     public $incrementing = false;

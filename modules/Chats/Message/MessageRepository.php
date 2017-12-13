@@ -25,9 +25,7 @@ class MessageRepository extends BaseRepository
     {
         $model  =   $this->model;
 
-        $model  =   $model->where('chat_id', '=', $chat);
-
-        return $model->get();
+        return $model->where('chat_id', '=', $chat)->get();
     }
 
     /**

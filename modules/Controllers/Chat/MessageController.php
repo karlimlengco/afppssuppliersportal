@@ -60,7 +60,8 @@ class MessageController extends Controller
     {
         $user       =   \Sentinel::getUser();
         $chat       =   $chats->findBySender($user->id);
-        $chatId     = 0;
+        $chatId     = null;
+        $message    = collect([]);
 
         $messages->markAsSeen($user->id);
         if($chat)
@@ -68,7 +69,10 @@ class MessageController extends Controller
             $chatId =   $chat->id;
         }
 
-        $message=   $messages->findByChatId($chatId);
+        if($chatId != null)
+        {
+          $message=   $messages->findByChatId($chatId);
+        }
 
         return $message;
     }

@@ -27,7 +27,6 @@ class ChatRepository extends BaseRepository
     public function findBySender($sender)
     {
         $model  =   $this->model;
-
         $model  =   $model->where('sender_id', '=', $sender);
 
         return $model->first();
