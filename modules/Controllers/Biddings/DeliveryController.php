@@ -684,7 +684,7 @@ class DeliveryController extends Controller
             $noa_model           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         }
 
-        $data['transaction_date']   =  $result->delivery_date;
+        $data['transaction_date']   =  $result->transaction_date;
         $data['po_number']          =  $result->po->po_number;
         $data['bid_amount']         =  $result->po->bid_amount;
         $data['project_name']       =  $result->upr->project_name;

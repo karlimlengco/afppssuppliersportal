@@ -733,7 +733,7 @@ class DeliveryController extends Controller
         $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         // $header                     =  $headers->findByUnit($result->upr->units);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
-        $data['transaction_date']   =  $result->delivery_date;
+        $data['transaction_date']   =  $result->transaction_date;
         $data['po_number']          =  $result->po->po_number;
         $data['bid_amount']         =  $result->po->bid_amount;
         $data['po_type']            =  $result->po->type;
