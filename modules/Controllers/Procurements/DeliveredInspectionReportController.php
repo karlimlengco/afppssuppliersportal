@@ -1759,8 +1759,9 @@ class DeliveredInspectionReportController extends Controller
         $data['invoice']            =   $result->delivery->inspections->invoices;
         $data['issues']             =   $result->delivery->diir->issues;
 
-        $data['receiver']           =   explode('/',$result->received_signatory);
+        $data['sao']                =   explode('/',$result->upr->inspections->sao_name_signatory);
         $data['inspector']          =   explode('/',$result->inspected_signatory);
+        $data['approver']           =   explode('/',$result->approved_signatory);
         $data['approver']           =   explode('/',$result->approved_signatory);
         $data['issuer']             =   explode('/',$result->issued_signatory);
         $data['requestor']          =   explode('/',$result->requested_signatory);
