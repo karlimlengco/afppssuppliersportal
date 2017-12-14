@@ -28,8 +28,13 @@
                     <!-- title -->
                     <span class="printable-form__body__title">Notice of Delivery / Request for Inspection</span>
                     <!-- content -->
-                    <p>@if($data['transaction_date']){{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['transaction_date'])->format('d F Y')}}
-                    @endif</p>
+                    <p>
+                      @if($data['transaction_date'])
+                          {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['transaction_date'])->format('d F Y')}}
+                      @else
+                          {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['expected_date'])->format('d F Y')}}
+                      @endif
+                    </p>
                     <p>To: All Concerned</p>
                     <ol>
                         <li>Reference: Approved @if($data['po_type'] == 'purchase_order')PURCHASE ORDER No.@elseif($data['po_type'] == 'work_order')WORK ORDER No.@elseif($data['po_type'] == 'job_order')JOB ORDER No.@else CONTRACT ORDER No.@endif {{$data['po_number']}}</li>
