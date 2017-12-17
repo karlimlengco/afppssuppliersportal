@@ -250,7 +250,7 @@ Unit Purchase Request
 
 
 {{-- Proponents --}}
-@if($data->status == 'Philgeps Approved' || $data->status == 'Pre Bid Conference')
+@if($data->status == 'Philgeps Approved' || $data->status == 'Pre Bid Conference'|| $data->status == 'SOBE OPEN')
 <h3>Bid Docs Issuance</h3>
 <div class="row">
     <div class="twelve columns">
