@@ -88,14 +88,14 @@ Unit Purchase Request
     @include('modules.partials.bid-modals.rfb-process')
     @include('modules.partials.bid-modals.preproc')
     @include('modules.partials.bid-modals.philgeps_posting')
-    @include('modules.partials.bid-modals.bid_docs_issue')v
+    @include('modules.partials.bid-modals.bid_docs_issue')
     @include('modules.partials.bid-modals.open-bid')
     @include('modules.partials.bid-modals.post_qual')
     @endif
 @stop
 
 @section('contents')
-@if($data->status == 'Philgeps Approved' && $data->mode_of_procurement == 'public_bidding'|| $data->status == 'Pre Bid Conference')
+@if($data->status == 'Philgeps Approved' && $data->mode_of_procurement == 'public_bidding'|| $data->status == 'Pre Bid Conference'|| $data->status == 'SOBE OPEN')
 
 <div class="message-box message-box--large message-box--success" role="alert">
     <span class="message-box__icon"><i class="nc-icon-outline ui-1_check-circle-08"></i></span>
