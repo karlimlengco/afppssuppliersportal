@@ -152,7 +152,7 @@ Unit Purchase Request
                     @if(strpos($data->status, 'Awarded To') !== false || $data->status == 'Approved NOA')
                         <a class="button__options__item" id="dq-button" href="#">Disqualify Proponent</a>
                     @endif
-                    @if($data->status == 'Philgeps Approved' || $data->status == 'Pre Bid Conference')
+                    @if($data->status == 'Philgeps Approved' || $data->status == 'Pre Bid Conference'|| $data->status == 'SOBE OPEN')
                         <a class="button__options__item" id="bid-docs-button" href="#">Bid Docs Issuance</a>
                     @endif
                 @endif
