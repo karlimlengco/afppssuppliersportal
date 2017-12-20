@@ -61,14 +61,14 @@
                         <tr>
                             <td class="align-middle" width="20%"><strong>Name of Supplier</strong></td>
                             <td width="20%">{{$data['proponents'][0]->supplier->name}}</td>
-                            <td width="20%">{{$data['proponents'][1]->supplier->name}}</td>
+                            <td width="20%">@if(isset($data['proponents'][1]))  {{$data['proponents'][1]->supplier->name}} @endif</td>
                             <td width="20%"> @if(isset($data['proponents'][2])) {{$data['proponents'][2]->supplier->name}} @endif </td>
                             <td class="align-middle" width="20%">Remarks (Lowest Price Quotation/Proposal)</td>
                         </tr>
                         <tr>
                             <td><strong>Canvass Amount</strong></td>
                             <td>PHP {{formatPrice($data['proponents'][0]->bid_amount)}}</td>
-                            <td>PHP {{formatPrice($data['proponents'][1]->bid_amount)}}</td>
+                            <td>@if(isset($data['proponents'][1])) PHP {{formatPrice($data['proponents'][1]->bid_amount)}} @endif</td>
                             <td> @if(isset($data['proponents'][2])) PHP {{formatPrice($data['proponents'][2]->bid_amount)}} @endif </td>
                             <td rowspan="4" class="v-align-middle align-center"><strong>{{$data['proponents'][0]->supplier->name}}</strong></td>
                         </tr>
