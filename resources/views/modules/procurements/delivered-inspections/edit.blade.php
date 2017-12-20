@@ -63,14 +63,14 @@ Delivered Items Inspection
             <div class="row">
                 <div class="twelve columns">
                     {{-- {!! Form::selectField('received_by', 'Witness By', $signatory_list) !!} --}}
-                    <label class="label">Witness By</label>
+                    <label class="label">Received By</label>
                     {!! Form::select('received_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-received_by']) !!}
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
                     {{-- {!! Form::selectField('approved_by', 'Certify By', $signatory_list) !!} --}}
-                    <label class="label">Certify By</label>
+                    <label class="label">Approved By</label>
                     {!! Form::select('approved_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-approved_by']) !!}
                 </div>
             </div>
@@ -78,7 +78,7 @@ Delivered Items Inspection
                 <div class="twelve columns">
                     {{-- {!! Form::selectField('issued_by', 'Note By', $signatory_list) !!} --}}
 
-                    <label class="label">Note By</label>
+                    <label class="label">Issued By</label>
                     {!! Form::select('issued_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-issued_by']) !!}
                 </div>
             </div>
