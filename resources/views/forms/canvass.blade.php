@@ -92,7 +92,7 @@
                                 @endif
                             </td>
                             <td class="align-center">
-                                @if($data['proponents'][1]->supplier->attachmentByType("dti") != null && $data['proponents'][1]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
+                                @if(isset($data['proponents'][1]) && $data['proponents'][1]->supplier->attachmentByType("dti") != null && $data['proponents'][1]->supplier->attachmentByType("dti")->validity_date >= $data['today'])
 
                                     <span>
                                     {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][1]->supplier->attachmentByType("dti")->issued_date )->format('d F Y')}}
@@ -152,7 +152,7 @@
                             </td>
 
                             <td class="align-center">
-                                @if($data['proponents'][1]->supplier->attachmentByType("mayors_permit") != null && $data['proponents'][1]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
+                                @if(isset($data['proponents'][1]) && $data['proponents'][1]->supplier->attachmentByType("mayors_permit") != null && $data['proponents'][1]->supplier->attachmentByType("mayors_permit")->validity_date >= $data['today'])
                                     <span>
                                     {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][1]->supplier->attachmentByType("mayors_permit")->issued_date )->format('d F Y')}}
                                     -
@@ -210,7 +210,7 @@
                             </td>
 
                             <td class="align-center">
-                                @if($data['proponents'][1]->supplier->attachmentByType("tax_clearance") != null && $data['proponents'][1]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'] == 1)
+                                @if(isset($data['proponents'][1]) && $data['proponents'][1]->supplier->attachmentByType("tax_clearance") != null && $data['proponents'][1]->supplier->attachmentByType("tax_clearance")->validity_date >= $data['today'] == 1)
                                     <span>
                                     {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][1]->supplier->attachmentByType("tax_clearance")->issued_date )->format('d F Y')}}
                                     -
@@ -268,7 +268,7 @@
                             </td>
 
                             <td class="align-center">
-                                @if($data['proponents'][1]->supplier->attachmentByType("philgeps_registraion") != null && $data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->validity_date >= $data['today'])
+                                @if(isset($data['proponents'][1]) && $data['proponents'][1]->supplier->attachmentByType("philgeps_registraion") != null && $data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->validity_date >= $data['today'])
                                     <span>
                                     {{\Carbon\Carbon::createFromFormat('!Y-m-d',$data['proponents'][1]->supplier->attachmentByType("philgeps_registraion")->issued_date )->format('d F Y')}}
                                     -
@@ -309,7 +309,7 @@
                         <tr>
                             <td><strong>Remarks</strong></td>
                             <td>{{$data['proponents'][0]->status}}</td>
-                            <td>{{$data['proponents'][1]->status}}</td>
+                            <td>@if(isset($data['proponents'][1])) {{$data['proponents'][1]->status}} @endif</td>
                             <td> @if(isset($data['proponents'][2])) {{$data['proponents'][2]->status}} @endif</td>
                         </tr>
                     </table>
