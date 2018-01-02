@@ -55,38 +55,36 @@ Delivered Items Inspection
             <div class="row">
                 <div class="twelve columns">
                     {{-- {!! Form::selectField('requested_by', 'Requested By', $signatory_list) !!} --}}
-
                     <label class="label">Requested By</label>
-                    {!! Form::select('requested_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-requested_by']) !!}
+                    {!! Form::select('requested_by',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-requested_by']) !!}
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
                     {{-- {!! Form::selectField('received_by', 'Witness By', $signatory_list) !!} --}}
                     <label class="label">Received By</label>
-                    {!! Form::select('received_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-received_by']) !!}
+                    {!! Form::select('received_by',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-received_by']) !!}
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
                     {{-- {!! Form::selectField('approved_by', 'Certify By', $signatory_list) !!} --}}
                     <label class="label">Approved By</label>
-                    {!! Form::select('approved_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-approved_by']) !!}
+                    {!! Form::select('approved_by',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-approved_by']) !!}
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
                     {{-- {!! Form::selectField('issued_by', 'Note By', $signatory_list) !!} --}}
-
                     <label class="label">Issued By</label>
-                    {!! Form::select('issued_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-issued_by']) !!}
+                    {!! Form::select('issued_by',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-issued_by']) !!}
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
                     {{-- {!! Form::selectField('inspected_by', 'Inspected By', $signatory_list) !!} --}}
                     <label class="label">Inspected By</label>
-                    {!! Form::select('inspected_by',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-inspected_by']) !!}
+                    {!! Form::select('inspected_by',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-inspected_by']) !!}
                 </div>
             </div>
 

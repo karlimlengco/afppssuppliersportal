@@ -45,9 +45,10 @@ trait DatatableTrait
                 return ' <a  href="'.$route.'" > '. $data->short_code .'</a>';
             })
             ->editColumn('content', function ($data) {
-                return  str_limit($data->content,30);
+                $route  =  route( 'maintenance.forms-rar.edit',[$data->id] );
+                return ' <a  href="'.$route.'" > '. str_limit($data->content,30) .'</a>';
             })
-            ->rawColumns(['short_code'])
+            ->rawColumns(['short_code', 'content'])
             ->make(true);
     }
 }
