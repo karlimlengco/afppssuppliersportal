@@ -29,6 +29,8 @@ Route::resource('mode-of-procurements', 'Maintenance\ModesController');
 Route::resource('chargeability', 'Maintenance\ChargeabilityController');
 Route::resource('payment-terms', 'Maintenance\TermsController');
 Route::resource('suppliers', 'Maintenance\SupplierController');
+Route::resource('suppliers-attachments', 'Maintenance\SupplierAttachmentsController');
+Route::resource('banks', 'Maintenance\BankController');
 
 Route::group(['middleware' => ['api']], function () {
     Route::post('/signin', [
