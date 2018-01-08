@@ -707,8 +707,8 @@ class NoticeOfAwardController extends Controller
         }
         else
         {
-            $proponent_awardee  =   $noa_modal->winner->supplier;
-            $bidamount          =   $noa_modal->winner->bid_amount;
+            $proponent_awardee          =   $noa_modal->winner->supplier;
+            $bidamount                  =   $noa_modal->winner->bid_amount;
             $result                     =   $model->findById($noa_modal->canvass_id);
 
             $rfq_model                  =   $blank->findById($result->rfq_id);
