@@ -315,6 +315,40 @@
                     </table>
                     <p><strong>WE HEREBY CERTIFY</strong> that the Above Abstract of Canvass is correct and complying and therefore recommend the award to <strong>{{$data['proponents'][0]->supplier->name}}</strong> having the lowest and most responsive calculated price offer.</p>
 
+                    <table class="printable-form__body__table no-border no-padding">
+                      <tr>
+                          <td class="align-bottom align-left" width="45%" height="80px">
+                              {{-- @if(isset($data['signatories'][0])) --}}
+                              <strong>{{$data['presiding'][1]}} {{$data['presiding'][0]}} {{$data['presiding'][2]}}</strong><br>
+                              {{$data['presiding'][3]}}
+                              {{-- @endif --}}
+                          </td>
+                          <td width="10%"></td>
+                          <td class="align-bottom align-left" height="80px">
+                              <strong>{{$data['unit_head_signatory'][1]}} {{$data['unit_head_signatory'][0]}} {{$data['unit_head_signatory'][2]}}</strong><br>
+                              {{$data['unit_head_signatory'][3]}}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="align-bottom align-left" height="80px">
+                              <strong>{{$data['mfo'][1]}} {{$data['mfo'][0]}} {{$data['mfo'][2]}}</strong><br>
+                              {{$data['mfo'][3]}}
+                          </td>
+                          <td></td>
+                          <td class="align-bottom align-left" height="80px">
+                              <strong>{{$data['legal'][1]}} {{$data['legal'][0]}} {{$data['legal'][2]}}</strong><br>
+                              {{$data['legal'][3]}}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="align-bottom align-left" height="80px">
+                              <strong>{{$data['sec'][1]}} {{$data['sec'][0]}} {{$data['sec'][2]}}</strong><br>
+                              {{$data['sec'][3]}}
+                          </td>
+                          <td></td>
+                      </tr>
+                  </table>
+
                 </div>
             </div>
 
