@@ -1438,10 +1438,11 @@ class PurchaseOrderController extends Controller
     {
         $this->validate($request, ['price_unit' => 'required']);
         $item = $items->findById($id);
-        $total  = $item->quantity * $request->price_unit;
+        $price = str_replace(',', '', $request->price_unit);
+        $total  = $item->quantity * $price;
 
-        $data = ['price_unit' => $request->price_unit, 'total_amount' => $total];
-        dd($data);
+        $data = ['price_unit' => $price, 'total_amount' => $total];
+
         $items->update($data, $id);
 
         return redirect()->route($this->baseUrl.'show', $item->order_id)->with([
