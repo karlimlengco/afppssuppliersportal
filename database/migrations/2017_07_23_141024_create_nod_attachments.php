@@ -15,10 +15,10 @@ class CreateNodAttachments extends Migration
     {
         Schema::create('nod_attachments', function (Blueprint $table) {
             $table->uuid('id');
-            $table->integer('nod_id');
+            $table->string('nod_id');
             $table->string('name');
             $table->string('file_name');
-            $table->integer('user_id');
+            $table->string('user_id');
             $table->date('upload_date');
             $table->timestamps();
         });

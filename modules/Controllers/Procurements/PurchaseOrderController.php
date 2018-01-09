@@ -1441,7 +1441,7 @@ class PurchaseOrderController extends Controller
         $total  = $item->quantity * $request->price_unit;
 
         $data = ['price_unit' => $request->price_unit, 'total_amount' => $total];
-
+        dd($data);
         $items->update($data, $id);
 
         return redirect()->route($this->baseUrl.'show', $item->order_id)->with([
