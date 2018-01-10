@@ -114,11 +114,20 @@
                                 <td class="align-right">{{formatPrice($item->total_amount)}}</td>
                             </tr>
                             @endforeach
+
                         <tr>
                             <td class="align-center" colspan="6"><strong>x-x-x-x-x Nothing Follows x-x-x-x-x</strong></td>
                         </tr>
+
+                            <?php $rowCount = 20 - count($data['items']); ?>
+                            @for ($i = 0; $i < $rowCount; $i++)
+                              <tr>
+                                  <td colspan='6'>&nbsp;</td>
+                              </tr>
+                            @endfor
+
                         <tr>
-                            <td colspan="6">{{$data['purpose']}}</td>
+                            <td colspan="6"><strong>Purpose:</strong> {{$data['purpose']}}</td>
                         </tr>
                         <tr>
                             <td class="align-right" colspan="5"><strong>Total Amount PhP</strong></td>
