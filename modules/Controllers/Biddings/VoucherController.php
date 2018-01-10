@@ -251,7 +251,11 @@ class VoucherController extends Controller
         $this->validate($request, [
             'update_remarks'        =>  'required',
             'transaction_date'      =>  'required',
-            // 'payment_release_date'  =>  'required',
+            'amount'  =>  'required',
+            'final_tax'  =>  'required',
+            'expanded_witholding_tax'  =>  'required',
+            'final_tax_amount'  =>  'required',
+            'ewt_amount'  =>  'required',
             // 'payment_received_date' =>  'required',
             // 'preaudit_date'         =>  'required',
             // 'certify_date'          =>  'required',
@@ -261,6 +265,11 @@ class VoucherController extends Controller
 
         $data   =   [
             'update_remarks'        =>  $request->update_remarks,
+            'amount'        =>  $request->amount,
+            'final_tax'        =>  $request->final_tax,
+            'final_tax_amount'        =>  $request->final_tax_amount,
+            'ewt_amount'        =>  $request->ewt_amount,
+            'expanded_witholding_tax'        =>  $request->expanded_witholding_tax,
             'transaction_date'      =>  $request->transaction_date,
             'payment_release_date'  =>  $request->payment_release_date,
             'payment_received_date' =>  $request->payment_received_date,

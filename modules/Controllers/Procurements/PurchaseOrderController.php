@@ -1150,6 +1150,70 @@ class PurchaseOrderController extends Controller
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po.pdf');
     }
 
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint3($id, PORepository $model, NOARepository $noa, UnitPurchaseRequestRepository $upr, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
+    {
+        $result                     =  $model->with(['terms','delivery','rfq','items'])->findById($id);
+        $upr_model                  =  $upr->findById($result->upr_id);
+
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
+
+        if($upr_model->mode_of_procurement == 'public_bidding')
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        } ;
+
+        if($result->coa_signatories == null || $result->requestor == null || $result->accounting == null )
+        {
+            return redirect()->back()->with(['error' => 'Please add signatories']);
+        }
+        $data['type']               =  $result->type;
+        $data['po_number']          =  $result->po_number;
+        $data['upr_number']         =  $upr_model->upr_number;
+        $data['remarks']            =  $result->remarks;
+        $data['purchase_date']      =  $result->purchase_date;
+        // $data['transaction_date']   =  $result->rfq->transaction_date;
+        $data['winner']             =  $noa_model;
+        $data['rfq_number']         =  $result->rfq_number;
+        $data['mode']               =  ($upr_model->modes != null) ?$upr_model->modes->name : "Public Bidding";
+        $data['term']               =  $result->terms->name;
+        // $data['accounts']           =  $upr_model->accounts->new_account_code;
+        $data['centers']            =  $upr_model->centers->name;
+        $data['unit']               =  $result->upr->unit->short_code;
+        $data['purpose']            =  $upr_model->purpose;
+        $data['delivery']           =  $result->delivery;
+        $data['delivery_term']      =  $result->delivery_terms;
+        $data['items']              =  $result->items;
+        $data['bid_amount']         =  $result->bid_amount;
+
+        $data['requestor']          =  explode('/', $result->requestor_signatory);
+        $data['accounting']         =  explode('/', $result->accounting_signatory);
+        $data['approver']           =  explode('/', $result->approver_signatory);
+        $data['coa_signatories']    =  explode('/', $result->coa_name_signatory);
+
+        $data['mfo_release_date']   =  $result->mfo_released_date;
+        $data['coa_approved_date']  =  $result->coa_approved_date;
+        $data['funding_release_date']  =  $result->funding_release_date;
+        $data['header']             =   $upr_model->centers;
+
+
+        $pdf = PDF::loadView('forms.po3', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'));
+
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po.pdf');
+    }
+
 
     /**
      * [viewPrint description]

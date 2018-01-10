@@ -249,6 +249,7 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     Route::get('purchase-orders/logs/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewLogs')->name('purchase-orders.logs');
     Route::get('purchase-orders/print/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewPrint')->name('purchase-orders.print');
     Route::get('purchase-orders/print2/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewPrint2')->name('purchase-orders.print');
+    Route::get('purchase-orders/print3/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewPrint3')->name('purchase-orders.print3');
     Route::get('purchase-orders/print-terms/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewPrintTerms')->name('purchase-orders.print-terms');
     Route::get('purchase-orders/print-coa/{id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@viewPrintCOA')->name('purchase-orders.print-coa');
     Route::get('purchase-orders/rfq/{rfq_id}', '\Revlv\Controllers\Biddings\PurchaseOrderController@createFromRfq')->name('purchase-orders.rfq');
@@ -489,6 +490,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('purchase-orders/logs/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@viewLogs')->name('purchase-orders.logs');
     Route::get('purchase-orders/print/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@viewPrint')->name('purchase-orders.print');
     Route::get('purchase-orders/print2/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@viewPrint2')->name('purchase-orders.print2');
+    Route::get('purchase-orders/print3/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@viewPrint3')->name('purchase-orders.print3');
     Route::get('purchase-orders/print-terms/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@viewPrintTerms')->name('purchase-orders.print-terms');
     Route::get('purchase-orders/print-contract/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@viewPrintContract')->name('purchase-orders.print-contract');
     Route::get('purchase-orders/print-coa/{id}', '\Revlv\Controllers\Procurements\PurchaseOrderController@viewPrintCOA')->name('purchase-orders.print-coa');

@@ -85,6 +85,26 @@ Vouchers
                 @endif
             </div>
 
+            <div class="row">
+                <div class="four columns">
+                    {!! Form::textField('amount', 'Amount') !!}
+                </div>
+                <div class="four columns">
+                    {!! Form::numberField('final_tax', 'Final Tax') !!}
+                </div>
+                <div class="four columns">
+                    {!! Form::numberField('expanded_witholding_tax', 'Expanded Witholding Tax') !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="four columns">
+                    {!! Form::textField('final_tax_amount', 'Final Tax Amount') !!}
+                </div>
+                <div class="four columns">
+                    {!! Form::textField('ewt_amount', 'EWT Amount') !!}
+                </div>
+            </div>
+
 
             <div class="row">
                 <div class="twelve columns">
@@ -118,6 +138,22 @@ Vouchers
 
 @section('scripts')
 <script type="text/javascript">
+
+    $(document).on('change', '#id-field-final_tax', function(e){
+        var final_tax  = $("#id-field-final_tax").val();
+        var total_amount  = $("#id-field-amount").val();
+        var ft_amount   = total_amount * (final_tax / 100);
+        $("#id-field-final_tax_amount").val(ft_amount.toFixed(2));
+    });
+
+    $(document).on('change', '#id-field-expanded_witholding_tax', function(e){
+        var expanded_witholding_tax  = $("#id-field-expanded_witholding_tax").val();
+        var total_amount  = $("#id-field-amount").val();
+        var ewt_amount   = total_amount * (expanded_witholding_tax / 100);
+        $("#id-field-ewt_amount").val(ewt_amount.toFixed(2));
+    });
+
+
     $certified_by = $('#id-field-certified_by').selectize({
         create: true,
         create:function (input){
