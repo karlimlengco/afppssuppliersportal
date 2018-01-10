@@ -23,7 +23,7 @@
                 </div>
                 <div class="row">
                     <div class="four columns">
-                        {!! Form::textField('amount', 'Amount', $data->total_amount) !!}
+                        {!! Form::textField('amount', 'Amount', $bid_amount) !!}
                     </div>
                     <div class="four columns">
                         {!! Form::textField('final_tax_amount', 'Final Tax Amount') !!}

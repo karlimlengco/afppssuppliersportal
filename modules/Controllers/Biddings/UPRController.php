@@ -404,10 +404,16 @@ class UPRController extends Controller
             }
 
         }
+        $bid_amount = 0;
+        if($result->purchase_order)
+        {
+          $bid_amount = $result->purchase_order->bid_amount;
+        }
 
         return $this->view('modules.biddings.upr.show',[
             'accounts'          =>  $accounts->lists('id', 'new_account_code'),
             'data'              =>  $result,
+            'bid_amount'        =>  $bid_amount,
             'proponent_lists'   =>  $suppliers->lists('id', 'name'),
             'bacsec_list'       =>  $bacsec->lists('id', 'name'),
             'indexRoute'        =>  $this->baseUrl.'index',

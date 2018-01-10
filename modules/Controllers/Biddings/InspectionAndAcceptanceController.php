@@ -619,6 +619,7 @@ class InspectionAndAcceptanceController extends Controller
         $data['inspection_date']    =  $model->inspection_date;
         $data['acceptor']           =  explode('/',$model->acceptance_name_signatory);
         $data['inspector']          =  explode('/',$model->inspection_name_signatory);
+        $data['sao']          =  explode('/',$model->sao_name_signatory);
 
         $pdf = PDF::loadView('forms.iar', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
 

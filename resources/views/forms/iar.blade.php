@@ -75,8 +75,8 @@
                             {{$data['inspector'][3]}}
                         </td>
                         <td class="align-center align-bottom no-border-top no-border-bottom" colspan="3" height="60px">
-                            <strong>{{$data['acceptor'][1]}} {{$data['acceptor'][0]}} {{$data['acceptor'][2]}}</strong><br>
-                            {{$data['acceptor'][3]}}
+                            <strong>{{$data['sao'][1]}} {{$data['sao'][0]}} {{$data['sao'][2]}}</strong><br>
+                            {{$data['sao'][3]}}
                         </td>
                     </tr>
                     <tr>

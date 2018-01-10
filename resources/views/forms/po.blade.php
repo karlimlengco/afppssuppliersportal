@@ -123,7 +123,7 @@
                         @endif
                     @endforeach
                     <tr>
-                        <td class="align-center" colspan="4"><strong style="text-transform:uppercase">{{translateToWords($total)}}PESOS ONLY.</strong></td>
+                        <td class="align-center" colspan="4"><strong style="text-transform:uppercase">{{translateToWords($total)}} PESOS ONLY.</strong></td>
                         <td colspan="2" class="align-right"><strong>{{formatPrice($total)}}</strong></td>
                     </tr>
                     <tr>

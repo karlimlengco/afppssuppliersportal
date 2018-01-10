@@ -461,12 +461,17 @@ class UPRController extends Controller
             {
                 unset($bid_issuance[$list->proponent_id]);
             }
-
+        }
+        $bid_amount = 0;
+        if($result->purchase_order)
+        {
+          $bid_amount = $result->purchase_order->bid_amount;
         }
 
         return $this->view('modules.procurements.upr.show',[
             'accounts'          =>  $accounts->lists('id', 'new_account_code'),
             'data'              =>  $result,
+            'bid_amount'        =>  $bid_amount,
             'bid_issuance'      =>  $bid_issuance,
             'proponent_lists'   =>  $suppliers->lists('id', 'name'),
             'bacsec_list'       =>  $bacsec->lists('id', 'name'),
