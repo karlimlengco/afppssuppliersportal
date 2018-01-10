@@ -765,6 +765,12 @@ class CanvassingController extends Controller
         $data['mfo']                =  explode('/', $result->mfo_signatory);
         $data['legal']              =  explode('/', $result->legal_signatory);
         $data['sec']                =  explode('/', $result->secretary_signatory);
+        $data['view_chief']         = false;
+
+        if($result->chief_signatory != $result->presiding_signatory)
+        {
+          $data['view_chief'] = true;
+        }
 
         $pdf = PDF::loadView('forms.mom', ['data' => $data])
         ->setOption('margin-bottom', 30)

@@ -49,6 +49,7 @@
                             <td width="50px"></td>
                             <td colspan="4"><strong>Members:</strong></td>
                         </tr>
+                            @if($data['view_chief'])
                             <tr>
                                 <td width="50px"></td>
                                 <td width="50px"></td>
@@ -56,6 +57,7 @@
                                 <td class="align-left" width="200px">{{$data['chief_signatory'][3]}}</td>
                                 <td width="40%"></td>
                             </tr>
+                            @endif
                             <tr>
                                 <td width="50px"></td>
                                 <td width="50px"></td>
