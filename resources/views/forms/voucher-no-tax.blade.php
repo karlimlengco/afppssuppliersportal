@@ -60,16 +60,23 @@
                         </tr>
                         <tr>
                             <td class="v-align-middle" rowspan="2">Payee</td>
-                            <td class="v-align-middle" colspan="9" rowspan="2"><strong>PAT & PARIS GENERAL MERCHANDISE</strong></td>
-                            <td class="no-border-bottom">TIN/Employee No.:</td>
+                            <td class="v-align-middle" colspan="9" rowspan="2"><strong>{{$data['payee']->name}}</strong></td>
+                            <td class="no-border-bottom">TIN/Employee No.: {{$data['payee']->tin}}</td>
                             <td rowspan="2">ORS/BURS No.:</td>
                         </tr>
                         <tr>
-                            <td class="align-center no-border-top"><strong>249-309-076-000</strong></td>
+                            <td class="align-center no-border-top"><strong></strong></td>
                         </tr>
                         <tr>
                             <td>Address</td>
-                            <td colspan="11"><strong>#24 Pres Marcos St., Industrial Valley Complex, Marikina City</strong></td>
+                            <td colspan="11"><strong>
+
+                            @if($data['suppliers_address'])
+                            {{$data['suppliers_address']}}
+                            @else
+                            {{$data['payee']->address}}
+                            @endif
+                            </strong></td>
                         </tr>
                     </table>
                     <table class="printable-form__body__table classic">

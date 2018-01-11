@@ -310,6 +310,8 @@ class VoucherController extends Controller
             'certified_by'          =>  'required',
             'approver_id'           =>  'required',
             'receiver_id'           =>  'required',
+            'bir_address'           =>  'required',
+            'suppliers_address'           =>  'required',
         ]);
 
         $voucher_model  =   $model->findById($id);
@@ -325,7 +327,9 @@ class VoucherController extends Controller
             'approval_date'         =>  $request->approval_date,
             'certified_by'          =>  $request->certified_by,
             'approver_id'           =>  $request->approver_id,
-            'receiver_id'           =>  $request->receiver_id
+            'receiver_id'           =>  $request->receiver_id,
+            'bir_address'           =>  $request->bir_address,
+            'suppliers_address'     =>  $request->suppliers_address
         ];
 
         if($voucher_model->certified_by != $request->certified_by)
@@ -977,6 +981,7 @@ class VoucherController extends Controller
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']       =   $result->transaction_date;
         $data['bir_address']            =   $result->bir_address;
+        $data['suppliers_address']            =   $result->suppliers_address;
         $data['final_tax']              =   $result->final_tax;
         $data['receiver']               =   $receiver;
         $data['or']                     =   $result->or;
@@ -1068,6 +1073,7 @@ class VoucherController extends Controller
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']       =   $result->transaction_date;
         $data['bir_address']            =   $result->bir_address;
+        $data['suppliers_address']            =   $result->suppliers_address;
         $data['final_tax']              =   $result->final_tax;
         $data['receiver']               =   $receiver;
         $data['or']                     =   $result->or;
@@ -1224,6 +1230,7 @@ class VoucherController extends Controller
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']       =   $result->transaction_date;
         $data['bir_address']            =   $result->bir_address;
+        $data['suppliers_address']            =   $result->suppliers_address;
         $data['final_tax']              =   $result->final_tax;
         $data['receiver']               =   $receiver;
         $data['or']                     =   $result->or;

@@ -68,7 +68,13 @@
                         </tr>
                         <tr>
                             <td>Address</td>
-                            <td colspan="11"><strong>{{$data['payee']->address}}</strong></td>
+                            <td colspan="11"><strong>
+                            @if($data['suppliers_address'])
+                            {{$data['suppliers_address']}}
+                            @else
+                            {{$data['payee']->address}}
+                            @endif
+                            </strong></td>
                         </tr>
                     </table>
                     <table class="printable-form__body__table classic">

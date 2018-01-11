@@ -131,6 +131,7 @@ class VoucherEloquent extends Model implements  AuditableContract
         'certified_signatory',
         'approver_signatory',
         'receiver_signatory',
+        'suppliers_address',
 
     ];
 

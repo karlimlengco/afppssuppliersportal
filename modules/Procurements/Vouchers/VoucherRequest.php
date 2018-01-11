@@ -26,6 +26,7 @@ class VoucherRequest extends BaseRequest
         'certify_date',
         'is_cash_avail',
         'subject_to_authority_to_debit_acc',
+        'suppliers_address',
         'documents_completed',
 
         'journal_entry_date',
@@ -70,6 +71,7 @@ class VoucherRequest extends BaseRequest
         'received_action',
         'certified_signatory',
         'approver_signatory',
+        'suppliers_address',
         'receiver_signatory',
     ];
 
@@ -84,6 +86,7 @@ class VoucherRequest extends BaseRequest
             'rfq_id'                    => 'required',
             'voucher_transaction_date'  => 'required',
             'bir_address'               => 'required',
+            'suppliers_address'         => 'required',
         ];
     }
 }

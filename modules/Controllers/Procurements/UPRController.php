@@ -451,9 +451,9 @@ class UPRController extends Controller
         SignatoryRepository $signatories)
     {
         $account_codes      =    $accounts->lists('id', 'new_account_code');
-        $result         =   $model->with(['attachments'])->findById($id);
-        $signatory_lists=   $signatories->lists('id', 'name');
-        $bid_issuance   =   $suppliers->lists('id', 'name');
+        $result             =   $model->with(['attachments'])->findById($id);
+        $signatory_lists    =   $signatories->lists('id', 'name');
+        $bid_issuance       =   $suppliers->lists('id', 'name');
 
         if($result->bid_issuances != null)
         {
@@ -462,16 +462,39 @@ class UPRController extends Controller
                 unset($bid_issuance[$list->proponent_id]);
             }
         }
+
         $bid_amount = 0;
+        $address    = '';
         if($result->purchase_order)
         {
           $bid_amount = $result->purchase_order->bid_amount;
+        }
+
+        if($result->noa)
+        {
+          if($result->procurement_type != 'public_bidding')
+          {
+              $winner = $result->noa->winner;
+          }
+          else
+          {
+              $winner = $result->noa->biddingWinner;
+          }
+
+          if($winner)
+          {
+            if($winner->supplier)
+            {
+              $address = $winner->supplier->address;
+            }
+          }
         }
 
         return $this->view('modules.procurements.upr.show',[
             'accounts'          =>  $accounts->lists('id', 'new_account_code'),
             'data'              =>  $result,
             'bid_amount'        =>  $bid_amount,
+            'address'           =>  $address,
             'bid_issuance'      =>  $bid_issuance,
             'proponent_lists'   =>  $suppliers->lists('id', 'name'),
             'bacsec_list'       =>  $bacsec->lists('id', 'name'),

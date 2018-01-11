@@ -35,6 +35,12 @@
 
                 <div class="row">
                     <div class="twelve columns">
+                        {!! Form::textareaField('suppliers_address', 'Suppliers Address', $address, ['rows'=>3]) !!}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="twelve columns">
                         {!! Form::textareaField('bir_address', 'BIR Address', null, ['rows'=>3]) !!}
                     </div>
                 </div>

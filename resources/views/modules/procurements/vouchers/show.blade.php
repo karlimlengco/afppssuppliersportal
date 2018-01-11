@@ -144,6 +144,7 @@ Vouchers
                 {{-- <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Penalty Days :</strong>  &nbsp; </li> --}}
 
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Penalty Amount : </strong>  Php {{ formatPrice($penalty_amount)}} &nbsp; </li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label"> Supliers Address : </strong>  Php {{ $data->suppliers_address}} &nbsp; </li>
         </ul>
     </div>
 </div>
