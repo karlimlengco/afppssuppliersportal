@@ -21,6 +21,7 @@ class UsersTableSeeder extends Seeder
         $password2 = Hash::make("12345");
 
         \App\User::create([
+            "id"          => 1,
             "uuid"          => $faker->unique()->uuid,
             "email"         => 'kblimlengco@yahoo.com',
             "password"      => $password,
@@ -37,6 +38,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         \App\User::create([
+            "id"          => 2,
             "uuid"          => $faker->unique()->uuid,
             "email"         => 'karlimlengco@gmail.com',
             "password"      => $password,

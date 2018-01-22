@@ -22,6 +22,7 @@ Inspection And Acceptance Report
 @section('modal')
     @include('modules.partials.modals.iar-signatories')
     @include('modules.partials.modals.iar-accept')
+    @include('modules.partials.invoice')
 @stop
 
 @section('contents')
@@ -110,20 +111,27 @@ Inspection And Acceptance Report
     </div>
 </div>
 
-<div class="data-panel">
-    <div class="data-panel__section">
-        <h3>Invoice Details</h3>
-        <ul  class="data-panel__list">
+<div class="row">
+  <div class="col-md-12">
+    <div class="data-panel">
+        <div class="data-panel__section">
+            <button id="invoice-button" class="button">Add Invoice</button>
+            <br>
+            <br>
+            <h3>Invoice Details</h3>
+            <ul  class="data-panel__list">
 
-            @foreach($data->invoices as $invoice)
-                <li class="data-panel__list__item">
-                    <strong> {{$invoice->invoice_number}}:</strong>
-                        {{$invoice->invoice_date}}
-                </li>
-            @endforeach
-        </ul>
+                @foreach($data->invoices as $invoice)
+                    <li class="data-panel__list__item">
+                        <strong> {{$invoice->invoice_number}}:</strong>
+                            {{$invoice->invoice_date}}
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+
     </div>
-
+  </div>
 </div>
 
 
@@ -149,6 +157,24 @@ $('#accept-button').click(function(e){
     e.preventDefault();
     $('#accept-modal').addClass('is-visible');
 })
+
+$('#invoice-button').click(function(e){
+    e.preventDefault();
+    $('#invoice-modal').addClass('is-visible');
+})
+
+
+
+var invoice_date = new Pikaday(
+{
+    field: document.getElementById('id-field-invoice_date'),
+    firstDay: 1,
+    defaultDate: new Date(),
+    setDefaultDate: new Date(),
+    // minDate: new Date(),
+    maxDate: new Date(2020, 12, 31),
+    yearRange: [2000,2020]
+});
 
 
 var accepted_date = new Pikaday(

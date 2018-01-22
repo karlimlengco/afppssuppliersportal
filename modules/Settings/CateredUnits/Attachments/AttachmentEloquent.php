@@ -46,6 +46,7 @@ class AttachmentEloquent extends Model
         'file_name',
         'user_id',
         'validity_date',
+        'amount',
         'upload_date',
     ];
 

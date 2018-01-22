@@ -51,18 +51,22 @@ Units
          <thead>
             <tr>
                 <th>Name</th>
-                <th>File Name</th>
+                <th>Amount</th>
+                <th>Validity Date</th>
                 <th>Uploaded By</th>
-                <th>Upload Date</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach($data->attachments as  $attachment)
             <tr>
                 <td> <a target="_blank" href="{{route('maintenance.catered-units.attachments.download', $attachment->id)}}"> {{$attachment->name}} </a></td>
-                <td>{{$attachment->file_name}}</td>
+                <td>{{number_format($attachment->amount,2)}}</td>
+                <td>{{$attachment->validity_date}}</td>
                 <td>{{($attachment->users) ? $attachment->users->first_name ." ". $attachment->users->surname :""}}</td>
-                <td>{{$attachment->upload_date}}</td>
+                <td>
+                  <a href="{{route('maintenance.catered-units.attachments.destroy',$attachment->id)}}">remove</a>
+                </td>
             </tr>
             @endforeach
         </tbody>

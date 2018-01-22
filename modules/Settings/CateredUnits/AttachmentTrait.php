@@ -39,17 +39,20 @@ trait AttachmentTrait
         $file       = $file.".".$request->file->getClientOriginalExtension();
 
         $validator = \Validator::make($request->all(), [
-            'file' => 'required',
-            'name' => 'required',
+            'file'          => 'required',
+            'name'          => 'required',
+            'validity_date' => 'required',
+            'amount'        => 'required',
         ]);
 
         $result     = $attachments->save([
             'unit_id'       =>  $id,
             'name'          =>  $request->name,
+            'amount'          =>  $request->amount,
+            'validity_date'          =>  $request->validity_date,
             'file_name'     =>  $file,
             'user_id'       =>  \Sentinel::getUser()->id,
-            'upload_date'   =>  \Carbon\Carbon::now(),
-            'validity_date'   =>  \Carbon\Carbon::now()
+            'upload_date'   =>  \Carbon\Carbon::now()
         ]);
 
         if($result)
@@ -57,6 +60,25 @@ trait AttachmentTrait
             $path       = $request->file->storeAs('unit-attachments', $file);
         }
 
+        return redirect()->back()->with([
+            'success'  => "Attachment has been successfully added."
+        ]);
+    }
+
+    /**
+     * [uploadAttachment description]
+     *
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function removeAttachment(
+        Request $request,
+        $id,
+        AttachmentRepository $attachments)
+    {
+
+        $attachments->delete($id);
         return redirect()->back()->with([
             'success'  => "Attachment has been successfully added."
         ]);

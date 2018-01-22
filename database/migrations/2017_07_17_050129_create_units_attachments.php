@@ -19,7 +19,8 @@ class CreateUnitsAttachments extends Migration
             $table->string('name');
             $table->string('file_name');
             $table->string('user_id');
-            $table->date('validity_date');
+            $table->string('amount');
+            $table->string('validity_date');
             $table->date('upload_date');
             $table->timestamps();
         });

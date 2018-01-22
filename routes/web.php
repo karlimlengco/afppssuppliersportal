@@ -649,6 +649,7 @@ Route::group(['as' => 'maintenance.', 'prefix' => 'maintenance'], function () {
     Route::resource('forms-po', '\Revlv\Controllers\Settings\POFormController');
     Route::resource('announcements', '\Revlv\Controllers\Settings\AnnouncementController');
 
+    Route::get('catered-units/attachments/delete/{id}', '\Revlv\Controllers\Settings\CateredUnitController@removeAttachment')->name('catered-units.attachments.destroy');
     Route::post('catered-units/attachments/{id}', '\Revlv\Controllers\Settings\CateredUnitController@uploadAttachment')->name('catered-units.attachments.store');
 
     Route::get('catered-units/download/{id}', '\Revlv\Controllers\Settings\CateredUnitController@downloadAttachment')->name('catered-units.attachments.download');

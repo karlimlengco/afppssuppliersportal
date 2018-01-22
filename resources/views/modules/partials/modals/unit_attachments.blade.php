@@ -11,8 +11,22 @@
 
             <div class="modal__dialogue__body">
                 <div class="row">
-                    <div class="twelve columns">
+                    <div class="four columns">
                         {!! Form::textField('name', 'Name') !!}
+                    </div>
+                    <div class="four columns">
+                        {!! Form::textField('amount', 'Amount') !!}
+                    </div>
+                    <div class="four columns">
+                      <div class="form-group">
+                        <label for="id-field-validity_date" class="label">Validity Year</label>
+                        <select name="validity_date" class="select" id="id-field-validity_date">
+                          <option value="">Select Year</option>
+                          @for($i = 2015 ; $i <= date('Y'); $i++){
+                              <option value="{{$i}}">{{$i}}</option>;
+                          @endfor
+                        </select>
+                      </div>
                     </div>
                 </div>
                 <div class="row">
