@@ -182,7 +182,11 @@
                                     <tr>
                                         <td></td>
                                         <td>
+                                            @if(strlen($data['funder'][0]) < (strlen($data['funder'][1]) + strlen($data['funder'][2])))
+                                            <div class="signatory-rank-justify nowrap">
+                                            @else
                                             <div class="signatory-rank-justify">
+                                            @endif
                                                 <strong>{{$data['funder'][1]}} {{$data['funder'][2]}}</strong>
                                                 <span></span>
                                             </div>

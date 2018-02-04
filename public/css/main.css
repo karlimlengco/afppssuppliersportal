@@ -1683,6 +1683,10 @@ printable-form.less
   height: 12px;
   line-height: 1;
 }
+.printable-form__body__table tr td .signatory .signatory-rank-justify.nowrap,
+.printable-form__body__table tr td .signatory .signatory-name-justify.nowrap {
+  white-space: nowrap;
+}
 .printable-form__body__table tr td .signatory .signatory-rank-justify span,
 .printable-form__body__table tr td .signatory .signatory-name-justify span {
   display: inline-block;
