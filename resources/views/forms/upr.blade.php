@@ -156,7 +156,11 @@
                                     <tr>
                                         <td></td>
                                         <td>
-                                            <div class="signatory-rank-justify">
+                                              @if(strlen($data['requestor'][0]) < (strlen($data['requestor'][1]) + strlen($data['requestor'][2])))
+                                              <div class="signatory-rank-justify nowrap">
+                                              @else
+                                              <div class="signatory-rank-justify">
+                                              @endif
                                                 <strong>{{$data['requestor'][1]}} {{$data['requestor'][2]}}</strong>
                                                 <span></span>
                                             </div>
@@ -207,6 +211,7 @@
                                     <tr>
                                         <td width="50%"></td>
                                         <td nowrap>
+
                                           <div class="signatory-name-justify">
                                             <strong>{{$data['approver'][0]}}</strong>
                                             <span></span>
@@ -217,7 +222,11 @@
                                     <tr>
                                         <td></td>
                                         <td>
+                                            @if(strlen($data['approver'][0]) < (strlen($data['approver'][1]) + strlen($data['approver'][2])))
+                                            <div class="signatory-rank-justify nowrap">
+                                            @else
                                             <div class="signatory-rank-justify">
+                                            @endif
                                                 <strong>{{$data['approver'][1]}} {{$data['approver'][2]}}</strong>
                                                 <span></span>
                                             </div>
