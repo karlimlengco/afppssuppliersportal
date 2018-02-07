@@ -53320,7 +53320,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (end != null && start != null) {
         var a = moment(start, 'YYYY-MM-DD');
         var b = moment(end, 'YYYY-MM-DD');
-        return a.diff(b, 'days');
+        return b.diff(a, 'days');
       }
       return '--';
     },
