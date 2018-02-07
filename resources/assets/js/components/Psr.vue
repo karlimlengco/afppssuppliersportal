@@ -71,9 +71,9 @@
                               <td>--</td>
                               <td>{{unit.total_abc}}</td>
                               <td>{{unit.upr_count}}</td>
-                              <td v-if="types != 'bidding'" >--</td>
-                              <td v-if="types != 'bidding'" >--</td>
-                              <td v-if="types != 'bidding'" >--</td>
+                              <td v-if="types != 'bidding'">--</td>
+                              <td v-if="types != 'bidding'">--</td>
+                              <td v-if="types != 'bidding'">--</td>
                               <td v-if="types == 'bidding'">--</td>
                               <td v-if="types == 'bidding'">--</td>
                               <td v-if="types == 'bidding'">--</td>
@@ -123,9 +123,9 @@
                                             <td v-if="types == 'bidding'">{{getDiff(itemData.bid_date, itemData.prebid_date)}}</td>
                                             <td v-if="types == 'bidding'">{{getDiff(itemData.pq_date, itemData.bid_date)}}</td>
                                             <td v-if="types == 'bidding'">{{getDiff(itemData.noa_award_date, itemData.pq_date)}}</td>
-                                            <td>{{getDiff(itemData.noa_approved_days, itemData.noa_award_date)}}</td>
-                                            <td>{{getDiff(itemData.noa_received_days, itemData.noa_approved_days)}}</td>
-                                            <td>{{getDiff(itemData.po_create_date, itemData.noa_received_days)}}</td>
+                                            <td>{{getDiff(itemData.noa_approved_date, itemData.noa_award_date)}}</td>
+                                            <td>{{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}}</td>
+                                            <td>{{getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)}}</td>
                                             <td>{{getDiff(itemData.funding_received_date, itemData.po_create_date)}}</td>
                                             <td>{{getDiff(itemData.mfo_received_date, itemData.funding_received_date)}}</td>
                                             <td>{{getDiff(itemData.coa_approved_date, itemData.mfo_received_date)}}</td>
@@ -182,8 +182,8 @@
           },
           getDiff: function(end, start){
             if(end != null && start != null){
-              var a = moment(start)
-              var b = moment(end)
+              var a = moment(start, 'YYYY-MM-DD')
+              var b = moment(end, 'YYYY-MM-DD')
               return a.diff(b, 'days')
             }
             return '--'
