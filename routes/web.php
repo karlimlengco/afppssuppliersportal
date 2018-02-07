@@ -61,8 +61,10 @@ Route::group(['as' => 'api.', 'prefix' => 'api'], function () {
 Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
 
     Route::get('psr/download/{search_at?}', '\Revlv\Controllers\Reports\PSRController@download')->name('reports.psr-transactions.download');
+    Route::get('unit-psr/download/{search_at?}', '\Revlv\Controllers\Reports\UnitPSRController@download')->name('reports.unit-psr-transactions.download');
 
     Route::resource('psr-transactions', '\Revlv\Controllers\Reports\PSRController');
+    Route::resource('unit-psr-transactions', '\Revlv\Controllers\Reports\UnitPSRController');
 
     Route::resource('psr', '\Revlv\Controllers\Reports\PSRReportController');
 
@@ -751,6 +753,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     |
     */
     Route::get('psr-transactions', '\Revlv\Controllers\Reports\PSRController@getDatatable')->name('reports.psr-transactions');
+    Route::get('unit-psr-transactions', '\Revlv\Controllers\Reports\UnitPSRController@getDatatable')->name('reports.unit-psr-transactions');
     Route::post('psr', '\Revlv\Controllers\Reports\PSRController@getPSRDatatable')->name('reports.psr');
     Route::get('transaction-days', '\Revlv\Controllers\Reports\TransactionDayController@getDatatable')->name('reports.transaction-days');
 

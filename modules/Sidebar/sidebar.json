@@ -289,7 +289,12 @@
                 {
                     "route" :   "reports.psr-transactions.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Transactions Summary"
+                    "name"  :   "PCCO Transactions Summary"
+                },
+                {
+                    "route" :   "reports.unit-psr-transactions.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Unit Transactions Summary"
                 },
                 {
                     "route" :   "reports.transaction-days.index",

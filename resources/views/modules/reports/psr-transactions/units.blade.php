@@ -1,5 +1,5 @@
 @section('title')
-PCCO Transaction Summary
+Unit Transaction Summary
 @stop
 
 @section('styles')
@@ -44,11 +44,11 @@ PCCO Transaction Summary
 
                 <thead>
                     <tr>
-                        <th>PC/CO</th>
+                        <th>Unit</th>
                         <th>UPR</th>
                         <th>ISPQ</th>
                         <th>PhilGeps Posting</th>
-                        <th>Close RFQ</th>
+                        <th>RFQ</th>
                         <th>Canvassing</th>
                         <th>Prepare NOA</th>
                         <th>Approved NOA</th>
@@ -60,13 +60,11 @@ PCCO Transaction Summary
                         <th>Prepare NTP</th>
                         <th>Received NTP</th>
                         <th>Received Delivery</th>
-                        <th>Complete COA Delivery</th>
                         <th>Technical Inspection</th>
                         <th>IAR Acceptance</th>
-                        <th>DIIR Inspection Start</th>
-                        <th>DIIR Inspection Close</th>
+                        <th>DIIR</th>
                         <th>Prepare Voucher</th>
-                        <th>Preaudit Voucher /End</th>
+                        <th>Completed</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,7 +76,7 @@ PCCO Transaction Summary
             <table id="table-bidding"  class="table table--with-border ">
                 <thead>
                     <tr>
-                        <th>UPR</th>
+                        <th>Unit</th>
                         <th>Document Acceptance (BAC)</th>
                         <th>Pre Proc (BAC)</th>
                         <th>Invitation to BId (BAC)</th>
@@ -96,13 +94,11 @@ PCCO Transaction Summary
                         <th>Prepare NTP</th>
                         <th>Received NTP</th>
                         <th>Received Delivery</th>
-                        <th>Complete COA Delivery</th>
                         <th>Technical Inspection</th>
                         <th>IAR Acceptance</th>
-                        <th>DIIR Inspection Start</th>
-                        <th>DIIR Inspection Close</th>
+                        <th>DIIR</th>
                         <th>Prepare Voucher</th>
-                        <th>Preaudit Voucher /End</th>
+                        <th>Completed</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -123,7 +119,7 @@ PCCO Transaction Summary
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.reports.psr-transactions')}}",
+                url: "{{route('datatables.reports.unit-psr-transactions')}}",
                     data: function(d) {
                         d.date_from = $('input[name=date_from]').val();
                         d.date_to = $('input[name=date_to]').val();
@@ -134,7 +130,7 @@ PCCO Transaction Summary
             {data: 'upr', name: 'upr'},
             {data: 'ispq', name: 'ispq'},
             {data: 'philgeps', name: 'philgeps'},
-            {data: 'rfq_close', name: 'rfq_close'},
+            {data: 'rfq', name: 'rfq'},
             {data: 'canvass', name: 'canvass'},
             {data: 'noa', name: 'noa'},
             {data: 'noaa', name: 'noaa'},
@@ -146,11 +142,9 @@ PCCO Transaction Summary
             {data: 'ntp', name: 'ntp'},
             {data: 'ntpa', name: 'ntpa'},
             {data: 'delivery', name: 'delivery'},
-            {data: 'date_delivered_to_coa', name: 'date_delivered_to_coa'},
             {data: 'tiac', name: 'tiac'},
             {data: 'coa_inspection', name: 'coa_inspection'},
-            {data: 'diir_start', name: 'diir_start'},
-            {data: 'diir_close', name: 'diir_close'},
+            {data: 'diir', name: 'diir'},
             {data: 'voucher', name: 'voucher'},
             {data: 'end_process', name: 'end_process'},
         ],
@@ -167,7 +161,7 @@ PCCO Transaction Summary
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{route('datatables.reports.psr-transactions','type=bidding')}}",
+                url: "{{route('datatables.reports.unit-psr-transactions','type=bidding')}}",
                     data: function(d) {
                         d.date_from = $('input[name=date_from]').val();
                         d.date_to = $('input[name=date_to]').val();
@@ -192,11 +186,9 @@ PCCO Transaction Summary
             {data: 'ntp', name: 'ntp'},
             {data: 'ntpa', name: 'ntpa'},
             {data: 'delivery', name: 'delivery'},
-            {data: 'date_delivered_to_coa', name: 'date_delivered_to_coa'},
             {data: 'tiac', name: 'tiac'},
             {data: 'coa_inspection', name: 'coa_inspection'},
-            {data: 'diir_start', name: 'diir_start'},
-            {data: 'diir_close', name: 'diir_close'},
+            {data: 'diir', name: 'diir'},
             {data: 'voucher', name: 'voucher'},
             {data: 'end_process', name: 'end_process'},
         ],
@@ -223,7 +215,7 @@ PCCO Transaction Summary
         date_from       =   $('input[name=date_from]').val();
         date_to         =   $('input[name=date_to]').val();
         table_search    =   $('input[name=table_search]').val();
-        window.open('/reports/psr/download/'+table_search+'?type='+ptype+'&&date_from='+date_from+'&&date_to='+date_to);
+        window.open('/reports/unit-psr/download/'+table_search+'?type='+ptype+'&&date_from='+date_from+'&&date_to='+date_to);
     });
 
     $('#alternative').on('click', function(e){

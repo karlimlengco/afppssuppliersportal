@@ -219,7 +219,7 @@ trait PSRTrait
         $model  =   $this->model;
 
         $model  =   $model->select([
-            'units.name as unit_name',
+            'catered_units.short_code as unit_name',
             DB::raw("COUNT(unit_purchase_requests.id) as upr"),
             DB::raw("COUNT(request_for_quotations.id) as rfq"),
             DB::raw("COUNT(request_for_quotations.completed_at) as rfq_close"),
@@ -228,6 +228,7 @@ trait PSRTrait
             DB::raw("COUNT(canvassing.id) as canvass"),
             DB::raw("COUNT(notice_of_awards.id) as noa"),
             DB::raw("COUNT(notice_of_awards.award_accepted_date) as noaa"),
+            DB::raw("COUNT(notice_of_awards.accepted_date) as noar"),
             DB::raw("COUNT(purchase_orders.id) as po"),
             DB::raw("COUNT(purchase_orders.mfo_released_date) as po_mfo_released"),
             DB::raw("COUNT(purchase_orders.mfo_received_date) as po_mfo_received"),
@@ -248,9 +249,11 @@ trait PSRTrait
             DB::raw("COUNT(pre_bid_conferences.id) as prebid"),
             DB::raw("COUNT(bid_opening.id) as bidop"),
             DB::raw("COUNT(post_qualification.id) as pq"),
+            DB::raw("COUNT(pre_proc.id) as pre_proc"),
+
         ]);
 
-        $model  =   $model->leftJoin('units', 'units.id', '=', 'unit_purchase_requests.units');
+        $model  =   $model->leftJoin('catered_units', 'catered_units.id', '=', 'unit_purchase_requests.units');
         $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
 
         $model  =   $model->leftJoin('philgeps_posting', 'philgeps_posting.upr_id', '=', 'unit_purchase_requests.id');
@@ -268,6 +271,7 @@ trait PSRTrait
 
 
         // Biddings
+        $model  =   $model->leftJoin('pre_proc', 'pre_proc.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('document_acceptance', 'document_acceptance.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('invitation_to_bid', 'invitation_to_bid.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('pre_bid_conferences', 'pre_bid_conferences.upr_id', '=', 'unit_purchase_requests.id');
@@ -306,8 +310,13 @@ trait PSRTrait
 
         }
 
+        if($search != null)
+        {
+            $model  =   $model->where('catered_units.short_code', 'LIKE', "%$search%");
+        }
+
         $model  =   $model->groupBy([
-            'units.name'
+            'catered_units.short_code'
         ]);
 
         return $model->get();
@@ -322,6 +331,18 @@ trait PSRTrait
     {
         $model      =   $this->getPSR($request);
 
+        return $this->dataTable($model);
+    }
+
+    /**
+     * [getPSRDatatable description]
+     *
+     * @return [type] [description]
+     */
+    public function getUnitPSRDatatable($request)
+    {
+        $model      =   $this->getPSRUnits($request);
+        // dd($model);
         return $this->dataTable($model);
     }
 
