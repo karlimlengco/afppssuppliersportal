@@ -198,6 +198,9 @@ trait PSRTrait
             $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
 
         }
+
+        $model  = $model->whereNotNull('procurement_centers.name');
+
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
         $model  =   $model->groupBy([
@@ -309,6 +312,8 @@ trait PSRTrait
             $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
 
         }
+
+        $model  = $model->whereNotNull('catered_units.short_code');
 
         if($search != null)
         {
