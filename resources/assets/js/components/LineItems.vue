@@ -110,9 +110,9 @@
                           v-validate="'required'"
                           v-if="!readonly"
                           required
-                          :value="total"
                           v-model="items.total_amount">
                     </td>
+                          <!-- :value="total" -->
                     <td>
                         <button
                           v-if="!readonly"

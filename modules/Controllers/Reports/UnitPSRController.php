@@ -39,6 +39,25 @@ class UnitPSRController extends Controller
         parent::__construct();
     }
 
+    public function getUnitPsr(UnitPurchaseRequestRepository $model, $type = null, Request $request)
+    {
+        return $model->getUnitPSR($type, $request);
+    }
+
+
+    public function getUnitPsrItem(UnitPurchaseRequestRepository $model,  $type = null, $unit, Request $request)
+    {
+
+          $items  = $model->getUnitPSRItem($type, $unit, $request);
+
+          $response   = [
+              'unit' => $unit,
+              'data' => $items
+          ];
+
+          return $response;
+    }
+
     /**
      * [getDatatable description]
      *

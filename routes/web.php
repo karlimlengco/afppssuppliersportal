@@ -59,6 +59,8 @@ Route::group(['as' => 'api.', 'prefix' => 'api'], function () {
 // });
 
 Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
+    Route::get('unit-psr/{type}', '\Revlv\Controllers\Reports\UnitPSRController@getUnitPsr')->name('reports.unit-psr');
+    Route::get('unit-psr-items/{type}/{unit}', '\Revlv\Controllers\Reports\UnitPSRController@getUnitPsrItem')->name('reports.unit-psr-items');
 
     Route::get('psr/download/{search_at?}', '\Revlv\Controllers\Reports\PSRController@download')->name('reports.psr-transactions.download');
     Route::get('unit-psr/download/{search_at?}', '\Revlv\Controllers\Reports\UnitPSRController@download')->name('reports.unit-psr-transactions.download');

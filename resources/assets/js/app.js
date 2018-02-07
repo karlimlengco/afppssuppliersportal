@@ -35,6 +35,7 @@ Vue.component('admin-messages', require('./components/AdminMessage.vue'));
 Vue.component('user-lists', require('./components/UserLists.vue'));
 Vue.component('delivery-order', require('./components/DeliveryOrder.vue'));
 Vue.component('line-items', require('./components/LineItems.vue'));
+Vue.component('psr', require('./components/Psr.vue'));
 
 const app = new Vue({
     el: '#app',

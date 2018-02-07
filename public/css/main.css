@@ -3748,8 +3748,8 @@ table-custom.less
 }
 .table-name tr th:first-child,
 .table-name tr td:first-child {
-  width: 300px !important;
-  min-width: 300px !important;
+  width: 400px !important;
+  min-width: 400px !important;
 }
 .table-name tr th.has-child .child-table tr th,
 .table-name tr td.has-child .child-table tr th,
@@ -3778,8 +3778,8 @@ table-custom.less
 .table-name tr td.has-child .grand-child-table tr td:first-child,
 .table-name tr th.has-child .great-grand-child-table tr td:first-child,
 .table-name tr td.has-child .great-grand-child-table tr td:first-child {
-  width: 299px !important;
-  min-width: 299px !important;
+  width: 399px !important;
+  min-width: 399px !important;
 }
 /*
 plugins
