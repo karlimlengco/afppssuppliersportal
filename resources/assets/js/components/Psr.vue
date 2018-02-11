@@ -59,6 +59,7 @@
                             <th>DIIR CLOSE</th>
                             <th>PREPARE VOUCHER</th>
                             <th>COMPLETED</th>
+                            <th>Total Days</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -139,6 +140,7 @@
                                             <td>{{getDiff(itemData.di_close, itemData.di_start)}}</td>
                                             <td>{{getDiff(itemData.v_transaction_date, itemData.di_close)}}</td>
                                             <td>{{getDiff(itemData.preaudit_date, itemData.v_transaction_date)}}</td>
+                                            <td>{{itemData.calendar_days}}</td>
                                         </tr>
                                         </template>
                                       </template>
