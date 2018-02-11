@@ -318,11 +318,20 @@ class RFQProponentController extends Controller
         $data['content']            =  ($rfqFormsContent) ? $rfqFormsContent->content : "";
         $deadline = "";
 
-        if($rfq->upr->philgeps) {
-          $deadline = $rfq->upr->philgeps->deadline_rfq." ".$rfq->upr->philgeps->opening_time;
-        }elseif($rfq->completed_at)
+        // if($rfq->upr->philgeps) {
+        //   $deadline = $rfq->upr->philgeps->deadline_rfq." ".$rfq->upr->philgeps->opening_time;
+        // }elseif($rfq->completed_at)
+        // {
+        //   $deadline = $rfq->completed_at->format('Y-m-d H:i');
+        // }
+        if($rfq->upr->philgeps)
         {
-          $deadline = $rfq->completed_at->format('Y-m-d H:i');
+
+            $data['deadline']           =  \Carbon\Carbon::createFromFormat( 'Y-m-d H:i', $rfq->upr->philgeps->deadline_rfq." ".$rfq->upr->philgeps->opening_time);
+        }
+        else
+        {
+            $data['deadline']           = \Carbon\Carbon::createFromFormat( 'Y-m-d H:i:s', $rfq->upr->invitations->canvassing_date ." ". $rfq->upr->invitations->canvassing_time);
         }
 
 
