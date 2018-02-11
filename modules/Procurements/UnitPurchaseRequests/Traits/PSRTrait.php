@@ -1126,7 +1126,7 @@ trait PSRTrait
 
         }
 
-        $model  = $model->whereNotNull('catered_units.short_code');
+        $model  = $model->whereNotNull('catered_units.id');
 
         if($search != null)
         {
