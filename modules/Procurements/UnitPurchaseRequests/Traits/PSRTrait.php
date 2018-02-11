@@ -832,7 +832,7 @@ trait PSRTrait
            {
                $model  =   $model->select([
                    'procurement_centers.name as unit_name',
-                   DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  != 'public_bidding' and upr.procurement_office = procurement_centers.id   ) as philgeps "),
+                   DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  != 'public_bidding' and upr.procurement_office = procurement_centers.id AND philgeps_posting.upr_id = unit_purchase_requests.id  ) as philgeps "),
                    DB::raw("COUNT(unit_purchase_requests.id) as upr"),
                    DB::raw("COUNT(request_for_quotations.id) as rfq"),
                    DB::raw("COUNT(request_for_quotations.completed_at) as rfq_close"),
@@ -888,7 +888,7 @@ trait PSRTrait
 
                $model  =   $model->select([
                    'procurement_centers.name as unit_name',
-                   DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  = 'public_bidding' and upr.procurement_office = procurement_centers.id    ) as philgeps "),
+                   DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  = 'public_bidding' and upr.procurement_office = procurement_centers.id  AND philgeps_posting.upr_id = unit_purchase_requests.id  ) as philgeps "),
 
 
 
@@ -1016,6 +1016,7 @@ trait PSRTrait
 
         $model  =   $model->groupBy([
             'procurement_centers.name',
+            'unit_purchase_requests.id',
             'unit_purchase_requests.date_prepared',
             'procurement_centers.id'
         ]);
