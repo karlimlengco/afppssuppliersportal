@@ -1184,6 +1184,8 @@ trait PSRTrait
             $model      =   $model->where('mode_of_procurement','!=', 'public_bidding');
         }
 
+        $model  = $model->whereNotNull('procurement_centers.short_code');
+
         $model    = $model->groupBY(['short_code']);
 
         return $model->get();
