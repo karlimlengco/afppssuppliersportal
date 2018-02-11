@@ -135,7 +135,9 @@
                         </tr>
                         <tr>
                             <td class="v-align-bottom align-center" height="80px">
-
+                                <br>
+                                <br>
+                                <br>
                                 @if(count($data['certifier']) > 1)
                                 <strong>{{$data['certifier'][1]}} {{$data['certifier'][0]}} {{$data['certifier'][2]}}</strong><br>
                                 {{$data['certifier'][3]}}<br>
