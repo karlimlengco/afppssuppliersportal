@@ -131,7 +131,7 @@ class BaseComposer
         $notiCount     =   count($notifications);
         $messagesCount     =   count($messagesCount);
         $myMessages     =   count($myMessages);
-        $logs     =   count($logs);
+        $logCounts     =   count($logs);
 
         if(count($delays) > 9)
         {
@@ -143,23 +143,23 @@ class BaseComposer
             $notiCount = '9+';
         }
 
-        if(count($messagesCount) > 9)
+        if($messagesCount > 9)
         {
             $messagesCount = '9+';
         }
 
-        if(count($myMessages) > 9)
+        if($myMessages > 9)
         {
             $myMessages = '9+';
         }
 
 
-        if(count($logs) > 9)
+        if($logCounts > 9)
         {
-            $logs = '9+';
+            $logCounts = '9+';
         }
 
-        $view->with('logCounts', $logs );
+        $view->with('logCounts', $logCounts );
         $view->with('delayCounts', $delayCount );
         $view->with('notifCount',  $notiCount);
         $view->with('messageCount', $messagesCount );
