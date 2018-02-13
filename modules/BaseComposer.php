@@ -127,12 +127,43 @@ class BaseComposer
         $notifications  =   $this->nofications->getUnseenByUser($userId);
         $messagesCount  =   $this->messages->getUnseenByUser($userId);
         $myMessages     =   $this->chats->findByReceiver($userId);
+        $delayCount     =   count($delays);
+        $notiCount     =   count($notifications);
+        $messagesCount     =   count($messagesCount);
+        $myMessages     =   count($myMessages);
+        $logs     =   count($logs);
 
-        $view->with('logCounts', count($logs) );
-        $view->with('delayCounts', count($delays) );
-        $view->with('notifCount', count($notifications) );
-        $view->with('messageCount', count($messagesCount) );
+        if(count($delays) > 9)
+        {
+            $delayCount = '9+';
+        }
+
+        if(count($notifications) > 9)
+        {
+            $notiCount = '9+';
+        }
+
+        if(count($messagesCount) > 9)
+        {
+            $messagesCount = '9+';
+        }
+
+        if(count($myMessages) > 9)
+        {
+            $myMessages = '9+';
+        }
+
+
+        if(count($logs) > 9)
+        {
+            $logs = '9+';
+        }
+
+        $view->with('logCounts', $logs );
+        $view->with('delayCounts', $delayCount );
+        $view->with('notifCount',  $notiCount);
+        $view->with('messageCount', $messagesCount );
         $view->with('currentUser', $userModel);
-        $view->with('myMessages',  count($myMessages));
+        $view->with('myMessages',  $myMessages);
     }
 }

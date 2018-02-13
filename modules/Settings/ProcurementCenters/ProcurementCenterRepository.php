@@ -143,7 +143,9 @@ class ProcurementCenterRepository extends BaseRepository
     public function getPrograms($search = null, $type = null, $request)
     {
         $date_from = "";
-        $date_to = \Carbon\Carbon::now()->format('Y-m-d');
+        $date    =  \Carbon\Carbon::now();
+        $year    =  $date->format('Y');
+        $date_to = $date->format('Y-m-d');
 
         if($request->has('date_from') != null)
         {
@@ -171,23 +173,17 @@ class ProcurementCenterRepository extends BaseRepository
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
                     DB::raw(" (select count(unit_purchase_requests.id) from unit_purchase_requests left join procurement_centers as pc on unit_purchase_requests.procurement_office  = pc.id
                         LEFT JOIN catered_units ON catered_units.pcco_id = pc.id where mode_of_procurement  = 'public_bidding' and programs = procurement_centers.programs  and catered_units.id = '$unit_id' and unit_purchase_requests.status != 'draft'  and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to') as upr_count "),
+
+                    DB::raw(" (select sum(unit_attachments.amount) from unit_purchase_requests left join procurement_centers as pc on unit_purchase_requests.procurement_office  = pc.id
+                        LEFT JOIN catered_units ON catered_units.pcco_id = pc.id
+                        LEFT JOIN unit_attachments ON unit_attachments.unit_id = catered_units.id
+                        where mode_of_procurement  = 'public_bidding' and programs = procurement_centers.programs  and catered_units.id = '$unit_id' and unit_purchase_requests.status != 'draft'  and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to') as upr_count "),
+
  // and unit_purchase_requests.units = '$unit_id'
                     DB::raw("
                         (select count(unit_purchase_requests.id) from unit_purchase_requests left join procurement_centers as pc on unit_purchase_requests.procurement_office  = pc.id
                         LEFT JOIN catered_units ON catered_units.pcco_id = pc.id where mode_of_procurement  = 'public_bidding' and programs = procurement_centers.programs and catered_units.id = '$unit_id' and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to' and unit_purchase_requests.state = 'cancelled' and unit_purchase_requests.status != 'draft')
                         as cancelled_count"),
-
-
-                    // DB::raw("(select SUM(CASE
-                    //      WHEN unit_purchase_requests.delay_count != 0 and unit_purchase_requests.state != 'completed' AND unit_purchase_requests.state != 'cancelled' THEN 1
-                    //      ELSE 0
-                    //    END)
-                    //     from unit_purchase_requests
-                    //     left join procurement_centers as pc
-                    //     on unit_purchase_requests.procurement_office  = pc.id
-                    //     where mode_of_procurement  = 'public_bidding'
-                    //     and programs = procurement_centers.programs and unit_purchase_requests.units = '$unit_id' )
-                    //     as delay_count"),
 
                     DB::raw(" IFNULL( (select SUM(CASE
                                  WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' AND unit_purchase_requests.state != 'cancelled' THEN 1
@@ -279,6 +275,19 @@ class ProcurementCenterRepository extends BaseRepository
                         where mode_of_procurement  != 'public_bidding'
                         and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and catered_units.id = '$unit_id' and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to')
                         as upr_count"),
+
+                    DB::raw("
+                        (select sum(unit_attachments.amount)
+                        from unit_purchase_requests
+                        left join procurement_centers as pc
+                        on unit_purchase_requests.procurement_office  = pc.id
+                        LEFT JOIN catered_units ON catered_units.pcco_id = pc.id
+                        LEFT JOIN unit_attachments ON unit_attachments.unit_id = catered_units.id
+                        where mode_of_procurement  != 'public_bidding'
+                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and catered_units.id = '$unit_id' and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to')
+                        as apb_total"),
+
+
 // unit_purchase_requests.units
 
                     DB::raw("
@@ -390,6 +399,11 @@ class ProcurementCenterRepository extends BaseRepository
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
                     DB::raw(" (select count(unit_purchase_requests.id) from unit_purchase_requests left join procurement_centers as pc on unit_purchase_requests.procurement_office  = pc.id where mode_of_procurement  = 'public_bidding' and unit_purchase_requests.status != 'draft' and programs = procurement_centers.programs and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to') as upr_count "),
 
+                    DB::raw(" ( select sum(unit_attachments.amount) from unit_purchase_requests left join procurement_centers as pc on unit_purchase_requests.procurement_office  = pc.id LEFT JOIN catered_units ON catered_units.pcco_id = pc.id
+                        LEFT JOIN unit_attachments ON unit_attachments.unit_id = catered_units.id where mode_of_procurement  = 'public_bidding' and unit_purchase_requests.status != 'draft' and programs = procurement_centers.programs and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to') as apb_total "),
+
+
+
                     DB::raw("
                         (select count(unit_purchase_requests.id) from unit_purchase_requests left join procurement_centers as pc on unit_purchase_requests.procurement_office  = pc.id where mode_of_procurement  = 'public_bidding' and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and  unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to' and unit_purchase_requests.state = 'cancelled')
                         as cancelled_count"),
@@ -474,6 +488,17 @@ class ProcurementCenterRepository extends BaseRepository
                         where mode_of_procurement  != 'public_bidding'
                         and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to')
                         as upr_count"),
+                    DB::raw("
+                        (select sum(unit_attachments.amount)
+                        from unit_purchase_requests
+                        left join procurement_centers as pc
+                        on unit_purchase_requests.procurement_office  = pc.id
+                        LEFT JOIN catered_units ON catered_units.pcco_id = pc.id
+                        LEFT JOIN unit_attachments ON unit_attachments.unit_id = catered_units.id
+                        where mode_of_procurement  != 'public_bidding'
+                        and unit_attachments.unit_id = unit_purchase_requests.units
+                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_prepared >= '$date_from' and unit_purchase_requests.date_prepared <= '$date_to')
+                        as apb_total"),
 
 
                     DB::raw("
@@ -591,6 +616,7 @@ class ProcurementCenterRepository extends BaseRepository
         // {
         //     $model  =   $model->having('catered_units.id','=', \Sentinel::getUser()->unit_id);
         // }
+        $model  = $model->whereNotNull('procurement_centers.id');
 
         $model  =   $model->groupBy([
             'procurement_centers.programs',
