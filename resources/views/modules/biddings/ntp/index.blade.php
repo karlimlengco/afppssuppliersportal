@@ -64,6 +64,7 @@ Notice To Proceed
     table = $('#datatable-responsive').DataTable({
         "bLengthChange": false,
         processing: true,
+        "order": [[ 1, "desc" ]],
         serverSide: true,
         ajax: {
                 url: "{{route('datatables.biddings.ntp')}}",

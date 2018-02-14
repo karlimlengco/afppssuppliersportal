@@ -56,6 +56,7 @@ Vouchers
 
     table = $('#datatable-responsive').DataTable({
         "bLengthChange": false,
+        "order": [[ 1, "desc" ]],
         processing: true,
         serverSide: true,
         ajax: {

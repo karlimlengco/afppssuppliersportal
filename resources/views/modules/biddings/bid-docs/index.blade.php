@@ -59,6 +59,7 @@ Bid Docs Issuance
         "bLengthChange": false,
         processing: true,
         serverSide: true,
+        "order": [[ 3, "desc" ]],
         ajax: {
                 url: "{{route('datatables.biddings.bid-docs')}}",
             },

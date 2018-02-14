@@ -58,6 +58,7 @@ Invitation To Bid
         "bLengthChange": false,
         processing: true,
         serverSide: true,
+        "order": [[2, "desc" ]],
         ajax: {
                 url: "{{route('datatables.biddings.itb')}}",
             },

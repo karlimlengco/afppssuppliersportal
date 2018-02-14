@@ -41,6 +41,7 @@ Unit Purchase Request
                     <th>ABC</th>
                     <th>TYPE</th>
                     <th>Status</th>
+                    <th>Created</th>
                     {{-- <th>State</th> --}}
                 </tr>
             </thead>
@@ -60,6 +61,7 @@ Unit Purchase Request
         "bLengthChange": false,
         processing: true,
         serverSide: true,
+        "order": [[ 6, "desc" ]],
         ajax: {
                 url: "{{route('datatables.procurements.unit-purchase-request.cancelled')}}",
                 // data: function (d) {
@@ -73,6 +75,7 @@ Unit Purchase Request
             {data: 'total_amount', name: 'total_amount'},
             {data: 'type', name: 'type'},
             {data: 'status', name: 'status'},
+            {data: 'created_at', name: 'created_at'},
             // {data: 'state', name: 'state'},
         ],
         "fnInitComplete": function (oSettings, json) {

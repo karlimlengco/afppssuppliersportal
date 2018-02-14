@@ -60,6 +60,7 @@ PhilGeps Posting
         "bLengthChange": false,
         processing: true,
         serverSide: true,
+        "order": [[ 3, "desc" ]],
         ajax: {
                 url: "{{route('datatables.procurements.philgeps-posting')}}",
                 // data: function (d) {

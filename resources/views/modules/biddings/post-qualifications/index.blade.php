@@ -64,6 +64,7 @@ Post Qualification
 
     table = $('#datatable-responsive').DataTable({
         "bLengthChange": false,
+        "order": [[ 2, "desc" ]],
         processing: true,
         serverSide: true,
         ajax: {

@@ -56,6 +56,7 @@ Notice Of Delivery
         "bLengthChange": false,
         processing: true,
         serverSide: true,
+        "order": [[ 3, "desc" ]],
         ajax: {
                 url: "{{route('datatables.procurements.delivery-orders')}}",
             },

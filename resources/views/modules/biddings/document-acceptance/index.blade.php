@@ -60,6 +60,7 @@ Document Acceptance
         "bLengthChange": false,
         processing: true,
         serverSide: true,
+        "order": [[ 2, "desc" ]],
         ajax: {
                 url: "{{route('datatables.biddings.document-acceptance')}}",
             },

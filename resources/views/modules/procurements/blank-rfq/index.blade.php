@@ -60,6 +60,7 @@ Request For Quotation
         "bLengthChange": false,
         processing: true,
         serverSide: true,
+        "order": [[ 4, "desc" ]],
         ajax: {
                 url: "{{route('datatables.procurements.blank-rfq')}}",
                 // data: function (d) {

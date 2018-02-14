@@ -49,6 +49,7 @@ Delivered Items Inspection
                     <th>UPR No.</th>
                     <th>Delivery No.</th>
                     <th>Status</th>
+                    <th>Created</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,6 +67,7 @@ Delivered Items Inspection
         "bLengthChange": false,
         processing: true,
         serverSide: true,
+        "order": [[ 3, "desc" ]],
         ajax: {
                 url: "{{route('datatables.biddings.delivered-inspections')}}",
             },
@@ -73,6 +75,7 @@ Delivered Items Inspection
             {data: 'upr_number', name: 'upr_number'},
             {data: 'delivery_number', name: 'delivery_number'},
             {data: 'status', name: 'status'},
+            {data: 'created_at', name: 'created_at'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

@@ -36,7 +36,7 @@ Notice To Proceed
             <thead>
                 <tr>
                     <th>RFQ No.</th>
-                    <th>Purchase Date</th>
+                    <th>PO Date</th>
                     <th>Bid Amount</th>
                     <th>Status</th>
                     <th>Supplier</th>
@@ -57,6 +57,7 @@ Notice To Proceed
         "bLengthChange": false,
         processing: true,
         serverSide: true,
+        "order": [[ 1, "desc" ]],
         ajax: {
                 url: "{{route('datatables.procurements.ntp')}}",
             },

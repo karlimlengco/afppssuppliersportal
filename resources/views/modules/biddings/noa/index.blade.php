@@ -62,6 +62,7 @@ Notice Of Award
     table = $('#datatable-responsive').DataTable({
         "bLengthChange": false,
         processing: true,
+        "order": [[ 2, "desc" ]],
         serverSide: true,
         ajax: {
                 url: "{{route('datatables.biddings.noa')}}",

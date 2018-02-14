@@ -55,6 +55,7 @@ Invitation to Submit Price Quotation
 
     table = $('#datatable-responsive').DataTable({
         "bLengthChange": false,
+        "order": [[ 0, "desc" ]],
         processing: true,
         serverSide: true,
         ajax: {

@@ -50,6 +50,7 @@ Inspection And Acceptance Report
                     <th>UPR Number</th>
                     <th>Inspection Date</th>
                     <th>Status</th>
+                    <th>Created</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,6 +68,7 @@ Inspection And Acceptance Report
         "bLengthChange": false,
         processing: true,
         serverSide: true,
+        "order": [[ 4, "desc" ]],
         ajax: {
                 url: "{{route('datatables.biddings.inspection-and-acceptance')}}",
             },
@@ -75,6 +77,7 @@ Inspection And Acceptance Report
             {data: 'upr_number', name: 'upr_number'},
             {data: 'inspection_date', name: 'inspection_date'},
             {data: 'status', name: 'status'},
+            {data: 'created_at', name: 'created_at'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

@@ -48,7 +48,7 @@ Contract Order
                 <tr>
                     <th>PO No.</th>
                     <th>UPR No.</th>
-                    <th>Purchase Date</th>
+                    <th>PO Date</th>
                     <th>Bid Amount</th>
                     <th>MFO Released</th>
                     <th>PCCO Released</th>
@@ -68,6 +68,7 @@ Contract Order
     table = $('#datatable-responsive').DataTable({
         "bLengthChange": false,
         processing: true,
+        "order": [[ 2, "desc" ]],
         serverSide: true,
         ajax: {
                 url: "{{route('datatables.biddings.purchase-orders')}}",

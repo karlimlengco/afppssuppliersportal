@@ -40,7 +40,7 @@ Purchase Order
                 <tr>
                     <th>RFQ No.</th>
                     <th>UPR No.</th>
-                    <th>Purchase Date</th>
+                    <th>PO Date</th>
                     <th>Bid Amount</th>
                     <th>MFO Released</th>
                     <th>PCCO Released</th>
@@ -61,6 +61,7 @@ Purchase Order
         "bLengthChange": false,
         processing: true,
         serverSide: true,
+        "order": [[ 2, "desc" ]],
         ajax: {
                 url: "{{route('datatables.procurements.purchase-orders')}}",
                 // data: function (d) {

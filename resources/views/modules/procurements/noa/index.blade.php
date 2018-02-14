@@ -53,6 +53,7 @@ Notice Of Award
 
     table = $('#datatable-responsive').DataTable({
         "bLengthChange": false,
+        "order": [[ 3, "desc" ]],
         processing: true,
         serverSide: true,
         ajax: {
