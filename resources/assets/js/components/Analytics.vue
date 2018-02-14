@@ -543,7 +543,7 @@ var tarray2IDs           =   [];
                     })
             },
             fetchUPRCenters: function(program){
-                axios.get('/reports/upr-centers/'+program+'/'+this.types)
+                axios.get('/reports/upr-centers/'+program+'/'+this.types+'?date_from='+this.startDate+'&&date_to='+this.endDate)
                     .then(response => {
                         this.itemProgram.push(response.data)
                     })
@@ -552,7 +552,7 @@ var tarray2IDs           =   [];
                     })
             },
             fetchUnits: function(program,center){
-                axios.get('/reports/units/'+program+'/'+center+'/'+this.types)
+                axios.get('/reports/units/'+program+'/'+center+'/'+this.types+'?date_from='+this.startDate+'&&date_to='+this.endDate)
                     .then(response => {
                         this.itemUnits.push(response.data)
                     })
@@ -561,7 +561,7 @@ var tarray2IDs           =   [];
                     })
             },
             fetchUPRs: function(program, center){
-                axios.get('/reports/uprs/'+program+'/'+center+'/'+this.types)
+                axios.get('/reports/uprs/'+program+'/'+center+'/'+this.types+'?date_from='+this.startDate+'&&date_to='+this.endDate)
                     .then(response => {
                         this.itemProgramCenters.push(response.data)
                     })

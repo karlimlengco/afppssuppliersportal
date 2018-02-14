@@ -167,9 +167,9 @@ class UPRController extends Controller
      * @param  UnitPurchaseRequestRepository $model [description]
      * @return [type]                               [description]
      */
-    public function getUprCenters($program, UnitPurchaseRequestRepository $model, $type = null)
+    public function getUprCenters(Request $request, $program, UnitPurchaseRequestRepository $model, $type = null)
     {
-        $items      =   $model->getUprCenters($program,  $type);
+        $items      =   $model->getUprCenters($program,  $type, $request);
 
         $response   = [
             'program' => $program,
@@ -187,9 +187,10 @@ class UPRController extends Controller
      * @param  [type]                        $type   [description]
      * @return [type]                                [description]
      */
-    public function getUnits($programs, $center, UnitPurchaseRequestRepository $model, $type = null)
+    public function getUnits(Request $request, $programs, $center, UnitPurchaseRequestRepository $model, $type = null)
     {
-        $items      =   $model->getUnits($center, $programs,  $type);
+
+        $items      =   $model->getUnits($center, $programs,  $type, $request);
 
         $response   = [
             'program' => $programs,
@@ -206,9 +207,9 @@ class UPRController extends Controller
      * @param  UnitPurchaseRequestRepository $model [description]
      * @return [type]                               [description]
      */
-    public function getUprs($programs, $center, UnitPurchaseRequestRepository $model, $type = null)
+    public function getUprs(Request $request, $programs, $center, UnitPurchaseRequestRepository $model, $type = null)
     {
-        $items      =   $model->getUprs($center, $programs,  $type);
+        $items      =   $model->getUprs($center, $programs,  $type, $request);
 
         $response   = [
             'program' => $programs,

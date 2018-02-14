@@ -52071,7 +52071,7 @@ var tarray2IDs = [];
         fetchUPRCenters: function fetchUPRCenters(program) {
             var _this3 = this;
 
-            axios.get('/reports/upr-centers/' + program + '/' + this.types).then(function (response) {
+            axios.get('/reports/upr-centers/' + program + '/' + this.types + '?date_from=' + this.startDate + '&&date_to=' + this.endDate).then(function (response) {
                 _this3.itemProgram.push(response.data);
             }).catch(function (e) {
                 console.log(e);
@@ -52080,7 +52080,7 @@ var tarray2IDs = [];
         fetchUnits: function fetchUnits(program, center) {
             var _this4 = this;
 
-            axios.get('/reports/units/' + program + '/' + center + '/' + this.types).then(function (response) {
+            axios.get('/reports/units/' + program + '/' + center + '/' + this.types + '?date_from=' + this.startDate + '&&date_to=' + this.endDate).then(function (response) {
                 _this4.itemUnits.push(response.data);
             }).catch(function (e) {
                 console.log(e);
@@ -52089,7 +52089,7 @@ var tarray2IDs = [];
         fetchUPRs: function fetchUPRs(program, center) {
             var _this5 = this;
 
-            axios.get('/reports/uprs/' + program + '/' + center + '/' + this.types).then(function (response) {
+            axios.get('/reports/uprs/' + program + '/' + center + '/' + this.types + '?date_from=' + this.startDate + '&&date_to=' + this.endDate).then(function (response) {
                 _this5.itemProgramCenters.push(response.data);
             }).catch(function (e) {
                 console.log(e);

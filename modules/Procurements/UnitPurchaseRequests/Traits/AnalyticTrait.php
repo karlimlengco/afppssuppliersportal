@@ -74,15 +74,39 @@ trait AnalyticTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getUprCenters($program, $type = null)
+    public function getUprCenters($program, $type = null, $request = null)
     {
+        $date_from = "";
+        $date    = \Carbon\Carbon::now();
+        $yearto    = $date->format('Y');
+        $yearfrom    = $date->format('Y');
+        $date_to = $date->format('Y-m-d');
+
+        if($request != null && $request->has('date_from') != null)
+        {
+            $date_from  =   $request->get('date_from');
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_from)->format('Y');
+        }
+
+        if($request != null && $request->has('date_to') != null)
+        {
+            $date_to  =   $request->get('date_to');
+            $yearto  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_to)->format('Y');
+        }
+
+        if($request != null && $request->has('date_to') &&  $request->get('date_from') == null)
+        {
+            $date_from  =   $date_to;
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_from)->format('Y');
+        }
+
         $model  =   $this->model;
 
         $model  =   $model->select([
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
 
             DB::raw("IFNULL( SUM(CASE
-             WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' and unit_purchase_requests.next_due <  NOW()  AND unit_purchase_requests.state != 'cancelled' THEN 1
+             WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' and unit_purchase_requests.next_due <  NOW()  AND unit_purchase_requests.state != 'cancelled'  THEN 1
              ELSE 0
            END),0) as delay_count"),
             // DB::raw("count(unit_purchase_requests.delay_count)  - count(unit_purchase_requests.completed_at) as delay_count"),
@@ -155,6 +179,8 @@ trait AnalyticTrait
             'procurement_centers.name',
         ]);
 
+        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' ");
+
         $model  =   $model->orderBy('delay_count','desc');
 
         return $model->get();
@@ -166,8 +192,32 @@ trait AnalyticTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getUnits($name, $programs, $type=null)
+    public function getUnits($name, $programs, $type=null, $request = null)
     {
+
+        $date_from = "";
+        $date    = \Carbon\Carbon::now();
+        $yearto    = $date->format('Y');
+        $yearfrom    = $date->format('Y');
+        $date_to = $date->format('Y-m-d');
+
+        if($request != null && $request->has('date_from') != null)
+        {
+            $date_from  =   $request->get('date_from');
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_from)->format('Y');
+        }
+
+        if($request != null && $request->has('date_to') != null)
+        {
+            $date_to  =   $request->get('date_to');
+            $yearto  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_to)->format('Y');
+        }
+
+        if($request != null && $request->has('date_to') &&  $request->get('date_from') == null)
+        {
+            $date_from  =   $date_to;
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_from)->format('Y');
+        }
         $model  =   $this->model;
 
         $model  =   $model->select([
@@ -243,6 +293,8 @@ trait AnalyticTrait
         }
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
+        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' ");
+
         $model  =   $model->orderBy('delay_count','desc');
         $model  =   $model->orderBy('ongoing_count','asc');
 
@@ -262,8 +314,31 @@ trait AnalyticTrait
      * @param  [int]    $company_id ['company id ']
      * @return [type]               [description]
      */
-    public function getUprs($name, $programs, $type=null)
+    public function getUprs($name, $programs, $type=null, $request = null)
     {
+        $date_from = "";
+        $date    = \Carbon\Carbon::now();
+        $yearto    = $date->format('Y');
+        $yearfrom    = $date->format('Y');
+        $date_to = $date->format('Y-m-d');
+
+        if($request != null && $request->has('date_from') != null)
+        {
+            $date_from  =   $request->get('date_from');
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_from)->format('Y');
+        }
+
+        if($request != null && $request->has('date_to') != null)
+        {
+            $date_to  =   $request->get('date_to');
+            $yearto  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_to)->format('Y');
+        }
+
+        if($request != null && $request->has('date_to') &&  $request->get('date_from') == null)
+        {
+            $date_from  =   $date_to;
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_from)->format('Y');
+        }
         $model  =   $this->model;
 
         $model  =   $model->select([
@@ -346,6 +421,8 @@ trait AnalyticTrait
 
             $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
         }
+
+        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' ");
         $model  =   $model->orderBy('delay_count','desc');
         $model  =   $model->orderBy('ongoing_count','desc');
         $model  =   $model->orderBy('completed_count','desc');
@@ -377,8 +454,10 @@ trait AnalyticTrait
      * @param  [type] $type    [description]
      * @return [type]          [description]
      */
-    public function getPSRUprCenters($program, $type = null)
+    public function getPSRUprCenters($program, $type = null, $request = null)
     {
+
+
         $model  =   $this->model;
 
         $model  =   $model->select([
@@ -456,7 +535,6 @@ trait AnalyticTrait
     public function getPSRUnit($name, $programs, $type=null)
     {
         $model  =   $this->model;
-
 
         $model  =   $model->select([
             'procurement_centers.name',
