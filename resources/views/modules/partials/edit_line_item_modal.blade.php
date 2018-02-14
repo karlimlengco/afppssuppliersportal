@@ -16,6 +16,7 @@
               <input name="_method" type="hidden" value="PUT">
               <input name="_token" type="hidden" value="{{ csrf_token() }}">
 
+              {!! Form::selectField('new_account_code', 'Account Code', $accounts) !!}
               <div class="row">
                   <div class="twelve columns">
                       {!! Form::textField('quantity', 'Quantity', null, ['required', 'class' => 'input id-field-quantity']) !!}

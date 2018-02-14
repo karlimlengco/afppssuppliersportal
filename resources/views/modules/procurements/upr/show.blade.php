@@ -324,9 +324,9 @@ Unit Purchase Request
 
 <div >
     <div>
-        @if($data->status == 'upr_processing')
+  {{--       @if($data->status == 'upr_processing')
         <button id="add-item-button" class="button">ADD ITEM</button>
-        @endif
+        @endif --}}
         <table class='table' id="item_table">
             <thead>
                 <tr>
@@ -343,14 +343,14 @@ Unit Purchase Request
                 @foreach($data->items as $item)
                     <tr>
                         <td>{{$item->item_description}}</td>
-                        <td>{{($item->accounts) ? $item->accounts->new_account_code : ""}}</td>
+                        <td>{{($item->accounts) ? "[". $item->accounts->old_account_code ."]".$item->accounts->new_account_code ." - ". $item->accounts->name : ""}}</td>
                         <td>{{$item->quantity}}</td>
                         <td>{{$item->unit_measurement}}</td>
                         <td>{{$item->unit_price}}</td>
                         <td>{{formatPrice($item->total_amount)}}</td>
                         <td>
 
-                        @if($data->status == 'upr_processing')
+            {{--             @if($data->status == 'upr_processing')
 
                           <a  tooltip="edit" href="#" data-id="{{$item->id}}" data-quantity="{{$item->quantity}}" data-unit_measurement="{{$item->unit_measurement}}" data-price="{{$item->unit_price}}" data-description="{{$item->item_description}}" class="edit-price-button" tooltip="Edit">
                               <i class="nc-icon-mini design_pen-01"></i>
@@ -358,7 +358,7 @@ Unit Purchase Request
 
                           <a tooltip="remove" href="{{route('procurements.upr-items.destroy', $item->id)}}"><i class="nc-icon-mini ui-1_trash"></i></a>
 
-                        @endif
+                        @endif --}}
 
                         </td>
                     </tr>

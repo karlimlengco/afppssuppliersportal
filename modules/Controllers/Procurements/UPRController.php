@@ -671,12 +671,25 @@ class UPRController extends Controller
         $payment_terms      =    $terms->lists('id', 'name');
         $unit               =    $units->lists('id', 'short_code');
         $signatory_lists=   $signatories->lists('id', 'name');
+        $account_codes      =    $accounts->listCodes('id', 'new_account_code');
+
+        $data = [];
+        foreach($account_codes as $key)
+        {
+          $data[] = ['id' => $key->id, 'make' => 'nac', 'model' => $key->new_account_code];
+          $data[] = ['id' => "old-".$key->id, 'make' => 'oac', 'model' => $key->old_account_code];
+          $data[] = ['id' => "title-".$key->id, 'make' => 'title', 'model' => $key->name];
+        }
+
+
 
         return $this->view('modules.procurements.upr.edit',[
             'data'              =>  $result,
+            'account_codes'     =>  $data,
             'indexRoute'        =>  $this->baseUrl.'show',
             'account_codes'     =>  $account_codes,
             'signatory_list'    =>  $signatory_lists,
+            'accounts'          =>  $accounts->lists('id', 'new_account_code'),
             'payment_terms'     =>  $payment_terms,
             'procurement_types' =>  $procurement_types,
             'charges'           =>  $charges,
