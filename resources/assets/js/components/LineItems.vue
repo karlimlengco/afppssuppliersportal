@@ -27,6 +27,9 @@
         </div>
     </div>
     <div class="twelve columns">
+
+    <button v-if="account_code != null"  type="button" @click.prevent="fileInputOpen" class="button pull-right" tooltip="Import"><i class="nc-icon-mini arrows-1_cloud-upload-96"></i></button>
+    <input type="file" id="file" style="visibility:hidden" ref="myFiles" class="custom-file-input" @change="previewFiles">
         <table class='table' id="item_table">
             <thead>
                 <tr>
@@ -110,6 +113,7 @@
                           v-validate="'required'"
                           v-if="!readonly"
                           required
+                          :value="total"
                           v-model="items.total_amount">
                     </td>
                           <!-- :value="total" -->
@@ -141,6 +145,9 @@
   import _ from 'lodash'
   import { Validator } from 'vee-validate';
   import Selectize from 'vue2-selectize'
+  import XLSX from 'xlsx';
+  const _XLSX = require('xlsx');
+  const X = typeof XLSX !== 'undefined' ? XLSX : _XLSX;
 
   export default {
     components: {Selectize },
@@ -170,7 +177,7 @@
         })
         console.log(total)
         // return total
-        return total.reduce(function (total, num) { return total + num }, 0)
+        return total.reduce(function (total, num) { return parseInt(total) + parseInt(num) }, 0)
       },
       accountSettings: function () {
         return {
@@ -199,6 +206,42 @@
       accounts: []
     }),
     methods: {
+      previewFiles() {
+        this.files = this.$refs.myFiles.files
+        var file = this.files[0]
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          /* Parse data */
+          const bstr = e.target.result;
+          const wb = X.read(bstr, {type:'binary'});
+          /* Get first worksheet */
+          const wsname = wb.SheetNames[0];
+          const ws = wb.Sheets[wsname];
+          /* Convert array of arrays */
+          const data = X.utils.sheet_to_json(ws, {header:1});
+          /* Update state */
+          this.data = data;
+          for (var i = 0; i < this.data.length; i++) {
+            console.log(this.data)
+            if(i != 0)
+            {
+              this.model.push({
+                item_description: this.data[i][0],
+                new_account_code: this.account_codeId,
+                quantity: this.data[i][1],
+                unit_measurement: this.data[i][2],
+                unit_price: this.data[i][3],
+                total_amount: this.data[i][4]
+              })
+
+            }
+          }
+        };
+        reader.readAsBinaryString(file)
+      },
+      fileInputOpen (){
+        $("#file").click()
+      },
       addItem () {
         var index = this.model.push({
           item_description: null,
