@@ -52,4 +52,20 @@ class SignatoryRepository extends BaseRepository
 
         return $model->first();
     }
+
+    /**
+     * [findByRFQId description]
+     *
+     * @param  [type] $rfq [description]
+     * @return [type]      [description]
+     */
+    public function findByName($name)
+    {
+        $model  =    $this->model;
+
+        $model  =   $model->where('name', '=', $name);
+
+        return $model->first();
+    }
+
 }

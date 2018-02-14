@@ -33,4 +33,20 @@ class CateredUnitRepository extends BaseRepository
 
         return $model->first();
     }
+
+
+    /**
+     * [findByRFQId description]
+     *
+     * @param  [type] $rfq [description]
+     * @return [type]      [description]
+     */
+    public function getByCode($id)
+    {
+        $model  =    $this->model;
+
+        $model  =   $model->where('short_code', '=', $id);
+
+        return $model->first();
+    }
 }

@@ -56,7 +56,7 @@ Unit Purchase Request Import Validate
                     {!! Form::textField('date_prepared', 'Date Prepared') !!}
                 </div>
                 <div class="four columns">
-                    {!! Form::selectField('units', 'Units', $unit, ($user) ? $user->unit_id : "") !!}
+                    {!! Form::selectField('units', 'Units', $unit) !!}
                 </div>
                 <div class="four columns">
                     {!! Form::selectField('procurement_type', 'Procurement Type', $procurement_types) !!}
@@ -65,7 +65,7 @@ Unit Purchase Request Import Validate
 
             <div class="row">
                 <div class="four columns">
-                    {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center, ($user->units) ? $user->units->pcco_id : "" ) !!}
+                    {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center ) !!}
 
                 </div>
                 <div class="four columns">

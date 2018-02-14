@@ -87,116 +87,257 @@ trait ImportTrait
         // Loop through all sheets
         // $reader->formatDates(true, 'd F Y');
         // $fields         =   $reader->limitColumns(10)->get();
-        $fields         =   $reader->limitColumns(10)->limitRows(124)->get();
-        $items          =   $reader->skipRows(124)->limitColumns(10)->get();
+        $fields         =   $reader->limitColumns(6)->limitRows(30)->get();
+        $items          =   $reader->skipRows(30)->limitColumns(6)->get();
+        $pcco           =   $fields[10][0];
+        // $projectName    =   $fields[10][3];
+        $cateredUnit    =   $fields[12][0];
+        // $upr_number     =   $fields[12][3];
+        // $place          =   $fields[14][0];
+        $datePrepared   =   $fields[14][3]; // y/m/d
+        $procurementProg=   $fields[16][0];
+        $mode           =   $fields[16][3];
+        $charge         =   $fields[18][3];
+        $termPayments   =   $fields[20][0];
+
+        // $fund           =   $fields[18][0];
+        // $others         =   $fields[20][3];
+        // $purpose        =   $fields[22][0];
+        $requestBy      =   $fields[25][0];
+        $fundBy         =   $fields[25][2];
+        $preparedBy     =   $fields[25][4];
+        $requestByR     =   $fields[26][0];
+        $requestByB     =   $fields[26][1];
+        $fundByR        =   $fields[26][3];
+        $fundByB        =   $fields[26][4];
+        $preparedByR    =   $fields[26][5];
+        $preparedByB    =   $fields[26][5];
+        $requestByD     =   $fields[27][0];
+        $fundByD        =   $fields[27][2];
+        $preparedByD    =   $fields[27][4];
         $array          =   [];
         $itemArray      =   [];
+        $requestId      = $funderId   =  $approverId = '';
 
-        $array['units'] =   \Sentinel::getUser()->unit_id;
-        foreach($fields->toArray() as $key => $row)
+        if($requestBy != null)
         {
-            $val = $key + 3;
-            switch ($row[0]) {
-                case 'UPR NO':
-                    $array['upr_number'] = $fields->toArray()[$val][0];
-                    break;
-                case 'DATE PREPARED':
-                    $date   =   \Carbon\Carbon::createFromFormat('Y-m-d', ($fields->toArray()[$val][0]));
-                    $array['date_prepared'] = $date;
-                    break;
-                case 'PROJECT NAME':
-                    $array['project_name'] = $fields->toArray()[$val][0];
-                    break;
-                case 'Procurement Center / Office':
-                    $centerModel    =   $centers->findById($fields->toArray()[$val][0]);
-                    if($centerModel != null)
-                    {
-                        $array['procurement_office'] = $centerModel->id;
-                    }
-                    break;
-                case 'MODE OF PROCUREMENT':
-                    $modesModel    =   $modes->findById($fields->toArray()[$val][0]);
-                    if($modesModel != null && $modesModel->name != 'Public Bidding')
-                    {
-                        $array['mode_of_procurement'] = $modesModel->id;
-                    }
-                    elseif($row[2] == 'Public Bidding'){
-                        $array['mode_of_procurement'] = 'public_bidding';
-                    }
-                    else
-                    {
-
-                    }
-                    break;
-                case 'CHARGEABILITY':
-                    $chargeabilityModel    =   $chargeability->findById($fields->toArray()[$val][0]);
-                    if($chargeabilityModel != null)
-                    {
-                        $array['chargeability'] = $chargeabilityModel->id;
-                    }
-                    break;
-                case 'Approved By':
-                    $approverModel    =   $signatories->findById($fields->toArray()[$val][0]);
-                    if($approverModel != null)
-                    {
-                        $array['approver_id'] = $approverModel->id;
-                    }
-                    break;
-                case 'Request By':
-                    $requestorModel    =   $signatories->findById($fields->toArray()[$val][0]);
-                    if($requestorModel != null)
-                    {
-                        $array['requestor_id'] = $requestorModel->id;
-                    }
-                    break;
-                case 'Fund Certified Available':
-                    $funderModel    =   $signatories->findById($fields->toArray()[$val][0]);
-                    if($funderModel != null)
-                    {
-                        $array['fund_signatory_id'] = $funderModel->id;
-                    }
-                    break;
-                case 'ACCOUNT CODE':
-                    $accountsModel    =   $accounts->findByName($row[2]);
-                    if($accountsModel != null)
-                    {
-                        $array['new_account_code'] = $accountsModel->id;
-                    }
-                    break;
-                case 'FUND VALIDITY':
-                    $array['fund_validity'] = $fields->toArray()[$val][0];
-                    break;
-                case 'PLACE OF DELIVERY':
-                    $array['place_of_delivery'] = $fields->toArray()[$val][0];
-                    break;
-                case 'TERMS OF PAYMENT':
-                    $termsModel    =   $terms->findByName($fields->toArray()[$val][0]);
-                    if($termsModel != null)
-                    {
-                        $array['terms_of_payment'] = $termsModel->id;
-                    }
-                        break;
-                case 'OTHER ESSENTIAL INFO':
-                    $array['other_infos'] = $fields->toArray()[$val][0];
-                    break;
-                case 'PURPOSE':
-                    $array['purpose'] = $fields->toArray()[$val][0];
-                        break;
-
-                default:
-
-                    break;
+            $requestId   =   $signatories->findByName($requestBy);
+            if($requestId)
+            {
+                $requestId = $requestId->id;
             }
-
         }
 
+        if($fundBy != null)
+        {
+            $funderId   =   $signatories->findByName($fundBy);
+            if($funderId)
+            {
+                $funderId = $funderId->id;
+            }
+        }
+
+        if($preparedBy != null)
+        {
+            $approverId   =   $signatories->findByName($preparedBy);
+            if($approverId)
+            {
+                $approverId = $approverId->id;
+            }
+        }
+
+        if($datePrepared != null)
+        {
+            $datePrepared = \Carbon\Carbon::createFromFormat('Y/m/d', ($datePrepared))->format('Y-m-d');
+        }
+
+        if($pcco != null)
+        {
+            if( $centers->findByName(trim($pcco)) ){
+                $pcco =  $centers->findByName(trim($pcco))->id;
+            }
+        }
+
+        if($cateredUnit != null)
+        {
+            if( $units->getByCode(trim($cateredUnit)) ){
+                $cateredUnit =  $units->getByCode(trim($cateredUnit))->id;
+            }
+        }
+
+        if($charge != null)
+        {
+            if( $chargeability->findByName(trim($charge)) ){
+                $charge =  $chargeability->findByName(trim($charge))->id;
+            }
+        }
+
+        if($termPayments != null)
+        {
+            if( $terms->findByName(trim($termPayments)) ){
+                $termPayments =  $terms->findByName(trim($termPayments))->id;
+            }
+        }
+
+        if($procurementProg != null)
+        {
+            if( $types->findByCode(trim($procurementProg)) ){
+                $procurementProg =  $types->findByCode(trim($procurementProg))->id;
+            }
+        }
+
+        if($mode != null && $mode != 'Public Bidding')
+        {
+            if( $modes->findByName(trim($mode)) ){
+                $mode =  $modes->findByName(trim($mode))->id;
+            }
+        } elseif($mode == 'Public Bidding'){
+          $model = 'public_bidding';
+        }
+
+        // dd($termPayments);
+        // $array['units']               =   \Sentinel::getUser()->unit_id;
+        $array['units']               = $cateredUnit;
+        $array['upr_number']          = $fields[12][3];
+        $array['project_name']        = $fields[10][3];
+        $array['date_prepared']       = $datePrepared;
+        $array['place_of_delivery']   = $fields[14][0];
+        $array['fund_validity']       = $fields[18][0];
+        $array['procurement_office']  = $pcco;
+        $array['mode_of_procurement'] = $mode;
+        $array['chargeability']       = $charge;
+        $array['procurement_type']    = $procurementProg;
+        $array['terms_of_payment']    = $termPayments;
+        $array['other_infos']         = $fields[20][3];
+        $array['purpose']             = $fields[22][0];
+        $array['requestor_id']        = $requestId;
+        $array['fund_signatory_id']   = $funderId;
+        $array['approver_id']         = $approverId;
+        // dd($array);
+        // foreach($fields->toArray() as $key => $row)
+        // {
+        //     $val = $key + 3;
+        //     switch ($row[0]) {
+        //         case 'UPR NO':
+        //             $array['upr_number'] = $fields->toArray()[$val][0];
+        //             break;
+        //         case 'DATE PREPARED':
+        //             $date   =   \Carbon\Carbon::createFromFormat('Y-m-d', ($fields->toArray()[$val][0]));
+        //             $array['date_prepared'] = $date;
+        //             break;
+        //         case 'PROJECT NAME':
+        //             $array['project_name'] = $fields->toArray()[$val][0];
+        //             break;
+        //         case 'Procurement Center / Office':
+        //             $centerModel    =   $centers->findById($fields->toArray()[$val][0]);
+        //             if($centerModel != null)
+        //             {
+        //                 $array['procurement_office'] = $centerModel->id;
+        //             }
+        //             break;
+        //         case 'MODE OF PROCUREMENT':
+        //             $modesModel    =   $modes->findById($fields->toArray()[$val][0]);
+        //             if($modesModel != null && $modesModel->name != 'Public Bidding')
+        //             {
+        //                 $array['mode_of_procurement'] = $modesModel->id;
+        //             }
+        //             elseif($row[2] == 'Public Bidding'){
+        //                 $array['mode_of_procurement'] = 'public_bidding';
+        //             }
+        //             else
+        //             {
+
+        //             }
+        //             break;
+        //         case 'CHARGEABILITY':
+        //             $chargeabilityModel    =   $chargeability->findById($fields->toArray()[$val][0]);
+        //             if($chargeabilityModel != null)
+        //             {
+        //                 $array['chargeability'] = $chargeabilityModel->id;
+        //             }
+        //             break;
+        //         case 'Approved By':
+        //             $approverModel    =   $signatories->findById($fields->toArray()[$val][0]);
+        //             if($approverModel != null)
+        //             {
+        //                 $array['approver_id'] = $approverModel->id;
+        //             }
+        //             break;
+        //         case 'Request By':
+        //             $requestorModel    =   $signatories->findById($fields->toArray()[$val][0]);
+        //             if($requestorModel != null)
+        //             {
+        //                 $array['requestor_id'] = $requestorModel->id;
+        //             }
+        //             break;
+        //         case 'Fund Certified Available':
+        //             $funderModel    =   $signatories->findById($fields->toArray()[$val][0]);
+        //             if($funderModel != null)
+        //             {
+        //                 $array['fund_signatory_id'] = $funderModel->id;
+        //             }
+        //             break;
+        //         case 'ACCOUNT CODE':
+        //             $accountsModel    =   $accounts->findByName($row[2]);
+        //             if($accountsModel != null)
+        //             {
+        //                 $array['new_account_code'] = $accountsModel->id;
+        //             }
+        //             break;
+        //         case 'FUND VALIDITY':
+        //             $array['fund_validity'] = $fields->toArray()[$val][0];
+        //             break;
+        //         case 'PLACE OF DELIVERY':
+        //             $array['place_of_delivery'] = $fields->toArray()[$val][0];
+        //             break;
+        //         case 'TERMS OF PAYMENT':
+        //             $termsModel    =   $terms->findByName($fields->toArray()[$val][0]);
+        //             if($termsModel != null)
+        //             {
+        //                 $array['terms_of_payment'] = $termsModel->id;
+        //             }
+        //                 break;
+        //         case 'OTHER ESSENTIAL INFO':
+        //             $array['other_infos'] = $fields->toArray()[$val][0];
+        //             break;
+        //         case 'PURPOSE':
+        //             $array['purpose'] = $fields->toArray()[$val][0];
+        //                 break;
+
+        //         default:
+
+        //             break;
+        //     }
+
+        // }
+
         $item = [];
+        $total = 0;
         foreach($items->toArray() as $itemRow)
         {
-          if($itemRow[0] != "<tr></tr><tr> <td> ITEM DESCRIPTION</td> <td>QTY</td> <td>UNIT</td> <td>UNIT PRICE</td> <td>TOTAL AMOUNT</td><td>Account Code</td> </tr><tr>" && trim($itemRow[0]) != "<td>" && trim($itemRow[0]) != "</thead>" && trim($itemRow[0]) != "</tbody>" && trim($itemRow[0]) != "</table>" && trim($itemRow[0]) != "</html>" && trim($itemRow[0]) != "</body>"&& trim($itemRow[0]) != "</td>" && trim($itemRow[0]) != "<tr>")
-          {
-            array_push($item, $itemRow[0]);
-          }
+            // if($itemRow[0] != "<tr></tr><tr> <td> ITEM DESCRIPTION</td> <td>QTY</td> <td>UNIT</td> <td>UNIT PRICE</td> <td>TOTAL AMOUNT</td><td>Account Code</td> </tr><tr>" && trim($itemRow[0]) != "<td>" && trim($itemRow[0]) != "</thead>" && trim($itemRow[0]) != "</tbody>" && trim($itemRow[0]) != "</table>" && trim($itemRow[0]) != "</html>" && trim($itemRow[0]) != "</body>"&& trim($itemRow[0]) != "</td>" && trim($itemRow[0]) != "<tr>")
+            if($itemRow[0] != "ITEMS" && $itemRow[0] != "ACCOUNT CODE")
+            {
+                // dd($itemRow);
+                $code = '';
+                $accountsModel    =   $accounts->findByName(trim($itemRow[0]) );
+                if($accountsModel != null)
+                {
+                    $code = $accountsModel->id;
+                }
+                // dd($itemRow[0]);
+                $itemArray[]    =   [
+                    'new_account_code'      =>  $code,
+                    'item_description'      =>  $itemRow[1],
+                    'quantity'              =>  $itemRow[2],
+                    'unit'                  =>  $itemRow[3],
+                    'unit_price'            =>  $itemRow[4],
+                    'total_amount'          =>  $itemRow[5],
+                ];
+                $total  = $total + $itemRow[5];
+                // dd($itemArray);
+                // array_push($item, $itemRow[0]);
+            }
 
             // if($itemRow[0] != "ITEM DESCRIPTION")
             // {
@@ -222,44 +363,46 @@ trait ImportTrait
             //     ];
             // }
         }
-        $decodes = [];
-        $count  = 0;
-        foreach($item as $newItem)
-        {
-          if($newItem == '</tr>')
-          {
-            $count ++;
-          }
-          else{
-            if($newItem != null)
-            {
-              $decodes[$count][] = $newItem;
-            }
-          }
+        // $decodes = [];
+        // $count  = 0;
+        // dd($item);
+        // foreach($item as $newItem)
+        // {
+        //   if($newItem == '</tr>')
+        //   {
+        //     $count ++;
+        //   }
+        //   else{
+        //     if($newItem != null)
+        //     {
+        //       $decodes[$count][] = $newItem;
+        //     }
+        //   }
 
-        }
-        foreach($decodes as $new)
-        {
-          $accountsModel    =   $accounts->findById($new[5] );
-          if($accountsModel != null)
-          {
-              $code = $accountsModel->id;
-          }
-          else
-          {
-              $code = 0;
-          }
+        // }
+        // foreach($decodes as $new)
+        // {
+        //   $accountsModel    =   $accounts->findById($new[5] );
+        //   if($accountsModel != null)
+        //   {
+        //       $code = $accountsModel->id;
+        //   }
+        //   else
+        //   {
+        //       $code = 0;
+        //   }
 
-          $itemArray[]    =   [
-              'item_description'      =>  $new[0],
-              'new_account_code'      =>  $code,
-              'quantity'              =>  $new[1],
-              'unit'                  =>  $new[2],
-              'unit_price'            =>  $new[3],
-              'total_amount'          =>  $new[4],
-          ];
-        }
-
+        //   $itemArray[]    =   [
+        //       'item_description'      =>  $new[0],
+        //       'new_account_code'      =>  $code,
+        //       'quantity'              =>  $new[1],
+        //       'unit'                  =>  $new[2],
+        //       'unit_price'            =>  $new[3],
+        //       'total_amount'          =>  $new[4],
+        //   ];
+        // }
+        $array['total_amount']  =   $total;
+        // dd($array);
         session([
             'data'  =>  $array,
             'items' =>  $itemArray

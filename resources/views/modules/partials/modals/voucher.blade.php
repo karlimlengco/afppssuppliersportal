@@ -35,7 +35,7 @@
 
                 <div class="row">
                     <div class="twelve columns">
-                        {!! Form::textareaField('suppliers_address', 'Suppliers Address', $address, ['rows'=>3]) !!}
+                        {!! Form::textareaField('suppliers_address', 'Suppliers Address', (isset($address) )? $address : "", ['rows'=>3]) !!}
                     </div>
                 </div>
 
