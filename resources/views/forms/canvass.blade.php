@@ -319,8 +319,8 @@
                       <tr>
                           <td class="align-bottom align-left" width="45%" height="80px">
                               {{-- @if(isset($data['signatories'][0])) --}}
-                              <strong>{{$data['presiding'][1]}} {{$data['presiding'][0]}} {{$data['presiding'][2]}}</strong><br>
-                              {{$data['presiding'][3]}}
+                              <strong>{{$data['mfo'][1]}} {{$data['mfo'][0]}} {{$data['mfo'][2]}}</strong><br>
+                              {{$data['mfo'][3]}}
                               {{-- @endif --}}
                           </td>
                           <td width="10%"></td>
@@ -331,8 +331,8 @@
                       </tr>
                       <tr>
                           <td class="align-bottom align-left" height="80px">
-                              <strong>{{$data['mfo'][1]}} {{$data['mfo'][0]}} {{$data['mfo'][2]}}</strong><br>
-                              {{$data['mfo'][3]}}
+                              <strong>{{$data['sec'][1]}} {{$data['sec'][0]}} {{$data['sec'][2]}}</strong><br>
+                              {{$data['sec'][3]}}
                           </td>
                           <td></td>
                           <td class="align-bottom align-left" height="80px">
@@ -340,13 +340,15 @@
                               {{$data['legal'][3]}}
                           </td>
                       </tr>
-                      <tr>
-                          <td class="align-bottom align-left" height="80px">
-                              <strong>{{$data['sec'][1]}} {{$data['sec'][0]}} {{$data['sec'][2]}}</strong><br>
-                              {{$data['sec'][3]}}
-                          </td>
-                          <td></td>
-                      </tr>
+                  </table>
+                  <table class="printable-form__body__table no-border no-padding">
+                    <tr><td width="30%"  height="60px"></td>
+                      <td class="align-bottom align-left" width="40%" height="60px">
+                      <strong>{{$data['presiding'][1]}} {{$data['presiding'][0]}} {{$data['presiding'][2]}}</strong><br>
+                      {{$data['presiding'][3]}}
+                      </td>
+                      <td width="30%"  height="60px"></td>
+                    </tr>
                   </table>
 
                 </div>

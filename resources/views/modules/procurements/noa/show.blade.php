@@ -86,7 +86,7 @@ Notice Of Award
             <a href="#" id="accept-button" tooltip="Accept NOA" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @else
             Go to UPR
-            <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="Accept NOA" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+            <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif
     </div>
 </div>

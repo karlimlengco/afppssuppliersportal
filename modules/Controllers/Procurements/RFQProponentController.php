@@ -13,6 +13,7 @@ use \Revlv\Settings\Forms\Header\HeaderRepository;
 use \Revlv\Settings\Forms\RFQ\RFQRepository;
 use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRepository;
+use \Revlv\Settings\Forms\PCCOHeader\PCCOHeaderRepository;
 use \Revlv\Procurements\RFQProponents\RFQProponentRequest;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 use \Revlv\Procurements\ProponentAttachments\ProponentAttachmentRepository;
@@ -307,12 +308,14 @@ class RFQProponentController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function viewPrint($id, RFQProponentRepository $model, RFQRepository $rfqForms, HeaderRepository $headers)
+    public function viewPrint($id, RFQProponentRepository $model, RFQRepository $rfqForms, PCCOHeaderRepository $headers)
     {
         $result     =   $model->findById($id);
+        // dd($result);
         $supplier   =   $result->supplier;
         $rfq        =   $result->rfq;
-        $header                     =  $headers->findByUnit($result->rfq->upr->units);
+        // $header                     =  $headers->findByUnit($result->rfq->upr->units);
+        $header                     =  $headers->findByPCCO($result->rfq->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $rfqFormsContent            =   $rfqForms->findByPCCO($result->rfq->upr->centers->id);
         $data['content']            =  ($rfqFormsContent) ? $rfqFormsContent->content : "";
@@ -337,7 +340,7 @@ class RFQProponentController extends Controller
 
         $data['total_amount']       =  $rfq->upr->total_amount;
         $data['header']             =  $rfq->upr->centers;
-        $data['transaction_date']   =  $rfq->transaction_date;
+        $data['transaction_date']   =  $result->date_processed;
         $data['rfq_number']         =  $rfq->rfq_number;
         $data['items']              =  $rfq->upr->items;
         $data['supplier']           =  $supplier;

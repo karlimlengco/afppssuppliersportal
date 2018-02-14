@@ -41,7 +41,7 @@
                         <tr>
                             <td width="50px"></td>
                             <td width="50px"></td>
-                            <td class="align-left" width="35%">{{$data['presiding'][1]}} {{$data['presiding'][0]}} {{$data['presiding'][2]}}</td>
+                            <td class="align-left" width="40%">{{$data['presiding'][1]}} {{$data['presiding'][0]}} {{$data['presiding'][2]}}</td>
                             <td class="align-left" width="200px">{{$data['presiding'][3]}}</td>
                             <td width="5%"></td>
                         </tr>
@@ -49,7 +49,7 @@
                             <td width="50px"></td>
                             <td colspan="4"><strong>Members:</strong></td>
                         </tr>
-                            @if($data['view_chief'])
+                           {{--  @if($data['view_chief'])
                             <tr>
                                 <td width="50px"></td>
                                 <td width="50px"></td>
@@ -57,34 +57,34 @@
                                 <td class="align-left" width="200px">{{$data['chief_signatory'][3]}}</td>
                                 <td width="40%"></td>
                             </tr>
-                            @endif
+                            @endif --}}
                             <tr>
                                 <td width="50px"></td>
                                 <td width="50px"></td>
-                                <td class="align-left" width="300px">{{$data['unit_head_signatory'][1]}} {{$data['unit_head_signatory'][0]}} {{$data['unit_head_signatory'][2]}}</td>
-                                <td class="align-left" width="200px">{{$data['unit_head_signatory'][3]}}</td>
-                                <td width="40%"></td>
+                                <td class="align-left" width="350px">{{$data['unit_head_signatory'][1]}} {{$data['unit_head_signatory'][0]}} {{$data['unit_head_signatory'][2]}}</td>
+                                <td class="align-left" width="300px">{{$data['unit_head_signatory'][3]}}</td>
+                                <td width="35%"></td>
                             </tr>
                             <tr>
                                 <td width="50px"></td>
                                 <td width="50px"></td>
                                 <td class="align-left" width="300px">{{$data['mfo'][1]}} {{$data['mfo'][0]}} {{$data['mfo'][2]}}</td>
-                                <td class="align-left" width="200px">{{$data['mfo'][3]}}</td>
-                                <td width="40%"></td>
+                                <td class="align-left" width="300px">{{$data['mfo'][3]}}</td>
+                                <td width="35%"></td>
                             </tr>
                             <tr>
                                 <td width="50px"></td>
                                 <td width="50px"></td>
                                 <td class="align-left" width="300px">{{$data['legal'][1]}} {{$data['legal'][0]}} {{$data['legal'][2]}}</td>
-                                <td class="align-left" width="200px">{{$data['legal'][3]}}</td>
-                                <td width="40%"></td>
+                                <td class="align-left" width="300px">{{$data['legal'][3]}}</td>
+                                <td width="35%"></td>
                             </tr>
                             <tr>
                                 <td width="50px"></td>
                                 <td width="50px"></td>
                                 <td class="align-left" width="300px">{{$data['sec'][1]}} {{$data['sec'][0]}} {{$data['sec'][2]}}</td>
-                                <td class="align-left" width="200px">{{$data['sec'][3]}}</td>
-                                <td width="40%"></td>
+                                <td class="align-left" width="300px">{{$data['sec'][3]}}</td>
+                                <td width="35%"></td>
                             </tr>
                         <tr>
                             <td width="50px"></td>
@@ -125,14 +125,14 @@
                     <p><strong>VI. ADJOURNMENT:</strong> </p>
                     <p class="indent-first-line">The Chairman thanked the attendees and declared the meeting adjourned at exactly {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_opened'])->format('Hi')}}H</p>
                     <table class="printable-form__body__table no-border no-padding" style="page-break-inside:avoid">
-                        <tr>
+                       {{--  <tr>
                             <td class="align-bottom align-left" width="45%" height="80px">
                                 <strong>{{$data['chief_signatory'][1]}} {{$data['chief_signatory'][0]}} {{$data['chief_signatory'][2]}}</strong><br>
                                 {{$data['chief_signatory'][3]}}
                             </td>
                             <td width="10%"></td>
                             <td class="align-bottom" width="45%"></td>
-                        </tr>
+                        </tr> --}}
                         <tr>
                             <td class="align-bottom align-left"  height="80px">
                                 <strong>{{$data['sec'][1]}} {{$data['sec'][0]}} {{$data['sec'][2]}}</strong><br>

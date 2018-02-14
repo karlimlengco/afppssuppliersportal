@@ -122,7 +122,12 @@
                             <?php $rowCount = 20 - count($data['items']); ?>
                             @for ($i = 0; $i < $rowCount; $i++)
                               <tr>
-                                  <td colspan='6'>&nbsp;</td>
+                                  <td>&nbsp;</td>
+                                  <td>&nbsp;</td>
+                                  <td>&nbsp;</td>
+                                  <td>&nbsp;</td>
+                                  <td>&nbsp;</td>
+                                  <td>&nbsp;</td>
                               </tr>
                             @endfor
 

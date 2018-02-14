@@ -39,7 +39,7 @@
                     <!-- title -->
                     <span class="printable-form__body__title">Certificate of Posting</span>
                     <!-- content -->
-                    <p>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['date'])->format('d F Y')}}</p>
+                    <p>{{\Carbon\Carbon::createFromFormat('Y-m-',$data['date'])->format('d F Y')}}</p>
                     <p class="indent-first-line">THIS IS TO CERTIFY that the procurement project of the {{$data['center']}}  for the procurement of {{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) > 1) and {{translateToWords(count($data['items']) - 1)}} {{count($data['items']) - 1}} @endif only for the use of {{$data['unit']}} was posted at conspicuous place at bulletin board of {{$data['center']}} from {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['date'])->format('d F Y')}} to {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['date_to'])->format('d F Y')}}</p>
                     <p class="indent-first-line">This certification is issued to support the requirement for PURCHASE ORDER No. {{$data['ref_number']}}</p>
                     <table class="printable-form__body__table no-border no-padding">
