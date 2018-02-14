@@ -65,7 +65,9 @@ Unit Purchase Request Import Validate
 
             <div class="row">
                 <div class="four columns">
-                    {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center ) !!}
+                    {{-- {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center ) !!} --}}
+                    {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center, ($user->units) ? $user->units->pcco_id : "" ) !!}
+
 
                 </div>
                 <div class="four columns">
@@ -117,18 +119,18 @@ Unit Purchase Request Import Validate
                 <div class="four columns">
                     <div class="form-group">
                         <label class="label">Request By</label>
-                        {!! Form::select('requestor_id',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-requestor_id']) !!}
+                        {!! Form::select('requestor_id',  ['' => 'Select One']+$signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-requestor_id']) !!}
                     </div>
                 </div>
                 <div class="four columns">
 
                     <label class="label">Fund Certified Available</label>
-                    {!! Form::select('fund_signatory_id',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-fund_signatory_id']) !!}
+                    {!! Form::select('fund_signatory_id',  ['' => 'Select One']+$signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-fund_signatory_id']) !!}
                     {{-- {!! Form::selectField('fund_signatory_id', 'Fund Certified Available', $signatory_list) !!} --}}
                 </div>
                 <div class="four columns">
                     <label class="label">Approved By</label>
-                    {!! Form::select('approver_id',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-approver_id']) !!}
+                    {!! Form::select('approver_id',  ['' => 'Select One']+$signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-approver_id']) !!}
                     {{-- {!! Form::selectField('approver_id', 'Approved By', $signatory_list) !!} --}}
                 </div>
             </div>

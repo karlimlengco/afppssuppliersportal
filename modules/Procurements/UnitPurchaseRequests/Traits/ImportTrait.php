@@ -84,21 +84,35 @@ trait ImportTrait
 
         $data           =   [];
         $reader         =   Excel::load($path, function($reader) {});
+        $fields         =   $reader->get();
+        $items          =   $reader->skipRows(15)->limitColumns(11)->get();
+        // dd($items);
+        // dd($reader->get());
+        // $uprNo          =   $fields[6][8];
+        // $place          =   $fields[6][3];
+        // $mode           =   $fields[7][3];
+        // $charge         =   $fields[8][3];
+        // $ac             =   $fields[9][3];
+        // $fund           =   $fields[10][3];
+        // $terms          =   $fields[11][3];
+        // $others         =   $fields[12][3];
+        // $date           =   $fields[12][8];
+        // $date           =   $fields[12][8];
         // Loop through all sheets
-        // $reader->formatDates(true, 'd F Y');
+        // $reader->formatDates(true  , 'd F Y');
         // $fields         =   $reader->limitColumns(10)->get();
-        $fields         =   $reader->limitColumns(6)->limitRows(30)->get();
-        $items          =   $reader->skipRows(30)->limitColumns(6)->get();
-        $pcco           =   $fields[10][0];
+        // $fields         =   $reader->limitColumns(6)->limitRows(30)->get();
+        // $items          =   $reader->skipRows(30)->limitColumns(6)->get();
+        // $pcco           =   $fields[10][0];
         // $projectName    =   $fields[10][3];
-        $cateredUnit    =   $fields[12][0];
+        // $cateredUnit    =   $fields[12][0];
         // $upr_number     =   $fields[12][3];
         // $place          =   $fields[14][0];
-        $datePrepared   =   $fields[14][3]; // y/m/d
-        $procurementProg=   $fields[16][0];
-        $mode           =   $fields[16][3];
-        $charge         =   $fields[18][3];
-        $termPayments   =   $fields[20][0];
+        $datePrepared   =   $fields[12][8]; // y/m/d
+        // $procurementProg=   $fields[16][0];
+        $mode           =   $fields[7][3];
+        $charge         =   $fields[8][3];
+        $termPayments   =   $fields[11][3];
 
         // $fund           =   $fields[18][0];
         // $others         =   $fields[20][3];
@@ -119,51 +133,58 @@ trait ImportTrait
         $itemArray      =   [];
         $requestId      = $funderId   =  $approverId = '';
 
-        if($requestBy != null)
+        $code = '';
+        $accountsModel    =   $accounts->findByName(trim($fields[9][3]) );
+        if($accountsModel != null)
         {
-            $requestId   =   $signatories->findByName($requestBy);
-            if($requestId)
-            {
-                $requestId = $requestId->id;
-            }
+            $code = $accountsModel->id;
         }
 
-        if($fundBy != null)
-        {
-            $funderId   =   $signatories->findByName($fundBy);
-            if($funderId)
-            {
-                $funderId = $funderId->id;
-            }
-        }
+        // if($requestBy != null)
+        // {
+        //     $requestId   =   $signatories->findByName($requestBy);
+        //     if($requestId)
+        //     {
+        //         $requestId = $requestId->id;
+        //     }
+        // }
 
-        if($preparedBy != null)
-        {
-            $approverId   =   $signatories->findByName($preparedBy);
-            if($approverId)
-            {
-                $approverId = $approverId->id;
-            }
-        }
+        // if($fundBy != null)
+        // {
+        //     $funderId   =   $signatories->findByName($fundBy);
+        //     if($funderId)
+        //     {
+        //         $funderId = $funderId->id;
+        //     }
+        // }
+
+        // if($preparedBy != null)
+        // {
+        //     $approverId   =   $signatories->findByName($preparedBy);
+        //     if($approverId)
+        //     {
+        //         $approverId = $approverId->id;
+        //     }
+        // }
 
         if($datePrepared != null)
         {
-            $datePrepared = \Carbon\Carbon::createFromFormat('Y/m/d', ($datePrepared))->format('Y-m-d');
+            $datePrepared = \Carbon\Carbon::createFromFormat('d M Y', ($datePrepared))->format('Y-m-d');
         }
 
-        if($pcco != null)
-        {
-            if( $centers->findByName(trim($pcco)) ){
-                $pcco =  $centers->findByName(trim($pcco))->id;
-            }
-        }
+        // if($pcco != null)
+        // {
+        //     if( $centers->findByName(trim($pcco)) ){
+        //         $pcco =  $centers->findByName(trim($pcco))->id;
+        //     }
+        // }
 
-        if($cateredUnit != null)
-        {
-            if( $units->getByCode(trim($cateredUnit)) ){
-                $cateredUnit =  $units->getByCode(trim($cateredUnit))->id;
-            }
-        }
+        // if($cateredUnit != null)
+        // {
+        //     if( $units->getByCode(trim($cateredUnit)) ){
+        //         $cateredUnit =  $units->getByCode(trim($cateredUnit))->id;
+        //     }
+        // }
 
         if($charge != null)
         {
@@ -179,40 +200,51 @@ trait ImportTrait
             }
         }
 
-        if($procurementProg != null)
-        {
-            if( $types->findByCode(trim($procurementProg)) ){
-                $procurementProg =  $types->findByCode(trim($procurementProg))->id;
-            }
-        }
+        // if($procurementProg != null)
+        // {
+        //     if( $types->findByCode(trim($procurementProg)) ){
+        //         $procurementProg =  $types->findByCode(trim($procurementProg))->id;
+        //     }
+        // }
 
         if($mode != null && $mode != 'Public Bidding')
         {
             if( $modes->findByName(trim($mode)) ){
                 $mode =  $modes->findByName(trim($mode))->id;
             }
-        } elseif($mode == 'Public Bidding'){
-          $model = 'public_bidding';
+        } elseif(strpos($mode, 'Public') !== false){
+          $mode = 'public_bidding';
         }
 
+        // $uprNo          =   $fields[6][8];
+        // $place          =   $fields[6][3];
+
+        // $mode           =   $fields[7][3];
+        // $charge         =   $fields[8][3];
+        // $ac             =   $fields[9][3];
+        // $fund           =   $fields[10][3];
+        // $terms          =   $fields[11][3];
+        // $others         =   $fields[12][3];
+        // $date           =   $fields[12][8];
         // dd($termPayments);
-        // $array['units']               =   \Sentinel::getUser()->unit_id;
-        $array['units']               = $cateredUnit;
-        $array['upr_number']          = $fields[12][3];
-        $array['project_name']        = $fields[10][3];
+        $array['units']               =   \Sentinel::getUser()->unit_id;
+        // $array['units']               = $cateredUnit;
+        $array['upr_number']          = $fields[6][8];
+        $array['place_of_delivery']   = $fields[6][3];
+
+        // $array['project_name']        = $fields[10][3];
         $array['date_prepared']       = $datePrepared;
-        $array['place_of_delivery']   = $fields[14][0];
-        $array['fund_validity']       = $fields[18][0];
-        $array['procurement_office']  = $pcco;
+        $array['fund_validity']       = $fields[10][3];
+        // $array['procurement_office']  = $pcco;
         $array['mode_of_procurement'] = $mode;
         $array['chargeability']       = $charge;
-        $array['procurement_type']    = $procurementProg;
+        // $array['procurement_type']    = $procurementProg;
         $array['terms_of_payment']    = $termPayments;
-        $array['other_infos']         = $fields[20][3];
-        $array['purpose']             = $fields[22][0];
-        $array['requestor_id']        = $requestId;
-        $array['fund_signatory_id']   = $funderId;
-        $array['approver_id']         = $approverId;
+        $array['other_infos']         = $fields[12][3];
+        // $array['purpose']             = $fields[22][0];
+        // $array['requestor_id']        = $requestId;
+        // $array['fund_signatory_id']   = $funderId;
+        // $array['approver_id']         = $approverId;
         // dd($array);
         // foreach($fields->toArray() as $key => $row)
         // {
@@ -313,32 +345,67 @@ trait ImportTrait
 
         $item = [];
         $total = 0;
-        foreach($items->toArray() as $itemRow)
+        // dd($items->toArray());
+        foreach($items->toArray() as $key => $itemRow)
         {
+          // dd($itemRow);
             // if($itemRow[0] != "<tr></tr><tr> <td> ITEM DESCRIPTION</td> <td>QTY</td> <td>UNIT</td> <td>UNIT PRICE</td> <td>TOTAL AMOUNT</td><td>Account Code</td> </tr><tr>" && trim($itemRow[0]) != "<td>" && trim($itemRow[0]) != "</thead>" && trim($itemRow[0]) != "</tbody>" && trim($itemRow[0]) != "</table>" && trim($itemRow[0]) != "</html>" && trim($itemRow[0]) != "</body>"&& trim($itemRow[0]) != "</td>" && trim($itemRow[0]) != "<tr>")
-            if($itemRow[0] != "ITEMS" && $itemRow[0] != "ACCOUNT CODE")
-            {
-                // dd($itemRow);
-                $code = '';
-                $accountsModel    =   $accounts->findByName(trim($itemRow[0]) );
-                if($accountsModel != null)
-                {
-                    $code = $accountsModel->id;
-                }
-                // dd($itemRow[0]);
-                $itemArray[]    =   [
-                    'new_account_code'      =>  $code,
-                    'item_description'      =>  $itemRow[1],
-                    'quantity'              =>  $itemRow[2],
-                    'unit'                  =>  $itemRow[3],
-                    'unit_price'            =>  $itemRow[4],
-                    'total_amount'          =>  $itemRow[5],
-                ];
-                $total  = $total + $itemRow[5];
-                // dd($itemArray);
-                // array_push($item, $itemRow[0]);
-            }
 
+                if($itemRow[1] != null){
+
+                  $itemArray[]    =   [
+                      'new_account_code'      =>  $code,
+                      'item_description'      =>  $itemRow[1],
+                      'quantity'              =>  $itemRow[7],
+                      'unit'                  =>  $itemRow[8],
+                      'unit_price'            =>  $itemRow[9],
+                      'total_amount'          =>  $itemRow[10],
+                  ];
+                  $total  = $total + $itemRow[5];
+                }
+
+                if (strpos($itemRow[0], 'Purpose') !== false) {
+                  $array['purpose'] = str_replace('Purpose:', '', $itemRow[0]);
+                }
+
+                if (strpos($itemRow[0], 'ALL SIGNATURES MUST') !== false) {
+                    $sigKey = $key + 5;
+
+                    $requestBy      =   $items[$sigKey][0];
+                    $fundBy         =   $items[$sigKey][6];
+                    $preparedBy     =   $items[$sigKey][8];
+
+                    if($requestBy != null)
+                    {
+                        $requestId   =   $signatories->findByName($requestBy);
+                        if($requestId)
+                        {
+                            $requestId = $requestId->id;
+                        }
+                    }
+
+                    if($fundBy != null)
+                    {
+                        $funderId   =   $signatories->findByName($fundBy);
+                        if($funderId)
+                        {
+                            $funderId = $funderId->id;
+                        }
+                    }
+
+                    if($preparedBy != null)
+                    {
+                        $approverId   =   $signatories->findByName($preparedBy);
+                        if($approverId)
+                        {
+                            $approverId = $approverId->id;
+                        }
+                    }
+
+                    $array['requestor_id']        = $requestId;
+                    $array['fund_signatory_id']   = $funderId;
+                    $array['approver_id']         = $approverId;
+                }
             // if($itemRow[0] != "ITEM DESCRIPTION")
             // {
             //     $accountsModel    =   $accounts->findByName(trim($itemRow[1]) );
