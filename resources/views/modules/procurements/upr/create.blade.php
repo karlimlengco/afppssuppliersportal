@@ -75,7 +75,8 @@ Unit Purchase Request
                     {!! Form::selectField('mode_of_procurement', 'Mode of Procurement', ['public_bidding' => 'Public Bidding'] + $procurement_modes) !!}
                 </div>
                 <div class="four columns">
-                    {!! Form::selectField('chargeability', 'Chargeability', $charges) !!}
+                    {{-- {!! Form::selectField('chargeability', 'Chargeability', $charges) !!} --}}
+                    {!! Form::textField('chargeability', 'Chargeability') !!}
                 </div>
             </div>
 

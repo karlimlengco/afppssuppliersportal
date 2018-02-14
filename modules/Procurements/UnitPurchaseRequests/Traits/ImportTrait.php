@@ -186,12 +186,12 @@ trait ImportTrait
         //     }
         // }
 
-        if($charge != null)
-        {
-            if( $chargeability->findByName(trim($charge)) ){
-                $charge =  $chargeability->findByName(trim($charge))->id;
-            }
-        }
+        // if($charge != null)
+        // {
+        //     if( $chargeability->findByName(trim($charge)) ){
+        //         $charge =  $chargeability->findByName(trim($charge))->id;
+        //     }
+        // }
 
         if($termPayments != null)
         {
