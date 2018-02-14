@@ -207,8 +207,8 @@ class VoucherController extends Controller
         $signatory_lists=   $signatories->lists('id', 'name');
         $bank_list      =   $banks->lists('id', 'code');
 
-        $po_term        =   $result->upr->purchase_order->delivery_terms;
-        $ntp_date                       =   Carbon::createFromFormat('!Y-m-d',$result->upr->ntp->award_accepted_date);
+        $po_term        =   ($result->upr->purchase_order) ? $result->upr->purchase_order->delivery_terms : 0;
+        $ntp_date       =   Carbon::createFromFormat('!Y-m-d',$result->upr->ntp->award_accepted_date);
 
         // dd($ntp_date);
         $penalty_amount = 0;
