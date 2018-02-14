@@ -204,7 +204,10 @@ trait DatatableTrait
                 return formatPrice($data->total_amount);
             })
             ->editColumn('created_at', function($data){
-                return $data->created_at->format('Y-m-d');
+                if($data->created_at)
+                {
+                  return $data->created_at->format('Y-m-d');
+                }
             })
             ->editColumn('status', function($data){
                 return ucfirst(substr($data->status, 0, 25) );
