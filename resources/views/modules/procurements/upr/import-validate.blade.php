@@ -2,6 +2,11 @@
 Unit Purchase Request Import Validate
 @stop
 
+@section('modal')
+    {{-- @include('modules.partials.new_account_code') --}}
+    @include('modules.partials.create_signatory')
+@stop
+
 @section('breadcrumbs')
 
     @if(isset($breadcrumbs))
