@@ -43,24 +43,24 @@
                             <td class="align-center align-middle no-border-top" rowspan="2">{{$data['upr_number']}}</td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="150px" nowrap>PLACE OF DELIVERY</td>
+                            <td class="border-left-only" width="250px" nowrap>PLACE OF DELIVERY</td>
                             <td class="border-bottom-only" width="350px">{{$data['place_of_delivery']}}</td>
                             <td class="border-right-only" width="10%"></td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="150px" nowrap>MODE OF PROCUREMENT</td>
+                            <td class="border-left-only" width="250px" nowrap>MODE OF PROCUREMENT</td>
                             <td class="border-bottom-only" width="350px">{{$data['mode']}}</td>
                             <td class="border-right-only" width="10%"></td>
                             <td class="no-border-bottom">AFPPS REF NO:</td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="150px" nowrap>CHARGEABILITY</td>
+                            <td class="border-left-only" width="250px" nowrap>CHARGEABILITY</td>
                             <td class="border-bottom-only" width="350px">{{$data['charge']}}</td>
                             <td class="border-right-only" width="10%"></td>
                             <td class="align-center align-middle no-border-top" rowspan="2">{{$data['ref_number']}}</td>
                         </tr>
                         <tr>
-                            <td class="border-left-only" width="150px" nowrap>ACCOUNT CODE</td>
+                            <td class="border-left-only" width="250px" nowrap>ACCOUNT CODE</td>
                             <td class="border-bottom-only" width="350px">
                             <?php $arr = []; ?>
                             @foreach($data['items'] as $key => $item)

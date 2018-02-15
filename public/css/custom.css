@@ -169,14 +169,14 @@
   /* main form footer area */
 }
 .printable-form * {
-  font-size: 12px;
+  font-size: 17px!important;
   font-weight: 400 !important;
   color: #545454;
 }
 
 #button-focus {
   background: #100642!important;
-  // background: #a0a0a0!important;
+  /*// background: #a0a0a0!important;*/
   border:none;
   outline: none;
   color: #ffffff;

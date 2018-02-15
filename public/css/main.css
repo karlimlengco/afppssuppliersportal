@@ -1523,7 +1523,7 @@ printable-form.less
 .printable-form {
   display: block;
   position: relative;
-  // width: 8.3in;
+  /*// width: 8.3in;*/
   height: 13in;
   max-height: 13in;
   min-height: 13in;
