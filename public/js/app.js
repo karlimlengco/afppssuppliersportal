@@ -73776,7 +73776,7 @@ var X = typeof __WEBPACK_IMPORTED_MODULE_3_xlsx___default.a !== 'undefined' ? __
         /* Update state */
         _this.data = data;
         for (var i = 0; i < _this.data.length; i++) {
-          console.log(_this.data);
+          // console.log(this.data)
           if (i != 0) {
             _this.model.push({
               item_description: _this.data[i][0],
@@ -73790,6 +73790,10 @@ var X = typeof __WEBPACK_IMPORTED_MODULE_3_xlsx___default.a !== 'undefined' ? __
         }
       };
       reader.readAsBinaryString(file);
+      this.files = null;
+      this.$refs.myFiles.files = null;
+      console.log(this.files);
+      console.log(this.$refs.myFiles.files);
     },
     fileInputOpen: function fileInputOpen() {
       $("#file").click();
@@ -84318,7 +84322,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Proceed")])])])]), _vm._v(" "), _c('div', {
     staticClass: "twelve columns"
-  }, [(_vm.account_code != null) ? _c('button', {
+  }, [(_vm.account_codeId != null) ? _c('button', {
     staticClass: "button pull-right",
     attrs: {
       "type": "button",

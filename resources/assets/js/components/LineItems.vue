@@ -28,7 +28,7 @@
     </div>
     <div class="twelve columns">
 
-    <button v-if="account_code != null"  type="button" @click.prevent="fileInputOpen" class="button pull-right" tooltip="Import"><i class="nc-icon-mini arrows-1_cloud-upload-96"></i></button>
+    <button v-if="account_codeId != null"  type="button" @click.prevent="fileInputOpen" class="button pull-right" tooltip="Import"><i class="nc-icon-mini arrows-1_cloud-upload-96"></i></button>
     <input type="file" id="file" style="visibility:hidden" ref="myFiles" class="custom-file-input" @change="previewFiles">
         <table class='table' id="item_table">
             <thead>
@@ -222,7 +222,7 @@
           /* Update state */
           this.data = data;
           for (var i = 0; i < this.data.length; i++) {
-            console.log(this.data)
+            // console.log(this.data)
             if(i != 0)
             {
               this.model.push({
@@ -238,6 +238,10 @@
           }
         };
         reader.readAsBinaryString(file)
+        this.files = null
+        this.$refs.myFiles.files = null
+        console.log(this.files)
+        console.log(this.$refs.myFiles.files)
       },
       fileInputOpen (){
         $("#file").click()
