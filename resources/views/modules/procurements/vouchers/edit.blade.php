@@ -87,7 +87,7 @@ Vouchers
 
             <div class="row">
                 <div class="four columns">
-                    {!! Form::textField('amount', 'Amount') !!}
+                    {!! Form::textField('amount', 'Amount', null, ['readonly']) !!}
                 </div>
                 <div class="four columns">
                     {!! Form::numberField('final_tax', 'Final Tax') !!}

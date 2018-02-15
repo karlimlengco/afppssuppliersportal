@@ -315,8 +315,13 @@ class VoucherController extends Controller
         ]);
 
         $voucher_model  =   $model->findById($id);
-
+        // dd($request->all());
         $data   =   [
+            // 'amount'                =>  $request->amount,
+            'final_tax'             =>  $request->final_tax,
+            'expanded_witholding_tax'        =>  $request->expanded_witholding_tax,
+            'final_tax_amount'      =>  $request->final_tax_amount,
+            'ewt_amount'            =>  $request->ewt_amount,
             'update_remarks'        =>  $request->update_remarks,
             'transaction_date'      =>  $request->transaction_date,
             'payment_release_date'  =>  $request->payment_release_date,
