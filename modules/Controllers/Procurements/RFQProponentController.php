@@ -85,9 +85,13 @@ class RFQProponentController extends Controller
      */
     public function index()
     {
-        return $this->view('modules.procurements.rfq-proponent.index',[
-            'createRoute'   =>  $this->baseUrl."create"
+
+        return redirect()->back()->with([
+            'success'  => "New record has been successfully added."
         ]);
+        // return $this->view('modules.procurements.rfq-proponent.index',[
+        //     'createRoute'   =>  $this->baseUrl."create"
+        // ]);
     }
 
     /**
