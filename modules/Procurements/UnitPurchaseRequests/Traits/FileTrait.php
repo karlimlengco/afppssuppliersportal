@@ -76,8 +76,8 @@ trait FileTrait
         $data['place_of_delivery']  =  $result->place_of_delivery;
         $data['date_prepared']      =  $result->date_prepared;
         $data['mode']               =  ($result->modes) ? $result->modes->name : "Public Bidding";
-        $data['center']             =  $result->centers->name;
-        $data['charge']             =  $result->charges->name;
+        $data['center']             =  ($result->centers)? $result->centers->name : "";
+        $data['charge']             =  ($result->charges)? $result->charges->name :"";
         // $data['codes']              =  $result->accounts->name;
         $data['fund_validity']      =  $result->fund_validity;
         $data['terms']              =  ($result->terms) ? $result->terms->name : "N/A";
