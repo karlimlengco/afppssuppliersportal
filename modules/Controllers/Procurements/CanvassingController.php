@@ -619,8 +619,8 @@ class CanvassingController extends Controller
         $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
 
         $data['date_to']               =  $result->canvass_date." ". $result->canvass_time;
-
-        $data['date']               =  $result->canvass_date;
+        $data['date_from']              =  $result->upr->date_prepared;
+        $data['date']                   =  $result->canvass_date;
 
         $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
