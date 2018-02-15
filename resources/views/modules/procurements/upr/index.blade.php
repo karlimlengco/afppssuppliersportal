@@ -54,6 +54,7 @@ Unit Purchase Request
                     <th>TYPE</th>
                     <th>Status</th>
                     <th>Created</th>
+                    <th>Date Prepared</th>
                     {{-- <th>State</th> --}}
                     {{-- <th>Calendar Days</th> --}}
                 </tr>
@@ -93,6 +94,7 @@ Unit Purchase Request
             {data: 'type', name: 'type'},
             {data: 'status', name: 'status'},
             {data: 'created_at', name: 'created_at'},
+            {data: 'date_prepared', name: 'date_prepared'},
             // {data: 'state', name: 'state'},
             // {data: 'calendar_days', name: 'calendar_days'},
         ],

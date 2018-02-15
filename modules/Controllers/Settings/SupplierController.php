@@ -148,9 +148,21 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, SupplierRepository $model, BankRepository $banks)
     {
-        //
+        $bank_lists =   $banks->lists('id', 'code');
+        $result = $model->findById($id);
+
+        return $this->view('modules.settings.suppliers.show', [
+          'data'          =>  $result,
+          'bank_lists'    =>  $bank_lists,
+          'indexRoute'    =>  $this->baseUrl.'index',
+          'modelConfig'   =>  [
+              'add_attachment' =>  [
+                  'route'     =>  [$this->baseUrl.'attachments.store', $id],
+              ]
+          ]
+        ]);
     }
 
     /**

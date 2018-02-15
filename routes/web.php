@@ -687,6 +687,7 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
     Route::resource('user/groups', '\Revlv\Controllers\Sentinel\UserGroupController');
 
 
+    Route::get('suppliers/attachments/delete/{id}', '\Revlv\Controllers\Settings\SupplierController@deteleAttachment')->name('suppliers.attachments.destroy');
     Route::post('suppliers/attachments/{id}', '\Revlv\Controllers\Settings\SupplierController@uploadAttachment')->name('suppliers.attachments.store');
 
     Route::get('suppliers/download/{id}', '\Revlv\Controllers\Settings\SupplierController@downloadAttachment')->name('suppliers.attachments.download');

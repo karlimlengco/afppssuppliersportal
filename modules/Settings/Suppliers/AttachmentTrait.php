@@ -59,7 +59,7 @@ trait AttachmentTrait
             'file_name'     =>  $file,
             'user_id'       =>  \Sentinel::getUser()->id,
             'upload_date'   =>  \Carbon\Carbon::now(),
-            'validity_date'   =>  $request->validity_date
+            'validity_date' =>  $request->validity_date
         ]);
 
         if($result)
@@ -94,5 +94,14 @@ trait AttachmentTrait
         }
 
         return response()->download($directory);
+    }
+
+    public function deteleAttachment($id, AttachmentRepository $attachments)
+    {
+        $data = $attachments->delete($id);
+
+        return redirect()->route('settings.suppliers.show', $data->supplier_id)->with([
+            'success'  => "Record has been successfully deleted."
+        ]);
     }
 }

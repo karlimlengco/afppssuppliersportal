@@ -38,7 +38,7 @@ trait DatatableTrait
     {
         return Datatables::of($model)
             ->addColumn('name', function ($data) {
-                $route  =  route( 'settings.suppliers.edit',[$data->id] );
+                $route  =  route( 'settings.suppliers.show',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->name .'</a>';
             })
             ->editColumn('is_blocked', function ($data) {
