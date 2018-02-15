@@ -341,6 +341,8 @@
                           </td>
                       </tr>
                   </table>
+                  <br>
+                  <br>
                   <table class="printable-form__body__table no-border no-padding">
                     <tr><td width="30%"  height="60px"></td>
                       <td class="align-bottom align-left" width="40%" height="60px">
