@@ -27,8 +27,8 @@ Units
         </div>
 
         {!! Form::textField('description', 'Description') !!}
-        {!! Form::textareaField('coa_address', 'COA Address', null, ['rows' => 3]) !!}
-        {!! Form::textareaField('coa_address_2', 'COA Address 2', null, ['rows' => 3]) !!}
+        {!! Form::textareaField('coa_address', 'Address', null, ['rows' => 3]) !!}
+        {!! Form::textareaField('coa_address_2', 'Address 2', null, ['rows' => 3]) !!}
 
     </div>
 </div>
