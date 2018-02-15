@@ -27,11 +27,11 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
                 <i class="nc-icon-mini business_chart-bar-32"></i>Overview
             </a>
         </li>
-        <li class="sidebar__menu__item">
+      {{--   <li class="sidebar__menu__item">
             <a href="{{route('upr-drafts.index')}}" class="sidebar__menu__item__link">
                 <i class="nc-icon-mini design_window-paragraph"></i>Draft UPRS
             </a>
-        </li>
+        </li> --}}
         @foreach($sidebar->getSidebar() as $group => $route)
         <li class="sidebar__menu__item has-child">
 
