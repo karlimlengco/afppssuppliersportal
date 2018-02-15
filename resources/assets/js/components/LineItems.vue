@@ -261,21 +261,25 @@
       },
       addCode () {
         var code = $('#accountCode').find(":selected").text();
-        // console.log(code);
-        var codeId = $('#accountCode').find(":selected").val();
+        // alert(code);
+        if(code != null && code != ' ' && code != '') {
 
-        var codeId = codeId.replace("old-", "");
-        var codeId = codeId.replace("title-", "");
-        this.account_code = code;
-        this.account_codeId = codeId;
-        // this.account_code = code;
-        // alert(code)
-        $('#add-account-code-modal').removeClass('is-visible');
+          // console.log(code);
+          var codeId = $('#accountCode').find(":selected").val();
 
-        this.accounts.push({
-          code: code,
-          id: this.account_codeId
-        })
+          var codeId = codeId.replace("old-", "");
+          var codeId = codeId.replace("title-", "");
+          this.account_code = code;
+          this.account_codeId = codeId;
+          // this.account_code = code;
+          // alert(code)
+          $('#add-account-code-modal').removeClass('is-visible');
+
+          this.accounts.push({
+            code: code,
+            id: this.account_codeId
+          })
+        }
       },
       removeCode (code, index)
       {
