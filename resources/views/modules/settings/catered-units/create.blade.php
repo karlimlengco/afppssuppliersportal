@@ -22,11 +22,11 @@ Units
                 {!! Form::selectField('pcco_id', 'PCCO', $center_list) !!}
             </div>
             <div class="six columns">
-                {!! Form::textField('short_code', 'Short Code') !!}
+                {!! Form::textField('short_code', 'Short Name') !!}
             </div>
         </div>
 
-        {!! Form::textField('description', 'Description') !!}
+        {!! Form::textField('description', 'Long Name') !!}
         {!! Form::textareaField('coa_address', 'Address', null, ['rows' => 3]) !!}
         {!! Form::textareaField('coa_address_2', 'Address 2', null, ['rows' => 3]) !!}
 
