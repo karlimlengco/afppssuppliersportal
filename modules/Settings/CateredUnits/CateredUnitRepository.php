@@ -49,4 +49,20 @@ class CateredUnitRepository extends BaseRepository
 
         return $model->first();
     }
+
+
+    /**
+     * [findByDescription description]
+     *
+     * @param  [type] $rfq [description]
+     * @return [type]      [description]
+     */
+    public function findByDescription($desc)
+    {
+        $model  =    $this->model;
+
+        $model  =   $model->where('description', '=', $desc);
+
+        return $model->first();
+    }
 }

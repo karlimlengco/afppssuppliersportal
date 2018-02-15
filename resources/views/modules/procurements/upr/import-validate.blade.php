@@ -71,7 +71,7 @@ Unit Purchase Request Import Validate
             <div class="row">
                 <div class="four columns">
                     {{-- {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center ) !!} --}}
-                    {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center, ($user->units) ? $user->units->pcco_id : "" ) !!}
+                    {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center) !!}
 
 
                 </div>

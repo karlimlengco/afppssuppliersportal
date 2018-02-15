@@ -83,8 +83,8 @@ trait ImportTrait
         $path           =   $request->file('file')->getRealPath();
 
         $data           =   [];
-        $reader         =   Excel::load($path, function($reader) {});
-        $fields         =   $reader->get();
+        $reader         =   Excel::selectSheetsByIndex(0)->load($path, function($reader) {});
+        $fields         =   $reader->limitColumns(11)->get();
         $items          =   $reader->skipRows(15)->limitColumns(11)->get();
         // dd($items);
         // dd($reader->get());
@@ -108,6 +108,7 @@ trait ImportTrait
         // $cateredUnit    =   $fields[12][0];
         // $upr_number     =   $fields[12][3];
         // $place          =   $fields[14][0];
+        $unit           =   $fields[01][0]; // y/m/d
         $datePrepared   =   $fields[12][8]; // y/m/d
         // $procurementProg=   $fields[16][0];
         $mode           =   $fields[7][3];
@@ -200,6 +201,18 @@ trait ImportTrait
             }
         }
 
+        $unitCenter = '';
+        if($unit != null)
+        {
+            if( $units->findByDescription(trim($unit)) ){
+                $unitModal =  $units->findByDescription(trim($unit));
+                $unit =  $unitModal->id;
+                if($unitModal->centers){
+                  $unitCenter = $unitModal->centers->id;
+                }
+            }
+        }
+
         // if($procurementProg != null)
         // {
         //     if( $types->findByCode(trim($procurementProg)) ){
@@ -227,15 +240,15 @@ trait ImportTrait
         // $others         =   $fields[12][3];
         // $date           =   $fields[12][8];
         // dd($termPayments);
-        $array['units']               =   \Sentinel::getUser()->unit_id;
-        // $array['units']               = $cateredUnit;
+        // $array['units']               =   \Sentinel::getUser()->unit_id;
+        $array['units']               = $unit;
         $array['upr_number']          = $fields[6][8];
         $array['place_of_delivery']   = $fields[6][3];
 
         // $array['project_name']        = $fields[10][3];
         $array['date_prepared']       = $datePrepared;
         $array['fund_validity']       = $fields[10][3];
-        // $array['procurement_office']  = $pcco;
+        $array['procurement_office']  = $unitCenter;
         $array['mode_of_procurement'] = $mode;
         $array['chargeability']       = $charge;
         // $array['procurement_type']    = $procurementProg;
