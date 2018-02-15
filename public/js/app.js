@@ -73812,31 +73812,37 @@ var X = typeof __WEBPACK_IMPORTED_MODULE_3_xlsx___default.a !== 'undefined' ? __
       $('#add-account-code-modal').addClass('is-visible');
     },
     addCode: function addCode() {
+      var duplicate = false;
       var code = $('#accountCode').find(":selected").text();
       // alert(code);
       if (code != null && code != ' ' && code != '') {
+        for (var i = this.accounts.length - 1; i >= 0; i--) {
+          if (this.accounts[i].code == code) {
+            duplicate = true;
+          }
+        }
+        if (duplicate == false) {
+          // console.log(code);
+          var codeId = $('#accountCode').find(":selected").val();
 
-        // console.log(code);
-        var codeId = $('#accountCode').find(":selected").val();
+          var codeId = codeId.replace("old-", "");
+          var codeId = codeId.replace("title-", "");
+          this.account_code = code;
+          this.account_codeId = codeId;
+          // this.account_code = code;
+          // alert(code)
+          $('#add-account-code-modal').removeClass('is-visible');
 
-        var codeId = codeId.replace("old-", "");
-        var codeId = codeId.replace("title-", "");
-        this.account_code = code;
-        this.account_codeId = codeId;
-        // this.account_code = code;
-        // alert(code)
-        $('#add-account-code-modal').removeClass('is-visible');
-
-        this.accounts.push({
-          code: code,
-          id: this.account_codeId
-        });
+          this.accounts.push({
+            code: code,
+            id: this.account_codeId
+          });
+        }
       }
     },
     removeCode: function removeCode(code, index) {
       // delete this.accounts[index];
       this.accounts.pop(index);
-      console.log(this.accounts);
       this.account_codeId = null;
     },
     closeModal: function closeModal() {
