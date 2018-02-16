@@ -2172,6 +2172,31 @@ trait PSRTrait
 
     public function getUnitPSR($type, $request = null)
     {
+
+        $dateTo = $request->get('date_to');
+        $dateFrom = $request->get('date_from');
+
+        $date    = \Carbon\Carbon::now();
+        $yearto    = $date->format('Y');
+        $yearfrom    = $date->format('Y');
+        if($dateFrom != null)
+        {
+            $dateFrom  =   $dateFrom;
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
+        }
+
+        if($dateTo != null)
+        {
+            $date_to  =   $dateTo;
+            $yearto  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_to)->format('Y');
+        }
+
+        if($dateTo &&  $dateFrom == null)
+        {
+            $dateFrom  =   $date_to;
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
+        }
+
         $model    = $this->model;
         $model    = $model->select([
             'procurement_centers.short_code',
@@ -2180,6 +2205,18 @@ trait PSRTrait
         ]);
 
         $model    = $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
+
+        $model  =   $model->whereRaw("YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom'");
+
+        if($request->has('date_from') != null)
+        {
+            $model  =   $model->where('unit_purchase_requests.date_prepared', '>=', $request->get('date_from'));
+        }
+
+        if($request->has('date_to') != null)
+        {
+            $model  =   $model->where('unit_purchase_requests.date_prepared', '<=', $request->get('date_to'));
+        }
 
         if($type == 'bidding')
         {

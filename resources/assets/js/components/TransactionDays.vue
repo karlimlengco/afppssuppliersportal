@@ -29,9 +29,7 @@
                     <thead>
                         <tr>
                             <th>PCCO</th>
-                            <th>PROJECT</th>
-                            <th>ABC</th>
-                            <th>UPR DATE</th>
+                            <th>UPR</th>
                             <th v-if="types != 'bidding'" >ISPQ</th>
                             <th v-if="types != 'bidding'" >RFQ</th>
                             <th v-if="types != 'bidding'" >CANVASSING</th>
@@ -69,8 +67,6 @@
                                   {{unit.short_code}}
                                   <button @click="fetchUnitItems(unit)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                               </td>
-                              <td>--</td>
-                              <td>{{unit.total_abc}}</td>
                               <td>{{unit.upr_count}}</td>
                               <td v-if="types != 'bidding'">--</td>
                               <td v-if="types != 'bidding'">--</td>
@@ -110,8 +106,6 @@
                                         <template v-for="itemData in item.data">
                                         <tr>
                                             <td>{{itemData.upr_number}}</td>
-                                            <td>{{itemData.project_name}}</td>
-                                            <td>{{itemData.total_amount}}</td>
                                             <td>{{formatDate(itemData.date_prepared)}}</td>
                                             <td v-if="types != 'bidding'" >{{getDiff(itemData.ispq_transaction_date, itemData.date_prepared)}}</td>
                                             <td v-if="types != 'bidding'" >{{getDiff(itemData.rfq_created_at, itemData.date_prepared)}}</td>
@@ -216,7 +210,7 @@
             if (ptype =='alternative'){
               ptype = ''
             }
-            window.open('/reports/transaction-psr/download/'+table_search+'?type='+ptype+'&&date_from='+date_from+'&&date_to='+date_to);
+            window.open('/reports/transaction-days/download/'+table_search+'?type='+ptype+'&&date_from='+date_from+'&&date_to='+date_to);
           },
           changeType: function(type){
               this.types = type

@@ -124,13 +124,13 @@ PCCO Transaction Summary
     //     table2.draw();
     // });
 
-    $('#printme').on('click', function(e){
-        e.preventDefault();
-        date_from       =   $('input[name=date_from]').val();
-        date_to         =   $('input[name=date_to]').val();
-        table_search    =   $('input[name=table_search]').val();
-        window.open('/reports/psr/download/'+table_search+'?type='+ptype+'&&date_from='+date_from+'&&date_to='+date_to);
-    });
+    // $('#printme').on('click', function(e){
+    //     e.preventDefault();
+    //     date_from       =   $('input[name=date_from]').val();
+    //     date_to         =   $('input[name=date_to]').val();
+    //     table_search    =   $('input[name=table_search]').val();
+    //     window.open('/reports/psr/download/'+table_search+'?type='+ptype+'&&date_from='+date_from+'&&date_to='+date_to);
+    // });
 
     $('#alternative').on('click', function(e){
         e.preventDefault();

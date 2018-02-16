@@ -37,6 +37,7 @@ Vue.component('delivery-order', require('./components/DeliveryOrder.vue'));
 Vue.component('line-items', require('./components/LineItems.vue'));
 Vue.component('psr', require('./components/Psr.vue'));
 Vue.component('psr-all', require('./components/PsrAll.vue'));
+Vue.component('transacations', require('./components/TransactionDays.vue'));
 
 const app = new Vue({
     el: '#app',

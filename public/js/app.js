@@ -71115,6 +71115,7 @@ Vue.component('delivery-order', __webpack_require__(72));
 Vue.component('line-items', __webpack_require__(74));
 Vue.component('psr', __webpack_require__(75));
 Vue.component('psr-all', __webpack_require__(76));
+Vue.component('transacations', __webpack_require__(110));
 
 var app = new Vue({
     el: '#app',
@@ -74081,6 +74082,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
       return '--';
     },
+    searchMe: function searchMe() {
+      var _this = this;
+
+      var date_from = $('input[name=date_from]').val();
+      var date_to = $('input[name=date_to]').val();
+      var ptype = this.types;
+      if (ptype == 'alternative') {
+        ptype = '';
+      }
+      axios.get('/reports/unit-psr/' + ptype + '?date_from=' + date_from + '&&date_to=' + date_to).then(function (response) {
+        _this.units = response.data;
+      }).catch(function (e) {
+        console.log(e);
+      });
+    },
     printMe: function printMe() {
       var date_from = $('input[name=date_from]').val();
       var date_to = $('input[name=date_to]').val();
@@ -74096,24 +74112,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.types = type;
       $('.table-name').removeClass('is-visible');
       this.fetchUnitPsr(this.types);
+      this.fetchUnitItems(this.types);
     },
     fetchUnitPsr: function fetchUnitPsr(type) {
-      var _this = this;
+      var _this2 = this;
 
       axios.get('/reports/unit-psr/' + type + '?date_from=' + this.startDate + '&&date_to=' + this.endDate).then(function (response) {
-        _this.units = response.data;
+        _this2.units = response.data;
       }).catch(function (e) {
         console.log(e);
       });
     },
     fetchUnitItems: function fetchUnitItems(unit) {
-      var _this2 = this;
+      var _this3 = this;
 
+      var date_from = $('input[name=date_from]').val();
+      var date_to = $('input[name=date_to]').val();
       if (this.itemsName.indexOf(unit.short_code) == -1) {
         if (this.itemsName[unit.short_code] != unit.short_code) {
           this.itemsName[unit.short_code] = unit.short_code;
-          axios.get('/reports/unit-psr-items/' + this.types + '/' + unit.short_code + '?date_from=' + this.startDate + '&&date_to=' + this.endDate).then(function (response) {
-            _this2.items.push(response.data);
+          axios.get('/reports/unit-psr-items/' + this.types + '/' + unit.short_code + '?date_from=' + date_from + '&&date_to=' + date_to).then(function (response) {
+            _this3.items.push(response.data);
           }).catch(function (e) {
             console.log(e);
           });
@@ -84466,7 +84485,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Alternative")])]), _vm._v(" "), _c('div', {
     staticClass: "six columns align-right"
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('a', {
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('button', {
+    staticClass: "button",
+    on: {
+      "click": _vm.searchMe
+    }
+  }, [_c('span', {
+    staticClass: "nc-icon-mini ui-1_zoom"
+  })]), _vm._v(" "), _c('a', {
     staticClass: "button",
     staticStyle: {
       "margin-bottom": "10px"
@@ -84538,15 +84564,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "date_to",
       "placeholder": "End Date"
     }
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    staticClass: "button",
-    attrs: {
-      "id": "dateSearch"
-    }
-  }, [_c('span', {
-    staticClass: "nc-icon-mini ui-1_zoom"
   })])
 }]}
 module.exports.render._withStripped = true
@@ -95733,6 +95750,435 @@ module.exports = ZStream;
 __webpack_require__(20);
 module.exports = __webpack_require__(21);
 
+
+/***/ }),
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      units: [],
+      itemsName: [],
+      items: [],
+      types: "bidding",
+      endDate: "",
+      startDate: ""
+    };
+  },
+  mounted: function mounted() {
+    this.fetchUnitPsr(this.types);
+  },
+
+  methods: {
+    formatDate: function formatDate(value) {
+      if (value) {
+        return moment(value).format('MMM DD YYYY');
+      }
+    },
+    getDiff: function getDiff(end, start) {
+      if (end != null && start != null) {
+        var a = moment(start, 'YYYY-MM-DD');
+        var b = moment(end, 'YYYY-MM-DD');
+        return b.diff(a, 'days');
+      }
+      return '--';
+    },
+    searchMe: function searchMe() {
+      var _this = this;
+
+      var date_from = $('input[name=date_from]').val();
+      var date_to = $('input[name=date_to]').val();
+      var ptype = this.types;
+      if (ptype == 'alternative') {
+        ptype = '';
+      }
+      axios.get('/reports/unit-psr/' + ptype + '?date_from=' + date_from + '&&date_to=' + date_to).then(function (response) {
+        _this.units = response.data;
+      }).catch(function (e) {
+        console.log(e);
+      });
+    },
+    printMe: function printMe() {
+      var date_from = $('input[name=date_from]').val();
+      var date_to = $('input[name=date_to]').val();
+      var table_search = '';
+      // table_search    =   $('input[name=table_search]').val();
+      var ptype = this.types;
+      if (ptype == 'alternative') {
+        ptype = '';
+      }
+      window.open('/reports/transaction-days/download/' + table_search + '?type=' + ptype + '&&date_from=' + date_from + '&&date_to=' + date_to);
+    },
+    changeType: function changeType(type) {
+      this.types = type;
+      $('.table-name').removeClass('is-visible');
+      this.fetchUnitPsr(this.types);
+      this.fetchUnitItems(this.types);
+    },
+    fetchUnitPsr: function fetchUnitPsr(type) {
+      var _this2 = this;
+
+      axios.get('/reports/unit-psr/' + type + '?date_from=' + this.startDate + '&&date_to=' + this.endDate).then(function (response) {
+        _this2.units = response.data;
+      }).catch(function (e) {
+        console.log(e);
+      });
+    },
+    fetchUnitItems: function fetchUnitItems(unit) {
+      var _this3 = this;
+
+      var date_from = $('input[name=date_from]').val();
+      var date_to = $('input[name=date_to]').val();
+      if (this.itemsName.indexOf(unit.short_code) == -1) {
+        if (this.itemsName[unit.short_code] != unit.short_code) {
+          this.itemsName[unit.short_code] = unit.short_code;
+          axios.get('/reports/unit-psr-items/' + this.types + '/' + unit.short_code + '?date_from=' + date_from + '&&date_to=' + date_to).then(function (response) {
+            _this3.items.push(response.data);
+          }).catch(function (e) {
+            console.log(e);
+          });
+        }
+      }
+      console.log(this.items);
+    }
+  },
+  computed: {
+    isActived: function isActived() {
+      return this.types;
+    }
+  }
+});
+
+/***/ }),
+/* 110 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(109),
+  /* template */
+  __webpack_require__(111),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/TransactionDays.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] TransactionDays.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7dd674de", Component.options)
+  } else {
+    hotAPI.reload("data-v-7dd674de", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: " "
+  }, [_c('div', {
+    attrs: {
+      "id": "programs"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "six columns align-left"
+  }, [_c('button', {
+    staticClass: "button button-tab",
+    attrs: {
+      "id": [_vm.isActived == 'bidding' ? 'button-focus' : ''],
+      "id": "bidding"
+    },
+    on: {
+      "click": function($event) {
+        _vm.changeType('bidding')
+      }
+    }
+  }, [_vm._v("Bidding")]), _vm._v(" "), _c('button', {
+    staticClass: "button button-tab button-unfocus",
+    attrs: {
+      "id": [_vm.isActived == 'alternative' ? 'button-focus' : ''],
+      "id": "alternative"
+    },
+    on: {
+      "click": function($event) {
+        _vm.changeType('alternative')
+      }
+    }
+  }, [_vm._v("Alternative")])]), _vm._v(" "), _c('div', {
+    staticClass: "six columns align-right"
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('button', {
+    staticClass: "button",
+    on: {
+      "click": _vm.searchMe
+    }
+  }, [_c('span', {
+    staticClass: "nc-icon-mini ui-1_zoom"
+  })]), _vm._v(" "), _c('a', {
+    staticClass: "button",
+    staticStyle: {
+      "margin-bottom": "10px"
+    },
+    attrs: {
+      "href": "#",
+      "id": "printme"
+    },
+    on: {
+      "click": _vm.printMe
+    }
+  }, [_c('span', {
+    staticClass: "nc-icon-mini arrows-e_archive-e-download"
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "twelve columns"
+  }, [_c('div', {
+    staticClass: "table-scroll"
+  }, [_c('table', {
+    staticClass: "table table--with-border table-name"
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("PCCO")]), _vm._v(" "), _c('th', [_vm._v("UPR")]), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("ISPQ")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("RFQ")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("CANVASSING")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("Document Acceptance (BAC)")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("Pre Proc (BAC)")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("Invitation to BId (BAC)")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("PhilGeps Posting (BAC)")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("Pre Bid Conference (BAC)")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("SOBE (BAC)")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("POST QUAL (BAC)")]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v("PREPARE NOA")]), _vm._v(" "), _c('th', [_vm._v("APPROVED NOA")]), _vm._v(" "), _c('th', [_vm._v("RECEIVED NOA")]), _vm._v(" "), _c('th', [_vm._v("PO/JO/WO CREATION")]), _vm._v(" "), _c('th', [_vm._v("FUNDING")]), _vm._v(" "), _c('th', [_vm._v("MFO FUNDING/OBLIGATION")]), _vm._v(" "), _c('th', [_vm._v("PO COA APPROVAL")]), _vm._v(" "), _c('th', [_vm._v("PREPARE NTP")]), _vm._v(" "), _c('th', [_vm._v("RECEIVED NTP")]), _vm._v(" "), _c('th', [_vm._v("RECEIVED DELIVERY")]), _vm._v(" "), _c('th', [_vm._v("COMPLETE COA DELIVERY")]), _vm._v(" "), _c('th', [_vm._v("TIAC")]), _vm._v(" "), _c('th', [_vm._v("IAAR")]), _vm._v(" "), _c('th', [_vm._v("DIIR START")]), _vm._v(" "), _c('th', [_vm._v("DIIR CLOSE")]), _vm._v(" "), _c('th', [_vm._v("PREPARE VOUCHER")]), _vm._v(" "), _c('th', [_vm._v("COMPLETED")]), _vm._v(" "), _c('th', [_vm._v("Total Days")])])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.units), function(unit) {
+    return [_c('tr', [_c('td', [_vm._v("\n                                  " + _vm._s(unit.short_code) + "\n                                  "), _c('button', {
+      staticClass: "show-child-table",
+      on: {
+        "click": function($event) {
+          _vm.fetchUnitItems(unit)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "nc-icon-mini ui-1_circle-add"
+    })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(unit.upr_count))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")])]), _vm._v(" "), _c('tr', [_c('td', {
+      staticClass: "has-child",
+      attrs: {
+        "colspan": "31"
+      }
+    }, [_c('table', {
+      staticClass: "child-table table-name"
+    }, [_c('tbody', [_vm._l((_vm.items), function(item) {
+      return [(item.unit == unit.short_code) ? [_vm._l((item.data), function(itemData) {
+        return [_c('tr', [_c('td', [_vm._v(_vm._s(itemData.upr_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.date_prepared)))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.ispq_transaction_date, itemData.date_prepared)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.rfq_created_at, itemData.date_prepared)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_award_date, itemData.canvass_start_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.doc_date, itemData.date_prepared)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.proc_date, itemData.doc_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.itb_date, itemData.proc_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.pp_completed_at, itemData.itb_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.prebid_date, itemData.pp_completed_at)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.bid_date, itemData.prebid_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.pq_date, itemData.bid_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_award_date, itemData.pq_date)))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_approved_date, itemData.noa_award_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.funding_received_date, itemData.po_create_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.mfo_received_date, itemData.funding_received_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.coa_approved_date, itemData.mfo_received_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.ntp_date, itemData.coa_approved_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.ntp_award_date, itemData.ntp_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.dr_date, itemData.ntp_award_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.dr_coa_date, itemData.dr_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.dr_inspection, itemData.dr_coa_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.iar_accepted_date, itemData.dr_inspection)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.di_start, itemData.iar_accepted_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.di_close, itemData.di_start)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.v_transaction_date, itemData.di_close)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.preaudit_date, itemData.v_transaction_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.calendar_days))])])]
+      })] : _vm._e()]
+    })], 2)])])])]
+  })], 2)])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticStyle: {
+      "display": "inline-block"
+    }
+  }, [_c('input', {
+    staticClass: "input",
+    attrs: {
+      "type": "text",
+      "id": "start",
+      "name": "date_from",
+      "placeholder": "Start Date"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticStyle: {
+      "display": "inline-block"
+    }
+  }, [_c('input', {
+    staticClass: "input",
+    attrs: {
+      "type": "text",
+      "id": "end",
+      "name": "date_to",
+      "placeholder": "End Date"
+    }
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7dd674de", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
