@@ -126,7 +126,7 @@ Notice Of Award
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">ABC :</strong> {{formatPrice($data->upr->total_amount)}} </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">BID Amount :</strong> @if($data->winner) {{formatPrice($data->winner->bid_amount)}} @endif</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Date :</strong> @if($data->accepted_date) {{CreateCarbon('Y-m-d', $data->accepted_date)->format('d F Y')}} @endif &nbsp;</li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Copy :</strong> <a target="_blank" href="{{route('procurements.noa.download',$data->id)}}">{{$data->file}}</a> &nbsp;</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Approved Copy :</strong> <a target="_blank" href="{{route('procurements.noa.download',$data->id)}}">Uploaded file</a> &nbsp;</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Conforme :</strong> {{$data->received_by}}&nbsp; </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received Date :</strong> @if($data->award_accepted_date) {{CreateCarbon('Y-m-d', $data->award_accepted_date)->format('d F Y')}}@endif &nbsp;</li>
         </ul>

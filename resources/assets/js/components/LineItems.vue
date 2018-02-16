@@ -267,6 +267,7 @@
           for (var i = this.accounts.length - 1; i >= 0; i--) {
               if(this.accounts[i].code == code){
                  duplicate = true
+                 alert('duplicate account code')
               }
           }
           if( duplicate == false)
@@ -287,6 +288,9 @@
               id: this.account_codeId
             })
           }
+        }
+        else{
+           alert('select account code')
         }
       },
       removeCode (code, index)

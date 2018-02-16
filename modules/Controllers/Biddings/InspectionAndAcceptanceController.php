@@ -332,6 +332,29 @@ class InspectionAndAcceptanceController extends Controller
         ]);
     }
 
+    public function addInvoice(
+        $id,
+        Request $request,
+        InspectionAndAcceptanceRepository $model)
+    {
+        $validator = Validator::make($request->all(),[
+            'inspection_date'       => 'required',
+            'invoice_number.*' => 'required'
+        ]);
+        $invoices[]  =   [
+            'invoice_number'    =>  $request->invoice_number,
+            'invoice_date'      =>  $request->invoice_date,
+            'acceptance_id'     =>  $id,
+            'id'                =>  \Uuid::generate()
+        ];
+
+        DB::table('inspection_acceptance_invoices')->insert($invoices);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "New record has been successfully added."
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

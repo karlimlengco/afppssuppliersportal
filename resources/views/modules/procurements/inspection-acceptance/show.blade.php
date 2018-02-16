@@ -164,6 +164,10 @@ $('#invoice-button').click(function(e){
 })
 
 
+    $('#close-signatory-button').click(function(e){
+        $('#invoice-modal').removeClass('is-visible');
+    })
+
 
 var invoice_date = new Pikaday(
 {

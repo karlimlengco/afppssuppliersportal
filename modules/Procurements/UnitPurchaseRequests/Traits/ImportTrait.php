@@ -139,6 +139,16 @@ trait ImportTrait
         if($accountsModel != null)
         {
             $code = $accountsModel->id;
+        }else
+        {
+            $c = trim($fields[9][3]);
+            $n = $c[0].'-'.$c[1].''.$c[2].'-'.$c[3].''.$c[4].'-'.$c[5].''.$c[6].'-'.$c[7].'-'.$c[8].''.$c[9];
+
+            $accountsModel    =   $accounts->findByName($n );
+            if($accountsModel != null)
+            {
+                $code = $accountsModel->id;
+            }
         }
 
         // if($requestBy != null)
@@ -364,7 +374,8 @@ trait ImportTrait
           // dd($itemRow);
             // if($itemRow[0] != "<tr></tr><tr> <td> ITEM DESCRIPTION</td> <td>QTY</td> <td>UNIT</td> <td>UNIT PRICE</td> <td>TOTAL AMOUNT</td><td>Account Code</td> </tr><tr>" && trim($itemRow[0]) != "<td>" && trim($itemRow[0]) != "</thead>" && trim($itemRow[0]) != "</tbody>" && trim($itemRow[0]) != "</table>" && trim($itemRow[0]) != "</html>" && trim($itemRow[0]) != "</body>"&& trim($itemRow[0]) != "</td>" && trim($itemRow[0]) != "<tr>")
 
-                if($itemRow[1] != null){
+                if($itemRow[1] != null && $itemRow[7] != null && $itemRow[8] != null
+                  ){
 
                   $itemArray[]    =   [
                       'new_account_code'      =>  $code,

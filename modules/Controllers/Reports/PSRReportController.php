@@ -46,7 +46,7 @@ class PSRReportController extends Controller
      */
     public function getDatatable(UnitPurchaseRequestRepository $model, Request $request)
     {
-        return $model->getPSRDatatable($request);
+        return $model->getPccoPSRDatatable($request);
     }
 
 

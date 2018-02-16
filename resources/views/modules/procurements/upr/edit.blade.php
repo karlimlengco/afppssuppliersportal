@@ -22,6 +22,34 @@ Unit Purchase Request
     @include('modules.partials.modals.delete')
     @include('modules.partials.create_signatory')
     @include('modules.partials.edit_line_item_modal')
+
+
+    <div class="modal" id="import-item-modal">
+        <div class="modal__dialogue modal__dialogue--round-corner">
+             <form method="POST" enctype="multipart/form-data" action="{{ route('procurements.upr-items.import', $data->id) }}" accept-charset="UTF-8">
+                <button type="button" class="modal__close-button">
+                    <i class="nc-icon-outline ui-1_simple-remove"></i>
+                </button>
+
+                <div class="moda__dialogue__head">
+                    <h1 class="modal__title">Import New Item</h1>
+                </div>
+
+                <div class="modal__dialogue__body">
+                    {!! Form::selectField('code', 'Account Code', $accounts) !!}
+                    <input type="file" name="file" class="custom-file-input" >
+                    <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                    <input name="_method" type="hidden" value="POST">
+                </div>
+
+                <div class="modal__dialogue__foot">
+                    <button class="button">Proceed</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
     <div class="modal" id="add-item-modal">
         <div class="modal__dialogue modal__dialogue--round-corner">
              <form method="POST" action="{{route('procurements.upr-items.store', $data->id)}}" accept-charset="UTF-8">
@@ -168,6 +196,9 @@ Unit Purchase Request
 
         @if($data->status == 'upr_processing')
         <button id="add-item-button" class="button">ADD ITEM</button>
+
+        <button type="button" id="import-item" class="button pull-right" tooltip="Import"><i class="nc-icon-mini arrows-1_cloud-upload-96"></i></button>
+
         @endif
         <table class='table' id="item_table">
             <thead>
@@ -221,6 +252,11 @@ Unit Purchase Request
     $('#edit-button').click(function(e){
         e.preventDefault();
         $('#edit-modal').addClass('is-visible');
+    })
+
+    $('#import-item').click(function(e){
+        e.preventDefault();
+        $('#import-item-modal').addClass('is-visible');
     })
 
     $('#delete-button').click(function(e){

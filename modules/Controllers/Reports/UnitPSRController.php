@@ -44,6 +44,11 @@ class UnitPSRController extends Controller
         return $model->getUnitPSR($type, $request);
     }
 
+    public function getPccoPsr(UnitPurchaseRequestRepository $model, $type = null, Request $request)
+    {
+        return $model->getPccoPSR($type, $request);
+    }
+
 
     public function getUnitPsrItem(UnitPurchaseRequestRepository $model,  $type = null, $unit, Request $request)
     {

@@ -121,7 +121,7 @@ Purchase Order
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Status :</strong> {{ucfirst($data->status)}} </li>
             @if($data->coa_approved_date)
                 <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">COA Approved Date :</strong> @if($data->coa_approved_date) {{CreateCarbon('Y-m-d', $data->coa_approved_date)->format('d F Y')}}@endif </li>
-                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">COA File :</strong> <a target="_blank" href="{{route('procurements.purchase-orders.coa-file',$data->id)}}">{{$data->coa_file}} </a></li>
+                <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">COA File :</strong> <a target="_blank" href="{{route('procurements.purchase-orders.coa-file',$data->id)}}">Uploaded file </a></li>
             @endif
         </ul>
     </div>

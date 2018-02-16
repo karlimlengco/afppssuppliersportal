@@ -110,7 +110,7 @@ Purchase Order
 
 <div class="row">
     <div class="twelve columns">
-        <table class='table'>
+        <table class='table'  id="item_table">
             <thead>
                 <tr>
                     <th width="35%">Description</th>
@@ -121,7 +121,7 @@ Purchase Order
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                {{-- <tr>
                     <td>
                         <input type='text' name='item_description[]' tabindex='-1'   class='input'/>
                     </td>
@@ -137,7 +137,7 @@ Purchase Order
                     <td>
                         <input type='text' id='total_amount' tabindex='-1' name='total_amount[]' class='input' readonly/>
                     </td>
-                </tr>
+                </tr> --}}
             </tbody>
         </table>
     </div>
@@ -171,7 +171,7 @@ Purchase Order
     $( document ).ready(function() {
         var value   = "{{$rfq_id}}";
         var route   =   "/procurements/rfq/get-info"
-
+        // alert('asds');
         $.ajax({
             type: 'GET',
             url: route+"/"+value,
@@ -181,6 +181,7 @@ Purchase Order
                 removeAll()
                 data.forEach(function(entry) {
                     count++;
+
                     addField(entry);
                 });
             }
@@ -193,8 +194,6 @@ Purchase Order
     {
         var table=document.getElementById("item_table");
         var table_len=(table.rows.length) ;
-
-
         var newRow = "<tr id='row" + table_len + "'>";
             newRow += "<td id='desciption_row"+table_len+"'>";
             newRow += "<input type='text' name='item_description[]' tabindex='-1' readonly value='"+entry.item_description+"' class='input'/>"

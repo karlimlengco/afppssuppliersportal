@@ -111,12 +111,12 @@ trait FileTrait
         AttachmentRepository $attachments)
     {
 
+        $validator = \Validator::make($request->all(), [
+            'file' => 'required|max:1024',
+        ]);
+
         $file       = md5_file($request->file);
         $file       = $file.".".$request->file->getClientOriginalExtension();
-
-        $validator = \Validator::make($request->all(), [
-            'file' => 'required',
-        ]);
 
         $result     = $attachments->save([
             'upr_id'        =>  $id,

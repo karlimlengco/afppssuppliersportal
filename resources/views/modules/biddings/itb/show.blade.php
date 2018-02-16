@@ -19,12 +19,6 @@ Invitation To Bid
 
 @stop
 
-@section('styles')
-@stop
-
-@section('modal')
-@stop
-
 @section('contents')
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
@@ -36,7 +30,7 @@ Invitation To Bid
             <div class="button__options">
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
                 <a class="button__options__item" href="{{route('biddings.itb.logs', $data->id)}}">View Logs</a>
-            </spandiv>
+            </div>
         </span>
 {{--
         <a href="{{route('biddings.itb.logs', $data->id)}}" class="button" tooltip="Logs">

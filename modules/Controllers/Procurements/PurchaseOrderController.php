@@ -1057,6 +1057,11 @@ class PurchaseOrderController extends Controller
         $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
 
+        if($result->coa_signatories == null || $result->requestor == null || $result->accounting == null )
+        {
+            return redirect()->back()->with(['error' => 'Please add signatories']);
+        }
+
         if($upr_model->mode_of_procurement == 'public_bidding')
         {
             $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;

@@ -13,7 +13,7 @@
 
                 <div class="row">
                     <div class="twelve columns dropzone">
-                        <input  type="file" name="file" multiple/>
+                        <input required type="file" name="file" multiple length="1024"/>
                     </div>
                 </div>
 

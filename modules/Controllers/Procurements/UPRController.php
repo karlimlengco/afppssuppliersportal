@@ -327,7 +327,6 @@ class UPRController extends Controller
 
         if($request->has('items'))
         {
-
           foreach($request->items as $item)
           {
               if($item['item_description'] == null || $item['quantity'] == null || $item['unit_measurement'] == null || $item['unit_price'] == null || $item['total_amount'] == null) {
@@ -913,6 +912,59 @@ class UPRController extends Controller
         ], $id);
 
         return response()->json($response, 200);
+    }
+
+    /**
+     *
+     *
+     * @param  [type]  $id      [description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function importItem($id, Request $request, UnitPurchaseRequestRepository $model)
+    {
+        $this->validate($request, [
+            'file'    =>  'required',
+            'code'    =>  'required',
+        ]);
+
+        $upr            =   $model->findById($id);
+        $path           =   $request->file('file')->getRealPath();
+
+        $data           =   [];
+        $reader         =   Excel::selectSheetsByIndex(0)->load($path, function($reader) {});
+
+        $fields         =   $reader->limitColumns(5)->get();
+        $itemArray      =    [];
+        $total          =    0;
+        foreach($fields as $key => $vals)
+        {
+            if($key != 0){
+                $itemArray[]    =   [
+                    'upr_id'                =>  $id,
+                    'new_account_code'      =>  $request->code,
+                    'item_description'      =>  $vals[0],
+                    'quantity'              =>  $vals[1],
+                    'unit_measurement'      =>  $vals[2],
+                    'unit_price'            =>  $vals[3],
+                    'total_amount'          =>  $vals[4],
+                    'upr_number'            =>  $upr->upr_number,
+                    'ref_number'            =>  $upr->ref_number,
+                    'date_prepared'         =>  $upr->date_prepared,
+                    'id'                    =>  Uuid::generate()->string
+                ];
+                $total  = $total + $vals[4];
+            }
+
+        }
+        $newTotal = $upr->total_amount + $total;
+        $model->update(['total_amount' => $newTotal], $id);
+
+        DB::table('unit_purchase_request_items')->insert($itemArray);
+
+        return redirect()->route($this->baseUrl.'edit', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
     }
 
     /**

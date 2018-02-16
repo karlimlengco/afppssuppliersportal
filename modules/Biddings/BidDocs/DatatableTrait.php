@@ -39,9 +39,9 @@ trait DatatableTrait
     {
         return Datatables::of($model)
             ->addColumn('upr_number', function ($data) {
-                // $route  =  route( 'biddings.bid-docs.show',[$data->id] );
-                // return ' <a  href="'.$route.'" > '. $data->upr_number .'</a>';
-                return   $data->upr_number  ;
+                $route  =  route( 'biddings.unit-purchase-requests.show',[$data->upr_id] );
+                return ' <a  href="'.$route.'" > '. $data->upr_number .'</a>';
+                // return   $data->upr_number  ;
             })
             ->editColumn('status', function($data){
                 return ucfirst($data->status);

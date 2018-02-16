@@ -46,12 +46,21 @@ class PSRController extends Controller
      */
     public function getDatatable(UnitPurchaseRequestRepository $model, Request $request)
     {
-        return $model->getPSRDatatable($request);
+        // return $model->getPSRDatatable($request);
+        return $model->getPcooPSRDatatable($request);
     }
 
     public function getPSRDatatable(UnitPurchaseRequestRepository $model, Request $request)
     {
         return $model->getProcurementDatatable($request);
+    }
+
+    public function PccoPSR(UnitPurchaseRequestRepository $model, Request $request){
+      return $model->getPcooPSRDatatable($request);
+    }
+
+    public function getPccoPsrItem($type, $pcco, UnitPurchaseRequestRepository $model, Request $request){
+        return $model->getPcooItemPSRDatatable($request);
     }
 
 
@@ -139,7 +148,7 @@ class PSRController extends Controller
     public function download($search = null, UnitPurchaseRequestRepository $model, Request $request)
     {
 
-        $result     =   $model->getPSR($request, $search);
+        $result     =   $model->getPcooPSRDatatable($request, $search);
 
         $this->downloadExcel($result, $request->date_from, $request->date_to);
 

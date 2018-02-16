@@ -16,7 +16,7 @@
                 <div style="display: inline-block">
                     <input type="text" id="end" name="date_to" class="input" placeholder="End Date">
                 </div>
-                <button class="button" id="dateSearch"><span class="nc-icon-mini ui-1_zoom"></span></button>
+                <button class="button" @click="searchMe"  id="dateSearch"><span class="nc-icon-mini ui-1_zoom"></span></button>
                 <a href="#" @click="printMe" id="printme" class="button" style="margin-bottom:10px"><span class="nc-icon-mini arrows-e_archive-e-download"></span></a>
             </div>
         </div>
@@ -28,13 +28,10 @@
                 <table class="table table--with-border table-name">
                     <thead>
                         <tr>
-                            <th>PCCO</th>
-                            <th>PROJECT</th>
-                            <th>ABC</th>
-                            <th>UPR DATE</th>
-                            <th v-if="types != 'bidding'" >ISPQ</th>
-                            <th v-if="types != 'bidding'" >RFQ</th>
-                            <th v-if="types != 'bidding'" >CANVASSING</th>
+
+                            <th>PC/CO</th>
+                            <th>UPR</th>
+
                             <th v-if="types == 'bidding'">Document Acceptance (BAC)</th>
                             <th v-if="types == 'bidding'">Pre Proc (BAC)</th>
                             <th v-if="types == 'bidding'">Invitation to BId (BAC)</th>
@@ -42,71 +39,75 @@
                             <th v-if="types == 'bidding'">Pre Bid Conference (BAC)</th>
                             <th v-if="types == 'bidding'">SOBE (BAC)</th>
                             <th v-if="types == 'bidding'">POST QUAL (BAC)</th>
-                            <th>PREPARE NOA</th>
-                            <th>APPROVED NOA</th>
-                            <th>RECEIVED NOA</th>
-                            <th>PO/JO/WO CREATION</th>
-                            <th>FUNDING</th>
-                            <th>MFO FUNDING/OBLIGATION</th>
-                            <th>PO COA APPROVAL</th>
-                            <th>PREPARE NTP</th>
-                            <th>RECEIVED NTP</th>
-                            <th>RECEIVED DELIVERY</th>
-                            <th>COMPLETE COA DELIVERY</th>
-                            <th>TIAC</th>
-                            <th>IAAR</th>
-                            <th>DIIR START</th>
-                            <th>DIIR CLOSE</th>
-                            <th>PREPARE VOUCHER</th>
-                            <th>COMPLETED</th>
-                            <th>Total Days</th>
+
+                            <th v-if="types != 'bidding'" >ISPQ</th>
+                            <th v-if="types != 'bidding'" >PhilGeps Posting</th>
+                            <th v-if="types != 'bidding'" >Close RFQ</th>
+                            <th v-if="types != 'bidding'" >Canvassing</th>
+
+                            <th>Prepare NOA</th>
+                            <th>Approved NOA</th>
+                            <th>Received NOA</th>
+                            <th>PO/JO/WO Creation</th>
+                            <th>Funding</th>
+                            <th>MFO Funding/Obligation</th>
+                            <th>PO COA Approval</th>
+                            <th>Prepare NTP</th>
+                            <th>Received NTP</th>
+                            <th>Received Delivery</th>
+                            <th>Complete COA Delivery</th>
+                            <th>Technical Inspection</th>
+                            <th>IAR Acceptance</th>
+                            <th>DIIR Inspection Start</th>
+                            <th>DIIR Inspection Close</th>
+                            <th>Prepare Voucher</th>
+                            <th>Preaudit Voucher /End</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         <template v-for="unit in units">
                           <tr>
                               <td>
-                                  {{unit.short_code}}
-                                  <button @click="fetchUnitItems(unit)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
+                                  {{unit.unit_name}}
+                                  <!-- <button @click="fetchUnitItems(unit)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button> -->
                               </td>
-                              <td>--</td>
-                              <td>{{unit.total_abc}}</td>
-                              <td>{{unit.upr_count}}</td>
-                              <td v-if="types != 'bidding'">--</td>
-                              <td v-if="types != 'bidding'">--</td>
-                              <td v-if="types != 'bidding'">--</td>
-                              <td v-if="types == 'bidding'">--</td>
-                              <td v-if="types == 'bidding'">--</td>
-                              <td v-if="types == 'bidding'">--</td>
-                              <td v-if="types == 'bidding'">--</td>
-                              <td v-if="types == 'bidding'">--</td>
-                              <td v-if="types == 'bidding'">--</td>
-                              <td v-if="types == 'bidding'">--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
+                              <td>{{unit.upr}}</td>
+                              <td v-if="types == 'bidding'">{{unit.doc}}</td>
+                              <td v-if="types == 'bidding'">{{unit.pre_proc}}</td>
+                              <td v-if="types == 'bidding'">{{unit.itb}}</td>
+                              <td v-if="types == 'bidding'">{{unit.philgeps}}</td>
+                              <td v-if="types == 'bidding'">{{unit.prebid}}</td>
+                              <td v-if="types == 'bidding'">{{unit.bidop}}</td>
+                              <td v-if="types == 'bidding'">{{unit.pq}}</td>
+                              <td v-if="types != 'bidding'">{{unit.ispq}}</td>
+                              <td v-if="types != 'bidding'">{{unit.philgeps}}</td>
+                              <td v-if="types != 'bidding'">{{unit.rfq_close}}</td>
+                              <td v-if="types != 'bidding'">{{unit.canvass}}</td>
+                              <td>{{unit.noa}}</td>
+                              <td>{{unit.noaa}}</td>
+                              <td>{{unit.noar}}</td>
+                              <td>{{unit.po}}</td>
+                              <td>{{unit.po_pcco_received}}</td>
+                              <td>{{unit.po_mfo_received}}</td>
+                              <td>{{unit.po_coa_approved}}</td>
+                              <td>{{unit.ntp}}</td>
+                              <td>{{unit.ntpa}}</td>
+                              <td>{{unit.delivery}}</td>
+                              <td>{{unit.date_delivered_to_coa}}</td>
+                              <td>{{unit.tiac}}</td>
+                              <td>{{unit.coa_inspection}}</td>
+                              <td>{{unit.diir_start}}</td>
+                              <td>{{unit.diir_close}}</td>
+                              <td>{{unit.voucher}}</td>
+                              <td>{{unit.end_process}}</td>
                           </tr>
                           <tr>
                             <td class="has-child" colspan="31">
                                 <table class="child-table table-name">
                                     <tbody>
                                     <template v-for='item in items'>
-                                      <template v-if='item.unit == unit.short_code'>
+                                      <template v-if='item.unit == unit.unit_name'>
                                         <template v-for="itemData in item.data">
                                         <tr>
                                             <td>{{itemData.upr_number}}</td>
@@ -166,6 +167,7 @@
     export default {
         data() {
             return{
+                pcco: [],
                 units: [],
                 itemsName: [],
                 items: [],
@@ -175,7 +177,8 @@
             }
         },
         mounted() {
-          this.fetchUnitPsr(this.types);
+          this.fetchPCCOPsr(this.types);
+          // this.fetchUnitPsr(this.types);
         },
         methods:{
           formatDate: function(value){
@@ -200,15 +203,37 @@
             if (ptype =='alternative'){
               ptype = ''
             }
-            window.open('/reports/transaction-psr/download/'+table_search+'?type='+ptype+'&&date_from='+date_from+'&&date_to='+date_to);
+            // window.open('/reports/transaction-psr/download/'+table_search+'?type='+ptype+'&&date_from='+date_from+'&&date_to='+date_to);
+            window.open('/reports/psr/download/'+table_search+'?type='+ptype+'&&date_from='+date_from+'&&date_to='+date_to);
+          },
+          searchMe: function(){
+
+            var date_from       =   $('input[name=date_from]').val();
+            var date_to         =   $('input[name=date_to]').val();
+            axios.get('/reports/pcco-psr?type='+this.types+'&&date_from='+date_from+'&&date_to='+date_to)
+            .then(response => {
+                this.units = response.data
+            })
+            .catch(e => {
+                console.log(e)
+            })
           },
           changeType: function(type){
               this.types = type
               $('.table-name').removeClass('is-visible');
-              this.fetchUnitPsr(this.types)
+              this.fetchPCCOPsr(this.types)
+          },
+          fetchPCCOPsr: function(type) {
+            axios.get('/reports/pcco-psr?type='+type+'&&date_from='+this.startDate+'&&date_to='+this.endDate)
+            .then(response => {
+                this.units = response.data
+            })
+            .catch(e => {
+                console.log(e)
+            })
           },
           fetchUnitPsr: function(type) {
-            axios.get('/reports/unit-psr/'+type+'?date_from='+this.startDate+'&&date_to='+this.endDate)
+            axios.get('/reports/item-psr?type='+type+'date_from='+this.startDate+'&&date_to='+this.endDate)
             .then(response => {
                 this.units = response.data
             })
@@ -218,12 +243,12 @@
           },
           fetchUnitItems: function(unit) {
 
-            if(  this.itemsName.indexOf(unit.short_code) == -1 )
+            if(  this.itemsName.indexOf(unit.unit_name) == -1 )
             {
-                if( this.itemsName[unit.short_code] != unit.short_code)
+                if( this.itemsName[unit.unit_name] != unit.unit_name)
                 {
-                    this.itemsName[unit.short_code]    =   unit.short_code;
-                    axios.get('/reports/unit-psr-items/'+this.types+ '/' + unit.short_code +'?date_from='+this.startDate+'&&date_to='+this.endDate)
+                    this.itemsName[unit.unit_name]    =   unit.unit_name;
+                    axios.get('/reports/pcco-psr-items/'+this.types+ '/' + unit.unit_name +'?date_from='+this.startDate+'&&date_to='+this.endDate)
                     .then(response => {
                         this.items.push(response.data)
                     })

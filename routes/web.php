@@ -31,6 +31,7 @@ Route::get('api/get/new_code/{id}', '\Revlv\Controllers\Settings\AccountCodeCont
 
 // create new signatory
 Route::post('api/signatories/store', '\Revlv\Controllers\Settings\SignatoryController@storeNew')->name('api.signatory.store');
+Route::post('procurements.upr-items.import-item/{upr}', '\Revlv\Controllers\Procurements\UPRController@importItem')->name('procurements.upr-items.import');
 Route::get('procurements/upr-items/delete/{upr}', '\Revlv\Controllers\Procurements\UPRController@itemDelete')->name('procurements.upr-items.destroy');
 Route::post('procurements/upr-items/{upr}', '\Revlv\Controllers\Procurements\UPRController@itemStore')->name('procurements.upr-items.store');
 
@@ -60,6 +61,10 @@ Route::group(['as' => 'api.', 'prefix' => 'api'], function () {
 
 Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
     Route::get('unit-psr/{type}', '\Revlv\Controllers\Reports\UnitPSRController@getUnitPsr')->name('reports.unit-psr');
+    // Route::get('pcco-psr/{type}', '\Revlv\Controllers\Reports\UnitPSRController@getPccoPsr')->name('reports.pcco-psr');
+    Route::get('pcco-psr', '\Revlv\Controllers\Reports\PSRController@PccoPSR')->name('reports.pcco-psr');
+
+    Route::get('pcco-psr-items/{type}/{pcco}', '\Revlv\Controllers\Reports\PSRController@getPccoPsrItem')->name('reports.pcco-psr-items');
     Route::get('unit-psr-items/{type}/{unit}', '\Revlv\Controllers\Reports\UnitPSRController@getUnitPsrItem')->name('reports.unit-psr-items');
 
     Route::get('psr/download/{search_at?}', '\Revlv\Controllers\Reports\PSRController@download')->name('reports.psr-transactions.download');
@@ -304,6 +309,8 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     |--------------------------------------------------------------------------
     |
     */
+    Route::post('inspection-and-acceptance/invoice/{id}', '\Revlv\Controllers\Biddings\InspectionAndAcceptanceController@addInvoice')->name('inspection-and-acceptance.add-invoice');
+
     Route::get('inspection-and-acceptance/logs/{id}', '\Revlv\Controllers\Biddings\InspectionAndAcceptanceController@viewLogs')->name('inspection-and-acceptance.logs');
     Route::get('inspection-and-acceptance/print/{id}', '\Revlv\Controllers\Biddings\InspectionAndAcceptanceController@viewPrint')->name('inspection-and-acceptance.print');
     Route::post('inspection-and-acceptance/create-from-delivery/{id}', '\Revlv\Controllers\Biddings\InspectionAndAcceptanceController@storeFromDelivery')->name('inspection-and-acceptance.create-from-delivery.store');
@@ -755,6 +762,7 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('psr-transactions', '\Revlv\Controllers\Reports\PSRController@getDatatable')->name('reports.psr-transactions');
     Route::get('psr-transactions', '\Revlv\Controllers\Reports\PSRController@getDatatable')->name('reports.psr-transactions');
     Route::get('unit-psr-transactions', '\Revlv\Controllers\Reports\UnitPSRController@getDatatable')->name('reports.unit-psr-transactions');
     Route::post('psr', '\Revlv\Controllers\Reports\PSRController@getPSRDatatable')->name('reports.psr');
