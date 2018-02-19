@@ -624,6 +624,7 @@ class UPRController extends Controller
 
         $item = $item->update([
             'unit_measurement' => $request->unit_measurement,
+            'new_account_code' => $request->new_account_code,
             'quantity' => $request->quantity,
             'unit_price' => $request->unit_price,
             'total_amount' => str_replace(',', '', $request->unit_price) * $request->quantity
