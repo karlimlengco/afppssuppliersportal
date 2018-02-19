@@ -176,7 +176,7 @@ class NoticeToProceedController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('preparared_date') );
-        // $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_model->coa_approved_date );
+        $coa_date               =   Carbon::createFromFormat('!Y-m-d', $po_model->coa_approved_date );
         $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_model->mfo_received_date );
         $cd                     =   $po_date->diffInDays($transaction_date);
 
@@ -199,7 +199,7 @@ class NoticeToProceedController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'preparared_date'   => 'required|after_or_equal:'. $po_date->format('Y-m-d'),
+            'preparared_date'   => 'required|after_or_equal:'. $coa_date->format('Y-m-d'),
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request, $ntpAllowed) {

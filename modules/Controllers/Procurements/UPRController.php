@@ -546,7 +546,7 @@ class UPRController extends Controller
 
       $upr = $model->findById($uprId);
       $amount = $upr->total_amount;
-      $total  = $request->unit_price * $request->quantity;
+      $total  = str_replace(',', '', $request->unit_price) * $request->quantity;
       $total_amount = $total + $amount;
       $id = Uuid::generate()->string;
       $inputs   =  $request->only([

@@ -87,7 +87,9 @@ class NoticeOfAwardController extends Controller
         )
     {
         $canvasModel            =   $model->findById($canvasId);
-        $canvasDate             =   $canvasModel->rfq->completed_at;
+        $canvasDate             =   $canvasModel->canvass_date;
+        $canvasDate             =   Carbon::createFromFormat('Y-m-d', $canvasDate );
+        // $canvasDate             =   $canvasModel->rfq->completed_at;
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('awarded_date') );
 
         $proponent_model        =   $proponents->with('supplier')->findById($proponentId);
@@ -99,6 +101,7 @@ class NoticeOfAwardController extends Controller
         $day_delayed            =   $canvasDate->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
+
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
         if($day_delayed > 2)
