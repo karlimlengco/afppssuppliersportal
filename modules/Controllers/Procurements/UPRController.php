@@ -626,7 +626,7 @@ class UPRController extends Controller
             'unit_measurement' => $request->unit_measurement,
             'quantity' => $request->quantity,
             'unit_price' => $request->unit_price,
-            'total_amount' => $request->unit_price * $request->quantity
+            'total_amount' => str_replace(',', '', $request->unit_price) * $request->quantity
         ], $id);
 
         $upr = $model->findById($item->upr_id);
