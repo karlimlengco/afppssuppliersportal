@@ -15,7 +15,7 @@
                         {!! Form::dateField('open_canvass_date', 'Canvass Date') !!}
                     </div>
                     <div class="six columns">
-                        {!! Form::textField('open_canvass_time', 'Canvass Time') !!}
+                        {!! Form::textField('open_canvass_time', 'Canvass Time', null, ['required']) !!}
                     </div>
                 </div>
                 <div class="row">

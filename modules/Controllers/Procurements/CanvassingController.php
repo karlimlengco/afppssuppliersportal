@@ -581,8 +581,13 @@ class CanvassingController extends Controller
     {
         $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
         $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
+        if($result->canvass_time != null)
+        {
+          $data['date']               =  $result->canvass_date." ". $result->canvass_time;
+        } else{
 
-        $data['date']               =  $result->canvass_date." ". $result->canvass_time;
+          $data['date']               =  $result->canvass_date." 00:00:00 ";
+        }
 
         $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
@@ -622,7 +627,16 @@ class CanvassingController extends Controller
         $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
         $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
 
-        $data['date_to']               =  $result->canvass_date." ". $result->canvass_time;
+
+        if($result->canvass_time != null)
+        {
+          $data['date_to']               =  $result->canvass_date_to." ". $result->canvass_time;
+        } else{
+
+          $data['date_to']               =  $result->canvass_date." 00:00:00 ";
+        }
+
+        // $data['date_to']               =  $result->canvass_date." ". $result->canvass_time;
         $data['date_from']              =  $result->upr->date_prepared;
         $data['date']                   =  $result->canvass_date;
 
