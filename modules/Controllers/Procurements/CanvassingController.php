@@ -630,7 +630,7 @@ class CanvassingController extends Controller
 
         if($result->canvass_time != null)
         {
-          $data['date_to']               =  $result->canvass_date_to." ". $result->canvass_time;
+          $data['date_to']               =  $result->canvass_date." ". $result->canvass_time;
         } else{
 
           $data['date_to']               =  $result->canvass_date." 00:00:00 ";
