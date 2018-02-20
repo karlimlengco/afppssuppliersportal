@@ -1347,11 +1347,11 @@ class PurchaseOrderController extends Controller
         }
 
         $output = preg_replace_callback('~\{{(.*?)\}}~', function($key)use($data, $total, $itemContent, $noa_model, $coa_signatories, $requestor, $accounting, $approver, $result) {
-            $variable['bid_amount_word']       = translateToWords($data['bid_amount']);
+            $variable['bid_amount_word']       = translateToWords(str_replace(',', '', $data['bid_amount']));
             $variable['bid_amount']            = formatPrice($data['bid_amount']);
             $variable['unitHeader']            = $data['unitHeader'];
             $variable['items']                 = $itemContent;
-            $variable['total_word']            = translateToWords($total);
+            $variable['total_word']            = translateToWords(str_replace(',', '', $total));
             $variable['total']                 = formatPrice($total);
             $variable['mode']                  = $data['mode'];
             $variable['upr_number']            = $data['upr_number'];

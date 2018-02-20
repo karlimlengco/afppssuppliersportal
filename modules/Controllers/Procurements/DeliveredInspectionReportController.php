@@ -915,7 +915,7 @@ class DeliveredInspectionReportController extends Controller
             $variable['itemContent']                 = $itemContent;
             $variable['purpose']               = $result->upr->purpose;
             $variable['bid_amount']            = formatPrice($data['bid_amount']);
-            $variable['bid_amount_word']       = translateToWords($data['bid_amount']);
+            $variable['bid_amount_word']       = translateToWords(str_replace(',', '', $data['bid_amount']));
             $variable['receiver_name']         = (count($receiver) > 1) ? $receiver[0] : "";
             $variable['receiver_ranks']        = (count($receiver) > 1) ? $receiver[1] : "";
             $variable['receiver_branch']       = (count($receiver) > 1) ? $receiver[2] : "";
@@ -1046,7 +1046,7 @@ class DeliveredInspectionReportController extends Controller
             $variable['items']                 = $itemContent;
             $variable['purpose']               = $result->upr->purpose;
             $variable['bid_amount']            = formatPrice($data['bid_amount']);
-            $variable['bid_amount_word']       = translateToWords($data['bid_amount']);
+            $variable['bid_amount_word']       = translateToWords(str_replace(',', '', $data['bid_amount']));
             $variable['receiver_name']         = (count($receiver) > 1) ? $receiver[0] : "";
             $variable['receiver_ranks']        = (count($receiver) > 1) ? $receiver[1] : "";
             $variable['receiver_branch']       = (count($receiver) > 1) ? $receiver[2] : "";
@@ -1192,7 +1192,7 @@ class DeliveredInspectionReportController extends Controller
             $variable['items']                 = $itemContent;
             $variable['purpose']               = $result->upr->purpose;
             $variable['bid_amount']            = formatPrice($data['bid_amount']);
-            $variable['bid_amount_word']       = translateToWords($data['bid_amount']);
+            $variable['bid_amount_word']       = translateToWords(str_replace(',', '', $data['bid_amount']));
             $variable['receiver_name']         = (count($receiver) > 1) ? $receiver[0] : "";
             $variable['receiver_ranks']        = (count($receiver) > 1) ? $receiver[1] : "";
             $variable['receiver_branch']       = (count($receiver) > 1) ? $receiver[2] : "";
@@ -1338,7 +1338,7 @@ class DeliveredInspectionReportController extends Controller
             $variable['purpose']               = $result->upr->purpose;
             $variable['delivery_date']         = \Carbon\Carbon::createFromFormat('!Y-m-d',$data['date'])->format('d F Y');
             $variable['bid_amount']            = formatPrice($data['bid_amount']);
-            $variable['bid_amount_word']       = translateToWords($data['bid_amount']);
+            $variable['bid_amount_word']       = translateToWords(str_replace(',', '', $data['bid_amount']));
             $variable['receiver_name']         = (count($receiver) > 1) ? $receiver[0] : "";
             $variable['receiver_ranks']        = (count($receiver) > 1) ? $receiver[1] : "";
             $variable['receiver_branch']       = (count($receiver) > 1) ? $receiver[2] : "";
@@ -1494,7 +1494,7 @@ class DeliveredInspectionReportController extends Controller
             $variable['delivery_number']       = $data['delivery_number'];
             $variable['purpose']               = $result->upr->purpose;
             $variable['bid_amount']            = formatPrice($data['bid_amount']);
-            $variable['bid_amount_word']       = translateToWords($data['bid_amount']);
+            $variable['bid_amount_word']       = translateToWords(str_replace(',', '', $data['bid_amount']));
             $variable['receiver_name']         = (count($receiver) > 1) ? $receiver[0] : "";
             $variable['receiver_ranks']        = (count($receiver) > 1) ? $receiver[1] : "";
             $variable['receiver_branch']       = (count($receiver) > 1) ? $receiver[2] : "";

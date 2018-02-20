@@ -57,7 +57,7 @@
                         </table>
                         <ol>
                             {!! $data['content'] !!}
-                            <li>APPROVED BUDGET FOR THE CONTRACT IS: <strong><strong style="text-transform:uppercase">{{translateToWords($data['total_amount'])}} PESOS ONLY. ( Php{{formatPrice($data['total_amount'])}})</strong></strong></li>
+                            <li>APPROVED BUDGET FOR THE CONTRACT IS: <strong><strong style="text-transform:uppercase">{{translateToWords(str_replace(',', '', $data['total_amount']))}} PESOS ONLY. ( Php{{formatPrice($data['total_amount'])}})</strong></strong></li>
                         </ol>
                         <table class="printable-form__body__table">
                             <tr>

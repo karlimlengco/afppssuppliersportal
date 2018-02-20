@@ -1162,7 +1162,7 @@ class VoucherController extends Controller
         }
 
         $output = preg_replace_callback('~\{{(.*?)\}}~', function($key)use($data, $receiver, $approver, $certifier, $result) {
-            $variable['bid_amount_word']      = translateToWords($data['bid_amount']);
+            $variable['bid_amount_word']      = translateToWords(str_replace(',', '', $data['bid_amount']));
             $variable['receiver_name']        = (count($receiver) > 1) ? $receiver[0] : "";
             $variable['receiver_ranks']       = (count($receiver) > 1) ? $receiver[1] : "";
             $variable['receiver_branch']      = (count($receiver) > 1) ? $receiver[2] : "";
