@@ -396,6 +396,10 @@ class CanvassingController extends Controller
         SignatoryRepository $signatories,
         CanvassingRepository $model)
     {
+        $this->validate($request, [
+          'canvass_time' => 'required',
+          'canvass_date' => 'required',
+        ]);
         $canvass_model      =   $model->findById($id);
 
         $inputs                         =   $request->getData();
