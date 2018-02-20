@@ -628,7 +628,13 @@ class CanvassingController extends Controller
         $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
 
 
-        $data['date_to']               =  $result->canvass_date_to." ". $result->canvass_time;
+        if($result->canvass_time != null)
+        {
+          $data['date_to']               =  $result->canvass_date_to." ". $result->canvass_time;
+        } else{
+
+          $data['date_to']               =  $result->canvass_date." 00:00:00 ";
+        }
 
         // $data['date_to']               =  $result->canvass_date." ". $result->canvass_time;
         $data['date_from']              =  $result->upr->date_prepared;
