@@ -1,5 +1,5 @@
 @section('title')
-Unit Transaction Summary
+Transaction Summary
 @stop
 
 @section('styles')

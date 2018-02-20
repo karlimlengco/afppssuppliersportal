@@ -36,7 +36,6 @@ Notice Of Delivery
 
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>UPR Number</th>
                     <th>DR Number</th>
                     <th>Expected Delivery Date.</th>
@@ -62,7 +61,6 @@ Notice Of Delivery
                 url: "{{route('datatables.procurements.delivery-orders-lists', $id)}}",
             },
         columns: [
-            {data: 'id', name: 'id'},
             {data: 'upr_number', name: 'upr_number'},
             {data: 'delivery_number', name: 'delivery_number'},
             {data: 'delivery_date', name: 'delivery_date'},

@@ -62,6 +62,7 @@
                             <th>DIIR Inspection Close</th>
                             <th>Prepare Voucher</th>
                             <th>Preaudit Voucher /End</th>
+                            <th>LDAP-ADA</th>
 
                         </tr>
                     </thead>
@@ -101,6 +102,7 @@
                               <td>{{unit.diir_close}}</td>
                               <td>{{unit.voucher}}</td>
                               <td>{{unit.end_process}}</td>
+                              <td>{{unit.ldad}}</td>
                           </tr>
                           <tr>
                             <td class="has-child" colspan="31">

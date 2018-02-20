@@ -57,6 +57,7 @@
                             <th>DIIR CLOSE</th>
                             <th>PREPARE VOUCHER</th>
                             <th>COMPLETED</th>
+                            <th>LDAP-ADA</th>
                             <th>Total Days</th>
                         </tr>
                     </thead>
@@ -78,6 +79,7 @@
                               <td v-if="types == 'bidding'">--</td>
                               <td v-if="types == 'bidding'">--</td>
                               <td v-if="types == 'bidding'">--</td>
+                              <td>--</td>
                               <td>--</td>
                               <td>--</td>
                               <td>--</td>
@@ -135,6 +137,7 @@
                                             <td>{{getDiff(itemData.di_close, itemData.di_start)}}</td>
                                             <td>{{getDiff(itemData.v_transaction_date, itemData.di_close)}}</td>
                                             <td>{{getDiff(itemData.preaudit_date, itemData.v_transaction_date)}}</td>
+                                            <td>{{getDiff(itemData.vou_release, itemData.preaudit_date)}}</td>
                                             <td>{{itemData.calendar_days}}</td>
                                         </tr>
                                         </template>
@@ -181,7 +184,12 @@
             if(end != null && start != null){
               var a = moment(start, 'YYYY-MM-DD')
               var b = moment(end, 'YYYY-MM-DD')
-              return b.diff(a, 'days')
+              var result = b.diff(a, 'days')
+              if(result < 0)
+              {
+                return 0;
+              }
+              return result;
             }
             return '--'
           },

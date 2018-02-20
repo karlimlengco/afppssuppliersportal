@@ -261,6 +261,11 @@
         <a href="#" class="button" id="voucher-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         {{-- <a href="#" id="voucher-button" class="button__options__item">Create Voucher</a> --}}
     @endif
+    @if( $data->status == 'completed')
+        <span >View Voucher</span>
+        <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        {{-- <a href="#" id="voucher-button" class="button__options__item">Create Voucher</a> --}}
+    @endif
     @if( $data->status == 'Voucher Created' || $data->status == 'Voucher Preaudit' || $data->status == 'Voucher Certify'|| $data->status == 'Voucher Journal Entry'|| $data->status == 'Voucher Approved'|| $data->status == 'Voucher Released')
        {{-- <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button__options__item">View Voucher</a> --}}
 

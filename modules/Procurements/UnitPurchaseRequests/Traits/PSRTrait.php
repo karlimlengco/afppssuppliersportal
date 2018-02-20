@@ -52,6 +52,7 @@ trait PSRTrait
               DB::raw("COUNT(delivery_inspection.closed_date) as diir_close"),
               DB::raw("COUNT(vouchers.id) as voucher"),
               DB::raw("COUNT(vouchers.id) as end_process"),
+              DB::raw("COUNT(vouchers.payment_release_date) as ldad"),
           ];
 
           if($dateFrom != null)
@@ -461,6 +462,7 @@ trait PSRTrait
               DB::raw("COUNT(delivery_inspection.closed_date) as diir_close"),
               DB::raw("COUNT(vouchers.id) as voucher"),
               DB::raw("COUNT(vouchers.id) as end_process"),
+              DB::raw("COUNT(vouchers.payment_release_date) as ldad"),
           ];
 
           if($dateFrom != null)
@@ -1020,6 +1022,7 @@ trait PSRTrait
                     DB::raw("COUNT(delivery_inspection.closed_date) as diir_close"),
                     DB::raw("COUNT(vouchers.id) as voucher"),
                     DB::raw("COUNT(vouchers.id) as end_process"),
+                    DB::raw("COUNT(vouchers.payment_release_date) as ldad"),
                     // DB::raw("COUNT(document_acceptance.id) as doc"),
                     // DB::raw("COUNT(invitation_to_bid.id) as itb"),
 
@@ -2018,7 +2021,8 @@ trait PSRTrait
             DB::raw("COUNT(inspection_acceptance_report.accepted_date) as coa_inspection"),
             DB::raw("COUNT(delivery_inspection.id) as diir"),
             DB::raw("COUNT(vouchers.id) as voucher"),
-            DB::raw("COUNT(vouchers.payment_received_date) as end_process"),
+            DB::raw("COUNT(vouchers.preaudit_date) as end_process"),
+            DB::raw("COUNT(vouchers.payment_release_date) as ldad"),
             DB::raw("COUNT(document_acceptance.id) as doc"),
             DB::raw("COUNT(invitation_to_bid.id) as itb"),
             DB::raw("COUNT(pre_bid_conferences.id) as prebid"),
@@ -2334,6 +2338,7 @@ trait PSRTrait
           'vouchers.journal_entry_date as journal_entry_date',
           'vouchers.approval_date as vou_approval_date',
           'vouchers.payment_release_date as vou_release',
+          // 'vouchers.payment_received_date as ldad',
       ]);
 
       $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
