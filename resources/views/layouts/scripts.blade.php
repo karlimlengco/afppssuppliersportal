@@ -112,9 +112,7 @@ if (typeof Object.assign != 'function') {
     var picker = new Pikaday(
     {
         field: document.getElementById('datepicker'),
-        firstDay: 1,
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
+        firstDay: 1
     });
 
 
@@ -179,9 +177,7 @@ if (typeof Object.assign != 'function') {
         firstDay: 1,
         format: 'YYYY-MM-DD',
         defaultDate: new Date(),
-        setDefaultDate: new Date(),
-        maxDate: new Date(2020, 12, 31),
-        yearRange: [2000,2020]
+        setDefaultDate: new Date()
     });
 
 </script>

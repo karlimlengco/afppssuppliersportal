@@ -497,6 +497,7 @@ class BlankRFQController extends Controller
         $data['chief']              =  explode('/', $result->signatory_chief);
         $data['items']              =  $result->upr->items;
         $data['total_amount']       =  $result->upr->total_amount;
+        $data['place']              =  $result->upr->place_of_delivery;
         $data['header']             =  $result->upr->centers;
         $rfqFormsContent            =   $rfqForms->findByPCCO($result->upr->centers->id);
         $data['content']            =  ($rfqFormsContent) ? $rfqFormsContent->content : "";

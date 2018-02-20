@@ -56,6 +56,7 @@
                             </tr>
                         </table>
                         <ol>
+                            <li>DELIVERY PERIOD IS ATLEAST SEVEN (7) CALENDAR DAYS AT {{$data['place']}}</li>
                             {!! $data['content'] !!}
                             <li>APPROVED BUDGET FOR THE CONTRACT IS: <strong><strong style="text-transform:uppercase">{{translateToWords(str_replace(',', '', $data['total_amount']))}} PESOS ONLY. ( Php{{formatPrice($data['total_amount'])}})</strong></strong></li>
                         </ol>
