@@ -125,7 +125,7 @@
                     <p><strong>VI. ADJOURNMENT:</strong> </p>
                     <p class="indent-first-line">The Chairman thanked the attendees and declared the meeting adjourned at exactly {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_opened'])->format('Hi')}}H</p>
                     <table class="printable-form__body__table no-border no-padding" style="page-break-inside:avoid">
-                       {{--  <tr>
+                     {{--    <tr>
                             <td class="align-bottom align-left" width="45%" height="80px">
                                 <strong>{{$data['chief_signatory'][1]}} {{$data['chief_signatory'][0]}} {{$data['chief_signatory'][2]}}</strong><br>
                                 {{$data['chief_signatory'][3]}}
@@ -155,6 +155,16 @@
                                 {{$data['legal'][3]}}
                             </td>
                         </tr>
+                    </table><br>
+                    <br>
+                    <table class="printable-form__body__table no-border no-padding">
+                      <tr><td width="30%"  height="60px"></td>
+                        <td class="align-bottom align-left" width="40%" height="60px">
+                        <strong>{{$data['presiding'][1]}} {{$data['presiding'][0]}} {{$data['presiding'][2]}}</strong><br>
+                        {{$data['presiding'][3]}}
+                        </td>
+                        <td width="30%"  height="60px"></td>
+                      </tr>
                     </table>
                 </div>
             </div>
