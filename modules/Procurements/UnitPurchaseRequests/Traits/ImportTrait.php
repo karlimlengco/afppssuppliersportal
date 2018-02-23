@@ -60,6 +60,29 @@ trait ImportTrait
         ]);
     }
 
+
+    /**
+     * [uploadView description]
+     *
+     * @return [type] [description]
+     */
+    public function uploadView2()
+    {
+        return $this->view('modules.procurements.upr.import',[
+            'indexRoute'    =>  $this->baseUrl."index",
+            'modelConfig'   =>  [
+                'importFile'    =>  [
+                    'route' =>  $this->baseUrl.'import-file2',
+                    'method'=>  'POST',
+                    'files' =>  true
+                ]
+            ],
+            'breadcrumbs' => [
+                new Breadcrumb('Unit Purchase Request Import')
+            ]
+        ]);
+    }
+
     /**
      * [uploadFile description]
      *
@@ -99,7 +122,7 @@ trait ImportTrait
         // $date           =   $fields[12][8];
         // $date           =   $fields[12][8];
         // Loop through all sheets
-        // $reader->formatDates(true  , 'd F Y');
+        $reader->formatDates(true  , 'd F Y');
         // $fields         =   $reader->limitColumns(10)->get();
         // $fields         =   $reader->limitColumns(6)->limitRows(30)->get();
         // $items          =   $reader->skipRows(30)->limitColumns(6)->get();
@@ -180,7 +203,11 @@ trait ImportTrait
 
         if($datePrepared != null)
         {
-            $datePrepared = \Carbon\Carbon::createFromFormat('d M Y', ($datePrepared))->format('Y-m-d');
+            try {
+              $datePrepared = \Carbon\Carbon::createFromFormat('d M Y', ($datePrepared))->format('Y-m-d');
+            } catch (\Exception $e) {
+              $datePrepared = null;
+            }
         }
 
         // if($pcco != null)
@@ -264,6 +291,7 @@ trait ImportTrait
         // $array['procurement_type']    = $procurementProg;
         $array['terms_of_payment']    = $termPayments;
         $array['other_infos']         = $fields[12][3];
+        $array['project_name']        = $fields[12][3];
         // $array['purpose']             = $fields[22][0];
         // $array['requestor_id']        = $requestId;
         // $array['fund_signatory_id']   = $funderId;
@@ -395,9 +423,9 @@ trait ImportTrait
                 if (strpos($itemRow[0], 'ALL SIGNATURES MUST') !== false) {
                     $sigKey = $key + 5;
 
-                    $requestBy      =   $items[$sigKey][0];
-                    $fundBy         =   $items[$sigKey][6];
-                    $preparedBy     =   $items[$sigKey][8];
+                    $requestBy      =   trim($items[$sigKey][0]);
+                    $fundBy         =   trim($items[$sigKey][6]);
+                    $preparedBy     =   trim($items[$sigKey][8]);
 
                     if($requestBy != null)
                     {
@@ -492,6 +520,174 @@ trait ImportTrait
         //       'total_amount'          =>  $new[4],
         //   ];
         // }
+        $array['total_amount']  =   $total;
+        // dd($array);
+        session([
+            'data'  =>  $array,
+            'items' =>  $itemArray
+        ]);
+
+        return redirect()->route($this->baseUrl.'second-step');
+    }
+
+
+    /**
+     * [uploadFile description]
+     *
+     * @param  Request                       $request [description]
+     * @param  UnitPurchaseRequestRepository $model   [description]
+     * @return [type]                                 [description]
+     */
+    public function uploadFile2(
+        Request $request,
+        UnitPurchaseRequestRepository $model,
+        AccountCodeRepository $accounts,
+        ChargeabilityRepository $chargeability,
+        SignatoryRepository $signatories,
+        ModeOfProcurementRepository $modes,
+        ProcurementCenterRepository $centers,
+        ProcurementTypeRepository $types,
+        CateredUnitRepository $units,
+        PaymentTermRepository $terms)
+    {
+        $this->validate($request,['file'=>'required']);
+        $path           =   $request->file('file')->getRealPath();
+
+        $data           =   [];
+        $reader         =   Excel::selectSheetsByIndex(1)->load($path, function($reader) {});
+        $fields         =   $reader->limitColumns(11)->get();
+        $items          =   $reader->skipRows(15)->limitColumns(11)->get();
+        $reader->formatDates(true  , 'd F Y');
+        $unit           =   $fields[01][0]; // y/m/d
+        $datePrepared   =   $fields[12][8]; // y/m/d
+        $mode           =   $fields[7][3];
+        $charge         =   $fields[8][3];
+        $termPayments   =   $fields[11][3];
+
+        $requestBy      =   $fields[25][0];
+        $fundBy         =   $fields[25][2];
+        $preparedBy     =   $fields[25][4];
+        $requestByR     =   $fields[26][0];
+        $requestByB     =   $fields[26][1];
+        $fundByR        =   $fields[26][3];
+        $fundByB        =   $fields[26][4];
+        $preparedByR    =   $fields[26][5];
+        $preparedByB    =   $fields[26][5];
+        $requestByD     =   $fields[27][0];
+        $fundByD        =   $fields[27][2];
+        $preparedByD    =   $fields[27][4];
+        $array          =   [];
+        $itemArray      =   [];
+        $requestId      = $funderId   =  $approverId = '';
+
+        $code = '';
+        $accountsModel    =   $accounts->findByName(trim($fields[9][3]) );
+        if($accountsModel != null)
+        {
+            $code = $accountsModel->id;
+        }
+
+        if($datePrepared != null)
+        {
+            try {
+              $datePrepared = \Carbon\Carbon::createFromFormat('d M Y', ($datePrepared))->format('Y-m-d');
+            } catch (\Exception $e) {
+              $datePrepared = null;
+            }
+        }
+
+        if($termPayments != null)
+        {
+            if( $terms->findByName(trim($termPayments)) ){
+                $termPayments =  $terms->findByName(trim($termPayments))->id;
+            }
+        }
+
+        $unitCenter = '';
+        if($unit != null)
+        {
+            if( $units->findByDescription(trim($unit)) ){
+                $unitModal =  $units->findByDescription(trim($unit));
+                $unit =  $unitModal->id;
+                if($unitModal->centers){
+                  $unitCenter = $unitModal->centers->id;
+                }
+            }
+        }
+
+        if($mode != null && $mode != 'Public Bidding')
+        {
+            if( $modes->findByName(trim($mode)) ){
+                $mode =  $modes->findByName(trim($mode))->id;
+            }
+        } elseif(strpos($mode, 'Public') !== false){
+          $mode = 'public_bidding';
+        }
+        $array['units']               = $unit;
+        $array['upr_number']          = $fields[6][8];
+        $array['place_of_delivery']   = $fields[6][3];
+
+        $array['date_prepared']       = $datePrepared;
+        $array['fund_validity']       = $fields[10][3];
+        $array['procurement_office']  = $unitCenter;
+        $array['mode_of_procurement'] = $mode;
+        $array['chargeability']       = $charge;
+        $array['terms_of_payment']    = $termPayments;
+        $array['other_infos']         = $fields[12][3];
+        $array['project_name']        = $fields[12][3];
+
+        $item = [];
+        $total = 0;
+        foreach($items->toArray() as $key => $itemRow)
+        {
+                if($itemRow[1] != null && $itemRow[7] != null && $itemRow[8] != null
+                  ){
+
+                  $itemArray[]    =   [
+                      'new_account_code'      =>  $code,
+                      'item_description'      =>  $itemRow[1],
+                      'quantity'              =>  $itemRow[7],
+                      'unit'                  =>  $itemRow[8],
+                      'unit_price'            =>  $itemRow[9],
+                      'total_amount'          =>  $itemRow[10],
+                  ];
+                  $total  = $total + $itemRow[5];
+                }
+
+                if (strpos($itemRow[0], 'Purpose') !== false) {
+                  $array['purpose'] = str_replace('Purpose:', '', $itemRow[0]);
+                }
+                if (strpos($itemRow[0], 'ALL SIGNATURES MUST') !== false) {
+                    $sigKey = $key + 5;
+
+                    $requestBy      =   trim($items[$sigKey][0]);
+                    $fundBy         =   trim($items[$sigKey][6]);
+                    $preparedBy     =   trim($items[$sigKey][8]);
+
+                    if($requestBy != null)
+                    {
+                        $requestId   =   $signatories->findByName($requestBy);
+                        if($requestId)
+                        {
+                            $requestId = $requestId->id;
+                        }
+                    }
+
+                    if($fundBy != null)
+                    {
+                        $approverId   =   $signatories->findByName($fundBy);
+                        if($approverId)
+                        {
+                            $approverId = $approverId->id;
+                        }
+                    }
+
+
+                    $array['requestor_id']        = $requestId;
+                    $array['approver_id']         = $approverId;
+                }
+
+        };
         $array['total_amount']  =   $total;
         // dd($array);
         session([
