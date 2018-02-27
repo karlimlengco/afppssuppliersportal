@@ -26,7 +26,7 @@
                     </span>
                 </div>
                 <!-- title -->
-                <span class="printable-form__body__title">PURCHASE ORDER/WORK ORDER/JOB ORDER</span>
+              <span class="printable-form__body__title">{{str_replace('_', ' ', $data['type'])}}</span>
                 <!-- content -->
                 <table class="printable-form__body__table">
                     <tr>
@@ -79,7 +79,7 @@
                     </tr>
                     <tr>
                         <td class="border-left-only" nowrap>Delivery Term</td>
-                        <td class="no-border"><strong>{{$data['delivery_term']}} Calendar Days upon conformed of this PURCHASE ORDER</strong></td>
+                        <td class="no-border"><strong>{{$data['delivery_term']}} Calendar Days upon conformed of this NOTICE TO PROCEED</strong></td>
                         <td class="no-border" nowrap>Payment Term</td>
                         <td class="border-right-only"><strong>{{$data['term']}}</strong></td>
                     </tr>

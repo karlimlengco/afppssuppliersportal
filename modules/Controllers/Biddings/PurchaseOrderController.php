@@ -831,6 +831,7 @@ class PurchaseOrderController extends Controller
         }
 
         $data['po_number']          =  $result->po_number;
+        $data['account']            =  $result->type;
         $data['purchase_date']      =  $result->purchase_date;
         $data['transaction_date']   =  $result->rfq->transaction_date;
         $data['winner']             =  $noa_model;
@@ -890,6 +891,7 @@ class PurchaseOrderController extends Controller
             return redirect()->back()->with(['error' => 'Please add signatories']);
         }
         $data['type']               =  $result->type;
+        $data['account']            =  $result->type;
         $data['po_number']          =  $result->po_number;
         $data['upr_number']         =  $upr_model->upr_number;
         $data['remarks']            =  $result->remarks;

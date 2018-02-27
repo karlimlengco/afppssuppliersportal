@@ -135,8 +135,8 @@
                             </tr>
                             <tr>
                                 <td class="align-center no-border-top" colspan="4">
-                                    <strong>{{$data['sao'][1]}} {{$data['sao'][0]}}{{$data['sao'][2]}}</strong><br>
-                                    {{$data['sao'][3]}}
+                                    <strong>{{$data['issuer'][1]}} {{$data['issuer'][0]}}{{$data['issuer'][2]}}</strong><br>
+                                    {{$data['issuer'][3]}}
                                 </td>
                                 <td class="align-middle align-center" colspan="4">Accounting Clerk</td>
                             </tr>

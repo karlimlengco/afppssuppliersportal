@@ -90,6 +90,14 @@ class NoticeOfAwardController extends Controller
         $canvasDate             =   $canvasModel->canvass_date;
         $canvasDate             =   Carbon::createFromFormat('Y-m-d', $canvasDate );
         // $canvasDate             =   $canvasModel->rfq->completed_at;
+        //
+        $validator = Validator::make($request->all(),[
+            'awarded_date'  =>   'required|after_or_equal:'.$canvasDate->format('Y-m-d'),
+            'awarded_by'    =>   'required',
+            'seconded_by'   =>   'required',
+            'account_type'  =>   'required',
+        ]);
+
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('awarded_date') );
 
         $proponent_model        =   $proponents->with('supplier')->findById($proponentId);
@@ -109,12 +117,6 @@ class NoticeOfAwardController extends Controller
             $day_delayed = $day_delayed - 2;
         }
 
-        $validator = Validator::make($request->all(),[
-            'awarded_date'  =>   'required|after_or_equal:'.$canvasDate->format('Y-m-d'),
-            'awarded_by'    =>   'required',
-            'seconded_by'   =>   'required',
-            'resolution'    =>   'required',
-        ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('remarks') == null && $day_delayed > 2 ) {
@@ -244,6 +246,7 @@ class NoticeOfAwardController extends Controller
 
         $validator = Validator::make($request->all(),[
             'received_by'           =>  'required',
+            'account_type'           =>  'required',
             'award_accepted_date'   =>  'required|after_or_equal:'. $accepted_date->format('Y-m-d'),
             'received_action'       =>  'required_with:received_remarks'
         ]);
@@ -268,6 +271,7 @@ class NoticeOfAwardController extends Controller
             'status'                =>  'accepted',
             'received_days'         =>  $wd,
             'received_remarks'      =>  $request->received_remarks,
+            'account_type'          =>  $request->account_type,
             'received_action'       =>  $request->received_action,
         ];
 
@@ -587,7 +591,6 @@ class NoticeOfAwardController extends Controller
         NOARepository $model
         )
     {
-
         $result             =   $model->findById($id);
 
         if($result->rfq_id)
@@ -644,6 +647,7 @@ class NoticeOfAwardController extends Controller
             'awarded_date'              =>  $request->awarded_date,
             'award_accepted_date'       =>  $request->award_accepted_date,
             'accepted_date'             =>  $request->accepted_date,
+            'account_type'              =>  $request->account_type,
             'update_remarks'            =>  $request->update_remarks,
             'days' => $day_delayed
         ];
@@ -725,6 +729,7 @@ class NoticeOfAwardController extends Controller
         $header                     =  $pccoHeaders->findByPCCO($noa_modal->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']   =   $noa_modal->awarded_date;
+        $data['account_type']        =   $noa_modal->account_type;
         $data['supplier']           =   $proponent_awardee;
         $data['unit']               =   $upr_model->unit->short_code;
         $data['center']             =   $noa_modal->upr->centers->name;

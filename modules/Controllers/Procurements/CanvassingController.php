@@ -518,9 +518,10 @@ class CanvassingController extends Controller
             'cop' => $request->cop,
             'rop' => $request->rop
         ];
-        if($request->attendace != null){
+        if($request->attendance != null){
 
-          foreach($request->attendance as $attendance)
+            // dd($request->attendance);
+          foreach($request->attendance as $key => $attendance)
           {
               if($attendance == 1)
               {
@@ -591,6 +592,12 @@ class CanvassingController extends Controller
 
         $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
+
+        $data['chief_attendance']   =  $result->chief_attendance;
+        $data['unit_head_attendance']   =  $result->unit_head_attendance;
+        $data['mfo_attendance']     =  $result->mfo_attendance;
+        $data['legal_attendance']   =  $result->legal_attendance;
+        $data['secretary_attendance']   =  $result->secretary_attendance;
 
         $data['rfq_number']         =  $result->rfq->rfq_number;
         $data['header']             =  $result->upr->centers;

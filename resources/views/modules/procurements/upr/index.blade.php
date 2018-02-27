@@ -28,7 +28,8 @@ Unit Purchase Request
     <div class="six columns align-right" >
 
         <a class="button" href="{{route($createRoute)}}" tooltip="Add UPR">Add UPR</a>
-        <a class="button" href="{{route($importRoute)}}" tooltip="Import UPR">Import UPR</a>
+        <a class="button" href="{{route($importRoute)}}" tooltip="Import UPR">Import UPR Form 1</a>
+        <a class="button" href="{{route($importRoute2)}}" tooltip="Import UPR2">Import UPR Form 2</a>
     </div>
 </div>
 

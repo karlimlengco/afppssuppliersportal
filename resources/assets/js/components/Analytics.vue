@@ -722,6 +722,16 @@ var tarray2IDs           =   [];
             },
             search: function()
             {
+
+                arrayIDs = []
+                arrayProgramCenter = []
+                array2IDs = []
+
+                this. itemProgram =  [],
+                this. itemProgramCenters = [],
+                this. itemUnits = [],
+
+                this.fetchUPRCenters(this.types)
                 this.fetchUprAnalytics(this.types)
             },
             changeOverview: function()

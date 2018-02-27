@@ -40,6 +40,18 @@ Notice Of Award
     <div class="twelve columns">
 
             <div class="row">
+              <div class="twelve columns">
+                    {!! Form::selectField('account_type', 'Type',[
+                        'Purchase Order' => 'Purchase Order',
+                        'Contract' => 'Contract',
+                        'Work Order' => 'Work Order',
+                        'Job Order' => 'Job Order',
+                        'Purchase Order and Contract' => 'Purchase Order and Contract',
+                    ]) !!}
+              </div>
+            </div>
+
+            <div class="row">
                 <div class="six columns">
                     {!! Form::textField('awarded_date', 'Award Date') !!}
                 </div>

@@ -28,7 +28,7 @@
                     <div class="six columns">
                         {{-- {!! Form::selectField('chief', 'Chief', $signatory_list) !!} --}}
 
-                        <label class="label">Chief</label>
+                        <label class="label">Chief <small>(signatory for NOA)</small></label>
                         {!! Form::select('chief',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-chief']) !!}
                     </div>
                 </div>
@@ -37,13 +37,13 @@
                     <div class="six columns">
                         {{-- {!! Form::selectField('unit_head', 'Unit Head', $signatory_list) !!} --}}
 
-                        <label class="label">Unit Head</label>
+                        <label class="label">End User</label>
                         {!! Form::select('unit_head',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-unit_head']) !!}
                     </div>
                     <div class="six columns">
                         {{-- {!! Form::selectField('mfo', 'MFO', $signatory_list) !!} --}}
 
-                        <label class="label">MFO</label>
+                        <label class="label">Financial Analyst</label>
                         {!! Form::select('mfo',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-mfo']) !!}
                     </div>
                 </div>

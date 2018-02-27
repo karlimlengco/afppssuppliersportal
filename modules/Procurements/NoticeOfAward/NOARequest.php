@@ -33,6 +33,7 @@ class NOARequest extends BaseRequest
 
         'approved_remarks',
         'approved_days',
+        'account_type',
 
         'received_remarks',
         'received_days',

@@ -164,8 +164,8 @@ class ProcurementCenterRepository extends BaseRepository
 
         if($request->has('date_to') &&  $request->get('date_from') == null)
         {
-            $date_from  =   $date_to;
-            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_from)->format('Y');
+            $date_to  =   $date_to;
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_to)->format('Y');
         }
         $model  =   $this->model;
         if(!\Sentinel::getUser()->hasRole('Admin') )

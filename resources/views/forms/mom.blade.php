@@ -105,23 +105,25 @@
                     <p class="indent-first-line">The Chairman and Member in the presence of the attendees checked the submitted eligibility documents of each proponent base on the checklist of eligibility documents using a non-discretionary "Passed/Failed". After examination, the results are as follow: </p>
                     <table class="printable-form__body__table">
                         <tr>
-                            <td class="align-middle" width="20%"><strong>CANVASS PROPOSAL NR</strong></td>
-                            <td class="align-middle" width="40%"><strong>PROPONENT NAME</strong></td>
-                            <td class="align-middle" width="20%"><strong>ELIGIBILITY REQUIREMENTS</strong></td>
-                            <td class="align-middle" width="20%"><strong>PRICE QUOTATION</strong></td>
+                            <td class="align-middle align-center" width="20%"><strong>CANVASS PROPOSAL NR</strong></td>
+                            <td class="align-middle align-center" width="40%"><strong>PROPONENT NAME</strong></td>
+                            <td class="align-middle align-center" width="20%"><strong>ELIGIBILITY REQUIREMENTS</strong></td>
+                            <td class="align-middle align-center" width="20%"><strong>PRICE QUOTATION</strong></td>
                         </tr>
                         @foreach($data['canvass']->rfq->proponents as $proponent)
                             <tr>
                                 <td>{{$data['canvass']->rfq_number}}</td>
                                 <td>{{$proponent->supplier->name}}</td>
-                                <td>{{ucfirst($proponent->status)}}</td>
-                                <td>{{formatPrice($proponent->bid_amount)}}</td>
+                                <td class="align-center">{{ucfirst($proponent->status)}}</td>
+                                <td class="align-right">{{formatPrice($proponent->bid_amount)}}</td>
                             </tr>
                         @endforeach
                     </table>
 
                     <p>That after reading the price quotation submitted of the proponent for {{$data['canvass']->rfq_number}}, {{$data['canvass']->winners->awarder->ranks}} {{$data['canvass']->winners->awarder->name}} {{$data['canvass']->winners->awarder->branch}} moved {{$data['canvass']->winners->winner->supplier->name}} be declared as the winner for having the lowest price among other bidder. {{$data['canvass']->winners->seconder->ranks}} {{$data['canvass']->winners->seconder->name}} {{$data['canvass']->winners->seconder->branch}} seconded it. Since no objection was raised, the Chairman declared {{$data['canvass']->winners->winner->supplier->name}} as the winner.</p>
+                    @if($data['resolution'] != null)
                     <p>Resolution: {{$data['resolution']}}</p>
+                    @endif
                     <p><strong>VI. ADJOURNMENT:</strong> </p>
                     <p class="indent-first-line">The Chairman thanked the attendees and declared the meeting adjourned at exactly {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_opened'])->format('Hi')}}H</p>
                     <table class="printable-form__body__table no-border no-padding" style="page-break-inside:avoid">

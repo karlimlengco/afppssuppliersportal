@@ -22,7 +22,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{$data->chieftain->name}}</td>
+                            <td>{{$data->officer->name}}</td>
                             <td>
                                 <input type="checkbox" name="attendance[]" @if($data->chief_attendance == 1) checked @endif value="1">
                             </td>

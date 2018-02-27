@@ -130,7 +130,9 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     Route::get('unit-purchase-requests/download/{id}', '\Revlv\Controllers\Procurements\UPRController@downloadAttachment')->name('unit-purchase-requests.attachments.download');
     Route::get('unit-purchase-requests/logs/{id}', '\Revlv\Controllers\Procurements\UPRController@viewLogs')->name('unit-purchase-requests.logs');
     Route::get('unit-purchase-requests/imports', '\Revlv\Controllers\Procurements\UPRController@uploadView')->name('unit-purchase-requests.imports');
+    Route::get('unit-purchase-requests/imports2', '\Revlv\Controllers\Procurements\UPRController@uploadView2')->name('unit-purchase-requests.imports2');
     Route::post('unit-purchase-requests/import-file', '\Revlv\Controllers\Procurements\UPRController@uploadFile')->name('unit-purchase-requests.import-file');
+    Route::post('unit-purchase-requests/import-file2', '\Revlv\Controllers\Procurements\UPRController@uploadFile2')->name('unit-purchase-requests.import-file2');
     Route::post('unit-purchase-requests/save-file', '\Revlv\Controllers\Procurements\UPRController@saveFile')->name('unit-purchase-requests.save-file');
     Route::resource('unit-purchase-requests', '\Revlv\Controllers\Biddings\UPRController');
 
@@ -401,6 +403,10 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('unit-purchase-requests/logs/{id}', '\Revlv\Controllers\Procurements\UPRController@viewLogs')->name('unit-purchase-requests.logs');
     Route::get('unit-purchase-requests/imports', '\Revlv\Controllers\Procurements\UPRController@uploadView')->name('unit-purchase-requests.imports');
     Route::post('unit-purchase-requests/import-file', '\Revlv\Controllers\Procurements\UPRController@uploadFile')->name('unit-purchase-requests.import-file');
+
+    Route::get('unit-purchase-requests/imports2', '\Revlv\Controllers\Procurements\UPRController@uploadView2')->name('unit-purchase-requests.imports2');
+
+    Route::post('unit-purchase-requests/import-file2', '\Revlv\Controllers\Procurements\UPRController@uploadFile2')->name('unit-purchase-requests.import-file2');
     Route::post('unit-purchase-requests/save-file', '\Revlv\Controllers\Procurements\UPRController@saveFile')->name('unit-purchase-requests.save-file');
     Route::resource('unit-purchase-requests', '\Revlv\Controllers\Procurements\UPRController');
 

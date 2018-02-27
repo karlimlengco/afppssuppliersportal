@@ -64,7 +64,7 @@ Canvassing
                         {!! Form::select('presiding_officer',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-presiding_officer']) !!}
                 </div>
                 <div class="six columns">
-                        <label class="label">Chief</label>
+                        <label class="label">Chief <small>(signatory for noa)</small> </label>
                         {!! Form::select('chief',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-chief']) !!}
                 </div>
             </div>
@@ -72,11 +72,11 @@ Canvassing
 
             <div class="row">
                 <div class="six columns">
-                        <label class="label">Unit Head</label>
+                        <label class="label">End User</label>
                         {!! Form::select('unit_head',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-unit_head']) !!}
                 </div>
                 <div class="six columns">
-                        <label class="label">MFO</label>
+                        <label class="label">Financial Analyst</label>
                         {!! Form::select('mfo',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-mfo']) !!}
                 </div>
             </div>

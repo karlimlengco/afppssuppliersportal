@@ -64,7 +64,7 @@ Inspection And Acceptance Report
                 <div class="twelve columns">
                     {{-- {!! Form::selectField('acceptance_signatory', 'Acceptance Signatory', $signatory_list) !!} --}}
 
-                    <label class="label">Acceptance Signatory</label>
+                    <label class="label">SAO Acceptance Signatory <small>(signatory for IIAR)</small></label>
                     {!! Form::select('acceptance_signatory',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-acceptance_signatory']) !!}
                 </div>
             </div>
@@ -72,7 +72,7 @@ Inspection And Acceptance Report
                 <div class="twelve columns">
                     {{-- {!! Form::selectField('sao_signatory', 'SAO Signatory', $signatory_list) !!} --}}
 
-                    <label class="label">SAO Signatory</label>
+                    <label class="label">SAO Signatory <small>(Signatory for MFO)</small> </label>
                     {!! Form::select('sao_signatory',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-sao_signatory']) !!}
                 </div>
             </div>

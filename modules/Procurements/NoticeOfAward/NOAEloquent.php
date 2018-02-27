@@ -83,6 +83,7 @@ class NOAEloquent extends Model implements  AuditableContract
         'seconded_by',
         'status',
         'award_accepted_date',
+        'account_type',
         'accepted_date',
 
         'days',

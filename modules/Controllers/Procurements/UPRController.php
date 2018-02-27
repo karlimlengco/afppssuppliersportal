@@ -231,6 +231,7 @@ class UPRController extends Controller
     {        return $this->view('modules.procurements.upr.index',[
             'createRoute'   =>  $this->baseUrl."create",
             'importRoute'   =>  $this->baseUrl."imports",
+            'importRoute2'   =>  $this->baseUrl."imports2",
             'breadcrumbs' => [
                 new Breadcrumb('Unit Purchase Request')
             ]
