@@ -588,7 +588,7 @@ function convertDigit($digit)
 function translateToWords($number)
 {
 
-  $num = $number;
+  $num = number_format($number,2);
   $num = str_replace(',', '', $number);
   $split = explode('.',$num);
   $cents = '';
