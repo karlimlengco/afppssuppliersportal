@@ -150,7 +150,7 @@ class PSRController extends Controller
 
         $result     =   $model->getPcooPSRDatatable($request, $search);
 
-        $this->downloadExcel($result, $request->date_from, $request->date_to);
+        $this->downloadExcel($result, $request->date_from, $request->date_to, $request->type);
 
     }
 
@@ -160,10 +160,10 @@ class PSRController extends Controller
      * @param  [type] $result [description]
      * @return [type]         [description]
      */
-    public function downloadExcel($result, $from ,$to)
+    public function downloadExcel($result, $from ,$to, $type)
     {
-        Excel::create("PSR Transactions", function($excel)use ($result, $from ,$to) {
-            $excel->sheet('Page1', function($sheet)use ($result, $from ,$to) {
+        Excel::create("PSR Transactions", function($excel)use ($result, $from ,$to, $type) {
+            $excel->sheet('Page1', function($sheet)use ($result, $from ,$to, $type) {
                 if($from != null)
                 $from = \Carbon\Carbon::createFromFormat('!Y-m-d', $from)->format('d F Y');
 
@@ -195,8 +195,7 @@ class PSRController extends Controller
                 $sheet->mergeCells('A3:AA3');
                 if($result->last() != null)
                 {
-
-                    if($result->last()->mode_of_procurement != 'public_bidding')
+                    if($type != 'bidding')
                     {
                         $sheet->row(6, [
                             'PC/CO',
@@ -222,11 +221,13 @@ class PSRController extends Controller
                             'DIIR Inspection Close',
                             'Prepare Voucher',
                             'Preaudit Voucher /End',
+                            'LDAP-DAP',
                         ]);
                     }
                     else
                     {
                         $sheet->row(6, [
+                            'PC/CO',
                             'UPR',
                             'Document Acceptance',
                             'Pre Proc',
@@ -252,6 +253,7 @@ class PSRController extends Controller
                             'DIIR Inspection Close',
                             'Prepare Voucher',
                             'Preaudit Voucher /End',
+                            'LDAP-DAP',
                         ]);
                     }
                 }
@@ -260,7 +262,7 @@ class PSRController extends Controller
                 {
 
                     $count ++;
-                    if($data->mode_of_procurement != 'public_bidding')
+                    if($type != 'bidding')
                     {
                         $newdata    =   [
                             $data->unit_name,
@@ -286,6 +288,7 @@ class PSRController extends Controller
                             $data->diir_close,
                             $data->voucher,
                             $data->end_process,
+                            $data->ldad,
                         ];
                     }
                     else
@@ -318,6 +321,7 @@ class PSRController extends Controller
                             $data->diir_close,
                             $data->voucher,
                             $data->end_process,
+                            $data->ldad,
                         ];
                     }
                     $sheet->row($count, $newdata);

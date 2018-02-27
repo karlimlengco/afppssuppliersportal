@@ -125,7 +125,7 @@
                     <p>Resolution: {{$data['resolution']}}</p>
                     @endif
                     <p><strong>VI. ADJOURNMENT:</strong> </p>
-                    <p class="indent-first-line">The Chairman thanked the attendees and declared the meeting adjourned at exactly {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_opened'])->format('Hi')}}H</p>
+                    <p class="indent-first-line">The Chairman thanked the attendees and declared the meeting adjourned at exactly {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_closed'])->format('Hi')}}H</p>
                     <table class="printable-form__body__table no-border no-padding" style="page-break-inside:avoid">
                      {{--    <tr>
                             <td class="align-bottom align-left" width="45%" height="80px">

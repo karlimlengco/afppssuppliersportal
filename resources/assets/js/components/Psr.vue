@@ -71,7 +71,7 @@
                                   <button @click="fetchUnitItems(unit)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                               </td>
                               <td>--</td>
-                              <td>{{unit.total_abc}}</td>
+                              <td>{{formatPrice(unit.total_abc)}}</td>
                               <td>{{unit.upr_count}}</td>
                               <td v-if="types != 'bidding'">--</td>
                               <td v-if="types != 'bidding'">--</td>
@@ -113,7 +113,7 @@
                                         <tr>
                                             <td>{{itemData.upr_number}}</td>
                                             <td>{{itemData.project_name}}</td>
-                                            <td>{{itemData.total_amount}}</td>
+                                            <td>{{formatPrice(itemData.total_amount)}}</td>
                                             <td>{{formatDate(itemData.date_prepared)}}</td>
                                             <td v-if="types != 'bidding'" >{{getDiff(itemData.ispq_transaction_date, itemData.date_prepared)}}</td>
                                             <td v-if="types != 'bidding'" >{{getDiff(itemData.rfq_created_at, itemData.date_prepared)}}</td>
@@ -186,6 +186,12 @@
                return moment(value).format('MMM DD YYYY')
             }
           },
+          formatPrice(value) {
+              if(value){
+                let val = (value/1).toFixed(2).replace('.', '.')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              }
+          },
           getDiff: function(end, start){
             if(end != null && start != null){
               var a = moment(start, 'YYYY-MM-DD')
@@ -200,13 +206,11 @@
             return '--'
           },
           searchMe: function(){
-
+            this.itemsName = []
+            this.items = []
             var date_from       =   $('input[name=date_from]').val();
             var date_to         =   $('input[name=date_to]').val();
             var ptype = this.types
-            if (ptype =='alternative'){
-              ptype = ''
-            }
             axios.get('/reports/unit-psr/'+ptype+'?date_from='+date_from+'&&date_to='+date_to)
             .then(response => {
                 this.units = response.data
@@ -227,6 +231,8 @@
             window.open('/reports/transaction-psr/download/'+table_search+'?type='+ptype+'&&date_from='+date_from+'&&date_to='+date_to);
           },
           changeType: function(type){
+              this.itemsName = []
+              this.items = []
               this.types = type
               $('.table-name').removeClass('is-visible');
               this.fetchUnitPsr(this.types)

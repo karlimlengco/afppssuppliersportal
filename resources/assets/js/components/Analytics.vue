@@ -2,7 +2,7 @@
 <div class=" ">
     <div class="row">
         <div class="five columns">
-            <h1>Procurement Status Monitoring</h1>
+            <h1>Procurement Status Monitoring </h1>
         </div>
 
         <div class="seven columns align-right">
@@ -488,6 +488,7 @@ var tarray2IDs           =   [];
     export default {
         data() {
             return{
+                isLoading: false,
                 items: [],
                 timelineItem: [],
                 timelineItemProgram: [],
@@ -722,7 +723,6 @@ var tarray2IDs           =   [];
             },
             search: function()
             {
-
                 arrayIDs = []
                 arrayProgramCenter = []
                 array2IDs = []

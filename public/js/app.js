@@ -72706,6 +72706,7 @@ var tarray2IDs = [];
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            isLoading: false,
             items: [],
             timelineItem: [],
             timelineItemProgram: [],
@@ -72925,7 +72926,6 @@ var tarray2IDs = [];
             }
         },
         search: function search() {
-
             arrayIDs = [];
             arrayProgramCenter = [];
             array2IDs = [];
@@ -74083,6 +74083,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return moment(value).format('MMM DD YYYY');
       }
     },
+    formatPrice: function formatPrice(value) {
+      if (value) {
+        var val = (value / 1).toFixed(2).replace('.', '.');
+        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+    },
+
     getDiff: function getDiff(end, start) {
       if (end != null && start != null) {
         var a = moment(start, 'YYYY-MM-DD');
@@ -74098,12 +74105,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     searchMe: function searchMe() {
       var _this = this;
 
+      this.itemsName = [];
+      this.items = [];
       var date_from = $('input[name=date_from]').val();
       var date_to = $('input[name=date_to]').val();
       var ptype = this.types;
-      if (ptype == 'alternative') {
-        ptype = '';
-      }
       axios.get('/reports/unit-psr/' + ptype + '?date_from=' + date_from + '&&date_to=' + date_to).then(function (response) {
         _this.units = response.data;
       }).catch(function (e) {
@@ -74122,6 +74128,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       window.open('/reports/transaction-psr/download/' + table_search + '?type=' + ptype + '&&date_from=' + date_from + '&&date_to=' + date_to);
     },
     changeType: function changeType(type) {
+      this.itemsName = [];
+      this.items = [];
       this.types = type;
       $('.table-name').removeClass('is-visible');
       this.fetchUnitPsr(this.types);
@@ -74639,12 +74647,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     searchMe: function searchMe() {
       var _this = this;
 
+      this.itemsName = [];
+      this.items = [];
       var date_from = $('input[name=date_from]').val();
       var date_to = $('input[name=date_to]').val();
       var ptype = this.types;
-      if (ptype == 'alternative') {
-        ptype = '';
-      }
       axios.get('/reports/unit-psr/' + ptype + '?date_from=' + date_from + '&&date_to=' + date_to).then(function (response) {
         _this.units = response.data;
       }).catch(function (e) {
@@ -74657,13 +74664,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var table_search = '';
       // table_search    =   $('input[name=table_search]').val();
       var ptype = this.types;
-      if (ptype == 'alternative') {
-        ptype = '';
-      }
       window.open('/reports/transaction-days/download/' + table_search + '?type=' + ptype + '&&date_from=' + date_from + '&&date_to=' + date_to);
     },
     changeType: function changeType(type) {
       this.types = type;
+
+      this.itemsName = [];
+      this.items = [];
       $('.table-name').removeClass('is-visible');
       this.fetchUnitPsr(this.types);
       this.fetchUnitItems(this.types);
@@ -84313,7 +84320,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "five columns"
-  }, [_c('h1', [_vm._v("Procurement Status Monitoring")])])
+  }, [_c('h1', [_vm._v("Procurement Status Monitoring ")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -84849,7 +84856,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "child-table table-name"
     }, [_c('tbody', [_vm._l((_vm.items), function(item) {
       return [(item.unit == unit.short_code) ? [_vm._l((item.data), function(itemData) {
-        return [_c('tr', [_c('td', [_vm._v(_vm._s(itemData.upr_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.date_prepared)))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.ispq_transaction_date, itemData.date_prepared)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.rfq_created_at, itemData.date_prepared)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_award_date, itemData.canvass_start_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.doc_date, itemData.date_prepared)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.proc_date, itemData.doc_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.itb_date, itemData.proc_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.pp_completed_at, itemData.itb_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.prebid_date, itemData.pp_completed_at)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.bid_date, itemData.prebid_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.pq_date, itemData.bid_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_award_date, itemData.pq_date)))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_approved_date, itemData.noa_award_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.funding_received_date, itemData.po_create_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.mfo_received_date, itemData.funding_received_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.coa_approved_date, itemData.mfo_received_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.ntp_date, itemData.coa_approved_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.ntp_award_date, itemData.ntp_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.dr_date, itemData.ntp_award_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.dr_coa_date, itemData.dr_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.dr_inspection, itemData.dr_coa_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.iar_accepted_date, itemData.dr_inspection)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.di_start, itemData.iar_accepted_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.di_close, itemData.di_start)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.v_transaction_date, itemData.di_close)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.preaudit_date, itemData.v_transaction_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.vou_release, itemData.preaudit_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.calendar_days))])])]
+        return [_c('tr', [_c('td', [_vm._v(_vm._s(itemData.upr_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.date_prepared)))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.ispq_transaction_date)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.rfq_created_at)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.canvass_start_date)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.noa_award_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.doc_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.proc_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.itb_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.pp_completed_at)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.prebid_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.bid_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.pq_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.noa_award_date)))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.noa_approved_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.noa_award_accepted_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.po_create_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.funding_received_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.mfo_received_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.coa_approved_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.ntp_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.ntp_award_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.dr_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.dr_coa_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.dr_inspection)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.iar_accepted_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.di_start)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.di_close)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.v_transaction_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.preaudit_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.vou_release)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.calendar_days))])])]
       })] : _vm._e()]
     })], 2)])])])]
   })], 2)])])])])])])
@@ -84968,7 +84975,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "nc-icon-mini ui-1_circle-add"
-    })])]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(unit.total_abc))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(unit.upr_count))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")])]), _vm._v(" "), _c('tr', [_c('td', {
+    })])]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(unit.total_abc)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(unit.upr_count))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")])]), _vm._v(" "), _c('tr', [_c('td', {
       staticClass: "has-child",
       attrs: {
         "colspan": "31"
@@ -84977,7 +84984,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "child-table table-name"
     }, [_c('tbody', [_vm._l((_vm.items), function(item) {
       return [(item.unit == unit.short_code) ? [_vm._l((item.data), function(itemData) {
-        return [_c('tr', [_c('td', [_vm._v(_vm._s(itemData.upr_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.project_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.total_amount))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.date_prepared)))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.ispq_transaction_date, itemData.date_prepared)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.rfq_created_at, itemData.date_prepared)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_award_date, itemData.canvass_start_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.doc_date, itemData.date_prepared)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.proc_date, itemData.doc_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.itb_date, itemData.proc_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.pp_completed_at, itemData.itb_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.prebid_date, itemData.pp_completed_at)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.bid_date, itemData.prebid_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.pq_date, itemData.bid_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_award_date, itemData.pq_date)))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_approved_date, itemData.noa_award_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.funding_received_date, itemData.po_create_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.mfo_received_date, itemData.funding_received_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.coa_approved_date, itemData.mfo_received_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.ntp_date, itemData.coa_approved_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.ntp_award_date, itemData.ntp_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.dr_date, itemData.ntp_award_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.dr_coa_date, itemData.dr_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.dr_inspection, itemData.dr_coa_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.iar_accepted_date, itemData.dr_inspection)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.di_start, itemData.iar_accepted_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.di_close, itemData.di_start)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.v_transaction_date, itemData.di_close)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.preaudit_date, itemData.v_transaction_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.vou_release, itemData.preaudit_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.calendar_days))])])]
+        return [_c('tr', [_c('td', [_vm._v(_vm._s(itemData.upr_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.project_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemData.total_amount)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.date_prepared)))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.ispq_transaction_date, itemData.date_prepared)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.rfq_created_at, itemData.date_prepared)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date)))]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_award_date, itemData.canvass_start_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.doc_date, itemData.date_prepared)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.proc_date, itemData.doc_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.itb_date, itemData.proc_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.pp_completed_at, itemData.itb_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.prebid_date, itemData.pp_completed_at)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.bid_date, itemData.prebid_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.pq_date, itemData.bid_date)))]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_award_date, itemData.pq_date)))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_approved_date, itemData.noa_award_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.funding_received_date, itemData.po_create_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.mfo_received_date, itemData.funding_received_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.coa_approved_date, itemData.mfo_received_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.ntp_date, itemData.coa_approved_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.ntp_award_date, itemData.ntp_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.dr_date, itemData.ntp_award_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.dr_coa_date, itemData.dr_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.dr_inspection, itemData.dr_coa_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.iar_accepted_date, itemData.dr_inspection)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.di_start, itemData.iar_accepted_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.di_close, itemData.di_start)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.v_transaction_date, itemData.di_close)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.preaudit_date, itemData.v_transaction_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getDiff(itemData.vou_release, itemData.preaudit_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.calendar_days))])])]
       })] : _vm._e()]
     })], 2)])])])]
   })], 2)])])])])])])

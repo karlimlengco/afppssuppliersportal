@@ -135,7 +135,6 @@ class TransactionDayController extends Controller
     public function download($search = null, UnitPurchaseRequestRepository $model, Request $request)
     {
         $result     =   $model->getTransactionDay($request, $search);
-
         $this->downloadExcel($result, $request->date_from, $request->date_to);
 
     }
@@ -174,6 +173,8 @@ class TransactionDayController extends Controller
                 $count = 6;
                 $sheet->row(1, ['TRANSACTION DAYS']);
                 $sheet->row(3, ["(Period Covered: $from to $to)"]);
+                $sheet->freezeFirstRow();
+                $sheet->freezeFirstColumn();
 
                 $sheet->cells('A3:AA3', function($cells) {
                     $cells->setAlignment('center');
@@ -196,11 +197,11 @@ class TransactionDayController extends Controller
 
                 if($result->last() != null)
                 {
-
                     if($result->last()->mode_of_procurement != 'public_bidding')
                     {
                         $sheet->row(2, ["ALTERNATIVE METHOD OF PROCUREMENT "]);
                         $sheet->row(6, [
+                            'PCCO',
                             'UPR',
                             'ISPQ',
                             'PhilGeps Posting',
@@ -223,6 +224,7 @@ class TransactionDayController extends Controller
                             'DIIR Inspection Close',
                             'Prepare Voucher',
                             'Preaudit Voucher /End',
+                            'LDAP-ADA',
                             'Total Days',
                         ]);
                     }
@@ -231,6 +233,7 @@ class TransactionDayController extends Controller
                         $sheet->row(2, ["PUBLIC BIDDING "]);
 
                         $sheet->row(6, [
+                            'PCCO',
                             'UPR',
                             'Document Acceptance',
                             'Pre Proc',
@@ -256,7 +259,7 @@ class TransactionDayController extends Controller
                             'DIIR Inspection Close',
                             'Prepare Voucher',
                             'Preaudit Voucher /End',
-                            // 'Stage 30',
+                            'LDAP-ADA',
                             'Total Days',
                             // 'Received Payment',
                         ]);
@@ -367,27 +370,29 @@ class TransactionDayController extends Controller
                     {
                         $newdata    =   [
                             $data->upr_number,
-                            $dispq_transaction_date,
-                            $d_pp_completed_at,
-                            $d_rfq_completed_at,
-                            $d_canvass_start_date,
-                            $d_noa_award_date,
-                            $d_noa_approved_date,
-                            $d_noa_award_accepted_date,
-                            $d_po_create_date,
-                            $d_mfo_received_date,
-                            $d_funding_released_date,
-                            $d_coa_approved_date,
-                            $d_ntp_date,
-                            $d_ntp_award_date,
-                            $d_delivery_date,
-                            $d_dr_coa_date,
-                            $d_dr_inspection,
-                            $d_dr_inspection_accept,
-                            $d_di_start,
-                            $d_di_close,
-                            $d_vou_start,
-                            $d_vou_release,
+                            $data->date_prepared,
+                            $data->ispq_transaction_date,
+                            $data->pp_completed_at,
+                            $data->rfq_created_at,
+                            $data->canvass_start_date,
+                            $data->noa_award_date,
+                            $data->noa_approved_date,
+                            $data->noa_award_accepted_date,
+                            $data->po_create_date,
+                            $data->funding_received_date,
+                            $data->mfo_received_date,
+                            $data->coa_approved_date,
+                            $data->ntp_date,
+                            $data->ntp_award_date,
+                            $data->dr_date,
+                            $data->dr_coa_date,
+                            $data->dr_inspection,
+                            $data->iar_accepted_date,
+                            $data->di_start,
+                            $data->di_close,
+                            $data->v_transaction_date,
+                            $data->preaudit_date,
+                            $data->vou_release,
                             $data->calendar_days,
                             // $d_vou_received,
                         ];
@@ -397,39 +402,54 @@ class TransactionDayController extends Controller
 
                         $newdata    =   [
                             $data->upr_number,
-                            $d_docs,
+                            $data->date_prepared,
+                            $data->doc_date,
                             $data->proc_days,
-                            $d_itb_days,
-                            $d_pp_completed_at,
-                            $d_prebid_days,
-                            $d_bid_days,
-                            $d_pq_days,
-                            $d_noa_award_date,
-                            $d_noa_approved_date,
-                            $d_noa_award_accepted_date,
-                            $d_po_create_date,
-                            $d_funding_released_date,
-                            $d_mfo_received_date,
-                            $d_coa_approved_date,
-                            $d_ntp_date,
-                            $d_ntp_award_date,
-                            $d_delivery_date,
-                            $d_dr_coa_date,
-                            $d_dr_inspection,
-                            $d_dr_inspection_accept,
-                            $d_di_start,
-                            $d_di_close,
-                            $d_vou_start,
-                            $d_vou_release,
+                            $data->itb_date,
+                            $data->pp_completed_at,
+                            $data->prebid_date,
+                            $data->bid_date,
+                            $data->pq_date,
+                            $data->noa_award_date,
+                            $data->noa_approved_date,
+                            $data->noa_award_accepted_date,
+                            $data->po_create_date,
+                            $data->funding_received_date,
+                            $data->mfo_received_date,
+                            $data->coa_approved_date,
+                            $data->ntp_date,
+                            $data->ntp_award_date,
+                            $data->dr_date,
+                            $data->dr_coa_date,
+                            $data->dr_inspection,
+                            $data->iar_accepted_date,
+                            $data->di_start,
+                            $data->di_close,
+                            $data->v_transaction_date,
+                            $data->preaudit_date,
+                            $data->vou_release,
                             $data->calendar_days,
                             // $d_vou_received,
                         ];
                     }
 
-                    $sheet->row($count, $newdata);
+                    $arr[$data->short_code."/".$data->name][] = $newdata;
+                    // $sheet->row($count, $newdata);
 
                 }
+                foreach($arr as $key => $value){
+                    $count ++;
+                    $sheet->row($count, [$key]);
+                    $sheet->row($count, function($row){
+                      $row->setBackground("#eeeeee");
+                    });
+                    foreach($value as $val)
+                    {
+                        $count ++;
 
+                        $sheet->row($count, $val);
+                    }
+                  }
 
                 // foreach($result as $data)
                 // {
@@ -737,33 +757,38 @@ class TransactionDayController extends Controller
                 $count = 6;
                 $sheet->row(1, ['PSR']);
                 $sheet->row(3, ["(Period Covered: $from to $to)"]);
+                $sheet->freezeFirstRow();
+                $sheet->freezeFirstColumn();
 
-                $sheet->cells('A3:AA3', function($cells) {
+                $sheet->cells('A3:AC3', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setBorder('thin', 'thin', 'thin', 'thin');
                 });
 
-                $sheet->cells('A2:AA2', function($cells) {
+                $sheet->cells('A2:AC2', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setBorder('thin', 'thin', 'thin', 'thin');
                 });
 
-                $sheet->cells('A1:AA1', function($cells) {
+                $sheet->cells('A1:AC1', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setBorder('thin', 'thin', 'thin', 'thin');
                 });
 
-                $sheet->mergeCells('A1:AA1');
-                $sheet->mergeCells('A2:AA2');
-                $sheet->mergeCells('A3:AA3');
+                $sheet->mergeCells('A1:AC1');
+                $sheet->mergeCells('A2:AC2');
+                $sheet->mergeCells('A3:AC3');
                 if($result->last() != null)
                 {
 
                     if($result->last()->mode_of_procurement != 'public_bidding')
                     {
+                        $sheet->row(6, function($row){
+                          $row->setFontWeight("bold");
+                        });
                         $sheet->row(2, ["ALTERNATIVE METHOD OF PROCUREMENT "]);
                         $sheet->row(6, [
-                            'UPR',
+                            'DATE PROCESSED',
                             'PROJECT',
                             'ABC',
                             'UPR',
@@ -794,6 +819,10 @@ class TransactionDayController extends Controller
                     else
                     {
                         $sheet->row(2, ["PUBLIC BIDDING "]);
+
+                        $sheet->row(6, function($row){
+                          $row->setFontWeight("bold");
+                        });
 
                         $sheet->row(6, [
                             'UPR',
@@ -830,6 +859,7 @@ class TransactionDayController extends Controller
                     }
                 }
 
+                $arr = array();
 
                 foreach($result as $data)
                 {
@@ -929,7 +959,7 @@ class TransactionDayController extends Controller
                     //     $days       = $dt->diffInDays($upr_create);
                     // }
 
-                    $count ++;
+                    // $count ++;
 
                     if($data->mode_of_procurement != 'public_bidding')
                     {
@@ -1000,8 +1030,23 @@ class TransactionDayController extends Controller
                         ];
                     }
 
-                    $sheet->row($count, $newdata);
+                       $arr[$data->short_code."/".$data->name][] = $newdata;
 
+
+                }
+
+                foreach($arr as $key => $value){
+                  $count ++;
+                  $sheet->row($count, [$key]);
+                  $sheet->row($count, function($row){
+                    $row->setBackground("#eeeeee");
+                  });
+                  foreach($value as $val)
+                  {
+                      $count ++;
+
+                      $sheet->row($count, $val);
+                  }
                 }
 
             });

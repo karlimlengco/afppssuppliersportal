@@ -19,12 +19,38 @@ trait TransactionDaysTrait
     {
         $model  =    $this->model;
 
+        $dateTo = $request->get('date_to');
+        $dateFrom = $request->get('date_from');
+
+        $date    = \Carbon\Carbon::now();
+        $yearto    = $date->format('Y');
+        $yearfrom    = $date->format('Y');
+        if($dateFrom != null)
+        {
+            $dateFrom  =   $dateFrom;
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
+        }
+
+        if($dateTo != null)
+        {
+            $date_to  =   $dateTo;
+            $yearto  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_to)->format('Y');
+        }
+
+        if($dateTo &&  $dateFrom == null)
+        {
+            $dateFrom  =   $date_to;
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
+        }
+
         if($request->has('date_to') != null && $request->has('date_from') != null && $search != null)
         {
           $dateTo = $request->get('date_to');
           $dateFrom = $request->get('date_from');
           $model  =   $model->select([
               'unit_purchase_requests.id',
+              'procurement_centers.name',
+              'catered_units.short_code',
               'unit_purchase_requests.project_name',
               'unit_purchase_requests.mode_of_procurement',
               'unit_purchase_requests.upr_number',
@@ -56,9 +82,9 @@ trait TransactionDaysTrait
               'request_for_quotations.completed_at as rfq_completed_at',
               'invitation_for_quotation.transaction_date as ispq_transaction_date',
 
-              DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_days "),
+              DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND  unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_days "),
 
-              DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
+              DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND  unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
 
               'canvassing.canvass_date as canvass_start_date',
               'canvassing.days as canvass_days',
@@ -83,17 +109,17 @@ trait TransactionDaysTrait
               'notice_to_proceed.award_accepted_date as ntp_award_date',
 
 
-              DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_days "),
+              DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND  unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_days "),
 
-              DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
+              DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND  unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
 
-              DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
+              DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND  unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
 
-              DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
+              DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND  unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-              DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
+              DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND  unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-              DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
+              DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
               'inspection_acceptance_report.days as dr_inspection_days',
               'inspection_acceptance_report.accept_days as dr_inspection_accept_days',
               'inspection_acceptance_report.inspection_date as dr_inspection',
@@ -124,6 +150,8 @@ trait TransactionDaysTrait
           $dateFrom = $request->get('date_from');
           $model  =   $model->select([
               'unit_purchase_requests.id',
+              'procurement_centers.name',
+              'catered_units.short_code',
               'unit_purchase_requests.project_name',
               'unit_purchase_requests.mode_of_procurement',
               'unit_purchase_requests.upr_number',
@@ -155,9 +183,9 @@ trait TransactionDaysTrait
               'request_for_quotations.completed_at as rfq_completed_at',
               'invitation_for_quotation.transaction_date as ispq_transaction_date',
 
-              DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by philgeps_posting.created_at desc limit 1) as pp_days "),
+              DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom order by philgeps_posting.created_at desc limit 1) as pp_days "),
 
-              DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
+              DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
 
               'canvassing.canvass_date as canvass_start_date',
               'canvassing.days as canvass_days',
@@ -182,17 +210,17 @@ trait TransactionDaysTrait
               'notice_to_proceed.award_accepted_date as ntp_award_date',
 
 
-              DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_days "),
+              DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_days "),
 
-              DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
+              DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
 
-              DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
+              DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
 
-              DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_date "),
+              DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-              DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_date "),
+              DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-              DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
+              DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
               'inspection_acceptance_report.days as dr_inspection_days',
               'inspection_acceptance_report.accept_days as dr_inspection_accept_days',
               'inspection_acceptance_report.inspection_date as dr_inspection',
@@ -222,6 +250,8 @@ trait TransactionDaysTrait
             $dateFrom = $request->get('date_from');
             $model  =   $model->select([
                 'unit_purchase_requests.id',
+              'procurement_centers.name',
+                'catered_units.short_code',
                 'unit_purchase_requests.project_name',
                 'unit_purchase_requests.mode_of_procurement',
                 'unit_purchase_requests.upr_number',
@@ -253,9 +283,9 @@ trait TransactionDaysTrait
                 'request_for_quotations.completed_at as rfq_completed_at',
                 'invitation_for_quotation.transaction_date as ispq_transaction_date',
 
-                DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared >= $AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_days "),
+                DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_days "),
 
-                DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
+                DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
 
                 'canvassing.canvass_date as canvass_start_date',
                 'canvassing.days as canvass_days',
@@ -280,17 +310,17 @@ trait TransactionDaysTrait
                 'notice_to_proceed.award_accepted_date as ntp_award_date',
 
 
-                DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_days "),
+                DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $dateFrom AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_days "),
 
-                DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
+                DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
 
-                DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
+                DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
 
-                DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
+                DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-                DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
+                DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-                DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
+                DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
                 'inspection_acceptance_report.days as dr_inspection_days',
                 'inspection_acceptance_report.accept_days as dr_inspection_accept_days',
                 'inspection_acceptance_report.inspection_date as dr_inspection',
@@ -320,6 +350,8 @@ trait TransactionDaysTrait
             $dateFrom = $request->get('date_from');
             $model  =   $model->select([
                 'unit_purchase_requests.id',
+              'procurement_centers.name',
+                'catered_units.short_code',
                 'unit_purchase_requests.project_name',
                 'unit_purchase_requests.mode_of_procurement',
                 'unit_purchase_requests.upr_number',
@@ -351,9 +383,9 @@ trait TransactionDaysTrait
                 'request_for_quotations.completed_at as rfq_completed_at',
                 'invitation_for_quotation.transaction_date as ispq_transaction_date',
 
-                DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared >= $dateFrom order by philgeps_posting.created_at desc limit 1) as pp_days "),
+                DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom order by philgeps_posting.created_at desc limit 1) as pp_days "),
 
-                DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $dateFrom order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
+                DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
 
                 'canvassing.canvass_date as canvass_start_date',
                 'canvassing.days as canvass_days',
@@ -378,17 +410,17 @@ trait TransactionDaysTrait
                 'notice_to_proceed.award_accepted_date as ntp_award_date',
 
 
-                DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_days "),
+                DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_days "),
 
-                DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
+                DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
 
-                DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
+                DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
 
-                DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_date "),
+                DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-                DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_date "),
+                DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-                DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
+                DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared >= $dateFrom order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
                 'inspection_acceptance_report.days as dr_inspection_days',
                 'inspection_acceptance_report.accept_days as dr_inspection_accept_days',
                 'inspection_acceptance_report.inspection_date as dr_inspection',
@@ -418,6 +450,8 @@ trait TransactionDaysTrait
             $dateTo = $request->get('date_to');
             $model  =   $model->select([
                 'unit_purchase_requests.id',
+              'procurement_centers.name',
+                'catered_units.short_code',
                 'unit_purchase_requests.project_name',
                 'unit_purchase_requests.mode_of_procurement',
                 'unit_purchase_requests.upr_number',
@@ -449,9 +483,9 @@ trait TransactionDaysTrait
                 'request_for_quotations.completed_at as rfq_completed_at',
                 'invitation_for_quotation.transaction_date as ispq_transaction_date',
 
-                DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_days "),
+                DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_days "),
 
-                DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
+                DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
 
                 'canvassing.canvass_date as canvass_start_date',
                 'canvassing.days as canvass_days',
@@ -476,17 +510,17 @@ trait TransactionDaysTrait
                 'notice_to_proceed.award_accepted_date as ntp_award_date',
 
 
-                DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_days "),
+                DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_days "),
 
-                DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
+                DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
 
-                DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
+                DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
 
-                DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
+                DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-                DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
+                DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-                DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
+                DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
                 'inspection_acceptance_report.days as dr_inspection_days',
                 'inspection_acceptance_report.accept_days as dr_inspection_accept_days',
                 'inspection_acceptance_report.inspection_date as dr_inspection',
@@ -516,6 +550,8 @@ trait TransactionDaysTrait
             $dateTo = $request->get('date_to');
             $model  =   $model->select([
                 'unit_purchase_requests.id',
+              'procurement_centers.name',
+                'catered_units.short_code',
                 'unit_purchase_requests.project_name',
                 'unit_purchase_requests.mode_of_procurement',
                 'unit_purchase_requests.upr_number',
@@ -547,9 +583,9 @@ trait TransactionDaysTrait
                 'request_for_quotations.completed_at as rfq_completed_at',
                 'invitation_for_quotation.transaction_date as ispq_transaction_date',
 
-                DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_days "),
+                DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_days "),
 
-                DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
+                DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.upr_number LIKE %$search% order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
 
                 'canvassing.canvass_date as canvass_start_date',
                 'canvassing.days as canvass_days',
@@ -574,17 +610,17 @@ trait TransactionDaysTrait
                 'notice_to_proceed.award_accepted_date as ntp_award_date',
 
 
-                DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_days "),
+                DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_days "),
 
-                DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
+                DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
 
-                DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
+                DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
 
-                DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
+                DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-                DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
+                DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-                DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
+                DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.upr_number LIKE %$search% order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
                 'inspection_acceptance_report.days as dr_inspection_days',
                 'inspection_acceptance_report.accept_days as dr_inspection_accept_days',
                 'inspection_acceptance_report.inspection_date as dr_inspection',
@@ -614,6 +650,8 @@ trait TransactionDaysTrait
             $dateTo = $request->get('date_to');
             $model  =   $model->select([
                 'unit_purchase_requests.id',
+              'procurement_centers.name',
+                'catered_units.short_code',
                 'unit_purchase_requests.project_name',
                 'unit_purchase_requests.mode_of_procurement',
                 'unit_purchase_requests.upr_number',
@@ -645,9 +683,9 @@ trait TransactionDaysTrait
                 'request_for_quotations.completed_at as rfq_completed_at',
                 'invitation_for_quotation.transaction_date as ispq_transaction_date',
 
-                DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo order by philgeps_posting.created_at desc limit 1) as pp_days "),
+                DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo order by philgeps_posting.created_at desc limit 1) as pp_days "),
 
-                DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
+                DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
 
                 'canvassing.canvass_date as canvass_start_date',
                 'canvassing.days as canvass_days',
@@ -672,17 +710,17 @@ trait TransactionDaysTrait
                 'notice_to_proceed.award_accepted_date as ntp_award_date',
 
 
-                DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo order by delivery_orders.created_at desc limit 1) as dr_days "),
+                DB::raw(" (select delivery_orders.days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo order by delivery_orders.created_at desc limit 1) as dr_days "),
 
-                DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
+                DB::raw(" (select delivery_orders.delivery_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo order by delivery_orders.created_at desc limit 1) as dr_delivery_days "),
 
-                DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
+                DB::raw(" (select delivery_orders.dr_coa_days from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo order by delivery_orders.created_at desc limit 1) as dr_dr_coa_days "),
 
-                DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo order by delivery_orders.created_at desc limit 1) as dr_date "),
+                DB::raw(" (select delivery_orders.transaction_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-                DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo order by delivery_orders.created_at desc limit 1) as dr_date "),
+                DB::raw(" (select delivery_orders.delivery_date from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo order by delivery_orders.created_at desc limit 1) as dr_date "),
 
-                DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND unit_purchase_requests.date_prepared <= $dateTo order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
+                DB::raw(" (select delivery_orders.date_delivered_to_coa from delivery_orders left join unit_purchase_requests as upr on delivery_orders.upr_id  = upr.id  where delivery_orders.upr_id = unit_purchase_requests.id  AND YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND unit_purchase_requests.date_prepared <= $dateTo order by delivery_orders.created_at desc limit 1) as dr_coa_date "),
                 'inspection_acceptance_report.days as dr_inspection_days',
                 'inspection_acceptance_report.accept_days as dr_inspection_accept_days',
                 'inspection_acceptance_report.inspection_date as dr_inspection',
@@ -710,6 +748,8 @@ trait TransactionDaysTrait
         else{
           $model  =   $model->select([
               'unit_purchase_requests.id',
+              'procurement_centers.name',
+              'catered_units.short_code',
               'unit_purchase_requests.project_name',
               'unit_purchase_requests.mode_of_procurement',
               'unit_purchase_requests.upr_number',
@@ -740,9 +780,9 @@ trait TransactionDaysTrait
               'request_for_quotations.completed_at as rfq_completed_at',
               'invitation_for_quotation.transaction_date as ispq_transaction_date',
 
-              DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where philgeps_posting.upr_id = unit_purchase_requests.id order by philgeps_posting.created_at desc limit 1) as pp_days "),
+              DB::raw(" (select philgeps_posting.days from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND philgeps_posting.upr_id = unit_purchase_requests.id order by philgeps_posting.created_at desc limit 1) as pp_days "),
 
-              DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where philgeps_posting.upr_id = unit_purchase_requests.id order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
+              DB::raw(" (select philgeps_posting.philgeps_posting from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id  where YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' AND philgeps_posting.upr_id = unit_purchase_requests.id order by philgeps_posting.created_at desc limit 1) as pp_completed_at "),
 
               'canvassing.canvass_date as canvass_start_date',
               'canvassing.days as canvass_days',
@@ -822,8 +862,13 @@ trait TransactionDaysTrait
         $model  =   $model->leftJoin('pre_bid_conferences', 'pre_bid_conferences.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('bid_opening', 'bid_opening.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('post_qualification', 'post_qualification.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('catered_units', 'catered_units.id', '=', 'unit_purchase_requests.units');
+
+        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
 
         $model  =   $model->groupBy([
+            'catered_units.short_code',
+            'procurement_centers.name',
             'unit_purchase_requests.id',
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.upr_number',
@@ -908,7 +953,8 @@ trait TransactionDaysTrait
             $model  =   $model->where('unit_purchase_requests.date_prepared', '<=', $request->get('date_to'));
         }
 
-        if($request->has('type') == null)
+      $model  =   $model->whereRaw("YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom'");
+        if($request->has('type') == null || $request->get('type') == 'alternative')
         {
             $model      =   $model->where('mode_of_procurement','!=', 'public_bidding');
         }

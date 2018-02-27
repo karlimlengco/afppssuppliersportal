@@ -109,35 +109,35 @@
                                         <tr>
                                             <td>{{itemData.upr_number}}</td>
                                             <td>{{formatDate(itemData.date_prepared)}}</td>
-                                            <td v-if="types != 'bidding'" >{{getDiff(itemData.ispq_transaction_date, itemData.date_prepared)}}</td>
-                                            <td v-if="types != 'bidding'" >{{getDiff(itemData.rfq_created_at, itemData.date_prepared)}}</td>
-                                            <td v-if="types != 'bidding'" >{{getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date)}}</td>
-                                            <td v-if="types != 'bidding'" >{{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.doc_date, itemData.date_prepared)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.proc_date, itemData.doc_date)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.itb_date, itemData.proc_date)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.pp_completed_at, itemData.itb_date)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.prebid_date, itemData.pp_completed_at)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.bid_date, itemData.prebid_date)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.pq_date, itemData.bid_date)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.noa_award_date, itemData.pq_date)}}</td>
-                                            <td>{{getDiff(itemData.noa_approved_date, itemData.noa_award_date)}}</td>
-                                            <td>{{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}}</td>
-                                            <td>{{getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)}}</td>
-                                            <td>{{getDiff(itemData.funding_received_date, itemData.po_create_date)}}</td>
-                                            <td>{{getDiff(itemData.mfo_received_date, itemData.funding_received_date)}}</td>
-                                            <td>{{getDiff(itemData.coa_approved_date, itemData.mfo_received_date)}}</td>
-                                            <td>{{getDiff(itemData.ntp_date, itemData.coa_approved_date)}}</td>
-                                            <td>{{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}</td>
-                                            <td>{{getDiff(itemData.dr_date, itemData.ntp_award_date)}}</td>
-                                            <td>{{getDiff(itemData.dr_coa_date, itemData.dr_date)}}</td>
-                                            <td>{{getDiff(itemData.dr_inspection, itemData.dr_coa_date)}}</td>
-                                            <td>{{getDiff(itemData.iar_accepted_date, itemData.dr_inspection)}}</td>
-                                            <td>{{getDiff(itemData.di_start, itemData.iar_accepted_date)}}</td>
-                                            <td>{{getDiff(itemData.di_close, itemData.di_start)}}</td>
-                                            <td>{{getDiff(itemData.v_transaction_date, itemData.di_close)}}</td>
-                                            <td>{{getDiff(itemData.preaudit_date, itemData.v_transaction_date)}}</td>
-                                            <td>{{getDiff(itemData.vou_release, itemData.preaudit_date)}}</td>
+                                            <td v-if="types != 'bidding'" >{{formatDate(itemData.ispq_transaction_date)}}</td>
+                                            <td v-if="types != 'bidding'" >{{formatDate(itemData.rfq_created_at)}}</td>
+                                            <td v-if="types != 'bidding'" >{{formatDate(itemData.canvass_start_date)}}</td>
+                                            <td v-if="types != 'bidding'" >{{formatDate(itemData.noa_award_date)}}</td>
+                                            <td v-if="types == 'bidding'">{{formatDate(itemData.doc_date)}}</td>
+                                            <td v-if="types == 'bidding'">{{formatDate(itemData.proc_date)}}</td>
+                                            <td v-if="types == 'bidding'">{{formatDate(itemData.itb_date)}}</td>
+                                            <td v-if="types == 'bidding'">{{formatDate(itemData.pp_completed_at)}}</td>
+                                            <td v-if="types == 'bidding'">{{formatDate(itemData.prebid_date)}}</td>
+                                            <td v-if="types == 'bidding'">{{formatDate(itemData.bid_date)}}</td>
+                                            <td v-if="types == 'bidding'">{{formatDate(itemData.pq_date)}}</td>
+                                            <td v-if="types == 'bidding'">{{formatDate(itemData.noa_award_date)}}</td>
+                                            <td>{{formatDate(itemData.noa_approved_date)}}</td>
+                                            <td>{{formatDate(itemData.noa_award_accepted_date)}}</td>
+                                            <td>{{formatDate(itemData.po_create_date)}}</td>
+                                            <td>{{formatDate(itemData.funding_received_date)}}</td>
+                                            <td>{{formatDate(itemData.mfo_received_date)}}</td>
+                                            <td>{{formatDate(itemData.coa_approved_date)}}</td>
+                                            <td>{{formatDate(itemData.ntp_date)}}</td>
+                                            <td>{{formatDate(itemData.ntp_award_date)}}</td>
+                                            <td>{{formatDate(itemData.dr_date)}}</td>
+                                            <td>{{formatDate(itemData.dr_coa_date)}}</td>
+                                            <td>{{formatDate(itemData.dr_inspection)}}</td>
+                                            <td>{{formatDate(itemData.iar_accepted_date)}}</td>
+                                            <td>{{formatDate(itemData.di_start)}}</td>
+                                            <td>{{formatDate(itemData.di_close)}}</td>
+                                            <td>{{formatDate(itemData.v_transaction_date)}}</td>
+                                            <td>{{formatDate(itemData.preaudit_date)}}</td>
+                                            <td>{{formatDate(itemData.vou_release)}}</td>
                                             <td>{{itemData.calendar_days}}</td>
                                         </tr>
                                         </template>
@@ -195,12 +195,11 @@
           },
           searchMe: function(){
 
+            this.itemsName=[]
+            this.items=[]
             var date_from       =   $('input[name=date_from]').val();
             var date_to         =   $('input[name=date_to]').val();
             var ptype = this.types
-            if (ptype =='alternative'){
-              ptype = ''
-            }
             axios.get('/reports/unit-psr/'+ptype+'?date_from='+date_from+'&&date_to='+date_to)
             .then(response => {
                 this.units = response.data
@@ -215,13 +214,13 @@
             var table_search    =   '';
             // table_search    =   $('input[name=table_search]').val();
             var ptype = this.types
-            if (ptype =='alternative'){
-              ptype = ''
-            }
             window.open('/reports/transaction-days/download/'+table_search+'?type='+ptype+'&&date_from='+date_from+'&&date_to='+date_to);
           },
           changeType: function(type){
               this.types = type
+
+              this.itemsName=[]
+              this.items=[]
               $('.table-name').removeClass('is-visible');
               this.fetchUnitPsr(this.types)
               this.fetchUnitItems(this.types)

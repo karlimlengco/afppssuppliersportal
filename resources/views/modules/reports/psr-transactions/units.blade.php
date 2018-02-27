@@ -1,5 +1,5 @@
 @section('title')
-Transaction Summary
+Procurement Status Report
 @stop
 
 @section('styles')
