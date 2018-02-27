@@ -21,6 +21,17 @@
                     </div>
                 </div>
 
+                <div class="row">
+                  <div class="twelve columns">
+                        {!! Form::selectField('account_type', 'Type',[
+                            'Purchase Order' => 'Purchase Order',
+                            'Contract' => 'Contract',
+                            'Work Order' => 'Work Order',
+                            'Job Order' => 'Job Order',
+                            'Purchase Order and Contract' => 'Purchase Order and Contract',
+                        ]) !!}
+                  </div>
+                </div>
                 {!! Form::textareaField('resolution', 'Resolution', "", ['rows' => '4']) !!}
 
                 {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => '4']) !!}

@@ -625,7 +625,6 @@ class DeliveryController extends Controller
         $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
-
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
         if($day_delayed > 1)
         {

@@ -19,7 +19,6 @@ Unit Purchase Request
 @stop
 
 @section('contents')
-
 <div class="row">
     <div class="six columns utility utility--align-right" style="margin-bottom:0px" >
         <a href="{{route($indexRoute,$data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
@@ -149,23 +148,25 @@ Unit Purchase Request
                     </td>
                     <td>3</td>
                     <td>
-                        @if($data->pp_completed_at != null)
-                            {{ $data->pp_days }}
-                            <?php $totalDays +=  $data->pp_days ; ?>
+                        @if($data->total_amount > 50000)
+                          @if($data->pp_completed_at != null)
+                              {{ $data->pp_days }}
+                              <?php $totalDays +=  $data->pp_days ; ?>
 
-                            @if($data->pp_days > 3)
-                                <strong class="red" tooltip="Delay">({{$data->pp_days - 3}})</strong>
-                            @endif
+                              @if($data->pp_days > 3)
+                                  <strong class="red" tooltip="Delay">({{$data->pp_days - 3}})</strong>
+                              @endif
 
-                        @else
-                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
-                            {{-- {{ ($d >= 3) ?  $d - 3 : $d }} --}}
-                            {{$d}}
+                          @else
+                              <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                              {{-- {{ ($d >= 3) ?  $d - 3 : $d }} --}}
+                              {{$d}}
 
-                            @if($d > 3)
-                                <strong class="red" tooltip="Delay">({{$d - 3}})</strong>
-                            @endif
+                              @if($d > 3)
+                                  <strong class="red" tooltip="Delay">({{$d - 3}})</strong>
+                              @endif
 
+                          @endif
                         @endif
                     </td>
                     <td>{{$data->pp_remarks}}</td>
@@ -1791,8 +1792,8 @@ Unit Purchase Request
                     <td></td>
                     <td>Working Days</td>
                     <?php $total = 0;?>
-                    @if(isset($preaudit_date))
-                    <?php  $total =  $upr_created->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $preaudit_date ); ?>
+                    @if(isset($vou_approval_date))
+                    <?php  $total =  $upr_created->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $vou_approval_date ); ?>
                     @endif
                     <td>
                         @if($total > 0)

@@ -247,14 +247,13 @@ class DeliveredInspectionReportController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('closed_date') );
-        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $tiac->accepted_date );
+        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $diir->start_date );
         $cd                     =   $diir_date->diffInDays($transaction_date);
 
         $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
-
         if($day_delayed > 1)
         {
             $day_delayed = $day_delayed - 1;

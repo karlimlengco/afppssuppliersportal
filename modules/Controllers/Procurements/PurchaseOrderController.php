@@ -331,7 +331,6 @@ class PurchaseOrderController extends Controller
         if($day_delayed > 2 ){
             $day_delayed =- 2;
         }
-
         $validator = Validator::make($request->all(),[
             'funding_released_date' =>  'required|after_or_equal:'. $po_date->format('Y-m-d'),
             'funding_received_date' =>  'required|after_or_equal:'. $po_date->format('Y-m-d'),
@@ -556,7 +555,6 @@ class PurchaseOrderController extends Controller
         }, $transaction_date);
 
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
-
         if($noa_model->upr->mode_of_procurement != 'public_bidding')
         {
             $poAllowed  =   2;

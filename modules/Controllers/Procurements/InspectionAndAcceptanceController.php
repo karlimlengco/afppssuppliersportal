@@ -106,10 +106,10 @@ class InspectionAndAcceptanceController extends Controller
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
-            if ( $request->get('accept_remarks') == null && $day_delayed > 1) {
+            if ( $request->get('accept_remarks') == null && $day_delayed > 2) {
                 $validator->errors()->add('accept_remarks', 'This field is required when your process is delay');
             }
-            if ( $request->get('accept_action') == null && $day_delayed > 1) {
+            if ( $request->get('accept_action') == null && $day_delayed > 2) {
                 $validator->errors()->add('accept_remarks', 'This field is required when your process is delay');
             }
         });

@@ -180,11 +180,10 @@ class NoticeToProceedController extends Controller
         $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_model->mfo_received_date );
         $cd                     =   $po_date->diffInDays($transaction_date);
 
-        $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed            =   $coa_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
-
         if($po_model->upr->mode_of_procurement != 'public_bidding')
         {
             $ntpAllowed  =   1;
@@ -193,11 +192,9 @@ class NoticeToProceedController extends Controller
         {
             $ntpAllowed  =   7;
         }
-
         if($day_delayed > $ntpAllowed ){
             $day_delayed = $day_delayed - $ntpAllowed;
         }
-
         $validator = Validator::make($request->all(),[
             'preparared_date'   => 'required|after_or_equal:'. $coa_date->format('Y-m-d'),
         ]);
