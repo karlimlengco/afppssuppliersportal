@@ -307,6 +307,10 @@ class NoticeOfAwardController extends Controller
         UnitPurchaseRequestRepository $upr,
         HolidayRepository $holidays)
     {
+        $validator = Validator::make($request->all(),[
+            'file'          =>   'required',
+            'accepted_date' =>   'required|after_or_equal:'. $noa_award_date->format('Y-m-d'),
+        ]);
         $id             =   $request->id;
         $noaModel       =   $model->findById($id);
         $holiday_lists  =   $holidays->lists('id','holiday_date');
@@ -326,10 +330,6 @@ class NoticeOfAwardController extends Controller
             $day_delayed = $day_delayed - 1;
         }
 
-        $validator = Validator::make($request->all(),[
-            'file'          =>   'required',
-            'accepted_date' =>   'required|after_or_equal:'. $noa_award_date->format('Y-m-d'),
-        ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
             if ( $request->get('approved_remarks') == null && $day_delayed > 1) {
