@@ -307,15 +307,15 @@ class NoticeOfAwardController extends Controller
         UnitPurchaseRequestRepository $upr,
         HolidayRepository $holidays)
     {
-        $validator = Validator::make($request->all(),[
-            'file'          =>   'required',
-            'accepted_date' =>   'required|after_or_equal:'. $noa_award_date->format('Y-m-d'),
-        ]);
         $id             =   $request->id;
         $noaModel       =   $model->findById($id);
         $holiday_lists  =   $holidays->lists('id','holiday_date');
         $noa_award_date =   Carbon::createFromFormat('Y-m-d H:i:s', $noaModel->awarded_date);
 
+        $validator = Validator::make($request->all(),[
+            'file'          =>   'required',
+            'accepted_date' =>   'required|after_or_equal:'. $noa_award_date->format('Y-m-d'),
+        ]);
         $accepted_date  =   Carbon::createFromFormat('Y-m-d', $request->accepted_date);
         $cd                     =   $noa_award_date->diffInDays($accepted_date);
 
