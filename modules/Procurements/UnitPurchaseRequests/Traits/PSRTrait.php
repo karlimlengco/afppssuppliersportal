@@ -466,22 +466,22 @@ trait PSRTrait
               // DB::raw("COUNT(notice_of_awards.id) as noa"),
               // DB::raw("COUNT(notice_of_awards.award_accepted_date) as noaa"),
               // DB::raw("COUNT(notice_of_awards.accepted_date) as noar"),
-              DB::raw("COUNT(purchase_orders.id) as po"),
-              DB::raw("COUNT(purchase_orders.mfo_released_date) as po_mfo_released"),
-              DB::raw("COUNT(purchase_orders.mfo_received_date) as po_mfo_received"),
-              DB::raw("COUNT(purchase_orders.funding_released_date) as po_pcco_released"),
-              DB::raw("COUNT(purchase_orders.funding_received_date) as po_pcco_received"),
-              DB::raw("COUNT(purchase_orders.coa_approved_date) as po_coa_approved"),
-              DB::raw("COUNT(notice_to_proceed.id) as ntp"),
-              DB::raw("COUNT(notice_to_proceed.award_accepted_date) as ntpa"),
-              DB::raw("COUNT(inspection_acceptance_report.id) as tiac"),
-              DB::raw("COUNT(inspection_acceptance_report.accepted_date) as coa_inspection"),
-              DB::raw("COUNT(delivery_inspection.id) as diir"),
-              DB::raw("COUNT(delivery_inspection.start_date) as diir_start"),
-              DB::raw("COUNT(delivery_inspection.closed_date) as diir_close"),
-              DB::raw("COUNT(vouchers.id) as voucher"),
-              DB::raw("COUNT(vouchers.id) as end_process"),
-              DB::raw("COUNT(vouchers.payment_release_date) as ldad"),
+              // DB::raw("COUNT(purchase_orders.id) as po"),
+              // DB::raw("COUNT(purchase_orders.mfo_released_date) as po_mfo_released"),
+              // DB::raw("COUNT(purchase_orders.mfo_received_date) as po_mfo_received"),
+              // DB::raw("COUNT(purchase_orders.funding_released_date) as po_pcco_released"),
+              // DB::raw("COUNT(purchase_orders.funding_received_date) as po_pcco_received"),
+              // DB::raw("COUNT(purchase_orders.coa_approved_date) as po_coa_approved"),
+              // DB::raw("COUNT(notice_to_proceed.id) as ntp"),
+              // DB::raw("COUNT(notice_to_proceed.award_accepted_date) as ntpa"),
+              // DB::raw("COUNT(inspection_acceptance_report.id) as tiac"),
+              // DB::raw("COUNT(inspection_acceptance_report.accepted_date) as coa_inspection"),
+              // DB::raw("COUNT(delivery_inspection.id) as diir"),
+              // DB::raw("COUNT(delivery_inspection.start_date) as diir_start"),
+              // DB::raw("COUNT(delivery_inspection.closed_date) as diir_close"),
+              // DB::raw("COUNT(vouchers.id) as voucher"),
+              // DB::raw("COUNT(vouchers.id) as end_process"),
+              // DB::raw("COUNT(vouchers.payment_release_date) as ldad"),
           ];
 
           if($dateTo != null && $dateFrom != null && $search != null )
@@ -491,7 +491,44 @@ trait PSRTrait
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
 
+                array_push($selected, DB::raw("(select count(ntps.id) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntp"));
+
+                array_push($selected, DB::raw("(select count(vous.id) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as voucher"));
+
+                array_push($selected, DB::raw("(select count(vous.payment_release_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ldad"));
+
+
+                array_push($selected, DB::raw("(select count(vous.preaudit_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as end_process"));
+
+
+                array_push($selected, DB::raw("(select count(diirs.id) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir"));
+
+                array_push($selected, DB::raw("(select count(diirs.start_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_start"));
+                array_push($selected, DB::raw("(select count(diirs.closed_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_close"));
+
+                array_push($selected, DB::raw("(select count(tiacs.id) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as tiac"));
+
+                array_push($selected, DB::raw("(select count(tiacs.accepted_date) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as coa_inspection"));
+
+
+                array_push($selected, DB::raw("(select count(ntps.award_accepted_date) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntpa"));
+
+
                 array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
+
+                array_push($selected, DB::raw("(select count(pos.id) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po"));
+
+                array_push($selected, DB::raw("(select count(pos.mfo_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_released"));
+
+                array_push($selected, DB::raw("(select count(pos.mfo_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_received"));
+
+
+                array_push($selected, DB::raw("(select count(pos.funding_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_released"));
+
+
+                array_push($selected, DB::raw("(select count(pos.funding_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_received"));
+
+                array_push($selected, DB::raw("(select count(pos.coa_approved_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_coa_approved"));
 
                 array_push($selected, DB::raw("(select count(noas.accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noar"));
 
@@ -532,6 +569,54 @@ trait PSRTrait
 
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
+
+                array_push($selected, DB::raw("(select count(vous.id) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as voucher"));
+
+
+                array_push($selected, DB::raw("(select count(vous.payment_release_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ldad"));
+
+                array_push($selected, DB::raw("(select count(vous.preaudit_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as end_process"));
+
+
+                array_push($selected, DB::raw("(select count(diirs.id) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir"));
+
+
+                array_push($selected, DB::raw("(select count(diirs.start_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_start"));
+
+                array_push($selected, DB::raw("(select count(diirs.closed_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_close"));
+
+
+
+                array_push($selected, DB::raw("(select count(tiacs.id) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as tiac"));
+
+                array_push($selected, DB::raw("(select count(tiacs.accepted_date) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as coa_inspection"));
+
+                array_push($selected, DB::raw("(select count(ntps.id) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntp"));
+
+
+                array_push($selected, DB::raw("(select count(ntps.award_accepted_date) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntpa"));
+
+
+
+                array_push($selected, DB::raw("(select count(pos.id) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po"));
+
+
+                array_push($selected, DB::raw("(select count(pos.mfo_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_released"));
+
+
+                array_push($selected, DB::raw("(select count(pos.mfo_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_received"));
+
+
+
+
+                array_push($selected, DB::raw("(select count(pos.funding_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_released"));
+
+
+                array_push($selected, DB::raw("(select count(pos.funding_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_received"));
+
+
+                array_push($selected, DB::raw("(select count(pos.coa_approved_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_coa_approved"));
+
                 array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
 
 
@@ -573,6 +658,37 @@ trait PSRTrait
               if($request->get('type') != 'bidding'){
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
+
+                array_push($selected, DB::raw("(select count(vous.id) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as voucher"));
+
+                array_push($selected, DB::raw("(select count(vous.payment_release_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ldad"));
+
+
+                array_push($selected, DB::raw("(select count(vous.preaudit_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as end_process"));
+
+                array_push($selected, DB::raw("(select count(diirs.id) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir"));
+
+                array_push($selected, DB::raw("(select count(diirs.start_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_start"));
+
+
+                array_push($selected, DB::raw("(select count(diirs.closed_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_close"));
+
+                array_push($selected, DB::raw("(select count(tiacs.id) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as tiac"));
+
+                array_push($selected, DB::raw("(select count(tiacs.accepted_date) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as coa_inspection"));
+
+                array_push($selected, DB::raw("(select count(ntps.id) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntp"));
+                array_push($selected, DB::raw("(select count(ntps.award_accepted_date) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntpa"));
+
+                array_push($selected, DB::raw("(select count(pos.id) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po"));
+
+                array_push($selected, DB::raw("(select count(pos.mfo_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_released"));
+                array_push($selected, DB::raw("(select count(pos.mfo_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_received"));
+                array_push($selected, DB::raw("(select count(pos.funding_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_released"));
+
+                array_push($selected, DB::raw("(select count(pos.funding_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_received"));
+
+                array_push($selected, DB::raw("(select count(pos.coa_approved_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_coa_approved"));
 
 
                 array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id  AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
@@ -616,6 +732,37 @@ trait PSRTrait
 
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
+
+                array_push($selected, DB::raw("(select count(vous.id) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as voucher"));
+
+                array_push($selected, DB::raw("(select count(vous.payment_release_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ldad"));
+
+                array_push($selected, DB::raw("(select count(vous.preaudit_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as end_process"));
+
+
+                array_push($selected, DB::raw("(select count(diirs.id) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir"));
+                array_push($selected, DB::raw("(select count(diirs.start_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_start"));
+                array_push($selected, DB::raw("(select count(diirs.closed_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_close"));
+
+                array_push($selected, DB::raw("(select count(tiacs.id) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as tiac"));
+                array_push($selected, DB::raw("(select count(tiacs.accepted_date) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as coa_inspection"));
+
+                array_push($selected, DB::raw("(select count(ntps.id) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntp"));
+                array_push($selected, DB::raw("(select count(ntps.award_accepted_date) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntpa"));
+
+                array_push($selected, DB::raw("(select count(pos.id) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po"));
+                array_push($selected, DB::raw("(select count(pos.mfo_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_released"));
+                array_push($selected, DB::raw("(select count(pos.mfo_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_received"));
+
+                array_push($selected, DB::raw("(select count(pos.funding_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_released"));
+
+
+                array_push($selected, DB::raw("(select count(pos.funding_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_received"));
+
+
+                array_push($selected, DB::raw("(select count(pos.coa_approved_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_coa_approved"));
+
+                array_push($selected, DB::raw("(select count(pos.coa_approved_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_coa_approved"));
 
                 array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
 
@@ -661,6 +808,47 @@ trait PSRTrait
               if($request->get('type') != 'bidding'){
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
 
+                array_push($selected, DB::raw("(select count(vous.id) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as voucher"));
+
+
+                array_push($selected, DB::raw("(select count(vous.payment_release_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ldad"));
+
+
+                array_push($selected, DB::raw("(select count(vous.preaudit_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as end_process"));
+
+                array_push($selected, DB::raw("(select count(diirs.id) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir"));
+
+
+                array_push($selected, DB::raw("(select count(diirs.start_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_start"));
+
+                array_push($selected, DB::raw("(select count(diirs.closed_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_close"));
+
+                array_push($selected, DB::raw("(select count(tiacs.id) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as tiac"));
+
+
+                array_push($selected, DB::raw("(select count(tiacs.accepted_date) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as coa_inspection"));
+
+                array_push($selected, DB::raw("(select count(ntps.id) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntp"));
+
+                array_push($selected, DB::raw("(select count(ntps.award_accepted_date) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntpa"));
+
+
+                array_push($selected, DB::raw("(select count(pos.id) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po"));
+
+
+                array_push($selected, DB::raw("(select count(pos.mfo_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_released"));
+
+
+                array_push($selected, DB::raw("(select count(pos.mfo_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_received"));
+
+
+                array_push($selected, DB::raw("(select count(pos.funding_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_released"));
+
+
+                array_push($selected, DB::raw("(select count(pos.funding_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_received"));
+
+                array_push($selected, DB::raw("(select count(pos.coa_approved_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_coa_approved"));
+
                 array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
 
 
@@ -702,6 +890,45 @@ trait PSRTrait
 
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
+
+
+                array_push($selected, DB::raw("(select count(vous.id) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as voucher"));
+
+                array_push($selected, DB::raw("(select count(vous.payment_release_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ldad"));
+
+                array_push($selected, DB::raw("(select count(vous.preaudit_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as end_process"));
+
+                array_push($selected, DB::raw("(select count(diirs.id) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir"));
+
+
+
+                array_push($selected, DB::raw("(select count(diirs.start_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_start"));
+
+
+
+                array_push($selected, DB::raw("(select count(diirs.closed_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_close"));
+
+
+                array_push($selected, DB::raw("(select count(tiacs.id) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as tiac"));
+
+
+                array_push($selected, DB::raw("(select count(tiacs.accepted_date) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as coa_inspection"));
+
+                array_push($selected, DB::raw("(select count(ntps.id) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntp"));
+
+
+                array_push($selected, DB::raw("(select count(ntps.award_accepted_date) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntpa"));
+
+
+                array_push($selected, DB::raw("(select count(pos.id) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po"));
+
+
+                array_push($selected, DB::raw("(select count(pos.mfo_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_released"));
+                array_push($selected, DB::raw("(select count(pos.mfo_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_received"));
+                array_push($selected, DB::raw("(select count(pos.funding_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_released"));
+
+                array_push($selected, DB::raw("(select count(pos.funding_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_received"));
+                array_push($selected, DB::raw("(select count(pos.coa_approved_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_coa_approved"));
 
                 array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
 
@@ -745,6 +972,36 @@ trait PSRTrait
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
 
+                array_push($selected, DB::raw("(select count(vous.id) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as voucher"));
+                array_push($selected, DB::raw("(select count(vous.payment_release_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ldad"));
+
+                array_push($selected, DB::raw("(select count(vous.preaudit_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as end_process"));
+
+                array_push($selected, DB::raw("(select count(diirs.id) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir"));
+
+                array_push($selected, DB::raw("(select count(diirs.start_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_start"));
+
+                array_push($selected, DB::raw("(select count(diirs.closed_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_close"));
+
+
+                array_push($selected, DB::raw("(select count(tiacs.id) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as tiac"));
+
+                array_push($selected, DB::raw("(select count(tiacs.accepted_date) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as coa_inspection"));
+
+                array_push($selected, DB::raw("(select count(ntps.id) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntp"));
+
+                array_push($selected, DB::raw("(select count(ntps.award_accepted_date) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntpa"));
+
+                array_push($selected, DB::raw("(select count(pos.id) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po"));
+
+                array_push($selected, DB::raw("(select count(pos.mfo_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_released"));
+                array_push($selected, DB::raw("(select count(pos.mfo_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_received"));
+
+                array_push($selected, DB::raw("(select count(pos.funding_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_released"));
+
+                array_push($selected, DB::raw("(select count(pos.funding_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_received"));
+                array_push($selected, DB::raw("(select count(pos.coa_approved_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_coa_approved"));
+
                 array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
 
                 array_push($selected, DB::raw("(select count(noas.award_accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noaa"));
@@ -786,6 +1043,40 @@ trait PSRTrait
 
 
                   array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as upr_count"));
+
+                array_push($selected, DB::raw("(select count(vous.id) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as voucher"));
+
+                array_push($selected, DB::raw("(select count(vous.payment_release_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as ldad"));
+
+                array_push($selected, DB::raw("(select count(vous.preaudit_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as end_process"));
+
+                array_push($selected, DB::raw("(select count(diirs.id) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir"));
+
+
+
+                array_push($selected, DB::raw("(select count(diirs.start_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_start"));
+
+                array_push($selected, DB::raw("(select count(diirs.closed_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_close"));
+
+
+
+                  array_push($selected, DB::raw("(select count(tiacs.id) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as tiac"));
+
+                  array_push($selected, DB::raw("(select count(tiacs.accepted_date) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as coa_inspection"));
+
+                array_push($selected, DB::raw("(select count(ntps.id) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntp"));
+
+                array_push($selected, DB::raw("(select count(ntps.award_accepted_date) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ntpa"));
+
+                  array_push($selected, DB::raw("(select count(pos.id) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as po"));
+
+                  array_push($selected, DB::raw("(select count(pos.mfo_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as po_mfo_released"));
+
+                  array_push($selected, DB::raw("(select count(pos.mfo_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as po_mfo_received"));
+                  array_push($selected, DB::raw("(select count(pos.funding_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as po_pcco_released"));
+
+                  array_push($selected, DB::raw("(select count(pos.funding_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as po_pcco_received"));
+                  array_push($selected, DB::raw("(select count(pos.coa_approved_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as po_coa_approved"));
 
 
                 array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
@@ -830,6 +1121,40 @@ trait PSRTrait
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as upr_count"));
 
+                array_push($selected, DB::raw("(select count(vous.id) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as voucher"));
+
+                array_push($selected, DB::raw("(select count(vous.payment_release_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as ldad"));
+
+                array_push($selected, DB::raw("(select count(vous.preaudit_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as end_process"));
+
+
+                array_push($selected, DB::raw("(select count(diirs.id) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir"));
+                array_push($selected, DB::raw("(select count(diirs.start_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_start"));
+                array_push($selected, DB::raw("(select count(diirs.closed_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_close"));
+
+
+                  array_push($selected, DB::raw("(select count(tiacs.id) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as tiac"));
+
+                  array_push($selected, DB::raw("(select count(tiacs.accepted_date) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as coa_inspection"));
+
+                array_push($selected, DB::raw("(select count(ntps.id) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as ntp"));
+
+                array_push($selected, DB::raw("(select count(ntps.award_accepted_date) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as ntpa"));
+
+                  array_push($selected, DB::raw("(select count(pos.id) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as po"));
+                  array_push($selected, DB::raw("(select count(pos.mfo_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as po_mfo_released"));
+
+                  array_push($selected, DB::raw("(select count(pos.mfo_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as po_mfo_received"));
+
+                  array_push($selected, DB::raw("(select count(pos.funding_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as po_pcco_released"));
+
+
+                  array_push($selected, DB::raw("(select count(pos.funding_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as po_pcco_received"));
+
+
+                  array_push($selected, DB::raw("(select count(pos.coa_approved_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as po_coa_approved"));
+
+
 
                 array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
                 array_push($selected, DB::raw("(select count(noas.award_accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noaa"));
@@ -869,6 +1194,35 @@ trait PSRTrait
 
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as upr_count"));
+
+                array_push($selected, DB::raw("(select count(vous.id) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as voucher"));
+                array_push($selected, DB::raw("(select count(vous.payment_release_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as ldad"));
+
+                array_push($selected, DB::raw("(select count(vous.preaudit_date) from vouchers as vous LEFT JOIN unit_purchase_requests as u ON u.id = vous.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as end_process"));
+
+                array_push($selected, DB::raw("(select count(diirs.id) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir"));
+                array_push($selected, DB::raw("(select count(diirs.start_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_start"));
+                array_push($selected, DB::raw("(select count(diirs.closed_date) from delivery_inspection as diirs LEFT JOIN unit_purchase_requests as u ON u.id = diirs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as diir_close"));
+
+                array_push($selected, DB::raw("(select count(tiacs.id) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as tiac"));
+                array_push($selected, DB::raw("(select count(tiacs.accepted_date) from inspection_acceptance_report as tiacs LEFT JOIN unit_purchase_requests as u ON u.id = tiacs.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as coa_inspection"));
+
+                array_push($selected, DB::raw("(select count(ntps.id) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom'  ) as ntp"));
+
+                array_push($selected, DB::raw("(select count(ntps.award_accepted_date) from notice_to_proceed as ntps LEFT JOIN unit_purchase_requests as u ON u.id = ntps.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom'  ) as ntpa"));
+
+                  array_push($selected, DB::raw("(select count(pos.id) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po"));
+                  array_push($selected, DB::raw("(select count(pos.mfo_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_released"));
+
+                  array_push($selected, DB::raw("(select count(pos.mfo_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_mfo_received"));
+
+
+                  array_push($selected, DB::raw("(select count(pos.funding_released_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_released"));
+
+
+                  array_push($selected, DB::raw("(select count(pos.funding_received_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_pcco_received"));
+
+                  array_push($selected, DB::raw("(select count(pos.coa_approved_date) from purchase_orders as pos LEFT JOIN unit_purchase_requests as u ON u.id = pos.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as po_coa_approved"));
 
 
                 array_push($selected, DB::raw("(select count(noas.award_accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as noaa"));
