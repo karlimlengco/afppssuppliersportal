@@ -135,7 +135,6 @@ class TransactionDayController extends Controller
     public function download($search = null, UnitPurchaseRequestRepository $model, Request $request)
     {
         $result     =   $model->getTransactionDay($request, $search);
-        dd($result);
         $this->downloadExcel($result, $request->date_from, $request->date_to);
 
     }
@@ -149,7 +148,6 @@ class TransactionDayController extends Controller
     public function downloadPSR($search = null, UnitPurchaseRequestRepository $model, Request $request)
     {
         $result     =   $model->getTransactionDay($request, $search);
-
         $this->downloadExcelPSR($result, $request->date_from, $request->date_to);
 
     }

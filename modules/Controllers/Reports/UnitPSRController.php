@@ -274,7 +274,7 @@ class UnitPSRController extends Controller
                     {
                         $newdata    =   [
                             $data->unit_name,
-                            $data->upr,
+                            $data->upr_count,
                             $data->ispq,
                             $data->philgeps,
                             $data->rfq,
@@ -301,7 +301,7 @@ class UnitPSRController extends Controller
 
                         $newdata    =   [
                             $data->unit_name,
-                            $data->upr,
+                            $data->upr_count,
                             $data->doc,
                             $data->pre_proc,
                             $data->itb,
