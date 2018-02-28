@@ -458,8 +458,8 @@ trait PSRTrait
           $selected = [
               'procurement_centers.name as unit_name',
               DB::raw("MIN(unit_purchase_requests.date_prepared) as date_prepared "),
-              DB::raw("(select count(unit_purchase_requests.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id ) as upr_count"),
-              // DB::raw("COUNT(unit_purchase_requests.id) as upr_count"),
+              // DB::raw("(select count(unit_purchase_requests.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id ) as upr_count"),
+              DB::raw("COUNT(unit_purchase_requests.id) as upr_count"),
               DB::raw("COUNT(request_for_quotations.id) as rfq"),
               DB::raw("COUNT(request_for_quotations.completed_at) as rfq_close"),
               DB::raw("COUNT(invitation_for_quotation.id) as ispq"),
