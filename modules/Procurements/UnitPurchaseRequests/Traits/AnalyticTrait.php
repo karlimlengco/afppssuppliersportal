@@ -111,13 +111,15 @@ trait AnalyticTrait
            END),0) as delay_count"),
             // DB::raw("count(unit_purchase_requests.delay_count)  - count(unit_purchase_requests.completed_at) as delay_count"),
 
-            DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
+
+            DB::raw("sum(case when unit_purchase_requests.completed_at is not null AND unit_purchase_requests.status != 'cancelled' then 1 else 0 end) as completed_count"),
+            // DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
 
             DB::raw(" SUM(CASE
              WHEN unit_purchase_requests.state != 'cancelled' THEN 1
              ELSE 0
            END) -
-                ( count(unit_purchase_requests.completed_at) )
+                ( sum(case when unit_purchase_requests.completed_at is not null AND unit_purchase_requests.status != 'cancelled' then 1 else 0 end) )
                 as ongoing_count"),
 
 
@@ -194,7 +196,6 @@ trait AnalyticTrait
      */
     public function getUnits($name, $programs, $type=null, $request = null)
     {
-
         $date_from = "";
         $date    = \Carbon\Carbon::now();
         $yearto    = $date->format('Y');
@@ -229,7 +230,7 @@ trait AnalyticTrait
              ELSE 0
            END),0) as delay_count"),
 
-            DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
+            DB::raw("sum(case when unit_purchase_requests.completed_at is not null AND unit_purchase_requests.status != 'cancelled' then 1 else 0 end) as completed_count"),
 
             // DB::raw("
             //     count(unit_purchase_requests.id) -
@@ -240,7 +241,7 @@ trait AnalyticTrait
              WHEN unit_purchase_requests.state != 'cancelled' THEN 1
              ELSE 0
            END) -
-                ( count(unit_purchase_requests.completed_at) )
+                ( sum(case when unit_purchase_requests.completed_at is not null AND unit_purchase_requests.status != 'cancelled' then 1 else 0 end) )
                 as ongoing_count"),
 
 
@@ -349,7 +350,7 @@ trait AnalyticTrait
              ELSE 0
            END),0) as delay_count"),
 
-            DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
+            DB::raw("sum(case when unit_purchase_requests.completed_at is not null AND unit_purchase_requests.status != 'cancelled' then 1 else 0 end) as completed_count"),
 
             // DB::raw("
             //     count(unit_purchase_requests.id) -
@@ -360,7 +361,7 @@ trait AnalyticTrait
              WHEN unit_purchase_requests.state != 'cancelled' THEN 1
              ELSE 0
            END) -
-                ( count(unit_purchase_requests.completed_at) )
+                ( sum(case when unit_purchase_requests.completed_at is not null AND unit_purchase_requests.status != 'cancelled' then 1 else 0 end) )
                 as ongoing_count"),
 
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
