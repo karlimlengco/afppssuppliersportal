@@ -115,36 +115,271 @@
                                             <td>{{itemData.project_name}}</td>
                                             <td>{{formatPrice(itemData.total_amount)}}</td>
                                             <td>{{formatDate(itemData.date_prepared)}}</td>
-                                            <td v-if="types != 'bidding'" >{{getDiff(itemData.ispq_transaction_date, itemData.date_prepared)}}</td>
-                                            <td v-if="types != 'bidding'" >{{getDiff(itemData.rfq_created_at, itemData.date_prepared)}}</td>
-                                            <td v-if="types != 'bidding'" >{{getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date)}}</td>
-                                            <td v-if="types != 'bidding'" >{{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.doc_date, itemData.date_prepared)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.proc_date, itemData.doc_date)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.itb_date, itemData.proc_date)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.pp_completed_at, itemData.itb_date)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.prebid_date, itemData.pp_completed_at)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.bid_date, itemData.prebid_date)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.pq_date, itemData.bid_date)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.noa_award_date, itemData.pq_date)}}</td>
-                                            <td>{{getDiff(itemData.noa_approved_date, itemData.noa_award_date)}}</td>
-                                            <td>{{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}}</td>
-                                            <td>{{getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)}}</td>
-                                            <td>{{getDiff(itemData.funding_received_date, itemData.po_create_date)}}</td>
-                                            <td>{{getDiff(itemData.mfo_received_date, itemData.funding_received_date)}}</td>
-                                            <td>{{getDiff(itemData.coa_approved_date, itemData.mfo_received_date)}}</td>
-                                            <td>{{getDiff(itemData.ntp_date, itemData.coa_approved_date)}}</td>
-                                            <td>{{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}</td>
-                                            <td>{{getDiff(itemData.dr_date, itemData.ntp_award_date)}}</td>
-                                            <td>{{getDiff(itemData.dr_coa_date, itemData.dr_date)}}</td>
-                                            <td>{{getDiff(itemData.dr_inspection, itemData.dr_coa_date)}}</td>
-                                            <td>{{getDiff(itemData.iar_accepted_date, itemData.dr_inspection)}}</td>
-                                            <td>{{getDiff(itemData.di_start, itemData.iar_accepted_date)}}</td>
-                                            <td>{{getDiff(itemData.di_close, itemData.di_start)}}</td>
-                                            <td>{{getDiff(itemData.v_transaction_date, itemData.di_close)}}</td>
-                                            <td>{{getDiff(itemData.preaudit_date, itemData.v_transaction_date)}}</td>
-                                            <td>{{getDiff(itemData.vou_release, itemData.preaudit_date)}}</td>
-                                            <td>{{itemData.calendar_days}}</td>
+                                            <td v-if="types != 'bidding'" >
+                                                <!-- 3 -->
+                                                <span v-if="getDiff(itemData.ispq_transaction_date, itemData.date_prepared) > 3" style="color:red">
+                                                  {{getDiff(itemData.ispq_transaction_date, itemData.date_prepared)}}
+                                                </span>
+                                                <span v-if="getDiff(itemData.ispq_transaction_date, itemData.date_prepared) <= 3" >
+                                                  {{getDiff(itemData.ispq_transaction_date, itemData.date_prepared)}}
+                                                </span>
+                                            </td>
+                                            <td v-if="types != 'bidding'" >
+                                                <!-- 3 -->
+                                                <span v-if="getDiff(itemData.rfq_created_at, itemData.date_prepared) > 3" style="color:red">
+                                                  {{getDiff(itemData.rfq_created_at, itemData.date_prepared)}}
+                                                </span>
+                                                <span v-if="getDiff(itemData.rfq_created_at, itemData.date_prepared) <= 3" >
+                                                  {{getDiff(itemData.rfq_created_at, itemData.date_prepared)}}
+                                                </span>
+                                            </td>
+                                            <td v-if="types != 'bidding'" >
+                                                <!-- 2 -->
+                                              <span v-if="getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date) > 2" style="color:red">
+                                                {{getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date) <= 2" >
+                                                {{getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date)}}
+                                              </span>
+                                            </td>
+                                            <td v-if="types != 'bidding'" >
+                                                <!-- 2 -->
+                                              <span v-if="getDiff(itemData.noa_award_date, itemData.canvass_start_date) > 2" style="color:red">
+                                                {{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.noa_award_date, itemData.canvass_start_date) <= 2" >
+                                                {{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}}
+                                              </span>
+                                            </td>
+                                            <td v-if="types == 'bidding'">
+                                              <!-- 1 -->
+                                              <span v-if="getDiff(itemData.doc_date, itemData.date_prepared) > 1" style="color:red">
+                                                {{getDiff(itemData.doc_date, itemData.date_prepared)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.doc_date, itemData.date_prepared) <= 1" >
+                                                {{getDiff(itemData.doc_date, itemData.date_prepared)}}
+                                              </span>
+                                            </td>
+                                            <td v-if="types == 'bidding'">
+                                              <!-- 1 -->
+                                              <span v-if="getDiff(itemData.proc_date, itemData.doc_date) > 1" style="color:red">
+                                                {{getDiff(itemData.proc_date, itemData.doc_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.proc_date, itemData.doc_date) <= 1" >
+                                                {{getDiff(itemData.proc_date, itemData.doc_date)}}
+                                              </span>
+                                            </td>
+                                            <td v-if="types == 'bidding'">
+                                              <!-- 7 -->
+                                              <span v-if="getDiff(itemData.itb_date, itemData.proc_date) > 7" style="color:red">
+                                                {{getDiff(itemData.itb_date, itemData.proc_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.itb_date, itemData.proc_date) <= 7" >
+                                                {{getDiff(itemData.itb_date, itemData.proc_date)}}
+                                              </span>
+                                            </td>
+                                            <td v-if="types == 'bidding'">
+                                              <!-- 1 -->
+                                              <span v-if="getDiff(itemData.pp_completed_at, itemData.itb_date) > 1" style="color:red">
+                                                {{getDiff(itemData.pp_completed_at, itemData.itb_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.pp_completed_at, itemData.itb_date) <= 1" >
+                                                {{getDiff(itemData.pp_completed_at, itemData.itb_date)}}
+                                              </span>
+                                            </td>
+                                            <td v-if="types == 'bidding'">
+                                              <!-- 45 -->
+                                              <span v-if="getDiff(itemData.prebid_date, itemData.pp_completed_at) > 45" style="color:red">
+                                                {{getDiff(itemData.prebid_date, itemData.pp_completed_at)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.prebid_date, itemData.pp_completed_at) <= 45" >
+                                                {{getDiff(itemData.prebid_date, itemData.pp_completed_at)}}
+                                              </span>
+                                            </td>
+                                            <td v-if="types == 'bidding'">
+                                              <!-- 7 -->
+                                              <span v-if="getDiff(itemData.prebid_date, itemData.pp_completed_at) > 7" style="color:red">
+                                                {{getDiff(itemData.prebid_date, itemData.pp_completed_at)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.prebid_date, itemData.pp_completed_at) <= 7" >
+                                                {{getDiff(itemData.prebid_date, itemData.pp_completed_at)}}
+                                              </span>
+                                            </td>
+                                            <td v-if="types == 'bidding'">
+                                              <!-- 45 -->
+                                              <span v-if="getDiff(itemData.pq_date, itemData.bid_date) > 45" style="color:red">
+                                                {{getDiff(itemData.pq_date, itemData.bid_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.pq_date, itemData.bid_date) <= 45" >
+                                                {{getDiff(itemData.pq_date, itemData.bid_date)}}
+                                              </span>
+                                            </td>
+                                            <td v-if="types == 'bidding'">
+                                              <!-- 15 -->
+                                              <span v-if="getDiff(itemData.noa_award_date, itemData.pq_date) > 15" style="color:red">
+                                                {{getDiff(itemData.noa_award_date, itemData.pq_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.noa_award_date, itemData.pq_date) <= 15" >
+                                                {{getDiff(itemData.noa_award_date, itemData.pq_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 1 -->
+                                              <span v-if="getDiff(itemData.noa_approved_date, itemData.noa_award_date) > 1" style="color:red">
+                                                {{getDiff(itemData.noa_approved_date, itemData.noa_award_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.noa_approved_date, itemData.noa_award_date) <= 1" >
+                                                {{getDiff(itemData.noa_approved_date, itemData.noa_award_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 1 -->
+
+                                              <span v-if="getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date) > 1" style="color:red">
+                                                {{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date) <= 1" >
+                                                {{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 2 -->
+                                              <span v-if="getDiff(itemData.po_create_date, itemData.noa_award_accepted_date) > 2" style="color:red">
+                                                {{getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.po_create_date, itemData.noa_award_accepted_date) <= 2" >
+                                                {{getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 2 -->
+                                              <span v-if="getDiff(itemData.funding_received_date, itemData.po_create_date) > 2" style="color:red">
+                                                {{getDiff(itemData.funding_received_date, itemData.po_create_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.funding_received_date, itemData.po_create_date) <= 2" >
+                                                {{getDiff(itemData.funding_received_date, itemData.po_create_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 2 -->
+                                              <span v-if="getDiff(itemData.mfo_received_date, itemData.funding_received_date) > 2" style="color:red">
+                                                {{getDiff(itemData.mfo_received_date, itemData.funding_received_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.mfo_received_date, itemData.funding_received_date) <= 2" >
+                                                {{getDiff(itemData.mfo_received_date, itemData.funding_received_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 1 -->
+                                              <span v-if="getDiff(itemData.coa_approved_date, itemData.mfo_received_date) > 1" style="color:red">
+                                                {{getDiff(itemData.coa_approved_date, itemData.mfo_received_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.coa_approved_date, itemData.mfo_received_date) <= 1" >
+                                                {{getDiff(itemData.coa_approved_date, itemData.mfo_received_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 1 -->
+                                              <span v-if="getDiff(itemData.ntp_date, itemData.coa_approved_date) > 1" style="color:red">
+                                                {{getDiff(itemData.ntp_date, itemData.coa_approved_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.ntp_date, itemData.coa_approved_date) <= 1" >
+                                                {{getDiff(itemData.ntp_date, itemData.coa_approved_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 1 -->
+                                              <span v-if="getDiff(itemData.ntp_award_date, itemData.ntp_date) > 1" style="color:red">
+                                                {{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.ntp_award_date, itemData.ntp_date) <= 1" >
+                                                {{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 2 -->
+                                              <span v-if="getDiff(itemData.dr_date, itemData.ntp_award_date) > 2" style="color:red">
+                                                {{getDiff(itemData.dr_date, itemData.ntp_award_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.dr_date, itemData.ntp_award_date) <= 2" >
+                                                {{getDiff(itemData.dr_date, itemData.ntp_award_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 2 -->
+                                              <span v-if="getDiff(itemData.dr_coa_date, itemData.dr_date) > 2" style="color:red">
+                                                {{getDiff(itemData.dr_coa_date, itemData.dr_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.dr_coa_date, itemData.dr_date) <= 2" >
+                                                {{getDiff(itemData.dr_coa_date, itemData.dr_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 1 -->
+                                              <span v-if="getDiff(itemData.dr_inspection, itemData.dr_coa_date) > 1" style="color:red">
+                                                {{getDiff(itemData.dr_inspection, itemData.dr_coa_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.dr_inspection, itemData.dr_coa_date) <= 1" >
+                                                {{getDiff(itemData.dr_inspection, itemData.dr_coa_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 1 -->
+                                              <span v-if="getDiff(itemData.iar_accepted_date, itemData.dr_inspection) > 1" style="color:red">
+                                                {{getDiff(itemData.iar_accepted_date, itemData.dr_inspection)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.iar_accepted_date, itemData.dr_inspection) <= 1" >
+                                                {{getDiff(itemData.iar_accepted_date, itemData.dr_inspection)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 1 -->
+                                              <span v-if="getDiff(itemData.di_start, itemData.iar_accepted_date) > 1" style="color:red">
+                                                {{getDiff(itemData.di_start, itemData.iar_accepted_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.di_start, itemData.iar_accepted_date) <= 1" >
+                                                {{getDiff(itemData.di_start, itemData.iar_accepted_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 2 -->
+                                              <span v-if="getDiff(itemData.di_close, itemData.di_start) > 1" style="color:red">
+                                                {{getDiff(itemData.di_close, itemData.di_start)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.di_close, itemData.di_start) <= 1" >
+                                                {{getDiff(itemData.di_close, itemData.di_start)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 1 -->
+                                              <span v-if="getDiff(itemData.v_transaction_date, itemData.di_close) > 1" style="color:red">
+                                                {{getDiff(itemData.v_transaction_date, itemData.di_close)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.v_transaction_date, itemData.di_close) <= 1" >
+                                                {{getDiff(itemData.v_transaction_date, itemData.di_close)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 1 -->
+                                              <span v-if="getDiff(itemData.preaudit_date, itemData.v_transaction_date) > 1" style="color:red">
+                                                {{getDiff(itemData.preaudit_date, itemData.v_transaction_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.preaudit_date, itemData.v_transaction_date) <= 1" >
+                                                {{getDiff(itemData.preaudit_date, itemData.v_transaction_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 1 -->
+                                              <span v-if="getDiff(itemData.vou_release, itemData.preaudit_date) > 1" style="color:red">
+                                                {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+                                              </span>
+                                              <span v-if="getDiff(itemData.vou_release, itemData.preaudit_date) <= 1" >
+                                                {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+                                              </span>
+                                            </td>
+                                            <td>
+                                              {{itemData.calendar_days}}
+                                            </td>
                                         </tr>
                                         </template>
                                       </template>
