@@ -461,11 +461,11 @@ trait PSRTrait
               // DB::raw("COUNT(unit_purchase_requests.id) as upr_count"),
               // DB::raw("COUNT(request_for_quotations.id) as rfq"),
               // DB::raw("COUNT(request_for_quotations.completed_at) as rfq_close"),
-              DB::raw("COUNT(invitation_for_quotation.id) as ispq"),
-              DB::raw("COUNT(canvassing.id) as canvass"),
-              DB::raw("COUNT(notice_of_awards.id) as noa"),
-              DB::raw("COUNT(notice_of_awards.award_accepted_date) as noaa"),
-              DB::raw("COUNT(notice_of_awards.accepted_date) as noar"),
+              // DB::raw("COUNT(invitation_for_quotation.id) as ispq"),
+              // DB::raw("COUNT(canvassing.id) as canvass"),
+              // DB::raw("COUNT(notice_of_awards.id) as noa"),
+              // DB::raw("COUNT(notice_of_awards.award_accepted_date) as noaa"),
+              // DB::raw("COUNT(notice_of_awards.accepted_date) as noar"),
               DB::raw("COUNT(purchase_orders.id) as po"),
               DB::raw("COUNT(purchase_orders.mfo_released_date) as po_mfo_released"),
               DB::raw("COUNT(purchase_orders.mfo_received_date) as po_mfo_received"),
@@ -491,7 +491,18 @@ trait PSRTrait
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
 
+                array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
+
+                array_push($selected, DB::raw("(select count(noas.accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noar"));
+
+                array_push($selected, DB::raw("(select count(noas.award_accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noaa"));
+
+                array_push($selected, DB::raw("(select count(isp.id) from ispq_quotations as isp LEFT JOIN unit_purchase_requests as u ON u.id = isp.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ispq"));
+
                 array_push($selected, DB::raw("(select count(rfq.completed_at) from request_for_quotations as rfq LEFT JOIN unit_purchase_requests as u ON u.id = rfq.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND request_for_quotations.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as rfq_close"));
+
+
+                array_push($selected, DB::raw("(select count(c.id) from canvassing as c LEFT JOIN unit_purchase_requests as u ON u.id = c.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as canvass"));
 
                 array_push($selected, DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  != 'public_bidding' and upr.procurement_office = procurement_centers.id AND upr.date_prepared <= $dateTo AND upr.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(upr.date_prepared) <= '$yearto' AND YEAR(upr.date_prepared) >= '$yearfrom') as philgeps "));
 
@@ -521,9 +532,18 @@ trait PSRTrait
 
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
+                array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
 
+
+                array_push($selected, DB::raw("(select count(noas.award_accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noaa"));
+                array_push($selected, DB::raw("(select count(noas.accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noar"));
 
                 array_push($selected, DB::raw("(select count(rfq.completed_at) from request_for_quotations as rfq LEFT JOIN unit_purchase_requests as u ON u.id = rfq.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND request_for_quotations.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as rfq_close"));
+
+
+                array_push($selected, DB::raw("(select count(c.id) from canvassing as c LEFT JOIN unit_purchase_requests as u ON u.id = c.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as canvass"));
+
+                array_push($selected, DB::raw("(select count(isp.id) from ispq_quotations as isp LEFT JOIN unit_purchase_requests as u ON u.id = isp.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND u.upr_number LIKE %$search% AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ispq"));
 
                   array_push($selected, DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  = 'public_bidding' and upr.procurement_office = procurement_centers.id AND upr.date_prepared <= $dateTo AND upr.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search% AND YEAR(upr.date_prepared) <= '$yearto' AND YEAR(upr.date_prepared) >= '$yearfrom') as philgeps "));
 
@@ -555,7 +575,18 @@ trait PSRTrait
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
 
 
+                array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id  AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
+
+
+                array_push($selected, DB::raw("(select count(noas.award_accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id  AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noaa"));
+                array_push($selected, DB::raw("(select count(noas.accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id  AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noar"));
+
+
                 array_push($selected, DB::raw("(select count(rfq.completed_at) from request_for_quotations as rfq LEFT JOIN unit_purchase_requests as u ON u.id = rfq.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as rfq_close"));
+
+                array_push($selected, DB::raw("(select count(c.id) from canvassing as c LEFT JOIN unit_purchase_requests as u ON u.id = c.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as canvass"));
+
+                array_push($selected, DB::raw("(select count(isp.id) from ispq_quotations as isp LEFT JOIN unit_purchase_requests as u ON u.id = isp.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ispq"));
 
                 array_push($selected, DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  != 'public_bidding' and upr.procurement_office = procurement_centers.id AND upr.date_prepared <= $dateTo AND upr.date_prepared >= $dateFrom AND YEAR(upr.date_prepared) <= '$yearto' AND YEAR(upr.date_prepared) >= '$yearfrom'  ) as philgeps "));
 
@@ -586,7 +617,21 @@ trait PSRTrait
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
 
+                array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
+
+
+                array_push($selected, DB::raw("(select count(noas.award_accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noaa"));
+
+
+                array_push($selected, DB::raw("(select count(noas.accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noar"));
+
+
                 array_push($selected, DB::raw("(select count(rfq.completed_at) from request_for_quotations as rfq LEFT JOIN unit_purchase_requests as u ON u.id = rfq.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as rfq_close"));
+
+                array_push($selected, DB::raw("(select count(c.id) from canvassing as c LEFT JOIN unit_purchase_requests as u ON u.id = c.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as canvass"));
+
+
+                array_push($selected, DB::raw("(select count(isp.id) from ispq_quotations as isp LEFT JOIN unit_purchase_requests as u ON u.id = isp.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ispq"));
 
                   array_push($selected, DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  = 'public_bidding' and upr.procurement_office = procurement_centers.id AND upr.date_prepared <= $dateTo AND upr.date_prepared >= $dateFrom AND YEAR(upr.date_prepared) <= '$yearto' AND YEAR(upr.date_prepared) >= '$yearfrom'  ) as philgeps "));
 
@@ -616,8 +661,18 @@ trait PSRTrait
               if($request->get('type') != 'bidding'){
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
 
+                array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
+
+
+                array_push($selected, DB::raw("(select count(noas.award_accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noaa"));
+
+                array_push($selected, DB::raw("(select count(noas.accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noar"));
 
                 array_push($selected, DB::raw("(select count(rfq.completed_at) from request_for_quotations as rfq LEFT JOIN unit_purchase_requests as u ON u.id = rfq.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as rfq_close"));
+
+                array_push($selected, DB::raw("(select count(c.id) from canvassing as c LEFT JOIN unit_purchase_requests as u ON u.id = c.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as canvass"));
+
+                array_push($selected, DB::raw("(select count(isp.id) from ispq_quotations as isp LEFT JOIN unit_purchase_requests as u ON u.id = isp.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ispq"));
 
                 array_push($selected, DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  != 'public_bidding' and upr.procurement_office = procurement_centers.id AND upr.date_prepared <= $dateTo AND YEAR(upr.date_prepared) <= '$yearto' AND YEAR(upr.date_prepared) >= '$yearfrom'   ) as philgeps "));
 
@@ -647,7 +702,18 @@ trait PSRTrait
 
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
+
+                array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
+
+
+                array_push($selected, DB::raw("(select count(noas.award_accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noaa"));
+                array_push($selected, DB::raw("(select count(noas.accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noar"));
+
                 array_push($selected, DB::raw("(select count(rfq.completed_at) from request_for_quotations as rfq LEFT JOIN unit_purchase_requests as u ON u.id = rfq.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as rfq_close"));
+
+                array_push($selected, DB::raw("(select count(c.id) from canvassing as c LEFT JOIN unit_purchase_requests as u ON u.id = c.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as canvass"));
+
+                array_push($selected, DB::raw("(select count(isp.id) from ispq_quotations as isp LEFT JOIN unit_purchase_requests as u ON u.id = isp.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement = 'public_bidding' AND u.date_prepared <= $dateTo AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ispq"));
 
                   array_push($selected, DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  = 'public_bidding' and upr.procurement_office = procurement_centers.id AND upr.date_prepared <= $dateTo AND YEAR(upr.date_prepared) <= '$yearto' AND YEAR(upr.date_prepared) >= '$yearfrom'   ) as philgeps "));
 
@@ -679,8 +745,17 @@ trait PSRTrait
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as upr_count"));
 
+                array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
+
+                array_push($selected, DB::raw("(select count(noas.award_accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noaa"));
+
+                array_push($selected, DB::raw("(select count(noas.accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noar"));
+
                 array_push($selected, DB::raw("(select count(rfq.completed_at) from request_for_quotations as rfq LEFT JOIN unit_purchase_requests as u ON u.id = rfq.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as rfq_close"));
 
+                array_push($selected, DB::raw("(select count(c.id) from canvassing as c LEFT JOIN unit_purchase_requests as u ON u.id = c.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as canvass"));
+
+                array_push($selected, DB::raw("(select count(isp.id) from ispq_quotations as isp LEFT JOIN unit_purchase_requests as u ON u.id = isp.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement != 'public_bidding' AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ispq"));
 
                 array_push($selected, DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  != 'public_bidding' and upr.procurement_office = procurement_centers.id AND upr.date_prepared >= $dateFrom AND YEAR(upr.date_prepared) <= '$yearto' AND YEAR(upr.date_prepared) >= '$yearfrom'  ) as philgeps "));
 
@@ -712,7 +787,20 @@ trait PSRTrait
 
                   array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as upr_count"));
 
+
+                array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
+
+
+                array_push($selected, DB::raw("(select count(noas.award_accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noaa"));
+
+                array_push($selected, DB::raw("(select count(noas.accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noar"));
+
                 array_push($selected, DB::raw("(select count(rfq.completed_at) from request_for_quotations as rfq LEFT JOIN unit_purchase_requests as u ON u.id = rfq.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as rfq_close"));
+
+
+                array_push($selected, DB::raw("(select count(c.id) from canvassing as c LEFT JOIN unit_purchase_requests as u ON u.id = c.upr_id where u.procurement_office = procurement_centers.id  AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as canvass"));
+
+                array_push($selected, DB::raw("(select count(isp.id) from ispq_quotations as isp LEFT JOIN unit_purchase_requests as u ON u.id = isp.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  = 'public_bidding'AND u.date_prepared >= $dateFrom AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ispq"));
 
                   array_push($selected, DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  = 'public_bidding' and upr.procurement_office = procurement_centers.id AND upr.date_prepared >= $dateFrom AND YEAR(upr.date_prepared) <= '$yearto' AND YEAR(upr.date_prepared) >= '$yearfrom'  ) as philgeps "));
 
@@ -742,7 +830,16 @@ trait PSRTrait
 
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as upr_count"));
 
+
+                array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noa"));
+                array_push($selected, DB::raw("(select count(noas.award_accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noaa"));
+                array_push($selected, DB::raw("(select count(noas.accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as noar"));
+
                 array_push($selected, DB::raw("(select count(rfq.completed_at) from request_for_quotations as rfq LEFT JOIN unit_purchase_requests as u ON u.id = rfq.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom'  ) as rfq_close"));
+
+
+                array_push($selected, DB::raw("(select count(c.id) from canvassing as c LEFT JOIN unit_purchase_requests as u ON u.id = c.upr_id where u.procurement_office = procurement_centers.id  AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as canvass"));
+                array_push($selected, DB::raw("(select count(isp.id) from ispq_quotations as isp LEFT JOIN unit_purchase_requests as u ON u.id = isp.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement  != 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ispq"));
 
                 array_push($selected, DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  != 'public_bidding' and upr.procurement_office = procurement_centers.id AND YEAR(upr.date_prepared) <= '$yearto' AND YEAR(upr.date_prepared) >= '$yearfrom'  ) as philgeps "));
 
@@ -774,7 +871,14 @@ trait PSRTrait
                 array_push($selected, DB::raw("(select count(u.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as upr_count"));
 
 
+                array_push($selected, DB::raw("(select count(noas.award_accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as noaa"));
+                array_push($selected, DB::raw("(select count(noas.id) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as noa"));
+                array_push($selected, DB::raw("(select count(noas.accepted_date) from notice_of_awards as noas LEFT JOIN unit_purchase_requests as u ON u.id = noas.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as noar"));
+
                 array_push($selected, DB::raw("(select count(rfq.completed_at) from request_for_quotations as rfq LEFT JOIN unit_purchase_requests as u ON u.id = rfq.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom' ) as rfq_close"));
+                array_push($selected, DB::raw("(select count(c.id) from canvassing as c LEFT JOIN unit_purchase_requests as u ON u.id = c.upr_id where u.procurement_office = procurement_centers.id  AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as canvass"));
+
+                array_push($selected, DB::raw("(select count(isp.id) from ispq_quotations as isp LEFT JOIN unit_purchase_requests as u ON u.id = isp.upr_id where u.procurement_office = procurement_centers.id AND mode_of_procurement   = 'public_bidding' AND YEAR(u.date_prepared) <= '$yearto' AND YEAR(u.date_prepared) >= '$yearfrom') as ispq"));
 
                   array_push($selected, DB::raw(" (select count(philgeps_posting.id) from philgeps_posting left join unit_purchase_requests as upr on philgeps_posting.upr_id  = upr.id where mode_of_procurement  = 'public_bidding' and upr.procurement_office = procurement_centers.id AND YEAR(upr.date_prepared) <= '$yearto' AND YEAR(upr.date_prepared) >= '$yearfrom' ) as philgeps "));
 
