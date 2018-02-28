@@ -149,7 +149,6 @@ class PSRController extends Controller
     {
 
         $result     =   $model->getPcooPSRDatatable($request, $search);
-
         $this->downloadExcel($result, $request->date_from, $request->date_to, $request->type);
 
     }
@@ -266,10 +265,10 @@ class PSRController extends Controller
                     {
                         $newdata    =   [
                             $data->unit_name,
-                            $data->upr,
+                            $data->upr_count,
                             $data->ispq,
                             $data->philgeps,
-                            $data->rfq,
+                            $data->rfq_close,
                             $data->canvass,
                             $data->noa,
                             $data->noaa,
@@ -296,7 +295,7 @@ class PSRController extends Controller
 
                         $newdata    =   [
                             $data->unit_name,
-                            $data->upr,
+                            $data->upr_count,
                             $data->doc,
                             $data->pre_proc,
                             $data->itb,

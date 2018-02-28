@@ -163,7 +163,6 @@ class UnitPSRController extends Controller
     public function download($search = null, UnitPurchaseRequestRepository $model, Request $request)
     {
         $result     =   $model->getPSRUnits($request, $search);
-
         $this->downloadExcel($result, $request->date_from, $request->date_to);
 
     }
@@ -274,7 +273,7 @@ class UnitPSRController extends Controller
                     {
                         $newdata    =   [
                             $data->unit_name,
-                            $data->upr_count,
+                            $data->z,
                             $data->ispq,
                             $data->philgeps,
                             $data->rfq,
@@ -301,7 +300,7 @@ class UnitPSRController extends Controller
 
                         $newdata    =   [
                             $data->unit_name,
-                            $data->upr_count,
+                            $data->z,
                             $data->doc,
                             $data->pre_proc,
                             $data->itb,
