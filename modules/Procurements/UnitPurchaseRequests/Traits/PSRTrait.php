@@ -436,10 +436,30 @@ trait PSRTrait
           $yearfrom    = $date->format('Y');
           // dd($request->all());
 
+
+          if($dateFrom != null)
+          {
+              $dateFrom  =   $dateFrom;
+              $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
+          }
+
+          if($dateTo != null)
+          {
+              $date_to  =   $dateTo;
+              $yearto  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_to)->format('Y');
+          }
+
+          if($dateTo &&  $dateFrom == null)
+          {
+              $dateFrom  =   $date_to;
+              $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
+          }
+
           $selected = [
               'procurement_centers.name as unit_name',
               DB::raw("MIN(unit_purchase_requests.date_prepared) as date_prepared "),
-              DB::raw("COUNT(unit_purchase_requests.id) as upr"),
+              DB::raw("(select count(unit_purchase_requests.id) from unit_purchase_requests as u where u.procurement_office = procurement_centers.id ) as upr_count"),
+              // DB::raw("COUNT(unit_purchase_requests.id) as upr_count"),
               DB::raw("COUNT(request_for_quotations.id) as rfq"),
               DB::raw("COUNT(request_for_quotations.completed_at) as rfq_close"),
               DB::raw("COUNT(invitation_for_quotation.id) as ispq"),
@@ -464,24 +484,6 @@ trait PSRTrait
               DB::raw("COUNT(vouchers.id) as end_process"),
               DB::raw("COUNT(vouchers.payment_release_date) as ldad"),
           ];
-
-          if($dateFrom != null)
-          {
-              $dateFrom  =   $dateFrom;
-              $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
-          }
-
-          if($dateTo != null)
-          {
-              $date_to  =   $dateTo;
-              $yearto  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_to)->format('Y');
-          }
-
-          if($dateTo &&  $dateFrom == null)
-          {
-              $dateFrom  =   $date_to;
-              $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
-          }
 
           if($dateTo != null && $dateFrom != null && $search != null )
           {
@@ -838,6 +840,7 @@ trait PSRTrait
      */
     public function getPccoPSR($request = null, $search = null)
     {
+
         $model  =   $this->model;
         $model  =   $model->select([
             'procurement_centers.name as unit_name',
@@ -887,7 +890,6 @@ trait PSRTrait
 
             DB::raw(" (select count(post_qualification.id) from post_qualification left join unit_purchase_requests as upr on post_qualification.upr_id  = upr.id where mode_of_procurement  != 'public_bidding' and upr.procurement_office = procurement_centers.id AND unit_purchase_requests.date_prepared <= $dateTo AND unit_purchase_requests.date_prepared >= $dateFrom AND unit_purchase_requests.upr_number LIKE %$search%  ) as pq "),
         ]);
-
         $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
         $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', '=', 'unit_purchase_requests.id');
 
@@ -1994,6 +1996,7 @@ trait PSRTrait
      */
     public function getPSRUnits($request = null, $search = null)
     {
+
         $model  =   $this->model;
 
         $model  =   $model->select([
@@ -2248,6 +2251,7 @@ trait PSRTrait
      */
     public function getUnitPSRItem($type, $unit, $request = null)
     {
+
       $dateTo = $request->get('date_to');
       $dateFrom = $request->get('date_from');
 

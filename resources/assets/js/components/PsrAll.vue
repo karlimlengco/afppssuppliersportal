@@ -73,7 +73,7 @@
                                   {{unit.unit_name}}
                                   <!-- <button @click="fetchUnitItems(unit)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button> -->
                               </td>
-                              <td>{{unit.upr}}</td>
+                              <td>{{unit.upr_count}}</td>
                               <td v-if="types == 'bidding'">{{unit.doc}}</td>
                               <td v-if="types == 'bidding'">{{unit.pre_proc}}</td>
                               <td v-if="types == 'bidding'">{{unit.itb}}</td>
