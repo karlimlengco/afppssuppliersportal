@@ -32,7 +32,9 @@ Suppliers
         <i class="nc-icon-mini ui-2_disk"></i>
         </button>
 
+        @if(\Sentinel::getUser()->hasRole('Admin'))
         <a href="#" class="button" id="delete-button" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
+        @endif
 
         @if($data->is_blocked == 0)
             <a href="#" class="button" id="blocked-button" tooltip="Blocked"><i class="nc-icon-mini ui-e_round-e-alert"></i></a>
