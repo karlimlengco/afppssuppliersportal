@@ -181,7 +181,6 @@ Purchase Order
                 removeAll()
                 data.forEach(function(entry) {
                     count++;
-
                     addField(entry);
                 });
             }
@@ -194,9 +193,13 @@ Purchase Order
     {
         var table=document.getElementById("item_table");
         var table_len=(table.rows.length) ;
+        var str = entry.item_description
+        console.log(str)
         var newRow = "<tr id='row" + table_len + "'>";
             newRow += "<td id='desciption_row"+table_len+"'>";
-            newRow += "<input type='text' name='item_description[]' tabindex='-1' readonly value='"+entry.item_description+"' class='input'/>"
+            str = str.replace(/"/g, '');
+            str = str.replace(/'/g, "");
+            newRow += "<input type='text' name='item_description[]' tabindex='-1' readonly value='"+str+"' class='input'/>"
             newRow += "</td>";
 
             newRow += "<td id='new_account_code_row"+table_len+"'>";
