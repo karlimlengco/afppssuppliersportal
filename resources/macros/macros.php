@@ -587,7 +587,6 @@ function convertDigit($digit)
 
 function translateToWords($number)
 {
-  dd($number);
   $num = str_replace(',', '', $number);
   $num = number_format($num,2);
   $num = str_replace(',', '', $num);
