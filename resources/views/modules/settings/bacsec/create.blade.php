@@ -17,7 +17,7 @@ BacSec
 <div class="row">
     <div class="twelve columns">
         {!! Form::textField('name', 'Name') !!}
-        {!! Form::selectField('pcco_id', 'PCCO', $pcco) !!}
+        {!! Form::selectField('pcco_id', 'PC/CO', $pcco) !!}
         {!! Form::textField('description', 'Description') !!}
 
     </div>

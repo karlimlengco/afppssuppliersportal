@@ -54,8 +54,8 @@ Unit Purchase Request
         $totalDays      =   0;
         $today          =   \Carbon\Carbon::now()->format('Y-m-d');
         $today          =   createCarbon('Y-m-d', $today);
-        $upr_created    =   $data->date_prepared;
-        $next_date      =   $data->date_prepared;
+        $upr_created    =   $data->date_processed;
+        $next_date      =   $data->date_processed;
         if($data->next_due)
         {
             $next_date      =   createCarbon('Y-m-d', $data->next_due);
@@ -76,8 +76,8 @@ Unit Purchase Request
             </thead>
             <tbody>
                 <tr>
-                    <td>UPR</td>
-                    <td>{{ $data->date_prepared->format('d F Y')}}</td>
+                    <td>UPR Receipt</td>
+                    <td>{{ $data->date_processed->format('d F Y')}}</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -175,7 +175,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Close RFQ</td>
+                    <td>RFQ</td>
                     <td>
                         @if($data->rfq_completed_at != null)
                             <?php $rfq_completed_at = createCarbon('Y-m-d H:i:s',$data->rfq_completed_at)->format('d F Y'); ?>
@@ -917,7 +917,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Received Notice Of Award</td>
+                    <td>Conforme Notice Of Award</td>
                     <td>
                         @if($data->noa_award_accepted_date != null)
                         <?php $noa_award_accepted_date = createCarbon('Y-m-d',$data->noa_award_accepted_date); ?>
@@ -957,9 +957,50 @@ Unit Purchase Request
                     <td></td>
                 </tr>
 
+                <tr>
+                    <td>Posting Notice Of Award to Philgeps</td>
+                    <td>
+                        @if($data->noa_philgeps_posting != null)
+                        <?php $noa_philgeps_posting = createCarbon('Y-m-d',$data->noa_philgeps_posting); ?>
+                        <a target="_blank" href="{{route('procurements.noa.show', $data->noa_id)}}">
+                            {{$noa_philgeps_posting->format('d F Y')}}
+                        </a>
+                        @endif
+                    <td>1</td>
+
+                    <td>
+                    @if(isset($noa_award_accepted_date))
+                        @if($data->noa_philgeps_posting != null)
+                             {{ $data->noa_philgeps_days }}
+                            <?php $totalDays +=  $data->noa_philgeps_days ; ?>
+
+                            @if($data->noa_philgeps_days > 1)
+                                <strong class="red" tooltip="Delay">({{$data->noa_philgeps_days - 1}})</strong>
+                            @endif
+
+                        @else
+
+
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
+
+
+                            @if($d > 1)
+                                <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                            @endif
+                        @endif
+                    @endif
+                    </td>
+                    <td>{{$data->noa_received_remarks}}</td>
+                    <td>{{$data->noa_received_action}}</td>
+                    <td></td>
+                </tr>
+
                 @if($data->mode_of_procurement != 'public_bidding')
                 <tr>
-                    <td>PO Creation</td>
+                    <td>PO Preparation</td>
                     <td>
                         @if($data->po_create_date != null)
                         <?php $po_create_date = createCarbon('Y-m-d',$data->po_create_date); ?>
@@ -970,7 +1011,7 @@ Unit Purchase Request
                     </td>
                     <td>2</td>
                     <td>
-                    @if(isset($noa_award_accepted_date))
+                    @if(isset($noa_philgeps_posting))
                         @if($data->po_create_date != null)
                             {{ $data->po_days }}
                             <?php $totalDays +=  $data->po_days ; ?>
@@ -1005,7 +1046,7 @@ Unit Purchase Request
                 @else
 
                 <tr>
-                    <td>Contract Creation</td>
+                    <td>Contract Preparation</td>
                     <td>
                         @if($data->po_create_date != null)
                         <?php $po_create_date = createCarbon('Y-m-d',$data->po_create_date); ?>
@@ -1016,7 +1057,7 @@ Unit Purchase Request
                     </td>
                     <td>10</td>
                     <td>
-                    @if(isset($noa_award_accepted_date))
+                    @if(isset($noa_philgeps_posting))
                         @if($data->po_create_date != null)
                             {{ $data->po_days }}
                             <?php $totalDays +=  $data->po_days ; ?>
@@ -1051,7 +1092,7 @@ Unit Purchase Request
                 @endif
 
                 <tr>
-                    <td>PO Funding</td>
+                    <td>PO MFO Obligation</td>
                     <td>
                         @if($data->funding_received_date != null)
                         <?php $funding_received_date = createCarbon('Y-m-d',$data->funding_received_date); ?>
@@ -1088,7 +1129,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>PO MFO Funding/Obligation</td>
+                    <td>PO Issuance of CAF</td>
                     <td>
                         @if($data->mfo_received_date != null)
                         <?php $mfo_received_date = createCarbon('Y-m-d',$data->mfo_received_date); ?>
@@ -1126,7 +1167,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>PO COA Approval</td>
+                    <td>PO/WO/JO/CA Approval</td>
                     <td>
                         @if($data->coa_approved_date != null)
                         <?php $coa_approved_date = createCarbon('Y-m-d',$data->coa_approved_date); ?>
@@ -1253,7 +1294,7 @@ Unit Purchase Request
                 @endif
 
                 <tr>
-                    <td>NTP Received</td>
+                    <td>Conforme of NTP</td>
                     <td>
                         @if($data->ntp_award_date != null)
                         <?php $ntp_award_date = createCarbon('Y-m-d',$data->ntp_award_date); ?>
@@ -1271,6 +1312,43 @@ Unit Purchase Request
 
                             @if($data->ntp_accepted_days > 1)
                                 <strong class="red" tooltip="Delay">({{$data->ntp_accepted_days - 1}})</strong>
+                            @endif
+                        @else
+
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
+                            @if($d > 1)
+                                <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
+                            @endif
+                        @endif
+                    @endif
+                    </td>
+                    <td>{{$data->ntp_accepted_remarks}}</td>
+                    <td>{{$data->ntp_accepted_action}}</td>
+                    <td> </td>
+                </tr>
+
+
+                <tr>
+                    <td>Philgeps Posting of NTP</td>
+                    <td>
+                        @if($data->ntp_philgeps_posting != null)
+                        <?php $ntp_philgeps_posting = createCarbon('Y-m-d',$data->ntp_philgeps_posting); ?>
+                        <a target="_blank" href="{{route('procurements.ntp.show', $data->ntp_id)}}">
+                            {{$ntp_philgeps_posting->format('d F Y')}}
+                        </a>
+                        @endif
+                    </td>
+                    <td>1</td>
+                    <td>
+                    @if($data->ntp_award_date)
+                        @if($data->ntp_philgeps_posting != null)
+                            {{ $data->ntp_philgeps_days }}
+                            <?php $totalDays +=  $data->ntp_philgeps_days ; ?>
+
+                            @if($data->ntp_philgeps_days > 1)
+                                <strong class="red" tooltip="Delay">({{$data->ntp_philgeps_days - 1}})</strong>
                             @endif
                         @else
 
@@ -1574,45 +1652,6 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Voucher Preaudit</td>
-                    <td>
-                        @if($data->preaudit_date != null)
-                        <?php $preaudit_date = createCarbon('Y-m-d',$data->preaudit_date); ?>
-                        <a target="_blank" href="{{route('procurements.vouchers.show', $data->vou_id)}}">
-                            {{$preaudit_date->format('d F Y')}}
-                        </a>
-                        @endif
-                    </td>
-                    <td>2</td>
-                    <td>
-                    @if(isset($v_transaction_date))
-                        @if($data->preaudit_date != null)
-                            {{ $data->vou_preaudit_days }}
-                            <?php $totalDays +=  $data->vou_preaudit_days ; ?>
-
-                            @if($data->vou_preaudit_days > 2)
-                                <strong class="red" tooltip="Delay">({{$data->vou_preaudit_days - 2}})</strong>
-                            @endif
-
-
-                        @else
-
-                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
-
-                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                            {{$d}}
-                            @if($d > 2)
-                                <strong class="red" tooltip="Delay">({{$d - 2}})</strong>
-                            @endif
-                        @endif
-                    @endif
-                    </td>
-                    <td>{{$data->vou_preaudit_remarks}}</td>
-                    <td>{{$data->vou_preaudit_action}}</td>
-                    <td></td>
-                </tr>
-
-                <tr>
                     <td>Voucher Certify</td>
                     <td>
                         @if($data->certify_date != null)
@@ -1625,7 +1664,7 @@ Unit Purchase Request
 
                     <td>1</td>
                     <td>
-                    @if(isset($preaudit_date))
+                    @if(isset($v_transaction_date))
                         @if($data->certify_date != null)
 
                             {{ $data->vou_certify_days }}
@@ -1717,8 +1756,87 @@ Unit Purchase Request
                     <td>{{$data->vou_approved_action}}</td>
                     <td></td>
                 </tr>
+
                 <tr>
-                    <td>Voucher Release</td>
+                    <td>Voucher Preaudit</td>
+                    <td>
+                        @if($data->preaudit_date != null)
+                        <?php $preaudit_date = createCarbon('Y-m-d',$data->preaudit_date); ?>
+                        <a target="_blank" href="{{route('procurements.vouchers.show', $data->vou_id)}}">
+                            {{$preaudit_date->format('d F Y')}}
+                        </a>
+                        @endif
+                    </td>
+                    <td>2</td>
+                    <td>
+                    @if(isset($vou_approval_date))
+                        @if($data->preaudit_date != null)
+                            {{ $data->vou_preaudit_days }}
+                            <?php $totalDays +=  $data->vou_preaudit_days ; ?>
+
+                            @if($data->vou_preaudit_days > 2)
+                                <strong class="red" tooltip="Delay">({{$data->vou_preaudit_days - 2}})</strong>
+                            @endif
+
+
+                        @else
+
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
+                            @if($d > 2)
+                                <strong class="red" tooltip="Delay">({{$d - 2}})</strong>
+                            @endif
+                        @endif
+                    @endif
+                    </td>
+                    <td>{{$data->vou_preaudit_remarks}}</td>
+                    <td>{{$data->vou_preaudit_action}}</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>Voucher Prepare LDDAP-ADA</td>
+                    <td>
+                        @if($data->vou_prepare_cheque_date != null)
+                        <?php $vou_prepare_cheque_date = createCarbon('Y-m-d',$data->vou_prepare_cheque_date); ?>
+                        <a target="_blank" href="{{route('procurements.vouchers.show', $data->vou_id)}}">
+                            {{$vou_prepare_cheque_date->format('d F Y')}}
+                        </a>
+                        @endif
+                    </td>
+                    <td>2</td>
+                    <td>
+                    @if(isset($preaudit_date))
+                        @if($data->vou_prepare_cheque_date != null)
+                            {{ $data->vou_preaudit_days }}
+                            <?php $totalDays +=  $data->vou_preaudit_days ; ?>
+
+                            @if($data->vou_preaudit_days > 2)
+                                <strong class="red" tooltip="Delay">({{$data->vou_preaudit_days - 2}})</strong>
+                            @endif
+
+
+                        @else
+
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
+                            @if($d > 2)
+                                <strong class="red" tooltip="Delay">({{$d - 2}})</strong>
+                            @endif
+                        @endif
+                    @endif
+                    </td>
+                    <td>{{$data->vou_preaudit_remarks}}</td>
+                    <td>{{$data->vou_preaudit_action}}</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>Voucher Release LDDAP-ADA</td>
                     <td>
                         @if($data->vou_release != null)
                         <?php $vou_release = createCarbon('Y-m-d',$data->vou_release); ?>
@@ -1729,7 +1847,7 @@ Unit Purchase Request
                     </td>
                     <td>1</td>
                     <td>
-                    @if(isset($vou_approval_date) )
+                    @if(isset($vou_prepare_cheque_date) )
                         @if($data->vou_release != null)
                             {{ $data->vou_released_days }}
                             <?php $totalDays +=  $data->vou_released_days ; ?>
@@ -1751,6 +1869,43 @@ Unit Purchase Request
                     <td>{{$data->vou_released_action}}</td>
                     <td></td>
                 </tr>
+
+
+                <tr>
+                    <td>Voucher Counter Sign Cheque</td>
+                    <td>
+                        @if($data->vou_counter_sign_date != null)
+                        <?php $vou_counter_sign_date = createCarbon('Y-m-d',$data->vou_counter_sign_date); ?>
+                        <a target="_blank" href="{{route('procurements.vouchers.show', $data->vou_id)}}">
+                            {{$vou_counter_sign_date->format('d F Y')}}
+                        </a>
+                        @endif
+                    </td>
+                    <td>1</td>
+                    <td>
+                    @if(isset($vou_release) )
+                        @if($data->vou_counter_sign_date != null)
+                            {{ $data->vou_counter_sign_days }}
+                            <?php $totalDays +=  $data->vou_counter_sign_days ; ?>
+
+                            @if($data->vou_counter_sign_days > 1)
+                                <strong class="red" tooltip="Delay">({{$data->vou_counter_sign_days - 1}})</strong>
+                            @endif
+
+                        @else
+
+                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
+                            {{$d}}
+                        @endif
+                    @endif
+                    </td>
+                    <td>{{$data->vou_released_remarks}}</td>
+                    <td>{{$data->vou_released_action}}</td>
+                    <td></td>
+                </tr>
+
 
                 <tr>
                     <td>Voucher Received</td>

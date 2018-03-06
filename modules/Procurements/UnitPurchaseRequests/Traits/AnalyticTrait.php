@@ -138,6 +138,8 @@ trait AnalyticTrait
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
+            DB::raw("( sum(CASE
+             WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) - sum(purchase_orders.bid_amount)) as total_complete_residual"),
             DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
             DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
             'procurement_centers.programs',
@@ -157,7 +159,6 @@ trait AnalyticTrait
         {
             $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
         }
-
         if(!\Sentinel::getUser()->hasRole('Admin') )
         {
 
@@ -175,14 +176,17 @@ trait AnalyticTrait
 
         }
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
+        $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $date_from);
+        $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $date_to);
 
         $model  =   $model->groupBy([
             'procurement_centers.programs',
             'procurement_centers.name',
         ]);
 
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' ");
+        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
+        $model  =   $model->orderBy('name','asc');
         $model  =   $model->orderBy('delay_count','desc');
 
         return $model->get();
@@ -253,6 +257,9 @@ trait AnalyticTrait
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
+
+            DB::raw("( sum(CASE
+             WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) - sum(purchase_orders.bid_amount)) as total_complete_residual"),
             DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
             DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
             // DB::raw(" unit_purchase_requests.delay_count as delay"),
@@ -267,6 +274,8 @@ trait AnalyticTrait
 
         $model  =   $model->where('procurement_centers.name', '=', $name);
         $model  =   $model->where('procurement_centers.programs', '=', $programs);
+        $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $date_from);
+        $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $date_to);
 
         if($type != 'alternative')
         {
@@ -294,9 +303,10 @@ trait AnalyticTrait
         }
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' ");
+        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
-        $model  =   $model->orderBy('delay_count','desc');
+        $model  =   $model->orderBy('short_code','asc');
+        $model  =   $model->orderBy('ongoing_count','asc');
         $model  =   $model->orderBy('ongoing_count','asc');
 
         $model  =   $model->groupBy([
@@ -367,8 +377,10 @@ trait AnalyticTrait
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
+            DB::raw("( sum(CASE
+             WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) - sum(purchase_orders.bid_amount)) as total_complete_residual"),
             // DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
-            DB::raw("5 * (DATEDIFF(vouchers.preaudit_date, unit_purchase_requests.date_prepared) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.date_prepared) + WEEKDAY(vouchers.preaudit_date) + 1, 1) as avg_days"),
+            DB::raw("5 * (DATEDIFF(vouchers.preaudit_date, unit_purchase_requests.date_processed) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.date_processed) + WEEKDAY(vouchers.preaudit_date) + 1, 1) as avg_days"),
             DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
             // DB::raw(" unit_purchase_requests.delay_count as delay"),
             'procurement_centers.name',
@@ -394,6 +406,8 @@ trait AnalyticTrait
 
         $model  =   $model->where('procurement_centers.name', '=', $name);
         $model  =   $model->where('catered_units.short_code', '=', $programs);
+        $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $date_from);
+        $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $date_to);
         // $model  =   $model->where('procurement_centers.programs', '=', $programs);
 
         if($type != 'alternative')
@@ -423,7 +437,7 @@ trait AnalyticTrait
             $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
         }
 
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_prepared) <= '$yearto' AND YEAR(unit_purchase_requests.date_prepared) >= '$yearfrom' ");
+        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
         $model  =   $model->orderBy('delay_count','desc');
         $model  =   $model->orderBy('ongoing_count','desc');
         $model  =   $model->orderBy('completed_count','desc');
@@ -441,7 +455,7 @@ trait AnalyticTrait
             'unit_purchase_requests.last_action',
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.id',
-            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'vouchers.preaudit_date',
         ]);
 

@@ -1,5 +1,5 @@
 @section('title')
-PCCO Transaction Summary
+PC/CO Transaction Summary
 @stop
 
 @section('styles')

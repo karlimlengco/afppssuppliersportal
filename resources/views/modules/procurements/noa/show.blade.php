@@ -24,6 +24,7 @@ Notice Of Award
     @include('modules.partials.modals.accept-noa')
     @include('modules.partials.modals.received')
     @include('modules.partials.bid-modals.performance')
+    @include('modules.partials.modals.ntp_philgeps')
 @stop
 
 @section('contents')
@@ -84,6 +85,9 @@ Notice Of Award
         @elseif($data->status == 'pending')
             Accept NOA
             <a href="#" id="accept-button" tooltip="Accept NOA" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @elseif($data->status == 'accepted' && $data->upr->total_amount > 50000 && !$data->philgeps_posting)
+            <span >PhilGeps Posting</span>
+            <a href="#" class="button" id="ntp-philgeps-button" tooltip="PhilGeps Posting"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @else
             Go to UPR
             <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
@@ -119,6 +123,12 @@ Notice Of Award
             @endif
         </ul>
         @endif
+
+        @if($data->philgeps_posting)
+        <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Philgeps Posting :</strong> {{$data->philgeps_posting}} </li>
+        <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Remarks from Philgeps Posting :</strong> {{$data->philgeps_remarks or "&nbsp;"}}  </li>
+        <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Action from Philgeps Posting :</strong> {{$data->philgeps_remarks or "&nbsp;"}}  </li>
+        @endif
     </div>
     <div class="data-panel__section">
         <h3></h3>
@@ -152,6 +162,10 @@ Notice Of Award
 
 <script type="text/javascript">
 
+    $('#ntp-philgeps-button').click(function(e){
+        e.preventDefault();
+        $('#ntp-philgeps-modal').addClass('is-visible');
+    })
     $('#signatory-button').click(function(e){
         e.preventDefault();
         $('#signatory-modal').addClass('is-visible');

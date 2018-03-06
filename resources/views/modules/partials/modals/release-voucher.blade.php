@@ -24,7 +24,7 @@
                         {!! Form::selectField('bank', 'Bank', $bank_list) !!}
                     </div>
                     <div class="four columns">
-                        {!! Form::textField('payment_date', 'Date') !!}
+                        {!! Form::textField('payment_date', 'Check Date') !!}
                     </div>
                 </div>
 

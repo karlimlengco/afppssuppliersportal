@@ -133,6 +133,16 @@ class VoucherEloquent extends Model implements  AuditableContract
         'receiver_signatory',
         'suppliers_address',
 
+        'prepare_cheque_date',
+        'counter_sign_date',
+        'prepare_cheque_remarks',
+        'prepare_cheque_action',
+        'counter_sign_remarks',
+        'counter_sign_action',
+
+        'prepare_cheque_days',
+
+        'counter_sign_days',
     ];
 
     /**

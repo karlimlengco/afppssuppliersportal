@@ -98,6 +98,8 @@
                     <p>TO:</p>
                     <p>Please conduct inspection on the above-cited request for inspection.</p>
                     <p>FINDINGS/REMARKS:</p>
+                    <p>________________________________________________________________________________________________________________</p>
+                    <p>________________________________________________________________________________________________________________</p>
                     <p class="align-center"></p>
                     <table class="printable-form__body__table no-border no-padding">
                         <tr>
@@ -108,13 +110,22 @@
                             <td width="10%"></td>
                             <td width="1%" nowrap>INSPECTED BY:</td>
                             <td class="align-bottom" width="45%" height="80px">
-                                <strong></strong><br>
-
+                                <strong></strong>
+                                <p>____________________________</p>
+                                <p>____________________________</p>
+                                <p>____________________________</p>
                             </td>
                         </tr>
                         <tr>
-                            <td class="align-top" width="45%" height="50px">NOTED BY:</td>
-                            <td width="10%"></td>
+                            <td class="align-top" width="45%" height="50px">NOTED BY:
+
+                              <p style="text-indent: 100px">____________________________</p>
+                              <p style="text-indent: 100px">____________________________</p>
+                              <p style="text-indent: 100px">____________________________</p>
+                              </td>
+                            <td width="10%" >
+
+                            </td>
                             <td width="1%"></td>
                             <td width="45%"></td>
                         </tr>
@@ -132,7 +143,11 @@
                             <td width="10%"></td>
                             <td width="1%" nowrap>WITNESSED BY:</td>
                             <td class="align-bottom" width="45%" height="80px">
-                                <strong></strong><br>
+                                <strong></strong>
+
+                                <p>____________________________</p>
+                                <p>____________________________</p>
+                                <p>____________________________</p>
 
                             </td>
                         </tr>

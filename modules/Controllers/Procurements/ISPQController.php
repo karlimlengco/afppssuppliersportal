@@ -142,9 +142,9 @@ class ISPQController extends Controller
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_dates') );
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
-        $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
+        $cd                     =   $upr_model->date_processed->diffInDays($transaction_date);
 
-        $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed            =   $upr_model->date_processed->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
@@ -158,7 +158,7 @@ class ISPQController extends Controller
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'canvassing_date'  =>  'required|after_or_equal:'.$upr_model->date_prepared,
+            'canvassing_date'  =>  'required|after_or_equal:'.$upr_model->date_processed,
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -212,7 +212,7 @@ class ISPQController extends Controller
         $upr_result =   $upr->update(['status' => 'Invitation Created',
             'next_allowable'=> 3,
             'next_step'     => 'PhilGeps Posting',
-            'next_due'      => $upr_model->date_prepared->addDays(3),
+            'next_due'      => $upr_model->date_processed->addDays(3),
             'last_date'     => $transaction_date,
             'delay_count'   => $wd,
             'calendar_days' => $cd + $upr_model->calendar_days,
@@ -362,10 +362,16 @@ class ISPQController extends Controller
         HolidayRepository $holidays,
         UserLogRepository $userLogs,
         SignatoryRepository $signatories,
+        QuotationRepository $quotations,
         ISPQRepository $model
         )
     {
+        $this->validate($request, [
+            'canvassing_date' =>  'required',
+            'canvassing_time' =>  'required'
+        ]);
         $ispq   =   $model->findById($id);
+
         $inputs =   $request->getData();
         if($ispq->signatory_id != $request->signatory_id)
         {
@@ -383,9 +389,9 @@ class ISPQController extends Controller
             $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
 
             $holiday_lists          =   $holidays->lists('id','holiday_date');
-            $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
+            $cd                     =   $upr_model->date_processed->diffInDays($transaction_date);
 
-            $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            $day_delayed            =   $upr_model->date_processed->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
                 return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
             }, $transaction_date);
 
@@ -395,10 +401,10 @@ class ISPQController extends Controller
             {
                 $day_delayed            =   $day_delayed - 3;
             }
-
+            $quotations->update(['canvassing_date' => $request->canvassing_date, 'canvassing_time' => $request->canvassing_time], $quote->id);
             if($wd != $result->days)
             {
-                $model->update(['days' => $wd], $id);
+                $model->update(['days' => $wd, ], $id);
             }
         }
 

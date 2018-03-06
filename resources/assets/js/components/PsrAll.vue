@@ -115,12 +115,12 @@
                                             <td>{{itemData.upr_number}}</td>
                                             <td>{{itemData.project_name}}</td>
                                             <td>{{itemData.total_amount}}</td>
-                                            <td>{{formatDate(itemData.date_prepared)}}</td>
-                                            <td v-if="types != 'bidding'" >{{getDiff(itemData.ispq_transaction_date, itemData.date_prepared)}}</td>
-                                            <td v-if="types != 'bidding'" >{{getDiff(itemData.rfq_created_at, itemData.date_prepared)}}</td>
+                                            <td>{{formatDate(itemData.date_processed)}}</td>
+                                            <td v-if="types != 'bidding'" >{{getDiff(itemData.ispq_transaction_date, itemData.date_processed)}}</td>
+                                            <td v-if="types != 'bidding'" >{{getDiff(itemData.rfq_created_at, itemData.date_processed)}}</td>
                                             <td v-if="types != 'bidding'" >{{getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date)}}</td>
                                             <td v-if="types != 'bidding'" >{{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}}</td>
-                                            <td v-if="types == 'bidding'">{{getDiff(itemData.doc_date, itemData.date_prepared)}}</td>
+                                            <td v-if="types == 'bidding'">{{getDiff(itemData.doc_date, itemData.date_processed)}}</td>
                                             <td v-if="types == 'bidding'">{{getDiff(itemData.proc_date, itemData.doc_date)}}</td>
                                             <td v-if="types == 'bidding'">{{getDiff(itemData.itb_date, itemData.proc_date)}}</td>
                                             <td v-if="types == 'bidding'">{{getDiff(itemData.pp_completed_at, itemData.itb_date)}}</td>

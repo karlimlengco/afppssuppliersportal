@@ -147,8 +147,9 @@ class TransactionDayController extends Controller
      */
     public function downloadPSR($search = null, UnitPurchaseRequestRepository $model, Request $request)
     {
-        $result     =   $model->getTransactionDay($request, $search);
-        $this->downloadExcelPSR($result, $request->date_from, $request->date_to);
+        $result     =   $model->getUnitPSRItemAll($request->type, $request, $search);
+        // $result     =   $model->getTransactionDay($request, $search);
+        $this->downloadExcelPSR($result, $request->date_from, $request->date_to, $request->type);
 
     }
 
@@ -277,7 +278,7 @@ class TransactionDayController extends Controller
                         $dispq_transaction_date = 0;
                         if($data->ispq_transaction_date )
                         {
-                            $upr_create                 = $data->date_prepared;
+                            $upr_create                 = $data->date_processed;
                             $ispq_transaction_date    =   \Carbon\Carbon::createFromFormat('!Y-m-d', $data->ispq_transaction_date);
 
                             $dispq_transaction_date = $ispq_transaction_date->diffInDaysFiltered(function (\Carbon\Carbon $date) {return $date->isWeekday(); }, $upr_create );
@@ -369,7 +370,7 @@ class TransactionDayController extends Controller
                     {
                         $newdata    =   [
                             $data->upr_number,
-                            $data->date_prepared,
+                            $data->date_processed,
                             $data->ispq_transaction_date,
                             $data->pp_completed_at,
                             $data->rfq_created_at,
@@ -401,7 +402,7 @@ class TransactionDayController extends Controller
 
                         $newdata    =   [
                             $data->upr_number,
-                            $data->date_prepared,
+                            $data->date_processed,
                             $data->doc_date,
                             $data->proc_days,
                             $data->itb_date,
@@ -742,10 +743,10 @@ class TransactionDayController extends Controller
      * @param  [type] $result [description]
      * @return [type]         [description]
      */
-    public function downloadExcelPSR($result, $from ,$to)
+    public function downloadExcelPSR($result, $from ,$to, $type)
     {
-        Excel::create("PSR", function($excel)use ($result, $from ,$to) {
-            $excel->sheet('Page1', function($sheet)use ($result, $from ,$to) {
+        Excel::create("PSR", function($excel)use ($result, $from ,$to, $type) {
+            $excel->sheet('Page1', function($sheet)use ($result, $from ,$to, $type) {
 
                 if($from != null)
                 $from = \Carbon\Carbon::createFromFormat('!Y-m-d', $from)->format('d F Y');
@@ -759,60 +760,70 @@ class TransactionDayController extends Controller
                 $sheet->freezeFirstRow();
                 $sheet->freezeFirstColumn();
 
-                $sheet->cells('A3:AC3', function($cells) {
+                $sheet->cells('A3:AM3', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setBorder('thin', 'thin', 'thin', 'thin');
                 });
 
-                $sheet->cells('A2:AC2', function($cells) {
+                $sheet->cells('A2:AM2', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setBorder('thin', 'thin', 'thin', 'thin');
                 });
 
-                $sheet->cells('A1:AC1', function($cells) {
+                $sheet->cells('A1:AM1', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setBorder('thin', 'thin', 'thin', 'thin');
                 });
 
-                $sheet->mergeCells('A1:AC1');
-                $sheet->mergeCells('A2:AC2');
-                $sheet->mergeCells('A3:AC3');
+                $sheet->mergeCells('A1:AM1');
+                $sheet->mergeCells('A2:AM2');
+                $sheet->mergeCells('A3:AM3');
                 if($result->last() != null)
                 {
 
-                    if($result->last()->mode_of_procurement != 'public_bidding')
+                    if($type != 'bidding')
                     {
                         $sheet->row(6, function($row){
                           $row->setFontWeight("bold");
                         });
                         $sheet->row(2, ["ALTERNATIVE METHOD OF PROCUREMENT "]);
                         $sheet->row(6, [
-                            'DATE PROCESSED',
-                            'PROJECT',
+                            'PC/CO (UPR NUMBER)',
+                            'PROJECT NAME/ ACTIVITY',
+                            'END USER',
                             'ABC',
-                            'UPR',
-                            'ISPQ',
+                            'UPR RECEIPT',
+                            'ITSPQ',
                             'PhilGeps Posting',
-                            'Close RFQ',
-                            'Canvassing',
-                            'Prepare NOA',
-                            'Approved NOA',
-                            'Received NOA',
-                            'PO/JO/WO Creation',
-                            'Funding',
-                            'MFO Funding/Obligation',
-                            'PO COA Approval',
-                            'Prepare NTP',
-                            'Received NTP',
-                            'Received Delivery',
-                            'Complete COA Delivery',
-                            'Technical Inspection',
-                            'IAR Acceptance',
-                            'DIIR Inspection Start',
-                            'DIIR Inspection Close',
-                            'Prepare Voucher',
-                            'Preaudit Voucher /End',
-                            'Total Days',
+                            'RFQ',
+                            'Canvass',
+                            'Prepare NOA (PC/CO)',
+                            'Issue NOA (PC/CO)',
+                            'Conforme NOA (Supplier)',
+                            'Posting of NOA to Philgeps (PC/CO)',
+                            'Preparation of PO (PC/CO)',
+                            'MFO Obligation (PC/CO)',
+                            'Issuance of CAF (Accounting)',
+                            'PO/WO/JO/CA Approval and NTP Preparation (PC/CO)',
+                            'Serving of NTP (PC/CO)',
+                            'Conforme of NTP (Supplier)',
+                            'Philgeps Posting of NTP (PC/CO)',
+                            'Issuance of Notice of Delivery (PC/CO)',
+                            'Delivery of Items (Supplier)',
+                            'Notification of Delivery to COA (SAO)',
+                            'Conduct of TIAC (END-USER)',
+                            'Inspection and Acceptance Report (SAO)',
+                            'Delivered Items and Inspection Report (MFO)',
+                            'Preparation of DV (PC/CO)',
+                            'Sign Box `A` of DV (MFO)',
+                            'Accomplish Box `B` of DV And Sign Box `C` of DV (Accounting)',
+                            'Sign Box `D` of DV (END USER CMDR)',
+                            'Pre-audit (MFO)',
+                            'Prepare and Sign LDDAP-ADA (Accounting)',
+                            'Sign LDDAP-ADA or Prepare Cheque (Finance)',
+                            'Sign LDDAP-ADA or Counter-Sign Cheque (PC/CO)',
+                            'Receipt of Cheques and Issue Official Receipt (Supplier)',
+                            'Total Number of Days',
                         ]);
                     }
                     else
@@ -824,36 +835,45 @@ class TransactionDayController extends Controller
                         });
 
                         $sheet->row(6, [
-                            'UPR',
-                            'PROJECT',
+                            'PC/CO (UPR NUMBER)',
+                            'PROJECT NAME/ ACTIVITY',
+                            'END USER',
                             'ABC',
-                            'UPR',
-                            'Document Acceptance',
-                            'Pre Proc',
-                            'ITB',
-                            'PhilGeps Posting',
-                            'Pre Bid Conference',
-                            'SOBE',
-                            'Post Qualification',
-                            'Prepare NOA',
-                            'Approved NOA',
-                            'Received NOA',
-                            'PO/Contract Creation',
-                            'Funding',
-                            'MFO Funding/Obligation',
-                            'PO/Contract COA Approval',
-                            'Prepare NTP',
-                            'Received NTP',
-                            'Received Delivery',
-                            'Complete COA Delivery',
-                            'Technical Inspection',
-                            'IAR Acceptance',
-                            'DIIR Inspection Start',
-                            'DIIR Inspection Close',
-                            'Prepare Voucher',
-                            'Preaudit Voucher /End',
-                            // 'Stage 30',
-                            'Total Days',
+                            'UPR RECEIPT',
+                            'Document Acceptance (PC/CO)',
+                            'Pre Proc  (PC/CO)',
+                            'Invitation to Bid (PC/CO)',
+                            'PhilGeps Posting (PC/CO)',
+                            'Pre Bid Conference (PC/CO)',
+                            'SOBE (PC/CO)',
+                            'Post Qualification (PC/CO)',
+                            'Prepare NOA (PC/CO)',
+                            'Issue NOA (PC/CO)',
+                            'Conforme NOA (Supplier)',
+                            'Posting of NOA to Philgeps (PC/CO)',
+                            'Preparation of PO (PC/CO)',
+                            'MFO Obligation (PC/CO)',
+                            'Issuance of CAF (Accounting)',
+                            'PO/WO/JO/CA Approval and NTP Preparation (PC/CO)',
+                            'Serving of NTP (PC/CO)',
+                            'Conforme of NTP (Supplier)',
+                            'Philgeps Posting of NTP (PC/CO)',
+                            'Issuance of Notice of Delivery (PC/CO)',
+                            'Delivery of Items (Supplier)',
+                            'Notification of Delivery to COA (SAO)',
+                            'Conduct of TIAC (END-USER)',
+                            'Inspection and Acceptance Report (SAO)',
+                            'Delivered Items and Inspection Report (MFO)',
+                            'Preparation of DV (PC/CO)',
+                            'Sign Box `A` of DV (MFO)',
+                            'Accomplish Box `B` of DV And Sign Box `C` of DV (Accounting)',
+                            'Sign Box `D` of DV (END USER CMDR)',
+                            'Pre-audit (MFO)',
+                            'Prepare and Sign LDDAP-ADA (Accounting)',
+                            'Sign LDDAP-ADA or Prepare Cheque (Finance)',
+                            'Sign LDDAP-ADA or Counter-Sign Cheque (PC/CO)',
+                            'Receipt of Cheques and Issue Official Receipt (Supplier)',
+                            'Total Number of Days',
                         ]);
                     }
                 }
@@ -872,7 +892,7 @@ class TransactionDayController extends Controller
                         $dispq_transaction_date = 0;
                         if($data->ispq_transaction_date )
                         {
-                            $upr_create                 = $data->date_prepared;
+                            $upr_create                 = $data->date_processed;
                             $ispq_transaction_date    =   \Carbon\Carbon::createFromFormat('!Y-m-d', $data->ispq_transaction_date);
 
                             $dispq_transaction_date = $ispq_transaction_date->diffInDaysFiltered(function (\Carbon\Carbon $date) {return $date->isWeekday(); }, $upr_create );
@@ -960,72 +980,89 @@ class TransactionDayController extends Controller
 
                     // $count ++;
 
-                    if($data->mode_of_procurement != 'public_bidding')
+                    if($type != 'bidding')
                     {
                         $newdata    =   [
                             $data->upr_number,
                             $data->project_name,
+                            $data->end_user,
                             formatPrice($data->total_amount),
-                            $data->date_prepared->format('d F Y'),
-                            $dispq_transaction_date,
-                            $d_pp_completed_at,
-                            $d_rfq_completed_at,
-                            $d_canvass_start_date,
-                            $d_noa_award_date,
-                            $d_noa_approved_date,
-                            $d_noa_award_accepted_date,
-                            $d_po_create_date,
-                            $d_mfo_received_date,
-                            $d_funding_released_date,
-                            $d_coa_approved_date,
-                            $d_ntp_date,
-                            $d_ntp_award_date,
-                            $d_delivery_date,
-                            $d_dr_coa_date,
-                            $d_dr_inspection,
-                            $d_dr_inspection_accept,
-                            $d_di_start,
-                            $d_di_close,
-                            $d_vou_start,
-                            $d_vou_release,
+                            $data->date_processed->format('d F Y'),
+                            $data->ispq_days,
+                            $data->pp_days,
+                            $data->rfq_days,
+                            $data->canvass_days,
+                            $data->noa_days,
+                            $data->noa_approved_days,
+                            $data->noa_received_days,
+                            $data->noa_pp_days,
+                            $data->po_days,
+                            $data->po_mfo_days,
+                            $data->po_funding_days,
+                            $data->po_coa_days,
+                            $data->ntp_days,
+                            $data->ntp_accepted_days,
+                            $data->ntp_pp_days,
+                            $data->dr_days,
+                            $data->dr_delivery_days,
+                            $data->dr_dr_coa_days,
+                            $data->dr_inspection_days,
+                            $data->dr_inspection_accept_days,
+                            $data->di_days,
+                            $data->vou_days,
+                            $data->vou_certify_days,
+                            $data->vou_jev_days,
+                            $data->vou_approved_days,
+                            $data->vou_preaudit_days,
+                            $data->voucher_pc_days,
+                            $data->vou_released_days,
+                            $data->voucher_counter_days,
+                            $data->voucher_received_days,
                             $data->calendar_days,
-                            // $d_vou_received,
                         ];
                     }
                     else
                     {
-
                         $newdata    =   [
                             $data->upr_number,
                             $data->project_name,
+                            $data->end_user,
                             formatPrice($data->total_amount),
-                            $data->date_prepared->format('d F Y'),
-                            $d_docs,
+                            $data->date_processed->format('d F Y'),
+                            $data->doc_days,
                             $data->proc_days,
-                            $d_itb_days,
-                            $d_pp_completed_at,
-                            $d_prebid_days,
-                            $d_bid_days,
-                            $d_pq_days,
-                            $d_noa_award_date,
-                            $d_noa_approved_date,
-                            $d_noa_award_accepted_date,
-                            $d_po_create_date,
-                            $d_funding_released_date,
-                            $d_mfo_received_date,
-                            $d_coa_approved_date,
-                            $d_ntp_date,
-                            $d_ntp_award_date,
-                            $d_delivery_date,
-                            $d_dr_coa_date,
-                            $d_dr_inspection,
-                            $d_dr_inspection_accept,
-                            $d_di_start,
-                            $d_di_close,
-                            $d_vou_start,
-                            $d_vou_release,
+                            $data->itb_days,
+                            $data->pp_days,
+                            $data->prebid_days,
+                            $data->bid_days,
+                            $data->pq_days,
+                            $data->noa_days,
+                            $data->noa_approved_days,
+                            $data->noa_received_days,
+                            $data->noa_pp_days,
+                            $data->po_days,
+                            $data->po_mfo_days,
+                            $data->po_funding_days,
+                            $data->po_coa_days,
+                            $data->ntp_days,
+                            $data->ntp_accepted_days,
+                            $data->ntp_pp_days,
+                            $data->dr_days,
+                            $data->dr_delivery_days,
+                            $data->dr_dr_coa_days,
+                            $data->dr_inspection_days,
+                            $data->dr_inspection_accept_days,
+                            $data->di_days,
+                            $data->vou_days,
+                            $data->vou_certify_days,
+                            $data->vou_jev_days,
+                            $data->vou_approved_days,
+                            $data->vou_preaudit_days,
+                            $data->voucher_pc_days,
+                            $data->vou_released_days,
+                            $data->voucher_counter_days,
+                            $data->voucher_received_days,
                             $data->calendar_days,
-                            // $d_vou_received,
                         ];
                     }
 

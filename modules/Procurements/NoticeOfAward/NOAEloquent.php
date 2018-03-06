@@ -100,6 +100,11 @@ class NOAEloquent extends Model implements  AuditableContract
         'perfomance_bond',
         'amount',
         'notes',
+
+        'philgeps_posting',
+        'philgeps_remarks',
+        'philgeps_action',
+        'philgeps_days',
     ];
 
     /**

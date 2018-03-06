@@ -21,7 +21,7 @@ Forms
 
             <thead>
                 <tr>
-                    <th>PCCO</th>
+                    <th>PC/CO</th>
                     <th></th>
                 </tr>
             </thead>

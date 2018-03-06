@@ -44,7 +44,7 @@ Unit Purchase Request
     <div class="twelve columns">
             <div class="row">
                 <div class="four columns">
-                    {!! Form::textField('project_name', 'Project Name') !!}
+                    {!! Form::textField('project_name', 'Project Name / Activity') !!}
                 </div>
                 <div class="four columns">
                     {!! Form::textField('upr_number', 'UPR Number') !!}

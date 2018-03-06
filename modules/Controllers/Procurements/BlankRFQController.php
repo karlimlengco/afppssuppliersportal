@@ -140,11 +140,11 @@ class BlankRFQController extends Controller
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
-        $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed            =   $upr_model->date_processed->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
+        $cd                     =   $upr_model->date_processed->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
         if($day_delayed > 3)
@@ -153,7 +153,7 @@ class BlankRFQController extends Controller
         }
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'transaction_date'  =>  'required|after_or_equal:'.$upr_model->date_prepared,
+            'transaction_date'  =>  'required|after_or_equal:'.$upr_model->date_processed,
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -321,7 +321,7 @@ class BlankRFQController extends Controller
 
             $completed_at       =   createCarbon('Y-m-d',$request->completed_at);
 
-            $ispq_transaction_date   = $upr_model->date_prepared;
+            $ispq_transaction_date   = $upr_model->date_processed;
 
             $holiday_lists      =   $holidays->lists('id','holiday_date');
             $day_delayed        =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -395,7 +395,7 @@ class BlankRFQController extends Controller
 
         $completed_at       =   createCarbon('Y-m-d',$request->completed_at);
 
-        $ispq_transaction_date   = $rfq->upr->date_prepared;
+        $ispq_transaction_date   = $rfq->upr->date_processed;
 
         $holiday_lists      =   $holidays->lists('id','holiday_date');
         $day_delayed        =   $ispq_transaction_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {

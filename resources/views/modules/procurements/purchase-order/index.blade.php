@@ -43,7 +43,7 @@ Purchase Order
                     <th>PO Date</th>
                     <th>Bid Amount</th>
                     <th>MFO Released</th>
-                    <th>PCCO Released</th>
+                    <th>PC/CO Released</th>
                 </tr>
             </thead>
             <tbody>

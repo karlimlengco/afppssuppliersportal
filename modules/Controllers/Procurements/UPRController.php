@@ -358,7 +358,7 @@ class UPRController extends Controller
         $transaction_date       =   \Carbon\Carbon::createFromFormat('Y-m-d', $request->date_prepared);
 
         $procs['total_amount']  =   $total_amount;
-        $procs['date_processed']=   \Carbon\Carbon::now();
+        // $procs['date_processed']=   \Carbon\Carbon::now();
         $procs['prepared_by']   =   $prepared_by;
         $procs['last_date']     =   $transaction_date;
         if($request->requestor_id)
@@ -982,6 +982,7 @@ class UPRController extends Controller
     {
         $upr_list   = $model->lists('id', 'upr_number');
         $upr_model  =   $model->findTimelineById($id);
+        // dd($upr_model);
         $holiday_lists  =   $holidays->lists('id','holiday_date');
         $h_lists        =   [];
         foreach($holiday_lists as $hols)

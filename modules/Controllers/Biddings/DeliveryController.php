@@ -365,7 +365,7 @@ class DeliveryController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
-        $ntp_date               =   Carbon::createFromFormat('!Y-m-d', $ntp->award_accepted_date );
+        $ntp_date               =   Carbon::createFromFormat('!Y-m-d', $ntp->philgeps_posting );
         $cd                     =   $ntp_date->diffInDays($transaction_date);
 
         $day_delayed            =   $ntp_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -424,7 +424,7 @@ class DeliveryController extends Controller
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('delivery_date') );
-        $dr_date                =   Carbon::createFromFormat('!Y-m-d', $ntp->award_accepted_date );
+        $dr_date                =   Carbon::createFromFormat('!Y-m-d', $ntp->philgeps_posting );
         $cd                     =   $dr_date->diffInDays($transaction_date);
 
         $day_delayed            =   $dr_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {

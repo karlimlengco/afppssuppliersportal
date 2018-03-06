@@ -24,7 +24,7 @@ Overview Cancelled
 <table class="table table--with-border ">
     <thead>
         <tr>
-           <th class="align-center" width="15%">PCCO</th>
+           <th class="align-center" width="15%">PC/CO</th>
            <th class="align-center" width="40%" >UPR Number</th>
            <th class="align-center" width="20%">Ref Number</th>
            <th class="align-center" width="5%">ABC</th>
@@ -45,7 +45,7 @@ Overview Cancelled
                 <td>{{formatPrice($data->total_abc)}}</td>
                 <td>{{formatPrice($data->total_bid)}}</td>
                 <td>{{formatPrice($data->total_residual)}}</td>
-                <td>{{$data->date_prepared->format('d F Y')}}</td>
+                <td>{{$data->date_processed->format('d F Y')}}</td>
             </tr>
         @endforeach
     </tbody>

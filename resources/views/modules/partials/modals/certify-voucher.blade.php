@@ -6,7 +6,7 @@
             </button>
 
             <div class="moda__dialogue__head">
-                <h1 class="modal__title">Certify Voucher</h1>
+                <h1 class="modal__title">Certify Cash (mfo)</h1>
             </div>
 
             <div class="modal__dialogue__body">

@@ -108,7 +108,7 @@
                                         <template v-for="itemData in item.data">
                                         <tr>
                                             <td>{{itemData.upr_number}}</td>
-                                            <td>{{formatDate(itemData.date_prepared)}}</td>
+                                            <td>{{formatDate(itemData.date_processed)}}</td>
                                             <td v-if="types != 'bidding'" >{{formatDate(itemData.ispq_transaction_date)}}</td>
                                             <td v-if="types != 'bidding'" >{{formatDate(itemData.rfq_created_at)}}</td>
                                             <td v-if="types != 'bidding'" >{{formatDate(itemData.canvass_start_date)}}</td>

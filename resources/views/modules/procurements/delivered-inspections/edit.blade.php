@@ -89,6 +89,48 @@ Delivered Items Inspection
             </div>
 
 
+            <h3>COI Signatories</h3>
+
+
+            <div class="row">
+                <div class="twelve columns">
+                    <label class="label">Chairman</label>
+                    {!! Form::select('chairman_signatory',  ['' => 'Select One']+$signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-chairman_signatory']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    <label class="label">Signatory One</label>
+                    {!! Form::select('signatory_one',  ['' => 'Select One']+$signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-signatory_one']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    <label class="label">Signatory Two</label>
+                    {!! Form::select('signatory_two',  ['' => 'Select One']+$signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-signatory_two']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    <label class="label">Signatory Three</label>
+                    {!! Form::select('signatory_three',  ['' => 'Select One']+$signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-signatory_three']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    <label class="label">Signatory Four</label>
+                    {!! Form::select('signatory_four',  ['' => 'Select One']+$signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-signatory_four']) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    <label class="label">Signatory Five</label>
+                    {!! Form::select('signatory_five',  ['' => 'Select One']+$signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-signatory_five']) !!}
+                </div>
+            </div>
+
+
         </div>
     </div>
 
@@ -101,6 +143,54 @@ Delivered Items Inspection
 
 <script type="text/javascript">
 
+    $chairman_signatory = $('#id-field-chairman_signatory').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+    $signatory_one = $('#id-field-signatory_one').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+    $signatory_two = $('#id-field-signatory_two').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+    $signatory_three = $('#id-field-signatory_three').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+    $signatory_four = $('#id-field-signatory_four').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
+    $signatory_five = $('#id-field-signatory_five').selectize({
+        create: true,
+        create:function (input){
+            $('#create-signatory-modal').addClass('is-visible');
+            $('#id-field-name').val(input);
+            return true;
+        }
+    });
     $requested_by = $('#id-field-requested_by').selectize({
         create: true,
         create:function (input){
@@ -143,11 +233,17 @@ Delivered Items Inspection
         }
     });
 
-    requested_by  = $requested_by[0].selectize;
-    received_by  = $received_by[0].selectize;
-    approved_by  = $approved_by[0].selectize;
-    issued_by  = $issued_by[0].selectize;
-    inspected_by  = $inspected_by[0].selectize;
+    requested_by        = $requested_by[0].selectize;
+    received_by         = $received_by[0].selectize;
+    approved_by         = $approved_by[0].selectize;
+    issued_by           = $issued_by[0].selectize;
+    inspected_by        = $inspected_by[0].selectize;
+    chairman_signatory  = $chairman_signatory[0].selectize;
+    signatory_one       = $signatory_one[0].selectize;
+    signatory_two       = $signatory_two[0].selectize;
+    signatory_three     = $signatory_three[0].selectize;
+    signatory_four      = $signatory_four[0].selectize;
+    signatory_five      = $signatory_five[0].selectize;
 
     $(document).on('submit', '#create-signatory-form', function(e){
         e.preventDefault();
@@ -165,6 +261,12 @@ Delivered Items Inspection
                 approved_by.addOption({value:result.id, text: result.name});
                 issued_by.addOption({value:result.id, text: result.name});
                 inspected_by.addOption({value:result.id, text: result.name});
+                chairman_signatory.addOption({value:result.id, text: result.name});
+                signatory_one.addOption({value:result.id, text: result.name});
+                signatory_two.addOption({value:result.id, text: result.name});
+                signatory_three.addOption({value:result.id, text: result.name});
+                signatory_four.addOption({value:result.id, text: result.name});
+                signatory_five.addOption({value:result.id, text: result.name});
 
                 $('#create-signatory-modal').removeClass('is-visible');
                 $('#create-signatory-form')[0].reset();

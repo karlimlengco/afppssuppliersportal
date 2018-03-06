@@ -241,6 +241,9 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     |--------------------------------------------------------------------------
     |
     */
+
+
+   Route::put('noa/philgeps/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@philgepsPosting')->name('noa.philgeps');
     Route::put('noa/update-dates/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@updateDates')->name('noa.update-dates');
     Route::put('noa/update-signatory/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@updateSignatory')->name('noa.update-signatory');
     Route::put('noa/update-signatory/{id}', '\Revlv\Controllers\Biddings\NOAController@updateSignatory')->name('noa.update-signatory');
@@ -278,6 +281,7 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     |--------------------------------------------------------------------------
     |
     */
+    Route::put('ntp/philgeps/{id}', '\Revlv\Controllers\Biddings\NoticeToProceedController@philgepsPosting')->name('ntp.philgeps');
     Route::get('ntp/logs/{id}', '\Revlv\Controllers\Biddings\NoticeToProceedController@viewLogs')->name('ntp.logs');
     Route::put('ntp/update-dates/{id}', '\Revlv\Controllers\Biddings\NoticeToProceedController@updateDates')->name('ntp.update-dates');
     Route::put('ntp/update-signatory/{id}', '\Revlv\Controllers\Biddings\NoticeToProceedController@updateSignatory')->name('ntp.update-signatory');
@@ -342,6 +346,9 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     |--------------------------------------------------------------------------
     |
     */
+
+   Route::post('vouchers/prepare-payment/{id}', '\Revlv\Controllers\Biddings\VoucherController@preparePaymentVoucher')->name('vouchers.prepare-payment');
+   Route::post('vouchers/counter-sign/{id}', '\Revlv\Controllers\Biddings\VoucherController@counterSignVoucher')->name('vouchers.counter-sign');
     Route::put('vouchers/update-signatories/{id}', '\Revlv\Controllers\Biddings\VoucherController@updateSignatory')->name('vouchers.update-signatories');
     Route::get('vouchers/print/{id}', '\Revlv\Controllers\Biddings\VoucherController@viewPrint')->name('vouchers.print');
     Route::get('vouchers/logs/{id}', '\Revlv\Controllers\Biddings\VoucherController@viewLogs')->name('vouchers.logs');
@@ -490,6 +497,8 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
+
+    Route::put('noa/philgeps/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@philgepsPosting')->name('noa.philgeps');
     Route::get('noa/logs/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@viewLogs')->name('noa.logs');
     Route::post('noa/accepted', '\Revlv\Controllers\Procurements\NoticeOfAwardController@acceptNOA')->name('noa.accepted');
     Route::put('noa/update-dates/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@updateDates')->name('noa.update-dates');
@@ -528,6 +537,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |--------------------------------------------------------------------------
     |
     */
+    Route::put('ntp/philgeps/{id}', '\Revlv\Controllers\Procurements\NoticeToProceedController@philgepsPosting')->name('ntp.philgeps');
     Route::get('ntp/logs/{id}', '\Revlv\Controllers\Procurements\NoticeToProceedController@viewLogs')->name('ntp.logs');
     Route::put('ntp/update-dates/{id}', '\Revlv\Controllers\Procurements\NoticeToProceedController@updateDates')->name('ntp.update-dates');
     Route::put('ntp/update-signatory/{id}', '\Revlv\Controllers\Procurements\NoticeToProceedController@updateSignatory')->name('ntp.update-signatory');
@@ -620,6 +630,8 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('vouchers/print-wotax/{id}', '\Revlv\Controllers\Procurements\VoucherController@viewPrintNoTax')->name('vouchers.print-wotax');
 
     Route::get('vouchers/logs/{id}', '\Revlv\Controllers\Procurements\VoucherController@viewLogs')->name('vouchers.logs');
+    Route::post('vouchers/prepare-payment/{id}', '\Revlv\Controllers\Procurements\VoucherController@preparePaymentVoucher')->name('vouchers.prepare-payment');
+    Route::post('vouchers/counter-sign/{id}', '\Revlv\Controllers\Procurements\VoucherController@counterSignVoucher')->name('vouchers.counter-sign');
     Route::post('vouchers/preaudit/{id}', '\Revlv\Controllers\Procurements\VoucherController@preauditVoucher')->name('vouchers.preaudit');
     Route::post('vouchers/certify/{id}', '\Revlv\Controllers\Procurements\VoucherController@certifyVoucher')->name('vouchers.certify');
     Route::post('vouchers/journal/{id}', '\Revlv\Controllers\Procurements\VoucherController@journalVoucher')->name('vouchers.journal');

@@ -137,11 +137,11 @@ class DocumentAcceptanceController extends Controller
         }
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
-        $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed            =   $upr_model->date_processed->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
+        $cd                     =   $upr_model->date_processed->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
         if($day_delayed > 1)
@@ -150,7 +150,7 @@ class DocumentAcceptanceController extends Controller
         if($request->return_date == null)
         {
             $validator = Validator::make($request->all(),[
-                'approved_date'  =>  'required_without:return_date|after_or_equal:'.$upr_model->date_prepared,
+                'approved_date'  =>  'required_without:return_date|after_or_equal:'.$upr_model->date_processed,
             ]);
 
             $validator->after(function ($validator)use($day_delayed, $request) {
@@ -292,11 +292,11 @@ class DocumentAcceptanceController extends Controller
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->approved_date);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
 
-        $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed            =   $upr_model->date_processed->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
+        $cd                     =   $upr_model->date_processed->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
         if($day_delayed != 0)

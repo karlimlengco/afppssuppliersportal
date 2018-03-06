@@ -46,7 +46,7 @@ Unit Purchase Request
         $totalDays      =   0;
         $today          =   \Carbon\Carbon::now()->format('Y-m-d');
         $today          =   createCarbon('Y-m-d', $today);
-        $upr_created    =   $data->date_prepared;
+        $upr_created    =   $data->date_processed;
     ?>
 
         <table class="table">
@@ -63,8 +63,8 @@ Unit Purchase Request
             </thead>
             <tbody>
                 <tr>
-                    <td>UPR</td>
-                    <td>{{ $data->date_prepared->format('d F Y')}}</td>
+                    <td>UPR Receipt</td>
+                    <td>{{ $data->date_processed->format('d F Y')}}</td>
                     <td></td>
                     <td></td>
                     <td></td>

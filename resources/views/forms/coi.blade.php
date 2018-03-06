@@ -88,27 +88,50 @@
                         <tr>
                             <td width="30%"></td>
                             <td class="align-bottom align-left" width="40%" height="80px">
-                                <strong>{{$data['approver'][1]}} {{$data['approver'][0]}} {{$data['approver'][2]}}</strong><br>
-                                {{$data['approver'][3]}}
+                                <strong>{{$data['chairman'][1]}} {{$data['chairman'][0]}} {{$data['chairman'][2]}}</strong><br>
+                                {{$data['chairman'][3]}}
                             </td>
                             <td width="30%"></td>
                         </tr>
+                        <tr><td height="80px"></td></tr>
                         <tr>
-                            <td width="30%"></td>
+                            <td width="30%"><strong>{{$data['one'][1]}} {{$data['one'][0]}} {{$data['one'][2]}}</strong><br>
+                                {{$data['one'][3]}}</td>
                             <td class="align-bottom align-left" width="40%" height="80px">
-                                <strong>{{$data['requestor'][1]}} {{$data['requestor'][0]}} {{$data['requestor'][2]}}</strong><br>
-                                {{$data['requestor'][3]}}
+
                             </td>
-                            <td width="30%"></td>
+                            <td width="30%"><strong>{{$data['two'][1]}} {{$data['two'][0]}} {{$data['two'][2]}}</strong><br>
+                                {{$data['two'][3]}}</td>
                         </tr>
+                        <tr><td height="80px"></td></tr>
                         <tr>
-                            <td width="30%"></td>
+                            <td width="30%"><strong>
+                              @if(count($data['three']) != 1)
+                            {{$data['three'][1]}} {{$data['three'][0]}} {{$data['three'][2]}}</strong><br>
+                                {{$data['three'][3]}}</td>
+                                @endif
                             <td class="align-bottom align-left" width="40%" height="80px">
-                                <strong>{{$data['receiver'][1]}} {{$data['receiver'][0]}} {{$data['receiver'][2]}}</strong><br>
-                                {{$data['receiver'][3]}}
+
+                            </td>
+                            <td width="30%"><strong>
+
+                              @if(count($data['four']) != 1)
+                                 {{$data['four'][1]}} {{$data['four'][0]}} {{$data['four'][2]}}</strong><br>
+                                {{$data['four'][3]}}
+                                @endif
+                                </td>
+                        </tr>
+                        <tr><td height="80px"></td></tr>
+                        @if(count($data['five']) != 1)
+                        <tr>
+                            <td width="30%"><strong>{{$data['five'][1]}} {{$data['five'][0]}} {{$data['five'][2]}}</strong><br>
+                                {{$data['five'][3]}}</td>
+                            <td class="align-bottom align-left" width="40%" height="80px">
+
                             </td>
                             <td width="30%"></td>
                         </tr>
+                        @endif
                     </table>
                 </div>
 

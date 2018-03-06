@@ -33,8 +33,8 @@
                         </th>
                         <th v-if="showInfo" >Total ABC</th>
                         <th v-if="showInfo" >Approved Contract Amount</th>
-                        <th v-if="showInfo" >Residual Amount</th>
-                        <th v-if="showInfo" >AVG Days to Complete</th>
+                        <th v-if="showInfo" >DUE FOR OBLIGATION</th>
+                        <th v-if="showInfo" >RESIDUAL OF COMPLETED PROJECTS</th>
                         <th v-if="show" >Number of Days Delay</th>
                         <th style="text-align:center" v-if="show" >Current Status</th>
                         <th style="text-align:center" v-if="show" >Justification</th>
@@ -58,7 +58,7 @@
                             <td v-if="showInfo">{{formatPrice(item.total_abc)}}</td>
                             <td v-if="showInfo">{{formatPrice(item.total_bid)}}</td>
                             <td v-if="showInfo">{{formatPrice(item.total_residual)}}</td>
-                            <td v-if="showInfo"></td>
+                            <td v-if="showInfo">{{formatPrice(item.total_complete_residual)}}</td>
                             <td v-if="show"></td>
                             <td v-if="show"></td>
                             <td v-if="show"></td>
@@ -121,7 +121,7 @@
                                                         <td v-if="showInfo">{{formatPrice(itemProgData.total_abc)}}</td>
                                                         <td v-if="showInfo">{{formatPrice(itemProgData.total_bid)}}</td>
                                                         <td v-if="showInfo">{{formatPrice(itemProgData.total_residual)}}</td>
-                                                        <td v-if="showInfo"></td>
+                                                        <td v-if="showInfo">{{formatPrice(itemProgData.total_complete_residual)}}</td>
 
                                                         <td v-if="show" ></td>
                                                         <td v-if="show" ></td>
@@ -184,7 +184,7 @@
                                                                                     <td v-if="showInfo" >{{formatPrice(itemUnitData.total_abc)}}</td>
                                                                                     <td v-if="showInfo" >{{formatPrice(itemUnitData.total_bid)}}</td>
                                                                                     <td v-if="showInfo" >{{formatPrice(itemUnitData.total_residual)}}</td>
-                                                                                    <td v-if="showInfo" ></td>
+                                                                                    <td v-if="showInfo" >{{formatPrice(itemUnitData.total_complete_residual)}}</td>
 
                                                                                     <td v-if="show" ></td>
                                                                                     <td v-if="show"   style="text-align:left"></td>
@@ -216,7 +216,7 @@
                                                                                                     <td v-if="showInfo" >{{formatPrice(itemProgCentData.total_abc)}}</td>
                                                                                                     <td v-if="showInfo" >{{formatPrice(itemProgCentData.total_bid)}}</td>
                                                                                                     <td v-if="showInfo" >{{formatPrice(itemProgCentData.total_residual)}}</td>
-                                                                                                    <td v-if="showInfo" >{{itemProgCentData.avg_days}}</td>
+                                                                                                    <td v-if="showInfo" >{{itemProgCentData.total_complete_residual}}</td>
 
                                                                                                     <td v-if="show && itemProgCentData.status != 'completed'  ">
                                                                                                     <span v-if="itemProgCentData.status != 'cancelled' && itemProgCentData.delay_count != 0">{{itemProgCentData.delay}}</span>

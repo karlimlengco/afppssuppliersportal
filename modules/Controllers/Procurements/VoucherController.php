@@ -398,6 +398,78 @@ class VoucherController extends Controller
         ]);
     }
 
+    public function preparePaymentVoucher(
+        $id,
+        Request $request,
+        VoucherRepository $model,
+        UnitPurchaseRequestRepository $upr,
+        HolidayRepository $holidays)
+    {
+        $voucher                =   $model->findById($id);
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('prepare_cheque_date') );
+        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $voucher->preaudit_date );
+        $cd                     =   $diir_date->diffInDays($transaction_date);
+
+        $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+        if($day_delayed > 2)
+        {
+            $day_delayed = $day_delayed - 2;
+        }
+
+        $validator = Validator::make($request->all(),[
+            'prepare_cheque_date'       => 'required|after_or_equal:'. $diir_date->format('Y-m-d'),
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('prepare_cheque_remarks') == null && $day_delayed > 2) {
+                $validator->errors()->add('prepare_cheque_remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('prepare_cheque_action') == null && $day_delayed > 2) {
+                $validator->errors()->add('prepare_cheque_action', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Please Check Your Fields.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Delay
+        $inputs     =   [
+            'prepare_cheque_date'     => $request->prepare_cheque_date,
+            'prepare_cheque_days'     => $wd,
+            'prepare_cheque_action'   => $request->prepare_cheque_action,
+            'prepare_cheque_remarks'  => $request->prepare_cheque_remarks,
+        ];
+
+        $result = $model->update($inputs, $id);
+
+        $upr_result = $upr->update([
+            'next_allowable'=> 1,
+            'next_step'     => 'Release LDDAP-ADA',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => 'Prepare LDDAP-ADA',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
+            ], $result->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." Completed"));
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
     /**
      * [preauditVoucher description]
      *
@@ -416,7 +488,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('preaudit_date') );
-        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $voucher->transaction_date );
+        $diir_date              =   Carbon::createFromFormat('!Y-m-d', $voucher->approval_date );
         $cd                     =   $diir_date->diffInDays($transaction_date);
 
         $day_delayed            =   $diir_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -459,29 +531,29 @@ class VoucherController extends Controller
 
         $result = $model->update($inputs, $id);
 
-        // $upr->update([
-        //     'next_allowable'=> 1,
-        //     'next_step'     => 'Certify Voucher',
-        //     'next_due'      => $transaction_date->addDays(1),
-        //     'last_date'     => $transaction_date,
-        //     'status'        => 'Voucher Preaudit',
-        //     'delay_count'   => $day_delayed,
-        //     'calendar_days' => $cd + $result->upr->calendar_days,
-        //     'last_action'   => $request->action,
-        //     'last_remarks'  => $request->remarks
-        //     ], $result->upr_id);
-
         $upr_result = $upr->update([
-            'next_allowable'=> 0,
-            'next_step'     => 'Complete',
-            'next_due'      => $transaction_date,
+            'next_allowable'=> 1,
+            'next_step'     => 'Prepare LDDAP-ADA',
+            'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'status'        => 'completed',
-            'state'         => 'completed',
-            'completed_at'  => $request->preaudit_date,
-            'delay_count'   => $cd + $result->upr->delay_count,
-            'days'          => $wd],
-        $result->upr_id);
+            'status'        => 'Voucher Preaudit',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
+            ], $result->upr_id);
+
+        // $upr_result = $upr->update([
+        //     'next_allowable'=> 0,
+        //     'next_step'     => 'Payment',
+        //     'next_due'      => $transaction_date,
+        //     'last_date'     => $transaction_date,
+        //     'status'        => 'completed',
+        //     'state'         => 'completed',
+        //     'completed_at'  => $request->preaudit_date,
+        //     'delay_count'   => $cd + $result->upr->delay_count,
+        //     'days'          => $wd],
+        // $result->upr_id);
 
         event(new Event($upr_result, $upr_result->ref_number." Completed"));
 
@@ -550,17 +622,17 @@ class VoucherController extends Controller
 
         $result=    $model->update($inputs, $id);
 
-        // $upr->update([
-        //     'next_allowable'=> 1,
-        //     'next_step'     => 'Release Voucher',
-        //     'next_due'      => $transaction_date->addDays(1),
-        //     'last_date'     => $transaction_date,
-        //     'status'        => 'Voucher Approved',
-        //     'delay_count'   => $day_delayed,
-        //     'calendar_days' => $cd + $result->upr->calendar_days,
-        //     'last_action'   => $request->action,
-        //     'last_remarks'  => $request->remarks
-        //     ], $result->upr_id);
+        $upr->update([
+            'next_allowable'=> 1,
+            'next_step'     => 'Preaudit Voucher',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => 'Voucher Approved',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
+            ], $result->upr_id);
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -585,7 +657,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('certify_date') );
-        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->preaudit_date );
+        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->transaction_date );
         $cd                     =   $vou_date->diffInDays($transaction_date);
 
         $day_delayed            =   $vou_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -625,23 +697,23 @@ class VoucherController extends Controller
             'subject_to_authority_to_debit_acc' => $request->subject_to_authority_to_debit_acc,
             'documents_completed'               => $request->documents_completed,
             'certify_remarks'                   => $request->certify_remarks,
-            'certify_action'                   => $request->certify_action,
-            'certify_days'                              => $wd,
+            'certify_action'                    => $request->certify_action,
+            'certify_days'                      => $wd,
         ];
 
         $result =   $model->update($inputs, $id);
 
-        // $upr->update([
-        //     'next_allowable'=> 1,
-        //     'next_step'     => 'Voucher JEV',
-        //     'next_due'      => $transaction_date->addDays(1),
-        //     'last_date'     => $transaction_date,
-        //     'status'        => 'Voucher Certify',
-        //     'delay_count'   => $day_delayed,
-        //     'calendar_days' => $cd + $result->upr->calendar_days,
-        //     'last_action'   => $request->action,
-        //     'last_remarks'  => $request->remarks
-        //     ], $result->upr_id);
+        $upr->update([
+            'next_allowable'=> 1,
+            'next_step'     => 'Journal Entry Voucher',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => 'Voucher Certified Cash',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
+            ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -681,8 +753,6 @@ class VoucherController extends Controller
 
         $validator = Validator::make($request->all(),[
             'journal_entry_date'    =>'required',
-            // 'journal_entry_number'  =>'required',
-            // 'or'                    =>'required',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -704,7 +774,6 @@ class VoucherController extends Controller
         $inputs =   [
             'journal_entry_date'    => $request->journal_entry_date,
             'journal_entry_number'  => $request->journal_entry_number,
-            'or'                    => $request->or,
             'jev_remarks'           => $request->jev_remarks,
             'jev_action'           => $request->jev_action,
             'jev_days'              => $wd,
@@ -712,17 +781,85 @@ class VoucherController extends Controller
 
         $result =   $model->update($inputs, $id);
 
-        // $upr->update([
-        //     'next_allowable'=> 1,
-        //     'next_step'     => 'Approve Voucher',
-        //     'next_due'      => $transaction_date->addDays(1),
-        //     'last_date'     => $transaction_date,
-        //     'status'        => 'Voucher Journal Entry',
-        //     'delay_count'   => $day_delayed,
-        //     'calendar_days' => $cd + $result->upr->calendar_days,
-        //     'last_action'   => $request->action,
-        //     'last_remarks'  => $request->remarks
-        //     ], $result->upr_id);
+        $upr->update([
+            'next_allowable'=> 1,
+            'next_step'     => 'Approve Voucher',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => 'Voucher Journal Entry',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
+            ], $result->upr_id);
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    public function counterSignVoucher($id,
+        VoucherRepository $model,
+        Request $request,
+        UnitPurchaseRequestRepository $upr,
+        HolidayRepository $holidays)
+    {
+        $voucher                =   $model->findById($id);
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('counter_sign_date') );
+        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->payment_release_date );
+        $cd                     =   $vou_date->diffInDays($transaction_date);
+
+        $day_delayed            =   $vou_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+        if($day_delayed > 1)
+        {
+            $day_delayed = $day_delayed - 1;
+        }
+
+        $validator = Validator::make($request->all(),[
+            'counter_sign_date'  =>'required',
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('counter_sign_remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('counter_sign_remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('counter_sign_action') == null && $day_delayed > 1) {
+                $validator->errors()->add('counter_sign_action', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Please Check Your Fields.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        $inputs =   [
+            'counter_sign_date'         => $request->counter_sign_date,
+            'counter_sign_remarks'      => $request->counter_sign_remarks,
+            'counter_sign_action'       => $request->counter_sign_action,
+            'counter_sign_days'         => $wd,
+        ];
+
+        $result =   $model->update($inputs, $id);
+
+        $upr->update([
+            'next_allowable'=> 1,
+            'next_step'     => 'Receive Payment',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => 'Counter Signing',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
+            ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -746,7 +883,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('payment_release_date') );
-        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->approval_date );
+        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->prepare_cheque_date );
         $cd                     =   $vou_date->diffInDays($transaction_date);
 
         $day_delayed            =   $vou_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -792,18 +929,17 @@ class VoucherController extends Controller
 
         $result =   $model->update($inputs, $id);
 
-
-       //  $upr->update([
-       //      'next_allowable'=> 0,
-       //      'next_step'     => 'Complete',
-       //      'next_due'      => $transaction_date,
-       //      'last_date'     => $transaction_date,
-       //      'status'        => 'completed',
-       //      'state'         => 'completed',
-       //      'completed_at'  => $request->payment_release_date,
-       //      'delay_count'   => $cd + $result->upr->delay_count,
-       //      'days'          => $wd],
-       // $result->upr_id);
+        $upr->update([
+            'next_allowable'=> 1,
+            'next_step'     => 'Counter Signing',
+            'next_due'      => $transaction_date->addDays(1),
+            'last_date'     => $transaction_date,
+            'status'        => 'Release Payment',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
+            ], $result->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -826,7 +962,7 @@ class VoucherController extends Controller
         $voucher                =   $model->findById($id);
         $holiday_lists          =   $holidays->lists('id','holiday_date');
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('payment_received_date') );
-        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->payment_release_date );
+        $vou_date               =   Carbon::createFromFormat('!Y-m-d', $voucher->counter_sign_date );
         $cd                     =   $vou_date->diffInDays($transaction_date);
 
         $day_delayed            =   $vou_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
@@ -841,6 +977,7 @@ class VoucherController extends Controller
 
         $validator = Validator::make($request->all(),[
             'payment_received_date'  =>'required',
+            'or'                    => 'required',
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -864,13 +1001,13 @@ class VoucherController extends Controller
             'payment_received_date' => $request->payment_received_date,
             'payment_receiver'      => \Sentinel::getUser()->id,
             'received_days'         => $wd,
+            'or'                    => $request->or,
             'received_remarks'      => $request->received_remarks,
-            'received_action'      => $request->received_action
+            'received_action'       => $request->received_action
         ];
 
         $result     =   $model->update($inputs, $id);
-
-        $prepared_date      =   \Carbon\Carbon::createFromFormat('!Y-m-d', $result->upr->date_prepared->format('Y-m-d'));
+        $prepared_date      =   \Carbon\Carbon::createFromFormat('!Y-m-d', $result->upr->date_processed->format('Y-m-d'));
         $completed_date     =   \Carbon\Carbon::createFromFormat('Y-m-d', $request->payment_received_date);
 
         $days               =   $completed_date->diffInDays($prepared_date);

@@ -11,8 +11,7 @@
 
             <div class="modal__dialogue__body">
                 {!!Form::textField('journal_entry_date', 'Journal Entry Date')!!}
-                {!!Form::textField('journal_entry_number', 'Number')!!}
-                {!!Form::textField('or', 'OR/ Other Documents')!!}
+                {!!Form::textField('journal_entry_number', 'Journal Entry Number')!!}
                 {!!Form::textareaField('jev_remarks', 'Remarks', null, ['rows' => 3])!!}
                 {!!Form::textareaField('jev_action', 'Action', null, ['rows' => 3])!!}
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">

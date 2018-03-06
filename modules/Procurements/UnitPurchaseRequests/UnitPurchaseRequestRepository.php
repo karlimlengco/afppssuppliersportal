@@ -87,13 +87,13 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.ref_number',
-            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'unit_purchase_requests.state',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.mode_of_procurement',
             'unit_purchase_requests.date_processed',
             'unit_purchase_requests.next_due',
-            'unit_purchase_requests.date_prepared as upr_created_at',
+            'unit_purchase_requests.date_processed as upr_created_at',
             'unit_purchase_requests.delay_count',
             'request_for_quotations.id as rfq_id',
             'request_for_quotations.transaction_date as rfq_created_at',
@@ -132,6 +132,8 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'notice_of_awards.awarded_date as noa_award_date',
             'notice_of_awards.accepted_date as noa_approved_date',
             'notice_of_awards.award_accepted_date as noa_award_accepted_date',
+            'notice_of_awards.philgeps_posting as noa_philgeps_posting',
+            'notice_of_awards.philgeps_days as noa_philgeps_days',
             'purchase_orders.id as po_id',
             'purchase_orders.days as po_days',
             'purchase_orders.remarks as po_remarks',
@@ -159,6 +161,8 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'notice_to_proceed.action as ntp_action',
             'notice_to_proceed.prepared_date as ntp_date',
             'notice_to_proceed.award_accepted_date as ntp_award_date',
+            'notice_to_proceed.philgeps_posting as ntp_philgeps_posting',
+            'notice_to_proceed.philgeps_days as ntp_philgeps_days',
             'delivery_orders.transaction_date as dr_date',
 
             'delivery_orders.id as dr_id',
@@ -241,6 +245,10 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'vouchers.approval_date as vou_approval_date',
             'vouchers.payment_release_date as vou_release',
             'vouchers.payment_received_date as vou_received',
+            'vouchers.prepare_cheque_date as vou_prepare_cheque_date',
+            'vouchers.prepare_cheque_days as vou_prepare_cheque_days',
+            'vouchers.counter_sign_date as vou_counter_sign_date',
+            'vouchers.counter_sign_days as vou_counter_sign_days',
             // DB::raw("(select count(*) from holidays where holiday_date >= unit_purchase_requests.created_at and holiday_date <= NOW()) as holidays"),
             // DB::raw("datediff(NOW(), unit_purchase_requests.created_at ) as days"),
             // DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.created_at) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.created_at) + WEEKDAY(NOW()) + 1, 1) as working_days")
@@ -290,7 +298,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
             DB::raw("count(id) as total")
         ]);
 
-        $model  =   $model->whereYear('date_prepared', '=', $year);
+        $model  =   $model->whereYear('date_processed', '=', $year);
 
         return $model->first();
     }
@@ -312,20 +320,20 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.ref_number',
-            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'unit_purchase_requests.state',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.mode_of_procurement',
             'unit_purchase_requests.date_processed',
-            'unit_purchase_requests.date_prepared as upr_created_at',
+            'unit_purchase_requests.date_processed as upr_created_at',
             'unit_purchase_requests.next_due',
             'unit_purchase_requests.next_step',
-            DB::raw("(select count(*) from holidays where holiday_date >= unit_purchase_requests.date_prepared and holiday_date <= NOW()) as holidays"),
-            DB::raw("(SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_prepared and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6) as holidays2"),
+            DB::raw("(select count(*) from holidays where holiday_date >= unit_purchase_requests.date_processed and holiday_date <= NOW()) as holidays"),
+            DB::raw("(SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_processed and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6) as holidays2"),
             // DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) as delay")
             DB::raw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1)) as test"),
             // DB::raw("datediff( unit_purchase_requests.next_due, NOW()) as delay")
-            DB::raw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_prepared and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) as delay")
+            DB::raw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_processed and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) as delay")
         ]);
 
         $model  =   $model->where('state', '!=', 'completed');
@@ -338,17 +346,17 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.ref_number',
-            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'unit_purchase_requests.state',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.mode_of_procurement',
             'unit_purchase_requests.date_processed',
-            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'unit_purchase_requests.created_at',
             'unit_purchase_requests.next_due',
             'unit_purchase_requests.next_step',
         ]);
-        $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_prepared and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) > 0");
+        $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_processed and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) > 0");
 
         $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");
         if($request && $request->has('search') && $request->search != null)
@@ -422,12 +430,12 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.ref_number',
-            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'unit_purchase_requests.state',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.mode_of_procurement',
             'unit_purchase_requests.date_processed',
-            'unit_purchase_requests.date_prepared as upr_created_at',
+            'unit_purchase_requests.date_processed as upr_created_at',
             'unit_purchase_requests.delay_count',
         ]);
 
@@ -441,12 +449,12 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.ref_number',
-            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'unit_purchase_requests.state',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.mode_of_procurement',
             'unit_purchase_requests.date_processed',
-            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'unit_purchase_requests.delay_count',
         ]);
 
@@ -479,7 +487,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
-            DB::raw("5 * (DATEDIFF(vouchers.preaudit_date, unit_purchase_requests.date_prepared) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.date_prepared) + WEEKDAY(vouchers.preaudit_date) + 1, 1) as avg_days"),
+            DB::raw("5 * (DATEDIFF(vouchers.preaudit_date, unit_purchase_requests.date_processed) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.date_processed) + WEEKDAY(vouchers.preaudit_date) + 1, 1) as avg_days"),
             DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
             'procurement_centers.name',
             'procurement_centers.programs',
@@ -487,7 +495,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.id',
-            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'unit_purchase_requests.status',
             'unit_purchase_requests.last_remarks',
             'unit_purchase_requests.last_action',
@@ -523,7 +531,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
         else
         {
 
-            $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_prepared and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) > 0");
+            $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_processed and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) > 0");
 
             $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
             $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
@@ -569,7 +577,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.last_action',
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.id',
-            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'vouchers.preaudit_date',
         ]);
 

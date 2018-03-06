@@ -403,6 +403,86 @@ class NOAController extends Controller
     }
 
     /**
+     * [philgepsPosting description]
+     *
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function philgepsPosting(
+        Request $request,
+        $id,
+        NOARepository $model,
+        UnitPurchaseRequestRepository $upr,
+        HolidayRepository $holidays)
+    {
+        $noaModel       =   $model->findById($id);
+        $holiday_lists  =   $holidays->lists('id','holiday_date');
+
+        $accepted_date =   Carbon::createFromFormat('Y-m-d', $noaModel->award_accepted_date);
+
+        $award_accepted_date  =   Carbon::createFromFormat('Y-m-d', $request->philgeps_posting);
+
+        $cd                   =   $accepted_date->diffInDays($award_accepted_date);
+
+        $day_delayed          =   $accepted_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $award_accepted_date);
+
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+        if($day_delayed > 1)
+        {
+            $day_delayed = $day_delayed - 1;
+        }
+
+        $validator = Validator::make($request->all(),[
+            'philgeps_posting'   =>  'required|after_or_equal:'. $accepted_date->format('Y-m-d'),
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('philgeps_remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('philgeps_remarks', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Please Check Your Fields.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $input  =   [
+            'philgeps_posting'      =>  $request->philgeps_posting,
+            'philgeps_days'         =>  $day_delayed,
+            'philgeps_remarks'      =>  $request->philgeps_remarks,
+            'philgeps_action'       =>  $request->philgeps_action,
+        ];
+
+        $result             =   $model->findById($id);
+
+        $model->update($input, $id);
+        $upr_result = $upr->update([
+            'next_allowable'=> 2,
+            'next_step'     => 'Create PO',
+            'next_due'      => $award_accepted_date->addDays(2),
+            'last_date'     => $award_accepted_date,
+            'status'        => 'NOA Philgeps Posting',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $result->upr->calendar_days,
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
+            ], $result->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." NOA Philgeps Posting"));
+
+
+        return redirect()->back()->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -460,6 +540,10 @@ class NOAController extends Controller
             'modelConfig'   =>  [
                 'receive_award' =>  [
                     'route'     =>  [$this->baseUrl.'update', $result->id]
+                ],
+                'ntp-philgeps' =>  [
+                    'route'     =>  [$this->baseUrl.'philgeps', $id],
+                    'method'    =>  'PUT'
                 ],
                 'update' =>  [
                     'route'     =>  [$this->baseUrl.'update-signatory', $id],

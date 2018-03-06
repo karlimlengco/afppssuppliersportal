@@ -171,9 +171,23 @@
     @endif
 
     @if($data->status == 'NOA Received')
+        {{-- <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button__options__item">Create PO</a> --}}
+
+        @if($data->total_amount > 50000)
+          <span >View NOA</span>
+          <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @else
+          <span >Create PO</span>
+          <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif
+    @endif
+
+    @if($data->status == 'NOA Philgeps Posting')
+        <a href="{{route('procurements.noa.show', $data->noa->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
+
         <span >Create PO</span>
         <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
-        {{-- <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button__options__item">Create PO</a> --}}
     @endif
 
     @if($data->status == 'PO Created' || $data->status == 'Contract Created' || $data->status == 'PO Funding Approved' || $data->status == 'PO MFO Approved')
@@ -205,12 +219,23 @@
 
     @if($data->status == 'NTP Accepted')
 
-        <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
+        <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
+        @if($data->total_amount && $data->total_amount > 50000)
+          <span >View Notice To Proceed</span>
+          <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button"  tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @else
+          <span >Create Notice Of Delivery</span>
+          <a href="#" class="button" id="create-delivery-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @endif
+    @endif
+
+    @if($data->status == 'NTP Philgeps Posted')
+        <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
         <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
 
         <span >Create Notice Of Delivery</span>
         <a href="#" class="button" id="create-delivery-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
-        {{-- <a class="button__options__item" id="create-delivery-button" href="#">Create Notice Of Delivery</a> --}}
     @endif
 
     @if($data->status == 'NOD Created' || $data->status == 'Delivery Received' || $data->status == 'Delivery Incomplete')

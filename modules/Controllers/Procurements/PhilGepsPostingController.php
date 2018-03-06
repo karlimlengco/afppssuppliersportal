@@ -122,9 +122,9 @@ class PhilGepsPostingController extends Controller
         $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
 
         $holiday_lists          =   $holidays->lists('id','holiday_date');
-        $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
+        $cd                     =   $upr_model->date_processed->diffInDays($transaction_date);
 
-        $day_delayed            =   $upr_model->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+        $day_delayed            =   $upr_model->date_processed->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
@@ -137,7 +137,7 @@ class PhilGepsPostingController extends Controller
 
         // Validate Remarks when  delay
         $validator = Validator::make($request->all(),[
-            'transaction_date'  =>  'required|after_or_equal:'.$upr_model->date_prepared,
+            'transaction_date'  =>  'required|after_or_equal:'.$upr_model->date_processed,
         ]);
 
         $validator->after(function ($validator)use($day_delayed, $request) {
@@ -175,7 +175,7 @@ class PhilGepsPostingController extends Controller
         $upr_result = $upr->update([
             'next_allowable'=> 3,
             'next_step'     => 'Create RFQ',
-            'next_due'      => $upr_model->date_prepared->addDays(3),
+            'next_due'      => $upr_model->date_processed->addDays(3),
             'last_date'     => $transaction_date,
             'status'        => $status,
             'delay_count'   => $wd,
@@ -280,9 +280,9 @@ class PhilGepsPostingController extends Controller
             $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->transaction_date);
 
             $holiday_lists          =   $holidays->lists('id','holiday_date');
-            $cd                     =   $result->upr->date_prepared->diffInDays($transaction_date);
+            $cd                     =   $result->upr->date_processed->diffInDays($transaction_date);
 
-            $day_delayed            =   $result->upr->date_prepared->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            $day_delayed            =   $result->upr->date_processed->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
                 return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
             }, $transaction_date);
 

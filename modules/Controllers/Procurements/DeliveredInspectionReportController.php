@@ -549,23 +549,29 @@ class DeliveredInspectionReportController extends Controller
         DeliveryInspectionRepository $model)
     {
         $diir_model =   $model->findById($id);
-
+        $request->session()->flash('error-msg', 'Please Check Field');
         $this->validate($request, [
-            'received_by'   => 'required',
-            'approved_by'   => 'required',
-            'inspected_by'  => 'required',
-            'issued_by'     => 'required',
-            'requested_by'  => 'required'
+            'received_by'       => 'required',
+            'approved_by'       => 'required',
+            'inspected_by'      => 'required',
+            'issued_by'         => 'required',
+            'chairman_signatory'=> 'required',
+            'signatory_two'     => 'required',
+            'signatory_one'     => 'required',
+            'requested_by'      => 'required'
         ]);
 
         $data   =   [
-            'start_date'    =>  $request->start_date,
-            'closed_date'   =>  $request->closed_date,
-            'received_by'   =>  $request->received_by,
-            'approved_by'   =>  $request->approved_by,
-            'inspected_by'  =>  $request->inspected_by,
-            'issued_by'     =>  $request->issued_by,
-            'requested_by'  =>  $request->requested_by,
+            'start_date'        =>  $request->start_date,
+            'closed_date'       =>  $request->closed_date,
+            'received_by'       =>  $request->received_by,
+            'approved_by'       =>  $request->approved_by,
+            'inspected_by'      =>  $request->inspected_by,
+            'issued_by'         =>  $request->issued_by,
+            'requested_by'      =>  $request->requested_by,
+            'chairman_signatory'=>  $request->chairman_signatory,
+            'signatory_two'     =>  $request->signatory_two,
+            'signatory_one'     =>  $request->signatory_one,
         ];
 
         if($diir_model->received_by != $request->received_by)
@@ -596,6 +602,43 @@ class DeliveredInspectionReportController extends Controller
         {
             $requestor  =   $signatories->findById($request->requested_by);
             $data['requested_signatory']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
+        }
+
+        if($diir_model->chairman_signatory != $request->chairman_signatory)
+        {
+            $requestor  =   $signatories->findById($request->chairman_signatory);
+            $data['chairman_signatory_name']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
+        }
+
+        if($diir_model->signatory_one != $request->signatory_one)
+        {
+            $requestor  =   $signatories->findById($request->signatory_one);
+            $data['signatory_one_name']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
+        }
+
+        if($diir_model->signatory_two != $request->signatory_two)
+        {
+            $requestor  =   $signatories->findById($request->signatory_two);
+            $data['signatory_two_name']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
+        }
+
+        if($diir_model->signatory_three != $request->signatory_three)
+        {
+            $requestor  =   $signatories->findById($request->signatory_three);
+            $data['signatory_three_name']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
+        }
+
+        if($diir_model->signatory_four != $request->signatory_four)
+        {
+            $requestor  =   $signatories->findById($request->signatory_four);
+            $data['signatory_four_name']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
+        }
+
+
+        if($diir_model->signatory_five != $request->signatory_five)
+        {
+            $requestor  =   $signatories->findById($request->signatory_five);
+            $data['signatory_five_name']   =   $requestor->name."/".$requestor->ranks."/".$requestor->branch."/".$requestor->designation;
         }
 
         $result =   $model->update($data, $id);
@@ -1698,12 +1741,12 @@ class DeliveredInspectionReportController extends Controller
         $data['invoice']            =   $result->delivery->inspections->invoices;
         $data['issues']             =   $result->delivery->diir->issues;
         $data['header']             =   $result->upr->centers;
-
-        $data['receiver']           =   explode('/',$result->received_signatory);
-        $data['inspector']          =   explode('/',$result->inspected_signatory);
-        $data['approver']           =   explode('/',$result->approved_signatory);
-        $data['issuer']             =   explode('/',$result->issued_signatory);
-        $data['requestor']          =   explode('/',$result->requested_signatory);
+        $data['chairman']           =   explode('/',$result->chairman_signatory_name);
+        $data['one']          =   explode('/',$result->signatory_one_name);
+        $data['two']           =   explode('/',$result->signatory_two_name);
+        $data['three']             =   explode('/',$result->signatory_three_name);
+        $data['four']          =   explode('/',$result->signatory_four_name);
+        $data['five']          =   explode('/',$result->signatory_five_name);
         // dd($data);
         $pdf = PDF::loadView('forms.coi', ['data' => $data])
             ->setOption('margin-bottom', 30)

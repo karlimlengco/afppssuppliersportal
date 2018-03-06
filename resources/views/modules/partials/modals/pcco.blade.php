@@ -6,7 +6,7 @@
             </button>
 
             <div class="moda__dialogue__head">
-                <h1 class="modal__title">Funding Approval  </h1>
+                <h1 class="modal__title">MFO Obligation  </h1>
             </div>
 
             <div class="modal__dialogue__body">

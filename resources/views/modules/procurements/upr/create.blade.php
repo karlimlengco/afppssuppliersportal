@@ -51,19 +51,22 @@ Unit Purchase Request
                     {!! Form::selectField('units', 'Units', $unit, ($user) ? $user->unit_id : "") !!}
                 </div>
                 <div class="four columns">
-                    {!! Form::textField('project_name', 'Project Name') !!}
+                    {!! Form::textField('project_name', 'Project Name / Activity') !!}
                 </div>
             </div>
 
             <div class="row">
-                <div class="four columns">
+                <div class="three columns">
                     {!! Form::textField('upr_number', 'UPR Number') !!}
                 </div>
-                <div class="four columns">
+                <div class="three columns">
                     {!! Form::textField('place_of_delivery', 'Place Of Delivery') !!}
                 </div>
-                <div class="four columns">
+                <div class="three columns">
                     {!! Form::textField('date_prepared', 'Date Prepared') !!}
+                </div>
+                <div class="three columns">
+                    {!! Form::textField('date_processed', 'Date Processed') !!}
                 </div>
             </div>
 
@@ -201,6 +204,18 @@ Unit Purchase Request
     var picker = new Pikaday(
     {
         field: document.getElementById('id-field-date_prepared'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
+
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-date_processed'),
         firstDay: 1,
         defaultDate: new Date(),
         setDefaultDate: new Date(),

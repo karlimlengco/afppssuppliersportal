@@ -26,6 +26,7 @@ trait DatatableTrait
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'unit_purchase_requests.created_at',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.status',
@@ -53,6 +54,7 @@ trait DatatableTrait
             'unit_purchase_requests.id',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.project_name',
@@ -118,6 +120,7 @@ trait DatatableTrait
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'unit_purchase_requests.created_at',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.status',
@@ -139,6 +142,7 @@ trait DatatableTrait
             'unit_purchase_requests.id',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.project_name',
@@ -236,9 +240,9 @@ trait DatatableTrait
                 return $days;
             })
             ->editColumn('psr_date_prepared', function($data){
-                if(!$data->date_prepared)
+                if(!$data->date_processed)
                 return 0;
-                return $data->date_prepared->format('d F Y');
+                return $data->date_processed->format('d F Y');
             })
             ->editColumn('d_ispq', function($data){
                 $days = 0;
@@ -246,7 +250,7 @@ trait DatatableTrait
                 {
                     $ispq_transaction_date    =   \Carbon\Carbon::createFromFormat('!Y-m-d', $data->ispq_transaction_date);
 
-                    $days = $ispq_transaction_date->diffInDaysFiltered(function (\Carbon\Carbon $date) {return $date->isWeekday(); }, $data->date_prepared );
+                    $days = $ispq_transaction_date->diffInDaysFiltered(function (\Carbon\Carbon $date) {return $date->isWeekday(); }, $data->date_processed );
                     if($days > 0 ) {
                         $days = $days - 1;
                     }

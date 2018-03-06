@@ -78,6 +78,7 @@ class UnitPurchaseRequestRequest extends BaseRequest
             'purpose'               => 'required',
             // 'new_account_code'      => 'required|integer',
             'date_prepared'         => 'required|date',
+            'date_processed'         => 'required|date',
             'item_description.*'    => 'required',
             'quantity.*'            => 'required',
             'unit_measurement.*'    => 'required',

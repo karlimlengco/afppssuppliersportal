@@ -22,6 +22,7 @@ Notice To Proceed
 @section('modal')
     @include('modules.partials.modals.signatory')
     @include('modules.partials.modals.ntp_received')
+    @include('modules.partials.modals.ntp_philgeps')
 @stop
 
 @section('contents')
@@ -67,6 +68,9 @@ Notice To Proceed
         @if(!$data->received_by)
             Received
             <a href="#" id="proceed-ntp-button" tooltip="Received" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
+        @elseif($data->received_by && $data->upr->total_amount > 50000 && !$data->philgeps_posting)
+            <span >PhilGeps Posting</span>
+            <a href="#" class="button" id="ntp-philgeps-button" tooltip="PhilGeps Posting"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @else
             Go to UPR
             <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="Accept NOA" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
@@ -87,6 +91,11 @@ Notice To Proceed
             @if($data->received_by)
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received Date :</strong>@if($data->award_accepted_date) {{CreateCarbon('Y-m-d', $data->award_accepted_date)->format('d F Y')}}@endif </li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Conforme :</strong> {{$data->received_by}} </li>
+            @endif
+            @if($data->philgeps_posting)
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Philgeps Posting :</strong> {{$data->philgeps_posting}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Remarks from Philgeps Posting :</strong> {{$data->philgeps_remarks or "&nbsp;"}}  </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Action from Philgeps Posting :</strong> {{$data->philgeps_remarks or "&nbsp;"}}  </li>
             @endif
 
         </ul>
@@ -147,6 +156,11 @@ Notice To Proceed
 <script type="text/javascript">
 
 
+
+$('#ntp-philgeps-button').click(function(e){
+    e.preventDefault();
+    $('#ntp-philgeps-modal').addClass('is-visible');
+})
 $('#proceed-ntp-button').click(function(e){
     e.preventDefault();
     $('#proceed-ntp-modal').addClass('is-visible');

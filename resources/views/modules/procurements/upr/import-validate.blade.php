@@ -46,7 +46,7 @@ Unit Purchase Request Import Validate
     <div class="twelve columns">
         <div class="row">
                 <div class="four columns">
-                    {!! Form::textField('project_name', 'Project Name') !!}
+                    {!! Form::textField('project_name', 'Project Name / Activity') !!}
                 </div>
                 <div class="four columns">
                     {!! Form::textField('upr_number', 'UPR Number') !!}
@@ -57,13 +57,16 @@ Unit Purchase Request Import Validate
             </div>
 
             <div class="row">
-                <div class="four columns">
+                <div class="three columns">
                     {!! Form::textField('date_prepared', 'Date Prepared') !!}
                 </div>
-                <div class="four columns">
+                <div class="three columns">
+                    {!! Form::textField('date_processed', 'Date Process') !!}
+                </div>
+                <div class="three columns">
                     {!! Form::selectField('units', 'Units', $unit) !!}
                 </div>
-                <div class="four columns">
+                <div class="three columns">
                     {!! Form::selectField('procurement_type', 'Procurement Type', $procurement_types) !!}
                 </div>
             </div>
@@ -265,6 +268,14 @@ Unit Purchase Request Import Validate
     var picker = new Pikaday(
     {
         field: document.getElementById('id-field-date_prepared'),
+        firstDay: 1,
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-date_processed'),
         firstDay: 1,
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]

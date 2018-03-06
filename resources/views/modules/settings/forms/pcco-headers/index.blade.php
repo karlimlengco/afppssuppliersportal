@@ -21,7 +21,7 @@ PCCO Form Headers
 
             <thead>
                 <tr>
-                    <th>PCCO</th>
+                    <th>PC/CO</th>
                     <th>Content</th>
                 </tr>
             </thead>

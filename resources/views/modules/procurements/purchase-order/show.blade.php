@@ -90,10 +90,10 @@ Purchase Order
         <span class="button--pull-left" style="padding-top:10px">Go to UPR</span>
 
         @if(!$data->funding_released_date)
-            Funding
+            MFO Funding/Obligation
             <a href="#" id="pcco-button" tooltip="Funding" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @elseif(!$data->mfo_released_date && $data->funding_released_date)
-            MFO Funding/Obligation
+            Issuance of CAF
             <a href="#" id="mfo-button" tooltip="MFO Funding/Obligation" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @elseif($data->mfo_released_date && $data->funding_released_date && !$data->coa_approved_date)
             PO Approval

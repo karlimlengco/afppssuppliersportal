@@ -25,6 +25,19 @@ class DeliveryInspectionEloquent extends Model implements  AuditableContract
         'approved_signatory',
         'issued_signatory',
         'requested_signatory',
+
+        'chairman_signatory',
+        'chairman_signatory_name',
+        'signatory_one',
+        'signatory_one_name',
+        'signatory_two',
+        'signatory_two_name',
+        'signatory_three',
+        'signatory_three_name',
+        'signatory_four',
+        'signatory_four_name',
+        'signatory_five',
+        'signatory_five_name',
     ];
 
     /**
@@ -93,6 +106,18 @@ class DeliveryInspectionEloquent extends Model implements  AuditableContract
         'approved_signatory',
         'issued_signatory',
         'requested_signatory',
+        'chairman_signatory',
+        'chairman_signatory_name',
+        'signatory_one',
+        'signatory_one_name',
+        'signatory_two',
+        'signatory_two_name',
+        'signatory_three',
+        'signatory_three_name',
+        'signatory_four',
+        'signatory_four_name',
+        'signatory_five',
+        'signatory_five_name',
     ];
 
     /**

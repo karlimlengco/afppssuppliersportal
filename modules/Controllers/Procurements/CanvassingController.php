@@ -644,7 +644,7 @@ class CanvassingController extends Controller
         }
 
         // $data['date_to']               =  $result->canvass_date." ". $result->canvass_time;
-        $data['date_from']              =  $result->upr->date_prepared;
+        $data['date_from']              =  $result->upr->date_processed;
         $data['date']                   =  $result->canvass_date;
 
         $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);

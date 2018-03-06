@@ -140,6 +140,10 @@ class NoticeToProceedController extends Controller
                     'route'     =>  [$this->baseUrl.'update', $id],
                     'method'    =>  'PUT'
                 ],
+                'ntp-philgeps' =>  [
+                    'route'     =>  [$this->baseUrl.'philgeps', $id],
+                    'method'    =>  'PUT'
+                ],
                 'create_nod' =>  [
                     'route'     =>  ['procurements.delivery-orders.create-purchase', $result->po_id]
                 ],
@@ -386,6 +390,91 @@ class NoticeToProceedController extends Controller
     }
 
     /**
+     * [philgepsPosting description]
+     * @param  Request                       $request  [description]
+     * @param  [type]                        $id       [description]
+     * @param  UnitPurchaseRequestRepository $upr      [description]
+     * @param  NTPRepository                 $model    [description]
+     * @param  HolidayRepository             $holidays [description]
+     * @return [type]                                  [description]
+     */
+    public function philgepsPosting(
+      Request $request,
+      $id,
+      UnitPurchaseRequestRepository $upr,
+      NTPRepository $model,
+      HolidayRepository $holidays)
+    {
+        $ntp_model              =   $model->findById($id);
+
+        $holiday_lists          =   $holidays->lists('id','holiday_date');
+        $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('philgeps_posting') );
+        $po_date                =   Carbon::createFromFormat('Y-m-d', $ntp_model->award_accepted_date );
+        $po_date                =   Carbon::createFromFormat('!Y-m-d', $po_date->format('Y-m-d') );
+        $cd                     =   $po_date->diffInDays($transaction_date);
+
+        $day_delayed            =   $po_date->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+            return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+        }, $transaction_date);
+
+        $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+        if($day_delayed > 1 ){
+            $day_delayed = $day_delayed - 1;
+        }
+
+        $validator = Validator::make($request->all(),[
+            'philgeps_posting'   =>  'required|after_or_equal:'. $po_date->format('Y-m-d'),
+        ]);
+
+        $validator->after(function ($validator)use($day_delayed, $request) {
+            if ( $request->get('philgeps_remarks') == null && $day_delayed > 1) {
+                $validator->errors()->add('philgeps_remarks', 'This field is required when your process is delay');
+            }
+            if ( $request->get('philgeps_action') == null && $day_delayed > 1) {
+                $validator->errors()->add('philgeps_action', 'This field is required when your process is delay');
+            }
+        });
+
+        if ($validator->fails()){
+            return redirect()
+                        ->back()
+                        ->with(['error' => 'Please Check Your Fields.'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // Delay
+
+        $input  =   [
+            'philgeps_posting'   =>  $request->philgeps_posting,
+            'status'                =>  "Accepted",
+            'philgeps_remarks'      =>  $request->philgeps_remarks,
+            'philgeps_action'       =>  $request->philgeps_action,
+            'philgeps_days'         =>  $wd
+        ];
+
+        $result             =   $model->update($input, $id);
+
+        $upr_result  =  $upr->update([
+            'next_allowable'=> $ntp_model->po->delivery_terms,
+            'next_step'     => 'Prepare NOD',
+            'next_due'      => $transaction_date->addDays($ntp_model->po->delivery_terms),
+            'last_date'     => $transaction_date,
+            'status'        => 'NTP Philgeps Posted',
+            'delay_count'   => $day_delayed,
+            'calendar_days' => $cd + $ntp_model->upr->calendar_days,
+            'last_action'   => $request->action,
+            'last_remarks'  => $request->remarks
+            ], $result->upr_id);
+
+        event(new Event($upr_result, $upr_result->ref_number." NTP Philgeps Posted"));
+
+        return redirect()->route($this->baseUrl.'show', $id)->with([
+            'success'  => "Record has been successfully updated."
+        ]);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -454,11 +543,16 @@ class NoticeToProceedController extends Controller
         ];
 
         $result             =   $model->update($input, $id);
-
+        $delivery_days      =   $ntp_model->po->delivery_terms;
+        $nextStep           =   'Prepare NOD';
+        if($ntp_model->upr->total_amount > 50000){
+          $delivery_days      =   1;
+          $nextStep           =   'NTP Philgeps Posting';
+        }
         $upr_result  =  $upr->update([
-            'next_allowable'=> $ntp_model->po->delivery_terms,
-            'next_step'     => 'Prepare NOD',
-            'next_due'      => $transaction_date->addDays($ntp_model->po->delivery_terms),
+            'next_allowable'=> $delivery_days,
+            'next_step'     => $nextStep,
+            'next_due'      => $transaction_date->addDays($delivery_days),
             'last_date'     => $transaction_date,
             'status'        => 'NTP Accepted',
             'delay_count'   => $day_delayed,

@@ -82,6 +82,11 @@ class NTPEloquent extends Model implements  AuditableContract
         'days',
         'accepted_days',
         'accepted_remarks',
+
+        'philgeps_posting',
+        'philgeps_remarks',
+        'philgeps_action',
+        'philgeps_days',
     ];
 
 

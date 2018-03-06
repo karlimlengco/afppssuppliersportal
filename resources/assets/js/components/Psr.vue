@@ -28,20 +28,245 @@
                 <table class="table table--with-border table-name">
                     <thead>
                         <tr>
-                            <th>PCCO</th>
+                            <th>PC/CO (UPR NUMBER)</th>
+                            <th>PROJECT NAME/ ACTIVITY</th>
+                            <th>END USER</th>
+                            <th>ABC</th>
+                            <th>
+                              UPR RECEIPT
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+                            <th v-if="types != 'bidding'">
+                              ITSPQ
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th v-if="types != 'bidding'">
+                              PHILGEPS POSTING
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th v-if="types != 'bidding'">
+                              RFQ
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th v-if="types != 'bidding'">
+                              CANVASS
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+
+                            <th v-if="types == 'bidding'">
+                              Document Acceptance (BAC)
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+                            <th v-if="types == 'bidding'">
+                              Pre Proc (BAC)
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+                            <th v-if="types == 'bidding'">
+                              Invitation to BId (BAC)
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+                            <th v-if="types == 'bidding'">
+                              PhilGeps Posting (BAC)
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+                            <th v-if="types == 'bidding'">
+                              Pre Bid Conference (BAC)
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+                            <th v-if="types == 'bidding'">
+                              SOBE (BAC)
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+                            <th v-if="types == 'bidding'">
+                              POST QUAL (BAC)
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th>
+                              PREPARE NOA
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th>
+                              ISSUE NOA
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th>
+                              CONFORME NOA
+                              <br>
+                              <small>(SUPPLIER)</small>
+                            </th>
+
+                            <th>
+                              POSTING OF NOA TO PHILGEPS
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th>
+                              PREPARATION OF PO
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th>
+                              MFO OBLIGATION
+                              <br>
+                              <small>(MFO/BUDGET OFFICE)</small>
+                            </th>
+
+                            <th>
+                              ISSUANCE OF CAF
+                              <br>
+                              <small>(ACCOUNTING)</small>
+                            </th>
+
+                            <th>
+                              PO/WO/JO/CA APPROVAL AND
+                              NTP PREPARATION
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th>
+                              SERVING OF NTP
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th>
+                              CONFORME OF NTP
+                              <br>
+                              <small>(SUPPLIER)</small>
+                            </th>
+
+                            <th>
+                              PHILGEPS POSTING OF NTP
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th>
+                              ISSUANCE OF NOTICE OF DELIVERY
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th>
+                              DELIVERY OF ITEMS
+                              <br>
+                              <small>(SUPPLIER)</small>
+                            </th>
+
+                            <th>
+                              NOTIFICATION OF DELIVERY TO COA
+                              <br>
+                              <small>(SAO)</small>
+                            </th>
+
+                            <th>
+                              CONDUCT OF TIAC
+                              <br>
+                              <small>(END-USER)</small>
+                            </th>
+
+                            <th>
+                              INSPECTION AND ACCEPTANCE REPORT
+                              <br>
+                              <small>(SAO)</small>
+                            </th>
+
+                            <th>
+                              DELIVERED ITEMS AND INSPECTION REPORT
+                              <br>
+                              <small>(MFO)</small>
+                            </th>
+
+                            <th>
+                              PREPARATION OF DV
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th>
+                              SIGN BOX `A` OF DV
+                              <br>
+                              <small>(MFO)</small>
+                            </th>
+
+                            <th>
+                              ACCOMPLISH BOX `B` OF DV AND SIGN BOX `C` OF DV
+                              <br>
+                              <small>(ACCOUNTING)</small>
+                            </th>
+
+                            <th>
+                              SIGN BOX `D` OF DV
+                              <br>
+                              <small>(END USER CMDR)</small>
+                            </th>
+
+                            <th>
+                              PRE-AUDIT
+                              <br>
+                              <small>(MFO)</small>
+                            </th>
+
+                            <th>
+                              PREPARE AND SIGN LDDAP-ADA
+                              <br>
+                              <small>(ACCOUNTING)</small>
+                            </th>
+
+                            <th>
+                              SIGN LDDAP-ADA OR PREPARE CHEQUE
+                              <br>
+                              <small>(FINANCE)</small>
+                            </th>
+
+                            <th>
+                              SIGN LDDAP-ADA OR COUNTER-SIGN CHEQUE
+                              <br>
+                              <small>(PC/CO)</small>
+                            </th>
+
+                            <th>
+                              RECEIPT OF CHEQUES AND ISSUE OFFICIAL RECEIPT
+                              <br>
+                              <small>(SUPPLIER)</small>
+                            </th>
+
+                            <th>
+                              TOTAL NUMBER OF DAYS
+                            </th>
+
+<!--
+                            <th>PC/CO</th>
                             <th>PROJECT</th>
                             <th>ABC</th>
                             <th>UPR DATE</th>
-                            <th v-if="types != 'bidding'" >ISPQ</th>
-                            <th v-if="types != 'bidding'" >RFQ</th>
-                            <th v-if="types != 'bidding'" >CANVASSING</th>
-                            <th v-if="types == 'bidding'">Document Acceptance (BAC)</th>
-                            <th v-if="types == 'bidding'">Pre Proc (BAC)</th>
-                            <th v-if="types == 'bidding'">Invitation to BId (BAC)</th>
-                            <th v-if="types == 'bidding'">PhilGeps Posting (BAC)</th>
-                            <th v-if="types == 'bidding'">Pre Bid Conference (BAC)</th>
-                            <th v-if="types == 'bidding'">SOBE (BAC)</th>
-                            <th v-if="types == 'bidding'">POST QUAL (BAC)</th>
+                            <th v-if="types != 'bidding'">ISPQ</th>
+                            <th v-if="types != 'bidding'">RFQ</th>
+                            <th v-if="types != 'bidding'">CANVASSING</th>
                             <th>PREPARE NOA</th>
                             <th>APPROVED NOA</th>
                             <th>RECEIVED NOA</th>
@@ -60,7 +285,7 @@
                             <th>PREPARE VOUCHER</th>
                             <th>COMPLETED</th>
                             <th>LDAP-ADA</th>
-                            <th>Total Days</th>
+                            <th>Total Days</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -70,12 +295,13 @@
                                   {{unit.short_code}} ({{unit.upr_count}})
                                   <button @click="fetchUnitItems(unit)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                               </td>
-                              <td>--</td>
                               <td>{{formatPrice(unit.total_abc)}}</td>
                               <td>--</td>
+                              <td>--</td>
                               <td v-if="types != 'bidding'">--</td>
                               <td v-if="types != 'bidding'">--</td>
                               <td v-if="types != 'bidding'">--</td>
+                              <td v-if="types != 'bidding'">--</td>
                               <td v-if="types == 'bidding'">--</td>
                               <td v-if="types == 'bidding'">--</td>
                               <td v-if="types == 'bidding'">--</td>
@@ -83,6 +309,15 @@
                               <td v-if="types == 'bidding'">--</td>
                               <td v-if="types == 'bidding'">--</td>
                               <td v-if="types == 'bidding'">--</td>
+                              <td>--</td>
+                              <td>--</td>
+                              <td>--</td>
+                              <td>--</td>
+                              <td>--</td>
+                              <td>--</td>
+                              <td>--</td>
+                              <td>--</td>
+                              <td>--</td>
                               <td>--</td>
                               <td>--</td>
                               <td>--</td>
@@ -104,7 +339,7 @@
                               <td>--</td>
                           </tr>
                           <tr>
-                            <td class="has-child" colspan="31">
+                            <td class="has-child" colspan="40">
                                 <table class="child-table table-name">
                                     <tbody>
                                     <template v-for='item in items'>
@@ -113,269 +348,435 @@
                                         <tr>
                                             <td>{{itemData.upr_number}}</td>
                                             <td>{{itemData.project_name}}</td>
+                                            <td>{{itemData.end_user}}</td>
                                             <td>{{formatPrice(itemData.total_amount)}}</td>
-                                            <td>{{formatDate(itemData.date_prepared)}}</td>
+                                            <td>{{formatDate(itemData.date_processed)}}</td>
                                             <td v-if="types != 'bidding'" >
                                                 <!-- 3 -->
-                                                <span v-if="getDiff(itemData.ispq_transaction_date, itemData.date_prepared) > 3" style="color:red">
-                                                  {{getDiff(itemData.ispq_transaction_date, itemData.date_prepared)}}
+                                                <span v-if="itemData.ispq_days > 3" style="color:red">
+                                                   {{itemData.ispq_days}}
                                                 </span>
-                                                <span v-if="getDiff(itemData.ispq_transaction_date, itemData.date_prepared) <= 3" >
-                                                  {{getDiff(itemData.ispq_transaction_date, itemData.date_prepared)}}
+                                                <span v-if="itemData.ispq_days <= 3" >
+                                                   {{itemData.ispq_days}}
                                                 </span>
                                             </td>
                                             <td v-if="types != 'bidding'" >
                                                 <!-- 3 -->
-                                                <span v-if="getDiff(itemData.rfq_created_at, itemData.date_prepared) > 3" style="color:red">
-                                                  {{getDiff(itemData.rfq_created_at, itemData.date_prepared)}}
+                                                <span v-if="itemData.pp_days > 3" style="color:red">
+                                                  {{itemData.pp_days}}
+                                                  <!-- {{getDiff(itemData.rfq_created_at, itemData.date_processed)}} -->
                                                 </span>
-                                                <span v-if="getDiff(itemData.rfq_created_at, itemData.date_prepared) <= 3" >
-                                                  {{getDiff(itemData.rfq_created_at, itemData.date_prepared)}}
+                                                <span v-if="itemData.pp_days <= 3" >
+                                                  {{itemData.pp_days}}
+                                                  <!-- {{getDiff(itemData.rfq_created_at, itemData.date_processed)}} -->
                                                 </span>
                                             </td>
                                             <td v-if="types != 'bidding'" >
                                                 <!-- 2 -->
-                                              <span v-if="getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date) > 2" style="color:red">
-                                                {{getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date)}}
+                                              <span v-if="itemData.rfq_days > 3" style="color:red">
+                                                  {{itemData.rfq_days}}
+                                                <!-- {{getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date)}} -->
                                               </span>
-                                              <span v-if="getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date) <= 2" >
-                                                {{getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date)}}
+                                              <span v-if="itemData.rfq_days <= 3" >
+                                                  {{itemData.rfq_days}}
+                                                <!-- {{getDiff(itemData.canvass_start_date, itemData.ispq_transaction_date)}} -->
                                               </span>
                                             </td>
                                             <td v-if="types != 'bidding'" >
                                                 <!-- 2 -->
-                                              <span v-if="getDiff(itemData.noa_award_date, itemData.canvass_start_date) > 2" style="color:red">
-                                                {{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}}
+                                              <span v-if="itemData.canvass_days > 2" style="color:red">
+                                                {{itemData.canvass_days}}
+                                                <!-- {{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}} -->
                                               </span>
-                                              <span v-if="getDiff(itemData.noa_award_date, itemData.canvass_start_date) <= 2" >
-                                                {{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}}
+                                              <span v-if="itemData.canvass_days <= 2" >
+                                                {{itemData.canvass_days}}
+                                                <!-- {{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}} -->
+                                              </span>
+                                            </td>
+                                            <td v-if="types != 'bidding'" >
+                                                <!-- 2 -->
+                                              <span v-if="itemData.noa_days > 2" style="color:red">
+                                                {{itemData.noa_days}}
+                                                <!-- {{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}} -->
+                                              </span>
+                                              <span v-if="itemData.noa_days <= 2" >
+                                                {{itemData.noa_days}}
+                                                <!-- {{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}} -->
                                               </span>
                                             </td>
                                             <td v-if="types == 'bidding'">
                                               <!-- 1 -->
-                                              <span v-if="getDiff(itemData.doc_date, itemData.date_prepared) > 1" style="color:red">
-                                                {{getDiff(itemData.doc_date, itemData.date_prepared)}}
+                                              <span v-if="itemData.doc_days> 1" style="color:red">
+                                             {{ itemData.doc_days}}
+                                                <!-- {{getDiff(itemData.doc_date, itemData.date_processed)}} -->
                                               </span>
-                                              <span v-if="getDiff(itemData.doc_date, itemData.date_prepared) <= 1" >
-                                                {{getDiff(itemData.doc_date, itemData.date_prepared)}}
+                                              <span v-if="itemData.doc_days<= 1" >
+                                             {{ itemData.doc_days}}
+                                                <!-- {{getDiff(itemData.doc_date, itemData.date_processed)}} -->
                                               </span>
                                             </td>
                                             <td v-if="types == 'bidding'">
                                               <!-- 1 -->
-                                              <span v-if="getDiff(itemData.proc_date, itemData.doc_date) > 1" style="color:red">
-                                                {{getDiff(itemData.proc_date, itemData.doc_date)}}
+                                              <span v-if="itemData.proc_days > 1" style="color:red">
+                                               {{itemData.proc_days}}
+                                                <!-- {{getDiff(itemData.proc_date, itemData.doc_date)}} -->
                                               </span>
-                                              <span v-if="getDiff(itemData.proc_date, itemData.doc_date) <= 1" >
-                                                {{getDiff(itemData.proc_date, itemData.doc_date)}}
+                                              <span v-if="itemData.proc_days <= 1" >
+                                               {{itemData.proc_days}}
+                                                <!-- {{getDiff(itemData.proc_date, itemData.doc_date)}} -->
                                               </span>
                                             </td>
                                             <td v-if="types == 'bidding'">
                                               <!-- 7 -->
-                                              <span v-if="getDiff(itemData.itb_date, itemData.proc_date) > 7" style="color:red">
+                                              <span v-if=" itemData.itb_days > 7" style="color:red">
+                                                 {{itemData.itb_days}}
                                                 {{getDiff(itemData.itb_date, itemData.proc_date)}}
                                               </span>
-                                              <span v-if="getDiff(itemData.itb_date, itemData.proc_date) <= 7" >
+                                              <span v-if=" itemData.itb_days <= 7" >
+                                                 {{itemData.itb_days}}
                                                 {{getDiff(itemData.itb_date, itemData.proc_date)}}
                                               </span>
                                             </td>
                                             <td v-if="types == 'bidding'">
                                               <!-- 1 -->
-                                              <span v-if="getDiff(itemData.pp_completed_at, itemData.itb_date) > 1" style="color:red">
+                                              <span v-if=" itemData.pp_days > 1" style="color:red">
+                                                {{itemData.pp_days}}
                                                 {{getDiff(itemData.pp_completed_at, itemData.itb_date)}}
                                               </span>
-                                              <span v-if="getDiff(itemData.pp_completed_at, itemData.itb_date) <= 1" >
+                                              <span v-if=" itemData.pp_days <= 1" >
+                                                {{itemData.pp_days}}
                                                 {{getDiff(itemData.pp_completed_at, itemData.itb_date)}}
                                               </span>
                                             </td>
                                             <td v-if="types == 'bidding'">
                                               <!-- 45 -->
-                                              <span v-if="getDiff(itemData.prebid_date, itemData.pp_completed_at) > 45" style="color:red">
-                                                {{getDiff(itemData.prebid_date, itemData.pp_completed_at)}}
+                                              <span v-if="itemData.prebid_days > 45" style="color:red">
+                                                 {{itemData.prebid_days}}
+                                                <!-- {{getDiff(itemData.prebid_date, itemData.pp_completed_at)}} -->
                                               </span>
-                                              <span v-if="getDiff(itemData.prebid_date, itemData.pp_completed_at) <= 45" >
-                                                {{getDiff(itemData.prebid_date, itemData.pp_completed_at)}}
+                                              <span v-if="itemData.prebid_days <= 45" >
+                                                 {{itemData.prebid_days}}
+                                                <!-- {{getDiff(itemData.prebid_date, itemData.pp_completed_at)}} -->
                                               </span>
                                             </td>
                                             <td v-if="types == 'bidding'">
                                               <!-- 7 -->
-                                              <span v-if="getDiff(itemData.prebid_date, itemData.pp_completed_at) > 7" style="color:red">
-                                                {{getDiff(itemData.prebid_date, itemData.pp_completed_at)}}
+                                              <span v-if="itemData.bid_days > 7" style="color:red">
+                                               {{itemData.bid_days }}
+                                                <!-- {{getDiff(itemData.prebid_date, itemData.pp_completed_at)}} -->
                                               </span>
-                                              <span v-if="getDiff(itemData.prebid_date, itemData.pp_completed_at) <= 7" >
-                                                {{getDiff(itemData.prebid_date, itemData.pp_completed_at)}}
+                                              <span v-if="itemData.bid_days <= 7" >
+                                               {{itemData.bid_days }}
+                                                <!-- {{getDiff(itemData.prebid_date, itemData.pp_completed_at)}} -->
                                               </span>
                                             </td>
                                             <td v-if="types == 'bidding'">
                                               <!-- 45 -->
-                                              <span v-if="getDiff(itemData.pq_date, itemData.bid_date) > 45" style="color:red">
-                                                {{getDiff(itemData.pq_date, itemData.bid_date)}}
+                                              <span v-if="pq_days > 45" style="color:red">
+                                             {{itemData.pq_days}}
+                                                <!-- {{getDiff(itemData.pq_date, itemData.bid_date)}} -->
                                               </span>
-                                              <span v-if="getDiff(itemData.pq_date, itemData.bid_date) <= 45" >
-                                                {{getDiff(itemData.pq_date, itemData.bid_date)}}
+                                              <span v-if="pq_days <= 45" >
+                                             {{itemData.pq_days}}
+                                                <!-- {{getDiff(itemData.pq_date, itemData.bid_date)}} -->
                                               </span>
                                             </td>
                                             <td v-if="types == 'bidding'">
                                               <!-- 15 -->
-                                              <span v-if="getDiff(itemData.noa_award_date, itemData.pq_date) > 15" style="color:red">
-                                                {{getDiff(itemData.noa_award_date, itemData.pq_date)}}
+                                              <span v-if="itemData.noa_days > 15" style="color:red">
+                                                 {{itemData.noa_days}}
+                                                <!-- {{getDiff(itemData.noa_award_date, itemData.pq_date)}} -->
                                               </span>
-                                              <span v-if="getDiff(itemData.noa_award_date, itemData.pq_date) <= 15" >
-                                                {{getDiff(itemData.noa_award_date, itemData.pq_date)}}
+                                              <span v-if="itemData.noa_days <= 15" >
+                                                 {{itemData.noa_days}}
+                                                <!-- {{getDiff(itemData.noa_award_date, itemData.pq_date)}} -->
                                               </span>
                                             </td>
                                             <td>
                                               <!-- 1 -->
-                                              <span v-if="getDiff(itemData.noa_approved_date, itemData.noa_award_date) > 1" style="color:red">
-                                                {{getDiff(itemData.noa_approved_date, itemData.noa_award_date)}}
+                                              <span v-if="itemData.noa_approved_days > 1" style="color:red">
+                                                {{itemData.noa_approved_days}}
+
+                                                <!-- {{getDiff(itemData.noa_approved_date, itemData.noa_award_date)}} -->
                                               </span>
-                                              <span v-if="getDiff(itemData.noa_approved_date, itemData.noa_award_date) <= 1" >
-                                                {{getDiff(itemData.noa_approved_date, itemData.noa_award_date)}}
+                                              <span v-if="itemData.noa_approved_days <= 1" >
+                                                {{itemData.noa_approved_days}}
+
+                                                <!-- {{getDiff(itemData.noa_approved_date, itemData.noa_award_date)}} -->
                                               </span>
                                             </td>
                                             <td>
                                               <!-- 1 -->
 
-                                              <span v-if="getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date) > 1" style="color:red">
-                                                {{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}}
+                                              <span v-if="itemData.noa_received_days > 1" style="color:red">
+                                                {{itemData.noa_received_days}}
+
+                                                <!-- {{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}} -->
                                               </span>
-                                              <span v-if="getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date) <= 1" >
-                                                {{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}}
+                                              <span v-if="itemData.noa_received_days <= 1" >
+                                                {{itemData.noa_received_days}}
+
+                                                <!-- {{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}} -->
+                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 1 -->
+
+                                              <span v-if="itemData.noa_pp_days > 1" style="color:red">
+                                                {{itemData.noa_pp_days}}
+
+                                                <!-- {{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}} -->
+                                              </span>
+                                              <span v-if="itemData.noa_pp_days <= 1" >
+                                                {{itemData.noa_pp_days}}
+
+                                                <!-- {{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}} -->
                                               </span>
                                             </td>
                                             <td>
                                               <!-- 2 -->
-                                              <span v-if="getDiff(itemData.po_create_date, itemData.noa_award_accepted_date) > 2" style="color:red">
-                                                {{getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.po_create_date, itemData.noa_award_accepted_date) <= 2" >
-                                                {{getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)}}
-                                              </span>
+                                              <span v-if="itemData.po_days > 2" style="color:red">
+                                              {{itemData.po_days}}
+<!--                                                 {{getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.po_days <= 2" >
+                                              {{itemData.po_days}}
+<!--                                                 {{getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)}}
+ -->                                              </span>
                                             </td>
                                             <td>
                                               <!-- 2 -->
-                                              <span v-if="getDiff(itemData.funding_received_date, itemData.po_create_date) > 2" style="color:red">
-                                                {{getDiff(itemData.funding_received_date, itemData.po_create_date)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.funding_received_date, itemData.po_create_date) <= 2" >
-                                                {{getDiff(itemData.funding_received_date, itemData.po_create_date)}}
-                                              </span>
+                                              <span v-if="itemData.po_mfo_days > 2" style="color:red">
+                                                   {{itemData.po_mfo_days}}
+<!--                                                 {{getDiff(itemData.funding_received_date, itemData.po_create_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.po_mfo_days <= 2" >
+                                                   {{itemData.po_mfo_days}}
+<!--                                                 {{getDiff(itemData.funding_received_date, itemData.po_create_date)}}
+ -->                                              </span>
                                             </td>
                                             <td>
                                               <!-- 2 -->
-                                              <span v-if="getDiff(itemData.mfo_received_date, itemData.funding_received_date) > 2" style="color:red">
-                                                {{getDiff(itemData.mfo_received_date, itemData.funding_received_date)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.mfo_received_date, itemData.funding_received_date) <= 2" >
-                                                {{getDiff(itemData.mfo_received_date, itemData.funding_received_date)}}
-                                              </span>
+                                              <span v-if="itemData.po_funding_days > 2" style="color:red">
+                                                     {{itemData.po_funding_days}}
+<!--                                                 {{getDiff(itemData.mfo_received_date, itemData.funding_received_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.po_funding_days <= 2" >
+                                                     {{itemData.po_funding_days}}
+<!--                                                 {{getDiff(itemData.mfo_received_date, itemData.funding_received_date)}}
+ -->                                              </span>
                                             </td>
                                             <td>
                                               <!-- 1 -->
-                                              <span v-if="getDiff(itemData.coa_approved_date, itemData.mfo_received_date) > 1" style="color:red">
-                                                {{getDiff(itemData.coa_approved_date, itemData.mfo_received_date)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.coa_approved_date, itemData.mfo_received_date) <= 1" >
-                                                {{getDiff(itemData.coa_approved_date, itemData.mfo_received_date)}}
-                                              </span>
+                                              <span v-if="itemData.po_coa_days > 1" style="color:red">
+                                                {{itemData.po_coa_days}}
+
+<!--                                                 {{getDiff(itemData.coa_approved_date, itemData.mfo_received_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.po_coa_days <= 1" >
+                                                {{itemData.po_coa_days}}
+
+<!--                                                 {{getDiff(itemData.coa_approved_date, itemData.mfo_received_date)}}
+ -->                                              </span>
                                             </td>
                                             <td>
                                               <!-- 1 -->
-                                              <span v-if="getDiff(itemData.ntp_date, itemData.coa_approved_date) > 1" style="color:red">
-                                                {{getDiff(itemData.ntp_date, itemData.coa_approved_date)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.ntp_date, itemData.coa_approved_date) <= 1" >
-                                                {{getDiff(itemData.ntp_date, itemData.coa_approved_date)}}
-                                              </span>
+                                              <span v-if=" itemData.ntp_days > 1" style="color:red">
+                                              {{itemData.ntp_days}}
+<!--                                                 {{getDiff(itemData.ntp_date, itemData.coa_approved_date)}}
+ -->                                              </span>
+                                              <span v-if=" itemData.ntp_days <= 1" >
+                                              {{itemData.ntp_days}}
+<!--                                                 {{getDiff(itemData.ntp_date, itemData.coa_approved_date)}}
+ -->                                              </span>
                                             </td>
                                             <td>
                                               <!-- 1 -->
-                                              <span v-if="getDiff(itemData.ntp_award_date, itemData.ntp_date) > 1" style="color:red">
-                                                {{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.ntp_award_date, itemData.ntp_date) <= 1" >
-                                                {{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}
-                                              </span>
+                                              <span v-if=" itemData.ntp_accepted_days > 1" style="color:red">
+                                              {{itemData.ntp_accepted_days}}
+<!--                                                 {{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}
+ -->                                              </span>
+                                              <span v-if=" itemData.ntp_accepted_days <= 1" >
+                                              {{itemData.ntp_accepted_days}}
+<!--                                                 {{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}
+ -->                                              </span>
+                                            </td>
+                                            <td>
+                                              <!-- 1 -->
+                                              <span v-if=" itemData.ntp_pp_days > 1" style="color:red">
+                                              {{itemData.ntp_pp_days}}
+<!--                                                 {{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}
+ -->                                              </span>
+                                              <span v-if=" itemData.ntp_pp_days <= 1" >
+                                              {{itemData.ntp_pp_days}}
+<!--                                                 {{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}
+ -->                                              </span>
                                             </td>
                                             <td>
                                               <!-- 2 -->
-                                              <span v-if="getDiff(itemData.dr_date, itemData.ntp_award_date) > 2" style="color:red">
-                                                {{getDiff(itemData.dr_date, itemData.ntp_award_date)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.dr_date, itemData.ntp_award_date) <= 2" >
-                                                {{getDiff(itemData.dr_date, itemData.ntp_award_date)}}
-                                              </span>
+                                              <span v-if="itemData.dr_days > 2" style="color:red">
+                                              {{itemData.dr_days}}
+<!--                                                 {{getDiff(itemData.dr_date, itemData.ntp_award_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.dr_days <= 2" >
+                                              {{itemData.dr_days}}
+<!--                                                 {{getDiff(itemData.dr_date, itemData.ntp_award_date)}}
+ -->                                              </span>
                                             </td>
                                             <td>
                                               <!-- 2 -->
-                                              <span v-if="getDiff(itemData.dr_coa_date, itemData.dr_date) > 2" style="color:red">
-                                                {{getDiff(itemData.dr_coa_date, itemData.dr_date)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.dr_coa_date, itemData.dr_date) <= 2" >
-                                                {{getDiff(itemData.dr_coa_date, itemData.dr_date)}}
-                                              </span>
+                                              {{itemData.dr_delivery_days}}
                                             </td>
                                             <td>
                                               <!-- 1 -->
-                                              <span v-if="getDiff(itemData.dr_inspection, itemData.dr_coa_date) > 1" style="color:red">
-                                                {{getDiff(itemData.dr_inspection, itemData.dr_coa_date)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.dr_inspection, itemData.dr_coa_date) <= 1" >
-                                                {{getDiff(itemData.dr_inspection, itemData.dr_coa_date)}}
-                                              </span>
-                                            </td>
-                                            <td>
-                                              <!-- 1 -->
-                                              <span v-if="getDiff(itemData.iar_accepted_date, itemData.dr_inspection) > 1" style="color:red">
-                                                {{getDiff(itemData.iar_accepted_date, itemData.dr_inspection)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.iar_accepted_date, itemData.dr_inspection) <= 1" >
-                                                {{getDiff(itemData.iar_accepted_date, itemData.dr_inspection)}}
-                                              </span>
-                                            </td>
-                                            <td>
-                                              <!-- 1 -->
-                                              <span v-if="getDiff(itemData.di_start, itemData.iar_accepted_date) > 1" style="color:red">
-                                                {{getDiff(itemData.di_start, itemData.iar_accepted_date)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.di_start, itemData.iar_accepted_date) <= 1" >
-                                                {{getDiff(itemData.di_start, itemData.iar_accepted_date)}}
-                                              </span>
+                                              <span v-if="itemData.dr_dr_coa_days> 1" style="color:red">
+                                              {{itemData.dr_dr_coa_days}}
+<!--                                                 {{getDiff(itemData.dr_inspection, itemData.dr_coa_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.dr_dr_coa_days<= 1" >
+                                              {{itemData.dr_dr_coa_days}}
+<!--                                                 {{getDiff(itemData.dr_inspection, itemData.dr_coa_date)}}
+ -->                                              </span>
                                             </td>
                                             <td>
                                               <!-- 2 -->
-                                              <span v-if="getDiff(itemData.di_close, itemData.di_start) > 1" style="color:red">
-                                                {{getDiff(itemData.di_close, itemData.di_start)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.di_close, itemData.di_start) <= 1" >
-                                                {{getDiff(itemData.di_close, itemData.di_start)}}
-                                              </span>
+
+                                              <span v-if="itemData.dr_inspection_days > 2" style="color:red">
+                                              {{itemData.dr_inspection_days}}
+<!--                                                 {{getDiff(itemData.iar_accepted_date, itemData.dr_inspection)}}
+ -->                                              </span>
+                                              <span v-if="itemData.dr_inspection_days <= 2" >
+                                              {{itemData.dr_inspection_days}}
+<!--                                                 {{getDiff(itemData.iar_accepted_date, itemData.dr_inspection)}}
+ -->                                              </span>
+                                            </td>
+                                            <td>
+
+                                              <span v-if="itemData.dr_inspection_accept_days > 2" style="color:red">
+                                              {{itemData.dr_inspection_accept_days}}
+<!--                                                 {{getDiff(itemData.iar_accepted_date, itemData.dr_inspection)}}
+ -->                                              </span>
+                                              <span v-if="itemData.dr_inspection_accept_days <= 2" >
+                                              {{itemData.dr_inspection_accept_days}}
+<!--                                                 {{getDiff(itemData.iar_accepted_date, itemData.dr_inspection)}}
+ -->                                              </span>
                                             </td>
                                             <td>
                                               <!-- 1 -->
-                                              <span v-if="getDiff(itemData.v_transaction_date, itemData.di_close) > 1" style="color:red">
-                                                {{getDiff(itemData.v_transaction_date, itemData.di_close)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.v_transaction_date, itemData.di_close) <= 1" >
-                                                {{getDiff(itemData.v_transaction_date, itemData.di_close)}}
-                                              </span>
+                                              <span v-if="itemData.di_days> 1" style="color:red">
+                                              {{itemData.di_days}}
+<!--                                                 {{getDiff(itemData.di_close, itemData.di_start)}}
+ -->                                              </span>
+                                              <span v-if="itemData.di_days<= 1" >
+                                              {{itemData.di_days}}
+<!--                                                 {{getDiff(itemData.di_close, itemData.di_start)}}
+ -->                                              </span>
                                             </td>
                                             <td>
                                               <!-- 1 -->
-                                              <span v-if="getDiff(itemData.preaudit_date, itemData.v_transaction_date) > 1" style="color:red">
-                                                {{getDiff(itemData.preaudit_date, itemData.v_transaction_date)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.preaudit_date, itemData.v_transaction_date) <= 1" >
-                                                {{getDiff(itemData.preaudit_date, itemData.v_transaction_date)}}
-                                              </span>
+                                              <span v-if="itemData.vou_days > 1" style="color:red">
+                                              {{itemData.vou_days}}
+<!--                                                 {{getDiff(itemData.preaudit_date, itemData.v_transaction_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.vou_days <= 1" >
+                                              {{itemData.vou_days}}
+<!--                                                 {{getDiff(itemData.preaudit_date, itemData.v_transaction_date)}}
+ -->                                              </span>
                                             </td>
                                             <td>
                                               <!-- 1 -->
-                                              <span v-if="getDiff(itemData.vou_release, itemData.preaudit_date) > 1" style="color:red">
-                                                {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
-                                              </span>
-                                              <span v-if="getDiff(itemData.vou_release, itemData.preaudit_date) <= 1" >
-                                                {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
-                                              </span>
+                                              <span v-if="itemData.vou_certify_days > 1" style="color:red">
+                                              {{itemData.vou_certify_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.vou_certify_days <= 1" >
+                                              {{itemData.vou_certify_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                            </td>
+                                            <td>
+
+                                              <!-- 1 -->
+                                              <span v-if="itemData.vou_jev_days > 1" style="color:red">
+                                              {{itemData.vou_jev_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.vou_jev_days <= 1" >
+                                              {{itemData.vou_jev_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                            </td>
+                                            <td>
+
+                                              <!-- 1 -->
+                                              <span v-if="itemData.vou_approved_days > 1" style="color:red">
+                                              {{itemData.vou_approved_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.vou_approved_days <= 1" >
+                                              {{itemData.vou_approved_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                            </td>
+                                            <td>
+
+                                              <!-- 2 -->
+                                              <span v-if="itemData.vou_preaudit_days > 2" style="color:red">
+                                              {{itemData.vou_preaudit_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.vou_preaudit_days <= 2" >
+                                              {{itemData.vou_preaudit_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                            </td>
+                                            <td>
+
+                                              <!-- 1 -->
+                                              <span v-if="itemData.voucher_pc_days > 1" style="color:red">
+                                              {{itemData.voucher_pc_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.voucher_pc_days <= 1" >
+                                              {{itemData.voucher_pc_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                            </td>
+                                            <td>
+
+                                              <!-- 1 -->
+                                              <span v-if="itemData.vou_released_days > 1" style="color:red">
+                                              {{itemData.vou_released_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.vou_released_days <= 1" >
+                                              {{itemData.vou_released_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                            </td>
+                                            <td>
+
+                                              <!-- 1 -->
+                                              <span v-if="itemData.voucher_counter_days > 1" style="color:red">
+                                              {{itemData.voucher_counter_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.voucher_counter_days <= 1" >
+                                              {{itemData.voucher_counter_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                            </td>
+                                            <td>
+
+                                              <!-- 1 -->
+                                              <span v-if="itemData.voucher_received_days > 1" style="color:red">
+                                              {{itemData.voucher_received_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
+                                              <span v-if="itemData.voucher_received_days <= 1" >
+                                              {{itemData.voucher_received_days}}
+<!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
+ -->                                              </span>
                                             </td>
                                             <td>
                                               {{itemData.calendar_days}}

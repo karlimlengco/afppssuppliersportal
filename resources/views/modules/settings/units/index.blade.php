@@ -22,7 +22,7 @@ Units
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
-                    <th>PCCO</th>
+                    <th>PC/CO</th>
                     <th>Created</th>
                 </tr>
             </thead>

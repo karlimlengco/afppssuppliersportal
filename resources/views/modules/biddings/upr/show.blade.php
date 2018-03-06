@@ -199,7 +199,7 @@ Unit Purchase Request
 <div class="data-panel">
     <div class="data-panel__section">
             <ul class="data-panel__list">
-                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Project Name:</strong> {{$data->project_name}} </li>
+                <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Project Name / Activity:</strong> {{$data->project_name}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">UPR No. :</strong> {{$data->upr_number}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Reference No. :</strong> {{$data->ref_number}} </li>
                 <li  class="data-panel__list__item"> <strong  class="data-panel__list__item__label">Date Prepared :</strong> {{$data->date_prepared}} </li>

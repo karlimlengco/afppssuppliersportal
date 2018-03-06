@@ -19,7 +19,7 @@ Units
 
         <div class="row">
             <div class="six columns">
-                {!! Form::selectField('pcco_id', 'PCCO', $center_list) !!}
+                {!! Form::selectField('pcco_id', 'PC/CO', $center_list) !!}
             </div>
             <div class="six columns">
                 {!! Form::textField('short_code', 'Short Name') !!}

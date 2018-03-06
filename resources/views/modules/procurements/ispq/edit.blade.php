@@ -33,7 +33,6 @@ Invitation to Submit Price Quotation
 
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
-
         <button type="button" id="edit-button" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
 
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
@@ -51,6 +50,15 @@ Invitation to Submit Price Quotation
 <div class="row">
     <div class="twelve columns">
 
+            <div class="row">
+                <div class="six columns">
+                    {!! Form::textField('canvassing_date', 'Canvass Date', $data->quotations->first()->canvassing_date ) !!}
+                </div>
+                <div class="six columns">
+                    {!! Form::textField('canvassing_time', 'Canvass Time', $data->quotations->first()->canvassing_time) !!}
+                </div>
+
+            </div>
             <div class="row">
                 <div class="six columns">
                     {!! Form::textField('transaction_date', 'Transaction Date') !!}
@@ -129,6 +137,24 @@ Invitation to Submit Price Quotation
         // minDate: new Date(),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020]
+    });
+
+     var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-canvassing_date'),
+        firstDay: 1,
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+    var timepicker = new TimePicker([ 'id-field-canvassing_time'], {
+        lang: 'en',
+        theme: 'dark'
+    });
+
+    timepicker.on('change', function(evt){
+      var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+      evt.element.value = value;
     });
 
     // end datepicker

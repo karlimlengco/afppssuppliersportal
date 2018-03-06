@@ -125,7 +125,7 @@ class PostQualificationController extends Controller
             return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
         }, $transaction_date);
 
-        $cd                     =   $upr_model->date_prepared->diffInDays($transaction_date);
+        $cd                     =   $upr_model->date_processed->diffInDays($transaction_date);
         $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
 
         if($day_delayed > 45)

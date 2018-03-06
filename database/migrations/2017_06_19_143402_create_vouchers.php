@@ -22,9 +22,7 @@ class CreateVouchers extends Migration
             $table->string('upr_number')->nullable();
             $table->date('transaction_date');
             $table->date('payment_release_date')->nullable();
-            $table->date('payment_received_date')->nullable();
             $table->string('process_releaser')->nullable();
-            $table->string('payment_receiver')->nullable();
             $table->string('bir_address');
             $table->string('final_tax')->nullable();
             $table->string('expanded_witholding_tax')->nullable();
@@ -41,10 +39,14 @@ class CreateVouchers extends Migration
             $table->text('update_remarks')->nullable();
             $table->string('final_tax_amount')->nullable();
             $table->string('ewt_amount')->nullable();
-            $table->string('or')->nullable();
             $table->string('payment_no')->nullable();
             $table->string('bank')->nullable();
             $table->string('payment_date')->nullable();
+
+
+            $table->date('payment_received_date')->nullable();
+            $table->string('or')->nullable();
+            $table->string('payment_receiver')->nullable();
 
             $table->date('approval_date')->nullable();
 

@@ -72,7 +72,7 @@ class BaseComposer
 
         foreach($delays as $key => $item)
         {
-            $upr_created    = Carbon::createFromFormat('!Y-m-d', $item->upr_created_at);
+            $upr_created    = Carbon::createFromFormat('!Y-m-d H:i:s', $item->upr_created_at);
 
             if($item->next_due)
             {
@@ -82,7 +82,6 @@ class BaseComposer
             {
                 $next_due       = $item->date_prepared;
             }
-
             $days = $today->diffInDaysFiltered(function (Carbon $date) use ($h_lists) {
                 return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
             }, $next_due);
@@ -95,7 +94,7 @@ class BaseComposer
                     'upr_number'        =>  $item->upr_number,
                     'ref_number'        =>  $item->ref_number,
                     'total_amount'      =>  $item->total_amount,
-                    'date_prepared'     =>  $item->date_prepared,
+                    'date_prepared'     =>  $item->date_processed,
                     'state'             =>  $item->state,
                     'event'             =>  ($item->next_step) ? $item->next_step  : "Processing UPR",
                     'status'            =>  "Delay",
