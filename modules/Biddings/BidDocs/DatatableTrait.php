@@ -19,10 +19,29 @@ trait DatatableTrait
     public function getDatatable()
     {
         $model  =   $this->model;
-
         $model  =   $model->select(['bid_docs_issuance.*', 'suppliers.name as proponent']);
-
         $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'bid_docs_issuance.proponent_id');
+        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'bid_docs_issuance.upr_id');
+
+
+
+        $user = \Sentinel::getUser();
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+
+            $center =   0;
+            if($user->units)
+            {
+                if($user->units->centers)
+                {
+                    $center =   $user->units->centers->id;
+                }
+            }
+
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+
+        }
+
 
         $model->orderBy('created_at', 'desc');
 

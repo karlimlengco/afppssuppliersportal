@@ -55,7 +55,6 @@ trait DatatableTrait
             }
         }
 
-
         if(!\Sentinel::getUser()->hasRole('Admin') )
         {
 
@@ -69,7 +68,7 @@ trait DatatableTrait
                 }
             }
 
-            $model  =   $model->orWhere('unit_purchase_requests.procurement_office','=', $center);
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
 
         }
 
