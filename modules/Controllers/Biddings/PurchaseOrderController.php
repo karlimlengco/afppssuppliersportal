@@ -797,6 +797,17 @@ class PurchaseOrderController extends Controller
         $result                     =  $model->with(['rfq'])->findById($id);
         $data['transaction_date']   =  $result->rfq->transaction_date;
         $data['rfq_number']         =  $result->rfq_number;
+        $data['header']             =  $result->upr->centers;
+
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
+        if($result->upr->centers)
+        {
+            $data['unit'] = $result->upr->centers->name;
+        }
+        if($result->upr->unit){
+            $data['unit'] = $result->upr->unit->description;
+        }
 
         $pdf = PDF::loadView('forms.po-terms', ['data' => $data])->setOption('margin-bottom', 0)->setPaper('a4');
 

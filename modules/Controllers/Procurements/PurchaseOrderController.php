@@ -1033,7 +1033,13 @@ class PurchaseOrderController extends Controller
 
         $header                     =  $headers->findByUnit($result->upr->units);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
-
+        if($result->upr->centers)
+        {
+            $data['unit'] = $result->upr->centers->name;
+        }
+        if($result->upr->unit){
+            $data['unit'] = $result->upr->unit->description;
+        }
         $pdf = PDF::loadView('forms.po-terms', ['data' => $data])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'));
