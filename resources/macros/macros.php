@@ -589,7 +589,7 @@ function translateToWords($number)
 {
 
   $num = str_replace(',', '', $number);
-  $num = number_format($number,2);
+  $num = number_format($num,2);
   $num = str_replace(',', '', $num);
   $split = explode('.',$num);
   $cents = '';
