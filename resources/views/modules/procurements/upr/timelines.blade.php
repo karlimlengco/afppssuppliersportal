@@ -92,7 +92,7 @@ Unit Purchase Request
                 @if($data->mode_of_procurement != 'public_bidding')
 
                 <tr>
-                    <td>Create Invitation</td>
+                    <td>Invitation To Submit Price Quotation</td>
                     <td>
                         @if($data->ispq_transaction_date != null)
                             <a target="_blank" href="{{route('procurements.ispq.edit', $data->ispq_id)}}">

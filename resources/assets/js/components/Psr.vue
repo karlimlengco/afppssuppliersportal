@@ -522,12 +522,12 @@
                                             <td>
                                               <!-- 1 -->
 
-                                              <span v-if="itemData.noa_pp_days > 1" style="color:red">
-                                                {{itemData.noa_pp_days}}
+                                              <!-- <span v-if="itemData.noa_pp_days > 1" style="color:red"> -->
+                                                <!-- {{itemData.noa_pp_days}} -->
 
                                                 <!-- {{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}} -->
-                                              </span>
-                                              <span v-if="itemData.noa_pp_days <= 1" >
+                                              <!-- </span> -->
+                                              <span  >
                                                 {{itemData.noa_pp_days}}
 
                                                 <!-- {{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}} -->
@@ -603,11 +603,12 @@
                                             </td>
                                             <td>
                                               <!-- 1 -->
-                                              <span v-if=" itemData.ntp_pp_days > 1" style="color:red">
-                                              {{itemData.ntp_pp_days}}
+                                              <!-- <span v-if=" itemData.ntp_pp_days > 1" style="color:red"> -->
+                                              <!-- {{itemData.ntp_pp_days}} -->
 <!--                                                 {{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}
- -->                                              </span>
-                                              <span v-if=" itemData.ntp_pp_days <= 1" >
+ -->
+ <!-- </span> -->
+                                              <span  >
                                               {{itemData.ntp_pp_days}}
 <!--                                                 {{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}
  -->                                              </span>

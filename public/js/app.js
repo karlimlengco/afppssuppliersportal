@@ -74705,6 +74705,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -85693,11 +85694,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                                " + _vm._s(itemData.noa_received_days) + "\n\n                                                ")]) : _vm._e(), _vm._v(" "), (itemData.noa_received_days <= 1) ? _c('span', [_vm._v("\n                                                " + _vm._s(itemData.noa_received_days) + "\n\n                                                ")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.noa_pp_days > 1) ? _c('span', {
-          staticStyle: {
-            "color": "red"
-          }
-        }, [_vm._v("\n                                                " + _vm._s(itemData.noa_pp_days) + "\n\n                                                ")]) : _vm._e(), _vm._v(" "), (itemData.noa_pp_days <= 1) ? _c('span', [_vm._v("\n                                                " + _vm._s(itemData.noa_pp_days) + "\n\n                                                ")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.po_days > 2) ? _c('span', {
+        }, [_vm._v("\n                                                " + _vm._s(itemData.noa_received_days) + "\n\n                                                ")]) : _vm._e(), _vm._v(" "), (itemData.noa_received_days <= 1) ? _c('span', [_vm._v("\n                                                " + _vm._s(itemData.noa_received_days) + "\n\n                                                ")]) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                                " + _vm._s(itemData.noa_pp_days) + "\n\n                                                ")])]), _vm._v(" "), _c('td', [(itemData.po_days > 2) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
@@ -85721,11 +85718,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.ntp_accepted_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.ntp_accepted_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.ntp_accepted_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.ntp_pp_days > 1) ? _c('span', {
-          staticStyle: {
-            "color": "red"
-          }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.ntp_pp_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.ntp_pp_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.ntp_pp_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.dr_days > 2) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.ntp_accepted_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.ntp_accepted_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.ntp_accepted_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                              " + _vm._s(itemData.ntp_pp_days) + "\n")])]), _vm._v(" "), _c('td', [(itemData.dr_days > 2) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
