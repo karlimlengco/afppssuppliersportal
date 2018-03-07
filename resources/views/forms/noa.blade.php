@@ -33,28 +33,28 @@
                     <!-- title -->
                     <span class="printable-form__body__title">Notice of Award</span>
                     <!-- content -->
-                    <p>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['transaction_date'])->format('d F Y')}}</p>
-                    <p>
+                    <p  style="font-size:18px!important;">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['transaction_date'])->format('d F Y')}}</p>
+                    <p  style="font-size:18px!important;">
                         {{$data['supplier']->owner}}<br>
                         {{$data['supplier']->name}}<br>
                         {{$data['supplier']->address}}<br>
                         Tel: {{$data['supplier']->phone_1}} Fax: {{$data['supplier']->fax_1}}
                     </p>
-                    <p>Dear Sir/Madam,</p>
+                    <p style="font-size:18px!important;">Dear Sir/Madam,</p>
 
-                    <p style="text-align: justify">We are pleased to notify you that your price offer/s for the procurement of {{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) > 1) and {{translateToWords(count($data['items']) - 1)}} {{count($data['items']) - 1}} LI @endif only for the use of RFQ No.{{$data['rfq_number']}} dated {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['rfq_date'])->format('d F Y')}} for the use of {{$data['unit']}} in the amount of {{translateToWords( str_replace(',', '', $data['bid_amount']) )}} pesos only (Php {{formatPrice($data['bid_amount'])}}) is hereby accepted. A contract for the procurement of this item/s is being awarded to your company/firm.</p>
-                    <p  style="text-align: justify">You shall subsequently be informed (thru your contact number or email address specified below) accordingly to appear before this office for the requirements.</p>
-                    <p class="indent">
+                    <p style="text-align: justify;font-size:18px!important;">We are pleased to notify you that your price offer/s for the procurement of {{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) > 1) and {{translateToWords(count($data['items']) - 1)}} {{count($data['items']) - 1}} LI @endif only for the use of RFQ No.{{$data['rfq_number']}} dated {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['rfq_date'])->format('d F Y')}} for the use of {{$data['unit']}} in the amount of {{translateToWords( str_replace(',', '', $data['bid_amount']) )}} pesos only (Php {{formatPrice($data['bid_amount'])}}) is hereby accepted. A contract for the procurement of this item/s is being awarded to your company/firm.</p>
+                    <p  style="text-align: justify;font-size:18px!important;">You shall subsequently be informed (thru your contact number or email address specified below) accordingly to appear before this office for the requirements.</p>
+                    <p class="indent" style="font-size:18px!important;">
                         - Signing of {{$data['account_type']}}<br>
                         - Acknowledgement of the Notice to Proceed
                     </p>
-                    <p  style="text-align: justify">Failure to comply with the above requirements within the prescribed period shall be grounds for the cancellation of this award.</p>
-                    <p  style="text-align: justify">Meantime, you are requested to affix your conformity hereto and send this back to us not later than two (2) working days upon receipt of this notice. </p>
-                    <p>Very truly yours;</p>
+                    <p  style="text-align: justify;font-size:18px!important;">Failure to comply with the above requirements within the prescribed period shall be grounds for the cancellation of this award.</p>
+                    <p  style="text-align: justify;font-size:18px!important;">Meantime, you are requested to affix your conformity hereto and send this back to us not later than two (2) working days upon receipt of this notice. </p>
+                    <p style="font-size:18px!important;">Very truly yours;</p>
 
-                    <table class="printable-form__body__table no-border no-padding">
+                    <table class="printable-form__body__table no-border no-padding" style="font-size:18px!important;">
                         <tr>
-                            <td class="align-bottom align-left" width="45%" height="80px">
+                            <td style="font-size:18px!important;" class="align-bottom align-left" width="45%" height="80px">
                                 <strong>{{$data['signatory'][1]}} {{$data['signatory'][0]}} {{$data['signatory'][2]}}</strong><br>
                                 {{$data['signatory'][3]}}
                             </td>
@@ -64,7 +64,7 @@
                         <tr>
                             <td></td>
                             <td></td>
-                            <td><strong>Conforme:</strong></td>
+                            <td style="font-size:18px!important;"><strong>Conforme:</strong></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -74,7 +74,7 @@
                         <tr>
                             <td></td>
                             <td></td>
-                            <td class="align-bottom align-center border-top-only">Signature over Printed Name</td>
+                            <td  class="align-bottom align-center border-top-only">Signature over Printed Name</td>
                         </tr>
                         <tr>
                             <td></td>

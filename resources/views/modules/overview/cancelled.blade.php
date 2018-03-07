@@ -39,7 +39,9 @@ Overview Cancelled
                 <td>{{$data->name}}</td>
                 <td>
                     {{$data->upr_number}}
-                    <p style="margin-bottom:5px"><a target="_blank" href="/procurements/unit-purchase-requests/timelines/{{$data->id}}"><small>{{$data->project_name}}</small></a></p>
+                    <p style="margin-bottom:5px"><a target="_blank" href="/procurements/unit-purchase-requests/timelines/{{$data->id}}">
+                    <small>{{$data->project_name}}</small>
+                    </a></p>
                 </td>
                 {{-- <td>{{$data->ref_number}}</td> --}}
                 <td>{{formatPrice($data->total_abc)}}</td>

@@ -79,7 +79,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function findTimelineById($id, Request $request)
+    public function findTimelineById($id)
     {
 
         $model  =    $this->model;
