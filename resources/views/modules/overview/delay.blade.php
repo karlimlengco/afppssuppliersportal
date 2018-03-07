@@ -38,6 +38,9 @@ Overview Delay
         </tr>
     </thead>
     <tbody>
+        <?php $totalAbc = 0; ?>
+        <?php $totalBid = 0; ?>
+        <?php $totalResidual =  0; ?>
         @foreach($result as $data)
             <tr>
                 <td>{{$data->name}}</td>
@@ -51,7 +54,7 @@ Overview Delay
                 {{-- <td style="text-transform: uppercase;">{{$data->status}}</td> --}}
 
                 <td style="text-transform: uppercase;">
-                @if($$data->status == 'PO FUNDING APPROVED')
+                @if($data->status == 'PO FUNDING APPROVED')
                   PO MFO OBLIGATION
                 @else
                   {{$data->status}}
@@ -65,7 +68,22 @@ Overview Delay
                 <td>{{$data->last_remarks}}</td>
                 <td>{{$data->last_action}}</td>
             </tr>
+            <?php $totalAbc =  $totalAbc + $data->total_abc; ?>
+            <?php $totalBid =  $totalBid + $data->total_bid; ?>
+            <?php $totalResidual =  $totalResidual + $data->total_residual; ?>
         @endforeach
+        <tr>
+          <td>Total</td>
+          <td></td>
+          <td></td>
+          <td>{{formatPrice($totalAbc)}}</td>
+          <td>{{formatPrice($totalBid)}}</td>
+          <td>{{formatPrice($totalResidual)}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
     </tbody>
 </table>
 

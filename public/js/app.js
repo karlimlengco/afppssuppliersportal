@@ -84499,10 +84499,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "placeholder": "Start Date",
       "type": "text",
-      "format": "yyyy-MM-dd",
+      "format": "dd-MM-yyyy",
       "id": "start",
       "name": "date_from",
-      "onfocus": "(this.type='date')"
+      "onfocus": "(this.type='date')",
+      "onfocusout": "(this.type='text')"
     },
     domProps: {
       "value": (_vm.startDate)
@@ -84534,7 +84535,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "format": "yyyy-MM-dd",
       "id": "end",
       "name": "date_to",
-      "onfocus": "(this.type='date')"
+      "onfocus": "(this.type='date')",
+      "onfocusout": "(this.type='text')"
     },
     domProps: {
       "value": (_vm.endDate)
