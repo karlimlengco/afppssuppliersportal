@@ -26,12 +26,12 @@ Overview Ongoing
         <tr>
            <th class="align-center" width="15%">PC/CO</th>
            <th class="align-center" width="40%" >UPR Number</th>
+           <th class="align-center" width="10%">UPR Receipt</th>
            {{-- <th class="align-center" width="10%">Ref Number</th> --}}
            <th class="align-center" width="10%">Status</th>
            <th class="align-center" width="5%">ABC</th>
            <th class="align-center" width="5%">Approved Contract</th>
            <th class="align-center" width="5%">Residual</th>
-           <th class="align-center" width="10%">Date Prepared</th>
         </tr>
     </thead>
     <tbody>
@@ -42,11 +42,14 @@ Overview Ongoing
             <tr>
                 <td>{{$data->name}}</td>
                 <td>
-                    {{$data->upr_number}}
+                    {{$data->project_name}}
                     <p style="margin-bottom:5px"><a target="_blank" href="/procurements/unit-purchase-requests/timelines/{{$data->id}}">
-                    <small>{{$data->project_name}}</small>
+                    <small>
+                    {{$data->upr_number}}
+                    </small>
                     </a></p>
                 </td>
+                <td>{{$data->date_processed->format('d F Y')}}</td>
                 {{-- <td>{{$data->ref_number}}</td> --}}
                 <td style="text-transform: uppercase;">
                 @if($data->status == 'PO FUNDING APPROVED')
@@ -58,7 +61,6 @@ Overview Ongoing
                 <td>{{formatPrice($data->total_abc)}}</td>
                 <td>{{formatPrice($data->total_bid)}}</td>
                 <td>{{formatPrice($data->total_residual)}}</td>
-                <td>{{$data->date_processed->format('d F Y')}}</td>
 
             <?php $totalAbc =  $totalAbc + $data->total_abc; ?>
             <?php $totalBid =  $totalBid + $data->total_bid; ?>

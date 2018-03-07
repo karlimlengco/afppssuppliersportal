@@ -44,9 +44,11 @@ Overview Delay
             <tr>
                 <td>{{$data->name}}</td>
                 <td>
-                    {{$data->upr_number}}
+                    {{$data->project_name}}
                     <p style="margin-bottom:5px"><a target="_blank" href="/procurements/unit-purchase-requests/timelines/{{$data->id}}">
-                    <small>{{$data->project_name}}</small>
+                    <small>
+                    {{$data->upr_number}}
+                    </small>
                     </a></p>
                 </td>
                 {{-- <td>{{$data->ref_number}}</td> --}}
