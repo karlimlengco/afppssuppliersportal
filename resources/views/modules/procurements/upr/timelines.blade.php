@@ -970,7 +970,7 @@ Unit Purchase Request
 
                     <td>
                     @if(isset($noa_award_accepted_date))
-                        @if($data->noa_philgeps_posting != null)
+                       {{--  @if($data->noa_philgeps_posting != null)
                              {{ $data->noa_philgeps_days }}
                             <?php $totalDays +=  $data->noa_philgeps_days ; ?>
 
@@ -983,14 +983,13 @@ Unit Purchase Request
 
                             <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
 
-                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
                             {{$d}}
 
 
                             @if($d > 1)
                                 <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
                             @endif
-                        @endif
+                        @endif --}}
                     @endif
                     </td>
                     <td>{{$data->noa_received_remarks}}</td>
@@ -1011,26 +1010,7 @@ Unit Purchase Request
                     </td>
                     <td>2</td>
                     <td>
-                    @if(isset($noa_philgeps_posting))
-                        @if($data->po_create_date != null)
-                            {{ $data->po_days }}
-                            <?php $totalDays +=  $data->po_days ; ?>
 
-                            @if($data->po_days > 2)
-                                <strong class="red" tooltip="Delay">({{$data->po_days - 2}})</strong>
-                            @endif
-
-                        @else
-                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
-                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                            {{$d}}
-
-                            @if($d > 2)
-                                <strong class="red" tooltip="Delay">({{$d - 2}})</strong>
-                            @endif
-
-                        @endif
-                    @endif
                     </td>
                     <td>{{$data->po_remarks}}</td>
                     <td>{{$data->po_action}}</td>
