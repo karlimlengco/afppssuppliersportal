@@ -346,7 +346,7 @@
                                       <template v-if='item.unit == unit.short_code'>
                                         <template v-for="itemData in item.data">
                                         <tr>
-                                            <td>{{itemData.upr_number}}</td>
+                                            <td>{{itemData.upr_number}} <small>({{trimString(itemData.status)}})</small></td>
                                             <td>{{itemData.project_name}}</td>
                                             <td>{{itemData.end_user}}</td>
                                             <td>{{formatPrice(itemData.total_amount)}}</td>
@@ -820,6 +820,11 @@
           formatDate: function(value){
             if(value){
                return moment(value).format('MMM DD YYYY')
+            }
+          },
+          trimString: function(value){
+            if(value){
+               return value.replace('_', ' ')
             }
           },
           formatPrice(value) {

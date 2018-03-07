@@ -74727,6 +74727,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return moment(value).format('MMM DD YYYY');
       }
     },
+    trimString: function trimString(value) {
+      if (value) {
+        return value.replace('_', ' ');
+      }
+    },
     formatPrice: function formatPrice(value) {
       if (value) {
         var val = (value / 1).toFixed(2).replace('.', '.');
@@ -85628,7 +85633,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "child-table table-name"
     }, [_c('tbody', [_vm._l((_vm.items), function(item) {
       return [(item.unit == unit.short_code) ? [_vm._l((item.data), function(itemData) {
-        return [_c('tr', [_c('td', [_vm._v(_vm._s(itemData.upr_number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.project_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.end_user))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemData.total_amount)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.date_processed)))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [(itemData.ispq_days > 3) ? _c('span', {
+        return [_c('tr', [_c('td', [_vm._v(_vm._s(itemData.upr_number) + " "), _c('small', [_vm._v("(" + _vm._s(_vm.trimString(itemData.status)) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.project_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.end_user))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemData.total_amount)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.date_processed)))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [(itemData.ispq_days > 3) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
