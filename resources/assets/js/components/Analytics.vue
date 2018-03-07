@@ -34,7 +34,7 @@
                         <th v-if="showInfo" >Total ABC</th>
                         <th v-if="showInfo" >Approved Contract Amount</th>
                         <th v-if="showInfo" >DUE FOR OBLIGATION</th>
-                        <th v-if="showInfo" >RESIDUAL OF COMPLETED PROJECTS</th>
+                        <th v-if="showInfo" >Balance Amount of Completed Projects</th>
                         <th v-if="show" >Number of Days Delay</th>
                         <th style="text-align:center" v-if="show" >Current Status</th>
                         <th style="text-align:center" v-if="show" >Justification</th>
