@@ -200,7 +200,10 @@
                                                                                                         <template v-if="itemProgCent.program == itemUnitData.short_code">
                                                                                                             <template v-if="itemProgCent.center == itemProgData.name">
                                                                                                         <tr  v-for="itemProgCentData in itemProgCent.data">
-                                                                                                    <td> <i class="green" style="font-family: Verdana;">{{itemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small></td>
+                                                                                                    <td> <i class="green" style="font-family: Verdana;">{{itemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small>
+
+                                                                                                    <small>({{formatDate(itemProgCentData.date_processed)}})</small>
+                                                                                                    </td>
                                                                                                     <td @click.prevent="changeInfo()">
 
 <!--                                                                                                         <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{itemProgCentData.upr_count}}</span>
@@ -533,6 +536,11 @@ var tarray2IDs           =   [];
             formatPrice(value) {
                 let val = (value/1).toFixed(2).replace('.', '.')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            },
+            formatDate(value) {
+                if(value){
+                  return moment(value).format('MMM DD YYYY')
+                }
             },
             fetchUprAnalytics: function(type) {
                 axios.get('/reports/programs/'+type+'?date_from='+this.startDate+'&&date_to='+this.endDate)

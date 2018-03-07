@@ -72694,6 +72694,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 var arrayIDs = [];
@@ -72751,6 +72754,11 @@ var tarray2IDs = [];
         formatPrice: function formatPrice(value) {
             var val = (value / 1).toFixed(2).replace('.', '.');
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        },
+        formatDate: function formatDate(value) {
+            if (value) {
+                return moment(value).format('MMM DD YYYY');
+            }
         },
 
         fetchUprAnalytics: function fetchUprAnalytics(type) {
@@ -84770,7 +84778,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                     "target": "_blank",
                     "href": '/procurements/unit-purchase-requests/timelines/' + itemProgCentData.id
                   }
-                }, [_vm._v("(" + _vm._s(itemProgCentData.project_name) + ")")])])]), _vm._v(" "), _c('td', {
+                }, [_vm._v("(" + _vm._s(itemProgCentData.project_name) + ")")])]), _vm._v(" "), _c('small', [_vm._v("(" + _vm._s(_vm.formatDate(itemProgCentData.date_processed)) + ")")])]), _vm._v(" "), _c('td', {
                   on: {
                     "click": function($event) {
                       $event.preventDefault();

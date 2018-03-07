@@ -354,7 +354,7 @@ trait AnalyticTrait
 
         $model  =   $model->select([
             DB::raw("count(unit_purchase_requests.id) as upr_count"),
-
+            'unit_purchase_requests.date_processed',
             DB::raw("IFNULL( SUM(CASE
              WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' and unit_purchase_requests.next_due <  NOW()  AND unit_purchase_requests.state != 'cancelled' THEN 1
              ELSE 0
@@ -448,6 +448,7 @@ trait AnalyticTrait
             'procurement_centers.programs',
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.next_due',
+            'unit_purchase_requests.date_processed',
             'unit_purchase_requests.delay_count',
             'unit_purchase_requests.status',
             'catered_units.short_code',
