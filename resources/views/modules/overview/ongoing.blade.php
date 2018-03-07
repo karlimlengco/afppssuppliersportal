@@ -1,5 +1,5 @@
 @section('title')
-Overview of Ongoing Project
+Overview of Ongoing Projects
 @stop
 
 

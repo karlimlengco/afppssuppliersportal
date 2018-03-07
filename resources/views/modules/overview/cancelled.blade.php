@@ -1,5 +1,5 @@
 @section('title')
-Overview of Cancelled Project
+Overview of Cancelled Projects
 @stop
 
 
