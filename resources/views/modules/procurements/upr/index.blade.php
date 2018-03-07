@@ -50,7 +50,7 @@ Unit Purchase Request
                 <tr>
                     <th>UPR No.</th>
                     {{-- <th>Ref No.</th> --}}
-                    <th>Project</th>
+                    <th>Project Name/ Activity</th>
                     <th>ABC</th>
                     <th>TYPE</th>
                     <th>Status</th>
