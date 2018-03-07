@@ -55,7 +55,7 @@ Procurement Status Report
                 <th>Prepare NOA</th>
                 <th>Approved NOA</th>
                 <th>Received NOA</th>
-                <th>PO/JO/WO Creation</th>
+                <th>PO/JO/WO Preparation</th>
                 <th>Funding</th>
                 <th>MFO Funding/Obligation</th>
                 <th>PO COA Approval</th>
@@ -95,7 +95,7 @@ Procurement Status Report
                 <th>Prepare NOA (BAC)</th>
                 <th>Approved NOA (PCCO)</th>
                 <th>Received NOA (PCCO)</th>
-                <th>Contract Creation (PCCO)</th>
+                <th>Contract Preparation (PCCO)</th>
                 <th>Contract Funding (PCCO)</th>
                 <th>MFO Funding/Obligation (PCCO)</th>
                 <th>Contract COA Approval (PCCO)</th>

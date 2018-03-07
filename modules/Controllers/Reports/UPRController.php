@@ -389,7 +389,7 @@ class UPRController extends Controller
                         'NOA',
                         'NOA Approved',
                         'NOA Accepted',
-                        'Contract Creation',
+                        'Contract Preparation',
                         'Funding',
                         'Issuance of Certificate',
                         'COA Approval',

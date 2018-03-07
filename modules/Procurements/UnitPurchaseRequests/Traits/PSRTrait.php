@@ -2907,7 +2907,6 @@ trait PSRTrait
           'unit_purchase_requests.state',
           'unit_purchase_requests.total_amount',
           'unit_purchase_requests.date_processed',
-          'unit_purchase_requests.status',
           // 'unit_purchase_requests.calendar_days',
           'document_acceptance.days',
           'document_acceptance.approved_date',

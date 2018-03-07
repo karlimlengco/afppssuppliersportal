@@ -277,7 +277,7 @@
                         <td v-if="showInfo" >{{formatPrice(total_abc)}}</td>
                         <td v-if="showInfo" >{{formatPrice(total_bid)}}</td>
                         <td v-if="showInfo" >{{formatPrice(total_residual)}}</td>
-                        <td v-if="showInfo" ></td>
+                        <td v-if="showInfo" >{{formatPrice(total_residual2)}}</td>
                         <td v-if="show" ></td>
                         <td v-if="show" ></td>
                         <td v-if="show" ></td>
@@ -817,6 +817,14 @@ var tarray2IDs           =   [];
                 }
                 return this.items.reduce(function (total, value){
                     return total +  Number(value.total_residual);
+                },0);
+            },
+            total_residual2: function(){
+                if(!this.items){
+                    return 0;
+                }
+                return this.items.reduce(function (total, value){
+                    return total +  Number(value.total_complete_residual);
                 },0);
             }
         }

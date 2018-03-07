@@ -617,7 +617,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>PO Creation</td>
+                    <td>PO Preparation</td>
                     <td>
                         @if($data->po_create_date != null)
                         <?php $po_create_date = createCarbon('Y-m-d',$data->po_create_date); ?>

@@ -48,7 +48,7 @@
                             <th>Prepare NOA</th>
                             <th>Approved NOA</th>
                             <th>Received NOA</th>
-                            <th>PO/JO/WO Creation</th>
+                            <th>PO/JO/WO Preparation</th>
                             <th>Funding</th>
                             <th>MFO Funding/Obligation</th>
                             <th>PO COA Approval</th>
