@@ -52,7 +52,7 @@ Unit Purchase Request
                     {{-- <th>Ref No.</th> --}}
                     <th>Project Name/ Activity</th>
                     <th>ABC</th>
-                    <th>TYPE</th>
+                    <th>Mode</th>
                     <th>Status</th>
                     <th>Created</th>
                     <th>Date Prepared</th>
