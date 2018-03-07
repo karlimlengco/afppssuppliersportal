@@ -49,6 +49,13 @@ Overview of Ongoing Projects
                 </td>
                 <td>{{$data->date_processed->format('d F Y')}}</td>
                 {{-- <td>{{$data->ref_number}}</td> --}}
+                <td style="text-transform: uppercase;">
+                @if($data->status == 'PO FUNDING APPROVED')
+                  PO MFO OBLIGATION
+                @else
+                  {{$data->status}}
+                @endif
+                </td>
                 <td>{{formatPrice($data->total_abc)}}</td>
                 <td>{{formatPrice($data->total_bid)}}</td>
                 <td>{{formatPrice($data->total_residual)}}</td>
