@@ -277,9 +277,9 @@ class NoticeOfAwardController extends Controller
         $model->update($input, $id);
 
         $nextStep           =   'Create PO';
-        if($result->upr->total_amount > 50000){
-          $nextStep           =   'NOA Philgeps Posting';
-        }
+        // if($result->upr->total_amount > 50000){
+        //   $nextStep           =   'NOA Philgeps Posting';
+        // }
 
         $upr_result = $upr->update([
             'next_allowable'=> 2,
@@ -363,17 +363,17 @@ class NoticeOfAwardController extends Controller
         $result             =   $model->findById($id);
 
         $model->update($input, $id);
-        $upr_result = $upr->update([
-            'next_allowable'=> 2,
-            'next_step'     => 'Create PO',
-            'next_due'      => $award_accepted_date->addDays(2),
-            'last_date'     => $award_accepted_date,
-            'status'        => 'NOA Philgeps Posting',
-            'delay_count'   => $day_delayed,
-            'calendar_days' => $cd + $result->upr->calendar_days,
-            'last_action'   => $request->action,
-            'last_remarks'  => $request->remarks
-            ], $result->upr_id);
+        // $upr_result = $upr->update([
+        //     'next_allowable'=> 2,
+        //     'next_step'     => 'Create PO',
+        //     'next_due'      => $award_accepted_date->addDays(2),
+        //     'last_date'     => $award_accepted_date,
+        //     'status'        => '  Philgeps Posting',
+        //     'delay_count'   => $day_delayed,
+        //     'calendar_days' => $cd + $result->upr->calendar_days,
+        //     'last_action'   => $request->action,
+        //     'last_remarks'  => $request->remarks
+        //     ], $result->upr_id);
 
         event(new Event($upr_result, $upr_result->ref_number." NOA Philgeps Posting"));
 

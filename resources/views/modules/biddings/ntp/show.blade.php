@@ -42,6 +42,9 @@ Notice To Proceed
                 </a>
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
 
+                @if($data->received_by && $data->upr->total_amount > 50000 && !$data->philgeps_posting)
+                    <a href="#" class="button__options__item" id="ntp-philgeps-button" tooltip="PhilGeps Posting">PhilGeps Posting</a>
+                @endif
 
             </div>
         </span>
@@ -68,9 +71,6 @@ Notice To Proceed
         @if(!$data->received_by)
             Received
             <a href="#" id="proceed-ntp-button" tooltip="Received" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
-        @elseif($data->received_by && $data->upr->total_amount > 50000 && !$data->philgeps_posting)
-            <span >PhilGeps Posting</span>
-            <a href="#" class="button" id="ntp-philgeps-button" tooltip="PhilGeps Posting"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @else
             Go to UPR
             <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="Accept NOA" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>

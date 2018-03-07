@@ -545,10 +545,10 @@ class NoticeToProceedController extends Controller
         $result             =   $model->update($input, $id);
         $delivery_days      =   $ntp_model->po->delivery_terms;
         $nextStep           =   'Prepare NOD';
-        if($ntp_model->upr->total_amount > 50000){
-          $delivery_days      =   1;
-          $nextStep           =   'NTP Philgeps Posting';
-        }
+        // if($ntp_model->upr->total_amount > 50000){
+        //   $delivery_days      =   1;
+        //   $nextStep           =   'NTP Philgeps Posting';
+        // }
         $upr_result  =  $upr->update([
             'next_allowable'=> $delivery_days,
             'next_step'     => $nextStep,
