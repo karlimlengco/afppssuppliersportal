@@ -31,13 +31,13 @@
                             # UPR
                         </th>
                         <th v-if="showInfo" >Total ABC</th>
-                        <th v-if="showInfo" >Approved Contract Amount</th>
+                        <th v-if="showInfo" >APPROVED CONTRACT AMOUNT</th>
                         <th v-if="showInfo" >DUE FOR OBLIGATION</th>
-                        <th v-if="showInfo" >Balance Amount OF COMPLETED PROJECTS</th>
-                        <th v-if="show" >Number of Days Delay</th>
-                        <th style="text-align:center" v-if="show" >Current Status</th>
-                        <th style="text-align:center" v-if="show" >Justification</th>
-                        <th style="text-align:center" v-if="show" >Action Taken</th>
+                        <th v-if="showInfo" >BALANCE AMOUNT OF COMPLETED PROJECTS</th>
+                        <th v-if="show" >NUMBER OF DAYS DELAY</th>
+                        <th style="text-align:center" v-if="show" >CURRENT STATUS</th>
+                        <th style="text-align:center" v-if="show" >JUSTIFICATION</th>
+                        <th style="text-align:center" v-if="show" >ACTION TAKEN</th>
                     </tr>
                 </thead>
                 <tbody>

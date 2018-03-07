@@ -84594,19 +84594,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                            # UPR\n                        ")]), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Total ABC")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Approved Contract Amount")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("DUE FOR OBLIGATION")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Balance Amount OF COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', [_vm._v("Number of Days Delay")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
+  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                            # UPR\n                        ")]), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Total ABC")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("APPROVED CONTRACT AMOUNT")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("DUE FOR OBLIGATION")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("BALANCE AMOUNT OF COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', [_vm._v("NUMBER OF DAYS DELAY")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("Current Status")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
+  }, [_vm._v("CURRENT STATUS")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("Justification")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
+  }, [_vm._v("JUSTIFICATION")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("Action Taken")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
+  }, [_vm._v("ACTION TAKEN")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
     return [_c('tr', [_c('td', [_vm._v("\n                                Program " + _vm._s(item.programs) + "\n                                "), (item.upr_count > 0) ? _c('button', {
       staticClass: "show-child-table",
       on: {
