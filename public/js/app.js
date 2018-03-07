@@ -85625,7 +85625,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('table', {
     staticClass: "table table--with-border table-name"
   }, [_c('thead', [_c('tr', [_c('th', [_vm._v("PC/CO (UPR NUMBER)")]), _vm._v(" "), _c('th', [_vm._v("PROJECT NAME/ ACTIVITY")]), _vm._v(" "), _c('th', [_vm._v("END USER")]), _vm._v(" "), _c('th', [_vm._v("ABC")]), _vm._v(" "), _vm._m(2), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("\n                              ITSPQ\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("\n                              PHILGEPS POSTING\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("\n                              RFQ\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("\n                              CANVASS\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              Document Acceptance (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              Pre Proc (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              Invitation to BId (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              PhilGeps Posting (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              Pre Bid Conference (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              SOBE (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              POST QUAL (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _vm._m(6), _vm._v(" "), _vm._m(7), _vm._v(" "), _vm._m(8), _vm._v(" "), _vm._m(9), _vm._v(" "), _vm._m(10), _vm._v(" "), _vm._m(11), _vm._v(" "), _vm._m(12), _vm._v(" "), _vm._m(13), _vm._v(" "), _vm._m(14), _vm._v(" "), _vm._m(15), _vm._v(" "), _vm._m(16), _vm._v(" "), _vm._m(17), _vm._v(" "), _vm._m(18), _vm._v(" "), _vm._m(19), _vm._v(" "), _vm._m(20), _vm._v(" "), _vm._m(21), _vm._v(" "), _vm._m(22), _vm._v(" "), _vm._m(23), _vm._v(" "), _vm._m(24), _vm._v(" "), _vm._m(25), _vm._v(" "), _vm._m(26), _vm._v(" "), _vm._m(27), _vm._v(" "), _vm._m(28), _vm._v(" "), _c('th', [_vm._v("\n                              TOTAL NUMBER OF DAYS\n                            ")])])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.units), function(unit) {
-    return [_c('tr', [_c('td', [_vm._v("\n                                  " + _vm._s(unit.short_code) + " "), _c('span', {
+    return [_c('tr', [_c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("\n                                  " + _vm._s(unit.short_code) + " "), _c('span', {
       attrs: {
         "tooltip": "Total"
       }
@@ -85660,7 +85664,131 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "nc-icon-mini ui-1_circle-add"
-    })])]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(unit.total_abc)))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")]), _vm._v(" "), _c('td', [_vm._v("--")])]), _vm._v(" "), _c('tr', [_c('td', {
+    })])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v(_vm._s(_vm.formatPrice(unit.total_abc)))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("--")])]), _vm._v(" "), _c('tr', [_c('td', {
       staticClass: "has-child",
       attrs: {
         "colspan": "40"
@@ -85669,7 +85797,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "child-table table-name"
     }, [_c('tbody', [_vm._l((_vm.items), function(item) {
       return [(item.unit == unit.short_code) ? [_vm._l((item.data), function(itemData) {
-        return [_c('tr', [_c('td', [_vm._v(_vm._s(itemData.upr_number) + " "), _c('small', [_vm._v("(" + _vm._s(_vm.trimString(itemData.status)) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.project_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(itemData.end_user))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemData.total_amount)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(itemData.date_processed)))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [(itemData.ispq_days > 3) ? _c('span', {
+        return [_c('tr', [_c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(itemData.upr_number) + " ")]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(itemData.project_name))]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(itemData.end_user))]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(_vm.formatPrice(itemData.total_amount)))]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(_vm.formatDate(itemData.date_processed)))]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [(itemData.ispq_days > 3) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
@@ -85721,95 +85869,199 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                                 " + _vm._s(itemData.noa_days) + "\n                                                ")]) : _vm._e(), _vm._v(" "), (itemData.noa_days <= 15) ? _c('span', [_vm._v("\n                                                 " + _vm._s(itemData.noa_days) + "\n                                                ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', [(itemData.noa_approved_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                                 " + _vm._s(itemData.noa_days) + "\n                                                ")]) : _vm._e(), _vm._v(" "), (itemData.noa_days <= 15) ? _c('span', [_vm._v("\n                                                 " + _vm._s(itemData.noa_days) + "\n                                                ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.noa_approved_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                                " + _vm._s(itemData.noa_approved_days) + "\n\n                                                ")]) : _vm._e(), _vm._v(" "), (itemData.noa_approved_days <= 1) ? _c('span', [_vm._v("\n                                                " + _vm._s(itemData.noa_approved_days) + "\n\n                                                ")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.noa_received_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                                " + _vm._s(itemData.noa_approved_days) + "\n\n                                                ")]) : _vm._e(), _vm._v(" "), (itemData.noa_approved_days <= 1) ? _c('span', [_vm._v("\n                                                " + _vm._s(itemData.noa_approved_days) + "\n\n                                                ")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.noa_received_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                                " + _vm._s(itemData.noa_received_days) + "\n\n                                                ")]) : _vm._e(), _vm._v(" "), (itemData.noa_received_days <= 1) ? _c('span', [_vm._v("\n                                                " + _vm._s(itemData.noa_received_days) + "\n\n                                                ")]) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                                " + _vm._s(itemData.noa_pp_days) + "\n\n                                                ")])]), _vm._v(" "), _c('td', [(itemData.po_days > 2) ? _c('span', {
+        }, [_vm._v("\n                                                " + _vm._s(itemData.noa_received_days) + "\n\n                                                ")]) : _vm._e(), _vm._v(" "), (itemData.noa_received_days <= 1) ? _c('span', [_vm._v("\n                                                " + _vm._s(itemData.noa_received_days) + "\n\n                                                ")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_c('span', [_vm._v("\n                                                " + _vm._s(itemData.noa_pp_days) + "\n\n                                                ")])]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.po_days > 2) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.po_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.po_days <= 2) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.po_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.po_mfo_days > 2) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.po_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.po_days <= 2) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.po_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.po_mfo_days > 2) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                                   " + _vm._s(itemData.po_mfo_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.po_mfo_days <= 2) ? _c('span', [_vm._v("\n                                                   " + _vm._s(itemData.po_mfo_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.po_funding_days > 2) ? _c('span', {
+        }, [_vm._v("\n                                                   " + _vm._s(itemData.po_mfo_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.po_mfo_days <= 2) ? _c('span', [_vm._v("\n                                                   " + _vm._s(itemData.po_mfo_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.po_funding_days > 2) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                                     " + _vm._s(itemData.po_funding_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.po_funding_days <= 2) ? _c('span', [_vm._v("\n                                                     " + _vm._s(itemData.po_funding_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.po_coa_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                                     " + _vm._s(itemData.po_funding_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.po_funding_days <= 2) ? _c('span', [_vm._v("\n                                                     " + _vm._s(itemData.po_funding_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.po_coa_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                                " + _vm._s(itemData.po_coa_days) + "\n\n")]) : _vm._e(), _vm._v(" "), (itemData.po_coa_days <= 1) ? _c('span', [_vm._v("\n                                                " + _vm._s(itemData.po_coa_days) + "\n\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.ntp_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                                " + _vm._s(itemData.po_coa_days) + "\n\n")]) : _vm._e(), _vm._v(" "), (itemData.po_coa_days <= 1) ? _c('span', [_vm._v("\n                                                " + _vm._s(itemData.po_coa_days) + "\n\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.ntp_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.ntp_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.ntp_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.ntp_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.ntp_accepted_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.ntp_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.ntp_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.ntp_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.ntp_accepted_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.ntp_accepted_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.ntp_accepted_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.ntp_accepted_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                              " + _vm._s(itemData.ntp_pp_days) + "\n")])]), _vm._v(" "), _c('td', [(itemData.dr_days > 2) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.ntp_accepted_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.ntp_accepted_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.ntp_accepted_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_c('span', [_vm._v("\n                                              " + _vm._s(itemData.ntp_pp_days) + "\n")])]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.dr_days > 2) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.dr_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.dr_days <= 2) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.dr_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [_vm._v("\n                                              " + _vm._s(itemData.dr_delivery_days) + "\n                                            ")]), _vm._v(" "), _c('td', [(itemData.dr_dr_coa_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.dr_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.dr_days <= 2) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.dr_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v("\n                                              " + _vm._s(itemData.dr_delivery_days) + "\n                                            ")]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.dr_dr_coa_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.dr_dr_coa_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.dr_dr_coa_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.dr_dr_coa_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.dr_inspection_days > 2) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.dr_dr_coa_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.dr_dr_coa_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.dr_dr_coa_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.dr_inspection_days > 2) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.dr_inspection_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.dr_inspection_days <= 2) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.dr_inspection_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.dr_inspection_accept_days > 2) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.dr_inspection_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.dr_inspection_days <= 2) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.dr_inspection_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.dr_inspection_accept_days > 2) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.dr_inspection_accept_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.dr_inspection_accept_days <= 2) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.dr_inspection_accept_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.di_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.dr_inspection_accept_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.dr_inspection_accept_days <= 2) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.dr_inspection_accept_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.di_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.di_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.di_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.di_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.vou_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.di_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.di_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.di_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.vou_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.vou_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.vou_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.vou_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.vou_certify_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.vou_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.vou_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.vou_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.vou_certify_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.vou_certify_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.vou_certify_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.vou_certify_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.vou_jev_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.vou_certify_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.vou_certify_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.vou_certify_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.vou_jev_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.vou_jev_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.vou_jev_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.vou_jev_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.vou_approved_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.vou_jev_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.vou_jev_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.vou_jev_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.vou_approved_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.vou_approved_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.vou_approved_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.vou_approved_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.vou_preaudit_days > 2) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.vou_approved_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.vou_approved_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.vou_approved_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.vou_preaudit_days > 2) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.vou_preaudit_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.vou_preaudit_days <= 2) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.vou_preaudit_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.voucher_pc_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.vou_preaudit_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.vou_preaudit_days <= 2) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.vou_preaudit_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.voucher_pc_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.voucher_pc_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.voucher_pc_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.voucher_pc_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.vou_released_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.voucher_pc_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.voucher_pc_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.voucher_pc_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.vou_released_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.vou_released_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.vou_released_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.vou_released_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.voucher_counter_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.vou_released_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.vou_released_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.vou_released_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.voucher_counter_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.voucher_counter_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.voucher_counter_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.voucher_counter_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [(itemData.voucher_received_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                              " + _vm._s(itemData.voucher_counter_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.voucher_counter_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.voucher_counter_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [(itemData.voucher_received_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                              " + _vm._s(itemData.voucher_received_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.voucher_received_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.voucher_received_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', [_vm._v("\n                                              " + _vm._s(itemData.calendar_days) + "\n                                            ")])])]
+        }, [_vm._v("\n                                              " + _vm._s(itemData.voucher_received_days) + "\n")]) : _vm._e(), _vm._v(" "), (itemData.voucher_received_days <= 1) ? _c('span', [_vm._v("\n                                              " + _vm._s(itemData.voucher_received_days) + "\n")]) : _vm._e()]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v("\n                                              " + _vm._s(itemData.calendar_days) + "\n                                            ")])])]
       })] : _vm._e()]
     })], 2)])])])]
   })], 2)])])])])])])

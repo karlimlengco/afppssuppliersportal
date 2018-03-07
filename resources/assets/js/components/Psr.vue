@@ -291,13 +291,13 @@
                     <tbody>
                         <template v-for="unit in units">
                           <tr>
-                              <td>
+                              <td style="font-weight:bolder">
                                   {{unit.short_code}} <span tooltip="Total" >({{unit.upr_count}})</span> <span class="blue" tooltip="Completed" >({{unit.completed_count}})</span>  <span class="green" tooltip="Ongoing" >({{unit.ongoing_count}})</span>  <span style="color:#7a7a7a" tooltip="Cancelled" >({{unit.cancelled_count}})</span><span  class="red" tooltip="Delay" >({{unit.delay_count}})</span>
                                   <button @click="fetchUnitItems(unit)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                               </td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>{{formatPrice(unit.total_abc)}}</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">{{formatPrice(unit.total_abc)}}</td>
                               <td v-if="types != 'bidding'">--</td>
                               <td v-if="types != 'bidding'">--</td>
                               <td v-if="types != 'bidding'">--</td>
@@ -309,34 +309,34 @@
                               <td v-if="types == 'bidding'">--</td>
                               <td v-if="types == 'bidding'">--</td>
                               <td v-if="types == 'bidding'">--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
-                              <td>--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
+                              <td style="font-weight:bolder">--</td>
                           </tr>
                           <tr>
                             <td class="has-child" colspan="40">
@@ -346,11 +346,11 @@
                                       <template v-if='item.unit == unit.short_code'>
                                         <template v-for="itemData in item.data">
                                         <tr>
-                                            <td>{{itemData.upr_number}} <small>({{trimString(itemData.status)}})</small></td>
-                                            <td>{{itemData.project_name}}</td>
-                                            <td>{{itemData.end_user}}</td>
-                                            <td>{{formatPrice(itemData.total_amount)}}</td>
-                                            <td>{{formatDate(itemData.date_processed)}}</td>
+                                            <td style="font-weight:bolder">{{itemData.upr_number}} </td>
+                                            <td style="font-weight:bolder">{{itemData.project_name}}</td>
+                                            <td style="font-weight:bolder">{{itemData.end_user}}</td>
+                                            <td style="font-weight:bolder">{{formatPrice(itemData.total_amount)}}</td>
+                                            <td style="font-weight:bolder">{{formatDate(itemData.date_processed)}}</td>
                                             <td v-if="types != 'bidding'" >
                                                 <!-- 3 -->
                                                 <span v-if="itemData.ispq_days > 3" style="color:red">
@@ -492,7 +492,7 @@
                                                 <!-- {{getDiff(itemData.noa_award_date, itemData.pq_date)}} -->
                                               </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 1 -->
                                               <span v-if="itemData.noa_approved_days > 1" style="color:red">
                                                 {{itemData.noa_approved_days}}
@@ -505,7 +505,7 @@
                                                 <!-- {{getDiff(itemData.noa_approved_date, itemData.noa_award_date)}} -->
                                               </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 1 -->
 
                                               <span v-if="itemData.noa_received_days > 1" style="color:red">
@@ -519,7 +519,7 @@
                                                 <!-- {{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}} -->
                                               </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 1 -->
 
                                               <!-- <span v-if="itemData.noa_pp_days > 1" style="color:red"> -->
@@ -533,7 +533,7 @@
                                                 <!-- {{getDiff(itemData.noa_award_accepted_date, itemData.noa_approved_date)}} -->
                                               </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 2 -->
                                               <span v-if="itemData.po_days > 2" style="color:red">
                                               {{itemData.po_days}}
@@ -544,7 +544,7 @@
 <!--                                                 {{getDiff(itemData.po_create_date, itemData.noa_award_accepted_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 2 -->
                                               <span v-if="itemData.po_mfo_days > 2" style="color:red">
                                                    {{itemData.po_mfo_days}}
@@ -555,7 +555,7 @@
 <!--                                                 {{getDiff(itemData.funding_received_date, itemData.po_create_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 2 -->
                                               <span v-if="itemData.po_funding_days > 2" style="color:red">
                                                      {{itemData.po_funding_days}}
@@ -566,7 +566,7 @@
 <!--                                                 {{getDiff(itemData.mfo_received_date, itemData.funding_received_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 1 -->
                                               <span v-if="itemData.po_coa_days > 1" style="color:red">
                                                 {{itemData.po_coa_days}}
@@ -579,7 +579,7 @@
 <!--                                                 {{getDiff(itemData.coa_approved_date, itemData.mfo_received_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 1 -->
                                               <span v-if=" itemData.ntp_days > 1" style="color:red">
                                               {{itemData.ntp_days}}
@@ -590,7 +590,7 @@
 <!--                                                 {{getDiff(itemData.ntp_date, itemData.coa_approved_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 1 -->
                                               <span v-if=" itemData.ntp_accepted_days > 1" style="color:red">
                                               {{itemData.ntp_accepted_days}}
@@ -601,7 +601,7 @@
 <!--                                                 {{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 1 -->
                                               <!-- <span v-if=" itemData.ntp_pp_days > 1" style="color:red"> -->
                                               <!-- {{itemData.ntp_pp_days}} -->
@@ -613,7 +613,7 @@
 <!--                                                 {{getDiff(itemData.ntp_award_date, itemData.ntp_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 2 -->
                                               <span v-if="itemData.dr_days > 2" style="color:red">
                                               {{itemData.dr_days}}
@@ -624,11 +624,11 @@
 <!--                                                 {{getDiff(itemData.dr_date, itemData.ntp_award_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 2 -->
                                               {{itemData.dr_delivery_days}}
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 1 -->
                                               <span v-if="itemData.dr_dr_coa_days> 1" style="color:red">
                                               {{itemData.dr_dr_coa_days}}
@@ -639,7 +639,7 @@
 <!--                                                 {{getDiff(itemData.dr_inspection, itemData.dr_coa_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 2 -->
 
                                               <span v-if="itemData.dr_inspection_days > 2" style="color:red">
@@ -651,7 +651,7 @@
 <!--                                                 {{getDiff(itemData.iar_accepted_date, itemData.dr_inspection)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
 
                                               <span v-if="itemData.dr_inspection_accept_days > 2" style="color:red">
                                               {{itemData.dr_inspection_accept_days}}
@@ -662,7 +662,7 @@
 <!--                                                 {{getDiff(itemData.iar_accepted_date, itemData.dr_inspection)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 1 -->
                                               <span v-if="itemData.di_days> 1" style="color:red">
                                               {{itemData.di_days}}
@@ -673,7 +673,7 @@
 <!--                                                 {{getDiff(itemData.di_close, itemData.di_start)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 1 -->
                                               <span v-if="itemData.vou_days > 1" style="color:red">
                                               {{itemData.vou_days}}
@@ -684,7 +684,7 @@
 <!--                                                 {{getDiff(itemData.preaudit_date, itemData.v_transaction_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               <!-- 1 -->
                                               <span v-if="itemData.vou_certify_days > 1" style="color:red">
                                               {{itemData.vou_certify_days}}
@@ -695,7 +695,7 @@
 <!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
 
                                               <!-- 1 -->
                                               <span v-if="itemData.vou_jev_days > 1" style="color:red">
@@ -707,7 +707,7 @@
 <!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
 
                                               <!-- 1 -->
                                               <span v-if="itemData.vou_approved_days > 1" style="color:red">
@@ -719,7 +719,7 @@
 <!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
 
                                               <!-- 2 -->
                                               <span v-if="itemData.vou_preaudit_days > 2" style="color:red">
@@ -731,7 +731,7 @@
 <!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
 
                                               <!-- 1 -->
                                               <span v-if="itemData.voucher_pc_days > 1" style="color:red">
@@ -743,7 +743,7 @@
 <!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
 
                                               <!-- 1 -->
                                               <span v-if="itemData.vou_released_days > 1" style="color:red">
@@ -755,7 +755,7 @@
 <!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
 
                                               <!-- 1 -->
                                               <span v-if="itemData.voucher_counter_days > 1" style="color:red">
@@ -767,7 +767,7 @@
 <!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
 
                                               <!-- 1 -->
                                               <span v-if="itemData.voucher_received_days > 1" style="color:red">
@@ -779,7 +779,7 @@
 <!--                                                 {{getDiff(itemData.vou_release, itemData.preaudit_date)}}
  -->                                              </span>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bolder">
                                               {{itemData.calendar_days}}
                                             </td>
                                         </tr>
@@ -917,4 +917,5 @@
     }
 
 </script>
+
 <!-- date range -->
