@@ -25,7 +25,7 @@ Overview Delay
     <thead>
         <tr>
            <th class="align-center" width="15%">PC/CO</th>
-           <th class="align-center" width="40%" >UPR Number</th>
+           <th class="align-center" width="40%" >UPR Receipt</th>
            <th class="align-center" width="10%">Date Prepared</th>
            {{-- <th class="align-center" width="10%">Ref Number</th> --}}
            <th class="align-center" width="5%">ABC</th>
