@@ -292,7 +292,7 @@
                         <template v-for="unit in units">
                           <tr>
                               <td>
-                                  {{unit.short_code}} ({{unit.upr_count}})
+                                  {{unit.short_code}} <span tooltip="Total" >({{unit.upr_count}})</span> <span class="blue" tooltip="Completed" >({{unit.completed_count}})</span>  <span class="green" tooltip="Ongoing" >({{unit.ongoing_count}})</span>  <span style="color:#7a7a7a" tooltip="Cancelled" >({{unit.cancelled_count}})</span><span  class="red" tooltip="Delay" >({{unit.delay_count}})</span>
                                   <button @click="fetchUnitItems(unit)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                               </td>
                               <td>--</td>

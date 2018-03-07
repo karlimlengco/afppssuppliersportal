@@ -2709,6 +2709,21 @@ trait PSRTrait
         $model    = $this->model;
         $model    = $model->select([
             'procurement_centers.short_code',
+            DB::raw("sum(case when unit_purchase_requests.completed_at is not null AND unit_purchase_requests.status != 'cancelled' then 1 else 0 end) as completed_count"),
+            DB::raw("SUM(CASE
+             WHEN unit_purchase_requests.state != 'cancelled' THEN 1
+             ELSE 0
+           END) -
+                ( sum(case when unit_purchase_requests.completed_at is not null AND unit_purchase_requests.status != 'cancelled' then 1 else 0 end) )
+                as ongoing_count"),
+            DB::raw("SUM(CASE
+              WHEN unit_purchase_requests.state = 'cancelled' THEN 1
+              ELSE 0
+            END)  cancelled_count"),
+            DB::raw("IFNULL( SUM(CASE
+             WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' and unit_purchase_requests.next_due <  NOW()  AND unit_purchase_requests.state != 'cancelled'  THEN 1
+             ELSE 0
+           END),0) as delay_count"),
             DB::raw('COUNT(unit_purchase_requests.id) as upr_count'),
             DB::raw('SUM(unit_purchase_requests.total_amount) as total_abc'),
         ]);
@@ -2907,6 +2922,7 @@ trait PSRTrait
           'unit_purchase_requests.state',
           'unit_purchase_requests.total_amount',
           'unit_purchase_requests.date_processed',
+          'unit_purchase_requests.status',
           // 'unit_purchase_requests.calendar_days',
           'document_acceptance.days',
           'document_acceptance.approved_date',

@@ -85624,7 +85624,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('table', {
     staticClass: "table table--with-border table-name"
   }, [_c('thead', [_c('tr', [_c('th', [_vm._v("PC/CO (UPR NUMBER)")]), _vm._v(" "), _c('th', [_vm._v("PROJECT NAME/ ACTIVITY")]), _vm._v(" "), _c('th', [_vm._v("END USER")]), _vm._v(" "), _c('th', [_vm._v("ABC")]), _vm._v(" "), _vm._m(2), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("\n                              ITSPQ\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("\n                              PHILGEPS POSTING\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("\n                              RFQ\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("\n                              CANVASS\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              Document Acceptance (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              Pre Proc (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              Invitation to BId (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              PhilGeps Posting (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              Pre Bid Conference (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              SOBE (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              POST QUAL (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _vm._m(6), _vm._v(" "), _vm._m(7), _vm._v(" "), _vm._m(8), _vm._v(" "), _vm._m(9), _vm._v(" "), _vm._m(10), _vm._v(" "), _vm._m(11), _vm._v(" "), _vm._m(12), _vm._v(" "), _vm._m(13), _vm._v(" "), _vm._m(14), _vm._v(" "), _vm._m(15), _vm._v(" "), _vm._m(16), _vm._v(" "), _vm._m(17), _vm._v(" "), _vm._m(18), _vm._v(" "), _vm._m(19), _vm._v(" "), _vm._m(20), _vm._v(" "), _vm._m(21), _vm._v(" "), _vm._m(22), _vm._v(" "), _vm._m(23), _vm._v(" "), _vm._m(24), _vm._v(" "), _vm._m(25), _vm._v(" "), _vm._m(26), _vm._v(" "), _vm._m(27), _vm._v(" "), _vm._m(28), _vm._v(" "), _c('th', [_vm._v("\n                              TOTAL NUMBER OF DAYS\n                            ")])])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.units), function(unit) {
-    return [_c('tr', [_c('td', [_vm._v("\n                                  " + _vm._s(unit.short_code) + " (" + _vm._s(unit.upr_count) + ")\n                                  "), _c('button', {
+    return [_c('tr', [_c('td', [_vm._v("\n                                  " + _vm._s(unit.short_code) + " "), _c('span', {
+      attrs: {
+        "tooltip": "Total"
+      }
+    }, [_vm._v("(" + _vm._s(unit.upr_count) + ")")]), _vm._v(" "), _c('span', {
+      staticClass: "blue",
+      attrs: {
+        "tooltip": "Completed"
+      }
+    }, [_vm._v("(" + _vm._s(unit.completed_count) + ")")]), _vm._v(" "), _c('span', {
+      staticClass: "green",
+      attrs: {
+        "tooltip": "Ongoing"
+      }
+    }, [_vm._v("(" + _vm._s(unit.ongoing_count) + ")")]), _vm._v(" "), _c('span', {
+      staticStyle: {
+        "color": "#7a7a7a"
+      },
+      attrs: {
+        "tooltip": "Cancelled"
+      }
+    }, [_vm._v("(" + _vm._s(unit.cancelled_count) + ")")]), _c('span', {
+      staticClass: "red",
+      attrs: {
+        "tooltip": "Delay"
+      }
+    }, [_vm._v("(" + _vm._s(unit.delay_count) + ")")]), _vm._v(" "), _c('button', {
       staticClass: "show-child-table",
       on: {
         "click": function($event) {
