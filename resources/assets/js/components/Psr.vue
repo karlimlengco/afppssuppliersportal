@@ -295,9 +295,9 @@
                                   {{unit.short_code}} ({{unit.upr_count}})
                                   <button @click="fetchUnitItems(unit)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                               </td>
+                              <td>--</td>
+                              <td>--</td>
                               <td>{{formatPrice(unit.total_abc)}}</td>
-                              <td>--</td>
-                              <td>--</td>
                               <td v-if="types != 'bidding'">--</td>
                               <td v-if="types != 'bidding'">--</td>
                               <td v-if="types != 'bidding'">--</td>
