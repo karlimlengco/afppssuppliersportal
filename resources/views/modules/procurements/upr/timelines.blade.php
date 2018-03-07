@@ -35,17 +35,12 @@ Unit Purchase Request
 <div class="data-panel" style="padding:10px; margin-bottom:10px">
     <div class="data-panel__section">
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label" style="font-weight:800; text-transform:capitalize">Ref No :</strong> {{$data->ref_number}} </li>
-        </ul>
-    </div>
-    <div class="data-panel__section">
-        <ul class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label" style="font-weight:800; text-transform:capitalize">UPR No :</strong> {{$data->upr_number}} </li>
         </ul>
     </div>
     <div class="data-panel__section">
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label" style="font-weight:800; text-transform:capitalize">Project Name :</strong> {{$data->project_name}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label" style="font-weight:800; text-transform:capitalize">Project Name / Activity:</strong> {{$data->project_name}} </li>
         </ul>
     </div>
 </div>
