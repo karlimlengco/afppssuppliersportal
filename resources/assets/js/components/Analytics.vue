@@ -43,11 +43,11 @@
                 <tbody>
                     <template v-for="(item, index) in items">
                         <tr>
-                            <td>
+                            <td style="font-weight:bolder">
                                 Program {{item.programs}}
                                 <button v-if="item.upr_count > 0" v-on:click="clickItemProgram(item)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                             </td>
-                            <td>
+                            <td style="font-weight:bolder">
                                 <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{item.upr_count}}</span>
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/completed/'+item.programs+'?type='+types" tooltip="Completed" class="blue">({{item.completed_count}})</a>
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/ongoing/'+item.programs+'?type='+types" tooltip="Ongoing" class="green">({{item.ongoing_count}})</a>
@@ -82,7 +82,7 @@
                                                             <button  v-on:click="clickItemProgramCenter(itemProgData)" class="show-grand-child-table" ><i class="nc-icon-mini ui-1_circle-add"></i></button>
                                                             {{itemProgData.name}}
                                                         </td>
-                                                        <td>
+                                                        <td style="font-weight:bolder">
                                                             <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{itemProgData.upr_count}}</span>
                                                             <a
                                                                 target="_blank"
@@ -138,12 +138,12 @@
                                                                                     <template v-if="itemUnit.center == itemProgData.name">
                                                                             <template v-for="itemUnitData in itemUnit.data">
                                                                                 <tr  >
-                                                                                    <td>
+                                                                                    <td style="font-weight:bolder">
                                                                                         {{itemUnitData.short_code}}
 
                                                                                         <button  v-on:click="clickItemUnit(itemUnitData)" class="show-great-grand-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                                                                                     </td>
-                                                                                    <td>
+                                                                                    <td style="font-weight:bolder">
 
                                                                                         <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{itemUnitData.upr_count}}</span>
 
@@ -199,7 +199,7 @@
                                                                                                         <template v-if="itemProgCent.program == itemUnitData.short_code">
                                                                                                             <template v-if="itemProgCent.center == itemProgData.name">
                                                                                                         <tr  v-for="itemProgCentData in itemProgCent.data">
-                                                                                                    <td> <i class="green" style="font-family: Verdana;">{{itemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small>
+                                                                                                    <td style="font-weight:bolder"> <i class="green" style="font-family: Verdana;">{{itemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small>
 
                                                                                                     <small>({{formatDate(itemProgCentData.date_processed)}})</small>
                                                                                                     </td>
@@ -263,10 +263,10 @@
 
                     </template>
                     <tr>
-                        <td>
+                        <td style="font-weight:bolder">
                             Total
                         </td>
-                        <td>
+                        <td style="font-weight:bolder">
                             <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{total}}</span>
                             <span tooltip="Completed" class="blue">({{total_completed}})</span>
                             <span tooltip="Ongoing" class="green">({{total_ongoing}})</span>
@@ -324,11 +324,11 @@
                 <tbody>
                     <template v-for="(tItem, index) in timelineItem">
                         <tr>
-                            <td>
+                            <td style="font-weight:bolder">
                                 Program {{tItem.programs}}
                                 <button v-if="tItem.upr > 0" v-on:click="clickTimelineItemProgram(tItem)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                             </td>
-                            <td>{{tItem.upr}}</td>
+                            <td style="font-weight:bolder">{{tItem.upr}}</td>
                             <td v-if="show2" >{{tItem.doc}}</td>
                             <td v-if="show2" >{{tItem.preproc}}</td>
                             <td v-if="show2" >{{tItem.itb}}</td>
@@ -340,13 +340,13 @@
                             <td v-if="show3" >{{tItem.philgeps}}</td>
                             <td v-if="show3" >{{tItem.ispq}}</td>
                             <td v-if="show3" >{{tItem.canvass}}</td>
-                            <td>{{tItem.noa}}</td>
-                            <td>{{tItem.po}}</td>
-                            <td>{{tItem.ntp}}</td>
-                            <td>{{tItem.do}}</td>
-                            <td>{{tItem.tiac}}</td>
-                            <td>{{tItem.diir}}</td>
-                            <td>{{tItem.voucher}}</td>
+                            <td style="font-weight:bolder">{{tItem.noa}}</td>
+                            <td style="font-weight:bolder">{{tItem.po}}</td>
+                            <td style="font-weight:bolder">{{tItem.ntp}}</td>
+                            <td style="font-weight:bolder">{{tItem.do}}</td>
+                            <td style="font-weight:bolder">{{tItem.tiac}}</td>
+                            <td style="font-weight:bolder">{{tItem.diir}}</td>
+                            <td style="font-weight:bolder">{{tItem.voucher}}</td>
                         </tr>
                         <tr>
                             <td class="has-child" colspan="18">
@@ -361,7 +361,7 @@
                                                     <button  v-on:click="clickTimelineItemProgramCenter(tItemProgData)" class="show-grand-child-table" ><i class="nc-icon-mini ui-1_circle-add"></i></button>
                                                     {{tItemProgData.name}}
                                                 </td>
-                                                <td>{{tItemProgData.upr}}</td>
+                                                <td style="font-weight:bolder">{{tItemProgData.upr}}</td>
                                                 <td v-if="show2">{{tItemProgData.doc}}</td>
                                                 <td v-if="show2">{{tItemProgData.preproc}}</td>
                                                 <td v-if="show2">{{tItemProgData.itb}}</td>
@@ -373,13 +373,13 @@
                                                 <td v-if="show3" >{{tItemProgData.philgeps}}</td>
                                                 <td v-if="show3" >{{tItemProgData.ispq}}</td>
                                                 <td v-if="show3" >{{tItemProgData.canvass}}</td>
-                                                <td>{{tItemProgData.noa}}</td>
-                                                <td>{{tItemProgData.po}}</td>
-                                                <td>{{tItemProgData.ntp}}</td>
-                                                <td>{{tItemProgData.do}}</td>
-                                                <td>{{tItemProgData.tiac}}</td>
-                                                <td>{{tItemProgData.diir}}</td>
-                                                <td>{{tItemProgData.voucher}}</td>
+                                                <td style="font-weight:bolder">{{tItemProgData.noa}}</td>
+                                                <td style="font-weight:bolder">{{tItemProgData.po}}</td>
+                                                <td style="font-weight:bolder">{{tItemProgData.ntp}}</td>
+                                                <td style="font-weight:bolder">{{tItemProgData.do}}</td>
+                                                <td style="font-weight:bolder">{{tItemProgData.tiac}}</td>
+                                                <td style="font-weight:bolder">{{tItemProgData.diir}}</td>
+                                                <td style="font-weight:bolder">{{tItemProgData.voucher}}</td>
                                             </tr>
                                             <tr >
                                                 <td class="has-child" colspan="18">
@@ -390,12 +390,12 @@
                                                             <template v-if="tItemUnit.center == tItemProgData.name">
                                                             <template v-for="tItemUnitData in tItemUnit.data">
                                                             <tr  >
-                                                                <td>
+                                                                <td style="font-weight:bolder">
                                                                     {{tItemUnitData.short_code}}
 
                                                                     <button  v-on:click="clickTimelineItemUnit(tItemUnitData)" class="show-great-grand-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                                                                 </td>
-                                                                <td>{{tItemUnitData.upr}}</td>
+                                                                <td style="font-weight:bolder">{{tItemUnitData.upr}}</td>
                                                                 <td v-if="show2" >{{tItemUnitData.doc}}</td>
                                                                 <td v-if="show2" >{{tItemUnitData.preproc}}</td>
                                                                 <td v-if="show2" >{{tItemUnitData.itb}}</td>
@@ -407,13 +407,13 @@
                                                                 <td v-if="show3" >{{tItemUnitData.philgeps}}</td>
                                                                 <td v-if="show3" >{{tItemUnitData.ispq}}</td>
                                                                 <td v-if="show3" >{{tItemUnitData.canvass}}</td>
-                                                                <td>{{tItemUnitData.noa}}</td>
-                                                                <td>{{tItemUnitData.po}}</td>
-                                                                <td>{{tItemUnitData.ntp}}</td>
-                                                                <td>{{tItemUnitData.do}}</td>
-                                                                <td>{{tItemUnitData.tiac}}</td>
-                                                                <td>{{tItemUnitData.diir}}</td>
-                                                                <td>{{tItemUnitData.voucher}}</td>
+                                                                <td style="font-weight:bolder">{{tItemUnitData.noa}}</td>
+                                                                <td style="font-weight:bolder">{{tItemUnitData.po}}</td>
+                                                                <td style="font-weight:bolder">{{tItemUnitData.ntp}}</td>
+                                                                <td style="font-weight:bolder">{{tItemUnitData.do}}</td>
+                                                                <td style="font-weight:bolder">{{tItemUnitData.tiac}}</td>
+                                                                <td style="font-weight:bolder">{{tItemUnitData.diir}}</td>
+                                                                <td style="font-weight:bolder">{{tItemUnitData.voucher}}</td>
                                                             </tr>
                                                             <!-- Great Grand -->
                                                             <tr>
@@ -424,8 +424,8 @@
                                                                             <template v-if="tItemProgCent.program == tItemUnitData.short_code">
                                                                             <template v-if="tItemProgCent.center == tItemProgData.name">
                                                                             <tr  v-for="tItemProgCentData in tItemProgCent.data">
-                                                                                <td> <i class="green" style="font-family: Verdana;">{{tItemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+tItemProgCentData.id ">({{tItemProgCentData.project_name}})</a></small></td>
-                                                                                <td>{{tItemProgCentData.upr}}</td>
+                                                                                <td style="font-weight:bolder"> <i class="green" style="font-family: Verdana;">{{tItemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+tItemProgCentData.id ">({{tItemProgCentData.project_name}})</a></small></td>
+                                                                                <td style="font-weight:bolder">{{tItemProgCentData.upr}}</td>
                                                                                 <td v-if="show2" >{{tItemProgCentData.doc}}</td>
                                                                                 <td v-if="show2" >{{tItemProgCentData.preproc}}</td>
                                                                                 <td v-if="show2" >{{tItemProgCentData.itb}}</td>
@@ -437,13 +437,13 @@
                                                                                 <td v-if="show3" >{{tItemProgCentData.philgeps}}</td>
                                                                                 <td v-if="show3" >{{tItemProgCentData.ispq}}</td>
                                                                                 <td v-if="show3" >{{tItemProgCentData.canvass}}</td>
-                                                                                <td>{{tItemProgCentData.noa}}</td>
-                                                                                <td>{{tItemProgCentData.po}}</td>
-                                                                                <td>{{tItemProgCentData.ntp}}</td>
-                                                                                <td>{{tItemProgCentData.do}}</td>
-                                                                                <td>{{tItemProgCentData.tiac}}</td>
-                                                                                <td>{{tItemProgCentData.diir}}</td>
-                                                                                <td>{{tItemProgCentData.voucher}}</td>
+                                                                                <td style="font-weight:bolder">{{tItemProgCentData.noa}}</td>
+                                                                                <td style="font-weight:bolder">{{tItemProgCentData.po}}</td>
+                                                                                <td style="font-weight:bolder">{{tItemProgCentData.ntp}}</td>
+                                                                                <td style="font-weight:bolder">{{tItemProgCentData.do}}</td>
+                                                                                <td style="font-weight:bolder">{{tItemProgCentData.tiac}}</td>
+                                                                                <td style="font-weight:bolder">{{tItemProgCentData.diir}}</td>
+                                                                                <td style="font-weight:bolder">{{tItemProgCentData.voucher}}</td>
                                                                             </tr>
 
                                                                             </template>

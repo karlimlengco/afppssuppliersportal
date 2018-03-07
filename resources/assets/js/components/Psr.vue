@@ -26,266 +26,266 @@
           <div class="twelve columns">
             <div class="table-scroll">
                 <table class="table table--with-border table-name">
-                    <thead>
+                    <thead style="background-color:#222222">
                         <tr>
-                            <th>PC/CO (UPR NUMBER)</th>
-                            <th>PROJECT NAME/ ACTIVITY</th>
-                            <th>END USER</th>
-                            <th>ABC</th>
-                            <th>
+                            <th style="background:#2222">PC/CO (UPR NUMBER)</th>
+                            <th style="background:#2222">PROJECT NAME/ ACTIVITY</th>
+                            <th style="background:#2222">END USER</th>
+                            <th style="background:#2222">ABC</th>
+                            <th style="background:#2222">
                               UPR RECEIPT
                               <br>
                               <small>(PC/CO)</small>
                             </th>
-                            <th v-if="types != 'bidding'">
+                            <th style="background:#2222" v-if="types != 'bidding'">
                               ITSPQ
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th v-if="types != 'bidding'">
+                            <th style="background:#2222" v-if="types != 'bidding'">
                               PHILGEPS POSTING
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th v-if="types != 'bidding'">
+                            <th style="background:#2222" v-if="types != 'bidding'">
                               RFQ
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th v-if="types != 'bidding'">
+                            <th style="background:#2222" v-if="types != 'bidding'">
                               CANVASS
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
 
-                            <th v-if="types == 'bidding'">
+                            <th style="background:#2222" v-if="types == 'bidding'">
                               Document Acceptance (BAC)
                               <br>
                               <small>(PC/CO)</small>
                             </th>
-                            <th v-if="types == 'bidding'">
+                            <th style="background:#2222" v-if="types == 'bidding'">
                               Pre Proc (BAC)
                               <br>
                               <small>(PC/CO)</small>
                             </th>
-                            <th v-if="types == 'bidding'">
+                            <th style="background:#2222" v-if="types == 'bidding'">
                               Invitation to BId (BAC)
                               <br>
                               <small>(PC/CO)</small>
                             </th>
-                            <th v-if="types == 'bidding'">
+                            <th style="background:#2222" v-if="types == 'bidding'">
                               PhilGeps Posting (BAC)
                               <br>
                               <small>(PC/CO)</small>
                             </th>
-                            <th v-if="types == 'bidding'">
+                            <th style="background:#2222" v-if="types == 'bidding'">
                               Pre Bid Conference (BAC)
                               <br>
                               <small>(PC/CO)</small>
                             </th>
-                            <th v-if="types == 'bidding'">
+                            <th style="background:#2222" v-if="types == 'bidding'">
                               SOBE (BAC)
                               <br>
                               <small>(PC/CO)</small>
                             </th>
-                            <th v-if="types == 'bidding'">
+                            <th style="background:#2222" v-if="types == 'bidding'">
                               POST QUAL (BAC)
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               PREPARE NOA
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               ISSUE NOA
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               CONFORME NOA
                               <br>
                               <small>(SUPPLIER)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               POSTING OF NOA TO PHILGEPS
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               PREPARATION OF PO
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               MFO OBLIGATION
                               <br>
                               <small>(MFO/BUDGET OFFICE)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               ISSUANCE OF CAF
                               <br>
                               <small>(ACCOUNTING)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               PO/WO/JO/CA APPROVAL AND
                               NTP PREPARATION
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               SERVING OF NTP
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               CONFORME OF NTP
                               <br>
                               <small>(SUPPLIER)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               PHILGEPS POSTING OF NTP
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               ISSUANCE OF NOTICE OF DELIVERY
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               DELIVERY OF ITEMS
                               <br>
                               <small>(SUPPLIER)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               NOTIFICATION OF DELIVERY TO COA
                               <br>
                               <small>(SAO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               CONDUCT OF TIAC
                               <br>
                               <small>(END-USER)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               INSPECTION AND ACCEPTANCE REPORT
                               <br>
                               <small>(SAO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               DELIVERED ITEMS AND INSPECTION REPORT
                               <br>
                               <small>(MFO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               PREPARATION OF DV
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               SIGN BOX `A` OF DV
                               <br>
                               <small>(MFO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               ACCOMPLISH BOX `B` OF DV AND SIGN BOX `C` OF DV
                               <br>
                               <small>(ACCOUNTING)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               SIGN BOX `D` OF DV
                               <br>
                               <small>(END USER CMDR)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               PRE-AUDIT
                               <br>
                               <small>(MFO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               PREPARE AND SIGN LDDAP-ADA
                               <br>
                               <small>(ACCOUNTING)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               SIGN LDDAP-ADA OR PREPARE CHEQUE
                               <br>
                               <small>(FINANCE)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               SIGN LDDAP-ADA OR COUNTER-SIGN CHEQUE
                               <br>
                               <small>(PC/CO)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               RECEIPT OF CHEQUES AND ISSUE OFFICIAL RECEIPT
                               <br>
                               <small>(SUPPLIER)</small>
                             </th>
 
-                            <th>
+                            <th style="background:#2222">
                               TOTAL NUMBER OF DAYS
                             </th>
 
 <!--
-                            <th>PC/CO</th>
-                            <th>PROJECT</th>
-                            <th>ABC</th>
-                            <th>UPR DATE</th>
-                            <th v-if="types != 'bidding'">ISPQ</th>
-                            <th v-if="types != 'bidding'">RFQ</th>
-                            <th v-if="types != 'bidding'">CANVASSING</th>
-                            <th>PREPARE NOA</th>
-                            <th>APPROVED NOA</th>
-                            <th>RECEIVED NOA</th>
-                            <th>PO/JO/WO CREATION</th>
-                            <th>FUNDING</th>
-                            <th>MFO FUNDING/OBLIGATION</th>
-                            <th>PO COA APPROVAL</th>
-                            <th>PREPARE NTP</th>
-                            <th>RECEIVED NTP</th>
-                            <th>RECEIVED DELIVERY</th>
-                            <th>COMPLETE COA DELIVERY</th>
-                            <th>TIAC</th>
-                            <th>IAAR</th>
-                            <th>DIIR START</th>
-                            <th>DIIR CLOSE</th>
-                            <th>PREPARE VOUCHER</th>
-                            <th>COMPLETED</th>
-                            <th>LDAP-ADA</th>
-                            <th>Total Days</th> -->
+                            <th style="background:#2222">PC/CO</th>
+                            <th style="background:#2222">PROJECT</th>
+                            <th style="background:#2222">ABC</th>
+                            <th style="background:#2222">UPR DATE</th>
+                            <th style="background:#2222" v-if="types != 'bidding'">ISPQ</th>
+                            <th style="background:#2222" v-if="types != 'bidding'">RFQ</th>
+                            <th style="background:#2222" v-if="types != 'bidding'">CANVASSING</th>
+                            <th style="background:#2222">PREPARE NOA</th>
+                            <th style="background:#2222">APPROVED NOA</th>
+                            <th style="background:#2222">RECEIVED NOA</th>
+                            <th style="background:#2222">PO/JO/WO CREATION</th>
+                            <th style="background:#2222">FUNDING</th>
+                            <th style="background:#2222">MFO FUNDING/OBLIGATION</th>
+                            <th style="background:#2222">PO COA APPROVAL</th>
+                            <th style="background:#2222">PREPARE NTP</th>
+                            <th style="background:#2222">RECEIVED NTP</th>
+                            <th style="background:#2222">RECEIVED DELIVERY</th>
+                            <th style="background:#2222">COMPLETE COA DELIVERY</th>
+                            <th style="background:#2222">TIAC</th>
+                            <th style="background:#2222">IAAR</th>
+                            <th style="background:#2222">DIIR START</th>
+                            <th style="background:#2222">DIIR CLOSE</th>
+                            <th style="background:#2222">PREPARE VOUCHER</th>
+                            <th style="background:#2222">COMPLETED</th>
+                            <th style="background:#2222">LDAP-ADA</th>
+                            <th style="background:#2222">Total Days</th> -->
                         </tr>
                     </thead>
                     <tbody>

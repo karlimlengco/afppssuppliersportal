@@ -84607,7 +84607,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "text-align": "center"
     }
   }, [_vm._v("ACTION TAKEN")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
-    return [_c('tr', [_c('td', [_vm._v("\n                                Program " + _vm._s(item.programs) + "\n                                "), (item.upr_count > 0) ? _c('button', {
+    return [_c('tr', [_c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("\n                                Program " + _vm._s(item.programs) + "\n                                "), (item.upr_count > 0) ? _c('button', {
       staticClass: "show-child-table",
       on: {
         "click": function($event) {
@@ -84616,7 +84620,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "nc-icon-mini ui-1_circle-add"
-    })]) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', {
+    })]) : _vm._e()]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_c('span', {
       staticStyle: {
         "font-weight": "bolder",
         "color": "#222222"
@@ -84672,7 +84680,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }, [_c('i', {
           staticClass: "nc-icon-mini ui-1_circle-add"
-        })]), _vm._v("\n                                                            " + _vm._s(itemProgData.name) + "\n                                                        ")]), _vm._v(" "), _c('td', [_c('span', {
+        })]), _vm._v("\n                                                            " + _vm._s(itemProgData.name) + "\n                                                        ")]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_c('span', {
           staticStyle: {
             "font-weight": "bolder",
             "color": "#222222"
@@ -84719,7 +84731,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           staticClass: "grand-child-table table-name"
         }, [_c('tbody', [_vm._l((_vm.itemUnits), function(itemUnit) {
           return [(itemUnit.program == item.programs) ? [(itemUnit.center == itemProgData.name) ? [_vm._l((itemUnit.data), function(itemUnitData) {
-            return [_c('tr', [_c('td', [_vm._v("\n                                                                                        " + _vm._s(itemUnitData.short_code) + "\n\n                                                                                        "), _c('button', {
+            return [_c('tr', [_c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v("\n                                                                                        " + _vm._s(itemUnitData.short_code) + "\n\n                                                                                        "), _c('button', {
               staticClass: "show-great-grand-child-table",
               on: {
                 "click": function($event) {
@@ -84728,7 +84744,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               }
             }, [_c('i', {
               staticClass: "nc-icon-mini ui-1_circle-add"
-            })])]), _vm._v(" "), _c('td', [_c('span', {
+            })])]), _vm._v(" "), _c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_c('span', {
               staticStyle: {
                 "font-weight": "bolder",
                 "color": "#222222"
@@ -84779,7 +84799,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               staticClass: "great-grand-child-table table-name"
             }, [_c('tbody', [_vm._l((_vm.itemProgramCenters), function(itemProgCent) {
               return [(itemProgCent.program == itemUnitData.short_code) ? [(itemProgCent.center == itemProgData.name) ? _vm._l((itemProgCent.data), function(itemProgCentData) {
-                return _c('tr', [_c('td', [_c('i', {
+                return _c('tr', [_c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_c('i', {
                   staticClass: "green",
                   staticStyle: {
                     "font-family": "Verdana"
@@ -84831,7 +84855,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         })], 2)])])])]
       })] : _vm._e()]
     })], 2)])])])]
-  }), _vm._v(" "), _c('tr', [_c('td', [_vm._v("\n                            Total\n                        ")]), _vm._v(" "), _c('td', [_c('span', {
+  }), _vm._v(" "), _c('tr', [_c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("\n                            Total\n                        ")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_c('span', {
     staticStyle: {
       "font-weight": "bolder",
       "color": "#222222"
@@ -84900,7 +84932,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "text-align": "center"
     }
   }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("# UPR")]), _vm._v(" "), (_vm.show2) ? _c('th', [_vm._v("Document Acceptance")]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('th', [_vm._v("Pre Proc")]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('th', [_vm._v("ITB")]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('th', [_vm._v("PhilGeps")]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('th', [_vm._v("PRE Bid")]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('th', [_vm._v("SOBE")]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('th', [_vm._v("Post Qual")]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('th', [_vm._v("RFQ")]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('th', [_vm._v("PhilGeps")]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('th', [_vm._v("ISPQ")]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('th', [_vm._v("Canvass")]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v("NOA")]), _vm._v(" "), _c('th', [_vm._v("PO")]), _vm._v(" "), _c('th', [_vm._v("NTP")]), _vm._v(" "), _c('th', [_vm._v("Delivery")]), _vm._v(" "), _c('th', [_vm._v("TIAC")]), _vm._v(" "), _c('th', [_vm._v("DIIR")]), _vm._v(" "), _c('th', [_vm._v("Voucher")])])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.timelineItem), function(tItem, index) {
-    return [_c('tr', [_c('td', [_vm._v("\n                                Program " + _vm._s(tItem.programs) + "\n                                "), (tItem.upr > 0) ? _c('button', {
+    return [_c('tr', [_c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v("\n                                Program " + _vm._s(tItem.programs) + "\n                                "), (tItem.upr > 0) ? _c('button', {
       staticClass: "show-child-table",
       on: {
         "click": function($event) {
@@ -84909,7 +84945,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "nc-icon-mini ui-1_circle-add"
-    })]) : _vm._e()]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.upr))]), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.doc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.preproc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.itb))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.prebid))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.bidop))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.pq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItem.rfq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItem.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItem.ispq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItem.canvass))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.noa))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.po))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.ntp))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.do))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.tiac))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.diir))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItem.voucher))])]), _vm._v(" "), _c('tr', [_c('td', {
+    })]) : _vm._e()]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v(_vm._s(tItem.upr))]), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.doc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.preproc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.itb))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.prebid))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.bidop))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItem.pq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItem.rfq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItem.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItem.ispq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItem.canvass))]) : _vm._e(), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v(_vm._s(tItem.noa))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v(_vm._s(tItem.po))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v(_vm._s(tItem.ntp))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v(_vm._s(tItem.do))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v(_vm._s(tItem.tiac))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v(_vm._s(tItem.diir))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v(_vm._s(tItem.voucher))])]), _vm._v(" "), _c('tr', [_c('td', {
       staticClass: "has-child",
       attrs: {
         "colspan": "18"
@@ -84927,7 +84995,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }, [_c('i', {
           staticClass: "nc-icon-mini ui-1_circle-add"
-        })]), _vm._v("\n                                                    " + _vm._s(tItemProgData.name) + "\n                                                ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.upr))]), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.doc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.preproc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.itb))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.prebid))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.bidop))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.pq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgData.rfq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgData.ispq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgData.canvass))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.noa))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.po))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.ntp))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.do))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.tiac))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.diir))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgData.voucher))])]), _vm._v(" "), _c('tr', [_c('td', {
+        })]), _vm._v("\n                                                    " + _vm._s(tItemProgData.name) + "\n                                                ")]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(tItemProgData.upr))]), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.doc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.preproc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.itb))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.prebid))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.bidop))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgData.pq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgData.rfq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgData.ispq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgData.canvass))]) : _vm._e(), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(tItemProgData.noa))]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(tItemProgData.po))]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(tItemProgData.ntp))]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(tItemProgData.do))]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(tItemProgData.tiac))]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(tItemProgData.diir))]), _vm._v(" "), _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(tItemProgData.voucher))])]), _vm._v(" "), _c('tr', [_c('td', {
           staticClass: "has-child",
           attrs: {
             "colspan": "18"
@@ -84936,7 +85036,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           staticClass: "grand-child-table table-name"
         }, [_c('tbody', [_vm._l((_vm.timelineitemUnits), function(tItemUnit) {
           return [(tItemUnit.program == tItem.programs) ? [(tItemUnit.center == tItemProgData.name) ? [_vm._l((tItemUnit.data), function(tItemUnitData) {
-            return [_c('tr', [_c('td', [_vm._v("\n                                                                    " + _vm._s(tItemUnitData.short_code) + "\n\n                                                                    "), _c('button', {
+            return [_c('tr', [_c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v("\n                                                                    " + _vm._s(tItemUnitData.short_code) + "\n\n                                                                    "), _c('button', {
               staticClass: "show-great-grand-child-table",
               on: {
                 "click": function($event) {
@@ -84945,7 +85049,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               }
             }, [_c('i', {
               staticClass: "nc-icon-mini ui-1_circle-add"
-            })])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.upr))]), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.doc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.preproc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.itb))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.prebid))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.bidop))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.pq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemUnitData.rfq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemUnitData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemUnitData.ispq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemUnitData.canvass))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.noa))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.po))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.ntp))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.do))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.tiac))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.diir))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemUnitData.voucher))])]), _vm._v(" "), _c('tr', [_c('td', {
+            })])]), _vm._v(" "), _c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v(_vm._s(tItemUnitData.upr))]), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.doc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.preproc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.itb))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.prebid))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.bidop))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemUnitData.pq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemUnitData.rfq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemUnitData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemUnitData.ispq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemUnitData.canvass))]) : _vm._e(), _vm._v(" "), _c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v(_vm._s(tItemUnitData.noa))]), _vm._v(" "), _c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v(_vm._s(tItemUnitData.po))]), _vm._v(" "), _c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v(_vm._s(tItemUnitData.ntp))]), _vm._v(" "), _c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v(_vm._s(tItemUnitData.do))]), _vm._v(" "), _c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v(_vm._s(tItemUnitData.tiac))]), _vm._v(" "), _c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v(_vm._s(tItemUnitData.diir))]), _vm._v(" "), _c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v(_vm._s(tItemUnitData.voucher))])]), _vm._v(" "), _c('tr', [_c('td', {
               staticClass: "has-child",
               attrs: {
                 "colspan": "18"
@@ -84954,7 +85090,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               staticClass: "great-grand-child-table table-name"
             }, [_c('tbody', [_vm._l((_vm.timelineitemProgramCenters), function(tItemProgCent) {
               return [(tItemProgCent.program == tItemUnitData.short_code) ? [(tItemProgCent.center == tItemProgData.name) ? _vm._l((tItemProgCent.data), function(tItemProgCentData) {
-                return _c('tr', [_c('td', [_c('i', {
+                return _c('tr', [_c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_c('i', {
                   staticClass: "green",
                   staticStyle: {
                     "font-family": "Verdana"
@@ -84968,7 +85108,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                     "target": "_blank",
                     "href": '/procurements/unit-purchase-requests/timelines/' + tItemProgCentData.id
                   }
-                }, [_vm._v("(" + _vm._s(tItemProgCentData.project_name) + ")")])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.upr))]), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.doc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.preproc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.itb))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.prebid))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.bidop))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.pq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.rfq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.ispq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.canvass))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.noa))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.po))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.ntp))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.do))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.tiac))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.diir))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(tItemProgCentData.voucher))])])
+                }, [_vm._v("(" + _vm._s(tItemProgCentData.project_name) + ")")])])]), _vm._v(" "), _c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_vm._v(_vm._s(tItemProgCentData.upr))]), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.doc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.preproc))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.itb))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.prebid))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.bidop))]) : _vm._e(), _vm._v(" "), (_vm.show2) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.pq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.rfq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.philgeps))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.ispq))]) : _vm._e(), _vm._v(" "), (_vm.show3) ? _c('td', [_vm._v(_vm._s(tItemProgCentData.canvass))]) : _vm._e(), _vm._v(" "), _c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_vm._v(_vm._s(tItemProgCentData.noa))]), _vm._v(" "), _c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_vm._v(_vm._s(tItemProgCentData.po))]), _vm._v(" "), _c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_vm._v(_vm._s(tItemProgCentData.ntp))]), _vm._v(" "), _c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_vm._v(_vm._s(tItemProgCentData.do))]), _vm._v(" "), _c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_vm._v(_vm._s(tItemProgCentData.tiac))]), _vm._v(" "), _c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_vm._v(_vm._s(tItemProgCentData.diir))]), _vm._v(" "), _c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_vm._v(_vm._s(tItemProgCentData.voucher))])])
               }) : _vm._e()] : _vm._e()]
             })], 2)])])])]
           })] : _vm._e()] : _vm._e()]
@@ -85624,7 +85796,75 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "table-scroll"
   }, [_c('table', {
     staticClass: "table table--with-border table-name"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("PC/CO (UPR NUMBER)")]), _vm._v(" "), _c('th', [_vm._v("PROJECT NAME/ ACTIVITY")]), _vm._v(" "), _c('th', [_vm._v("END USER")]), _vm._v(" "), _c('th', [_vm._v("ABC")]), _vm._v(" "), _vm._m(2), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("\n                              ITSPQ\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("\n                              PHILGEPS POSTING\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("\n                              RFQ\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', [_vm._v("\n                              CANVASS\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              Document Acceptance (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              Pre Proc (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              Invitation to BId (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              PhilGeps Posting (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              Pre Bid Conference (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              SOBE (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', [_vm._v("\n                              POST QUAL (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _vm._m(6), _vm._v(" "), _vm._m(7), _vm._v(" "), _vm._m(8), _vm._v(" "), _vm._m(9), _vm._v(" "), _vm._m(10), _vm._v(" "), _vm._m(11), _vm._v(" "), _vm._m(12), _vm._v(" "), _vm._m(13), _vm._v(" "), _vm._m(14), _vm._v(" "), _vm._m(15), _vm._v(" "), _vm._m(16), _vm._v(" "), _vm._m(17), _vm._v(" "), _vm._m(18), _vm._v(" "), _vm._m(19), _vm._v(" "), _vm._m(20), _vm._v(" "), _vm._m(21), _vm._v(" "), _vm._m(22), _vm._v(" "), _vm._m(23), _vm._v(" "), _vm._m(24), _vm._v(" "), _vm._m(25), _vm._v(" "), _vm._m(26), _vm._v(" "), _vm._m(27), _vm._v(" "), _vm._m(28), _vm._v(" "), _c('th', [_vm._v("\n                              TOTAL NUMBER OF DAYS\n                            ")])])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.units), function(unit) {
+  }, [_c('thead', {
+    staticStyle: {
+      "background-color": "#222222"
+    }
+  }, [_c('tr', [_c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("PC/CO (UPR NUMBER)")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("PROJECT NAME/ ACTIVITY")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("END USER")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("ABC")]), _vm._v(" "), _vm._m(2), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              ITSPQ\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              PHILGEPS POSTING\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              RFQ\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              CANVASS\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              Document Acceptance (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              Pre Proc (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              Invitation to BId (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              PhilGeps Posting (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              Pre Bid Conference (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              SOBE (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              POST QUAL (BAC)\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])]) : _vm._e(), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _vm._m(6), _vm._v(" "), _vm._m(7), _vm._v(" "), _vm._m(8), _vm._v(" "), _vm._m(9), _vm._v(" "), _vm._m(10), _vm._v(" "), _vm._m(11), _vm._v(" "), _vm._m(12), _vm._v(" "), _vm._m(13), _vm._v(" "), _vm._m(14), _vm._v(" "), _vm._m(15), _vm._v(" "), _vm._m(16), _vm._v(" "), _vm._m(17), _vm._v(" "), _vm._m(18), _vm._v(" "), _vm._m(19), _vm._v(" "), _vm._m(20), _vm._v(" "), _vm._m(21), _vm._v(" "), _vm._m(22), _vm._v(" "), _vm._m(23), _vm._v(" "), _vm._m(24), _vm._v(" "), _vm._m(25), _vm._v(" "), _vm._m(26), _vm._v(" "), _vm._m(27), _vm._v(" "), _vm._m(28), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              TOTAL NUMBER OF DAYS\n                            ")])])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.units), function(unit) {
     return [_c('tr', [_c('td', {
       staticStyle: {
         "font-weight": "bolder"
@@ -86094,59 +86334,167 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              UPR RECEIPT\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              UPR RECEIPT\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              PREPARE NOA\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              PREPARE NOA\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              ISSUE NOA\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              ISSUE NOA\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              CONFORME NOA\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(SUPPLIER)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              CONFORME NOA\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(SUPPLIER)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              POSTING OF NOA TO PHILGEPS\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              POSTING OF NOA TO PHILGEPS\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              PREPARATION OF PO\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              PREPARATION OF PO\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              MFO OBLIGATION\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(MFO/BUDGET OFFICE)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              MFO OBLIGATION\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(MFO/BUDGET OFFICE)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              ISSUANCE OF CAF\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(ACCOUNTING)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              ISSUANCE OF CAF\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(ACCOUNTING)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              PO/WO/JO/CA APPROVAL AND\n                              NTP PREPARATION\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              PO/WO/JO/CA APPROVAL AND\n                              NTP PREPARATION\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              SERVING OF NTP\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              SERVING OF NTP\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              CONFORME OF NTP\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(SUPPLIER)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              CONFORME OF NTP\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(SUPPLIER)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              PHILGEPS POSTING OF NTP\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              PHILGEPS POSTING OF NTP\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              ISSUANCE OF NOTICE OF DELIVERY\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              ISSUANCE OF NOTICE OF DELIVERY\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              DELIVERY OF ITEMS\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(SUPPLIER)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              DELIVERY OF ITEMS\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(SUPPLIER)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              NOTIFICATION OF DELIVERY TO COA\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(SAO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              NOTIFICATION OF DELIVERY TO COA\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(SAO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              CONDUCT OF TIAC\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(END-USER)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              CONDUCT OF TIAC\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(END-USER)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              INSPECTION AND ACCEPTANCE REPORT\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(SAO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              INSPECTION AND ACCEPTANCE REPORT\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(SAO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              DELIVERED ITEMS AND INSPECTION REPORT\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(MFO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              DELIVERED ITEMS AND INSPECTION REPORT\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(MFO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              PREPARATION OF DV\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              PREPARATION OF DV\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              SIGN BOX `A` OF DV\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(MFO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              SIGN BOX `A` OF DV\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(MFO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              ACCOMPLISH BOX `B` OF DV AND SIGN BOX `C` OF DV\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(ACCOUNTING)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              ACCOMPLISH BOX `B` OF DV AND SIGN BOX `C` OF DV\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(ACCOUNTING)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              SIGN BOX `D` OF DV\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(END USER CMDR)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              SIGN BOX `D` OF DV\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(END USER CMDR)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              PRE-AUDIT\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(MFO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              PRE-AUDIT\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(MFO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              PREPARE AND SIGN LDDAP-ADA\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(ACCOUNTING)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              PREPARE AND SIGN LDDAP-ADA\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(ACCOUNTING)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              SIGN LDDAP-ADA OR PREPARE CHEQUE\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(FINANCE)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              SIGN LDDAP-ADA OR PREPARE CHEQUE\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(FINANCE)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              SIGN LDDAP-ADA OR COUNTER-SIGN CHEQUE\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              SIGN LDDAP-ADA OR COUNTER-SIGN CHEQUE\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(PC/CO)")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('th', [_vm._v("\n                              RECEIPT OF CHEQUES AND ISSUE OFFICIAL RECEIPT\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(SUPPLIER)")])])
+  return _c('th', {
+    staticStyle: {
+      "background": "#2222"
+    }
+  }, [_vm._v("\n                              RECEIPT OF CHEQUES AND ISSUE OFFICIAL RECEIPT\n                              "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(SUPPLIER)")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

@@ -60,7 +60,7 @@ Unit Purchase Request
         <table class="table">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Stage</th>
                     <th>Date</th>
                     <th>Allowable Time</th>
                     <th>W Day/s</th>
