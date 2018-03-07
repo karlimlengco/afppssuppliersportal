@@ -48,7 +48,15 @@ Overview Delay
                     </a></p>
                 </td>
                 {{-- <td>{{$data->ref_number}}</td> --}}
-                <td style="text-transform: uppercase;">{{$data->status}}</td>
+                {{-- <td style="text-transform: uppercase;">{{$data->status}}</td> --}}
+
+                <td style="text-transform: uppercase;">
+                @if($$data->status == 'PO FUNDING APPROVED')
+                  PO MFO OBLIGATION
+                @else
+                  {{$data->status}}
+                @endif
+                </td>
                 <td>{{formatPrice($data->total_abc)}}</td>
                 <td>{{formatPrice($data->total_bid)}}</td>
                 <td>{{formatPrice($data->total_residual)}}</td>
