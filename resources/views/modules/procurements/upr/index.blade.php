@@ -49,7 +49,7 @@ Unit Purchase Request
             <thead>
                 <tr>
                     <th>UPR No.</th>
-                    <th>Ref No.</th>
+                    {{-- <th>Ref No.</th> --}}
                     <th>Project</th>
                     <th>ABC</th>
                     <th>TYPE</th>
@@ -89,7 +89,7 @@ Unit Purchase Request
         },
         columns: [
             {data: 'upr_number', name: 'upr_number'},
-            {data: 'ref_number', name: 'ref_number'},
+            // {data: 'ref_number', name: 'ref_number'},
             {data: 'project_name', name: 'project_name'},
             {data: 'total_amount', name: 'total_amount'},
             {data: 'type', name: 'type'},
