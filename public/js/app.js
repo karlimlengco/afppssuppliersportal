@@ -72697,11 +72697,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 var arrayIDs = [];
@@ -84590,7 +84585,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                            # UPR\n                        ")]), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Total ABC")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("OBLIGATED Amount")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Approved Contract Amount")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("DUE FOR OBLIGATION")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Balance Amount of Completed Projects")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', [_vm._v("Number of Days Delay")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
+  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                            # UPR\n                        ")]), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Total ABC")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Approved Contract Amount")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("DUE FOR OBLIGATION")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("RESIDUAL OF COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', [_vm._v("Number of Days Delay")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
     staticStyle: {
       "text-align": "center"
     }
@@ -84650,10 +84645,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/procurements/unit-purchase-requests/overview/delay/' + item.programs + '?type=' + _vm.types,
         "tooltip": "Delay"
       }
-    }, [_vm._v("(" + _vm._s(item.delay_count) + ")")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_approved_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
+    }, [_vm._v("(" + _vm._s(item.delay_count) + ")")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
       staticClass: "has-child",
       attrs: {
-        "colspan": "11"
+        "colspan": "10"
       }
     }, [_c('table', {
       staticClass: "child-table table-name"
@@ -84706,10 +84701,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
             "href": '/procurements/unit-purchase-requests/overview/delay/' + item.programs + '/' + itemProgData.name + '?type=' + _vm.types,
             "tooltip": "Delay"
           }
-        }, [_vm._v("\n                                                                (" + _vm._s(itemProgData.delay_count) + ")\n                                                            ")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
+        }, [_vm._v("\n                                                                (" + _vm._s(itemProgData.delay_count) + ")\n                                                            ")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
           staticClass: "has-child",
           attrs: {
-            "colspan": "11"
+            "colspan": "10"
           }
         }, [_c('table', {
           staticClass: "grand-child-table table-name"
@@ -84762,14 +84757,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                 "href": '/procurements/unit-purchase-requests/overview/delay/' + item.programs + '/' + itemProgData.name + '/' + itemUnitData.short_code + '?type=' + _vm.types,
                 "tooltip": "Delay"
               }
-            }, [_vm._v("\n                                                                                                (" + _vm._s(itemUnitData.delay_count) + ")\n                                                                                        ")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
+            }, [_vm._v("\n                                                                                                (" + _vm._s(itemUnitData.delay_count) + ")\n                                                                                        ")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
               staticStyle: {
                 "text-align": "left"
               }
             }) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
               staticClass: "has-child",
               attrs: {
-                "colspan": "11"
+                "colspan": "10"
               }
             }, [_c('table', {
               staticClass: "great-grand-child-table table-name"
@@ -84802,7 +84797,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   staticClass: "red"
                 }, [_vm._v("Delayed")]) : _vm._e(), _vm._v(" "), (itemProgCentData.status == 'cancelled' || itemProgCentData.status == 'Cancelled') ? _c('span', [_vm._v("Cancelled")]) : _vm._e(), _vm._v(" "), (itemProgCentData.delay_count == 0 && itemProgCentData.ongoing_count != 0 && itemProgCentData.status != 'cancelled') ? _c('span', {
                   staticClass: "green"
-                }, [_vm._v("Ongoing")]) : _vm._e()]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(itemProgCentData.total_complete_residual))]) : _vm._e(), _vm._v(" "), (_vm.show && itemProgCentData.status != 'completed') ? _c('td', [(itemProgCentData.status != 'cancelled' && itemProgCentData.delay_count != 0) ? _c('span', [_vm._v(_vm._s(itemProgCentData.delay))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (itemProgCentData.status == 'completed') ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
+                }, [_vm._v("Ongoing")]) : _vm._e()]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(itemProgCentData.total_complete_residual))]) : _vm._e(), _vm._v(" "), (_vm.show && itemProgCentData.status != 'completed') ? _c('td', [(itemProgCentData.status != 'cancelled' && itemProgCentData.delay_count != 0) ? _c('span', [_vm._v(_vm._s(itemProgCentData.delay))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (itemProgCentData.status == 'completed') ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
                   staticStyle: {
                     "text-align": "left"
                   }

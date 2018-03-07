@@ -32,10 +32,9 @@
                             # UPR
                         </th>
                         <th v-if="showInfo" >Total ABC</th>
-                        <th v-if="showInfo" >OBLIGATED Amount</th>
                         <th v-if="showInfo" >Approved Contract Amount</th>
                         <th v-if="showInfo" >DUE FOR OBLIGATION</th>
-                        <th v-if="showInfo" >Balance Amount of Completed Projects</th>
+                        <th v-if="showInfo" >RESIDUAL OF COMPLETED PROJECTS</th>
                         <th v-if="show" >Number of Days Delay</th>
                         <th style="text-align:center" v-if="show" >Current Status</th>
                         <th style="text-align:center" v-if="show" >Justification</th>
@@ -57,7 +56,6 @@
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'?type='+types" tooltip="Delay" class="red">({{item.delay_count}})</a>
                             </td>
                             <td v-if="showInfo">{{formatPrice(item.total_abc)}}</td>
-                            <td v-if="showInfo">{{formatPrice(item.total_approved_abc)}}</td>
                             <td v-if="showInfo">{{formatPrice(item.total_bid)}}</td>
                             <td v-if="showInfo">{{formatPrice(item.total_residual)}}</td>
                             <td v-if="showInfo">{{formatPrice(item.total_complete_residual)}}</td>
@@ -68,7 +66,7 @@
                         </tr>
                         <!-- child -->
                                 <tr>
-                                    <td class="has-child" colspan="11">
+                                    <td class="has-child" colspan="10">
                                         <table class="child-table table-name">
                                           <!--   <thead>
                                                 <tr>
@@ -121,7 +119,6 @@
                                                             </a>
                                                         </td>
                                                         <td v-if="showInfo">{{formatPrice(itemProgData.total_abc)}}</td>
-                                                        <td v-if="showInfo"></td>
                                                         <td v-if="showInfo">{{formatPrice(itemProgData.total_bid)}}</td>
                                                         <td v-if="showInfo">{{formatPrice(itemProgData.total_residual)}}</td>
                                                         <td v-if="showInfo">{{formatPrice(itemProgData.total_complete_residual)}}</td>
@@ -134,7 +131,7 @@
                                                     <!-- Grand Child -->
 
                                                                 <tr >
-                                                                    <td class="has-child" colspan="11">
+                                                                    <td class="has-child" colspan="10">
                                                                         <table class="grand-child-table table-name">
                                                                             <tbody>
                                                                             <template v-for="itemUnit in itemUnits">
@@ -185,7 +182,6 @@
 
                                                                                     </td>
                                                                                     <td v-if="showInfo" >{{formatPrice(itemUnitData.total_abc)}}</td>
-                                                                                    <td v-if="showInfo" ></td>
                                                                                     <td v-if="showInfo" >{{formatPrice(itemUnitData.total_bid)}}</td>
                                                                                     <td v-if="showInfo" >{{formatPrice(itemUnitData.total_residual)}}</td>
                                                                                     <td v-if="showInfo" >{{formatPrice(itemUnitData.total_complete_residual)}}</td>
@@ -197,7 +193,7 @@
                                                                                 </tr>
                                                                                 <!-- Great Grand -->
                                                                                         <tr>
-                                                                                            <td class="has-child" colspan="11">
+                                                                                            <td class="has-child" colspan="10">
                                                                                                 <table class="great-grand-child-table table-name">
                                                                                                     <tbody>
                                                                                                     <template v-for="itemProgCent in itemProgramCenters">
@@ -221,7 +217,6 @@
 
                                                                                                     </td>
                                                                                                     <td v-if="showInfo" >{{formatPrice(itemProgCentData.total_abc)}}</td>
-                                                                                                    <td v-if="showInfo" ></td>
                                                                                                     <td v-if="showInfo" >{{formatPrice(itemProgCentData.total_bid)}}</td>
                                                                                                     <td v-if="showInfo" >{{formatPrice(itemProgCentData.total_residual)}}</td>
                                                                                                     <td v-if="showInfo" >{{itemProgCentData.total_complete_residual}}</td>
