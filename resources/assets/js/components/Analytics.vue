@@ -54,11 +54,11 @@
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/cancelled/'+item.programs+'?type='+types" tooltip="Cancelled" style="color:#7a7a7a" >({{item.cancelled_count}})</a>
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'?type='+types" tooltip="Delay" class="red">({{item.delay_count}})</a>
                             </td>
-                            <td v-if="showInfo">{{formatPrice(item.total_abc)}}</td>
-                            <td v-if="showInfo">{{formatPrice(item.total_bid)}}</td>
-                            <td v-if="showInfo">{{formatPrice(item.total_residual)}}</td>
-                            <td v-if="showInfo">{{formatPrice(item.total_complete_residual)}}</td>
-                            <td v-if="show"></td>
+                            <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_abc)}}</td>
+                            <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_bid)}}</td>
+                            <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_residual)}}</td>
+                            <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_complete_residual)}}</td>
+                            <td style="font-weight:bolder" v-if="show"></td>
                             <td v-if="show"></td>
                             <td v-if="show"></td>
                             <td v-if="show"></td>
@@ -78,7 +78,7 @@
                                                 <template  v-for="itemProgData in itemProg.data">
 
                                                     <tr>
-                                                        <td >
+                                                        <td  style="font-weight:bolder" >
                                                             <button  v-on:click="clickItemProgramCenter(itemProgData)" class="show-grand-child-table" ><i class="nc-icon-mini ui-1_circle-add"></i></button>
                                                             {{itemProgData.name}}
                                                         </td>
@@ -117,10 +117,10 @@
                                                                 ({{itemProgData.delay_count}})
                                                             </a>
                                                         </td>
-                                                        <td v-if="showInfo">{{formatPrice(itemProgData.total_abc)}}</td>
-                                                        <td v-if="showInfo">{{formatPrice(itemProgData.total_bid)}}</td>
-                                                        <td v-if="showInfo">{{formatPrice(itemProgData.total_residual)}}</td>
-                                                        <td v-if="showInfo">{{formatPrice(itemProgData.total_complete_residual)}}</td>
+                                                        <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_abc)}}</td>
+                                                        <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_bid)}}</td>
+                                                        <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_residual)}}</td>
+                                                        <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_complete_residual)}}</td>
 
                                                         <td v-if="show" ></td>
                                                         <td v-if="show" ></td>
@@ -180,10 +180,10 @@
                                                                                         </a>
 
                                                                                     </td>
-                                                                                    <td v-if="showInfo" >{{formatPrice(itemUnitData.total_abc)}}</td>
-                                                                                    <td v-if="showInfo" >{{formatPrice(itemUnitData.total_bid)}}</td>
-                                                                                    <td v-if="showInfo" >{{formatPrice(itemUnitData.total_residual)}}</td>
-                                                                                    <td v-if="showInfo" >{{formatPrice(itemUnitData.total_complete_residual)}}</td>
+                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_abc)}}</td>
+                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_bid)}}</td>
+                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_residual)}}</td>
+                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_complete_residual)}}</td>
 
                                                                                     <td v-if="show" ></td>
                                                                                     <td v-if="show"   style="text-align:left"></td>
@@ -205,7 +205,7 @@
                                                                                                     </td>
                                                                                                     <td @click.prevent="changeInfo()">
 
-<!--                                                                                                         <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{itemProgCentData.upr_count}}</span>
+<!--                                                                                                         <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{itemProgCentData.upr_count}}</span> style="font-weight:bolder"
                                                                                                         <span tooltip="Completed" class="blue">({{itemProgCentData.completed_count}})</span>
                                                                                                         <span tooltip="Ongoing" class="green">({{itemProgCentData.ongoing_count}})</span>
                                                                                                         <span tooltip="Delay" class="red">({{itemProgCentData.delay_count}})</span>
@@ -215,12 +215,12 @@
                                                                                                         <span class="green" v-if="itemProgCentData.delay_count == 0 && itemProgCentData.ongoing_count != 0 && itemProgCentData.status != 'cancelled' ">Ongoing</span>
 
                                                                                                     </td>
-                                                                                                    <td v-if="showInfo" >{{formatPrice(itemProgCentData.total_abc)}}</td>
-                                                                                                    <td v-if="showInfo" >{{formatPrice(itemProgCentData.total_bid)}}</td>
-                                                                                                    <td v-if="showInfo" >{{formatPrice(itemProgCentData.total_residual)}}</td>
-                                                                                                    <td v-if="showInfo" >{{itemProgCentData.total_complete_residual}}</td>
+                                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemProgCentData.total_abc)}}</td>
+                                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemProgCentData.total_bid)}}</td>
+                                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemProgCentData.total_residual)}}</td>
+                                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{itemProgCentData.total_complete_residual}}</td>
 
-                                                                                                    <td v-if="show && itemProgCentData.status != 'completed'  ">
+                                                                                                    <td style="font-weight:bolder" v-if="show && itemProgCentData.status != 'completed'  ">
                                                                                                     <span v-if="itemProgCentData.status != 'cancelled' && itemProgCentData.delay_count != 0">{{itemProgCentData.delay}}</span>
                                                                                                     </td>
                                                                                                     <td v-if="itemProgCentData.status == 'completed'  "></td>

@@ -84662,7 +84662,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/procurements/unit-purchase-requests/overview/delay/' + item.programs + '?type=' + _vm.types,
         "tooltip": "Delay"
       }
-    }, [_vm._v("(" + _vm._s(item.delay_count) + ")")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
+    }, [_vm._v("(" + _vm._s(item.delay_count) + ")")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v(_vm._s(_vm.formatPrice(item.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v(_vm._s(_vm.formatPrice(item.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }, [_vm._v(_vm._s(_vm.formatPrice(item.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
+      staticStyle: {
+        "font-weight": "bolder"
+      }
+    }) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
       staticClass: "has-child",
       attrs: {
         "colspan": "10"
@@ -84671,7 +84691,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "child-table table-name"
     }, [_c('tbody', [_vm._l((_vm.itemProgram), function(itemProg) {
       return [(itemProg.program == item.programs) ? [_vm._l((itemProg.data), function(itemProgData) {
-        return [_c('tr', [_c('td', [_c('button', {
+        return [_c('tr', [_c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_c('button', {
           staticClass: "show-grand-child-table",
           on: {
             "click": function($event) {
@@ -84722,7 +84746,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
             "href": '/procurements/unit-purchase-requests/overview/delay/' + item.programs + '/' + itemProgData.name + '?type=' + _vm.types,
             "tooltip": "Delay"
           }
-        }, [_vm._v("\n                                                                (" + _vm._s(itemProgData.delay_count) + ")\n                                                            ")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
+        }, [_vm._v("\n                                                                (" + _vm._s(itemProgData.delay_count) + ")\n                                                            ")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+          staticStyle: {
+            "font-weight": "bolder"
+          }
+        }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
           staticClass: "has-child",
           attrs: {
             "colspan": "10"
@@ -84786,7 +84826,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                 "href": '/procurements/unit-purchase-requests/overview/delay/' + item.programs + '/' + itemProgData.name + '/' + itemUnitData.short_code + '?type=' + _vm.types,
                 "tooltip": "Delay"
               }
-            }, [_vm._v("\n                                                                                                (" + _vm._s(itemUnitData.delay_count) + ")\n                                                                                        ")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
+            }, [_vm._v("\n                                                                                                (" + _vm._s(itemUnitData.delay_count) + ")\n                                                                                        ")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+              staticStyle: {
+                "font-weight": "bolder"
+              }
+            }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
               staticStyle: {
                 "text-align": "left"
               }
@@ -84830,7 +84886,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   staticClass: "red"
                 }, [_vm._v("Delayed")]) : _vm._e(), _vm._v(" "), (itemProgCentData.status == 'cancelled' || itemProgCentData.status == 'Cancelled') ? _c('span', [_vm._v("Cancelled")]) : _vm._e(), _vm._v(" "), (itemProgCentData.delay_count == 0 && itemProgCentData.ongoing_count != 0 && itemProgCentData.status != 'cancelled') ? _c('span', {
                   staticClass: "green"
-                }, [_vm._v("Ongoing")]) : _vm._e()]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(itemProgCentData.total_complete_residual))]) : _vm._e(), _vm._v(" "), (_vm.show && itemProgCentData.status != 'completed') ? _c('td', [(itemProgCentData.status != 'cancelled' && itemProgCentData.delay_count != 0) ? _c('span', [_vm._v(_vm._s(itemProgCentData.delay))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (itemProgCentData.status == 'completed') ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
+                }, [_vm._v("Ongoing")]) : _vm._e()]), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [_vm._v(_vm._s(itemProgCentData.total_complete_residual))]) : _vm._e(), _vm._v(" "), (_vm.show && itemProgCentData.status != 'completed') ? _c('td', {
+                  staticStyle: {
+                    "font-weight": "bolder"
+                  }
+                }, [(itemProgCentData.status != 'cancelled' && itemProgCentData.delay_count != 0) ? _c('span', [_vm._v(_vm._s(itemProgCentData.delay))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (itemProgCentData.status == 'completed') ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
                   staticStyle: {
                     "text-align": "left"
                   }
