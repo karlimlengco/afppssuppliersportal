@@ -1,5 +1,5 @@
 @section('title')
-Overview Completed
+Overview of Completed Project
 @stop
 
 
@@ -25,12 +25,12 @@ Overview Completed
     <thead>
         <tr>
            <th class="align-center" width="15%">PC/CO</th>
-           <th class="align-center" width="40%" >UPR Number</th>
+           <th class="align-center" width="40%" >UPR Receipt</th>
+           <th class="align-center" width="10%">Date Prepared</th>
            {{-- <th class="align-center" width="20%">Ref Number</th> --}}
            <th class="align-center" width="5%">ABC</th>
            <th class="align-center" width="5%">Approved Contract</th>
            <th class="align-center" width="5%">Residual</th>
-           <th class="align-center" width="10%">Date Prepared</th>
         </tr>
     </thead>
         <?php $totalAbc = 0; ?>
@@ -40,16 +40,16 @@ Overview Completed
             <tr>
                 <td>{{$data->name}}</td>
                 <td>
-                    {{$data->upr_number}}
-                    <p style="margin-bottom:5px"><a target="_blank" href="/procurements/unit-purchase-requests/timelines/{{$data->id}}">
-                    <small>{{$data->project_name}}</small>
-                    </a></p>
+                    <a target="_blank" href="/procurements/unit-purchase-requests/timelines/{{$data->id}}">{{$data->project_name}}</a>
+                    <p style="margin-bottom:5px">
+                    <small>{{$data->upr_number}}</small>
+                    </p>
                 </td>
+                <td>{{$data->date_processed->format('d F Y')}}</td>
                 {{-- <td>{{$data->ref_number}}</td> --}}
                 <td>{{formatPrice($data->total_abc)}}</td>
                 <td>{{formatPrice($data->total_bid)}}</td>
                 <td>{{formatPrice($data->total_residual)}}</td>
-                <td>{{$data->date_processed->format('d F Y')}}</td>
             </tr>
 
             <?php $totalAbc =  $totalAbc + $data->total_abc; ?>
@@ -59,10 +59,10 @@ Overview Completed
         <tr>
           <td>Total</td>
           <td></td>
+          <td></td>
           <td>{{formatPrice($totalAbc)}}</td>
           <td>{{formatPrice($totalBid)}}</td>
           <td>{{formatPrice($totalResidual)}}</td>
-          <td></td>
         </tr>
     </tbody>
 </table>
