@@ -26,7 +26,7 @@ Overview Delay
         <tr>
            <th class="align-center" width="15%">PC/CO</th>
            <th class="align-center" width="40%" >UPR Number</th>
-           <th class="align-center" width="10%">Ref Number</th>
+           {{-- <th class="align-center" width="10%">Ref Number</th> --}}
            <th class="align-center" width="10%">Status</th>
            <th class="align-center" width="5%">ABC</th>
            <th class="align-center" width="5%">Approved Contract</th>
@@ -45,7 +45,7 @@ Overview Delay
                     {{$data->upr_number}}
                     <p style="margin-bottom:5px"><a target="_blank" href="/procurements/unit-purchase-requests/timelines/{{$data->id}}"><small>{{$data->project_name}}</small></a></p>
                 </td>
-                <td>{{$data->ref_number}}</td>
+                {{-- <td>{{$data->ref_number}}</td> --}}
                 <td style="text-transform: uppercase;">{{$data->status}}</td>
                 <td>{{formatPrice($data->total_abc)}}</td>
                 <td>{{formatPrice($data->total_bid)}}</td>
