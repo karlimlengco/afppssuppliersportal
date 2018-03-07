@@ -46,7 +46,7 @@ trait OverviewTrait
      */
     public function overviewCompleted(Request $request, $programs, $pcco = null, $unit = null, UnitPurchaseRequestRepository $upr)
     {
-        $result     =   $upr->findByPrograms($request->type, 'completed', $programs, $pcco, $unit);
+        $result     =   $upr->findByPrograms($request->type, 'completed', $programs, $pcco, $unit, $request);
 
         return $this->view('modules.overview.completed',[
             'result'    =>  $result,
@@ -67,7 +67,7 @@ trait OverviewTrait
      */
     public function overviewCancelled(Request $request, $programs, $pcco = null, $unit = null, UnitPurchaseRequestRepository $upr)
     {
-        $result     =   $upr->findByPrograms($request->type, 'cancelled', $programs, $pcco, $unit);
+        $result     =   $upr->findByPrograms($request->type, 'cancelled', $programs, $pcco, $unit, $request);
 
         return $this->view('modules.overview.cancelled',[
             'result'    =>  $result,
@@ -89,7 +89,7 @@ trait OverviewTrait
      */
     public function overviewOngoing(Request $request, $programs, $pcco =null, $unit = null, UnitPurchaseRequestRepository $upr)
     {
-        $result     =   $upr->findByPrograms($request->type, 'ongoing', $programs, $pcco, $unit);
+        $result     =   $upr->findByPrograms($request->type, 'ongoing', $programs, $pcco, $unit, $request);
         return $this->view('modules.overview.ongoing',[
             'result'    =>  $result,
             'breadcrumbs' => [
@@ -110,7 +110,7 @@ trait OverviewTrait
      */
     public function overviewDelay(Request $request, $programs, $pcco =null, $unit = null, UnitPurchaseRequestRepository $upr)
     {
-        $result     =   $upr->findByPrograms($request->type, 'delay', $programs, $pcco, $unit);
+        $result     =   $upr->findByPrograms($request->type, 'delay', $programs, $pcco, $unit, $request);
         return $this->view('modules.overview.delay',[
             'result'    =>  $result,
             'breadcrumbs' => [

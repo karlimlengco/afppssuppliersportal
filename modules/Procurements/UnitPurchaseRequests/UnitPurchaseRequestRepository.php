@@ -81,29 +81,6 @@ class UnitPurchaseRequestRepository extends BaseRepository
      */
     public function findTimelineById($id, Request $request)
     {
-        $dateTo = $request->get('date_to');
-        $dateFrom = $request->get('date_from');
-
-        $date    = \Carbon\Carbon::now();
-        $yearto    = $date->format('Y');
-        $yearfrom    = $date->format('Y');
-        if($dateFrom != null)
-        {
-            $dateFrom  =   $dateFrom;
-            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
-        }
-
-        if($dateTo != null)
-        {
-            $date_to  =   $dateTo;
-            $yearto  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_to)->format('Y');
-        }
-
-        if($dateTo &&  $dateFrom == null)
-        {
-            $dateFrom  =   $date_to;
-            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
-        }
 
         $model  =    $this->model;
 
@@ -302,8 +279,6 @@ class UnitPurchaseRequestRepository extends BaseRepository
         $model  =   $model->leftJoin('delivery_inspection', 'delivery_inspection.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
 
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
-
         $model  =   $model->where('unit_purchase_requests.id', '=', $id);
 
         return $model->first();
@@ -495,8 +470,31 @@ class UnitPurchaseRequestRepository extends BaseRepository
      * @param  [type] $program [description]
      * @return [type]          [description]
      */
-    public function findByPrograms($type = 'alternative', $status, $programs, $pcco = null, $unit = null)
+    public function findByPrograms($type = 'alternative', $status, $programs, $pcco = null, $unit = null, Request $request)
     {
+        $dateTo = $request->get('date_to');
+        $dateFrom = $request->get('date_from');
+
+        $date    = \Carbon\Carbon::now();
+        $yearto    = $date->format('Y');
+        $yearfrom    = $date->format('Y');
+        if($dateFrom != null)
+        {
+            $dateFrom  =   $dateFrom;
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
+        }
+
+        if($dateTo != null)
+        {
+            $date_to  =   $dateTo;
+            $yearto  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_to)->format('Y');
+        }
+
+        if($dateTo &&  $dateFrom == null)
+        {
+            $dateFrom  =   $date_to;
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
+        }
         $model  =   $this->model;
 
         $model  =   $model->select([
@@ -582,6 +580,8 @@ class UnitPurchaseRequestRepository extends BaseRepository
         {
             $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
         }
+
+        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
 
         if(!\Sentinel::getUser()->hasRole('Admin') )
