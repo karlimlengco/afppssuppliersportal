@@ -84969,7 +84969,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "tooltip": "Delay"
     }
-  }, [_vm._v("(" + _vm._s(_vm.total_delay) + ")")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', [_vm._v(_vm._s(_vm.formatPrice(_vm.total_residual2)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()])], 2)])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("(" + _vm._s(_vm.total_delay) + ")")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_residual2)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()])], 2)])])]), _vm._v(" "), _c('div', {
     staticStyle: {
       "display": "none"
     },

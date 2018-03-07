@@ -273,10 +273,10 @@
                             <span tooltip="Cancelled" style="color:#7a7a7a">({{total_cancelled}})</span>
                             <span tooltip="Delay" class="red">({{total_delay}})</span>
                         </td>
-                        <td v-if="showInfo" >{{formatPrice(total_abc)}}</td>
-                        <td v-if="showInfo" >{{formatPrice(total_bid)}}</td>
-                        <td v-if="showInfo" >{{formatPrice(total_residual)}}</td>
-                        <td v-if="showInfo" >{{formatPrice(total_residual2)}}</td>
+                        <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_abc)}}</td>
+                        <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_bid)}}</td>
+                        <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_residual)}}</td>
+                        <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_residual2)}}</td>
                         <td v-if="show" ></td>
                         <td v-if="show" ></td>
                         <td v-if="show" ></td>
