@@ -960,38 +960,10 @@ Unit Purchase Request
                 <tr>
                     <td>Posting Notice Of Award to Philgeps</td>
                     <td>
-                        @if($data->noa_philgeps_posting != null)
-                        <?php $noa_philgeps_posting = createCarbon('Y-m-d',$data->noa_philgeps_posting); ?>
-                        <a target="_blank" href="{{route('procurements.noa.show', $data->noa_id)}}">
-                            {{$noa_philgeps_posting->format('d F Y')}}
-                        </a>
-                        @endif
-                    <td>1</td>
+                    <td></td>
 
                     <td>
-                    @if(isset($noa_award_accepted_date))
-                        @if($data->noa_philgeps_posting != null)
-                             {{ $data->noa_philgeps_days }}
-                            <?php $totalDays +=  $data->noa_philgeps_days ; ?>
 
-                            @if($data->noa_philgeps_days > 1)
-                                <strong class="red" tooltip="Delay">({{$data->noa_philgeps_days - 1}})</strong>
-                            @endif
-
-                        @else
-
-
-                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
-
-                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                            {{$d}}
-
-
-                            @if($d > 1)
-                                <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
-                            @endif
-                        @endif
-                    @endif
                     </td>
                     <td>{{$data->noa_received_remarks}}</td>
                     <td>{{$data->noa_received_action}}</td>
@@ -1333,33 +1305,10 @@ Unit Purchase Request
                 <tr>
                     <td>Philgeps Posting of NTP</td>
                     <td>
-                        @if($data->ntp_philgeps_posting != null)
-                        <?php $ntp_philgeps_posting = createCarbon('Y-m-d',$data->ntp_philgeps_posting); ?>
-                        <a target="_blank" href="{{route('procurements.ntp.show', $data->ntp_id)}}">
-                            {{$ntp_philgeps_posting->format('d F Y')}}
-                        </a>
-                        @endif
                     </td>
-                    <td>1</td>
+                    <td></td>
                     <td>
-                    @if($data->ntp_award_date)
-                        @if($data->ntp_philgeps_posting != null)
-                            {{ $data->ntp_philgeps_days }}
-                            <?php $totalDays +=  $data->ntp_philgeps_days ; ?>
 
-                            @if($data->ntp_philgeps_days > 1)
-                                <strong class="red" tooltip="Delay">({{$data->ntp_philgeps_days - 1}})</strong>
-                            @endif
-                        @else
-
-                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
-                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                            {{$d}}
-                            @if($d > 1)
-                                <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
-                            @endif
-                        @endif
-                    @endif
                     </td>
                     <td>{{$data->ntp_accepted_remarks}}</td>
                     <td>{{$data->ntp_accepted_action}}</td>
