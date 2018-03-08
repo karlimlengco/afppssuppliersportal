@@ -13,7 +13,7 @@
 
     <body>
 
-            <div class="printable-form-wrapper">
+            <div class="printable-form-wrapper" style="padding-top:50px">
                 <div class="printable-form">
                     <div class="printable-form__head">
                         <p class="printable-form__head__vision">AFP Vision 2028: A World-class Armed Forces, Source of National Pride</p>

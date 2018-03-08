@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <div class="printable-form">
+        <div class="printable-form"  style="padding-top:50px">
 
             <!-- form header -->
             <div class="printable-form__head">
@@ -136,7 +136,7 @@
                         <td class="align-top no-border-bottom" colspan="6" height="40px">In case of failure to make the full delivery within the time specified above, a penalty of one-tenth (1/10) of one percent (1%) for every day of delay shall be imposed.</td>
                     </tr>
                 </table>
-                <table class="printable-form__body__table">
+                <table class="printable-form__body__table" style="page-break-before: auto">
                     <tr>
                         <td class="border-left-only" width="45%"></td>
                         <td class="no-border" width="10%"></td>

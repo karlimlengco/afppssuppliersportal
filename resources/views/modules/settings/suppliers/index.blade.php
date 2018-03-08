@@ -28,11 +28,10 @@ Suppliers
 
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Company Name</th>
                     <th>Owner</th>
                     <th>Address</th>
                     <th>Status</th>
-                    <th>Created</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,7 +60,6 @@ Suppliers
             {data: 'owner', name: 'owner'},
             {data: 'address', name: 'address'},
             {data: 'is_blocked', name: 'is_blocked'},
-            {data: 'created_at', name: 'created_at'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
