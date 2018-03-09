@@ -84594,7 +84594,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                            # UPR\n                        ")]), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Total ABC")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("APPROVED CONTRACT AMOUNT")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("DUE FOR OBLIGATION")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("BALANCE AMOUNT OF COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', [_vm._v("NUMBER OF DAYS DELAY")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
+  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                            # UPR\n                        ")]), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Total ABC")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("ABC FOR COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("TOTAL BID PRICE FOR COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("RESIDUAL OF COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', [_vm._v("NUMBER OF DAYS DELAY")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
     staticStyle: {
       "text-align": "center"
     }

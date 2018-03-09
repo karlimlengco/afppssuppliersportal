@@ -31,9 +31,9 @@
                             # UPR
                         </th>
                         <th v-if="showInfo" >Total ABC</th>
-                        <th v-if="showInfo" >APPROVED CONTRACT AMOUNT</th>
-                        <th v-if="showInfo" >DUE FOR OBLIGATION</th>
-                        <th v-if="showInfo" >BALANCE AMOUNT OF COMPLETED PROJECTS</th>
+                        <th v-if="showInfo" >ABC FOR COMPLETED PROJECTS</th>
+                        <th v-if="showInfo" >TOTAL BID PRICE FOR COMPLETED PROJECTS</th>
+                        <th v-if="showInfo" >RESIDUAL OF COMPLETED PROJECTS</th>
                         <th v-if="show" >NUMBER OF DAYS DELAY</th>
                         <th style="text-align:center" v-if="show" >CURRENT STATUS</th>
                         <th style="text-align:center" v-if="show" >JUSTIFICATION</th>
