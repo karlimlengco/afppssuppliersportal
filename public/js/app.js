@@ -73016,6 +73016,14 @@ var tarray2IDs = [];
                 return total + Number(value.total_residual);
             }, 0);
         },
+        total_approved_abc: function total_approved_abc() {
+            if (!this.items) {
+                return 0;
+            }
+            return this.items.reduce(function (total, value) {
+                return total + Number(value.total_approved_abc);
+            }, 0);
+        },
         total_residual2: function total_residual2() {
             if (!this.items) {
                 return 0;
@@ -84594,7 +84602,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                            # UPR\n                        ")]), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Total ABC")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("ABC FOR COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("TOTAL BID PRICE FOR COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("RESIDUAL OF COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', [_vm._v("NUMBER OF DAYS DELAY")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
+  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                            # UPR\n                        ")]), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Total ABC")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("ABC FOR COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("TOTAL BID PRICE FOR COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("RESIDUAL OF COMPLETED PROJECTS ")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', [_vm._v("NUMBER OF DAYS DELAY")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
     staticStyle: {
       "text-align": "center"
     }
@@ -84670,11 +84678,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "font-weight": "bolder"
       }
-    }, [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+    }, [_vm._v(_vm._s(_vm.formatPrice(item.total_approved_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
       staticStyle: {
         "font-weight": "bolder"
       }
-    }, [_vm._v(_vm._s(_vm.formatPrice(item.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+    }, [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
       staticStyle: {
         "font-weight": "bolder"
       }
@@ -84754,11 +84762,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           staticStyle: {
             "font-weight": "bolder"
           }
-        }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+        }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_approved_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
           staticStyle: {
             "font-weight": "bolder"
           }
-        }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+        }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
           staticStyle: {
             "font-weight": "bolder"
           }
@@ -84834,11 +84842,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               staticStyle: {
                 "font-weight": "bolder"
               }
-            }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+            }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_approved_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
               staticStyle: {
                 "font-weight": "bolder"
               }
-            }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+            }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
               staticStyle: {
                 "font-weight": "bolder"
               }
@@ -84894,11 +84902,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   staticStyle: {
                     "font-weight": "bolder"
                   }
-                }, [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+                }, [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_approved_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
                   staticStyle: {
                     "font-weight": "bolder"
                   }
-                }, [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+                }, [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
                   staticStyle: {
                     "font-weight": "bolder"
                   }
@@ -84977,11 +84985,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-weight": "bolder"
     }
-  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_approved_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
     staticStyle: {
       "font-weight": "bolder"
     }
-  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_residual)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
+  }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
     staticStyle: {
       "font-weight": "bolder"
     }

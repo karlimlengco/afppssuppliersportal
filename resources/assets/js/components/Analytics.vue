@@ -33,7 +33,7 @@
                         <th v-if="showInfo" >Total ABC</th>
                         <th v-if="showInfo" >ABC FOR COMPLETED PROJECTS</th>
                         <th v-if="showInfo" >TOTAL BID PRICE FOR COMPLETED PROJECTS</th>
-                        <th v-if="showInfo" >RESIDUAL OF COMPLETED PROJECTS</th>
+                        <th v-if="showInfo" >RESIDUAL OF COMPLETED PROJECTS </th>
                         <th v-if="show" >NUMBER OF DAYS DELAY</th>
                         <th style="text-align:center" v-if="show" >CURRENT STATUS</th>
                         <th style="text-align:center" v-if="show" >JUSTIFICATION</th>
@@ -55,8 +55,8 @@
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'?type='+types" tooltip="Delay" class="red">({{item.delay_count}})</a>
                             </td>
                             <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_abc)}}</td>
+                            <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_approved_abc)}}</td>
                             <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_bid)}}</td>
-                            <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_residual)}}</td>
                             <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_complete_residual)}}</td>
                             <td style="font-weight:bolder" v-if="show"></td>
                             <td v-if="show"></td>
@@ -118,8 +118,8 @@
                                                             </a>
                                                         </td>
                                                         <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_abc)}}</td>
+                                                        <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_approved_abc)}}</td>
                                                         <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_bid)}}</td>
-                                                        <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_residual)}}</td>
                                                         <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_complete_residual)}}</td>
 
                                                         <td v-if="show" ></td>
@@ -181,8 +181,8 @@
 
                                                                                     </td>
                                                                                     <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_abc)}}</td>
+                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_approved_abc)}}</td>
                                                                                     <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_bid)}}</td>
-                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_residual)}}</td>
                                                                                     <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_complete_residual)}}</td>
 
                                                                                     <td v-if="show" ></td>
@@ -216,8 +216,8 @@
 
                                                                                                     </td>
                                                                                                     <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemProgCentData.total_abc)}}</td>
+                                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemProgCentData.total_approved_abc)}}</td>
                                                                                                     <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemProgCentData.total_bid)}}</td>
-                                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemProgCentData.total_residual)}}</td>
                                                                                                     <td style="font-weight:bolder" v-if="showInfo" >{{itemProgCentData.total_complete_residual}}</td>
 
                                                                                                     <td style="font-weight:bolder" v-if="show && itemProgCentData.status != 'completed'  ">
@@ -274,8 +274,8 @@
                             <span tooltip="Delay" class="red">({{total_delay}})</span>
                         </td>
                         <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_abc)}}</td>
+                        <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_approved_abc)}}</td>
                         <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_bid)}}</td>
-                        <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_residual)}}</td>
                         <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_residual2)}}</td>
                         <td v-if="show" ></td>
                         <td v-if="show" ></td>
@@ -816,6 +816,14 @@ var tarray2IDs           =   [];
                 }
                 return this.items.reduce(function (total, value){
                     return total +  Number(value.total_residual);
+                },0);
+            },
+            total_approved_abc: function(){
+                if(!this.items){
+                    return 0;
+                }
+                return this.items.reduce(function (total, value){
+                    return total +  Number(value.total_approved_abc);
                 },0);
             },
             total_residual2: function(){

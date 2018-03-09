@@ -140,6 +140,10 @@ trait AnalyticTrait
             DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
             DB::raw("( sum(CASE
              WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) - sum(purchase_orders.bid_amount)) as total_complete_residual"),
+
+            DB::raw("sum(CASE
+             WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) as total_approved_abc"),
+
             DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
             DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
             'procurement_centers.programs',
@@ -200,6 +204,7 @@ trait AnalyticTrait
      */
     public function getUnits($name, $programs, $type=null, $request = null)
     {
+
         $date_from = "";
         $date    = \Carbon\Carbon::now();
         $yearto    = $date->format('Y');
@@ -257,6 +262,9 @@ trait AnalyticTrait
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
             DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
+
+            DB::raw("sum(CASE
+             WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) as total_approved_abc"),
 
             DB::raw("( sum(CASE
              WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) - sum(purchase_orders.bid_amount)) as total_complete_residual"),
@@ -362,6 +370,8 @@ trait AnalyticTrait
 
             DB::raw("sum(case when unit_purchase_requests.completed_at is not null AND unit_purchase_requests.status != 'cancelled' then 1 else 0 end) as completed_count"),
 
+            DB::raw("sum(CASE
+             WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) as total_approved_abc"),
             // DB::raw("
             //     count(unit_purchase_requests.id) -
             //     ( count(unit_purchase_requests.completed_at) )
