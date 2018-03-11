@@ -61,7 +61,7 @@ Units
             @foreach($data->attachments as  $attachment)
             <tr>
                 <td> <a target="_blank" href="{{route('maintenance.catered-units.attachments.download', $attachment->id)}}"> {{$attachment->name}} </a></td>
-                <td>{{number_format(str_replace(',', '', $attachment->amount),2)}}</td>
+                <td>{{ $attachment->amount}}</td>
                 <td>{{$attachment->validity_date}}</td>
                 <td>{{($attachment->users) ? $attachment->users->first_name ." ". $attachment->users->surname :""}}</td>
                 <td>
