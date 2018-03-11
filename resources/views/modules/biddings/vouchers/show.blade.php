@@ -61,7 +61,7 @@ Vouchers
                     <a href="#" id="journal-button" class="button__options__item" tooltip="Received Payment"> Journal Entry</a>
                 @endif
                 @if($data->journal_entry_date && !$data->approval_date)
-                    <a href="#" id="approval-button" class="button__options__item" tooltip="Received Payment"> Approve Voucher</a>
+                    <a href="#" id="approval-button" class="button__options__item" tooltip="Received Payment"> Sign Box D of DV</a>
                 @endif
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
 
@@ -89,8 +89,8 @@ Vouchers
             Accounting Journal Entry
             <a href="#" id="journal-button" class="button" tooltip="Journal Entry"> <i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @elseif($data->journal_entry_date && !$data->approval_date)
-            Approve Voucher
-            <a href="#" id="approval-button" class="button" tooltip="Approve Voucher"> <i class="nc-icon-mini arrows-1_bold-right"></i></a>
+            Sign Box D of DV
+            <a href="#" id="approval-button" class="button" tooltip="Sign Box D of DV"> <i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @elseif($data->approval_date && !$data->preaudit_date)
             Conduct Preaudit
             <a href="#" id="preaudit-button" class="button" tooltip="Conduct Preaudit"> <i class="nc-icon-mini arrows-1_bold-right"></i></a>

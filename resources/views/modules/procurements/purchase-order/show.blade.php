@@ -143,13 +143,13 @@ Purchase Order
     <div class="data-panel__section">
         <h3>Approval Details</h3>
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Funding Released Date :</strong>  @if($data->funding_released_date) {{CreateCarbon('Y-m-d', $data->funding_released_date)->format('d F Y')}}@endif  </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Funding Received Date :</strong>  @if($data->funding_received_date) {{CreateCarbon('Y-m-d', $data->funding_received_date)->format('d F Y')}}@endif</li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Funding Remarks :</strong> {{$data->funding_remarks}} &nbsp;</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Funding/Obligation Released Date :</strong>  @if($data->funding_released_date) {{CreateCarbon('Y-m-d', $data->funding_released_date)->format('d F Y')}}@endif  </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Funding/Obligation Received Date :</strong>  @if($data->funding_received_date) {{CreateCarbon('Y-m-d', $data->funding_received_date)->format('d F Y')}}@endif</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Funding/Obligation Remarks :</strong> {{$data->funding_remarks}} &nbsp;</li>
 
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Released Date :</strong> @if($data->mfo_released_date) {{CreateCarbon('Y-m-d', $data->mfo_released_date)->format('d F Y')}}@endif</li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Funding/Obligation :</strong> @if($data->mfo_received_date) {{CreateCarbon('Y-m-d', $data->mfo_received_date)->format('d F Y')}}@endif </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">MFO Remarks :</strong> {{$data->mfo_remarks}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Issuance of CAF Released Date :</strong> @if($data->mfo_released_date) {{CreateCarbon('Y-m-d', $data->mfo_released_date)->format('d F Y')}}@endif</li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Issuance of CAF Received Date :</strong> @if($data->mfo_received_date) {{CreateCarbon('Y-m-d', $data->mfo_received_date)->format('d F Y')}}@endif </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Issuance of CAF Remarks :</strong> {{$data->mfo_remarks}} </li>
         </ul>
     </div>
 

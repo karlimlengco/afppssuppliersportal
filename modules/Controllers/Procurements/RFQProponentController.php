@@ -124,7 +124,6 @@ class RFQProponentController extends Controller
         $inputs                 =   $request->getData();
         $inputs['prepared_by']  =   \Sentinel::getUser()->id;
         $result = $model->save($inputs);
-
         event(new Event($result->rfq->upr, $result->rfq->upr->ref_number." Added Proponent"));
 
         return redirect()->back()->with([
@@ -266,8 +265,8 @@ class RFQProponentController extends Controller
                       ->withInput();
         }
         $this->validate($request, ['bid_amount' => 'required', 'status' => 'required', 'remarks' => 'required_if:status,failed']);
-
-        $result =   $model->update(['remarks' => $request->remarks, 'bid_amount' => $request->bid_amount, 'status' => $request->status], $id);
+        $bid   =  str_replace(',', '', $request->bid_amount);
+        $result =   $model->update(['remarks' => $request->remarks, 'bid_amount' => $bid, 'status' => $request->status], $id);
 
 
         return redirect()->route('procurements.canvassing.show', $result->rfq->canvassing->id)->with([

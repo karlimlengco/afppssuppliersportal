@@ -346,7 +346,7 @@ class DeliveredInspectionReportController extends Controller
         $result         =   $model->save($inputs);
 
         $upr->update([
-            'status' => "DIIR Created",
+            'status' => "Delivered Items and Inspection Report",
             ], $delivery_model->upr_id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([

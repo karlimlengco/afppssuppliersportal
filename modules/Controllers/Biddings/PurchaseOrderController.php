@@ -234,14 +234,14 @@ class PurchaseOrderController extends Controller
 
         $result =   $model->update($inputs, $id);
 
-        $model->update(['status' => 'MFO Approved'], $id);
+        $model->update(['status' => 'Issuance of CAF'], $id);
 
         $upr_result  = $upr->update([
             'next_allowable'=> 1,
             'next_step'     => 'COA Approval',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'status'        => "PO MFO Approved",
+            'status'        => "Issuance of CAF",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
             'calendar_days' => $cd + $po->upr->calendar_days,
             'last_action'   => $request->action,
@@ -249,7 +249,7 @@ class PurchaseOrderController extends Controller
             ], $po->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." MFO Approved"));
+        event(new Event($upr_result, $upr_result->ref_number." Issuance of CAF"));
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -315,14 +315,14 @@ class PurchaseOrderController extends Controller
         $model->update(['status' => 'Accounting Approved'], $id);
 
         $upr_result  = $upr->update([
-            'status' => "PO Funding Approved",
+            'status' => "MFO Obligation",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
             'calendar_days' => $day_delayed + $po->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $po->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Funding Approved"));
+        event(new Event($upr_result, $upr_result->ref_number." MFO Obligation"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -486,7 +486,7 @@ class PurchaseOrderController extends Controller
         }
 
         $upr_result  = $upr->update([
-            'status' => "PO Created",
+            'status' => "Preparation of PO",
             'delay_count'   => ($day_delayed > 2 )? $day_delayed - 2 : 0,
             'calendar_days' => $day_delayed + $upr_model->calendar_days,
             'last_action'   => $request->action,
@@ -494,7 +494,7 @@ class PurchaseOrderController extends Controller
             ], $noa_model->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." PO Created"));
+        event(new Event($upr_result, $upr_result->ref_number." Preparation of PO"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -546,7 +546,7 @@ class PurchaseOrderController extends Controller
             DB::table('purchase_order_items')->insert($item_datas);
         }
 
-        $rfq->update(['status' => "PO Created"], $rfq_model->id);
+        $rfq->update(['status' => "Preparation of PO"], $rfq_model->id);
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

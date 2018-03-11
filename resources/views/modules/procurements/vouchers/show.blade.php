@@ -104,8 +104,8 @@ Vouchers
             Accounting Journal Entry
             <a href="#" id="journal-button" class="button" tooltip="Journal Entry"> <i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @elseif($data->journal_entry_date && !$data->approval_date)
-            Approve Voucher
-            <a href="#" id="approval-button" class="button" tooltip="Approve Voucher"> <i class="nc-icon-mini arrows-1_bold-right"></i></a>
+            Sign Box D of DV
+            <a href="#" id="approval-button" class="button" tooltip="Sign Box D of DV"> <i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @elseif($data->approval_date && !$data->preaudit_date)
             Conduct Preaudit
             <a href="#" id="preaudit-button" class="button" tooltip="Conduct Preaudit"> <i class="nc-icon-mini arrows-1_bold-right"></i></a>

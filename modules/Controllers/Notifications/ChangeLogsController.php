@@ -38,6 +38,17 @@ class ChangeLogsController extends Controller
         parent::__construct();
     }
 
+    /**
+     * [getDatatable description]
+     *
+     * @return [type]            [description]
+     */
+    public function getDatatable(UserLogRepository $model)
+    {
+        return $model->getDatatable();
+    }
+
+
 
     /**
      * Display a listing of the resource.

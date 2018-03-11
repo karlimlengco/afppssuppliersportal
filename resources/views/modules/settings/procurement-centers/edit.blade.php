@@ -25,14 +25,17 @@ Procurement Centers
 <div class="row">
     <div class="twelve columns">
 
-        <div class="four columns">
+        <div class="three columns">
                 {!! Form::textField('name', 'Name') !!}
         </div>
-        <div class="four columns">
+        <div class="three columns">
                 {!! Form::textField('short_code', 'Short Code') !!}
         </div>
-        <div class="four columns">
+        <div class="three columns">
                 {!! Form::selectField('programs', 'Program', ['1' => '1', '2' => '2', '3' => '3', '4' => '4']) !!}
+        </div>
+        <div class="three columns">
+                {!! Form::textField('telephone_number', 'Telephone #') !!}
         </div>
                 {!! Form::textField('address', 'Address') !!}
     </div>

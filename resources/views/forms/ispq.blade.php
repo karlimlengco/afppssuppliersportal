@@ -62,7 +62,7 @@
                     <p>3. Quotations must be delivered on or before the <strong>stated canvassing date/time at {{$data['venue']}}</strong> . All quotations must be accompanied by eligibility documents as required.</p>
                     <p>4. RFQ will be opened in the presense of the Suppliers or their representative/s who choose to attend at the address stated above. Late quotations shall not be accepted.</p>
                     <p>5. The AFP reserves the right to reject any or all proposals, or declare a failure of canvass, or not award the contract, without thereby incurring any liability in accordance with the Republic Act No. 9184 and its Revised Implementing Rules and Regulations.</p>
-                    <p>6. For inquiries, interested parties may contact the Secretariat, Canvass/Contracting Committee at telephone No.</p>
+                    <p>6. For inquiries, interested parties may contact the Secretariat, Canvass/Contracting Committee at telephone No. {{($center) ? $center->telephone_number : ""}} </p>
                     <table class="printable-form__body__table no-border no-padding">
                         <tr>
                             <td colspan="3" height="60px"></td>

@@ -5,7 +5,7 @@
             <a href="#" class="button" id="process-button" tooltip="Next Stage">
                 <i class="nc-icon-mini arrows-1_bold-right"></i>
             </a> --}}
-            <span >Create Invitation</span>
+            <span >Prepare Invitation</span>
             <a href="#" class="button" id="invitation-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif
         @if($data->status == 'Philgeps Approved')
@@ -13,7 +13,7 @@
          {{--    <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span> --}}
 
-            <span >Create RFQ</span>
+            <span >Prepare RFQ</span>
             <a href="#" class="button" id="process-button" tooltip="Next Stage">
                 <i class="nc-icon-mini arrows-1_bold-right"></i>
             </a>
@@ -35,7 +35,7 @@
             <span >PhilGeps Posting</span>
             <a href="#" class="button" id="philgeps-posting-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif
-        @if($data->status == 'Invitation Created')
+        @if($data->status == 'ITSPQ Prepared')
             @if($data->invitations)
             <a href="{{route('procurements.ispq.edit', $data->invitations->ispq_id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             @endif
@@ -44,7 +44,7 @@
                 <span >PhilGeps Posting</span>
                 <a href="#" class="button" id="philgeps-posting-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
             @else
-                <span >Create RFQ</span>
+                <span >Prepare RFQ</span>
                 <a href="#" class="button" id="process-button" tooltip="Next Stage">
                     <i class="nc-icon-mini arrows-1_bold-right"></i>
                 </a>
@@ -52,14 +52,14 @@
 
             {{-- <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" class="button"  tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a> --}}
         @endif
-        {{-- @if($data->status == 'Invitation Created' || $data->status == 'Philgeps Need Repost' || $data->status == 'Failed Bid')
+        {{-- @if($data->status == 'ITSPQ Prepared' || $data->status == 'Philgeps Need Repost' || $data->status == 'Failed Bid')
             <a href="{{route('procurements.ispq.edit', $data->invitations->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
 
              <span >PhilGeps Posting</span>
             <a href="#" class="button" id="philgeps-posting-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif --}}
-        @if($data->status == 'Close RFQ')
+        @if($data->status == 'RFQ')
             <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
 
@@ -67,7 +67,7 @@
             <span >Open Canvass</span>
             <a href="#" class="button" id="open_canvass-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif
-        @if($data->status == 'Open Canvass')
+        @if($data->status == 'Canvass')
             <a href="{{route('procurements.blank-rfq.show', $data->rfq->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
             <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
 
@@ -79,7 +79,7 @@
 
     @else
         @if($data->status == 'upr_processing')
-        {{-- <a class="button__options__item"  href="{{route('biddings.document-acceptance.create-by-rfq', $data->id)}}">Document Acceptance</a> --}}
+        {{-- <a class="button__options__item"  href="{{route('biddings.document-acceptance.Prepare-by-rfq', $data->id)}}">Document Acceptance</a> --}}
             <span >Document Acceptance</span>
             <a href="{{route('biddings.document-acceptance.create-by-rfq', $data->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @endif
@@ -155,7 +155,7 @@
         @endif
     @endif
 
-    @if(strpos($data->status, 'Awarded To') !== false || $data->status == 'Approved NOA')
+    @if(strpos($data->status, 'Awarded To') !== false || $data->status == 'Issue NOA')
 
         @if($data->mode_of_procurement == 'public_bidding')
             <a href="{{route('biddings.post-qualifications.show', $data->post_qual->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
@@ -170,27 +170,27 @@
         {{-- <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button__options__item">View NOA</a> --}}
     @endif
 
-    @if($data->status == 'NOA Received')
+    @if($data->status == 'Conforme NOA')
         {{-- <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button__options__item">Create PO</a> --}}
 
        {{--  @if($data->total_amount > 50000)
         --}}{{--    <span >View NOA</span>
           <a href="{{route('procurements.noa.show', $data->noa->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @else --}}
-          <span >Create PO</span>
+          <span >Prepare PO</span>
           <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         {{-- @endif --}}
     @endif
 
-    @if($data->status == 'NOA Philgeps Posting')
+    @if($data->status == 'Posting of NOA to Philgeps')
         <a href="{{route('procurements.noa.show', $data->noa->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
         <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
 
-        <span >Create PO</span>
+        <span >Prepare PO</span>
         <a href="{{route('procurements.purchase-orders.rfq', $data->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
     @endif
 
-    @if($data->status == 'PO Created' || $data->status == 'Contract Created' || $data->status == 'PO Funding Approved' || $data->status == 'PO MFO Approved')
+    @if($data->status == 'Preparation of PO' || $data->status == 'Preparation of Contract' || $data->status == 'MFO Obligation' || $data->status == 'Issuance of CAF')
         {{-- <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" class="button__options__item">View PO</a> --}}
 
         <span >View PO</span>
@@ -207,7 +207,7 @@
         <a href="#" class="button" id="ntp-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
     @endif
 
-    @if($data->status == 'NTP Created')
+    @if($data->status == 'Serving of NTP')
         {{-- <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button__options__item"> View Notice To Proceed</a> --}}
 
         <a href="{{route('procurements.purchase-orders.show', $data->purchase_order->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
@@ -217,7 +217,7 @@
         <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button"  tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
     @endif
 
-    @if($data->status == 'NTP Accepted')
+    @if($data->status == 'Conforme of NTP')
 
         <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
         <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
@@ -225,20 +225,20 @@
           <span >View Notice To Proceed</span>
           <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" class="button"  tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @else --}}
-          <span >Create Notice Of Delivery</span>
+          <span >Prepare Notice Of Delivery</span>
           <a href="#" class="button" id="create-delivery-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         {{-- @endif --}}
     @endif
 
-    @if($data->status == 'NTP Philgeps Posted')
+    @if($data->status == 'Philgeps Posting of NTP')
         <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
         <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
 
-        <span >Create Notice Of Delivery</span>
+        <span >Prepare Notice Of Delivery</span>
         <a href="#" class="button" id="create-delivery-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
     @endif
 
-    @if($data->status == 'NOD Created' || $data->status == 'Delivery Received' || $data->status == 'Delivery Incomplete')
+    @if($data->status == 'Issuance of Notice of Delivery' || $data->status == 'Delivery of Items' || $data->status == 'Delivery Incomplete')
 
         <a href="{{route('procurements.ntp.show', $data->ntp->id)}}" tooltip="Previous Stage" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
         <span class="button--pull-left" style="padding-top:10px">Prev Stage</span>
@@ -257,24 +257,24 @@
         <a href="{{route('procurements.delivery-orders.lists', $data->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
     {{-- <a class="button__options__item"  href="{{route('procurements.delivery-orders.show', $data->delivery_order->id)}}">View Notice Of Delivery</a> --}}
     @endif
-    @if($data->status == 'Complete COA Delivery')
+    @if($data->status == 'Notification of Delivery to COA')
 
         <span >Technical Inspection</span>
         <a href="{{route('procurements.inspection-and-acceptance.create-from-delivery',$data->delivery_order->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         {{-- <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.create-from-delivery',$data->delivery_order->id)}}">Technical Inspection</a> --}}
     @endif
-    @if($data->status == 'Inspection Started')
+    @if($data->status == 'Conduct of TIAC')
 
         <span >View Technical Inspection</span>
         <a href="{{route('procurements.inspection-and-acceptance.show',$data->inspections->id)}}" class="button"  tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         {{-- <a class="button__options__item" href="{{route('procurements.inspection-and-acceptance.show',$data->inspections->id)}}"> View Technical Inspection</a> --}}
     @endif
-    @if($data->status == 'Inspection Accepted')
+    @if($data->status == 'Inspection and Acceptance Report')
         <span >Delivered Items</span>
         <a href="{{route('procurements.delivery-orders.store-by-dr',$data->delivery_order->id)}}" class="button"  tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         {{-- <a class="button__options__item" href="{{route('procurements.delivery-orders.store-by-dr',$data->delivery_order->id)}}">Delivered Items</a> --}}
     @endif
-    @if( $data->status == 'DIIR Created' || $data->status == 'DIIR Started')
+    @if( $data->status == 'Delivered Items and Inspection Report' || $data->status == 'DIIR Started')
 
         <span >Delivered Items</span>
         <a href="{{route('procurements.delivered-inspections.show',$data->diir->id)}}" class="button"  tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
@@ -282,7 +282,7 @@
     @endif
     @if( $data->status == 'DIIR Closed')
 
-        <span >Create Voucher</span>
+        <span >Prepare Voucher</span>
         <a href="#" class="button" id="voucher-button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         {{-- <a href="#" id="voucher-button" class="button__options__item">Create Voucher</a> --}}
     @endif
@@ -291,7 +291,7 @@
         <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button" tooltip="Next Stage"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         {{-- <a href="#" id="voucher-button" class="button__options__item">Create Voucher</a> --}}
     @endif
-    @if( $data->status == 'Voucher Created' || $data->status == 'Voucher Preaudit' || $data->status == 'Voucher Certify'|| $data->status == 'Voucher Journal Entry'|| $data->status == 'Voucher Approved'|| $data->status == 'Voucher Released')
+    @if( $data->status == 'Preparation of DV' || $data->status == 'Pre-Audit' || $data->status == 'Sign Box A of DV'|| $data->status == 'Sign Box C of DV'|| $data->status == 'Sign Box D of DV'|| $data->status == 'Sign LDDAP-ADA or Prepare Cheque'|| $data->status == 'Counter Sign Cheque'|| $data->status == 'Prepare LDDAP-ADA')
        {{-- <a href="{{route('procurements.vouchers.show', $data->voucher->id)}}" class="button__options__item">View Voucher</a> --}}
 
         <span >View Voucher</span>

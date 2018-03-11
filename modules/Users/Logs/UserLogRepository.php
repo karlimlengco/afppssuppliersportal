@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserLogRepository extends BaseRepository
 {
+    use DatatableTrait;
 
     /**
      * Specify Model class name
@@ -59,7 +60,7 @@ class UserLogRepository extends BaseRepository
 
         $model  =   $model->where('admin_id', '=', $id);
         $model  =   $model->orderBy('audits.created_at', 'desc');
-        return $model->get();
+        return $model->paginate(40);
     }
 
 

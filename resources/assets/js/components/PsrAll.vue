@@ -42,7 +42,7 @@
 
                             <th v-if="types != 'bidding'" >ISPQ</th>
                             <th v-if="types != 'bidding'" >PhilGeps Posting</th>
-                            <th v-if="types != 'bidding'" >Close RFQ</th>
+                            <th v-if="types != 'bidding'" >RFQ</th>
                             <th v-if="types != 'bidding'" >Canvassing</th>
 
                             <th>Prepare NOA</th>

@@ -25,12 +25,11 @@ Overview of Cancelled Projects
     <thead>
         <tr>
            <th class="align-center" width="15%">PC/CO</th>
-           <th class="align-center" width="40%" >UPR Number</th>
+           <th class="align-center" width="40%" >Project Name/UPR Number</th>
            <th class="align-center" width="10%">UPR Receipt</th>
            {{-- <th class="align-center" width="20%">Ref Number</th> --}}
            <th class="align-center" width="5%">ABC</th>
-           <th class="align-center" width="5%">Approved Contract</th>
-           <th class="align-center" width="5%">Residual</th>
+           <th class="align-center" width="5%">Remarks</th>
         </tr>
     </thead>
     <tbody>
@@ -49,8 +48,7 @@ Overview of Cancelled Projects
                 <td>{{$data->date_processed->format('d F Y')}}</td>
                 {{-- <td>{{$data->ref_number}}</td> --}}
                 <td>{{formatPrice($data->total_abc)}}</td>
-                <td>{{formatPrice($data->total_bid)}}</td>
-                <td>{{formatPrice($data->total_residual)}}</td>
+                <td>{{$data->last_remarks}}</td>
             </tr>
 
             <?php $totalAbc =  $totalAbc + $data->total_abc; ?>
@@ -62,8 +60,7 @@ Overview of Cancelled Projects
           <td></td>
           <td></td>
           <td>{{formatPrice($totalAbc)}}</td>
-          <td>{{formatPrice($totalBid)}}</td>
-          <td>{{formatPrice($totalResidual)}}</td>
+          <td></td>
         </tr>
     </tbody>
 </table>

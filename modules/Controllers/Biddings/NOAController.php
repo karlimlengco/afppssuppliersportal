@@ -136,7 +136,7 @@ class NOAController extends Controller
         // // update upr
         $upr_result  = $upr->update([
             'next_allowable'=> 1,
-            'next_step'     => 'Approved NOA',
+            'next_step'     => 'Issue NOA',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
             'status'        => "Awarded To $supplier_name",
@@ -237,12 +237,12 @@ class NOAController extends Controller
 
         $model->update($input, $id);
         $upr_result    =  $upr->update([
-            'status' => 'NOA Received',
+            'status' => 'Conforme NOA',
             'next_allowable'=> 10,
-            'next_step'     => 'Create Contract',
+            'next_step'     => 'Preparation of Contract',
             'next_due'      => $award_accepted_date->addDays(10),
             'last_date'     => $award_accepted_date,
-            'status'        => 'NOA Received',
+            'status'        => 'Conforme NOA',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
             'last_action'   => $request->action,
@@ -250,7 +250,7 @@ class NOAController extends Controller
             ], $result->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." NOA Received"));
+        event(new Event($upr_result, $upr_result->ref_number." Conforme NOA"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -353,7 +353,7 @@ class NOAController extends Controller
 
          // // update upr
         $upr_result  = $upr->update([
-            'status' => "Approved NOA",
+            'status' => "Issue NOA",
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
             'last_action'   => $request->action,
@@ -464,17 +464,17 @@ class NOAController extends Controller
         $model->update($input, $id);
         $upr_result = $upr->update([
             'next_allowable'=> 2,
-            'next_step'     => 'Create PO',
+            'next_step'     => 'Preparation of PO',
             'next_due'      => $award_accepted_date->addDays(2),
             'last_date'     => $award_accepted_date,
-            'status'        => 'NOA Philgeps Posting',
+            'status'        => 'Posting of NOA to Philgeps',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." NOA Philgeps Posting"));
+        event(new Event($upr_result, $upr_result->ref_number." Posting of NOA to Philgeps"));
 
 
         return redirect()->back()->with([

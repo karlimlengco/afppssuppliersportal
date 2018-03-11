@@ -160,7 +160,7 @@ class VoucherController extends Controller
         $result = $model->save($inputs);
 
         $upr->update([
-            'status' => 'Voucher Created',
+            'status' => 'Preparation of DV',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $result->upr->calendar_days,
             'last_action'   => $request->action,
@@ -377,7 +377,7 @@ class VoucherController extends Controller
             'next_step'     => 'Prepare LDDAP-ADA',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'status'        => 'Voucher Preaudit',
+            'status'        => 'Pre-Audit',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
@@ -446,7 +446,7 @@ class VoucherController extends Controller
             'next_step'     => 'Preaudit Voucher',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'status'        => 'Voucher Approved',
+            'status'        => 'Sign Box D of DV',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
@@ -519,7 +519,7 @@ class VoucherController extends Controller
             'next_step'     => 'Journal Entry Voucher',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'status'        => 'Voucher Certified Cash',
+            'status'        => 'Sign Box A of DV',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
@@ -589,10 +589,10 @@ class VoucherController extends Controller
 
         $upr->update([
             'next_allowable'=> 1,
-            'next_step'     => 'Approve Voucher',
+            'next_step'     => 'Sign Box D of DV',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'status'        => 'Voucher Journal Entry',
+            'status'        => 'Sign Box C of DV',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
@@ -662,7 +662,7 @@ class VoucherController extends Controller
             'next_step'     => 'Receive Payment',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'status'        => 'Counter Signing',
+            'status'        => 'Counter Sign Cheque',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
@@ -730,10 +730,10 @@ class VoucherController extends Controller
 
         $upr->update([
             'next_allowable'=> 1,
-            'next_step'     => 'Counter Signing',
+            'next_step'     => 'Counter Sign Cheque',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'status'        => 'Release Payment',
+            'status'        => 'Sign LDDAP-ADA or Prepare Cheque',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,

@@ -196,10 +196,10 @@ class DeliveryController extends Controller
 
         $upr_result  = $upr->update([
             'next_allowable'=> $po_model->delivery_terms,
-            'next_step'     => 'Receive Delivery',
+            'next_step'     => 'Delivery of Items',
             'next_due'      => $transaction_date->addDays($po_model->delivery_terms),
             'last_date'     => $transaction_date,
-            'status'        => 'NOD Created',
+            'status'        => 'Issuance of Notice of Delivery',
             'delay_count'   => $wd,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
@@ -207,7 +207,7 @@ class DeliveryController extends Controller
             ], $result->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." NOD Created"));
+        event(new Event($upr_result, $upr_result->ref_number." Issuance of Notice of Delivery"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -523,7 +523,7 @@ class DeliveryController extends Controller
         }
         else
         {
-            $status =   'Delivery Received';
+            $status =   'Delivery of Items';
         }
 
         $inputs['status']       =   $status;
@@ -532,7 +532,7 @@ class DeliveryController extends Controller
 
         $upr_result  = $upr->update([
             'next_allowable'=> 1,
-            'next_step'     => 'COA Delivery',
+            'next_step'     => 'Notification of Delivery to COA',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
             'status'        => $status,
@@ -625,7 +625,7 @@ class DeliveryController extends Controller
         $result =   $model->update($inputs, $id);
 
         $upr->update([
-            'status' => 'Complete COA Delivery',
+            'status' => 'Notification of Delivery to COA',
             'delay_count'   => ($day_delayed > 1 )? $day_delayed - 1 : 0,
             'calendar_days' => $day_delayed + $dr_model->upr->calendar_days,
             'last_action'   => $request->action,

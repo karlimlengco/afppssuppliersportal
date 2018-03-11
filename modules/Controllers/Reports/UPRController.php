@@ -282,7 +282,7 @@ class UPRController extends Controller
                         'UPR',
                         'ISPQ',
                         'PhilGeps',
-                        'Close RFQ',
+                        'RFQ',
                         'Canvass',
                         'NOA',
                         'NOA Approved',

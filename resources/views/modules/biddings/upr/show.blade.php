@@ -125,7 +125,7 @@ Unit Purchase Request
                 @else
 
 
-                    @if(strpos($data->status, 'Awarded To') !== false || $data->status == 'Approved NOA')
+                    @if(strpos($data->status, 'Awarded To') !== false || $data->status == 'Issue NOA')
                         <a class="button__options__item" id="dq-button" href="#">Disqualify Proponent</a>
                     @endif
 

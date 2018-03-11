@@ -136,13 +136,18 @@ trait AnalyticTrait
             //     as ongoing_count"),
 
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
-            DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
+            // DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
+            DB::raw("sum(case when unit_purchase_requests.status = 'completed' AND unit_purchase_requests.status != 'cancelled' then purchase_orders.bid_amount else 0 end) as total_bid"),
+
             DB::raw("( sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
-            DB::raw("( sum(CASE
-             WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) - sum(purchase_orders.bid_amount)) as total_complete_residual"),
+
+            // DB::raw("( sum(CASE
+            //  WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) - sum(purchase_orders.bid_amount)) as total_complete_residual"),
+
+            DB::raw("(  sum(case when unit_purchase_requests.status = 'completed' AND unit_purchase_requests.status != 'cancelled' then unit_purchase_requests.total_amount else 0 end)  - sum(case when unit_purchase_requests.status = 'completed' AND unit_purchase_requests.status != 'cancelled' then purchase_orders.bid_amount else 0 end) ) as total_complete_residual"),
 
             DB::raw("sum(CASE
-             WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) as total_approved_abc"),
+             WHEN unit_purchase_requests.status = 'completed' AND unit_purchase_requests.status != 'cancelled' THEN unit_purchase_requests.total_amount ELSE 0 END) as total_approved_abc"),
 
             DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
             DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
@@ -260,14 +265,18 @@ trait AnalyticTrait
             END)  cancelled_count"),
 
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
-            DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
+            DB::raw("sum(CASE
+             WHEN unit_purchase_requests.status != 'cancelled' and unit_purchase_requests.status = 'completed'  THEN purchase_orders.bid_amount ELSE 0 END) as total_bid"),
             DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
 
             DB::raw("sum(CASE
-             WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) as total_approved_abc"),
+             WHEN unit_purchase_requests.status != 'cancelled' and unit_purchase_requests.status = 'completed'   THEN unit_purchase_requests.total_amount ELSE 0 END) as total_approved_abc"),
 
             DB::raw("( sum(CASE
-             WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) - sum(purchase_orders.bid_amount)) as total_complete_residual"),
+             WHEN unit_purchase_requests.status != 'cancelled' and unit_purchase_requests.status = 'completed'  THEN unit_purchase_requests.total_amount ELSE 0 END) -  sum(CASE
+             WHEN unit_purchase_requests.status != 'cancelled' and unit_purchase_requests.status = 'completed' THEN purchase_orders.bid_amount ELSE 0 END)) as total_complete_residual"),
+            // DB::raw("( sum(CASE
+            //  WHEN unit_purchase_requests.status != 'cancelled' and unit_purchase_requests.status = 'completed' and THEN unit_purchase_requests.total_amount ELSE 0 END) - sum(purchase_orders.bid_amount)) as total_complete_residual"),
             DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
             DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
             // DB::raw(" unit_purchase_requests.delay_count as delay"),
@@ -371,7 +380,7 @@ trait AnalyticTrait
             DB::raw("sum(case when unit_purchase_requests.completed_at is not null AND unit_purchase_requests.status != 'cancelled' then 1 else 0 end) as completed_count"),
 
             DB::raw("sum(CASE
-             WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) as total_approved_abc"),
+             WHEN unit_purchase_requests.status != 'cancelled' and unit_purchase_requests.status = 'completed' THEN unit_purchase_requests.total_amount ELSE 0 END) as total_approved_abc"),
             // DB::raw("
             //     count(unit_purchase_requests.id) -
             //     ( count(unit_purchase_requests.completed_at) )
@@ -385,10 +394,13 @@ trait AnalyticTrait
                 as ongoing_count"),
 
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
-            DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
+            DB::raw("sum(CASE
+             WHEN unit_purchase_requests.status != 'cancelled' and unit_purchase_requests.status = 'completed' THEN purchase_orders.bid_amount ELSE 0 END) as total_bid"),
+            // DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
             DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
             DB::raw("( sum(CASE
-             WHEN purchase_orders.bid_amount is not null THEN unit_purchase_requests.total_amount ELSE 0 END) - sum(purchase_orders.bid_amount)) as total_complete_residual"),
+             WHEN unit_purchase_requests.status != 'cancelled' and unit_purchase_requests.status = 'completed'  THEN unit_purchase_requests.total_amount ELSE 0 END) - sum(CASE
+             WHEN unit_purchase_requests.status != 'cancelled' and unit_purchase_requests.status = 'completed' THEN purchase_orders.bid_amount ELSE 0 END)) as total_complete_residual"),
             // DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
             DB::raw("5 * (DATEDIFF(vouchers.preaudit_date, unit_purchase_requests.date_processed) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.date_processed) + WEEKDAY(vouchers.preaudit_date) + 1, 1) as avg_days"),
             DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),

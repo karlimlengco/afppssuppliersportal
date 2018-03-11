@@ -162,7 +162,7 @@ class NoticeOfAwardController extends Controller
         // // update upr
         $upr_result =   $upr->update([
             'next_allowable'=> 1,
-            'next_step'     => 'Approved NOA',
+            'next_step'     => 'Issue NOA',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
             'calendar_days' => $cd + $canvasModel->upr->calendar_days,
@@ -276,9 +276,9 @@ class NoticeOfAwardController extends Controller
 
         $model->update($input, $id);
 
-        $nextStep           =   'Create PO';
+        $nextStep           =   'Preparation of PO';
         // if($result->upr->total_amount > 50000){
-        //   $nextStep           =   'NOA Philgeps Posting';
+        //   $nextStep           =   'Posting of NOA to Philgeps';
         // }
 
         $upr_result = $upr->update([
@@ -286,14 +286,14 @@ class NoticeOfAwardController extends Controller
             'next_step'     => $nextStep,
             'next_due'      => $award_accepted_date->addDays(2),
             'last_date'     => $award_accepted_date,
-            'status'        => 'NOA Received',
+            'status'        => 'Conforme NOA',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Received NOA"));
+        event(new Event($upr_result, $upr_result->ref_number." Conforme NOA"));
 
 
         return redirect()->back()->with([
@@ -365,7 +365,7 @@ class NoticeOfAwardController extends Controller
         $model->update($input, $id);
         // $upr_result = $upr->update([
         //     'next_allowable'=> 2,
-        //     'next_step'     => 'Create PO',
+        //     'next_step'     => 'Preparation of PO',
         //     'next_due'      => $award_accepted_date->addDays(2),
         //     'last_date'     => $award_accepted_date,
         //     'status'        => '  Philgeps Posting',
@@ -375,7 +375,7 @@ class NoticeOfAwardController extends Controller
         //     'last_remarks'  => $request->remarks
         //     ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." NOA Philgeps Posting"));
+        event(new Event($upr_result, $upr_result->ref_number." Posting of NOA to Philgeps"));
 
 
         return redirect()->back()->with([
@@ -468,14 +468,14 @@ class NoticeOfAwardController extends Controller
             'next_step'     => 'Recieved NOA',
             'next_due'      => $noa_award_date->addDays(1),
             'last_date'     => $accepted_date,
-            'status'        => "Approved NOA",
+            'status'        => "Issue NOA",
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ],  $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Approved NOA"));
+        event(new Event($upr_result, $upr_result->ref_number." Issue NOA"));
 
 
         return redirect()->back()->with([

@@ -295,7 +295,7 @@ class DeliveredInspectionReportController extends Controller
 
         $upr_result  =  $upr->update([
             'next_allowable'=> 1,
-            'next_step'     => 'Create Voucher',
+            'next_step'     => 'Prepare Voucher',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
             'status' => 'DIIR Closed',
@@ -389,11 +389,11 @@ class DeliveredInspectionReportController extends Controller
         $result         =   $model->save($inputs);
 
         $upr_result =  $upr->update([
-            'status' => "DIIR Created",
+            'status' => "Delivered Items and Inspection Report",
             ], $delivery_model->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." DIIR Created"));
+        event(new Event($upr_result, $upr_result->ref_number." Delivered Items and Inspection Report"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

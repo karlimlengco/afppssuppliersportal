@@ -783,7 +783,7 @@ trait ImportTrait
 
         if($request->mode_of_procurement != 'public_bidding'){
             $procs['next_allowable']=   3;
-            $procs['next_step']     =   "Create Invitation";
+            $procs['next_step']     =   "Prepare Invitation";
             $procs['next_due']      =   $transaction_date->addDays(3);
         }
         else{

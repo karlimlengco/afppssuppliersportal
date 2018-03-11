@@ -42,8 +42,7 @@
             <thead>
                 <tr>
                    <th>UPR Number</th>
-                   <th>Ref Number</th>
-                   <th>Name</th>
+                   <th>Project Name/ Activity</th>
                    <th>ABC</th>
                    <th>Next Step</th>
                    <th>Expected Date</th>
@@ -55,7 +54,6 @@
                 <template v-for="(item, index) in items">
                     <tr>
                         <td>{{item.upr_number}}</td>
-                        <td>{{item.ref_number}}</td>
                         <td>{{item.project_name}}</td>
                         <td>{{formatPrice(item.total_amount)}}</td>
                         <td>{{item.next_step}}</td>

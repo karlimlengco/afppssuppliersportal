@@ -209,7 +209,7 @@ class ISPQController extends Controller
             'action'            =>  $request->get('action'),
         ];
 
-        $upr_result =   $upr->update(['status' => 'Invitation Created',
+        $upr_result =   $upr->update(['status' => 'ITSPQ Prepared',
             'next_allowable'=> 3,
             'next_step'     => 'PhilGeps Posting',
             'next_due'      => $upr_model->date_processed->addDays(3),
@@ -220,7 +220,7 @@ class ISPQController extends Controller
             'last_remarks'  => $request->remarks
             ], $upr_model->id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Invitation Created"));
+        event(new Event($upr_result, $upr_result->ref_number." ITSPQ Prepared"));
 
         $quotations->save($data);
 
@@ -286,7 +286,6 @@ class ISPQController extends Controller
         $center     =   $result->quotations->first()->upr->centers;
         $header                     =  $pccoHeaders->findByPCCO($result->quotations->first()->upr->procurement_office);
         $data['unitHeader']         =  (isset($header)) ? $header->content : "" ;
-
         $data['transaction_date']   =  $result->transaction_date;
         $data['venue']              =  $result->venue;
         $data['signatories']        =  explode('/', $result->signatory_text);

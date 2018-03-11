@@ -72,7 +72,7 @@ Notice Of Delivery
         <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
         <span class="button--pull-left" style="padding-top:10px">Go to UPR</span>
 
-        @if($data->status == 'Delivery Received')
+        @if($data->status == 'Delivery of Items')
             Complete COA Delivery
             <a href="#" id="coa-button" tooltip="Complete COA Delivery" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @elseif( $data->status == 'ongoing')

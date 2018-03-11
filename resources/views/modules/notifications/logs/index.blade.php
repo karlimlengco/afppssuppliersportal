@@ -21,17 +21,6 @@ Change Logs
                    <th>User</th>
                </tr>
            </thead>
-           <tbody>
-                @foreach($resources as $data)
-                <?php $url = $data['url'];?>
-                <?php $id = $data['auditable_id'];?>
-                    <tr>
-                        <td><a target="_blank" href="{{ preg_replace("/$id$/", '', $url ). "logs/".$id }}">View here</a></td>
-                        <td>{{$data['auditable_type']}}</td>
-                        <td>{{$data['full_name']}}</td>
-                    </tr>
-                @endforeach
-           </tbody>
        </table>
    </div>
 </div>
@@ -39,4 +28,34 @@ Change Logs
 @stop
 
 @section('scripts')
+<script type="text/javascript">
+
+    table = $('#datatable-responsive').DataTable({
+        // "bLengthChange": false,
+        processing: true,
+        serverSide: true,
+        order: [ [1, 'desc'] ],
+        ajax: {
+                url: "{{route('datatables.change-logs')}}",
+                // data: function (d) {
+                    // d.search.value = $('#search-table').val();
+                // }
+            },
+        columns: [
+            {data: 'url', name: 'url'},
+            {data: 'auditable_type', name: 'auditable_type'},
+            {data: 'full_name', name: 'full_name'}
+        ],
+        "fnInitComplete": function (oSettings, json) {
+            $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
+            $("#datatable-responsive_next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+        }
+
+    });
+
+    // overide datatable filter for custom css
+    $('#newForm').keyup(function(){
+          table.search($(this).val()).draw() ;
+    })
+</script>
 @stop

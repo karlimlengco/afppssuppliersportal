@@ -25,7 +25,7 @@ Overview of Completed Projects
     <thead>
         <tr>
            <th class="align-center" width="15%">PC/CO</th>
-           <th class="align-center" width="40%" >UPR Number</th>
+           <th class="align-center" width="40%" >Project Name/UPR Number</th>
            <th class="align-center" width="10%">UPR Receipt</th>
            {{-- <th class="align-center" width="20%">Ref Number</th> --}}
            <th class="align-center" width="5%">ABC</th>

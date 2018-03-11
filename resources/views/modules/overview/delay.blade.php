@@ -25,15 +25,12 @@ Overview of Delayed Projects
     <thead>
         <tr>
            <th class="align-center" width="15%">PC/CO</th>
-           <th class="align-center" width="40%" >UPR Number</th>
+           <th class="align-center" width="40%" >Project Name/UPR Number</th>
            <th class="align-center" width="10%">UPR Receipt</th>
            {{-- <th class="align-center" width="10%">Ref Number</th> --}}
            <th class="align-center" width="5%">ABC</th>
-           <th class="align-center" width="5%">Approved Contract</th>
-           <th class="align-center" width="5%">Residual</th>
+           <th class="align-center" width="5%">Approved Bid Price</th>
            <th class="align-center" width="10%">Current Status</th>
-           <th class="align-center" width="10%">Justification</th>
-           <th class="align-center" width="10%">Action Taken</th>
         </tr>
     </thead>
     <tbody>
@@ -55,16 +52,9 @@ Overview of Delayed Projects
 
                 <td>{{formatPrice($data->total_abc)}}</td>
                 <td>{{formatPrice($data->total_bid)}}</td>
-                <td>{{formatPrice($data->total_residual)}}</td>
                 <td style="text-transform: uppercase;">
-                @if($data->status == 'PO FUNDING APPROVED')
-                  PO MFO OBLIGATION
-                @else
                   {{$data->status}}
-                @endif
                 </td>
-                <td>{{$data->last_remarks}}</td>
-                <td>{{$data->last_action}}</td>
             </tr>
             <?php $totalAbc =  $totalAbc + $data->total_abc; ?>
             <?php $totalBid =  $totalBid + $data->total_bid; ?>
@@ -76,9 +66,6 @@ Overview of Delayed Projects
           <td></td>
           <td>{{formatPrice($totalAbc)}}</td>
           <td>{{formatPrice($totalBid)}}</td>
-          <td>{{formatPrice($totalResidual)}}</td>
-          <td></td>
-          <td></td>
           <td></td>
         </tr>
     </tbody>

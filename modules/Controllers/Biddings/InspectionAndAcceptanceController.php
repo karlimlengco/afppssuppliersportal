@@ -138,17 +138,17 @@ class InspectionAndAcceptanceController extends Controller
 
         $upr_result  =  $upr->update([
             'next_allowable'=> 1,
-            'next_step'     => 'DIIR',
+            'next_step'     => 'Delivered Items and Inspection Report',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'status'        => 'Inspection Accepted',
+            'status'        => 'Inspection and Acceptance Report',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Inspection Accepted"));
+        event(new Event($upr_result, $upr_result->ref_number." Inspection and Acceptance Report"));
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -314,10 +314,10 @@ class InspectionAndAcceptanceController extends Controller
 
         $upr_result = $upr->update([
             'next_allowable'=> 1,
-            'next_step'     => 'Inspection Acceptance',
+            'next_step'     => 'Inspection and Acceptance Report',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'status'        => 'Inspection Started',
+            'status'        => 'Conduct of TIAC',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
@@ -325,7 +325,7 @@ class InspectionAndAcceptanceController extends Controller
             ], $result->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." Inspection Started"));
+        event(new Event($upr_result, $upr_result->ref_number." Conduct of TIAC"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

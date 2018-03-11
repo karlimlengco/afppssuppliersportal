@@ -242,14 +242,14 @@ class NoticeToProceedController extends Controller
             'next_step'     => 'Receive NTP',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'status'        => "NTP Created",
+            'status'        => "Serving of NTP",
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $po_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $po_model->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." NTP Created"));
+        event(new Event($upr_result, $upr_result->ref_number." Serving of NTP"));
 
         $result = $model->save($inputs);
 
@@ -460,14 +460,14 @@ class NoticeToProceedController extends Controller
             'next_step'     => 'Prepare NOD',
             'next_due'      => $transaction_date->addDays($ntp_model->po->delivery_terms),
             'last_date'     => $transaction_date,
-            'status'        => 'NTP Philgeps Posted',
+            'status'        => 'Philgeps Posting of NTP',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $ntp_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." NTP Philgeps Posted"));
+        event(new Event($upr_result, $upr_result->ref_number." Philgeps Posting of NTP"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -554,14 +554,14 @@ class NoticeToProceedController extends Controller
             'next_step'     => $nextStep,
             'next_due'      => $transaction_date->addDays($delivery_days),
             'last_date'     => $transaction_date,
-            'status'        => 'NTP Accepted',
+            'status'        => 'Conforme of NTP',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $ntp_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." NPT Accepted"));
+        event(new Event($upr_result, $upr_result->ref_number." Conforme of NTP"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

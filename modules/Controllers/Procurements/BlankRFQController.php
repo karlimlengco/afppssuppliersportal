@@ -359,7 +359,7 @@ class BlankRFQController extends Controller
         if($request->completed_at != null)
         {
             $upr_result =   $upr->update([
-                'status'        => 'Close RFQ',
+                'status'        => 'RFQ',
                 'next_allowable'=> 2,
                 'next_step'     => 'Canvassing',
                 'next_due'      => $completed_at->addDays(2),
@@ -448,7 +448,7 @@ class BlankRFQController extends Controller
             ], $request->rfq_id);
 
         $upr_result =   $upr->update([
-            'status'        => 'Close RFQ',
+            'status'        => 'RFQ',
             'next_allowable'=> 2,
             'next_step'     => 'Canvassing',
             'next_due'      => $completed_at->addDays(2),
@@ -459,7 +459,7 @@ class BlankRFQController extends Controller
             ], $rfq->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." Close RFQ"));
+        event(new Event($upr_result, $upr_result->ref_number." RFQ"));
 
         return redirect()->route($this->baseUrl.'show', $request->rfq_id)->with([
             'success'  => "Record has been successfully updated."

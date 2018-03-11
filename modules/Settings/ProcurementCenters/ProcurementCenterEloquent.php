@@ -45,6 +45,7 @@ class ProcurementCenterEloquent extends Model
         'programs',
         'short_code',
         'address',
+        'telephone_number',
     ];
 
 }

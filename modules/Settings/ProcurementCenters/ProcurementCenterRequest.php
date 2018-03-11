@@ -14,6 +14,7 @@ class ProcurementCenterRequest extends BaseRequest
         'address',
         'programs',
         'short_code',
+        'telephone_number',
     ];
 
     /**

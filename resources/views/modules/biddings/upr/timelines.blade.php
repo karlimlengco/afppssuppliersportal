@@ -115,7 +115,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Close RFQ</td>
+                    <td>RFQ</td>
                     <td>
                         @if($data->rfq_completed_at != null)
                             <?php $rfq_completed_at = createCarbon('Y-m-d H:i:s',$data->rfq_completed_at)->format('d F Y'); ?>
@@ -1101,7 +1101,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Voucher Preaudit</td>
+                    <td>Pre-Audit</td>
                     <td>
                         @if($data->preaudit_date != null)
                         <?php $preaudit_date = createCarbon('Y-m-d',$data->preaudit_date); ?>
@@ -1134,7 +1134,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Voucher Certify</td>
+                    <td>Sign Box A of DV</td>
                     <td>
                         @if($data->certify_date != null)
                         <?php $certify_date = createCarbon('Y-m-d',$data->certify_date); ?>

@@ -24,6 +24,7 @@ Procurement Centers
                     <th>Short Code</th>
                     <th>Address</th>
                     <th>Program</th>
+                    <th>Telephone #</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,6 +53,7 @@ Procurement Centers
             {data: 'short_code', name: 'short_code'},
             {data: 'address', name: 'address'},
             {data: 'programs', name: 'programs'},
+            {data: 'telephone_number', name: 'telephone_number'},
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

@@ -71,7 +71,7 @@ Unit Purchase Request
             </thead>
             <tbody>
                 <tr>
-                    <td>UPR Receipt</td>
+                    <td>1. UPR Receipt</td>
                     <td>{{ $data->date_processed->format('d F Y')}}</td>
                     <td></td>
                     <td></td>
@@ -87,7 +87,7 @@ Unit Purchase Request
                 @if($data->mode_of_procurement != 'public_bidding')
 
                 <tr>
-                    <td>Invitation To Submit Price Quotation</td>
+                    <td>2. ITSPQ</td>
                     <td>
                         @if($data->ispq_transaction_date != null)
                             <a target="_blank" href="{{route('procurements.ispq.edit', $data->ispq_id)}}">
@@ -132,7 +132,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Philgeps posting</td>
+                    <td>3. Philgeps posting</td>
                     <td>
                         @if($data->pp_completed_at != null)
                             <?php $pp_completed_at = createCarbon('Y-m-d',$data->pp_completed_at); ?>
@@ -170,7 +170,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>RFQ</td>
+                    <td>4. RFQ</td>
                     <td>
                         @if($data->rfq_completed_at != null)
                             <?php $rfq_completed_at = createCarbon('Y-m-d H:i:s',$data->rfq_completed_at)->format('d F Y'); ?>
@@ -217,7 +217,7 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Canvassing</td>
+                    <td>5. Canvass</td>
                     <td>
                         @if($data->canvass_start_date != null)
                             <?php $canvass_start_date = createCarbon('Y-m-d',$data->canvass_start_date); ?>
@@ -268,7 +268,7 @@ Unit Purchase Request
                     @if(count($data->documents) != 0)
                         @foreach($data->documents as $docu)
                         <tr>
-                            <td>Document Acceptance</td>
+                            <td>2. Document Acceptance</td>
                             <td>
                                 @if($docu->approved_date != null)
                                 <?php $doc_transaction_date  =  createCarbon('Y-m-d',$docu->approved_date); ?>
@@ -305,7 +305,7 @@ Unit Purchase Request
                     @if(count($data->preprocs) > 1)
                         @foreach($data->preprocs as $proc)
                             <tr>
-                                <td>Pre Proc Conference</td>
+                                <td>3. Pre Proc Conference</td>
                                 <td>
                                         <?php $pre_proc_date  =  createCarbon('Y-m-d',$proc->pre_proc_date); ?>
                                             {{ $pre_proc_date->format('d F Y') }}
@@ -332,7 +332,7 @@ Unit Purchase Request
                         @endforeach
                     @else
                         <tr>
-                            <td>Pre Proc Conference</td>
+                            <td>3. Pre Proc Conference</td>
                             <td>
                                 @if($data->preproc != null)
                                     <?php $pre_proc_date  =  createCarbon('Y-m-d',$data->preproc->pre_proc_date); ?>
@@ -376,7 +376,7 @@ Unit Purchase Request
                     @if(count($data->itbs) > 1)
                         @foreach($data->itbs as $itb)
                             <tr>
-                                <td>Invitation To Bid</td>
+                                <td>4. Invitation To Bid</td>
                                 <td>
                                     <?php $itb_approved_date  =  createCarbon('Y-m-d',$itb->approved_date); ?>
                                             {{ $itb_approved_date->format('d F Y') }}
@@ -402,7 +402,7 @@ Unit Purchase Request
                         @endforeach
                     @else
                         <tr>
-                            <td>Invitation To Bid</td>
+                            <td>4. Invitation To Bid</td>
                             <td>
                                 @if($data->itb != null)
                                     <?php $itb_approved_date  =  createCarbon('Y-m-d',$data->itb->approved_date); ?>
@@ -447,7 +447,7 @@ Unit Purchase Request
                     @if(count($data->philgeps_many) > 1)
                         @foreach($data->philgeps_many as $pm)
                         <tr>
-                            <td>PhilGeps Posting</td>
+                            <td>5. PhilGeps Posting</td>
                             <td>
                                 <?php $philgeps_date  =  createCarbon('Y-m-d',$pm->transaction_date); ?>
                                 {{ $philgeps_date->format('d F Y') }}
@@ -473,7 +473,7 @@ Unit Purchase Request
                     @else
                         @if($data->philgeps != null)
                         <tr>
-                            <td>PhilGeps Posting</td>
+                            <td>5. PhilGeps Posting</td>
                             <td>
                                 <?php $philgeps_date  =  createCarbon('Y-m-d',$data->philgeps->transaction_date); ?>
                                 {{ $philgeps_date->format('d F Y') }}
@@ -503,7 +503,7 @@ Unit Purchase Request
                     @if(count($data->bid_conferences) > 1)
                         @foreach($data->bid_conferences as $bids)
                         <tr>
-                            <td>Pre Bid Conference</td>
+                            <td>6. Pre Bid Conference</td>
                             <td>
                                 <?php $rfq_created_at  =  createCarbon('Y-m-d',$bids->transaction_date); ?>
                                     <a target="_blank" href="{{route('biddings.pre-bids.show', $bids->id)}}">
@@ -532,7 +532,7 @@ Unit Purchase Request
                     @else
 
                         <tr>
-                            <td>Pre Bid Conference</td>
+                            <td>6. Pre Bid Conference</td>
                             <td>
                                 @if($data->bid_conference != null)
                                 <?php $rfq_created_at  =  createCarbon('Y-m-d',$data->bid_conference->transaction_date); ?>
@@ -583,7 +583,7 @@ Unit Purchase Request
                     @if(count($data->bid_opens) > 1)
                         @foreach($data->bid_opens as $bops)
                             <tr>
-                                <td>SOBE</td>
+                                <td>7. SOBE</td>
                                 <td>
                                     @if($bops != null)
                                     <?php $bid_open  =  createCarbon('Y-m-d',$bops->transaction_date); ?>
@@ -619,7 +619,7 @@ Unit Purchase Request
                         @endforeach
                     @else
                         <tr>
-                            <td>SOBE</td>
+                            <td>7. SOBE</td>
                             <td>
                                 @if($data->bid_open != null)
                                 <?php $bid_open  =  createCarbon('Y-m-d',$data->bid_open->transaction_date); ?>
@@ -669,7 +669,7 @@ Unit Purchase Request
 
                     {{-- SOBE --}}
                     <tr>
-                        <td>Close SOBE</td>
+                        <td>8. Close SOBE</td>
                         <td>
                             @if($data->bid_open != null && $data->bid_open->closing_date != null)
                             <?php $bid_close  =  createCarbon('Y-m-d',$data->bid_open->closing_date); ?>
@@ -721,7 +721,7 @@ Unit Purchase Request
                         @foreach($data->post_quals as $pqs)
 
                             <tr>
-                                <td>Post Qualification</td>
+                                <td>9. Post Qualification</td>
                                 <td>
                                     <?php $rfq_created_at  =  createCarbon('Y-m-d',$pqs->transaction_date); ?>
                                         <a target="_blank" href="{{route('biddings.post-qualifications.show', $pqs->id)}}">
@@ -750,7 +750,7 @@ Unit Purchase Request
                         @endforeach
                     @else
                         <tr>
-                            <td>Post Qualification</td>
+                            <td>9. Post Qualification</td>
                             <td>
                                 @if($data->post_qual != null)
                                 <?php $rfq_created_at  =  createCarbon('Y-m-d',$data->post_qual->transaction_date); ?>
@@ -800,7 +800,14 @@ Unit Purchase Request
                 @endif
 
                 <tr>
-                    <td>Prepare Notice Of Award</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    6.
+                    @else
+                    10.
+                    @endif
+                    Prepare NOA
+                    </td>
                     <td>
                         @if($data->noa_award_date != null)
                             <?php $noa_award_date = createCarbon('Y-m-d H:i:s',$data->noa_award_date)->format('Y-m-d'); ?>
@@ -871,7 +878,12 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Approved Notice Of Award</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    7.
+                    @else
+                    11.
+                    @endif ISSUE NOA</td>
                     <td>
                         @if($data->noa_approved_date != null)
                         <?php $noa_approved_date = createCarbon('Y-m-d',$data->noa_approved_date); ?>
@@ -912,7 +924,12 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Conforme Notice Of Award</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    8.
+                    @else
+                    12.
+                    @endif Conforme NOA</td>
                     <td>
                         @if($data->noa_award_accepted_date != null)
                         <?php $noa_award_accepted_date = createCarbon('Y-m-d',$data->noa_award_accepted_date); ?>
@@ -953,7 +970,12 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Posting Notice Of Award to Philgeps</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    9.
+                    @else
+                    13.
+                    @endif Posting NOA to Philgeps</td>
                     <td>
                     <td></td>
 
@@ -967,7 +989,7 @@ Unit Purchase Request
 
                 @if($data->mode_of_procurement != 'public_bidding')
                 <tr>
-                    <td>PO Preparation</td>
+                    <td>10. Preparation of PO</td>
                     <td>
                         @if($data->po_create_date != null)
                         <?php $po_create_date = createCarbon('Y-m-d',$data->po_create_date); ?>
@@ -1013,7 +1035,7 @@ Unit Purchase Request
                 @else
 
                 <tr>
-                    <td>Contract Preparation</td>
+                    <td>14. Preparation of PO</td>
                     <td>
                         @if($data->po_create_date != null)
                         <?php $po_create_date = createCarbon('Y-m-d',$data->po_create_date); ?>
@@ -1059,7 +1081,12 @@ Unit Purchase Request
                 @endif
 
                 <tr>
-                    <td>PO MFO Obligation</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    11.
+                    @else
+                    15.
+                    @endif MFO Obligation</td>
                     <td>
                         @if($data->funding_received_date != null)
                         <?php $funding_received_date = createCarbon('Y-m-d',$data->funding_received_date); ?>
@@ -1096,7 +1123,12 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>PO Issuance of CAF</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    12.
+                    @else
+                    16.
+                    @endif Issuance of CAF</td>
                     <td>
                         @if($data->mfo_received_date != null)
                         <?php $mfo_received_date = createCarbon('Y-m-d',$data->mfo_received_date); ?>
@@ -1134,7 +1166,12 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>PO/WO/JO/CA Approval</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    13.
+                    @else
+                    17.
+                    @endif PO/WO/JO/CA Approval And NTP Preparation</td>
                     <td>
                         @if($data->coa_approved_date != null)
                         <?php $coa_approved_date = createCarbon('Y-m-d',$data->coa_approved_date); ?>
@@ -1172,7 +1209,12 @@ Unit Purchase Request
 
                 @if($data->mode_of_procurement != 'public_bidding')
                     <tr>
-                        <td>Prepare Notice to Proceed</td>
+                        <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    14.
+                    @else
+                    18.
+                    @endif Serving of NTP</td>
                         <td>
                             @if($data->ntp_date)
                                 <?php $ntp_dates = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->ntp_date)->format('Y-m-d'); ?>
@@ -1216,7 +1258,12 @@ Unit Purchase Request
                     </tr>
                 @else
                     <tr>
-                        <td>Prepare Notice to Proceed</td>
+                        <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    14.
+                    @else
+                    18.
+                    @endif Serving of NTP</td>
                         <td>
                             @if($data->ntp_date)
                                 <?php $ntp_dates = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->ntp_date)->format('Y-m-d'); ?>
@@ -1261,7 +1308,12 @@ Unit Purchase Request
                 @endif
 
                 <tr>
-                    <td>Conforme of NTP</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    15.
+                    @else
+                    19.
+                    @endif Conforme of NTP</td>
                     <td>
                         @if($data->ntp_award_date != null)
                         <?php $ntp_award_date = createCarbon('Y-m-d',$data->ntp_award_date); ?>
@@ -1298,7 +1350,12 @@ Unit Purchase Request
 
 
                 <tr>
-                    <td>Philgeps Posting of NTP</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    16.
+                    @else
+                    20.
+                    @endif Philgeps Posting of NTP</td>
                     <td>
                     </td>
                     <td></td>
@@ -1311,9 +1368,55 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Receive Delivery</td>
                     <td>
-                        @if($data->delivery_date != null)
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    17.
+                    @else
+                    21.
+                    @endif Issuance of Notice of Delivery </td>
+                    <td>
+                        @if($data->dr_date != null)
+                        <?php $dr_date = createCarbon('Y-m-d',$data->dr_date); ?>
+                        <a target="_blank" href="{{route('procurements.delivery-orders.show', $data->dr_id)}}">
+                            {{$dr_date->format('d F Y')}}
+                        </a>
+                        @endif
+                    </td>
+                    <td>{{$data->delivery_terms}}</td>
+                    <td>
+                        @if($data->dr_date != null)
+                            {{ $data->dr_days }}
+                            <?php $totalDays +=  $data->dr_days ; ?>
+
+                            @if($data->dr_days > $data->delivery_terms)
+                                <strong class="red" tooltip="Delay">({{$data->dr_days - 2}})</strong>
+                            @endif
+
+                        @else
+                            @if($data->ntp_award_date)
+                              <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
+
+                              {{$d}}
+                              @if($d > $data->delivery_terms)
+                                  <strong class="red" tooltip="Delay">({{$d - $data->delivery_terms}})</strong>
+                              @endif
+                            @endif
+                        @endif
+                    </td>
+                    <td>{{$data->dr_delivery_remarks}}</td>
+                    <td>{{$data->dr_delivery_action}}</td>
+                    <td> </td>
+                </tr>
+
+                <tr>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    18.
+                    @else
+                    22.
+                    @endif Delivery of items</td>
+                    <td>
+                        @if($data->dr_date != null)
                         <?php $delivery_date = createCarbon('Y-m-d',$data->delivery_date); ?>
                         <a target="_blank" href="{{route('procurements.delivery-orders.show', $data->dr_id)}}">
                             {{$delivery_date->format('d F Y')}}
@@ -1332,6 +1435,7 @@ Unit Purchase Request
 
                         @else
 
+                          @if($data->dr_date != null)
                             <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
 
                             {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
@@ -1339,6 +1443,7 @@ Unit Purchase Request
                             @if($d > $data->delivery_terms)
                                 <strong class="red" tooltip="Delay">({{$d - $data->delivery_terms}})</strong>
                             @endif
+                          @endif
                         @endif
                     </td>
                     <td>{{$data->dr_delivery_remarks}}</td>
@@ -1346,7 +1451,12 @@ Unit Purchase Request
                     <td> </td>
                 </tr>
                 <tr>
-                    <td>COA Delivery</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    19.
+                    @else
+                    23.
+                    @endif Notification of delivery to COA</td>
                     <td>
                         @if($data->dr_coa_date != null)
                         <?php $dr_coa_date = createCarbon('Y-m-d',$data->dr_coa_date); ?>
@@ -1383,7 +1493,12 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Technical Inspection</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    20.
+                    @else
+                    24.
+                    @endif Conduct of TIAC</td>
                     <td>
                         @if($data->dr_inspection != null)
                         <?php $dr_inspection = createCarbon('Y-m-d',$data->dr_inspection); ?>
@@ -1428,7 +1543,12 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>IAR Acceptance</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    21.
+                    @else
+                    25.
+                    @endif Inspection and Acceptance Report</td>
                     <td>
                         @if($data->iar_accepted_date != null)
                         <?php $iar_accepted_date = createCarbon('Y-m-d',$data->iar_accepted_date); ?>
@@ -1465,7 +1585,12 @@ Unit Purchase Request
                     <td></td>
                 </tr>
                 <tr>
-                    <td>DR Inspection Start</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    22.
+                    @else
+                    26.
+                    @endif Delivered Items and Inspection Report</td>
                     <td>
                         @if($data->di_start != null)
                         <?php $di_start = createCarbon('Y-m-d',$data->di_start); ?>
@@ -1508,49 +1633,13 @@ Unit Purchase Request
                         @endif
                     </td>
                 </tr>
-
                 <tr>
-                    <td>DR Inspection Close</td>
-
                     <td>
-                        @if($data->di_close != null)
-                        <?php $di_close = createCarbon('Y-m-d',$data->di_close); ?>
-                        <a target="_blank" href="{{route('procurements.delivered-inspections.show', $data->diir_id)}}">
-                            {{$di_close->format('d F Y')}}
-                        </a>
-                        @endif
-                    </td>
-                    <td>1</td>
-                    <td>
-                    @if(isset($di_start))
-                        @if($data->di_close != null)
-
-                            {{ $data->diir_close_days }}
-                            <?php $totalDays +=  $data->diir_close_days ; ?>
-
-                            @if($data->diir_close_days > 1)
-                                <strong class="red" tooltip="Delay">({{$data->diir_close_days - 1}})</strong>
-                            @endif
-
-                        @else
-
-                            <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, createCarbon('Y-m-d H:i:s',$next_date) ); ?>
-
-                            {{-- {{ ($d >= 1) ?  $d - 1 : $d }} --}}
-                            {{$d}}
-                            @if($d > 1)
-                                <strong class="red" tooltip="Delay">({{$d - 1}})</strong>
-                            @endif
-                        @endif
-                    @endif
-                    </td>
-                    <td>{{$data->diir_close_remarks}}</td>
-                    <td>{{$data->diir_close_action}}</td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>Prepare Voucher</td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    23.
+                    @else
+                    27.
+                    @endif Preparation of DV</td>
                     <td>
                         @if($data->v_transaction_date != null)
                         <?php $v_transaction_date = createCarbon('Y-m-d',$data->v_transaction_date); ?>
@@ -1596,7 +1685,12 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Voucher Certify</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    24.
+                    @else
+                    28.
+                    @endif Sign box `A` of DV </td>
                     <td>
                         @if($data->certify_date != null)
                         <?php $certify_date = createCarbon('Y-m-d',$data->certify_date); ?>
@@ -1633,7 +1727,12 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Voucher JEV</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    25.
+                    @else
+                    29.
+                    @endif Accomplish box `B` of DV and Sign box `C` of DV </td>
                     <td>
                         @if($data->journal_entry_date != null)
                         <?php $journal_entry_date = createCarbon('Y-m-d',$data->journal_entry_date); ?>
@@ -1667,7 +1766,12 @@ Unit Purchase Request
                     <td></td>
                 </tr>
                 <tr>
-                    <td>Voucher Approval</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    26.
+                    @else
+                    30.
+                    @endif Sign box `D` of DV</td>
                     <td>
                         @if($data->vou_approval_date != null)
                         <?php $vou_approval_date = createCarbon('Y-m-d',$data->vou_approval_date); ?>
@@ -1702,7 +1806,12 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Voucher Preaudit</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    27.
+                    @else
+                    31.
+                    @endif Pre-audit</td>
                     <td>
                         @if($data->preaudit_date != null)
                         <?php $preaudit_date = createCarbon('Y-m-d',$data->preaudit_date); ?>
@@ -1741,7 +1850,12 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Voucher Prepare LDDAP-ADA</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    28.
+                    @else
+                    32.
+                    @endif Prepare and Sign LDDAP-ADA</td>
                     <td>
                         @if($data->vou_prepare_cheque_date != null)
                         <?php $vou_prepare_cheque_date = createCarbon('Y-m-d',$data->vou_prepare_cheque_date); ?>
@@ -1780,7 +1894,12 @@ Unit Purchase Request
                 </tr>
 
                 <tr>
-                    <td>Voucher Release LDDAP-ADA</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    29.
+                    @else
+                    33.
+                    @endif Sign LDDAP-ADA or Prepare Cheque</td>
                     <td>
                         @if($data->vou_release != null)
                         <?php $vou_release = createCarbon('Y-m-d',$data->vou_release); ?>
@@ -1816,7 +1935,12 @@ Unit Purchase Request
 
 
                 <tr>
-                    <td>Voucher Counter Sign Cheque</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    30.
+                    @else
+                    34.
+                    @endif Sign LDDAP-ADA or Counter-Sign Cheque</td>
                     <td>
                         @if($data->vou_counter_sign_date != null)
                         <?php $vou_counter_sign_date = createCarbon('Y-m-d',$data->vou_counter_sign_date); ?>
@@ -1852,7 +1976,12 @@ Unit Purchase Request
 
 
                 <tr>
-                    <td>Voucher Received</td>
+                    <td>
+                    @if($data->mode_of_procurement != 'public_bidding')
+                    31.
+                    @else
+                    35.
+                    @endif Receipt of Cheques and Issue Official Receipt</td>
                     <td>
                         @if($data->vou_received != null)
                         <?php $vou_received = createCarbon('Y-m-d',$data->vou_received); ?>

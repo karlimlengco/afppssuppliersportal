@@ -227,14 +227,14 @@ class CanvassingController extends Controller
             'next_step'     => 'Prepare NOA',
             'next_due'      => $ispq_transaction_date->addDays(2),
             'last_date'     => $transaction_date,
-            'status'        => "Open Canvass",
+            'status'        => "Canvass",
             'delay_count'   => $wd,
             'calendar_days' => $cd + $rfq_model->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $rfq_model->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Open Canvas"));
+        event(new Event($upr_result, $upr_result->ref_number." Canvass"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

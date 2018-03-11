@@ -174,7 +174,7 @@ class PhilGepsPostingController extends Controller
 
         $upr_result = $upr->update([
             'next_allowable'=> 3,
-            'next_step'     => 'Create RFQ',
+            'next_step'     => 'Prepare RFQ',
             'next_due'      => $upr_model->date_processed->addDays(3),
             'last_date'     => $transaction_date,
             'status'        => $status,

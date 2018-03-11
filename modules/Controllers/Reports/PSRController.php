@@ -201,7 +201,7 @@ class PSRController extends Controller
                             'UPR',
                             'ISPQ',
                             'PhilGeps Posting',
-                            'Close RFQ',
+                            'RFQ',
                             'Canvassing',
                             'Prepare NOA',
                             'Approved NOA',

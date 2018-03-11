@@ -140,14 +140,14 @@ class InspectionAndAcceptanceController extends Controller
             'next_step'     => 'DIIR',
             'next_due'      => $transaction_date->addDays(1),
             'last_date'     => $transaction_date,
-            'status'        => 'Inspection Accepted',
+            'status'        => 'Inspection and Acceptance Report',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Inspection Accepted"));
+        event(new Event($upr_result, $upr_result->ref_number." Inspection and Acceptance Report"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -316,7 +316,7 @@ class InspectionAndAcceptanceController extends Controller
             'next_step'     => 'Inspection Acceptance',
             'next_due'      => $dr_date->addDays(2),
             'last_date'     => $transaction_date,
-            'status'        => 'Inspection Started',
+            'status'        => 'Conduct of TIAC',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
@@ -324,7 +324,7 @@ class InspectionAndAcceptanceController extends Controller
             ], $result->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." Inspection Started"));
+        event(new Event($upr_result, $upr_result->ref_number." Conduct of TIAC"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

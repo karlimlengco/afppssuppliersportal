@@ -217,14 +217,14 @@ class DeliveryController extends Controller
             'next_step'     => 'Receive Delivery',
             'next_due'      => $ntp_date->addDays($po_model->delivery_terms),
             'last_date'     => $transaction_date,
-            'status'        => 'NOD Created',
+            'status'        => 'Issuance of Notice of Delivery',
             'delay_count'   => $wd,
             'calendar_days' => $cd + $result->upr->calendar_days,
             'last_action'   => $request->action,
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." NOD Created"));
+        event(new Event($upr_result, $upr_result->ref_number." Issuance of Notice of Delivery"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -551,7 +551,7 @@ class DeliveryController extends Controller
         }
         else
         {
-            $status =   'Delivery Received';
+            $status =   'Delivery of Items';
         }
         $inputs['status']       =   $status;
 
@@ -666,7 +666,7 @@ class DeliveryController extends Controller
             'next_step'     => 'Technical Inspection',
             'next_due'      => $transaction_date->addDays(2),
             'last_date'     => $transaction_date,
-            'status'        => 'Complete COA Delivery',
+            'status'        => 'Notification of Delivery to COA',
             'delay_count'   => $day_delayed,
             'calendar_days' => $cd + $dr_model->upr->calendar_days,
             'last_action'   => $request->action,
@@ -674,7 +674,7 @@ class DeliveryController extends Controller
             ], $result->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." Complete COA Delivery"));
+        event(new Event($upr_result, $upr_result->ref_number." Notification of Delivery to COA"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
