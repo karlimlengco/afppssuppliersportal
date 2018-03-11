@@ -73361,15 +73361,22 @@ var csrf_token = $('meta[name="csrf-token"]').attr('content');
             var _this2 = this;
 
             if (value == 'undefined') {
-                value = '';
+                $.ajax({
+                    url: '/upr-delays/api?page=' + page,
+                    success: function success(response) {
+                        _this2.items = response.data.data;
+                        _this2.pagination = response.pagination;
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: '/upr-delays/api?page=' + page + '&search=' + value,
+                    success: function success(response) {
+                        _this2.items = response.data.data;
+                        _this2.pagination = response.pagination;
+                    }
+                });
             }
-            $.ajax({
-                url: '/upr-delays/api?page=' + page + '&search=' + value,
-                success: function success(response) {
-                    _this2.items = response.data.data;
-                    _this2.pagination = response.pagination;
-                }
-            });
         },
         showModal: function showModal(item) {
             this.upr_id = item.id;

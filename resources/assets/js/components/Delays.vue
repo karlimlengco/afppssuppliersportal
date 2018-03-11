@@ -174,8 +174,15 @@
             },
             fetchItems(page, value) {
               if(value == 'undefined'){
-                value = ''
-              }
+                $.ajax({
+                    url: '/upr-delays/api?page='+page,
+                    success: (response) => {
+                       this.items = response.data.data
+                       this.pagination = response.pagination
+                    }
+                });
+              }else
+              {
                 $.ajax({
                     url: '/upr-delays/api?page='+page+'&search='+value,
                     success: (response) => {
@@ -183,6 +190,8 @@
                        this.pagination = response.pagination
                     }
                 });
+              }
+
             },
             showModal(item){
                 this.upr_id  = item.id
