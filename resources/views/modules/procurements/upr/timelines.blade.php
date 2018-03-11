@@ -826,8 +826,7 @@ Unit Purchase Request
                     <td>
                     @if(isset($canvass_start_date))
                     <?php
-
-                      $noa_days            =   $canvass_start_date->diffInDaysFiltered(function(Carbon $date)use ($h_lists) {
+                      $noa_days            =   $canvass_start_date->diffInDaysFiltered(function(\Carbon\Carbon $date)use ($h_lists) {
                           return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
                       }, $noa_award_date);
                     ?>

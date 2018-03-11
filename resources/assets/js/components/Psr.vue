@@ -395,13 +395,13 @@
                                             </td>
                                             <td v-if="types != 'bidding'" >
                                                 <!-- 2 -->
-                                              <span v-if="itemData.noa_days > 2" style="color:red">
-                                                {{itemData.noa_days}}
-                                                <!-- {{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}} -->
+                                              <span v-if="getDiff(itemData.noa_award_date, itemData.canvass_start_date) > 2" style="color:red">
+                                                <!-- {{itemData.noa_days}} -->
+                                                {{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}}
                                               </span>
-                                              <span v-if="itemData.noa_days <= 2" >
-                                                {{itemData.noa_days}}
-                                                <!-- {{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}} -->
+                                              <span v-if="getDiff(itemData.noa_award_date, itemData.canvass_start_date) <= 2" >
+                                                <!-- {{itemData.noa_days}} -->
+                                                {{getDiff(itemData.noa_award_date, itemData.canvass_start_date)}}
                                               </span>
                                             </td>
                                             <td v-if="types == 'bidding'">
@@ -835,10 +835,12 @@
               }
           },
           getDiff: function(end, start){
+
             if(end != null && start != null){
               var a = moment(start, 'YYYY-MM-DD')
               var b = moment(end, 'YYYY-MM-DD')
               var result = b.diff(a, 'days')
+              result = this.addWeekdays(a, result);
               if(result < 0)
               {
                 return 0;
@@ -846,6 +848,21 @@
               return result;
             }
             return '--'
+          },
+          addWeekdays: function(date, days) {
+            date = moment(date); // use a clone
+            var day = 0;
+            while (days > 0) {
+              date = date.add(1, 'days');
+              // decrease "days" only if it's a weekday.
+              if (date.isoWeekday() !== 6 && date.isoWeekday() !== 7) {
+                days -= 1;
+              }else
+              {
+                day += 1;
+              }
+            }
+            return day -1;
           },
           searchMe: function(){
             this.itemsName = []

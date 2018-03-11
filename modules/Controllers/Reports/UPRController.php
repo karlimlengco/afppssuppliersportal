@@ -306,7 +306,7 @@ class UPRController extends Controller
                     $newdata    =   [
                         $result->upr_number,
                         $result->ref_number,
-                        $result->date_prepared->format('d F Y'),
+                        $result->date_processed->format('d F Y'),
                         ($result->ispq_transaction_date) ?
                             \Carbon\Carbon::createFromFormat('Y-m-d',$result->ispq_transaction_date)->format('d F Y')
                             : "",

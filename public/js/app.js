@@ -74764,16 +74764,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     getDiff: function getDiff(end, start) {
+
       if (end != null && start != null) {
         var a = moment(start, 'YYYY-MM-DD');
         var b = moment(end, 'YYYY-MM-DD');
         var result = b.diff(a, 'days');
+        result = this.addWeekdays(a, result);
         if (result < 0) {
           return 0;
         }
         return result;
       }
       return '--';
+    },
+    addWeekdays: function addWeekdays(date, days) {
+      date = moment(date); // use a clone
+      var day = 0;
+      while (days > 0) {
+        date = date.add(1, 'days');
+        // decrease "days" only if it's a weekday.
+        if (date.isoWeekday() !== 6 && date.isoWeekday() !== 7) {
+          days -= 1;
+        } else {
+          day += 1;
+        }
+      }
+      return day - 1;
     },
     searchMe: function searchMe() {
       var _this = this;
@@ -86181,11 +86197,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                                " + _vm._s(itemData.canvass_days) + "\n                                                ")]) : _vm._e(), _vm._v(" "), (itemData.canvass_days <= 2) ? _c('span', [_vm._v("\n                                                " + _vm._s(itemData.canvass_days) + "\n                                                ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [(itemData.noa_days > 2) ? _c('span', {
+        }, [_vm._v("\n                                                " + _vm._s(itemData.canvass_days) + "\n                                                ")]) : _vm._e(), _vm._v(" "), (itemData.canvass_days <= 2) ? _c('span', [_vm._v("\n                                                " + _vm._s(itemData.canvass_days) + "\n                                                ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [(_vm.getDiff(itemData.noa_award_date, itemData.canvass_start_date) > 2) ? _c('span', {
           staticStyle: {
             "color": "red"
           }
-        }, [_vm._v("\n                                                " + _vm._s(itemData.noa_days) + "\n                                                ")]) : _vm._e(), _vm._v(" "), (itemData.noa_days <= 2) ? _c('span', [_vm._v("\n                                                " + _vm._s(itemData.noa_days) + "\n                                                ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [(itemData.doc_days > 1) ? _c('span', {
+        }, [_vm._v("\n                                                " + _vm._s(_vm.getDiff(itemData.noa_award_date, itemData.canvass_start_date)) + "\n                                              ")]) : _vm._e(), _vm._v(" "), (_vm.getDiff(itemData.noa_award_date, itemData.canvass_start_date) <= 2) ? _c('span', [_vm._v("\n                                                " + _vm._s(_vm.getDiff(itemData.noa_award_date, itemData.canvass_start_date)) + "\n                                              ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [(itemData.doc_days > 1) ? _c('span', {
           staticStyle: {
             "color": "red"
           }

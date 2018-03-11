@@ -938,7 +938,20 @@ class TransactionDayController extends Controller
                         }
 
                     }
-                    $d_noa_award_date = $data->noa_days;
+                    $noa_days = 0;
+                    if($data->canvass_start_date != null){
+
+                      $canvass_start_date = createCarbon('Y-m-d',$data->canvass_start_date);
+                      if($data->noa_award_date != null){
+                        $noa_award_date = createCarbon('Y-m-d H:i:s',$data->noa_award_date)->format('Y-m-d');
+                        $noa_award_date = createCarbon('Y-m-d',$noa_award_date);
+                        $noa_days            =   $canvass_start_date->diffInDaysFiltered(function(\Carbon\Carbon $date){
+                            return $date->isWeekday();
+                        }, $noa_award_date);
+                      }
+                    }
+
+                    $d_noa_award_date = $noa_days;
 
                     $d_noa_approved_date = $data->noa_approved_days;
 
