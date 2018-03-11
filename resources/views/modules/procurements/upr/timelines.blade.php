@@ -825,12 +825,18 @@ Unit Purchase Request
                     @endif
                     <td>
                     @if(isset($canvass_start_date))
-                        @if($data->noa_award_date)
-                            {{ $data->noa_days }}
-                            <?php $totalDays +=  $data->noa_days ; ?>
+                    <?php
 
-                            @if($data->noa_days > 2)
-                                <strong class="red" tooltip="Delay">({{$data->noa_days - 2}})</strong>
+                      $noa_days            =   $canvass_start_date->diffInDaysFiltered(function(Carbon $date)use ($h_lists) {
+                          return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists);
+                      }, $noa_award_date);
+                    ?>
+                        @if($data->noa_award_date)
+                            {{ $noa_days }}
+                            <?php $totalDays +=  $noa_days ; ?>
+
+                            @if($noa_days > 2)
+                                <strong class="red" tooltip="Delay">({{$noa_days - 2}})</strong>
                             @endif
 
 
