@@ -73360,6 +73360,9 @@ var csrf_token = $('meta[name="csrf-token"]').attr('content');
         fetchItems: function fetchItems(page, value) {
             var _this2 = this;
 
+            if (value == 'undefined') {
+                value = '';
+            }
             $.ajax({
                 url: '/upr-delays/api?page=' + page + '&search=' + value,
                 success: function success(response) {

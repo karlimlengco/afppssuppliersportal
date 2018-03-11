@@ -173,6 +173,9 @@
                 this.fetchItems(this.pagination.current_page);
             },
             fetchItems(page, value) {
+              if(value == 'undefined'){
+                value = ''
+              }
                 $.ajax({
                     url: '/upr-delays/api?page='+page+'&search='+value,
                     success: (response) => {
