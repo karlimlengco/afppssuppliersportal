@@ -47,7 +47,7 @@ Suppliers
                 // }
             },
         columns: [
-            {data: 'name', name: 'name'},
+            {data: 'name2', name: 'name2'},
             {data: 'type', name: 'type'},
             {data: 'validity_date', name: 'validity_date'},
             {data: 'view_here', name: 'view_here'},

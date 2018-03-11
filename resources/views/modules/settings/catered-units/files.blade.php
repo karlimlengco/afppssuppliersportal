@@ -47,7 +47,7 @@ Catered Units
                 // }
             },
         columns: [
-            {data: 'short_code', name: 'short_code'},
+            {data: 'short_code2', name: 'short_code2'},
             {data: 'amount', name: 'amount'},
             {data: 'validity_date', name: 'validity_date'},
             {data: 'view_here', name: 'view_here'},

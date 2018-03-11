@@ -66,6 +66,9 @@ trait DatatableTrait
                 $route  =  route( 'settings.suppliers.show',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->name .'</a>';
             })
+            ->addColumn('name2', function ($data) {
+                return $data->name;
+            })
             ->editColumn('is_blocked', function ($data) {
                 return ($data->is_blocked == 1) ? "Blocked" : "";
             })

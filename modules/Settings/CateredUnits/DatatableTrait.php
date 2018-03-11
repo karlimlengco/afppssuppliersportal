@@ -68,6 +68,9 @@ trait DatatableTrait
                 $route  =  route( 'maintenance.catered-units.edit',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->short_code .'</a>';
             })
+            ->addColumn('short_code2', function ($data) {
+                return $data->short_code;
+            })
             ->editColumn('view_here', function ($data) {
                 $route= route('maintenance.catered-units.attachments.download', $data->id);
                 return ' <a  href="'.$route.'" > Download </a>';
