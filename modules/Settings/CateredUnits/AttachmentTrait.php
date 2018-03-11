@@ -35,15 +35,16 @@ trait AttachmentTrait
         AttachmentRepository $attachments)
     {
 
-        $file       = md5_file($request->file);
-        $file       = $file.".".$request->file->getClientOriginalExtension();
-
-        $validator = \Validator::make($request->all(), [
+        session(['error-msg' => 'Please check all fields']);
+        $validator = $this->validate($request, [
             'file'          => 'required',
             'name'          => 'required',
             'validity_date' => 'required',
             'amount'        => 'required',
         ]);
+        $file       = md5_file($request->file);
+        $file       = $file.".".$request->file->getClientOriginalExtension();
+
 
         $result     = $attachments->save([
             'unit_id'       =>  $id,

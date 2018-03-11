@@ -305,6 +305,16 @@
                     "route" :   "library.files.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Files"
+                },
+                {
+                    "route" :   "library.supplier-files.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Suppliers"
+                },
+                {
+                    "route" :   "library.unit-files.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Catered Units"
                 }
             ]
         }

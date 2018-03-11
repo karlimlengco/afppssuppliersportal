@@ -34,7 +34,7 @@ trait AttachmentTrait
         $id,
         AttachmentRepository $attachments)
     {
-
+        session(['error-msg' => 'Please check all fields']);
         $validator = $this->validate($request, [
             'type'          => 'required',
             'file'          => 'required',

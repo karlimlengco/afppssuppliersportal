@@ -39,7 +39,7 @@
                 </div>
                 <div class="row">
                     <div class="twelve columns dropzone">
-                        <input  type="file" name="file" multiple/>
+                        <input  type="file" name="file" />
                     </div>
                 </div>
 

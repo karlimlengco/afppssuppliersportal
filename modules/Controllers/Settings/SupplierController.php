@@ -66,6 +66,21 @@ class SupplierController extends Controller
         return $model->getDatatable('draft');
     }
 
+    public function getFilesDatatable(SupplierRepository $model)
+    {
+        return $model->getFileDatatable();
+    }
+
+    /**
+     * [drafts description]
+     *
+     * @return [type] [description]
+     */
+    public function files()
+    {
+        return $this->view('modules.settings.suppliers.files');
+    }
+
     /**
      * [drafts description]
      *

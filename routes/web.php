@@ -368,6 +368,8 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
 |
 */
 Route::group(['as' => 'library.', 'prefix' => 'library'], function () {
+    Route::get('supplier-files', '\Revlv\Controllers\Settings\SupplierController@files')->name('supplier-files.index');
+    Route::get('unit-files', '\Revlv\Controllers\Settings\CateredUnitController@files')->name('unit-files.index');
     Route::resource('catalogs', '\Revlv\Controllers\Library\CatalogController');
 
     Route::get('file/download/{id}', '\Revlv\Controllers\Library\FileController@downloadFile')->name('file.download');
@@ -771,6 +773,9 @@ Route::group(['as' => 'datatables.', 'prefix' => 'datatables'], function () {
     |
     */
     Route::get('supplier-drafts', '\Revlv\Controllers\Settings\SupplierController@getDraftDatatable')->name('settings.supplier-drafts');
+    Route::get('supplier-files', '\Revlv\Controllers\Settings\SupplierController@getFilesDatatable')->name('settings.supplier-files');
+    Route::get('unit-files', '\Revlv\Controllers\Settings\CateredUnitController@getFilesDatatable')->name('settings.unit-files');
+
     Route::get('suppliers', '\Revlv\Controllers\Settings\SupplierController@getDatatable')->name('settings.suppliers');
     Route::get('signatories', '\Revlv\Controllers\Settings\SignatoryController@getDatatable')->name('settings.signatories');
     Route::get('holidays', '\Revlv\Controllers\Settings\HolidayController@getDatatable')->name('settings.holidays');

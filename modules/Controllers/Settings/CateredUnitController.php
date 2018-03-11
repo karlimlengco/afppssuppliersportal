@@ -53,6 +53,21 @@ class CateredUnitController extends Controller
         return $model->getDatatable();
     }
 
+    public function getFilesDatatable(CateredUnitRepository $model)
+    {
+        return $model->getFileDatatable();
+    }
+
+    /**
+     * [drafts description]
+     *
+     * @return [type] [description]
+     */
+    public function files()
+    {
+        return $this->view('modules.settings.catered-units.files');
+    }
+
     /**
      * Display a listing of the resource.
      *

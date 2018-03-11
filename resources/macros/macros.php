@@ -16,7 +16,7 @@ Form::macro('textRegisterField', function($name, $label = null, $value = null, $
 
 Form::macro('numberField', function($name, $label = null, $value = null, $attributes = array())
 {
-    $element = Form::number($name, $value, fieldAttributes($name, $attributes));
+    $element = Form::number($name, $value, fieldAttributes($name, $attributes)+ ['step' => '.01']);
 
     return fieldWrapper($name, $label, $element);
 });

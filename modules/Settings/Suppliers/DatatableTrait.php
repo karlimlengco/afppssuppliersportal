@@ -27,6 +27,31 @@ trait DatatableTrait
         return $this->dataTable($model->get());
     }
 
+    /**
+     * [getFileDatatable description]
+     *
+     * @param  [int]    $company_id ['company id ']
+     * @return [type]               [description]
+     */
+    public function getFileDatatable()
+    {
+        $model  =   $this->model;
+        $model  =   $model->select([
+            'suppliers.name',
+            'suppliers.owner',
+            'suppliers.is_blocked',
+            'supplier_attachments.id',
+            'supplier_attachments.type',
+            'supplier_attachments.validity_date',
+            'supplier_attachments.created_at',
+        ]);
+        $model  =   $model->leftJoin('supplier_attachments', 'supplier_attachments.supplier_id', 'suppliers.id');
+        $model  = $model->whereNotNull('supplier_attachments.id');
+        $model->orderBy('suppliers.created_at', 'desc');
+
+        return $this->dataTable($model->get());
+    }
+
 
     /**
      * [dataTable description]
@@ -44,7 +69,11 @@ trait DatatableTrait
             ->editColumn('is_blocked', function ($data) {
                 return ($data->is_blocked == 1) ? "Blocked" : "";
             })
-            ->rawColumns(['name'])
+            ->editColumn('view_here', function ($data) {
+                $route= route('settings.suppliers.attachments.download', $data->id);
+                return ' <a  href="'.$route.'" > Download </a>';
+            })
+            ->rawColumns(['name', 'view_here'])
             ->make(true);
     }
 }

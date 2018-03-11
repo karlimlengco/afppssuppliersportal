@@ -15,7 +15,7 @@
                         {!! Form::textField('name', 'Name') !!}
                     </div>
                     <div class="four columns">
-                        {!! Form::textField('amount', 'Amount') !!}
+                        {!! Form::numberField('amount', 'Amount') !!}
                     </div>
                     <div class="four columns">
                       <div class="form-group">
@@ -31,7 +31,7 @@
                 </div>
                 <div class="row">
                     <div class="twelve columns dropzone">
-                        <input  type="file" name="file" multiple/>
+                        <input  type="file" name="file"/>
                     </div>
                 </div>
 
