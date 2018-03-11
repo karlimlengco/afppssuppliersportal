@@ -73361,7 +73361,7 @@ var csrf_token = $('meta[name="csrf-token"]').attr('content');
             var _this2 = this;
 
             $.ajax({
-                url: '/upr-delays/api?page=' + page + '&&search=' + value,
+                url: '/upr-delays/api?page=' + page + '&search=' + value,
                 success: function success(response) {
                     _this2.items = response.data.data;
                     _this2.pagination = response.pagination;

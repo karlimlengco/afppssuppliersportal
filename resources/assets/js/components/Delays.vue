@@ -174,7 +174,7 @@
             },
             fetchItems(page, value) {
                 $.ajax({
-                    url: '/upr-delays/api?page='+page+'&&search='+value,
+                    url: '/upr-delays/api?page='+page+'&search='+value,
                     success: (response) => {
                        this.items = response.data.data
                        this.pagination = response.pagination
