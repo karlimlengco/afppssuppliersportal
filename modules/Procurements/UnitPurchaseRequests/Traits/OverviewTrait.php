@@ -51,7 +51,7 @@ trait OverviewTrait
         return $this->view('modules.overview.completed',[
             'result'    =>  $result,
             'breadcrumbs' => [
-                new Breadcrumb('Programs '.$programs),
+                new Breadcrumb('Program '.$programs),
             ]
         ]);
     }
@@ -70,7 +70,7 @@ trait OverviewTrait
         return $this->view('modules.overview.cancelled',[
             'result'    =>  $result,
             'breadcrumbs' => [
-                new Breadcrumb('Programs '.$programs),
+                new Breadcrumb('Program '.$programs),
             ]
         ]);
     }
@@ -89,7 +89,7 @@ trait OverviewTrait
         return $this->view('modules.overview.ongoing',[
             'result'    =>  $result,
             'breadcrumbs' => [
-                new Breadcrumb('Programs '.$programs),
+                new Breadcrumb('Program '.$programs),
             ]
         ]);
     }
@@ -108,7 +108,7 @@ trait OverviewTrait
         return $this->view('modules.overview.delay',[
             'result'    =>  $result,
             'breadcrumbs' => [
-                new Breadcrumb('Programs '.$programs),
+                new Breadcrumb('Program '.$programs),
             ]
         ]);
     }

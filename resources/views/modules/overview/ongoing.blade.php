@@ -33,14 +33,14 @@ Overview of Ongoing Projects
     @endforeach
     <thead>
         <tr>
-           <th    style="background: #222222" class="align-center" width="15%">PC/CO</th>
-           <th    style="background: #222222" class="align-center" width="40%" >Project Name/UPR Number</th>
-           <th    style="background: #222222" class="align-center" width="10%">UPR Receipt</th>
-           {{-- <th    style="background: #222222" class="align-center" width="10%">Ref Number</th> --}}
-           <th    style="background: #222222" class="align-center" width="10%">Status</th>
-           <th    style="background: #222222" class="align-center" width="5%">ABC  <br><strong  style="color:white">({{formatPrice($totalAbc)}})</strong></th>
-           <th    style="background: #222222" class="align-center" width="5%">Approved Bid Price   <br><strong  style="color:white">({{formatPrice($totalBid)}})</strong></th>
-           <th    style="background: #222222; text-align:center!important" class="align-center" width="5%">Remarks</th>
+           <th style="background: #222222" class="align-center" width="15%">PC/CO</th>
+           <th style="background: #222222" class="align-center" width="40%" >Project Name/UPR Number</th>
+           <th style="background: #222222" class="align-center" width="10%">UPR Receipt</th>
+           {{-- <th style="background: #222222" class="align-center" width="10%">Ref Number</th> --}}
+           <th style="background: #222222" class="align-center" width="10%">Status</th>
+           <th style="background: #222222" class="align-center" width="5%">ABC  <br><strong  style="color:white">({{formatPrice($totalAbc)}})</strong></th>
+           <th style="background: #222222" class="align-center" width="5%">Approved Bid Price   <br><strong  style="color:white">({{formatPrice($totalBid)}})</strong></th>
+           <th style="background: #222222; text-align:center!important" class="align-center" width="5%">Remarks</th>
         </tr>
     </thead>
     <tbody>
