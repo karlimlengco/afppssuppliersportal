@@ -38,7 +38,7 @@ Overview of Cancelled Projects
            <th class="align-center" width="10%">UPR Receipt</th>
            {{-- <th class="align-center" width="20%">Ref Number</th> --}}
            <th class="align-center" width="5%">ABC  <br><small>({{formatPrice($totalAbc)}})</th>
-           <th class="align-center" width="5%">Remarks</th>
+           <th class="align-center" width="5%">Reason</th>
         </tr>
     </thead>
     <tbody>
@@ -54,7 +54,7 @@ Overview of Cancelled Projects
                 <td>{{$data->date_processed->format('d F Y')}}</td>
                 {{-- <td>{{$data->ref_number}}</td> --}}
                 <td>{{formatPrice($data->total_abc)}}</td>
-                <td>{{$data->last_remarks}}</td>
+                <td>{{$data->cancel_reason}}</td>
             </tr>
 
             <?php $totalAbc =  $totalAbc + $data->total_abc; ?>
