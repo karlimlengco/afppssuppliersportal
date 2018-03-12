@@ -37,8 +37,8 @@ Overview of Delayed Projects
            <th   style="background: #222222"  class="align-center" width="40%" >Project Name/UPR Number</th>
            <th   style="background: #222222"  class="align-center" width="10%">UPR Receipt</th>
            {{-- <th   style="background: #222222"  class="align-center" width="10%">Ref Number</th> --}}
-           <th   style="background: #222222"  class="align-center" width="5%">ABC  <br><small  style="color:white">(in peso)</small></th>
-           <th   style="background: #222222"  class="align-center" width="5%">Approved Bid Price  <br><small  style="color:white">(in peso)</small></th>
+           <th   style="background: #222222"  class="align-center" width="5%">ABC  <br><small  style="color:white">(IN PESO)</small></th>
+           <th   style="background: #222222"  class="align-center" width="5%">Approved Bid Price  <br><small  style="color:white">(IN PESO)</small></th>
            <th   style="background: #222222; text-align:center!important"  class="align-center" width="10%">Current Status</th>
         </tr>
     </thead>

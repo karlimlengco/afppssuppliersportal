@@ -38,9 +38,9 @@ Overview of Completed Projects
            <th style="background: #222222" class="align-center" width="40%" >Project Name/UPR Number</th>
            <th style="background: #222222" class="align-center" width="10%">UPR Receipt</th>
            {{-- <th class="align-center" width="20%">Ref Number</th> --}}
-           <th style="background: #222222" class="align-center" width="5%">ABC <br><small style="color:white">(in peso)</small></th>
-           <th style="background: #222222" class="align-center" width="5%">Approved Contract <br><small style="color:white">(in peso)</small></th>
-           <th style="background: #222222; text-align:center!important" class="align-center" width="5%">Residual <br><small style="color:white">(in peso)</small></th>
+           <th style="background: #222222" class="align-center" width="5%">ABC <br><small style="color:white">(IN PESO)</small></th>
+           <th style="background: #222222" class="align-center" width="5%">Approved Contract <br><small style="color:white">(IN PESO)</small></th>
+           <th style="background: #222222; text-align:center!important" class="align-center" width="5%">Residual <br><small style="color:white">(IN PESO)</small></th>
         </tr>
     </thead>
         <tr>
