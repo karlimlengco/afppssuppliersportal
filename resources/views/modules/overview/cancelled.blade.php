@@ -38,7 +38,7 @@ Overview of Cancelled Projects
            <th  style="background: #222222" class="align-center" width="10%">UPR Receipt</th>
            {{-- <th  style="background: #222222" class="align-center" width="20%">Ref Number</th> --}}
            <th  style="background: #222222" class="align-center" width="5%">ABC  <br><strong style="color:white">({{formatPrice($totalAbc)}})</strong></th>
-           <th  style="background: #222222" class="align-center" width="5%">Reason</th>
+           <th  style="background: #222222; text-align:center!important" class="align-center" width="5%">Reason</th>
         </tr>
     </thead>
     <tbody>
