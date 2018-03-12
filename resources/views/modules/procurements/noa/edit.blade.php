@@ -40,7 +40,7 @@ Notice Of Award
     <div class="twelve columns">
 
             <div class="row">
-              <div class="twelve columns">
+              <div class="six columns">
                     {!! Form::selectField('account_type', 'Type',[
                         'Purchase Order' => 'Purchase Order',
                         'Contract' => 'Contract',
@@ -48,6 +48,9 @@ Notice Of Award
                         'Job Order' => 'Job Order',
                         'Purchase Order and Contract' => 'Purchase Order and Contract',
                     ]) !!}
+              </div>
+              <div class="six columns">
+                    {!! Form::textField('received_by', 'Conforme') !!}
               </div>
             </div>
 

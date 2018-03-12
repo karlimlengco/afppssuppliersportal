@@ -271,7 +271,6 @@ class NoticeOfAwardController extends Controller
             'account_type'          =>  $request->account_type,
             'received_action'       =>  $request->received_action,
         ];
-
         $result             =   $model->findById($id);
 
         $model->update($input, $id);
@@ -731,6 +730,7 @@ class NoticeOfAwardController extends Controller
 
 
         $input  =   [
+            'received_by'           =>  $request->received_by,
             'signatory'                 =>  $signatory,
             'signatory_id'              =>  $request->signatory_id,
             'awarded_date'              =>  $request->awarded_date,
