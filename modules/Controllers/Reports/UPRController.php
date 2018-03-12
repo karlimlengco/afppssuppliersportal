@@ -473,7 +473,7 @@ class UPRController extends Controller
                     $newdata    =   [
                         $result->upr_number,
                         $result->ref_number,
-                        $result->date_prepared->format('d F Y'),
+                        $result->date_processed->format('d F Y'),
                         $documentAcceptance,
                         $preprocConference,
                         $invitationToBid,
