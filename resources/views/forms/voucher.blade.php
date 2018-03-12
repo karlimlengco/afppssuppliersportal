@@ -120,7 +120,7 @@
                             <td class="no-padding no-border">{{formatPrice($data['penalty'])}}</td>
                             <td class="no-border-top no-border-bottom"></td>
                             <td class="no-border-top no-border-bottom"></td>
-                            <td class="no-border-top no-border-bottom"></td>
+                            <td class="no-border-top no-border-bottom" style="text-align:right">Php {{ formatPrice(($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty'])) }}</td>
                         </tr>
                         <tr>
                             <td class="align-center" colspan="5"><strong>Amount Due</strong></td>
@@ -155,7 +155,7 @@
                             <td class="align-center" width="15%"><strong>Credit</strong></td>
                         </tr>
                         <tr>
-                            <td height="80px"></td>
+                            <td height="80px"> Php {{ formatPrice(($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty'])) }} </td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -168,7 +168,7 @@
                         </tr>
                         <tr>
                             <td class="no-border-top no-border-bottom" colspan="3"></td>
-                            <td class="no-border-top no-border-bottom"></td>
+                            <td class="no-border-top no-border-bottom" style="text-transform: uppercase">{{translateToWords( $data['bid_amount'] - ($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty']) )}}</td>
                         </tr>
                         <tr>
                             <td class="border-left-only" width="15px"></td>
