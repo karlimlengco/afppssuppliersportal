@@ -38,8 +38,8 @@ Overview of Ongoing Projects
            <th class="align-center" width="10%">UPR Receipt</th>
            {{-- <th class="align-center" width="10%">Ref Number</th> --}}
            <th class="align-center" width="10%">Status</th>
-           <th class="align-center" width="5%">ABC  <br><small>({{formatPrice($totalAbc)}})</th>
-           <th class="align-center" width="5%">Approved Bid Price   <br><small>({{formatPrice($totalBid)}})</th>
+           <th class="align-center" width="5%">ABC  <br><strong>({{formatPrice($totalAbc)}})</strong></th>
+           <th class="align-center" width="5%">Approved Bid Price   <br><strong>({{formatPrice($totalBid)}})</strong></th>
            <th class="align-center" width="5%">Remarks</th>
         </tr>
     </thead>

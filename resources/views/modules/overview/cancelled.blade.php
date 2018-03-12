@@ -37,7 +37,7 @@ Overview of Cancelled Projects
            <th class="align-center" width="40%" >Project Name/UPR Number</th>
            <th class="align-center" width="10%">UPR Receipt</th>
            {{-- <th class="align-center" width="20%">Ref Number</th> --}}
-           <th class="align-center" width="5%">ABC  <br><small>({{formatPrice($totalAbc)}})</th>
+           <th class="align-center" width="5%">ABC  <br><strong>({{formatPrice($totalAbc)}})</strong></th>
            <th class="align-center" width="5%">Reason</th>
         </tr>
     </thead>
