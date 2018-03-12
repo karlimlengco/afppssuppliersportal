@@ -800,6 +800,48 @@
                             <span style="color:#7a7a7a" tooltip="Cancelled" >({{total_cancelled}})</span>
                             <span  class="red" tooltip="Delay" >({{total_delay}})</span>
                           </td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td v-if="types != 'bidding'">--</td>
+                          <td v-if="types != 'bidding'">--</td>
+                          <td v-if="types != 'bidding'">--</td>
+                          <td v-if="types != 'bidding'">--</td>
+                          <td v-if="types == 'bidding'">--</td>
+                          <td v-if="types == 'bidding'">--</td>
+                          <td v-if="types == 'bidding'">--</td>
+                          <td v-if="types == 'bidding'">--</td>
+                          <td v-if="types == 'bidding'">--</td>
+                          <td v-if="types == 'bidding'">--</td>
+                          <td v-if="types == 'bidding'">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
+                          <td style="font-weight:bolder">--</td>
                         </tr>
 
                     </tbody>

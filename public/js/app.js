@@ -74739,6 +74739,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -86508,7 +86550,131 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "tooltip": "Delay"
     }
-  }, [_vm._v("(" + _vm._s(_vm.total_delay) + ")")])])])], 2)])])])])])])
+  }, [_vm._v("(" + _vm._s(_vm.total_delay) + ")")])]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types != 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), (_vm.types == 'bidding') ? _c('td', [_vm._v("--")]) : _vm._e(), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "font-weight": "bolder"
+    }
+  }, [_vm._v("--")])])], 2)])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticStyle: {
