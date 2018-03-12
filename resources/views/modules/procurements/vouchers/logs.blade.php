@@ -60,7 +60,7 @@ Vouchers
                         @endforeach
 
                         @foreach( json_decode($log->new_values) as $newKey => $newValue )
-                            <tr style="background: #2ecc71;">
+                            <tr style="background: #60d0ff;">
                                 <td >New</td>
                                 <td >{{$newKey}}</td>
                                 @if(is_object($newValue))
