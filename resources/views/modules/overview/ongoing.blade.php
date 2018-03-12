@@ -31,7 +31,7 @@ Overview of Ongoing Projects
         <?php $totalBid =  $totalBid + $data->total_bid; ?>
         <?php $totalResidual =  $totalResidual + $data->total_residual; ?>
     @endforeach
-    <thead>
+    <thead >
         <tr>
            <th style="background: #222222" class="align-center" width="15%">PC/CO</th>
            <th style="background: #222222" class="align-center" width="40%" >Project Name/UPR Number</th>

@@ -50,7 +50,7 @@ PreProc Conference
                         @if($log->event != 'created' )
                         @foreach( json_decode($log->old_values) as $oldKey => $oldValue )
                             @if($oldKey != 'update_remarks')
-                            <tr style="background: #f0a35f; ">
+                            <tr style="background: #fdefec; ">
                                 <td>Old</td>
                                 <td>{{$oldKey}}</td>
                                 <td>{{$oldValue}}</td>
@@ -59,7 +59,7 @@ PreProc Conference
                         @endforeach
 
                         @foreach( json_decode($log->new_values) as $newKey => $newValue )
-                            <tr style="background: #99ffc4;">
+                            <tr style="background: #f2fbf3; ">
                                 <td>New</td>
                                 <td>{{$newKey}}</td>
                                 @if(is_object($newValue))

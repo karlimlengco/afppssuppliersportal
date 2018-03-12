@@ -51,7 +51,7 @@ Vouchers
                         @if($log->event != 'created' )
                         @foreach( json_decode($log->old_values) as $oldKey => $oldValue )
                             @if($oldKey != 'update_remarks')
-                            <tr style="background: #f0a35f; ">
+                            <tr style="background: #fdefec; ">
                                 <td style="color:white!important">Old</td>
                                 <td style="color:white!important">{{$oldKey}}</td>
                                 <td style="color:white!important">{{$oldValue}}</td>
