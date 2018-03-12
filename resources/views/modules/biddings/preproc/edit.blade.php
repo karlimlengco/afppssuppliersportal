@@ -1,5 +1,5 @@
 @section('title')
-Document Acceptance
+PreProc Conference
 @stop
 
 @section('breadcrumbs')
