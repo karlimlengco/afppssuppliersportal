@@ -41,6 +41,13 @@ Notice Of Delivery
 
             <div class="row">
                 <div class="six columns">
+                    {!! Form::textField('delivery_number', 'Delivery Receipt') !!}
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="six columns">
                     {!! Form::textField('expected_date', 'Expexted Date') !!}
                 </div>
                 @if($data->delivery_date != null)
@@ -71,6 +78,12 @@ Notice Of Delivery
                     {!! Form::select('signatory_id',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-signatory_id']) !!}
                 </div>
             </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('notes', 'Notes', null, ['rows'=>3]) !!}
+                </div>
+            </div>
+
 
         </div>
     </div>

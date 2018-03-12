@@ -37,6 +37,12 @@ Notice Of Delivery
     </div>
     <div class="row">
         <div class="twelve columns">
+            <div class="row">
+                <div class="six columns">
+                    {!! Form::textField('delivery_number', 'Delivery Receipt') !!}
+                </div>
+
+            </div>
 
             <div class="row">
                 <div class="six columns">
@@ -65,6 +71,11 @@ Notice Of Delivery
             <div class="row">
                 <div class="six columns">
                     {!! Form::selectField('signatory_id', '', $signatory_list, $data->signatory_id) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('notes', 'Notes', null, ['rows'=>3]) !!}
                 </div>
             </div>
 

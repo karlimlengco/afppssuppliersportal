@@ -507,7 +507,12 @@ class InspectionAndAcceptanceController extends Controller
             'sao_signatory'         =>  'required',
         ]);
 
+
+
         $input  =[
+            "nature_of_delivery"    => $request->nature_of_delivery,
+            "findings"              => $request->findings,
+            "recommendation"        => $request->recommendation,
             "update_remarks"        => $request->update_remarks,
             "accepted_date"         => $request->accepted_date,
             "inspection_date"       => $request->inspection_date,

@@ -57,6 +57,9 @@ Notice To Proceed
                     <label class="label">Signatory</label>
                     {!! Form::select('signatory_id',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-signatory_id']) !!}
                 </div>
+                <div class="six columns">
+                    {!! Form::textField('received_by', 'Conforme') !!}
+                </div>
             </div>
 
         {!! Form::close() !!}

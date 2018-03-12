@@ -52,6 +52,24 @@ Inspection And Acceptance Report
             </div>
 
             <div class="row">
+                <div class="six columns">
+                    {!! Form::textField('nature_of_delivery', 'Nature Of Delivery') !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textField('findings', 'Finding') !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textField('recommendation', 'Recommendation') !!}
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="twelve columns">
                     {!! Form::selectField('inspection_signatory', 'Inspection Signatory', $signatory_list) !!}
                 </div>

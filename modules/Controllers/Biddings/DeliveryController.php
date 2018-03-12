@@ -344,6 +344,8 @@ class DeliveryController extends Controller
         $dr_model   =   $model->findById($id);
 
         $input  =   [
+            "delivery_number"       =>  $request->delivery_number,
+            "notes"                 =>  $request->notes,
             "update_remarks"        =>  $request->update_remarks,
             "expected_date"         =>  $request->expected_date,
             "delivery_date"         =>  $request->delivery_date,

@@ -340,6 +340,7 @@ class NoticeToProceedController extends Controller
 
 
         $input  =   [
+            'received_by'           =>  $request->received_by,
             'prepared_date'         =>  $request->prepared_date,
             'update_remarks'        =>  $request->update_remarks,
             'award_accepted_date'   =>  $request->award_accepted_date,

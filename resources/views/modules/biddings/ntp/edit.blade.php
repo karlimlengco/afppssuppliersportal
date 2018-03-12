@@ -53,6 +53,9 @@ Notice To Proceed
                 <div class="six columns">
                     {!! Form::selectField('signatory_id', 'Signatory', $signatory_list) !!}
                 </div>
+                <div class="six columns">
+                    {!! Form::textField('received_by', 'Conforme') !!}
+                </div>
             </div>
 
         {!! Form::close() !!}

@@ -369,10 +369,12 @@ class DeliveryController extends Controller
 
         $input  =   [
             "update_remarks"        =>  $request->update_remarks,
+            "delivery_number"       =>  $request->delivery_number,
+            "notes"                 =>  $request->notes,
             "expected_date"         =>  $request->expected_date,
             "delivery_date"         =>  $request->delivery_date,
             "transaction_date"      =>  $request->transaction_date,
-            "signatory_id"      =>  $request->signatory_id,
+            "signatory_id"          =>  $request->signatory_id,
             // "date_delivered_to_coa" =>  $request->date_delivered_to_coa,
         ];
 

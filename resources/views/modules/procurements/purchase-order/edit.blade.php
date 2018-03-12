@@ -57,12 +57,12 @@ Purchase Order
                 </div>
                 @if($data->funding_released_date != null)
                 <div class="four columns">
-                    {!! Form::textField('funding_released_date', 'MFO Released Date') !!}
+                    {!! Form::textField('funding_released_date', 'MFO Obligation Released Date') !!}
                 </div>
                 @endif
                 @if($data->funding_received_date != null)
                 <div class="four columns">
-                    {!! Form::textField('funding_received_date', 'MFO Received Date') !!}
+                    {!! Form::textField('funding_received_date', 'MFO Obligation Received Date') !!}
                 </div>
                 @endif
             </div>
@@ -70,12 +70,12 @@ Purchase Order
             <div class="row">
                 @if($data->mfo_released_date != null)
                 <div class="four columns">
-                    {!! Form::textField('mfo_released_date', 'Accounting Released Date') !!}
+                    {!! Form::textField('mfo_released_date', 'Issuance of CAF Released Date') !!}
                 </div>
                 @endif
                 @if($data->mfo_received_date != null)
                 <div class="four columns">
-                    {!! Form::textField('mfo_received_date', 'Accounting Received Date') !!}
+                    {!! Form::textField('mfo_received_date', 'Issuance of CAF Received Date') !!}
                 </div>
                 @endif
                 @if($data->coa_approved_date != null)
