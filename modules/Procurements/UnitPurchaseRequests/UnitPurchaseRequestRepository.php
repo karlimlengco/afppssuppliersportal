@@ -487,15 +487,16 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         if($dateTo != null)
         {
-            $date_to  =   $dateTo;
-            $yearto  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_to)->format('Y');
+            $dateTo  =   $dateTo;
+            $yearto  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateTo)->format('Y');
         }
 
         if($dateTo &&  $dateFrom == null)
         {
-            $dateFrom  =   $date_to;
-            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
+            $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateTo)->format('Y');
         }
+
+
         $model  =   $this->model;
 
         $model  =   $model->select([
@@ -589,6 +590,15 @@ class UnitPurchaseRequestRepository extends BaseRepository
         {
             $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
         }
+
+        if($dateFrom != null){
+          $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $dateFrom);
+        }
+        if($dateTo != null){
+          $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $dateTo);
+        }
+
+        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
         $model  =   $model->groupBy([
             'procurement_centers.name',

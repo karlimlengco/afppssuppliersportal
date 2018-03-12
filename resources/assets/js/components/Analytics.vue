@@ -49,10 +49,10 @@
                             </td>
                             <td style="font-weight:bolder">
                                 <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{item.upr_count}}</span>
-                                <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/completed/'+item.programs+'?type='+types" tooltip="Completed" class="blue">({{item.completed_count}})</a>
-                                <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/ongoing/'+item.programs+'?type='+types" tooltip="Ongoing" class="green">({{item.ongoing_count}})</a>
-                                <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/cancelled/'+item.programs+'?type='+types" tooltip="Cancelled" style="color:#7a7a7a" >({{item.cancelled_count}})</a>
-                                <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'?type='+types" tooltip="Delay" class="red">({{item.delay_count}})</a>
+                                <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/completed/'+item.programs+'?type='+types+'&&date_from='+startDate+'&&date_to='+endDate" tooltip="Completed" class="blue">({{item.completed_count}})</a>
+                                <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/ongoing/'+item.programs+'?type='+types+'&&date_from='+startDate+'&&date_to='+endDate" tooltip="Ongoing" class="green">({{item.ongoing_count}})</a>
+                                <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/cancelled/'+item.programs+'?type='+types+'&&date_from='+startDate+'&&date_to='+endDate" tooltip="Cancelled" style="color:#7a7a7a" >({{item.cancelled_count}})</a>
+                                <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'?type='+types+'&&date_from='+startDate+'&&date_to='+endDate" tooltip="Delay" class="red">({{item.delay_count}})</a>
                             </td>
                             <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_abc)}}</td>
                             <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_approved_abc)}}</td>
@@ -86,7 +86,7 @@
                                                             <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{itemProgData.upr_count}}</span>
                                                             <a
                                                                 target="_blank"
-                                                                v-bind:href="'/procurements/unit-purchase-requests/overview/completed/'+item.programs+'/'+itemProgData.name+'/?type='+types"
+                                                                v-bind:href="'/procurements/unit-purchase-requests/overview/completed/'+item.programs+'/'+itemProgData.name+'/?type='+types+'&&date_from='+startDate+'&&date_to='+endDate"
                                                                 tooltip="Completed"
                                                                 class="blue"
                                                             >
@@ -94,7 +94,7 @@
                                                             </a>
                                                             <a
                                                                 target="_blank"
-                                                                v-bind:href="'/procurements/unit-purchase-requests/overview/ongoing/'+item.programs+'/'+itemProgData.name+'?type='+types"
+                                                                v-bind:href="'/procurements/unit-purchase-requests/overview/ongoing/'+item.programs+'/'+itemProgData.name+'?type='+types+'&&date_from='+startDate+'&&date_to='+endDate"
                                                                 tooltip="Ongoing"
                                                                 class="green"
                                                             >
@@ -102,7 +102,7 @@
                                                             </a>
                                                             <a
                                                                 target="_blank"
-                                                                v-bind:href="'/procurements/unit-purchase-requests/overview/cancelled/'+item.programs+'/'+itemProgData.name+'?type='+types"
+                                                                v-bind:href="'/procurements/unit-purchase-requests/overview/cancelled/'+item.programs+'/'+itemProgData.name+'?type='+types+'&&date_from='+startDate+'&&date_to='+endDate"
                                                                 tooltip="Cancelled"
                                                                 style="color:#7a7a7a"
                                                             >
@@ -110,7 +110,7 @@
                                                             </a>
                                                             <a
                                                                 target="_blank"
-                                                                v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'/'+itemProgData.name+'?type='+types"
+                                                                v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'/'+itemProgData.name+'?type='+types+'&&date_from='+startDate+'&&date_to='+endDate"
                                                                 tooltip="Delay"
                                                                 class="red"
                                                             >
@@ -149,7 +149,7 @@
 
                                                                                         <a
                                                                                             target="_blank"
-                                                                                            v-bind:href="'/procurements/unit-purchase-requests/overview/completed/'+item.programs+'/'+itemProgData.name+'/'+ itemUnitData.short_code +'?type='+types"
+                                                                                            v-bind:href="'/procurements/unit-purchase-requests/overview/completed/'+item.programs+'/'+itemProgData.name+'/'+ itemUnitData.short_code +'?type='+types+'&&date_from='+startDate+'&&date_to='+endDate"
                                                                                             tooltip="Completed"
                                                                                             class="blue"
                                                                                                  >({{itemUnitData.completed_count}}
@@ -157,7 +157,7 @@
 
                                                                                         <a
                                                                                             target="_blank"
-                                                                                            v-bind:href="'/procurements/unit-purchase-requests/overview/ongoing/'+item.programs+'/'+itemProgData.name+'/'+ itemUnitData.short_code+'?type='+types"
+                                                                                            v-bind:href="'/procurements/unit-purchase-requests/overview/ongoing/'+item.programs+'/'+itemProgData.name+'/'+ itemUnitData.short_code+'?type='+types+'&&date_from='+startDate+'&&date_to='+endDate"
                                                                                             tooltip="Ongoing"
                                                                                             class="green">
                                                                                                 ({{itemUnitData.ongoing_count}})
@@ -165,7 +165,7 @@
 
                                                                                         <a
                                                                                             target="_blank"
-                                                                                            v-bind:href="'/procurements/unit-purchase-requests/overview/cancelled/'+item.programs+'/'+itemProgData.name+'/'+ itemUnitData.short_code+'?type='+types"
+                                                                                            v-bind:href="'/procurements/unit-purchase-requests/overview/cancelled/'+item.programs+'/'+itemProgData.name+'/'+ itemUnitData.short_code+'?type='+types+'&&date_from='+startDate+'&&date_to='+endDate"
                                                                                             tooltip="Cancelled"
                                                                                             style="color:#7a7a7a">
                                                                                                 ({{itemUnitData.cancelled_count}})
@@ -173,7 +173,7 @@
 
                                                                                         <a
                                                                                             target="_blank"
-                                                                                            v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'/'+itemProgData.name+'/'+ itemUnitData.short_code+'?type='+types"
+                                                                                            v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'/'+itemProgData.name+'/'+ itemUnitData.short_code+'?type='+types+'&&date_from='+startDate+'&&date_to='+endDate"
                                                                                             tooltip="Delay"
                                                                                             class="red">
                                                                                                 ({{itemUnitData.delay_count}})
