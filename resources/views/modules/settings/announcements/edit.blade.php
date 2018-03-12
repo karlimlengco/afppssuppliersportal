@@ -1,5 +1,5 @@
 @section('title')
-Chargeability
+Announcements
 @stop
 
 @section('modal')
