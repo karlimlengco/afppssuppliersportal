@@ -38,15 +38,21 @@ Overview of Ongoing Projects
            <th style="background: #222222" class="align-center" width="10%">UPR Receipt</th>
            {{-- <th style="background: #222222" class="align-center" width="10%">Ref Number</th> --}}
            <th style="background: #222222" class="align-center" width="10%">Status</th>
-           <th style="background: #222222" class="align-center" width="5%">ABC  <br><strong  style="color:white">({{formatPrice($totalAbc)}})</strong></th>
-           <th style="background: #222222" class="align-center" width="5%">Approved Bid Price   <br><strong  style="color:white">({{formatPrice($totalBid)}})</strong></th>
+           <th style="background: #222222" class="align-center" width="5%">ABC  <br><small  style="color:white">(in peso)</small></th>
+           <th style="background: #222222" class="align-center" width="5%">Approved Bid Price   <br><small  style="color:white">(in peso)</small></th>
            <th style="background: #222222; text-align:center!important" class="align-center" width="5%">Remarks</th>
         </tr>
     </thead>
     <tbody>
-        <?php $totalAbc = 0; ?>
-        <?php $totalBid = 0; ?>
-        <?php $totalResidual =  0; ?>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{formatPrice($totalAbc)}}</td>
+          <td>{{formatPrice($totalBid)}}</td>
+          <td></td>
+        </tr>
         @foreach($result as $data)
             <tr>
                 <td>{{$data->name}}</td>

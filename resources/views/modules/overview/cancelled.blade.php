@@ -37,11 +37,18 @@ Overview of Cancelled Projects
            <th  style="background: #222222" class="align-center" width="40%" >Project Name/UPR Number</th>
            <th  style="background: #222222" class="align-center" width="10%">UPR Receipt</th>
            {{-- <th  style="background: #222222" class="align-center" width="20%">Ref Number</th> --}}
-           <th  style="background: #222222" class="align-center" width="5%">ABC  <br><strong style="color:white">({{formatPrice($totalAbc)}})</strong></th>
+           <th  style="background: #222222" class="align-center" width="5%">ABC  <br><small style="color:white">(in peso)</small></th>
            <th  style="background: #222222; text-align:center!important" class="align-center" width="5%">Reason</th>
         </tr>
     </thead>
     <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{formatPrice($totalAbc)}}</td>
+          <td></td>
+        </tr>
         @foreach($result as $data)
             <tr>
                 <td>{{$data->name}}</td>
