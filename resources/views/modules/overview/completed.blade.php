@@ -40,7 +40,7 @@ Overview of Completed Projects
            {{-- <th class="align-center" width="20%">Ref Number</th> --}}
            <th style="background: #222222" class="align-center" width="5%">ABC <br><strong style="color:white">({{formatPrice($totalAbc)}})</strong></th>
            <th style="background: #222222" class="align-center" width="5%">Approved Contract <br><strong style="color:white">({{formatPrice($totalBid)}})</strong></th>
-           <th style="background: #222222" class="align-center" width="5%">Residual <br><strong style="color:white">({{formatPrice($totalResidual)}})</strong></th>
+           <th style="background: #222222; text-align:center!important" class="align-center" width="5%">Residual <br><strong style="color:white">({{formatPrice($totalResidual)}})</strong></th>
         </tr>
     </thead>
         @foreach($result as $data)
