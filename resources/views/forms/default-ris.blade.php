@@ -25,7 +25,7 @@
         <td  class="align-right" >Php {{bid_amount}}</td>
     </tr>
     <tr>
-        <td class="align-center" colspan="6"><strong>**************************************************************************************************************************</strong></td>
+        <td class="align-center" colspan="6"><strong>*******************</strong></td>
     </tr>
     <tr>
         <td class="align-center" colspan="6">DEBIT PROPERTY ACCOUNTABILITY OF {{receiver_ranks}} {{receiver_name}} {{receiver_branch}}</td>
