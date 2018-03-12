@@ -34,7 +34,7 @@ Overview of Completed Projects
     @endforeach
     <thead>
         <tr>
-           <th style="background: #222222" class="align-center" width="15%">PC/CO</th>
+           <th style="background: #222222" class="align-center" width="15%">PC/CO BAC</th>
            <th style="background: #222222" class="align-center" width="40%" >Project Name/UPR Number</th>
            <th style="background: #222222" class="align-center" width="10%">UPR Receipt</th>
            {{-- <th class="align-center" width="20%">Ref Number</th> --}}
