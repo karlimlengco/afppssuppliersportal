@@ -63,7 +63,7 @@ Overview of Ongoing Projects
                 </td>
                 <td>{{formatPrice($data->total_abc)}}</td>
                 <td>{{formatPrice($data->total_bid)}}</td>
-                <td>{{$data->last_remarks}}</td>
+                <td style='text-align:left!important'>{{$data->last_remarks}}</td>
 
             <?php $totalAbc =  $totalAbc + $data->total_abc; ?>
             <?php $totalBid =  $totalBid + $data->total_bid; ?>

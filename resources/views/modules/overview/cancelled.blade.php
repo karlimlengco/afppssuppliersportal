@@ -54,7 +54,7 @@ Overview of Cancelled Projects
                 <td>{{$data->date_processed->format('d F Y')}}</td>
                 {{-- <td>{{$data->ref_number}}</td> --}}
                 <td>{{formatPrice($data->total_abc)}}</td>
-                <td>{{$data->cancel_reason}}</td>
+                <td  style='text-align:left!important'>{{$data->cancel_reason}}</td>
             </tr>
 
             <?php $totalAbc =  $totalAbc + $data->total_abc; ?>

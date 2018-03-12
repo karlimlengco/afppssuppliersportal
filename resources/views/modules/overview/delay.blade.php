@@ -61,7 +61,7 @@ Overview of Delayed Projects
 
                 <td>{{formatPrice($data->total_abc)}}</td>
                 <td>{{formatPrice($data->total_bid)}}</td>
-                <td style="text-transform: uppercase;">
+                <td style="text-transform: uppercase;text-align:left!important">
                   {{$data->status}}
                 </td>
             </tr>
