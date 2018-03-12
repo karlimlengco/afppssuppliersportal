@@ -289,7 +289,7 @@ class ISPQController extends Controller
         $data['transaction_date']   =  $result->transaction_date;
         $data['venue']              =  $result->venue;
         $data['signatories']        =  explode('/', $result->signatory_text);
-        if($data['signatories'] == null){
+        if($result->signatory_text == null){
           $data['signatories'] = $result->signatories->name."/".$result->signatories->ranks."/".$result->signatories->branch."/".$result->signatories->designation;
         }
         $data['quotations']         =  $result->quotations;
