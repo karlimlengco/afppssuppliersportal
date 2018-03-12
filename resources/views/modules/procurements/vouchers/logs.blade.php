@@ -52,21 +52,21 @@ Vouchers
                         @foreach( json_decode($log->old_values) as $oldKey => $oldValue )
                             @if($oldKey != 'update_remarks')
                             <tr style="background: #fdefec; ">
-                                <td style="color:white!important">Old</td>
-                                <td style="color:white!important">{{$oldKey}}</td>
-                                <td style="color:white!important">{{$oldValue}}</td>
+                                <td >Old</td>
+                                <td >{{$oldKey}}</td>
+                                <td >{{$oldValue}}</td>
                             </tr>
                             @endif
                         @endforeach
 
                         @foreach( json_decode($log->new_values) as $newKey => $newValue )
                             <tr style="background: #2ecc71;">
-                                <td style="color:white!important">New</td>
-                                <td style="color:white!important">{{$newKey}}</td>
+                                <td >New</td>
+                                <td >{{$newKey}}</td>
                                 @if(is_object($newValue))
-                                <td style="color:white!important">{{json_encode($newValue)}}</td>
+                                <td >{{json_encode($newValue)}}</td>
                                 @else
-                                <td style="color:white!important">{{$newValue}}</td>
+                                <td >{{$newValue}}</td>
                                 @endif
                             </tr>
                         @endforeach
