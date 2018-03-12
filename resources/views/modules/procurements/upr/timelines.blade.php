@@ -43,6 +43,11 @@ Unit Purchase Request
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label" style="font-weight:800; text-transform:capitalize">Project Name / Activity:</strong> {{$data->project_name}} </li>
         </ul>
     </div>
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label" style="font-weight:800; text-transform:capitalize">ABC:</strong>Php {{number_format($data->total_amount,2)}} </li>
+        </ul>
+    </div>
 </div>
 
     <?php
