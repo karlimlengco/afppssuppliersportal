@@ -38,7 +38,7 @@ Overview of Delayed Projects
            <th   style="background: #222222"  class="align-center" width="10%">UPR Receipt</th>
            {{-- <th   style="background: #222222"  class="align-center" width="10%">Ref Number</th> --}}
            <th   style="background: #222222"  class="align-center" width="5%">ABC  <br><strong  style="color:white">({{formatPrice($totalAbc)}})</strong></th>
-           <th   style="background: #222222"  class="align-center" width="5%">Approved Bid Price  <br><strong>({{formatPrice($totalBid)}})</strong></th>
+           <th   style="background: #222222"  class="align-center" width="5%">Approved Bid Price  <br><strong  style="color:white">({{formatPrice($totalBid)}})</strong></th>
            <th   style="background: #222222"  class="align-center" width="10%">Current Status</th>
         </tr>
     </thead>
