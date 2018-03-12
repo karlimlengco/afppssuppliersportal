@@ -35,6 +35,7 @@ Route::post('procurements.upr-items.import-item/{upr}', '\Revlv\Controllers\Proc
 Route::get('procurements/upr-items/delete/{upr}', '\Revlv\Controllers\Procurements\UPRController@itemDelete')->name('procurements.upr-items.destroy');
 Route::post('procurements/upr-items/{upr}', '\Revlv\Controllers\Procurements\UPRController@itemStore')->name('procurements.upr-items.store');
 
+Route::get('api/suppliers/info/{id}', '\Revlv\Controllers\Settings\SupplierController@getInfo')->name('api.signatory.info');
 Route::post('api/suppliers/store', '\Revlv\Controllers\Settings\SupplierController@storeNew')->name('api.signatory.store');
 
 Route::get('api/signatories/lists', '\Revlv\Controllers\Settings\SignatoryController@getLists')->name('api.signatory.lists');

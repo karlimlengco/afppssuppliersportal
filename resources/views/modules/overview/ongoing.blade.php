@@ -22,6 +22,15 @@ Overview of Ongoing Projects
 @section('contents')
 
 <table class="table table--with-border ">
+    <?php $totalAbc = 0; ?>
+    <?php $totalBid = 0; ?>
+    <?php $totalResidual =  0; ?>
+
+    @foreach($result as $data)
+        <?php $totalAbc =  $totalAbc + $data->total_abc; ?>
+        <?php $totalBid =  $totalBid + $data->total_bid; ?>
+        <?php $totalResidual =  $totalResidual + $data->total_residual; ?>
+    @endforeach
     <thead>
         <tr>
            <th class="align-center" width="15%">PC/CO</th>
@@ -29,8 +38,8 @@ Overview of Ongoing Projects
            <th class="align-center" width="10%">UPR Receipt</th>
            {{-- <th class="align-center" width="10%">Ref Number</th> --}}
            <th class="align-center" width="10%">Status</th>
-           <th class="align-center" width="5%">ABC</th>
-           <th class="align-center" width="5%">Approved Contract</th>
+           <th class="align-center" width="5%">ABC  <br><small>({{formatPrice($totalAbc)}})</th>
+           <th class="align-center" width="5%">Approved Bid Price   <br><small>({{formatPrice($totalBid)}})</th>
            <th class="align-center" width="5%">Remarks</th>
         </tr>
     </thead>

@@ -10,6 +10,7 @@ use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\Suppliers\AttachmentTrait;
 use \Revlv\Settings\Banks\BankRepository;
 use \Revlv\Settings\Suppliers\SupplierRequest;
+use \Revlv\Settings\Suppliers\Attachments\AttachmentEloquent;
 
 class SupplierController extends Controller
 {
@@ -69,6 +70,38 @@ class SupplierController extends Controller
     public function getFilesDatatable(SupplierRepository $model)
     {
         return $model->getFileDatatable();
+    }
+
+    /**
+     * [getInfo description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function getInfo($id, SupplierRepository $model)
+    {
+        $requirements = ['dti' => 'dti', 'mayors_permit' => 'mayors_permit', 'tax_clearance' => 'tax_clearance', 'philgeps_registration' => 'philgeps_registration'];
+
+        $today =  \Carbon\Carbon::now()->format('Y-m-d');
+        $model  = AttachmentEloquent::select([
+          \DB::raw('MAX(supplier_attachments.validity_date) as valid_date'),
+          'supplier_attachments.type'
+          ])
+        ->where('supplier_id', '=', $id)
+        ->where('validity_date', '>=', $today)
+        ->groupBy('supplier_attachments.type')
+        ->get()->toArray();
+
+        foreach($model as $data)
+        {
+            unset($requirements[$data['type']]);
+        }
+
+        if(count($requirements) != 0){
+          return 'not eligible';
+        }
+
+        return 'eligible';
     }
 
     /**

@@ -216,6 +216,23 @@ Request For Quotation
 
     proponent_id        = $proponent_id[0].selectize;
 
+    $(document).on('change', '#id-field-proponent_id', function(e){
+      var id = $(this).val()
+      $.ajax({
+          type: "GET",
+          url: '/api/suppliers/info/'+id,
+          success: function(result) {
+            console.log(result)
+            if(result = 'eligible'){
+              // $('#proponent-submit').hide();
+              $('#proponent-remarks').text('not eligible');
+            }else{
+              // $('#proponent-submit').show();
+              $('#proponent-remarks').text();
+            }
+          }
+      });
+    });
     $(document).on('submit', '#create-supplier-form', function(e){
         e.preventDefault();
         var inputs =  $("#create-supplier-form").serialize();

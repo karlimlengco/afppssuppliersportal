@@ -12,6 +12,7 @@
             <div class="modal__dialogue__body">
                 <div class="row">
                     <div class="twelve columns">
+                      <h1 id="proponent-remarks" style="text-transform: uppercase"></h1>
                         {{-- {!! Form::selectField('proponents', 'Proponents', $supplier_lists) !!} --}}
 
                         <label class="label">Proponents</label>
@@ -36,7 +37,7 @@
             </div>
 
             <div class="modal__dialogue__foot">
-                <button class="button">Proceed</button>
+                <button id="proponent-submit" class="button">Proceed</button>
             </div>
 
         </form>
