@@ -74729,133 +74729,183 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      units: [],
-      itemsName: [],
-      items: [],
-      types: "bidding",
-      endDate: "",
-      startDate: ""
-    };
-  },
-  mounted: function mounted() {
-    this.fetchUnitPsr(this.types);
-  },
-
-  methods: {
-    formatDate: function formatDate(value) {
-      if (value) {
-        return moment(value).format('MMM DD YYYY');
-      }
+    data: function data() {
+        return {
+            units: [],
+            itemsName: [],
+            items: [],
+            types: "bidding",
+            endDate: "",
+            startDate: ""
+        };
     },
-    trimString: function trimString(value) {
-      if (value) {
-        return value.replace('_', ' ');
-      }
-    },
-    formatPrice: function formatPrice(value) {
-      if (value) {
-        var val = (value / 1).toFixed(2).replace('.', '.');
-        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      }
+    mounted: function mounted() {
+        this.fetchUnitPsr(this.types);
     },
 
-    getDiff: function getDiff(end, start) {
+    methods: {
+        formatDate: function formatDate(value) {
+            if (value) {
+                return moment(value).format('MMM DD YYYY');
+            }
+        },
+        trimString: function trimString(value) {
+            if (value) {
+                return value.replace('_', ' ');
+            }
+        },
+        formatPrice: function formatPrice(value) {
+            if (value) {
+                var val = (value / 1).toFixed(2).replace('.', '.');
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+        },
 
-      if (end != null && start != null) {
-        var a = moment(start, 'YYYY-MM-DD');
-        var b = moment(end, 'YYYY-MM-DD');
-        var result = b.diff(a, 'days');
-        result = this.addWeekdays(a, result);
-        if (result < 0) {
-          return 0;
+        getDiff: function getDiff(end, start) {
+
+            if (end != null && start != null) {
+                var a = moment(start, 'YYYY-MM-DD');
+                var b = moment(end, 'YYYY-MM-DD');
+                var result = b.diff(a, 'days');
+                result = this.addWeekdays(a, result);
+                if (result < 0) {
+                    return 0;
+                }
+                return result;
+            }
+            return '--';
+        },
+        addWeekdays: function addWeekdays(date, days) {
+            date = moment(date); // use a clone
+            var day = 0;
+            while (days > 0) {
+                date = date.add(1, 'days');
+                // decrease "days" only if it's a weekday.
+                if (date.isoWeekday() !== 6 && date.isoWeekday() !== 7) {
+                    days -= 1;
+                } else {
+                    day += 1;
+                }
+            }
+            return day - 1;
+        },
+        searchMe: function searchMe() {
+            var _this = this;
+
+            this.itemsName = [];
+            this.items = [];
+            var date_from = $('input[name=date_from]').val();
+            var date_to = $('input[name=date_to]').val();
+            var ptype = this.types;
+            axios.get('/reports/unit-psr/' + ptype + '?date_from=' + date_from + '&&date_to=' + date_to).then(function (response) {
+                _this.units = response.data;
+            }).catch(function (e) {
+                console.log(e);
+            });
+        },
+        printMe: function printMe() {
+            var date_from = $('input[name=date_from]').val();
+            var date_to = $('input[name=date_to]').val();
+            var table_search = '';
+            // table_search    =   $('input[name=table_search]').val();
+            var ptype = this.types;
+            if (ptype == 'alternative') {
+                ptype = '';
+            }
+            window.open('/reports/transaction-psr/download/' + table_search + '?type=' + ptype + '&&date_from=' + date_from + '&&date_to=' + date_to);
+        },
+        changeType: function changeType(type) {
+            this.itemsName = [];
+            this.items = [];
+            this.types = type;
+            $('.table-name').removeClass('is-visible');
+            this.fetchUnitPsr(this.types);
+            this.fetchUnitItems(this.types);
+        },
+        fetchUnitPsr: function fetchUnitPsr(type) {
+            var _this2 = this;
+
+            axios.get('/reports/unit-psr/' + type + '?date_from=' + this.startDate + '&&date_to=' + this.endDate).then(function (response) {
+                _this2.units = response.data;
+            }).catch(function (e) {
+                console.log(e);
+            });
+        },
+        fetchUnitItems: function fetchUnitItems(unit) {
+            var _this3 = this;
+
+            var date_from = $('input[name=date_from]').val();
+            var date_to = $('input[name=date_to]').val();
+            if (this.itemsName.indexOf(unit.short_code) == -1) {
+                if (this.itemsName[unit.short_code] != unit.short_code) {
+                    this.itemsName[unit.short_code] = unit.short_code;
+                    axios.get('/reports/unit-psr-items/' + this.types + '/' + unit.short_code + '?date_from=' + date_from + '&&date_to=' + date_to).then(function (response) {
+                        _this3.items.push(response.data);
+                    }).catch(function (e) {
+                        console.log(e);
+                    });
+                }
+            }
+            console.log(this.items);
         }
-        return result;
-      }
-      return '--';
     },
-    addWeekdays: function addWeekdays(date, days) {
-      date = moment(date); // use a clone
-      var day = 0;
-      while (days > 0) {
-        date = date.add(1, 'days');
-        // decrease "days" only if it's a weekday.
-        if (date.isoWeekday() !== 6 && date.isoWeekday() !== 7) {
-          days -= 1;
-        } else {
-          day += 1;
+    computed: {
+        total: function total() {
+            if (!this.units) {
+                return 0;
+            }
+            return this.units.reduce(function (total, value) {
+                return total + Number(value.upr_count);
+            }, 0);
+        },
+        total_completed: function total_completed() {
+            if (!this.units) {
+                return 0;
+            }
+            return this.units.reduce(function (total, value) {
+                return total + Number(value.completed_count);
+            }, 0);
+        },
+        total_ongoing: function total_ongoing() {
+            if (!this.units) {
+                return 0;
+            }
+            return this.units.reduce(function (total, value) {
+                return total + Number(value.ongoing_count);
+            }, 0);
+        },
+        total_cancelled: function total_cancelled() {
+            if (!this.units) {
+                return 0;
+            }
+            return this.units.reduce(function (total, value) {
+                return total + Number(value.cancelled_count);
+            }, 0);
+        },
+        total_delay: function total_delay() {
+            if (!this.units) {
+                return 0;
+            }
+            return this.units.reduce(function (total, value) {
+                return total + Number(value.delay_count);
+            }, 0);
+        },
+        isActived: function isActived() {
+            return this.types;
         }
-      }
-      return day - 1;
-    },
-    searchMe: function searchMe() {
-      var _this = this;
-
-      this.itemsName = [];
-      this.items = [];
-      var date_from = $('input[name=date_from]').val();
-      var date_to = $('input[name=date_to]').val();
-      var ptype = this.types;
-      axios.get('/reports/unit-psr/' + ptype + '?date_from=' + date_from + '&&date_to=' + date_to).then(function (response) {
-        _this.units = response.data;
-      }).catch(function (e) {
-        console.log(e);
-      });
-    },
-    printMe: function printMe() {
-      var date_from = $('input[name=date_from]').val();
-      var date_to = $('input[name=date_to]').val();
-      var table_search = '';
-      // table_search    =   $('input[name=table_search]').val();
-      var ptype = this.types;
-      if (ptype == 'alternative') {
-        ptype = '';
-      }
-      window.open('/reports/transaction-psr/download/' + table_search + '?type=' + ptype + '&&date_from=' + date_from + '&&date_to=' + date_to);
-    },
-    changeType: function changeType(type) {
-      this.itemsName = [];
-      this.items = [];
-      this.types = type;
-      $('.table-name').removeClass('is-visible');
-      this.fetchUnitPsr(this.types);
-      this.fetchUnitItems(this.types);
-    },
-    fetchUnitPsr: function fetchUnitPsr(type) {
-      var _this2 = this;
-
-      axios.get('/reports/unit-psr/' + type + '?date_from=' + this.startDate + '&&date_to=' + this.endDate).then(function (response) {
-        _this2.units = response.data;
-      }).catch(function (e) {
-        console.log(e);
-      });
-    },
-    fetchUnitItems: function fetchUnitItems(unit) {
-      var _this3 = this;
-
-      var date_from = $('input[name=date_from]').val();
-      var date_to = $('input[name=date_to]').val();
-      if (this.itemsName.indexOf(unit.short_code) == -1) {
-        if (this.itemsName[unit.short_code] != unit.short_code) {
-          this.itemsName[unit.short_code] = unit.short_code;
-          axios.get('/reports/unit-psr-items/' + this.types + '/' + unit.short_code + '?date_from=' + date_from + '&&date_to=' + date_to).then(function (response) {
-            _this3.items.push(response.data);
-          }).catch(function (e) {
-            console.log(e);
-          });
-        }
-      }
-      console.log(this.items);
     }
-  },
-  computed: {
-    isActived: function isActived() {
-      return this.types;
-    }
-  }
 });
 
 /***/ }),
@@ -86428,7 +86478,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }, [_vm._v("\n                                              " + _vm._s(itemData.calendar_days) + "\n                                            ")])])]
       })] : _vm._e()]
     })], 2)])])])]
-  })], 2)])])])])])])
+  }), _vm._v(" "), _c('tr', [_c('td', {
+    staticStyle: {
+      "text-align": "left!important"
+    }
+  }, [_vm._v("\n                            TOTAL\n                            "), _c('span', {
+    attrs: {
+      "tooltip": "Total"
+    }
+  }, [_vm._v("(" + _vm._s(_vm.total) + ")")]), _vm._v(" "), _c('span', {
+    staticClass: "blue",
+    attrs: {
+      "tooltip": "Completed"
+    }
+  }, [_vm._v("(" + _vm._s(_vm.total_completed) + ")")]), _vm._v(" "), _c('span', {
+    staticClass: "green",
+    attrs: {
+      "tooltip": "Ongoing"
+    }
+  }, [_vm._v("(" + _vm._s(_vm.total_ongoing) + ")")]), _vm._v(" "), _c('span', {
+    staticStyle: {
+      "color": "#7a7a7a"
+    },
+    attrs: {
+      "tooltip": "Cancelled"
+    }
+  }, [_vm._v("(" + _vm._s(_vm.total_cancelled) + ")")]), _vm._v(" "), _c('span', {
+    staticClass: "red",
+    attrs: {
+      "tooltip": "Delay"
+    }
+  }, [_vm._v("(" + _vm._s(_vm.total_delay) + ")")])])])], 2)])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticStyle: {

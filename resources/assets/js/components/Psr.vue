@@ -791,6 +791,16 @@
                             </td>
                           </tr>
                         </template>
+                        <tr>
+                          <td style="text-align:left!important">
+                            TOTAL
+                            <span tooltip="Total" >({{total}})</span>
+                            <span class="blue" tooltip="Completed" >({{total_completed}})</span>
+                            <span class="green" tooltip="Ongoing" >({{total_ongoing}})</span>
+                            <span style="color:#7a7a7a" tooltip="Cancelled" >({{total_cancelled}})</span>
+                            <span  class="red" tooltip="Delay" >({{total_delay}})</span>
+                          </td>
+                        </tr>
 
                     </tbody>
                 </table>
@@ -927,6 +937,46 @@
           }
         },
         computed: {
+          total: function(){
+              if(!this.units){
+                  return 0;
+              }
+              return this.units.reduce(function (total, value){
+                  return total +  Number(value.upr_count);
+              },0);
+          },
+          total_completed: function(){
+              if(!this.units){
+                  return 0;
+              }
+              return this.units.reduce(function (total, value){
+                  return total +  Number(value.completed_count);
+              },0);
+          },
+          total_ongoing: function(){
+              if(!this.units){
+                  return 0;
+              }
+              return this.units.reduce(function (total, value){
+                  return total +  Number(value.ongoing_count);
+              },0);
+          },
+          total_cancelled: function(){
+              if(!this.units){
+                  return 0;
+              }
+              return this.units.reduce(function (total, value){
+                  return total +  Number(value.cancelled_count);
+              },0);
+          },
+          total_delay: function(){
+              if(!this.units){
+                  return 0;
+              }
+              return this.units.reduce(function (total, value){
+                  return total +  Number(value.delay_count);
+              },0);
+          },
           isActived: function () {
             return this.types
           }

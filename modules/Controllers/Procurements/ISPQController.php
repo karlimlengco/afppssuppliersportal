@@ -291,6 +291,7 @@ class ISPQController extends Controller
         $data['signatories']        =  explode('/', $result->signatory_text);
         if($result->signatory_text == null){
           $data['signatories'] = $result->signatories->name."/".$result->signatories->ranks."/".$result->signatories->branch."/".$result->signatories->designation;
+          $data['signatories']        =  explode('/', $data['signatories']);
         }
         $data['quotations']         =  $result->quotations;
         $pdf = PDF::loadView('forms.ispq', ['data' => $data, 'center' => $center])
