@@ -26,7 +26,7 @@ Delivered Items Inspection
         <h3> </h3>
     </div>
     <div class="six columns utility utility--align-right" >
-        <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a>
+        {{-- <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a> --}}
     </div>
 </div>
 
