@@ -57,10 +57,10 @@
                         <tr>
                             <td></td>
                             <td></td>
-                            <td style="font-size:18px!important;"><strong>Very truly yours;</strong></td>
+                            <td><strong>Very truly yours;</strong></td>
                         </tr>
                         <tr>
-                            <td style="font-size:18px!important;" class="align-bottom align-left" width="45%" height="80px">
+                            <td class="align-bottom align-left" width="45%" height="80px">
 
                             </td>
                             <td width="10%"></td>
