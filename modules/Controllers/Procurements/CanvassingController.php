@@ -781,6 +781,11 @@ class CanvassingController extends Controller
         $data['center']         =  $result->upr->centers->name;
         $data['officer']        =   $result->officer;
         $data['resolution']     =   $result->resolution;
+        $data['chief_attendance']   =  $result->chief_attendance;
+        $data['unit_head_attendance']   =  $result->unit_head_attendance;
+        $data['mfo_attendance']     =  $result->mfo_attendance;
+        $data['legal_attendance']   =  $result->legal_attendance;
+        $data['secretary_attendance']   =  $result->secretary_attendance;
 
         $data['chief_signatory']    =  explode('/',$result->chief_signatory);
         $data['presiding']          =  explode('/', $result->presiding_signatory);

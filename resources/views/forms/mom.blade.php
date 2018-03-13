@@ -137,22 +137,26 @@
                         </tr> --}}
                         <tr>
                             <td class="align-bottom align-left"  height="80px">
+                              @if($data['secretary_attendance'] != 1) ABSENT <br> @endif
                                 <strong>{{$data['sec'][1]}} {{$data['sec'][0]}} {{$data['sec'][2]}}</strong><br>
                                 {{$data['sec'][3]}}
                             </td>
                             <td></td>
                             <td class="align-bottom align-left"  height="80px">
+                                @if($data['unit_head_attendance'] != 1) ABSENT <br> @endif
                                 <strong>{{$data['unit_head_signatory'][1]}} {{$data['unit_head_signatory'][0]}} {{$data['unit_head_signatory'][2]}}</strong><br>
                                 {{$data['unit_head_signatory'][3]}}
                             </td>
                         </tr>
                         <tr>
                             <td class="align-bottom align-left"  height="80px">
+                                @if($data['mfo_attendance'] != 1) ABSENT <br> @endif
                                 <strong>{{$data['mfo'][1]}} {{$data['mfo'][0]}} {{$data['mfo'][2]}}</strong><br>
                                 {{$data['mfo'][3]}}
                             </td>
                             <td></td>
                             <td class="align-bottom align-left"  height="80px">
+                              @if($data['legal_attendance'] != 1) ABSENT <br> @endif
                                 <strong>{{$data['legal'][1]}} {{$data['legal'][0]}} {{$data['legal'][2]}}</strong><br>
                                 {{$data['legal'][3]}}
                             </td>
@@ -162,6 +166,7 @@
                     <table class="printable-form__body__table no-border no-padding">
                       <tr><td width="30%"  height="60px"></td>
                         <td class="align-bottom align-left" width="40%" height="60px">
+                        @if($data['chief_attendance'] != 1) ABSENT <br> @endif
                         <strong>{{$data['presiding'][1]}} {{$data['presiding'][0]}} {{$data['presiding'][2]}}</strong><br>
                         {{$data['presiding'][3]}}
                         </td>
