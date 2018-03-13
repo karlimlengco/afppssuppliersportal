@@ -60,11 +60,11 @@
                             <td><strong>Very truly yours;</strong></td>
                         </tr>
                         <tr>
-                            <td class="align-bottom align-left" width="45%" height="80px">
+                            <td class="align-bottom align-left" width="15%" height="80px">
 
                             </td>
                             <td width="10%"></td>
-                            <td class="align-bottom" width="45%" height="80px">
+                            <td class="align-bottom" width="75%" height="80px">
                               <strong>{{$data['signatory'][1]}} {{$data['signatory'][0]}} {{$data['signatory'][2]}}</strong><br>
                                 {{$data['signatory'][3]}}
                             </td>
