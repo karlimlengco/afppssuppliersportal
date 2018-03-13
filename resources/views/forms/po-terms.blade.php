@@ -13,7 +13,7 @@
     <body>
 
         <!-- terms-and-condition-po.xps p1 -->
-        <div class="printable-form">
+        <div class="printable-form" style="padding-top:50px">
 
             <!-- main page -->
             <div class="printable-form__head">

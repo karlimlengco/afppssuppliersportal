@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <div class="printable-form">
+        <div class="printable-form" style="padding-top:50px">
 
             <!-- form header -->
             <div class="printable-form__head">
