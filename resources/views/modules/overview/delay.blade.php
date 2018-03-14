@@ -33,13 +33,17 @@ Overview of Delayed Projects
     @endforeach
     <thead>
         <tr>
-           <th   style="background: #222222"  class="align-center" width="15%">PC/CO BAC</th>
-           <th   style="background: #222222"  class="align-center" width="40%" >Project Name/UPR Number</th>
+           <th   style="background: #222222"  class="align-center" width="10%">PC/CO BAC</th>
+           <th   style="background: #222222"  class="align-center" width="30%" >Project Name/UPR Number</th>
            <th   style="background: #222222"  class="align-center" width="10%">UPR Receipt</th>
            {{-- <th   style="background: #222222"  class="align-center" width="10%">Ref Number</th> --}}
            <th   style="background: #222222"  class="align-center" width="5%">ABC  <br><small  style="color:white">(IN PESO)</small></th>
            <th   style="background: #222222"  class="align-center" width="5%">Approved Bid Price  <br><small  style="color:white">(IN PESO)</small></th>
            <th   style="background: #222222; text-align:center!important"  class="align-center" width="10%">Current Status</th>
+           <th   style="background: #222222; text-align:center!important"  class="align-center" width="10%">Next Stage</th>
+           <th   style="background: #222222; text-align:center!important"  class="align-center" width="10%">Expected Finish Date</th>
+           <th   style="background: #222222; text-align:center!important"  class="align-center" width="10%"># Days delay</th>
+           <th   style="background: #222222; text-align:center!important"  class="align-center" width="10%">Justification</th>
         </tr>
     </thead>
     <tbody>
@@ -50,8 +54,23 @@ Overview of Delayed Projects
           <td>{{formatPrice($totalAbc)}}</td>
           <td>{{formatPrice($totalBid)}}</td>
           <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
         @foreach($result as $data)
+        <?php
+            $today          =   \Carbon\Carbon::now()->format('Y-m-d');
+            $today          =   createCarbon('Y-m-d', $today);
+
+            $next_date      =   $data->date_processed;
+            if($data->next_due)
+            {
+                $next_date      =   createCarbon('Y-m-d', $data->next_due);
+            }
+            $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date)  {return $date->isWeekday();}, createCarbon('Y-m-d H:i:s',$next_date) );
+          ?>
             <tr>
                 <td>{{$data->name}}</td>
                 <td style="font-size:18px;">
@@ -69,6 +88,18 @@ Overview of Delayed Projects
                 <td style="text-transform: uppercase;text-align:left!important">
                   {{$data->status}}
                 </td>
+                <td style="text-transform: uppercase;text-align:left!important">
+                  {{$data->next_step}}
+                </td>
+                <td style="text-transform: uppercase;text-align:left!important">
+                  {{\Carbon\Carbon::createFromFormat('Y-m-d',$data->next_due)->format('d F Y')}}
+                </td>
+                <td style="text-transform: uppercase;text-align:left!important">
+                  {{$d}}
+                </td>
+                <td style="text-transform: uppercase;text-align:left!important">
+                  {{$data->last_remarks}}
+                </td>
             </tr>
             <?php $totalAbc =  $totalAbc + $data->total_abc; ?>
             <?php $totalBid =  $totalBid + $data->total_bid; ?>
@@ -80,6 +111,10 @@ Overview of Delayed Projects
           <td></td>
           <td>{{formatPrice($totalAbc)}}</td>
           <td>{{formatPrice($totalBid)}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
           <td></td>
         </tr>
     </tbody>

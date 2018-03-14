@@ -527,6 +527,8 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.last_remarks',
             'unit_purchase_requests.last_action',
             'unit_purchase_requests.next_due',
+            'unit_purchase_requests.last_remarks',
+            'unit_purchase_requests.next_step',
             'catered_units.short_code',
             DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) as delay")
         ]);
@@ -615,7 +617,9 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.last_remarks',
             'unit_purchase_requests.last_action',
             'unit_purchase_requests.project_name',
+            'unit_purchase_requests.next_step',
             'unit_purchase_requests.id',
+            'unit_purchase_requests.last_remarks',
             'unit_purchase_requests.date_processed',
             'vouchers.preaudit_date',
         ]);
