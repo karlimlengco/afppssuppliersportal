@@ -30,7 +30,7 @@ trait DatatableTrait
          ]);
 
          $model  =   $model->leftJoin('audits', 'audits.id', 'user_logs.audit_id');
-         $model  =   $model->leftJoin('users', 'users.id', 'user_logs.admin_id');
+         $model  =   $model->leftJoin('users', 'users.id', 'audits.user_id');
 
          $model  =   $model->where('admin_id', '=', \Sentinel::getUser()->id);
 
