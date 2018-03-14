@@ -54,6 +54,7 @@ Notice Of Award
                     View Logs
                 </a>
                 <a class="button__options__item" href="{{route('procurements.unit-purchase-requests.timelines', $data->upr_id)}}">View Timelines</a>
+                <a  target="_blank" class="button__options__item" href="{{route($printRoute2, $data->id)}}">Print Form2</a>
                 @if($data->status == 'accepted' && $data->upr->total_amount > 50000 && !$data->philgeps_posting)
                   <span ></span>
                   <a href="#" class="button__options__item" id="ntp-philgeps-button" tooltip="PhilGeps Posting">PhilGeps Posting</a>

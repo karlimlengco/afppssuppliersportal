@@ -611,6 +611,7 @@ class NoticeOfAwardController extends Controller
             'supplier'      =>  $proponent_awardee,
             'signatory_list'=>  $signatory_list,
             'printRoute'    =>  $this->baseUrl.'print',
+            'printRoute2'    =>  $this->baseUrl.'print2',
             'indexRoute'    =>  $this->baseUrl.'index',
             'editRoute'     =>  $this->baseUrl.'edit',
             'modelConfig'   =>  [
@@ -832,6 +833,77 @@ class NoticeOfAwardController extends Controller
         $data['project_name']       =   $upr_model->project_name;
 
         $pdf = PDF::loadView('forms.noa', ['data' => $data])
+            ->setOption('margin-bottom', 30)
+            ->setOption('footer-html', route('pdf.footer'));
+
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('noa.pdf');
+    }
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function viewPrint2(
+        $id,
+        CanvassingRepository $model,
+        BlankRFQRepository $blank,
+        NOARepository $noa,
+        HeaderRepository $headers,
+        PCCOHeaderRepository $pccoHeaders,
+        UnitPurchaseRequestRepository $upr,
+        RFQProponentRepository $rfq)
+    {
+        $noa_modal                  =   $noa->with(['winner','signatory'])->findById($id);
+
+        if($noa_modal->signatory == null)
+        {
+            return redirect()->back()->with([
+                'error'  => "Please select signatory first"
+            ]);
+        }
+
+
+        if($noa_modal->upr->mode_of_procurement == 'public_bidding')
+        {
+            $proponent_awardee  =   $noa_modal->biddingWinner->supplier;
+            $bidamount          =   $noa_modal->biddingWinner->bid_amount;
+            $data['rfq_date']           =   $noa_modal->awarded_date;
+
+            $data['rfq_number']         =   "";
+        }
+        else
+        {
+            $proponent_awardee          =   $noa_modal->winner->supplier;
+            $bidamount                  =   $noa_modal->winner->bid_amount;
+            $result                     =   $model->findById($noa_modal->canvass_id);
+
+            $rfq_model                  =   $blank->findById($result->rfq_id);
+            $data['rfq_date']           =   $rfq_model->transaction_date;
+
+            $data['rfq_number']         =   $rfq_model->rfq_number;
+
+        }
+        $upr_model                  =   $upr->with(['unit'])->findById($noa_modal->upr_id);
+
+        $header                     =  $pccoHeaders->findByPCCO($noa_modal->upr->procurement_office);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
+        $data['transaction_date']   =   $noa_modal->awarded_date;
+        $data['account_type']        =   $noa_modal->account_type;
+        $data['supplier']           =   $proponent_awardee;
+        $data['unit']               =   $upr_model->unit->short_code;
+        $data['center']             =   $noa_modal->upr->centers->name;
+        $data['total_amount']       =   $upr_model->total_amount;
+        $data['bid_amount']         =   $bidamount;
+        $data['items']              =   $upr_model->items;
+        $data['header']             =   $noa_modal->upr->centers;
+
+
+        $data['signatory']          =   explode('/', $noa_modal->signatory);
+        $data['project_name']       =   $upr_model->project_name;
+
+        $pdf = PDF::loadView('forms.noa2', ['data' => $data])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'));
 

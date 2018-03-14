@@ -507,6 +507,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::put('noa/update-dates/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@updateDates')->name('noa.update-dates');
     Route::put('noa/update-signatory/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@updateSignatory')->name('noa.update-signatory');
     Route::get('noa/print/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@viewPrint')->name('noa.print');
+    Route::get('noa/print2/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@viewPrint2')->name('noa.print2');
     Route::get('noa/download/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@downloadCopy')->name('noa.download');
     Route::resource('noa', '\Revlv\Controllers\Procurements\NoticeOfAwardController');
 
