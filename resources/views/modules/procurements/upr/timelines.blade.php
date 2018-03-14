@@ -68,7 +68,8 @@ Unit Purchase Request
                     <th>Stage</th>
                     <th>Date</th>
                     <th>Allowable Time</th>
-                    <th>W Day/s</th>
+                    <th>W Day/s </th>
+                    <th>Total Days </th>
                     <th>Justification/Remarks</th>
                     <th>Action Taken</th>
                     <th>Print</th>
@@ -104,7 +105,6 @@ Unit Purchase Request
                     <td>
                     @if($data->ispq_transaction_date != null)
                         {{ $data->ispq_days }}
-                        <?php $totalDays +=  $data->ispq_days ; ?>
 
 
                         @if($data->ispq_days > 3)
@@ -123,6 +123,7 @@ Unit Purchase Request
                     @endif
 
                     </td>
+                    <td>{{ $data->ispq_days }}</td>
                     <td>{{$data->ispq_remarks}}</td>
                     <td>{{$data->ispq_action}}</td>
 
@@ -151,7 +152,6 @@ Unit Purchase Request
                         @if($data->total_amount > 50000)
                           @if($data->pp_completed_at != null)
                               {{ $data->pp_days }}
-                              <?php $totalDays +=  $data->pp_days ; ?>
 
                               @if($data->pp_days > 3)
                                   <strong class="red" tooltip="Delay">({{$data->pp_days - 3}})</strong>
@@ -169,6 +169,7 @@ Unit Purchase Request
                           @endif
                         @endif
                     </td>
+                    <td>{{ $data->pp_days }}</td>
                     <td>{{$data->pp_remarks}}</td>
                     <td>{{$data->pp_action}}</td>
                     <td></td>
@@ -207,6 +208,7 @@ Unit Purchase Request
                         @endif
 
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->rfq_close_remarks}}</td>
                     <td>{{$data->rfq_close_action}}</td>
                     <td>
@@ -254,6 +256,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->canvass_remarks}}</td>
                     <td>{{$data->canvass_action}}</td>
 
@@ -875,6 +878,7 @@ Unit Purchase Request
                             @endif -->
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->noa_remarks}}</td>
                     <td>{{$data->noa_action}}</td>
                     <td>
@@ -928,6 +932,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->noa_approved_remarks}}</td>
                     <td>{{$data->noa_approved_action}}</td>
                     <td></td>
@@ -974,6 +979,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->noa_received_remarks}}</td>
                     <td>{{$data->noa_received_action}}</td>
                     <td></td>
@@ -992,6 +998,7 @@ Unit Purchase Request
                     <td>
 
                     </td>
+                    <td> </td>
                     <td>{{$data->noa_received_remarks}}</td>
                     <td>{{$data->noa_received_action}}</td>
                     <td></td>
@@ -1031,6 +1038,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->po_remarks}}</td>
                     <td>{{$data->po_action}}</td>
                     <td>
@@ -1077,6 +1085,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->po_remarks}}</td>
                     <td>{{$data->po_action}}</td>
                     <td>
@@ -1127,6 +1136,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->po_funding_remarks}}</td>
                     <td>{{$data->po_funding_action}}</td>
                     <td></td>
@@ -1170,6 +1180,7 @@ Unit Purchase Request
                             @endif
                         @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->po_mfo_remarks}}</td>
                     <td>{{$data->po_mfo_action}}</td>
                     <td></td>
@@ -1212,6 +1223,7 @@ Unit Purchase Request
                             @endif
                         @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->po_coa_remarks}}</td>
                     <td>{{$data->po_coa_action}}</td>
                     <td></td>
@@ -1255,6 +1267,7 @@ Unit Purchase Request
                             @endif
                         @endif
                         </td>
+                    <td>{{ $totalDays }}</td>
                         <td>{{$data->ntp_remarks}}</td>
                         <td>{{$data->ntp_action}}</td>
                         <td>
@@ -1304,6 +1317,7 @@ Unit Purchase Request
                             @endif
                         @endif
                         </td>
+                    <td>{{ $totalDays }}</td>
                         <td>{{$data->ntp_remarks}}</td>
                         <td>{{$data->ntp_action}}</td>
                         <td>
@@ -1353,6 +1367,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->ntp_accepted_remarks}}</td>
                     <td>{{$data->ntp_accepted_action}}</td>
                     <td> </td>
@@ -1368,6 +1383,7 @@ Unit Purchase Request
                     @endif Philgeps Posting of NTP</td>
                     <td>
                     </td>
+                    <td></td>
                     <td></td>
                     <td>
 
@@ -1413,6 +1429,7 @@ Unit Purchase Request
                             @endif
                         @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->dr_delivery_remarks}}</td>
                     <td>{{$data->dr_delivery_action}}</td>
                     <td> </td>
@@ -1456,6 +1473,7 @@ Unit Purchase Request
                           @endif
                         @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->dr_delivery_remarks}}</td>
                     <td>{{$data->dr_delivery_action}}</td>
                     <td> </td>
@@ -1497,6 +1515,7 @@ Unit Purchase Request
                             @endif
                         @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->dr_dr_coa_remarks}}</td>
                     <td>{{$data->dr_dr_coa_action}}</td>
                     <td> </td>
@@ -1540,6 +1559,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->tiac_remarks}}</td>
                     <td>{{$data->tiac_action}}</td>
                     <td>
@@ -1590,6 +1610,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->tiac_accept_remarks}}</td>
                     <td>{{$data->tiac_accept_action}}</td>
                     <td></td>
@@ -1632,6 +1653,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->diir_remarks}}</td>
                     <td>{{$data->diir_action}}</td>
                     <td>
@@ -1682,6 +1704,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->vou_remarks}}</td>
                     <td>{{$data->vou_action}}</td>
                     <td>
@@ -1731,6 +1754,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->vou_certify_remarks}}</td>
                     <td>{{$data->vou_certify_action}}</td>
                     <td></td>
@@ -1810,6 +1834,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->vou_approved_remarks}}</td>
                     <td>{{$data->vou_approved_action}}</td>
                     <td></td>
@@ -1854,6 +1879,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->vou_preaudit_remarks}}</td>
                     <td>{{$data->vou_preaudit_action}}</td>
                     <td></td>
@@ -1898,6 +1924,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->vou_preaudit_remarks}}</td>
                     <td>{{$data->vou_preaudit_action}}</td>
                     <td></td>
@@ -1938,6 +1965,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->vou_released_remarks}}</td>
                     <td>{{$data->vou_released_action}}</td>
                     <td></td>
@@ -1979,6 +2007,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->vou_released_remarks}}</td>
                     <td>{{$data->vou_released_action}}</td>
                     <td></td>
@@ -2020,6 +2049,7 @@ Unit Purchase Request
                         @endif
                     @endif
                     </td>
+                    <td>{{ $totalDays }}</td>
                     <td>{{$data->vou_received_remarks}}</td>
                     <td>{{$data->vou_received_action}}</td>
                     <td></td>
@@ -2033,14 +2063,14 @@ Unit Purchase Request
                     @if(isset($vou_approval_date))
                     <?php  $total =  $upr_created->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $vou_approval_date ); ?>
                     @endif
-                    <td>
+                    {{-- <td>
                         @if($total > 0)
                             {{$total - 1}}
                         @else
                             {{$total}}
                         @endif
-                    </td>
-                    {{-- <td>{{$totalDays}}</td> --}}
+                    </td> --}}
+                    <td>{{$totalDays}}</td>
                     <td></td>
                 </tr>
 
