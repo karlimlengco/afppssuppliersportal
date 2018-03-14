@@ -68,7 +68,7 @@ Notice To Proceed
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route('procurements.unit-purchase-requests.show', $data->upr_id)}}" tooltip="UPR" class="button button--pull-left"> <i class="nc-icon-mini arrows-1_bold-left"></i> </a>
         <span class="button--pull-left" style="padding-top:10px">Go to UPR</span>
-        @if(!$data->received_by)
+        @if(!$data->received_by && $data->award_accepted_date)
             Received
             <a href="#" id="proceed-ntp-button" tooltip="Received" class="button button--pull-right"><i class="nc-icon-mini arrows-1_bold-right"></i></a>
         @else
