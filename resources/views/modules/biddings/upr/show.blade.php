@@ -129,7 +129,7 @@ Unit Purchase Request
                         <a class="button__options__item" id="dq-button" href="#">Disqualify Proponent</a>
                     @endif
 
-                    @if($data->status == 'Philgeps Approved' || $data->status == 'Pre Bid Conference'|| $data->status == 'SOBE OPEN')
+                    @if($data->status == 'Philgeps Approved' || $data->status == 'Pre Bid Conference'|| $data->status == 'SOBE OPEN'|| $data->status == 'Post Qualification')
                         <a class="button__options__item" id="bid-docs-button" href="#">Bid Docs Issuance</a>
                         {{-- <a class="button__options__item" href="{{route('biddings.pre-bids.create-by-upr', $data->id)}}">Pre-Bid Conference</a> --}}
                     @endif
