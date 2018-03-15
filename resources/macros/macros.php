@@ -599,7 +599,7 @@ function translateToWords($number)
     $cents .=" cents";
   }
 
-  return  $whole.$cents;
+  return  strtoupper($whole.$cents);
 /*****
      * A recursive function to turn digits into words
      * Numbers must be integers from -999,999,999,999 to 999,999,999,999 inclussive.

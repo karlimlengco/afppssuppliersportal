@@ -44,7 +44,7 @@
 
                     <p style="text-align: justify;font-size:18px!important;">We are pleased to inform you that your bid dated {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data['rfq_date'])->format('d F Y')}} for the procurement of {{translateToWords($data['items'][0]->quantity)}} ({{$data['items'][0]->quantity}}) {{$data['items'][0]->item_description}} @if(count($data['items']) > 1) and {{translateToWords(count($data['items']) - 1)}} {{count($data['items']) - 1}} LI @endif under {{$data['rfq_number']}}, with the Contract Price of {{translateToWords( str_replace(',', '', $data['bid_amount']) )}} pesos only (Php {{formatPrice($data['bid_amount'])}}) in accordance with Instructions to Bidders is hereby accepted.
 
-                    <p>You are thus required to provide a performance security in the form and amount stipulated in the Instructions to Bidders within ten (10) calendar days. Failure to provide the said performance security shall constitute sufficient ground fo cancellation of the award and the forfeiture of the bid security.</p>
+                    <p style="font-size:18px!important;">You are thus required to provide a performance security in the form and amount stipulated in the Instructions to Bidders within ten (10) calendar days. Failure to provide the said performance security shall constitute sufficient ground fo cancellation of the award and the forfeiture of the bid security.</p>
                  {{--    <p class="indent" style="font-size:18px!important;">
                         - Signing of {{$data['account_type']}}<br>
                         - Acknowledgement of the Notice to Proceed

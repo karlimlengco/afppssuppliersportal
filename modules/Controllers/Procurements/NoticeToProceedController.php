@@ -603,11 +603,15 @@ class NoticeToProceedController extends Controller
                 'error'  => "Please select signatory first"
             ]);
         }
-
-
+        $centerName = '';
+        if($center = $result->upr->centers)
+        {
+          $centerName = $center->name;
+        }
         $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
         $data['unitHeader']         =  ($header) ? $header->content : "" ;
         $data['transaction_date']   =   $result->prepared_date;
+        $data['center']             =   $centerName;
         $data['supplier']           =   $supplier;
         $data['po_transaction_date']=   $result->po->created_at;
         $data['po_number']          =   $result->po->po_number;
