@@ -1525,6 +1525,7 @@ class DeliveredInspectionReportController extends Controller
             $variable['unitHeader']                      = $data['unitHeader'];
             $variable['nature_of_delivery']  = $data['nature_of_delivery'];
             $variable['recommendation']      = $data['recommendation'];
+            $variable['po_number']            = $data['po_number'];
             $variable['findings']            = $data['findings'];
             $variable['invoices']              = $invoices;
             $variable['items']                 = $itemContent;
