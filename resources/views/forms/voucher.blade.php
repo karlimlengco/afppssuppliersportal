@@ -168,7 +168,7 @@
                         </tr>
                         <tr>
                             <td class="no-border-top no-border-bottom" colspan="3"></td>
-                            <td class="no-border-top no-border-bottom" style="text-transform: uppercase">{{translateToWords( $data['bid_amount'] - ($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty']) )}}</td>
+                            <td class="no-border-top no-border-bottom" style="text-transform: uppercase">{{translateToWords( $data['bid_amount'] - ($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty']) )}} <small>( Php {{formatPrice($data['bid_amount'] - ($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty']))}} )</small></td>
                         </tr>
                         <tr>
                             <td class="border-left-only" width="15px"></td>
