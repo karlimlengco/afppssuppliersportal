@@ -50,6 +50,21 @@ class AccountCodeRepository extends BaseRepository
     }
 
     /**
+     * [findByOld description]
+     *
+     * @param  [type] $name [description]
+     * @return [type]       [description]
+     */
+    public function findByOld($name)
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->where('old_account_code', 'LIKE', "%$name%");
+
+        return $model->first();
+    }
+
+    /**
      * [listCodes description]
      *
      *

@@ -159,18 +159,26 @@ trait ImportTrait
 
         $code = '';
         $accountsModel    =   $accounts->findByName(trim($fields[9][3]) );
+
+        if($accountsModel == null)
+        {
+            $accountsModel    =   $accounts->findByOld(trim($fields[9][3]) );
+        }
+
         if($accountsModel != null)
         {
             $code = $accountsModel->id;
         }else
         {
-            $c = trim($fields[9][3]);
-            $n = $c[0].'-'.$c[1].''.$c[2].'-'.$c[3].''.$c[4].'-'.$c[5].''.$c[6].'-'.$c[7].'-'.$c[8].''.$c[9];
+            if(count($c) == 10){
+              $c = trim($fields[9][3]);
+              $n = $c[0].'-'.$c[1].''.$c[2].'-'.$c[3].''.$c[4].'-'.$c[5].''.$c[6].'-'.$c[7].'-'.$c[8].''.$c[9];
 
-            $accountsModel    =   $accounts->findByName($n );
-            if($accountsModel != null)
-            {
-                $code = $accountsModel->id;
+              $accountsModel    =   $accounts->findByName($n );
+              if($accountsModel != null)
+              {
+                  $code = $accountsModel->id;
+              }
             }
         }
 
