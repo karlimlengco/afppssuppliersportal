@@ -40,6 +40,11 @@ Purchase Order
 <div class="row">
     <div class="twelve columns">
         <div class="row">
+            <div class="row">
+              <div class="three columns">
+                  {!! Form::textField('po_number', 'PO Number', $ref_name) !!}
+              </div>
+            </div>
             <div class="four columns">
                 {!! Form::textField('purchase_date', 'PO Date') !!}
             </div>

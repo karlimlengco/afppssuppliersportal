@@ -425,6 +425,15 @@ class PurchaseOrderController extends Controller
         $fields         =   session('po_fields');
 
         $upr_model      =   $upr->findById($id);
+
+
+        $date                   =   \Carbon\Carbon::now();
+        $counts                 =   $upr->getCountByYear($date->format('Y'))->total;
+
+        $ref_name   =   "PO-". $upr_model->centers->short_code ."-".$upr_model->types->code ."-". $counts ."-". $upr_model->unit->short_code ."-". $date->format('Y');
+
+        $ref_name   =   str_replace(" ", "", $ref_name);
+
         $items          =   $upr_model->items;
         foreach($fields->toArray() as $row)
         {
@@ -447,6 +456,7 @@ class PurchaseOrderController extends Controller
             'indexRoute'    =>  $this->baseUrl.'index',
             'term_lists'    =>  $term_lists,
             'rfq_id'        =>  $id,
+            'ref_name'      =>  $ref_name,
             'rfq_model'     =>  $items,
             'modelConfig'   =>  [
                 'store' =>  [
@@ -478,10 +488,18 @@ class PurchaseOrderController extends Controller
         {
           $winner = $upr_model->noa->biddingWinner;
         }
+
+        $date                   =   \Carbon\Carbon::now();
+        $counts                 =   $upr->getCountByYear($date->format('Y'))->total;
+
+        $ref_name   =   "PO-". $upr_model->centers->short_code ."-".$upr_model->types->code ."-". $counts ."-". $upr_model->unit->short_code ."-". $date->format('Y');
+
+        $ref_name   =   str_replace(" ", "", $ref_name);
         $this->view('modules.procurements.purchase-order.create-from-rfq',[
             'indexRoute'    =>  $this->baseUrl.'index',
             'bid_amount'    =>  $winner->bid_amount,
             'term_lists'    =>  $term_lists,
+            'ref_name'      =>  $ref_name,
             'rfq_id'        =>  $id,
             'data'          =>  $upr->findById($id),
             'modelConfig'   =>  [
@@ -583,6 +601,7 @@ class PurchaseOrderController extends Controller
             $validator = Validator::make($request->all(),[
                 'purchase_date'     => 'required|after_or_equal:'. $noa_model->award_accepted_date,
                 'payment_term'      => 'required',
+                'payment_term'      => 'required',
                 'delivery_terms'    => 'required|integer',
                 'unit_price.*'      => 'required',
             ]);
@@ -610,6 +629,7 @@ class PurchaseOrderController extends Controller
             'purchase_date' =>  $request->purchase_date,
             'payment_term'  =>  $request->payment_term,
             'delivery_terms'=>  $request->delivery_terms,
+            'po_number'     =>  $request->po_number,
             'action'        =>  $request->action,
             'type'          =>  $request->type,
             'remarks'       =>  $request->remarks,
@@ -622,8 +642,8 @@ class PurchaseOrderController extends Controller
         ]);
 
 
-        $split_upr              =   explode('-', $noa_model->upr->ref_number);
-        $inputs['po_number']    =  "PO-".$split_upr[1]."-".$split_upr[2]."-".$split_upr[3]."-".$split_upr[4] ;
+        // $split_upr              =   explode('-', $noa_model->upr->ref_number);
+        // $inputs['po_number']    =  "PO-".$split_upr[1]."-".$split_upr[2]."-".$split_upr[3]."-".$split_upr[4] ;
 
 
 
