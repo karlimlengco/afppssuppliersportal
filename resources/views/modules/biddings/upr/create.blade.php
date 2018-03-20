@@ -17,6 +17,7 @@ Unit Purchase Request
     @endif
 
 @stop
+
 @section('modal')
     {{-- @include('modules.partials.new_account_code') --}}
     @include('modules.partials.create_signatory')
@@ -37,44 +38,48 @@ Unit Purchase Request
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-        <button type="submit" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+        <button id="submit-button" type="submit" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
     </div>
 </div>
 <div class="row">
     <div class="twelve columns">
             <div class="row">
                 <div class="four columns">
-                    {!! Form::textField('project_name', 'Project Name / Activity') !!}
-                </div>
-                <div class="four columns">
-                    {!! Form::textField('upr_number', 'UPR Number') !!}
-                </div>
-                <div class="four columns">
-                    {!! Form::textField('place_of_delivery', 'Place Of Delivery') !!}
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="four columns">
-                    {!! Form::textField('date_prepared', 'Date Prepared') !!}
+                    {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center, ($user->units) ? $user->units->pcco_id : "" ) !!}
                 </div>
                 <div class="four columns">
                     {!! Form::selectField('units', 'Units', $unit, ($user) ? $user->unit_id : "") !!}
                 </div>
                 <div class="four columns">
-                    {!! Form::selectField('procurement_type', 'Procurement Program/Project', $procurement_types) !!}
+                    {!! Form::textField('project_name', 'Project Name / Activity') !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="three columns">
+                    {!! Form::textField('upr_number', 'UPR Number') !!}
+                </div>
+                <div class="three columns">
+                    {!! Form::textField('place_of_delivery', 'Place Of Delivery') !!}
+                </div>
+                <div class="three columns">
+                    {!! Form::textField('date_prepared', 'Date Prepared') !!}
+                </div>
+                <div class="three columns">
+                    {!! Form::textField('date_processed', 'Date Processed') !!}
                 </div>
             </div>
 
             <div class="row">
                 <div class="four columns">
-                    {!! Form::selectField('procurement_office', 'Procurement Center / Contracting Office', $procurement_center, ($user->units) ? $user->units->pcco_id : "" ) !!}
+                    {!! Form::selectField('procurement_type', 'Procurement Program/Project', $procurement_types) !!}
                 </div>
                 <div class="four columns">
                     {!! Form::selectField('mode_of_procurement', 'Mode of Procurement', ['public_bidding' => 'Public Bidding'] + $procurement_modes) !!}
                 </div>
                 <div class="four columns">
-                    {!! Form::selectField('chargeability', 'Chargeability', $charges) !!}
+                    {{-- {!! Form::selectField('chargeability', 'Chargeability', $charges) !!} --}}
+                    {!! Form::textField('chargeability', 'Chargeability') !!}
                 </div>
             </div>
 
@@ -207,6 +212,18 @@ Unit Purchase Request
         yearRange: [2000,2020]
     });
 
+
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('id-field-date_processed'),
+        firstDay: 1,
+        defaultDate: new Date(),
+        setDefaultDate: new Date(),
+        // minDate: new Date(),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000,2020]
+    });
+
     // end datepicker
 
     // Add item button
@@ -221,7 +238,6 @@ Unit Purchase Request
             alert('fill up all fields');
         }
     });
-    // End Add item button
 
     $requestor = $('#id-field-requestor_id').selectize({
         create: true,
@@ -276,11 +292,20 @@ Unit Purchase Request
 
     });
 
-    // onchange quantity
+    // End Add item button
+
+    // // onchange quantity
+    // $(document).on('click', '#submit-button', function(e){
+    //   e.preventDefault()
+    //   alert('asds');
+    //   console.log( $("input.item_description") )
+    // });
+
     // onchange quantity
     $(document).on('change', '.quantity', function(e){
         update_amounts();
     });
+    // end onchange quantity
     //
     // onchange unit_price
     $(document).on('change', '#unit_price', function(e){
@@ -338,7 +363,7 @@ Unit Purchase Request
             // newRow += "<input type='text' name='new_account_code[]' value='"+new_account_code+"' class='input'/>";
 
             newRow += "<td id='quantity_row"+table_len+"'>";
-            newRow += "<input type='text' name='quantity[]' value='"+quantity+"' class='input unit_price'/>";
+            newRow += "<input type='text' name='quantity[]' value='"+quantity+"' class='input quantity'/>";
             newRow += "</td>";
             newRow += "<td id='unit_measurement_row"+table_len+"'>";
             newRow += "<input type='text' name='unit_measurement[]' value='"+unit_measurement+"' class='input'/>";
@@ -347,7 +372,7 @@ Unit Purchase Request
             newRow += "<input type='text' name='unit_price[]' value='"+unit_price+"' class='input unit_price'/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
-            newRow += "<input type='text' name='total_amount[]' value='"+total_amount+"' class='input' readonly/>";
+            newRow += "<input type='text' name='total_amount[]' value='"+total_amount+"' class='input total_amount' readonly/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
             newRow += "<input type='button' value='Delete' class='button delete' onclick='delete_row("+table_len+")'";
@@ -367,6 +392,21 @@ Unit Purchase Request
     {
         console.log(no);
          document.getElementById("row"+no+"").outerHTML="";
+    }
+
+    function update_amounts()
+    {
+        var sum = 0.0;
+        $('#myTable > tbody  > tr').each(function() {
+            var qty = $(this).find('.quantity').val();
+            var price = $(this).find('.unit_price').val();
+            var amount = (qty*price)
+            sum+=amount;
+            $(this).find('.total_amount').text(''+amount);
+        });
+        console.log('asds')
+        //just update the total to sum
+        // $('.total').text(sum);
     }
 
 
