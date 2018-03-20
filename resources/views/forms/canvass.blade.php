@@ -12,7 +12,7 @@
 
     <body>
 
-        <div class="printable-form-wrapper"  style="padding-top:50px">
+        <div class="printable-form-wrapper"  style="padding-top:40px">
 
             <div class="printable-form">
                 <!-- form header -->
@@ -345,7 +345,6 @@
                           </td>
                       </tr>
                   </table>
-                  <br>
                   <br>
                   <table class="printable-form__body__table no-border no-padding">
                     <tr><td width="30%"  height="60px"></td>
