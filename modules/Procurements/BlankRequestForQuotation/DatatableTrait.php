@@ -72,7 +72,7 @@ trait DatatableTrait
             ->editColumn('status', function($data){
                 return $data->status;
             })
-            ->rawColumns(['rfq_number', 'print_button'])
+            ->rawColumns(['rfq_number' ])
             ->make(true);
     }
 }
