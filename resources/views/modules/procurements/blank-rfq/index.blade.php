@@ -24,15 +24,24 @@ Request For Quotation
     <div class="six columns align-left">
         <h3> </h3>
     </div>
-    <div class="six columns utility utility--align-right" >
         {{-- <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a> --}}
+        {!! Form::open(['route'  => 'procurements.blank-rfq.index', 'method'=>'get']) !!}
+    <div class="five columns " >
+          <input type="text" name="search" class="input">
     </div>
+    <div class="one columns " >
+          <button class="button">Search</button>
+    </div>
+        {!! Form::close() !!}
 </div>
+        <br>
+        <br>
+        <br>
 
 <div class="row">
     <div class="twelve columns">
 
-        <table id="datatable-responsive" class="table" >
+        <table  class="table" >
 
             <thead>
                 <tr>
@@ -45,8 +54,20 @@ Request For Quotation
                 </tr>
             </thead>
             <tbody>
+                @foreach($resources as $data)
+                  <tr>
+                    <td>{{$data->rfq_number}}</td>
+                    <td>{{$data->upr_number}}</td>
+                    <td>{{$data->deadline}}</td>
+                    <td>{{$data->opening_time}}</td>
+                    <td>{{$data->transaction_date}}</td>
+                    <td>{{$data->status}}</td>
+                  </tr>
+                @endforeach
             </tbody>
         </table>
+
+        <?php echo $resources->render(); ?>
     </div>
 </div>
 

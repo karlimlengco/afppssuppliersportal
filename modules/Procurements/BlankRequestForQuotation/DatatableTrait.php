@@ -56,6 +56,52 @@ trait DatatableTrait
         return $this->dataTable($model->get());
     }
 
+    public function paginateByRequest($limit = 10, $request)
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->select([
+          'request_for_quotations.id',
+          'request_for_quotations.deadline',
+          'request_for_quotations.opening_time',
+          'request_for_quotations.transaction_date',
+          'request_for_quotations.created_at',
+          'request_for_quotations.rfq_number',
+          'request_for_quotations.upr_number',
+          'request_for_quotations.status',
+          ]);
+
+        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'request_for_quotations.upr_id');
+
+
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                if($user->units->centers)
+                {
+                    $center =   $user->units->centers->id;
+                }
+            }
+
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+
+        }
+        if($request != null)
+        {
+            $search = $request->search;
+            $model  = $model->where('request_for_quotations.rfq_number', 'like', "%$search%");
+            $model  = $model->orWhere('request_for_quotations.upr_number', 'like', "%$search%");
+            $model  = $model->orWhere('request_for_quotations.transaction_date', 'like', "%$search%");
+            $model  = $model->orWhere('request_for_quotations.status', 'like', "%$search%");
+        }
+        $model->orderBy('created_at', 'desc');
+        return $model->paginate($limit);
+    }
+
     /**
      * [dataTable description]
      *

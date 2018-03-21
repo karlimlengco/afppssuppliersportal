@@ -79,10 +79,11 @@ class BlankRFQController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, BlankRFQRepository $rfq)
     {
         return $this->view('modules.procurements.blank-rfq.index',[
             'createRoute'   =>  $this->baseUrl."create",
+            'resources'     =>  $rfq->paginateByRequest(10, $request),
             'breadcrumbs' => [
                 new Breadcrumb('Alternative', 'procurements.blank-rfq.index'),
                 new Breadcrumb('Request For Quotations'),
