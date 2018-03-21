@@ -42,11 +42,14 @@ Purchase Order
 
 
             <div class="row">
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::selectField('payment_term', 'Payment Terms', $term_lists) !!}
                 </div>
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::numberField('delivery_terms', 'Delivery Terms') !!}
+                </div>
+                <div class="four columns">
+                    {!! Form::textField('po_number', 'PO Number') !!}
                 </div>
             </div>
 

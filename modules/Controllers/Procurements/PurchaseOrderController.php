@@ -956,6 +956,7 @@ class PurchaseOrderController extends Controller
             'purchase_date'         =>  $request->purchase_date,
             'funding_released_date' =>  $request->funding_released_date,
             'funding_received_date' =>  $request->funding_received_date,
+            'po_number'             =>  $request->po_number,
             'mfo_released_date'     =>  $request->mfo_released_date,
             'mfo_received_date'     =>  $request->mfo_received_date,
             'coa_approved_date'     =>  $request->coa_approved_date,
