@@ -20,7 +20,16 @@ trait DatatableTrait
     {
         $model  =   $this->model;
 
-        $model  =   $model->select(['request_for_quotations.*']);
+        $model  =   $model->select([
+          'request_for_quotations.id',
+          'request_for_quotations.deadline',
+          'request_for_quotations.opening_time',
+          'request_for_quotations.transaction_date',
+          'request_for_quotations.created_at',
+          'request_for_quotations.rfq_number',
+          'request_for_quotations.upr_number',
+          'request_for_quotations.status',
+          ]);
 
         $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'request_for_quotations.upr_id');
 
