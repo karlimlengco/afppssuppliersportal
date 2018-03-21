@@ -42,7 +42,6 @@ Request For Quotation
                     <th>Opening Time</th>
                     <th>Transaction Date</th>
                     <th>Status</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -73,8 +72,7 @@ Request For Quotation
             {data: 'deadline', name: 'deadline'},
             {data: 'opening_time', name: 'opening_time'},
             {data: 'transaction_date', name: 'transaction_date'},
-            {data: 'status', name: 'status'},
-            {data: 'print_button', name: 'print_button'},
+            {data: 'status', name: 'status'}
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

@@ -60,12 +60,8 @@ trait DatatableTrait
                 $route  =  route( 'procurements.blank-rfq.show',[$data->id] );
                 return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
             })
-            ->editColumn('print_button', function ($data) {
-                $route  =   route('procurements.blank-rfq.print',$data->id);
-                return '<a target="_blank" href="'.$route.'" tooltip="Print"> <span class="nc-icon-mini tech_print"></span>  </a>';
-            })
             ->editColumn('status', function($data){
-                return ucfirst($data->status);
+                return $data->status;
             })
             ->rawColumns(['rfq_number', 'print_button'])
             ->make(true);
