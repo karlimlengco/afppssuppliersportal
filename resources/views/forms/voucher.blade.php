@@ -135,7 +135,6 @@
                             <td class="v-align-bottom align-center" height="80px">
                               <br>
                               <br>
-                              <br>
                                 @if(count($data['certifier']) > 1)
                                 <strong>{{$data['certifier'][1]}} {{$data['certifier'][0]}} {{$data['certifier'][2]}}</strong><br>
                                 {{$data['certifier'][3]}}<br>
@@ -155,7 +154,7 @@
                             <td class="align-center" width="15%"><strong>Credit</strong></td>
                         </tr>
                         <tr>
-                            <td height="80px"> Php {{ formatPrice(($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty'])) }} </td>
+                            <td height="50px"> Php {{ formatPrice(($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty'])) }} </td>
                             <td></td>
                             <td></td>
                             <td></td>

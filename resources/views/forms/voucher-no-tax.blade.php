@@ -157,7 +157,7 @@
                             <td class="align-center" width="15%"><strong>Credit</strong></td>
                         </tr>
                         <tr>
-                            <td height="80px"></td>
+                            <td height="50px"></td>
                             <td></td>
                             <td></td>
                             <td></td>
