@@ -8,6 +8,8 @@
             body{
                 margin:0;
             }
+            @page{margin:0;padding:0;}
+        </style>
         </style>
     </head>
 
@@ -71,6 +73,7 @@
                             </tr>
 
                             <?php $count = 1; ?>
+
                             @foreach($data['items'] as $key=>$item)
                             <tr>
                                 <td class="align-center">{{$count++}}</td>
@@ -82,68 +85,72 @@
                             </tr>
                             @endforeach
                             <tr>
-                                <td class="align-center" colspan="5">x-x-x-x-x Nothing Follows x-x-x-x-x</td>
-                                <td></td>
+                                <td colspan="6" class="align-center" >x-x-x-x-x Nothing Follows x-x-x-x-x</td>
                             </tr>
                             <tr>
-                                <td colspan="5" class="align-center"><strong>TOTAL PhP</strong></td>
-                                <td></td>
+                                <td colspan="6"  class="align-center"><strong>TOTAL PhP</strong></td>
                             </tr>
                         </table>
-                        <p>After having carefully read and accepted your General Conditions, I/We hereby certify the item/s quoted is of the quality/standard at the price/s noted above.</p>
-                        <!-- form signatories -->
-                        <table class="printable-form__body__table no-border no-padding" style="page-break-before: auto;">
-                            <tr>
-                                <td width="45%"></td>
-                                <td width="10%"></td>
-                                <td width="45%" class="align-bottom align-center" height="40px"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td class="align-bottom align-center border-top-only">Signature over Printed Name</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td class="align-bottom align-center" height="30px"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td class="align-bottom align-center border-top-only">Business Name</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td class="align-bottom align-center" height="30px"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td class="align-bottom align-center border-top-only">Business Address</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td class="align-bottom align-center" height="30px"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td class="align-bottom align-center border-top-only">Tel No. / Cell No.</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td class="align-bottom align-center" height="30px"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td class="align-bottom align-center border-top-only">Date</td>
-                            </tr>
-                        </table>
+                        <br>
+                        <br>
+                        <br>
+
+                        <div style="page-break-before: auto;">
+                          <p>After having carefully read and accepted your General Conditions, I/We hereby certify the item/s quoted is of the quality/standard at the price/s noted above.</p>
+                          <!-- form signatories -->
+                          <table class="printable-form__body__table no-border no-padding" >
+                              <tr>
+                                  <td width="45%"></td>
+                                  <td width="10%"></td>
+                                  <td width="45%" class="align-bottom align-center" height="40px"></td>
+                              </tr>
+                              <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td class="align-bottom align-center border-top-only">Signature over Printed Name</td>
+                              </tr>
+                              <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td class="align-bottom align-center" height="30px"></td>
+                              </tr>
+                              <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td class="align-bottom align-center border-top-only">Business Name</td>
+                              </tr>
+                              <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td class="align-bottom align-center" height="30px"></td>
+                              </tr>
+                              <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td class="align-bottom align-center border-top-only">Business Address</td>
+                              </tr>
+                              <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td class="align-bottom align-center" height="30px"></td>
+                              </tr>
+                              <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td class="align-bottom align-center border-top-only">Tel No. / Cell No.</td>
+                              </tr>
+                              <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td class="align-bottom align-center" height="30px"></td>
+                              </tr>
+                              <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td class="align-bottom align-center border-top-only">Date</td>
+                              </tr>
+                          </table>
+                        </div>
                     </div>
             </div>
 

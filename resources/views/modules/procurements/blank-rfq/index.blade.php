@@ -56,7 +56,7 @@ Request For Quotation
             <tbody>
                 @foreach($resources as $data)
                   <tr>
-                    <td>{{$data->rfq_number}}</td>
+                    <td> <a href="{{route( 'procurements.blank-rfq.show',[$data->id] )}}">  {{$data->rfq_number}} </a></td>
                     <td>{{$data->upr_number}}</td>
                     <td>{{$data->deadline}}</td>
                     <td>{{$data->opening_time}}</td>
