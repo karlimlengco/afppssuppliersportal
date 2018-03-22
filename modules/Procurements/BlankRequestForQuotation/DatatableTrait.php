@@ -86,6 +86,7 @@ trait DatatableTrait
                     $center =   $user->units->centers->id;
                 }
             }
+            dd($center);
 
             $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
 
