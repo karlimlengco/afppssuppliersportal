@@ -90,14 +90,16 @@ trait DatatableTrait
             $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
 
         }
-        // if($request != null)
-        // {
-        //     $search = $request->search;
-        //     $model  = $model->where('request_for_quotations.rfq_number', 'like', "%$search%");
-        //     $model  = $model->orWhere('request_for_quotations.upr_number', 'like', "%$search%");
-        //     $model  = $model->orWhere('request_for_quotations.transaction_date', 'like', "%$search%");
-        //     $model  = $model->orWhere('request_for_quotations.status', 'like', "%$search%");
-        // }
+        if($request != null)
+        {
+            $search = $request->search;
+            $model  = $model->where(function($query) use ($search){
+                 $query->where('request_for_quotations.rfq_number', 'like', "%$search%");
+                 $query->orWhere('request_for_quotations.upr_number', 'like', "%$search%");
+                 $query->orWhere('request_for_quotations.transaction_date', 'like', "%$search%");
+                 $query->orWhere('request_for_quotations.status', 'like', "%$search%");
+             })
+        }
         $model->orderBy('created_at', 'desc');
         return $model->paginate($limit);
     }
