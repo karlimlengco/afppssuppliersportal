@@ -98,7 +98,7 @@ trait DatatableTrait
                  $query->orWhere('request_for_quotations.upr_number', 'like', "%$search%");
                  $query->orWhere('request_for_quotations.transaction_date', 'like', "%$search%");
                  $query->orWhere('request_for_quotations.status', 'like', "%$search%");
-             })
+             });
         }
         $model->orderBy('created_at', 'desc');
         return $model->paginate($limit);
