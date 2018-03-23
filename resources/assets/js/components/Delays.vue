@@ -41,23 +41,31 @@
         <table class="table table--with-border ">
             <thead>
                 <tr>
-                   <th>UPR Number</th>
-                   <th>Project Name/ Activity</th>
-                   <th>ABC</th>
-                   <th>Next Step</th>
-                   <th>Expected Date</th>
-                   <th>Number of Delays</th>
-                   <th></th>
+                   <th>PC/CO/BAC</th>
+                   <th>Project Name/ Activity <br> UPR Number</th>
+                   <th>UPR Receipt</th>
+                   <th>ABC <br><small> (in Php)</small></th>
+                   <th>Current Status</th>
+                   <th>Next Stage</th>
+                   <th>Expected Finish Date</th>
+                   <th>Number of Days Delayed</th>
+                   <th>Please <br> Justify</th>
                 </tr>
             </thead>
             <tbody>
                 <template v-for="(item, index) in items">
                     <tr>
-                        <td>{{item.upr_number}}</td>
-                        <td>{{item.project_name}}</td>
+                        <td>{{item.pcco}}</td>
+                        <td>
+                        {{item.project_name}}
+                            <br><small style="font-size:12px">({{item.upr_number}})</small>
+
+                        </td>
+                        <td>{{formatDate(item.date_processed)}}</td>
                         <td>{{formatPrice(item.total_amount)}}</td>
+                        <td>{{item.status}}</td>
                         <td>{{item.next_step}}</td>
-                        <td>{{item.next_due}}</td>
+                        <td>{{formatDate(item.next_due)}}</td>
                         <td>{{item.delay}}</td>
                         <td @click.prevent="showModal(item)" style="cursor:pointer" tooltip="Justification" position="left"> <span class="nc-icon-mini education_notepad"></span></td>
                     </tr>
@@ -167,6 +175,11 @@
             formatPrice(value) {
                 let val = (value/1).toFixed(2).replace('.', ',')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            },
+            formatDate(value) {
+                if(value){
+                  return moment(value).format('DD MMM YYYY')
+                }
             },
             changePage: function (page) {
                 this.pagination.current_page = page;

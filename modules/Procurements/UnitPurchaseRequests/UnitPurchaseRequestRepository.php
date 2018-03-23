@@ -323,12 +323,14 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.upr_number',
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.date_processed',
+            'unit_purchase_requests.status',
             'unit_purchase_requests.state',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.mode_of_procurement',
             'unit_purchase_requests.date_processed',
             'unit_purchase_requests.date_processed as upr_created_at',
             'unit_purchase_requests.next_due',
+            'procurement_centers.name as pcco',
             'unit_purchase_requests.next_step',
             DB::raw("(select count(*) from holidays where holiday_date >= unit_purchase_requests.date_processed and holiday_date <= NOW()) as holidays"),
             DB::raw("(SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_processed and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6) as holidays2"),
@@ -342,6 +344,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
         $model  =   $model->where('state', '!=', 'Terminated pass');
         $model  =   $model->where('state', '!=', 'Terminated failed');
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
+        $model  =   $model->leftjoin('procurement_centers', 'procurement_centers.id', 'unit_purchase_requests.procurement_office');
 
         $model  =   $model->groupBy([
             'unit_purchase_requests.id',
@@ -350,6 +353,8 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.date_processed',
             'unit_purchase_requests.state',
+            'unit_purchase_requests.status',
+            'procurement_centers.name',
             'unit_purchase_requests.total_amount',
             'unit_purchase_requests.mode_of_procurement',
             'unit_purchase_requests.date_processed',
