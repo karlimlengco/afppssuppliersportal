@@ -224,7 +224,7 @@ class DeliveryController extends Controller
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Issuance of Notice of Delivery"));
+        event(new Event($upr_result, $upr_result->upr_number." Issuance of Notice of Delivery"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -572,7 +572,7 @@ class DeliveryController extends Controller
             ], $dr_model->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." ". $status));
+        event(new Event($upr_result, $upr_result->upr_number." ". $status));
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -676,7 +676,7 @@ class DeliveryController extends Controller
             ], $result->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." Notification of Delivery to COA"));
+        event(new Event($upr_result, $upr_result->upr_number." Notification of Delivery to COA"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

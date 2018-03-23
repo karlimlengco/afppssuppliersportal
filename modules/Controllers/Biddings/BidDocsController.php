@@ -120,7 +120,7 @@ class BidDocsController extends Controller
 
         $result = $model->save($inputs);
 
-        event(new Event($upr_model, $upr_model->ref_number." Bid Docs Issuance"));
+        event(new Event($upr_model, $upr_model->upr_number." Bid Docs Issuance"));
 
         return redirect()->back()->with([
             'success'  => "New record has been successfully added."

@@ -198,12 +198,12 @@ class DocumentAcceptanceController extends Controller
             ], $result->upr_id);
 
 
-            event(new Event($upr_result, $upr_result->ref_number." Document Accepted"));
+            event(new Event($upr_result, $upr_result->upr_number." Document Accepted"));
         }
         else
         {
 
-            event(new Event($result->upr, $result->upr->ref_number." Document Return"));
+            event(new Event($result->upr, $result->upr->upr_number." Document Return"));
         }
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([

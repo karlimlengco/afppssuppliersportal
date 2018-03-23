@@ -176,7 +176,7 @@ class NoticeToProceedController extends Controller
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Philgeps Posting of NTP"));
+        event(new Event($upr_result, $upr_result->upr_number." Philgeps Posting of NTP"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -323,7 +323,7 @@ class NoticeToProceedController extends Controller
 
 
 
-        event(new Event($upr_result, $upr_result->ref_number." Serving of NTP"));
+        event(new Event($upr_result, $upr_result->upr_number." Serving of NTP"));
 
         $result = $model->save($inputs);
 
@@ -511,7 +511,7 @@ class NoticeToProceedController extends Controller
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Conforme of NTP"));
+        event(new Event($upr_result, $upr_result->upr_number." Conforme of NTP"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

@@ -234,7 +234,7 @@ class CanvassingController extends Controller
             'last_remarks'  => $request->remarks
             ], $rfq_model->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Canvass"));
+        event(new Event($upr_result, $upr_result->upr_number." Canvass"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -259,7 +259,7 @@ class CanvassingController extends Controller
             'last_remarks'  => $request->failed_remarks
             ], $request->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Failed Bid"));
+        event(new Event($upr_result, $upr_result->upr_number." Failed Bid"));
 
         $result =   $model->update(['is_failed'=> 1, 'date_failed'=>$request->date_failed, 'failed_remarks'=>$request->failed_remarks], $request->id);
 

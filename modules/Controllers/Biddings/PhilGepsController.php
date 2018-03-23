@@ -180,7 +180,7 @@ class PhilGepsController extends Controller
             'last_remarks'  => $request->remarks
              ], $upr_model->id);
 
-        event(new Event($upr_result, $upr_result->ref_number." ". $status));
+        event(new Event($upr_result, $upr_result->upr_number." ". $status));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

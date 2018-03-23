@@ -147,7 +147,7 @@ class NOAController extends Controller
             ],  $pq_model->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." Award NOA"));
+        event(new Event($upr_result, $upr_result->upr_number." Award NOA"));
 
         return redirect()->route('biddings.noa.show', $noaModal->id)->with([
             'success'  => "New record has been successfully added."
@@ -250,7 +250,7 @@ class NOAController extends Controller
             ], $result->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." Conforme NOA"));
+        event(new Event($upr_result, $upr_result->upr_number." Conforme NOA"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -361,7 +361,7 @@ class NOAController extends Controller
             ],  $result->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." NOA Approved"));
+        event(new Event($upr_result, $upr_result->upr_number." NOA Approved"));
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -474,7 +474,7 @@ class NOAController extends Controller
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Posting of NOA to Philgeps"));
+        event(new Event($upr_result, $upr_result->upr_number." Posting of NOA to Philgeps"));
 
 
         return redirect()->back()->with([

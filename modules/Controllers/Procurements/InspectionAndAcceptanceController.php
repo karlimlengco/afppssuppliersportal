@@ -147,7 +147,7 @@ class InspectionAndAcceptanceController extends Controller
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Inspection and Acceptance Report"));
+        event(new Event($upr_result, $upr_result->upr_number." Inspection and Acceptance Report"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -324,7 +324,7 @@ class InspectionAndAcceptanceController extends Controller
             ], $result->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." Conduct of TIAC"));
+        event(new Event($upr_result, $upr_result->upr_number." Conduct of TIAC"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

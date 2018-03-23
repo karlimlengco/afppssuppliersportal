@@ -124,7 +124,7 @@ class RFQProponentController extends Controller
         $inputs                 =   $request->getData();
         $inputs['prepared_by']  =   \Sentinel::getUser()->id;
         $result = $model->save($inputs);
-        event(new Event($result->rfq->upr, $result->rfq->upr->ref_number." Added Proponent"));
+        event(new Event($result->rfq->upr, $result->rfq->upr->upr_number." Added Proponent"));
 
         return redirect()->back()->with([
             'success'  => "New record has been successfully added."

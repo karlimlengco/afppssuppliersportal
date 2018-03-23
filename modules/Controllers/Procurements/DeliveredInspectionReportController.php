@@ -219,7 +219,7 @@ class DeliveredInspectionReportController extends Controller
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." DIIR Started"));
+        event(new Event($upr_result, $upr_result->upr_number." DIIR Started"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -306,7 +306,7 @@ class DeliveredInspectionReportController extends Controller
             ], $result->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." DIIR Closed"));
+        event(new Event($upr_result, $upr_result->upr_number." DIIR Closed"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -393,7 +393,7 @@ class DeliveredInspectionReportController extends Controller
             ], $delivery_model->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." Delivered Items and Inspection Report"));
+        event(new Event($upr_result, $upr_result->upr_number." Delivered Items and Inspection Report"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

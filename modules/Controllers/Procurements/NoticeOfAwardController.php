@@ -172,7 +172,7 @@ class NoticeOfAwardController extends Controller
             'last_remarks'  => $request->remarks
             ],  $canvasModel->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Award NOA"));
+        event(new Event($upr_result, $upr_result->upr_number." Award NOA"));
 
 
         return redirect()->route('procurements.canvassing.show', $canvasId)->with([
@@ -292,7 +292,7 @@ class NoticeOfAwardController extends Controller
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Conforme NOA"));
+        event(new Event($upr_result, $upr_result->upr_number." Conforme NOA"));
 
 
         return redirect()->back()->with([
@@ -374,7 +374,7 @@ class NoticeOfAwardController extends Controller
         //     'last_remarks'  => $request->remarks
         //     ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Posting of NOA to Philgeps"));
+        event(new Event($upr_result, $upr_result->upr_number." Posting of NOA to Philgeps"));
 
 
         return redirect()->back()->with([
@@ -474,7 +474,7 @@ class NoticeOfAwardController extends Controller
             'last_remarks'  => $request->remarks
             ],  $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Issue NOA"));
+        event(new Event($upr_result, $upr_result->upr_number." Issue NOA"));
 
 
         return redirect()->back()->with([

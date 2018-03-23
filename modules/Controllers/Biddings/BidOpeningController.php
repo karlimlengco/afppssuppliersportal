@@ -173,7 +173,7 @@ class BidOpeningController extends Controller
             'last_remarks'  => $request->remarks
         ], $upr_model->id);
 
-        event(new Event($upr_result, $upr_result->ref_number." SOBE Open"));
+        event(new Event($upr_result, $upr_result->upr_number." SOBE Open"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -320,7 +320,7 @@ class BidOpeningController extends Controller
             'next_due'      => $transaction_date->addDays(45),
             'last_date'     => $transaction_date,
         ], $upr_model->id);
-        event(new Event($upr_result, $upr_result->ref_number." SOBE Closed"));
+        event(new Event($upr_result, $upr_result->upr_number." SOBE Closed"));
 
         return redirect()->route($this->baseUrl.'show', $request->id)->with([
             'success'  => "Record has been successfully updated."

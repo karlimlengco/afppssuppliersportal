@@ -220,7 +220,7 @@ class ISPQController extends Controller
             'last_remarks'  => $request->remarks
             ], $upr_model->id);
 
-        event(new Event($upr_result, $upr_result->ref_number." ITSPQ Prepared"));
+        event(new Event($upr_result, $upr_result->upr_number." ITSPQ Prepared"));
 
         $quotations->save($data);
 

@@ -195,7 +195,7 @@ class BlankRFQController extends Controller
             ], $upr_model->id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." Process RFQ"));
+        event(new Event($upr_result, $upr_result->upr_number." Process RFQ"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -460,7 +460,7 @@ class BlankRFQController extends Controller
             ], $rfq->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." RFQ"));
+        event(new Event($upr_result, $upr_result->upr_number." RFQ"));
 
         return redirect()->route($this->baseUrl.'show', $request->rfq_id)->with([
             'success'  => "Record has been successfully updated."

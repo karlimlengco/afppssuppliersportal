@@ -188,7 +188,7 @@ class VoucherController extends Controller
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Preparation of DV"));
+        event(new Event($upr_result, $upr_result->upr_number." Preparation of DV"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."
@@ -463,7 +463,7 @@ class VoucherController extends Controller
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Completed"));
+        event(new Event($upr_result, $upr_result->upr_number." Completed"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -555,7 +555,7 @@ class VoucherController extends Controller
         //     'days'          => $wd],
         // $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Completed"));
+        event(new Event($upr_result, $upr_result->upr_number." Completed"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."

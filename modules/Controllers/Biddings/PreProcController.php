@@ -159,11 +159,11 @@ class PreProcController extends Controller
                 'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-            event(new Event($upr_result, $upr_result->ref_number." PreProc Conference"));
+            event(new Event($upr_result, $upr_result->upr_number." PreProc Conference"));
         }
         else
         {
-            event(new Event($result->upr, $result->upr->ref_number." Re-Sched PreProc Conference"));
+            event(new Event($result->upr, $result->upr->upr_number." Re-Sched PreProc Conference"));
         }
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([

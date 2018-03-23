@@ -227,11 +227,11 @@ class PreBidController extends Controller
                 'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-            event(new Event($upr_result, $upr_result->ref_number." Pre Bid Conference"));
+            event(new Event($upr_result, $upr_result->upr_number." Pre Bid Conference"));
         }
         else
         {
-            event(new Event($result->upr, $result->upr->ref_number." Re-Sched Pre Bid Conference"));
+            event(new Event($result->upr, $result->upr->upr_number." Re-Sched Pre Bid Conference"));
         }
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([

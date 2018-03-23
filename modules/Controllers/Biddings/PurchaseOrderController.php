@@ -172,7 +172,7 @@ class PurchaseOrderController extends Controller
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." PO Approved"));
+        event(new Event($upr_result, $upr_result->upr_number." PO Approved"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Purchase Order has been successfully approved."
@@ -249,7 +249,7 @@ class PurchaseOrderController extends Controller
             ], $po->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." Issuance of CAF"));
+        event(new Event($upr_result, $upr_result->upr_number." Issuance of CAF"));
 
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
@@ -322,7 +322,7 @@ class PurchaseOrderController extends Controller
             'last_remarks'  => $request->remarks
             ], $po->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." MFO Obligation"));
+        event(new Event($upr_result, $upr_result->upr_number." MFO Obligation"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
@@ -494,7 +494,7 @@ class PurchaseOrderController extends Controller
             ], $noa_model->upr_id);
 
 
-        event(new Event($upr_result, $upr_result->ref_number." Preparation of PO"));
+        event(new Event($upr_result, $upr_result->upr_number." Preparation of PO"));
 
         return redirect()->route($this->baseUrl.'show', $result->id)->with([
             'success'  => "New record has been successfully added."

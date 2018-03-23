@@ -184,7 +184,7 @@ class PhilGepsPostingController extends Controller
             'last_remarks'  => $request->remarks
             ], $upr_model->id);
 
-        event(new Event($upr_result, $upr_result->ref_number." ". $status));
+        event(new Event($upr_result, $upr_result->upr_number." ". $status));
 
         $result = $model->save($inputs);
 

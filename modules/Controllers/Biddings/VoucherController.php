@@ -882,7 +882,7 @@ class VoucherController extends Controller
             'last_remarks'  => $request->remarks
             ], $result->upr_id);
 
-        event(new Event($upr_result, $upr_result->ref_number." Completed"));
+        event(new Event($upr_result, $upr_result->upr_number." Completed"));
 
         return redirect()->route($this->baseUrl.'show', $id)->with([
             'success'  => "Record has been successfully updated."
