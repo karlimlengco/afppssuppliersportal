@@ -212,14 +212,14 @@
                         </tr>
                         <tr>
                             <td class="align-center">Printed Name</td>
-                            <td class="align-center"><strong>
+                            <td class="align-center"><strong style="font-size:11px!important;>
 
                             @if(count($data['receiver']) > 1)
                             {{$data['receiver'][1]}} {{$data['receiver'][0]}} {{$data['receiver'][2]}}
                             @endif
                             </strong></td>
                             <td class="align-center">Printed Name</td>
-                            <td class="align-center"><strong>
+                            <td class="align-center"><strong style="font-size:11px!important;>
 
                             @if(count($data['approver']) > 1)
                             {{$data['approver'][1]}} {{$data['approver'][0]}} {{$data['approver'][2]}}
