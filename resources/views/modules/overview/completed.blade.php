@@ -34,22 +34,22 @@ Overview of Completed Projects
     @endforeach
     <thead>
         <tr>
-           <th style="background: #222222" class="align-center" width="15%">PC/CO BAC</th>
+           <th style="background: #222222" class="align-center" width="15%">PC/CO/BAC</th>
            <th style="background: #222222" class="align-center" width="40%" >Project Name/UPR Number</th>
            <th style="background: #222222" class="align-center" width="10%">UPR Receipt</th>
            {{-- <th class="align-center" width="20%">Ref Number</th> --}}
-           <th style="background: #222222" class="align-center" width="5%">ABC <br><small style="color:white">(IN PESO)</small></th>
-           <th style="background: #222222" class="align-center" width="5%">Approved Contract <br><small style="color:white">(IN PESO)</small></th>
-           <th style="background: #222222; text-align:center!important" class="align-center" width="5%">Residual <br><small style="color:white">(IN PESO)</small></th>
+           <th style="background: #222222" class="align-center" width="5%">ABC <br><small style="color:white">(in Php)</small></th>
+           <th style="background: #222222" class="align-center" width="5%">Approved Contract Price <br><small style="color:white">(in Php)</small></th>
+           <th style="background: #222222; text-align:center!important" class="align-center" width="5%">Residual <br><small style="color:white">(in Php)</small></th>
         </tr>
     </thead>
         <tr>
           <td></td>
           <td></td>
           <td></td>
-          <td>{{formatPrice($totalAbc)}}</td>
-          <td>{{formatPrice($totalBid)}}</td>
-          <td>{{formatPrice($totalResidual)}}</td>
+          <td style="text-align:right"><strong>{{formatPrice($totalAbc)}}</strong></td>
+          <td style="text-align:right"><strong>{{formatPrice($totalBid)}}</strong></td>
+          <td style="text-align:right"><strong>{{formatPrice($totalResidual)}}</strong></td>
         </tr>
         @foreach($result as $data)
             <tr>
@@ -57,23 +57,23 @@ Overview of Completed Projects
                 <td style="font-size:18px;">
                     <a target="_blank" href="/procurements/unit-purchase-requests/timelines/{{$data->id}}">{{$data->project_name}}</a>
                     <p style="margin-bottom:5px">
-                    <small>{{$data->upr_number}}</small>
+                    <small style='font-size:12px'>({{$data->upr_number}})</small>
                     </p>
                 </td>
-                <td>{{$data->date_processed->format('d F Y')}}</td>
+                <td>{{$data->date_processed->format('d M Y')}}</td>
                 {{-- <td>{{$data->ref_number}}</td> --}}
-                <td>{{formatPrice($data->total_abc)}}</td>
-                <td>{{formatPrice($data->total_bid)}}</td>
-                <td>{{formatPrice($data->total_residual)}}</td>
+                <td style="text-align:right">{{formatPrice($data->total_abc)}}</td>
+                <td style="text-align:right">{{formatPrice($data->total_bid)}}</td>
+                <td style="text-align:right">{{formatPrice($data->total_residual)}}</td>
             </tr>
         @endforeach
         <tr>
           <td>Total</td>
           <td></td>
           <td></td>
-          <td>{{formatPrice($totalAbc)}}</td>
-          <td>{{formatPrice($totalBid)}}</td>
-          <td>{{formatPrice($totalResidual)}}</td>
+          <td style="text-align:right"><strong>{{formatPrice($totalAbc)}}</strong></td>
+          <td style="text-align:right"><strong>{{formatPrice($totalBid)}}</strong></td>
+          <td style="text-align:right"><strong>{{formatPrice($totalResidual)}}</strong></td>
         </tr>
 
     </tbody>

@@ -33,11 +33,11 @@ Overview of Cancelled Projects
     @endforeach
     <thead>
         <tr>
-           <th  style="background: #222222" class="align-center" width="15%">PC/CO BAC</th>
+           <th  style="background: #222222" class="align-center" width="15%">PC/CO/BAC</th>
            <th  style="background: #222222" class="align-center" width="40%" >Project Name/UPR Number</th>
            <th  style="background: #222222" class="align-center" width="10%">UPR Receipt</th>
            {{-- <th  style="background: #222222" class="align-center" width="20%">Ref Number</th> --}}
-           <th  style="background: #222222" class="align-center" width="5%">ABC  <br><small style="color:white">(IN PESO)</small></th>
+           <th  style="background: #222222" class="align-center" width="5%">ABC  <br><small style="color:white">(in Php)</small></th>
            <th  style="background: #222222; text-align:center!important" class="align-center" width="5%">Reason</th>
         </tr>
     </thead>
@@ -46,7 +46,7 @@ Overview of Cancelled Projects
           <td></td>
           <td></td>
           <td></td>
-          <td>{{formatPrice($totalAbc)}}</td>
+          <td style="text-align:right"><strong>{{formatPrice($totalAbc)}}</strong></td>
           <td></td>
         </tr>
         @foreach($result as $data)
@@ -55,12 +55,12 @@ Overview of Cancelled Projects
                 <td style="font-size:18px;">
                     <a target="_blank" href="/procurements/unit-purchase-requests/timelines/{{$data->id}}">{{$data->project_name}}</a>
                     <p style="margin-bottom:5px">
-                    <small>{{$data->upr_number}}</small>
+                    <small style='font-size:12px'>({{$data->upr_number}})</small>
                     </p>
                 </td>
-                <td>{{$data->date_processed->format('d F Y')}}</td>
+                <td>{{$data->date_processed->format('d M Y')}}</td>
                 {{-- <td>{{$data->ref_number}}</td> --}}
-                <td>{{formatPrice($data->total_abc)}}</td>
+                <td style="text-align:right">{{formatPrice($data->total_abc)}}</td>
                 <td  style='text-align:left!important'>{{$data->cancel_reason}}</td>
             </tr>
 
@@ -72,7 +72,7 @@ Overview of Cancelled Projects
           <td>Total</td>
           <td></td>
           <td></td>
-          <td>{{formatPrice($totalAbc)}}</td>
+          <td style="text-align:right"><strong>{{formatPrice($totalAbc)}}</strong></td>
           <td></td>
         </tr>
     </tbody>
