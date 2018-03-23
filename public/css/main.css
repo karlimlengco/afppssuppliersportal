@@ -3743,13 +3743,13 @@ table-custom.less
 }
 .table-name tr th,
 .table-name tr td {
-  width: 170px !important;
-  min-width: 170px !important;
+  width: 200px !important;
+  min-width: 200px !important;
 }
 .table-name tr th:first-child,
 .table-name tr td:first-child {
-  width: 400px !important;
-  min-width: 400px !important;
+  width: 470px !important;
+  min-width: 470px !important;
 }
 .table-name tr th.has-child .child-table tr th,
 .table-name tr td.has-child .child-table tr th,

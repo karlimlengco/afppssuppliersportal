@@ -72752,7 +72752,7 @@ var tarray2IDs = [];
         },
         formatPrice: function formatPrice(value) {
             var val = (value / 1).toFixed(2).replace('.', '.');
-            return "Php " + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         },
         formatDate: function formatDate(value) {
             if (value) {
@@ -84718,7 +84718,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                            # UPR\n                        ")]), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Total ABC")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("ABC FOR COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("TOTAL BID PRICE FOR COMPLETED PROJECTS")]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("RESIDUAL OF COMPLETED PROJECTS ")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', [_vm._v("NUMBER OF DAYS DELAY")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
+  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                            # UPR\n                        ")]), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Total ABC "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(in Php)")])]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("ABC FOR COMPLETED PROJECTS"), _c('br'), _vm._v(" "), _c('small', [_vm._v("(in Php)")])]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("TOTAL BID PRICE FOR COMPLETED PROJECTS"), _c('br'), _vm._v(" "), _c('small', [_vm._v("(in Php)")])]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("RESIDUAL OF COMPLETED PROJECTS "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(in Php)")])]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', [_vm._v("NUMBER OF DAYS DELAY")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
     staticStyle: {
       "text-align": "center"
     }
@@ -84800,7 +84804,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
       staticStyle: {
-        "font-weight": "bolder"
+        "font-weight": "bolder",
+        "text-align": "center"
       }
     }, [_vm._v(_vm._s(_vm.formatPrice(item.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
       staticStyle: {
@@ -84884,7 +84889,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
           staticStyle: {
-            "font-weight": "bolder"
+            "font-weight": "bolder",
+            "text-align": "center"
           }
         }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
           staticClass: "has-child",
@@ -84964,7 +84970,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               }
             }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
               staticStyle: {
-                "font-weight": "bolder"
+                "font-weight": "bolder",
+                "text-align": "center"
               }
             }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
               staticStyle: {
@@ -85107,7 +85114,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
     staticStyle: {
-      "font-weight": "bolder"
+      "font-weight": "bolder",
+      "text-align": "center"
     }
   }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_residual2)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()])], 2)])])]), _vm._v(" "), _c('div', {
     staticStyle: {

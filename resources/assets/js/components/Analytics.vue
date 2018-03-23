@@ -30,10 +30,10 @@
                         <th>
                             # UPR
                         </th>
-                        <th v-if="showInfo" >Total ABC</th>
-                        <th v-if="showInfo" >ABC FOR COMPLETED PROJECTS</th>
-                        <th v-if="showInfo" >TOTAL BID PRICE FOR COMPLETED PROJECTS</th>
-                        <th v-if="showInfo" >RESIDUAL OF COMPLETED PROJECTS </th>
+                        <th v-if="showInfo" >Total ABC <br> <small>(in Php)</small></th>
+                        <th v-if="showInfo" >ABC FOR COMPLETED PROJECTS<br> <small>(in Php)</small></th>
+                        <th v-if="showInfo" >TOTAL BID PRICE FOR COMPLETED PROJECTS<br> <small>(in Php)</small></th>
+                        <th v-if="showInfo" style="text-align:center">RESIDUAL OF COMPLETED PROJECTS <br> <small>(in Php)</small></th>
                         <th v-if="show" >NUMBER OF DAYS DELAY</th>
                         <th style="text-align:center" v-if="show" >CURRENT STATUS</th>
                         <th style="text-align:center" v-if="show" >JUSTIFICATION</th>
@@ -57,7 +57,7 @@
                             <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_abc)}}</td>
                             <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_approved_abc)}}</td>
                             <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_bid)}}</td>
-                            <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_complete_residual)}}</td>
+                            <td style="font-weight:bolder;text-align:center" v-if="showInfo">{{formatPrice(item.total_complete_residual)}}</td>
                             <td style="font-weight:bolder" v-if="show"></td>
                             <td v-if="show"></td>
                             <td v-if="show"></td>
@@ -120,7 +120,7 @@
                                                         <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_abc)}}</td>
                                                         <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_approved_abc)}}</td>
                                                         <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_bid)}}</td>
-                                                        <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_complete_residual)}}</td>
+                                                        <td style="font-weight:bolder;text-align:center" v-if="showInfo">{{formatPrice(itemProgData.total_complete_residual)}}</td>
 
                                                         <td v-if="show" ></td>
                                                         <td v-if="show" ></td>
@@ -183,7 +183,7 @@
                                                                                     <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_abc)}}</td>
                                                                                     <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_approved_abc)}}</td>
                                                                                     <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_bid)}}</td>
-                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_complete_residual)}}</td>
+                                                                                    <td style="font-weight:bolder;text-align:center" v-if="showInfo" >{{formatPrice(itemUnitData.total_complete_residual)}}</td>
 
                                                                                     <td v-if="show" ></td>
                                                                                     <td v-if="show"   style="text-align:left"></td>
@@ -276,7 +276,7 @@
                         <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_abc)}}</td>
                         <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_approved_abc)}}</td>
                         <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_bid)}}</td>
-                        <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_residual2)}}</td>
+                        <td style="font-weight:bolder;text-align:center" v-if="showInfo" >{{formatPrice(total_residual2)}}</td>
                         <td v-if="show" ></td>
                         <td v-if="show" ></td>
                         <td v-if="show" ></td>
@@ -534,7 +534,7 @@ var tarray2IDs           =   [];
             },
             formatPrice(value) {
                 let val = (value/1).toFixed(2).replace('.', '.')
-                return "Php " + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             },
             formatDate(value) {
                 if(value){
