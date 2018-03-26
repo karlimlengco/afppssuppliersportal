@@ -49,11 +49,7 @@
         <td class="align-middle align-center" width="15%"><strong>Unit Cost</strong></td>
         <td class="align-middle align-center" width="15%"><strong>Amount</strong></td>
     </tr>
-    <tr>
-    <td>
       {{items}}
-    </td>
-    </tr>
     <tr>
         <td class="align-center"  colspan="7" style="text-transform:uppercase">{{bid_amount_word}} Pesos Only</td>
         <td  class="align-right" >Php {{bid_amount}}</td>
