@@ -95,7 +95,7 @@
                         <br>
                         <br>
 
-                        <div style="page-break-before: auto;">
+                        <div style="page-break-before: avoid;">
                           <p>After having carefully read and accepted your General Conditions, I/We hereby certify the item/s quoted is of the quality/standard at the price/s noted above.</p>
                           <!-- form signatories -->
                           <table class="printable-form__body__table no-border no-padding" >
