@@ -652,7 +652,8 @@ class CanvassingController extends Controller
 
         if($result->cop == 1)
         {
-            $signatory      =   $result->chief_signatory;
+            // $signatory      =   $result->chief_signatory;
+            $signatory      =   $result->secretary_signatory;
         }
         elseif($result->cop == 2)
         {
@@ -721,7 +722,8 @@ class CanvassingController extends Controller
         $data['ref_number']         =  $result->rfq->upr->ref_number;
         if($result->rop == 1)
         {
-            $signatory      =   $result->chief_signatory;
+            // $signatory      =   $result->chief_signatory;
+            $signatory      =   $result->secretary_signatory;
         }
         elseif($result->rop == 2)
         {
