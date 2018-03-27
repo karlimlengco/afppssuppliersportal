@@ -666,9 +666,6 @@ class CanvassingController extends Controller
         {
             $signatory      =   $result->legal_signatory;
         }
-        elseif($result->cop ==6){
-            $signatory      =   $result->chief_signatory;
-        }
         else
         {
             $signatory      =   $result->secretary_signatory;
@@ -737,10 +734,6 @@ class CanvassingController extends Controller
         elseif($result->rop == 4)
         {
             $signatory      =   $result->legal_signatory;
-        }
-        elseif($result->rop == 6)
-        {
-            $signatory      =   $result->chief_signatory;
         }else{
             $signatory      =   $result->secretary_signatory;
         }

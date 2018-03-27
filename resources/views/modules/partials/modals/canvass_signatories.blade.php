@@ -21,11 +21,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                     {{--    <tr>
                             <td>{{$data->chieftain->name}}</td>
                             <td>
                                 signatory of noa
-                                {{-- <input type="checkbox" name="attendance[]" @if($data->chief_attendance == 1) checked @endif value="1"> --}}
                             </td>
                             <td>
                                 <input type="radio" name="cop" @if($data->cop == 6) checked @endif  value="6">
@@ -33,7 +32,7 @@
                             <td>
                                 <input type="radio" name="rop" @if($data->rop == 6) checked @endif value="6">
                             </td>
-                        </tr>
+                        </tr> --}}
                         <tr>
                             <td>{{$data->officer->name}}</td>
                             <td>
