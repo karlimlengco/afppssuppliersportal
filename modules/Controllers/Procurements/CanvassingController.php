@@ -629,7 +629,7 @@ class CanvassingController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function view    $id, CanvassingRepository $model, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
+    public function viewCOP($id, CanvassingRepository $model, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
     {
         $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
         $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
