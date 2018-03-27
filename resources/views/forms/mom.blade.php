@@ -120,12 +120,14 @@
                         @endforeach
                     </table>
 
-                    <p>That after reading the price quotation submitted of the proponent for {{$data['canvass']->rfq_number}}, {{$data['canvass']->winners->awarder->ranks}} {{$data['canvass']->winners->awarder->name}} {{$data['canvass']->winners->awarder->branch}} moved {{$data['canvass']->winners->winner->supplier->name}} be declared as the winner for having the lowest price among other bidder. {{$data['canvass']->winners->seconder->ranks}} {{$data['canvass']->winners->seconder->name}} {{$data['canvass']->winners->seconder->branch}} seconded it. Since no objection was raised, the Chairman declared {{$data['canvass']->winners->winner->supplier->name}} as the winner.</p>
-                    @if($data['resolution'] != null)
-                    <p>Resolution: {{$data['resolution']}}</p>
-                    @endif
-                    <p><strong>VI. ADJOURNMENT:</strong> </p>
-                    <p class="indent-first-line">The Chairman thanked the attendees and declared the meeting adjourned at exactly {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_closed'])->format('Hi')}}H</p>
+                    <div style="page-break-inside:avoid">
+                      <p >That after reading the price quotation submitted of the proponent for {{$data['canvass']->rfq_number}}, {{$data['canvass']->winners->awarder->ranks}} {{$data['canvass']->winners->awarder->name}} {{$data['canvass']->winners->awarder->branch}} moved {{$data['canvass']->winners->winner->supplier->name}} be declared as the winner for having the lowest price among other bidder. {{$data['canvass']->winners->seconder->ranks}} {{$data['canvass']->winners->seconder->name}} {{$data['canvass']->winners->seconder->branch}} seconded it. Since no objection was raised, the Chairman declared {{$data['canvass']->winners->winner->supplier->name}} as the winner.</p>
+                      @if($data['resolution'] != null)
+                      <p>Resolution: {{$data['resolution']}}</p>
+                      @endif
+                      <p><strong>VI. ADJOURNMENT:</strong> </p>
+                      <p class="indent-first-line">The Chairman thanked the attendees and declared the meeting adjourned at exactly {{\Carbon\Carbon::createFromFormat('H:i:s',$data['time_closed'])->format('Hi')}}H</p>
+                    </div>
                     <table class="printable-form__body__table no-border no-padding" style="page-break-inside:avoid">
                      {{--    <tr>
                             <td class="align-bottom align-left" width="45%" height="80px">
