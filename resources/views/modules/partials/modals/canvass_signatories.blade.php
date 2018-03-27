@@ -22,8 +22,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{$data->officer->chieftain}}</td>
+                            <td>{{$data->chieftain->name}}</td>
                             <td>
+                                signatory of noa
                                 {{-- <input type="checkbox" name="attendance[]" @if($data->chief_attendance == 1) checked @endif value="1"> --}}
                             </td>
                             <td>
