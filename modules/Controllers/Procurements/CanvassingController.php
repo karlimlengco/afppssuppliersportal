@@ -666,12 +666,14 @@ class CanvassingController extends Controller
         {
             $signatory      =   $result->legal_signatory;
         }
-        elseif($result->cop == 5)
-        {
-            $signatory      =   $result->secretary_signatory;
-        }else{
+        elseif($result->cop ==6)
             $signatory      =   $result->chief_signatory;
         }
+        else
+        {
+            $signatory      =   $result->secretary_signatory;
+        }
+
 
         $data['rfq_number']         =  $result->rfq->rfq_number;
         $data['total_amount']       =  $result->upr->total_amount;
@@ -736,8 +738,10 @@ class CanvassingController extends Controller
         {
             $signatory      =   $result->legal_signatory;
         }
-        else
+        elseif($result->rop == 6)
         {
+            $signatory      =   $result->chief_signatory;
+        }else{
             $signatory      =   $result->secretary_signatory;
         }
 
