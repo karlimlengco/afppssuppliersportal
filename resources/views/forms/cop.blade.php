@@ -56,7 +56,7 @@
                                   <tr>
                                       <td>
                                           <div class="signatory-name-justify">
-                                              <strong  style="text-transform: capitalize;">{{$data['signatory'][0]}}</strong>
+                                              <strong  style="text-transform: uppercase;">{{$data['signatory'][0]}}</strong>
                                               <span></span>
                                           </div>
                                       </td>
@@ -65,7 +65,7 @@
                                   <tr>
                                       <td>
                                           <div class="signatory-rank-justify">
-                                              <strong style="text-transform: capitalize;">{{$data['signatory'][1]}} {{$data['signatory'][2]}}</strong>
+                                              <strong style="text-transform: uppercase;">{{$data['signatory'][1]}} {{$data['signatory'][2]}}</strong>
                                               <span></span>
                                           </div>
                                       </td>
