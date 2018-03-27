@@ -56,7 +56,7 @@
                                   <tr>
                                       <td>
                                           <div class="signatory-name-justify">
-                                              <strong>{{$data['signatory'][0]}}</strong>
+                                              <strong  style="text-transform: capitalize;">{{$data['signatory'][0]}}</strong>
                                               <span></span>
                                           </div>
                                       </td>
