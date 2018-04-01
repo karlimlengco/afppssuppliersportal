@@ -27,7 +27,7 @@ Invitation to Submit Price Quotation
 
 <div class="row">
     <div class="twelve columns align-right utility utility--align-right">
-        <button type="submit" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+        <button type="submit" id="save-button" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
         <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
     </div>
 </div>
@@ -74,6 +74,10 @@ Invitation to Submit Price Quotation
 <script src="/vendors/timepicker/timepicker.min.js"></script>
 
 <script type="text/javascript">
+
+    $(document).on("click", "#save-button",function() {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
 
     var timepicker1 = new TimePicker(['id-field-canvassing_time'], {
         lang: 'en',

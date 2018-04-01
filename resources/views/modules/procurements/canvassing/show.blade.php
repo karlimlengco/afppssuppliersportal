@@ -155,6 +155,10 @@ Canvassing
 @section('scripts')
 <script type="text/javascript">
 
+
+    $(document).on("click", "#noa-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
 $('#signatory-button').click(function(e){
     e.preventDefault();
     $('#signatory-modal').addClass('is-visible');

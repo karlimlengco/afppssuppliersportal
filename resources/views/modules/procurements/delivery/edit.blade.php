@@ -26,7 +26,7 @@ Notice Of Delivery
     <div class="row">
         <div class="twelve columns align-right utility utility--align-right">
 
-            <button type="submit" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+            <button type="submit" id="delivery-submit" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
 
             <a href="{{route($showRoute, $data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
@@ -108,6 +108,9 @@ Notice Of Delivery
 
 <script type="text/javascript">
 
+    $(document).on("click", "#delivery-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
     // datepicker
 
      var delivery_date = new Pikaday(

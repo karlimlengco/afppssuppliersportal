@@ -34,7 +34,7 @@ Purchase Order
 
 <div class="twelve columns utility utility--align-right" >
     <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-    <button type="submit" class="button"><i class="nc-icon-mini ui-2_disk"></i></button>
+    <button type="submit" id="po-submit" class="button"><i class="nc-icon-mini ui-2_disk"></i></button>
 </div>
 
 <div class="row">
@@ -161,6 +161,13 @@ Purchase Order
 <script src="/vendors/timepicker/timepicker.min.js"></script>
 
 <script type="text/javascript">
+
+
+    $(document).on("click", "#po-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
+
+
     var count    =0;
     var picker = new Pikaday(
     {
@@ -223,7 +230,7 @@ Purchase Order
             newRow += "<input type='text' name='unit_measurement[]' tabindex='-1' readonly value='"+entry.unit_measurement+"' class='input'/>";
             newRow += "</td>";
             newRow += "<td id='unit_price_row"+table_len+"'>";
-            newRow += "<input type='text' name='unit_price[]' id='rows"+table_len+"' class='input numeric unit_price'/>";
+            newRow += "<input type='text' name='unit_price[]' id='rows"+table_len+"' class='input numeric unit_price' required/>";
             newRow += "</td>";
             newRow += "<td id='total_amount_row"+table_len+"'>";
             newRow += "<input type='text' id='total_amount"+table_len+"' tabindex='-1' name='total_amount[]' value='' class='input total_amount' readonly/>";

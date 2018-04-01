@@ -560,6 +560,13 @@ class PurchaseOrderController extends Controller
         BlankRFQRepository $rfq,
         HolidayRepository $holidays)
     {
+        $this->validate($request, [
+            'purchase_date'     =>  'required',
+            'po_number'         =>  'required',
+            'payment_term'      =>  'required',
+            'delivery_terms'    =>  'required',
+            'type'              =>  'required',
+        ]);
         $noa_model              =   $noa->with('winner')->findByUPR($id);
 
         $award_accepted_date    =   Carbon::createFromFormat('!Y-m-d', $noa_model->award_accepted_date);

@@ -34,7 +34,7 @@ Purchase Order
 
 <div class="twelve columns utility utility--align-right" >
     <a href="{{route($indexRoute)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-    <button type="submit" class="button"><i class="nc-icon-mini ui-2_disk"></i></button>
+    <button type="submit" id="po-submit" class="button"><i class="nc-icon-mini ui-2_disk"></i></button>
 </div>
 
 <div class="row">
@@ -186,6 +186,10 @@ Purchase Order
 
     $(document).on('click', '#upload-button', function(e){
         $("#file-input").click();
+    });
+
+    $(document).on("click", "#po-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
     });
 
 

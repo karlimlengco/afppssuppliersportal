@@ -331,6 +331,30 @@ Unit Purchase Request
 <script src="/vendors/timepicker/timepicker.min.js"></script>
 <script type="text/javascript">
 
+    $(document).on("click", "#ispq-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
+
+    $(document).on("click", "#rfq-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
+
+    $(document).on("click", "#canvass-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
+
+    $(document).on("click", "#ntp-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
+
+    $(document).on("click", "#nod-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
+
+    $(document).on("click", "#voucher-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
+
     $('#philgeps-posting-button').click(function(e){
         e.preventDefault();
         $('#philgeps-posting-modal').addClass('is-visible');

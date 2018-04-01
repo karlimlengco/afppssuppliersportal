@@ -103,7 +103,8 @@ class ISPQController extends Controller
         SignatoryRepository $signatories,
         BlankRFQRepository $rfq)
     {
-        $rfq_list           =   $rfq->lists('id', 'rfq_number');
+        // $rfq_list           =   $rfq->lists('id', 'rfq_number');
+        $rfq_list           =   $upr->listUpr();
         $signatory_lists    =   $signatories->lists('id', 'name');
         $this->view('modules.procurements.ispq.create',[
             'indexRoute'        =>  $this->baseUrl.'index',
@@ -200,8 +201,8 @@ class ISPQController extends Controller
             'upr_id'            =>  $upr_model->id,
             'description'       =>  $upr_model->project_name,
             'total_amount'      =>  $upr_model->total_amount,
-            'upr_number'        =>  $upr_model->ref_number,
-            'rfq_number'        =>  $upr_model->ref_number,
+            'upr_number'        =>  $upr_model->upr_number,
+            'rfq_number'        =>  $upr_model->upr_number,
             'delay_count'       =>  $wd,
             'canvassing_date'   =>  $request->get('canvassing_date'),
             'canvassing_time'   =>  $request->get('canvassing_time'),
@@ -238,7 +239,9 @@ class ISPQController extends Controller
     public function store(
         QuotationRepository $quotations,
         ISPQRequest $request,
+        UnitPurchaseRequestRepository $upr,
         ISPQRepository $model,
+        HolidayRepository $holidays,
         BlankRFQRepository $rfq)
     {
         $result =   $model->save([
@@ -253,18 +256,51 @@ class ISPQController extends Controller
         foreach($items as $key => $item)
         {
             $newId          =   $items[$key];
-            $rfq_model      =   $rfq->getById($newId);
+            $rfq_model      =   $upr->getById($newId);
+
+            $transaction_date       =   Carbon::createFromFormat('Y-m-d', $request->get('transaction_date') );
+
+            $holiday_lists          =   $holidays->lists('id','holiday_date');
+            $cd                     =   $rfq_model->date_processed->diffInDays($transaction_date);
+
+            $day_delayed            =   $rfq_model->date_processed->diffInDaysFiltered(function(Carbon $date)use ($holiday_lists) {
+                return $date->isWeekday() && !in_array($date->format('Y-m-d'), $holiday_lists);
+            }, $transaction_date);
+
+            $wd                     =   ($day_delayed > 0) ?  $day_delayed - 1 : 0;
+
+            if($day_delayed  > 3)
+            {
+                $day_delayed            =   $day_delayed - 3;
+            }
+
             $data           =   [
                 'ispq_id'           =>  $result->id,
                 'rfq_id'            =>  $rfq_model->id,
-                'upr_id'            =>  $rfq_model->upr_id,
-                'description'       =>  $rfq_model->upr->project_name,
-                'total_amount'      =>  $rfq_model->upr->total_amount,
+                'upr_id'            =>  $rfq_model->id,
+                'description'       =>  $rfq_model->project_name,
+                'total_amount'      =>  $rfq_model->total_amount,
                 'upr_number'        =>  $rfq_model->upr_number,
-                'rfq_number'        =>  $rfq_model->rfq_number,
+                'rfq_number'        =>  $rfq_model->upr_number,
+                'delay_count'       =>  $wd,
                 'canvassing_date'   =>  $request->get('canvassing_date'),
                 'canvassing_time'   =>  $request->get('canvassing_time'),
+                'remarks'           =>  $request->get('remarks'),
+                'action'            =>  $request->get('action'),
             ];
+
+            $upr_result =   $upr->update(['status' => 'ITSPQ Prepared',
+                'next_allowable'=> 3,
+                'next_step'     => 'PhilGeps Posting',
+                'next_due'      => $rfq_model->date_processed->addDays(3),
+                'last_date'     => $transaction_date,
+                'delay_count'   => $wd,
+                'calendar_days' => $cd + $rfq_model->calendar_days,
+                'last_action'   => $request->action,
+                'last_remarks'  => $request->remarks
+                ], $rfq_model->id);
+
+            event(new Event($upr_result, $upr_result->upr_number." ITSPQ Prepared"));
 
             $quotations->save($data);
         }

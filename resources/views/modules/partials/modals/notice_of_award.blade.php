@@ -45,7 +45,7 @@
             </div>
 
             <div class="modal__dialogue__foot">
-                <button class="button">Proceed</button>
+                <button class="button" id="noa-submit">Proceed</button>
             </div>
 
         </form>

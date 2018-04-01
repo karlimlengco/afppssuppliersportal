@@ -375,6 +375,30 @@ Unit Purchase Request
 <script type="text/javascript">
 
 
+    $(document).on("click", "#ispq-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
+
+    $(document).on("click", "#rfq-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
+
+    $(document).on("click", "#canvass-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
+
+    $(document).on("click", "#ntp-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
+
+    $(document).on("click", "#nod-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
+
+    $(document).on("click", "#voucher-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
+
     $approver = $('#id-field-signatory_id').selectize({
         create: true,
         create:function (input){

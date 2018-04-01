@@ -25,7 +25,7 @@ Inspection And Acceptance Report
 <div class="row">
     <div class="twelve columns utility utility--align-right" >
         <a href="{{route($indexRoute,$id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-        <button class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
+        <button class="button" id="tiac-submit" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
 
     </div>
 </div>
@@ -97,6 +97,9 @@ Inspection And Acceptance Report
 @section('scripts')
 <script type="text/javascript">
 
+    $(document).on("click", "#tiac-submit",function(e) {
+        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+    });
     // datepicker
     var inspection_date = new Pikaday(
     {

@@ -41,6 +41,15 @@ class UnitPurchaseRequestRepository extends BaseRepository
         return $model->pluck($value, $id)->all();
     }
 
+    public function listUpr()
+    {
+        $model =    $this->model;
+
+        $model =    $model->whereStatus('upr_processing');
+
+        return $model->pluck('upr_number', 'id')->all();
+    }
+
     /**
      * [findByRFQId description]
      *
