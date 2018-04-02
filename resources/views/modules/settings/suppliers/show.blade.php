@@ -159,7 +159,7 @@ Suppliers
                 <td>{{$attachment->validity_date}}</td>
                 <td>
 
-                <a href="#" class="button" data-id="{{$attachment->id}}" class="delete-button" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
+                <a href="#" data-id="{{$attachment->id}}" class="button delete-button" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
 
                 </td>
             </tr>
