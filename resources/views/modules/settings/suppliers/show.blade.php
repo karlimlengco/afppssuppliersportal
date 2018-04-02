@@ -159,7 +159,7 @@ Suppliers
                 <td>{{$attachment->validity_date}}</td>
                 <td>
 
-                <a href="#" class="button" data-id="{{$attachment->id}}" id="delete-button" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
+                <a href="#" class="button" data-id="{{$attachment->id}}" class="delete-button" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a>
 
                 </td>
             </tr>
@@ -175,7 +175,7 @@ Suppliers
 <script type="text/javascript">
 
 
-    $('#delete-button').click(function(e){
+    $('.delete-button').click(function(e){
         e.preventDefault();
         var val = $(this).data('id');
 
