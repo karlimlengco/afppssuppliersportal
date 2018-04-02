@@ -151,7 +151,7 @@
                         </td>
                     </tr>
                 </table> --}}
-                <table class="printable-form__body__table">
+                <table class="printable-form__body__table"  style="page-break-before: auto">
                     <tr>
                         <td class="border-left-only"  height="30px"></td>
                         <td class="no-border"  height="40px"></td>
