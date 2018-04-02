@@ -59,14 +59,18 @@ trait DatatableTrait
     {
         return Datatables::of($model)
             ->addColumn('transaction_date', function ($data) {
+                // $route  =  route( 'procurements.ispq.edit',[$data->id] );
+                return  $data->transaction_date;
+            })
+            ->editColumn('venue', function ($data) {
                 $route  =  route( 'procurements.ispq.edit',[$data->id] );
-                return ' <a  href="'.$route.'" > '. $data->transaction_date .'</a>';
+                return ' <a  href="'.$route.'" > '.   $data->venue  .'</a>';
             })
             ->editColumn('print_button', function ($data) {
                 $route  =  route( 'procurements.ispq.print',[$data->id] );
                 return ' <a  href="'.$route.'" tooltip="Print">  <span class="nc-icon-glyph tech_print"></span> </a>';
             })
-            ->rawColumns(['transaction_date', 'print_button'])
+            ->rawColumns(['transaction_date', 'print_button', 'venue'])
             ->make(true);
     }
 }
