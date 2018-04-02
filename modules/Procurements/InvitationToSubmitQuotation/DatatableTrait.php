@@ -44,7 +44,7 @@ trait DatatableTrait
 
         }
 
-        $model->orderBy('created_at', 'desc');
+        $model->orderBy('transaction_date', 'desc');
 
         return $this->dataTable($model->get());
     }
