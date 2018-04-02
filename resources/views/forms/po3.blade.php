@@ -151,6 +151,7 @@
                         </td>
                     </tr>
                 </table> --}}
+                <div style="page-break-inside: avoid;">
                 <table class="printable-form__body__table"  style="page-break-before: auto">
                     <tr>
                         <td class="border-left-only"  height="30px"></td>
@@ -267,6 +268,7 @@
                         <td class="no-padding border-right-only"></td>
                     </tr>
                 </table>
+                </div>
             </div>
 
 
