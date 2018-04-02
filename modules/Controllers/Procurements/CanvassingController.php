@@ -615,7 +615,7 @@ class CanvassingController extends Controller
         $data['legal']              =  explode('/', $result->legal_signatory);
         $data['sec']                =  explode('/', $result->secretary_signatory);
         $data['min_bid']            =  $min;
-        $data['today']              =  Carbon::now()->format('Y-m-d');
+        $data['today']              =  $result->canvass_date;
         $pdf = PDF::loadView('forms.canvass', ['data' => $data])
         ->setOption('margin-bottom', 30)
         ->setOption('footer-html', route('pdf.footer'));

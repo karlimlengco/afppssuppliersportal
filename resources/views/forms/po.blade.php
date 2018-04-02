@@ -136,6 +136,7 @@
                         <td class="align-top no-border-bottom" colspan="6" height="40px">In case of failure to make the full delivery within the time specified above, a penalty of one-tenth (1/10) of one percent (1%) for every day of delay shall be imposed.</td>
                     </tr>
                 </table>
+                <div style="page-break-inside: avoid;">
                 <table class="printable-form__body__table" style="page-break-before: auto">
                     <tr>
                         <td class="border-left-only" width="45%"></td>
@@ -240,6 +241,7 @@
                         <td class="no-border-top no-border-bottom" colspan="6" height="15px"></td>
                     </tr>
                 </table>
+               </div>
             </div>
 
 
