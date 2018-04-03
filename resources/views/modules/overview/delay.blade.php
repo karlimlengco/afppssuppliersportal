@@ -33,7 +33,7 @@ Overview of Delayed Projects
     @endforeach
     <thead>
         <tr>
-           <th   style="background: #222222"  class="align-center" width="10%">PC/CO/BAC</th>
+           <th   style="background: #222222;text-align:center"  class="align-center" width="10%">PC/CO/BAC</th>
            <th   style="background: #222222"  class="align-center" width="30%" >Project Name/UPR Number</th>
            <th   style="background: #222222"  class="align-center" width="10%">UPR Receipt</th>
            {{-- <th   style="background: #222222"  class="align-center" width="10%">Ref Number</th> --}}
@@ -42,15 +42,13 @@ Overview of Delayed Projects
            <th   style="background: #222222; text-align:center!important"  class="align-center" width="10%">Current Status</th>
            <th   style="background: #222222; text-align:center!important"  class="align-center" width="10%">Next Stage</th>
            <th   style="background: #222222; text-align:center!important"  class="align-center" width="10%">Expected Finish Date</th>
-           <th   style="background: #222222; text-align:center!important"  class="align-center" width="10%"># Days delayed</th>
+           <th   style="background: #222222; text-align:center!important"  class="align-center" width="10%"># Days of Delayed</th>
            <th   style="background: #222222; text-align:center!important"  class="align-center" width="10%">Justification</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td colspan='3'><strong>Total Amount</strong></td>
           <td style='text-align:right'><strong>{{formatPrice($totalAbc)}}</strong></td>
           <td style='text-align:right'><strong>{{formatPrice($totalBid)}}</strong></td>
           <td></td>
@@ -79,20 +77,20 @@ Overview of Delayed Projects
                     <small style='font-size:12px'>({{$data->upr_number}})</small>
                     </p>
                 </td>
-                <td>{{$data->date_processed->format('d M Y')}}</td>
+                <td><span style="font-size:10px!important">{{$data->date_processed->format('d M Y')}}</span></td>
                 {{-- <td>{{$data->ref_number}}</td> --}}
                 {{-- <td style="text-transform: uppercase;">{{$data->status}}</td> --}}
 
                 <td style="text-align:right">{{formatPrice($data->total_abc)}}</td>
                 <td style="text-align:right">{{formatPrice($data->total_bid)}}</td>
-                <td style="text-transform: uppercase;text-align:left!important">
+                <td style="text-align:left!important">
                   {{$data->status}}
                 </td>
-                <td style="text-transform: uppercase;text-align:left!important">
+                <td style="text-align:left!important">
                   {{$data->next_step}}
                 </td>
-                <td style="text-transform: uppercase;text-align:left!important">
-                  {{\Carbon\Carbon::createFromFormat('Y-m-d',$data->next_due)->format('d M Y')}}
+                <td style="text-align:left!important">
+                  <span style="font-size:10px!important">{{\Carbon\Carbon::createFromFormat('Y-m-d',$data->next_due)->format('d M Y')}}</span>
                 </td>
                 <td style="text-transform: uppercase;text-align:center!important">
                   {{$d}}
@@ -106,9 +104,7 @@ Overview of Delayed Projects
             <?php $totalResidual =  $totalResidual + $data->total_residual; ?>
         @endforeach
         <tr>
-          <td>Total</td>
-          <td></td>
-          <td></td>
+          <td colspan='3'><strong>Total</strong></td>
           <td style='text-align:right'><strong>{{formatPrice($totalAbc)}}</strong></td>
           <td style='text-align:right'><strong>{{formatPrice($totalBid)}}</strong></td>
           <td></td>

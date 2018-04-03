@@ -41,15 +41,15 @@
         <table class="table table--with-border ">
             <thead>
                 <tr>
-                   <th>PC/CO/BAC</th>
-                   <th>Project Name/ Activity <br> UPR Number</th>
-                   <th>UPR Receipt</th>
-                   <th>ABC <br><small> (in Php)</small></th>
-                   <th>Current Status</th>
-                   <th>Next Stage</th>
-                   <th>Expected Finish Date</th>
-                   <th>Number of Days Delayed</th>
-                   <th>Please <br> Justify</th>
+                   <th style="background: #222222;text-align:center">PC/CO/BAC</th>
+                   <th style="background: #222222">Project Name/ Activity <br> UPR Number</th>
+                   <th style="background: #222222">UPR Receipt</th>
+                   <th style="background: #222222">ABC <br><small> (in Php)</small></th>
+                   <th style="background: #222222">Current Status</th>
+                   <th style="background: #222222">Next Stage</th>
+                   <th style="background: #222222">Expected Finish Date</th>
+                   <th style="background: #222222">Number of Days Delayed</th>
+                   <th style="background: #222222">Please <br> Justify <br> (click on icon)</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,7 +57,9 @@
                     <tr>
                         <td>{{item.pcco}}</td>
                         <td>
-                        {{item.project_name}}
+                            <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+item.id" >
+                              {{item.project_name}}
+                            </a>
                             <br><small style="font-size:12px">({{item.upr_number}})</small>
 
                         </td>
@@ -67,7 +69,7 @@
                         <td>{{item.next_step}}</td>
                         <td>{{formatDate(item.next_due)}}</td>
                         <td>{{item.delay}}</td>
-                        <td @click.prevent="showModal(item)" style="cursor:pointer" tooltip="Justification" position="left"> <span class="nc-icon-mini education_notepad"></span></td>
+                        <td @click.prevent="showModal(item)" style="cursor:pointer;text-align:center" tooltip="Justification" position="left"> <span class="nc-icon-mini education_notepad"></span></td>
                     </tr>
                 </template>
 
@@ -175,6 +177,10 @@
             formatPrice(value) {
                 let val = (value/1).toFixed(2).replace('.', ',')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            },
+            goToUPR(item){
+              // /procurements/unit-purchase-requests/timelines/{{$item->id}}
+
             },
             formatDate(value) {
                 if(value){

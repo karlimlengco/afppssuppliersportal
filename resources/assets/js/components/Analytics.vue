@@ -31,13 +31,13 @@
                             # UPR
                         </th>
                         <th v-if="showInfo" >Total ABC <br> <small>(in Php)</small></th>
-                        <th v-if="showInfo" >ABC FOR COMPLETED PROJECTS<br> <small>(in Php)</small></th>
-                        <th v-if="showInfo" >TOTAL BID PRICE FOR COMPLETED PROJECTS<br> <small>(in Php)</small></th>
-                        <th v-if="showInfo" style="text-align:center">RESIDUAL OF COMPLETED PROJECTS <br> <small>(in Php)</small></th>
-                        <th v-if="show" >NUMBER OF DAYS DELAY</th>
-                        <th style="text-align:center" v-if="show" >CURRENT STATUS</th>
-                        <th style="text-align:center" v-if="show" >JUSTIFICATION</th>
-                        <th style="text-align:center" v-if="show" >ACTION TAKEN</th>
+                        <th v-if="showInfo" >ABC for completed projects<br> <small>(in Php)</small></th>
+                        <th v-if="showInfo" >Total bid price for completed projects<br> <small>(in Php)</small></th>
+                        <th v-if="showInfo" style="text-align:center">Residual of completed projects <br> <small>(in Php)</small></th>
+                        <th v-if="show" >Number of days delay</th>
+                        <th style="text-align:center" v-if="show" >Current status</th>
+                        <th style="text-align:center" v-if="show" >Justification</th>
+                        <th style="text-align:center" v-if="show" >Action taken</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,10 +54,10 @@
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/cancelled/'+item.programs+'?type='+types+'&&date_from='+startDate+'&&date_to='+endDate" tooltip="Cancelled" style="color:#7a7a7a" >({{item.cancelled_count}})</a>
                                 <a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/overview/delay/'+item.programs+'?type='+types+'&&date_from='+startDate+'&&date_to='+endDate" tooltip="Delay" class="red">({{item.delay_count}})</a>
                             </td>
-                            <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_abc)}}</td>
-                            <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_approved_abc)}}</td>
-                            <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(item.total_bid)}}</td>
-                            <td style="font-weight:bolder;text-align:center" v-if="showInfo">{{formatPrice(item.total_complete_residual)}}</td>
+                            <td style="font-weight:bolder;text-align:right" v-if="showInfo">{{formatPrice(item.total_abc)}}</td>
+                            <td style="font-weight:bolder;text-align:right" v-if="showInfo">{{formatPrice(item.total_approved_abc)}}</td>
+                            <td style="font-weight:bolder;text-align:right" v-if="showInfo">{{formatPrice(item.total_bid)}}</td>
+                            <td style="font-weight:bolder;text-align:right" v-if="showInfo">{{formatPrice(item.total_complete_residual)}}</td>
                             <td style="font-weight:bolder" v-if="show"></td>
                             <td v-if="show"></td>
                             <td v-if="show"></td>
@@ -117,10 +117,10 @@
                                                                 ({{itemProgData.delay_count}})
                                                             </a>
                                                         </td>
-                                                        <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_abc)}}</td>
-                                                        <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_approved_abc)}}</td>
-                                                        <td style="font-weight:bolder" v-if="showInfo">{{formatPrice(itemProgData.total_bid)}}</td>
-                                                        <td style="font-weight:bolder;text-align:center" v-if="showInfo">{{formatPrice(itemProgData.total_complete_residual)}}</td>
+                                                        <td style="font-weight:bolder;text-align:right" v-if="showInfo">{{formatPrice(itemProgData.total_abc)}}</td>
+                                                        <td style="font-weight:bolder;text-align:right" v-if="showInfo">{{formatPrice(itemProgData.total_approved_abc)}}</td>
+                                                        <td style="font-weight:bolder;text-align:right" v-if="showInfo">{{formatPrice(itemProgData.total_bid)}}</td>
+                                                        <td style="font-weight:bolder;text-align:right" v-if="showInfo">{{formatPrice(itemProgData.total_complete_residual)}}</td>
 
                                                         <td v-if="show" ></td>
                                                         <td v-if="show" ></td>
@@ -180,10 +180,10 @@
                                                                                         </a>
 
                                                                                     </td>
-                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_abc)}}</td>
-                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_approved_abc)}}</td>
-                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemUnitData.total_bid)}}</td>
-                                                                                    <td style="font-weight:bolder;text-align:center" v-if="showInfo" >{{formatPrice(itemUnitData.total_complete_residual)}}</td>
+                                                                                    <td style="font-weight:bolder;text-align:right" v-if="showInfo" >{{formatPrice(itemUnitData.total_abc)}}</td>
+                                                                                    <td style="font-weight:bolder;text-align:right" v-if="showInfo" >{{formatPrice(itemUnitData.total_approved_abc)}}</td>
+                                                                                    <td style="font-weight:bolder;text-align:right" v-if="showInfo" >{{formatPrice(itemUnitData.total_bid)}}</td>
+                                                                                    <td style="font-weight:bolder;text-align:right" v-if="showInfo" >{{formatPrice(itemUnitData.total_complete_residual)}}</td>
 
                                                                                     <td v-if="show" ></td>
                                                                                     <td v-if="show"   style="text-align:left"></td>
@@ -199,7 +199,7 @@
                                                                                                         <template v-if="itemProgCent.program == itemUnitData.short_code">
                                                                                                             <template v-if="itemProgCent.center == itemProgData.name">
                                                                                                         <tr  v-for="itemProgCentData in itemProgCent.data">
-                                                                                                    <td style="font-weight:bolder"> <i class="green" style="font-family: Verdana;">{{itemProgCentData.upr_number}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.project_name}})</a></small>
+                                                                                                    <td style="font-weight:bolder"> <i class="green" style="font-family: Verdana;">{{itemProgCentData.project_name}}</i> <small style="display:block"><a target="_blank" v-bind:href="'/procurements/unit-purchase-requests/timelines/'+itemProgCentData.id ">({{itemProgCentData.upr_number}})</a></small>
 
                                                                                                     <small>({{formatDate(itemProgCentData.date_processed)}})</small>
                                                                                                     </td>
@@ -215,10 +215,10 @@
                                                                                                         <span class="green" v-if="itemProgCentData.delay_count == 0 && itemProgCentData.ongoing_count != 0 && itemProgCentData.status != 'cancelled' ">Ongoing</span>
 
                                                                                                     </td>
-                                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemProgCentData.total_abc)}}</td>
-                                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemProgCentData.total_approved_abc)}}</td>
-                                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(itemProgCentData.total_bid)}}</td>
-                                                                                                    <td style="font-weight:bolder" v-if="showInfo" >{{itemProgCentData.total_complete_residual}}</td>
+                                                                                                    <td style="font-weight:bolder;text-align:right" v-if="showInfo" >{{formatPrice(itemProgCentData.total_abc)}}</td>
+                                                                                                    <td style="font-weight:bolder;text-align:right" v-if="showInfo" >{{formatPrice(itemProgCentData.total_approved_abc)}}</td>
+                                                                                                    <td style="font-weight:bolder;text-align:right" v-if="showInfo" >{{formatPrice(itemProgCentData.total_bid)}}</td>
+                                                                                                    <td style="font-weight:bolder;text-align:right" v-if="showInfo" >{{itemProgCentData.total_complete_residual}}</td>
 
                                                                                                     <td style="font-weight:bolder" v-if="show && itemProgCentData.status != 'completed'  ">
                                                                                                     <span v-if="itemProgCentData.status != 'cancelled' && itemProgCentData.delay_count != 0">{{itemProgCentData.delay}}</span>
@@ -273,10 +273,10 @@
                             <span tooltip="Cancelled" style="color:#7a7a7a">({{total_cancelled}})</span>
                             <span tooltip="Delay" class="red">({{total_delay}})</span>
                         </td>
-                        <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_abc)}}</td>
-                        <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_approved_abc)}}</td>
-                        <td style="font-weight:bolder" v-if="showInfo" >{{formatPrice(total_bid)}}</td>
-                        <td style="font-weight:bolder;text-align:center" v-if="showInfo" >{{formatPrice(total_residual2)}}</td>
+                        <td style="font-weight:bolder;text-align:right" v-if="showInfo" >{{formatPrice(total_abc)}}</td>
+                        <td style="font-weight:bolder;text-align:right" v-if="showInfo" >{{formatPrice(total_approved_abc)}}</td>
+                        <td style="font-weight:bolder;text-align:right" v-if="showInfo" >{{formatPrice(total_bid)}}</td>
+                        <td style="font-weight:bolder;text-align:right" v-if="showInfo" >{{formatPrice(total_residual2)}}</td>
                         <td v-if="show" ></td>
                         <td v-if="show" ></td>
                         <td v-if="show" ></td>

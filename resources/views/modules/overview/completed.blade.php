@@ -34,7 +34,7 @@ Overview of Completed Projects
     @endforeach
     <thead>
         <tr>
-           <th style="background: #222222" class="align-center" width="15%">PC/CO/BAC</th>
+           <th style="background: #222222;text-align:center" class="align-center" width="15%">PC/CO/BAC</th>
            <th style="background: #222222" class="align-center" width="40%" >Project Name/UPR Number</th>
            <th style="background: #222222" class="align-center" width="10%">UPR Receipt</th>
            {{-- <th class="align-center" width="20%">Ref Number</th> --}}
@@ -44,9 +44,7 @@ Overview of Completed Projects
         </tr>
     </thead>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td colspan='3'><strong>Total Amount</strong></td>
           <td style="text-align:right"><strong>{{formatPrice($totalAbc)}}</strong></td>
           <td style="text-align:right"><strong>{{formatPrice($totalBid)}}</strong></td>
           <td style="text-align:right"><strong>{{formatPrice($totalResidual)}}</strong></td>
@@ -68,9 +66,7 @@ Overview of Completed Projects
             </tr>
         @endforeach
         <tr>
-          <td>Total</td>
-          <td></td>
-          <td></td>
+          <td colspan='3'><strong>Total</strong></td>
           <td style="text-align:right"><strong>{{formatPrice($totalAbc)}}</strong></td>
           <td style="text-align:right"><strong>{{formatPrice($totalBid)}}</strong></td>
           <td style="text-align:right"><strong>{{formatPrice($totalResidual)}}</strong></td>

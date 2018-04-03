@@ -73287,6 +73287,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 var csrf_token = $('meta[name="csrf-token"]').attr('content');
@@ -73359,6 +73361,10 @@ var csrf_token = $('meta[name="csrf-token"]').attr('content');
         formatPrice: function formatPrice(value) {
             var val = (value / 1).toFixed(2).replace('.', ',');
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        },
+        goToUPR: function goToUPR(item) {
+            // /procurements/unit-purchase-requests/timelines/{{$item->id}}
+
         },
         formatDate: function formatDate(value) {
             if (value) {
@@ -84731,23 +84737,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                            # UPR\n                        ")]), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Total ABC "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(in Php)")])]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("ABC FOR COMPLETED PROJECTS"), _c('br'), _vm._v(" "), _c('small', [_vm._v("(in Php)")])]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("TOTAL BID PRICE FOR COMPLETED PROJECTS"), _c('br'), _vm._v(" "), _c('small', [_vm._v("(in Php)")])]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', {
+  }, [_vm._v("UNITS")]), _vm._v(" "), _c('th', [_vm._v("\n                            # UPR\n                        ")]), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Total ABC "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(in Php)")])]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("ABC for completed projects"), _c('br'), _vm._v(" "), _c('small', [_vm._v("(in Php)")])]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', [_vm._v("Total bid price for completed projects"), _c('br'), _vm._v(" "), _c('small', [_vm._v("(in Php)")])]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('th', {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("RESIDUAL OF COMPLETED PROJECTS "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(in Php)")])]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', [_vm._v("NUMBER OF DAYS DELAY")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
+  }, [_vm._v("Residual of completed projects "), _c('br'), _vm._v(" "), _c('small', [_vm._v("(in Php)")])]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', [_vm._v("Number of days delay")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("CURRENT STATUS")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
+  }, [_vm._v("Current status")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("JUSTIFICATION")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
+  }, [_vm._v("Justification")]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('th', {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("ACTION TAKEN")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
+  }, [_vm._v("Action taken")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
     return [_c('tr', [_c('td', {
       staticStyle: {
         "font-weight": "bolder"
@@ -84805,20 +84811,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("(" + _vm._s(item.delay_count) + ")")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', {
       staticStyle: {
-        "font-weight": "bolder"
+        "font-weight": "bolder",
+        "text-align": "right"
       }
     }, [_vm._v(_vm._s(_vm.formatPrice(item.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
       staticStyle: {
-        "font-weight": "bolder"
+        "font-weight": "bolder",
+        "text-align": "right"
       }
     }, [_vm._v(_vm._s(_vm.formatPrice(item.total_approved_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
       staticStyle: {
-        "font-weight": "bolder"
+        "font-weight": "bolder",
+        "text-align": "right"
       }
     }, [_vm._v(_vm._s(_vm.formatPrice(item.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
       staticStyle: {
         "font-weight": "bolder",
-        "text-align": "center"
+        "text-align": "right"
       }
     }, [_vm._v(_vm._s(_vm.formatPrice(item.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
       staticStyle: {
@@ -84890,20 +84899,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }, [_vm._v("\n                                                                (" + _vm._s(itemProgData.delay_count) + ")\n                                                            ")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', {
           staticStyle: {
-            "font-weight": "bolder"
+            "font-weight": "bolder",
+            "text-align": "right"
           }
         }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
           staticStyle: {
-            "font-weight": "bolder"
+            "font-weight": "bolder",
+            "text-align": "right"
           }
         }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_approved_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
           staticStyle: {
-            "font-weight": "bolder"
+            "font-weight": "bolder",
+            "text-align": "right"
           }
         }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
           staticStyle: {
             "font-weight": "bolder",
-            "text-align": "center"
+            "text-align": "right"
           }
         }, [_vm._v(_vm._s(_vm.formatPrice(itemProgData.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()]), _vm._v(" "), _c('tr', [_c('td', {
           staticClass: "has-child",
@@ -84971,20 +84983,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               }
             }, [_vm._v("\n                                                                                                (" + _vm._s(itemUnitData.delay_count) + ")\n                                                                                        ")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', {
               staticStyle: {
-                "font-weight": "bolder"
+                "font-weight": "bolder",
+                "text-align": "right"
               }
             }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
               staticStyle: {
-                "font-weight": "bolder"
+                "font-weight": "bolder",
+                "text-align": "right"
               }
             }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_approved_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
               staticStyle: {
-                "font-weight": "bolder"
+                "font-weight": "bolder",
+                "text-align": "right"
               }
             }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
               staticStyle: {
                 "font-weight": "bolder",
-                "text-align": "center"
+                "text-align": "right"
               }
             }, [_vm._v(_vm._s(_vm.formatPrice(itemUnitData.total_complete_residual)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td', {
               staticStyle: {
@@ -85008,7 +85023,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   staticStyle: {
                     "font-family": "Verdana"
                   }
-                }, [_vm._v(_vm._s(itemProgCentData.upr_number))]), _vm._v(" "), _c('small', {
+                }, [_vm._v(_vm._s(itemProgCentData.project_name))]), _vm._v(" "), _c('small', {
                   staticStyle: {
                     "display": "block"
                   }
@@ -85017,7 +85032,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                     "target": "_blank",
                     "href": '/procurements/unit-purchase-requests/timelines/' + itemProgCentData.id
                   }
-                }, [_vm._v("(" + _vm._s(itemProgCentData.project_name) + ")")])]), _vm._v(" "), _c('small', [_vm._v("(" + _vm._s(_vm.formatDate(itemProgCentData.date_processed)) + ")")])]), _vm._v(" "), _c('td', {
+                }, [_vm._v("(" + _vm._s(itemProgCentData.upr_number) + ")")])]), _vm._v(" "), _c('small', [_vm._v("(" + _vm._s(_vm.formatDate(itemProgCentData.date_processed)) + ")")])]), _vm._v(" "), _c('td', {
                   on: {
                     "click": function($event) {
                       $event.preventDefault();
@@ -85032,19 +85047,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
                   staticClass: "green"
                 }, [_vm._v("Ongoing")]) : _vm._e()]), _vm._v(" "), (_vm.showInfo) ? _c('td', {
                   staticStyle: {
-                    "font-weight": "bolder"
+                    "font-weight": "bolder",
+                    "text-align": "right"
                   }
                 }, [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
                   staticStyle: {
-                    "font-weight": "bolder"
+                    "font-weight": "bolder",
+                    "text-align": "right"
                   }
                 }, [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_approved_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
                   staticStyle: {
-                    "font-weight": "bolder"
+                    "font-weight": "bolder",
+                    "text-align": "right"
                   }
                 }, [_vm._v(_vm._s(_vm.formatPrice(itemProgCentData.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
                   staticStyle: {
-                    "font-weight": "bolder"
+                    "font-weight": "bolder",
+                    "text-align": "right"
                   }
                 }, [_vm._v(_vm._s(itemProgCentData.total_complete_residual))]) : _vm._e(), _vm._v(" "), (_vm.show && itemProgCentData.status != 'completed') ? _c('td', {
                   staticStyle: {
@@ -85115,20 +85134,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("(" + _vm._s(_vm.total_delay) + ")")])]), _vm._v(" "), (_vm.showInfo) ? _c('td', {
     staticStyle: {
-      "font-weight": "bolder"
+      "font-weight": "bolder",
+      "text-align": "right"
     }
   }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
     staticStyle: {
-      "font-weight": "bolder"
+      "font-weight": "bolder",
+      "text-align": "right"
     }
   }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_approved_abc)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
     staticStyle: {
-      "font-weight": "bolder"
+      "font-weight": "bolder",
+      "text-align": "right"
     }
   }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_bid)))]) : _vm._e(), _vm._v(" "), (_vm.showInfo) ? _c('td', {
     staticStyle: {
       "font-weight": "bolder",
-      "text-align": "center"
+      "text-align": "right"
     }
   }, [_vm._v(_vm._s(_vm.formatPrice(_vm.total_residual2)))]) : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e(), _vm._v(" "), (_vm.show) ? _c('td') : _vm._e()])], 2)])])]), _vm._v(" "), _c('div', {
     staticStyle: {
@@ -85471,13 +85493,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('table', {
     staticClass: "table table--with-border "
   }, [_vm._m(2), _vm._v(" "), _c('tbody', [_vm._l((_vm.items), function(item, index) {
-    return [_c('tr', [_c('td', [_vm._v(_vm._s(item.pcco))]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(item.project_name) + "\n                            "), _c('br'), _c('small', {
+    return [_c('tr', [_c('td', [_vm._v(_vm._s(item.pcco))]), _vm._v(" "), _c('td', [_c('a', {
+      attrs: {
+        "target": "_blank",
+        "href": '/procurements/unit-purchase-requests/timelines/' + item.id
+      }
+    }, [_vm._v("\n                              " + _vm._s(item.project_name) + "\n                            ")]), _vm._v(" "), _c('br'), _c('small', {
       staticStyle: {
         "font-size": "12px"
       }
     }, [_vm._v("(" + _vm._s(item.upr_number) + ")")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(item.date_processed)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatPrice(item.total_amount)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.status))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.next_step))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatDate(item.next_due)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.delay))]), _vm._v(" "), _c('td', {
       staticStyle: {
-        "cursor": "pointer"
+        "cursor": "pointer",
+        "text-align": "center"
       },
       attrs: {
         "tooltip": "Justification",
@@ -85552,7 +85580,44 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "six columns"
   }, [_c('h1', [_vm._v("Delay Notifications")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("PC/CO/BAC")]), _vm._v(" "), _c('th', [_vm._v("Project Name/ Activity "), _c('br'), _vm._v(" UPR Number")]), _vm._v(" "), _c('th', [_vm._v("UPR Receipt")]), _vm._v(" "), _c('th', [_vm._v("ABC "), _c('br'), _c('small', [_vm._v(" (in Php)")])]), _vm._v(" "), _c('th', [_vm._v("Current Status")]), _vm._v(" "), _c('th', [_vm._v("Next Stage")]), _vm._v(" "), _c('th', [_vm._v("Expected Finish Date")]), _vm._v(" "), _c('th', [_vm._v("Number of Days Delayed")]), _vm._v(" "), _c('th', [_vm._v("Please "), _c('br'), _vm._v(" Justify")])])])
+  return _c('thead', [_c('tr', [_c('th', {
+    staticStyle: {
+      "background": "#222222",
+      "text-align": "center"
+    }
+  }, [_vm._v("PC/CO/BAC")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "background": "#222222"
+    }
+  }, [_vm._v("Project Name/ Activity "), _c('br'), _vm._v(" UPR Number")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "background": "#222222"
+    }
+  }, [_vm._v("UPR Receipt")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "background": "#222222"
+    }
+  }, [_vm._v("ABC "), _c('br'), _c('small', [_vm._v(" (in Php)")])]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "background": "#222222"
+    }
+  }, [_vm._v("Current Status")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "background": "#222222"
+    }
+  }, [_vm._v("Next Stage")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "background": "#222222"
+    }
+  }, [_vm._v("Expected Finish Date")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "background": "#222222"
+    }
+  }, [_vm._v("Number of Days Delayed")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "background": "#222222"
+    }
+  }, [_vm._v("Please "), _c('br'), _vm._v(" Justify "), _c('br'), _vm._v(" (click on icon)")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

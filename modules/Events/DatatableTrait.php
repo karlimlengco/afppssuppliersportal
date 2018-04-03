@@ -39,7 +39,7 @@ trait DatatableTrait
                 return ' <a  href="'.$route.'" > '. $data->event .'</a>';
             })
             ->editColumn('created_at', function ($data) {
-                return $data->created_at->format('dHi\H M y');
+                return $data->created_at->format('dH\Hi M y');
             })
             ->rawColumns(['event', 'created_at'])
             ->make(true);
