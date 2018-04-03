@@ -137,7 +137,7 @@
                     </tr>
                 </table>
                 <div style="page-break-inside: avoid;">
-                <table class="printable-form__body__table" style="page-break-before: auto">
+                <table class="printable-form__body__table">
                     <tr>
                         <td class="border-left-only" width="45%"></td>
                         <td class="no-border" width="10%"></td>
