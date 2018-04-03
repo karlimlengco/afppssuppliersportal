@@ -100,8 +100,8 @@
                                 <td><strong>Qty</strong></td>
                                 <td><strong></strong></td>
                                 <td colspan="2"><strong>Unit Cost</strong></td>
-                                <td><strong>Unit Cost</strong></td>
-                                <td><strong>Amount</strong></td>
+                                <td><strong>Total Cost</strong></td>
+                                <td><strong>Account Code</strong></td>
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>

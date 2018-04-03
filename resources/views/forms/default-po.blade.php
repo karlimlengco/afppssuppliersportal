@@ -86,6 +86,10 @@
         <td class="align-center" colspan="4"><strong style="text-transform:uppercase">{{total_word}} PESOS ONLY.</strong></td>
         <td colspan="2" class="align-right"><strong>{{total}}</strong></td>
     </tr>
+</table>
+
+<div style="page-break-inside: avoid;">
+<table class="printable-form__body__table">
     <tr>
         <td colspan="6">
             BASIS: {{purpose}}<br>
@@ -109,10 +113,6 @@
             </td>
         </tr>
     </table>
-</table>
-
-<div style="page-break-inside: avoid;">
-<table class="printable-form__body__table">
     <tr>
         <td class="border-left-only" width="9%" height="30px"></td>
         <td class="no-border" width="1%" height="40px">Conforme:</td>

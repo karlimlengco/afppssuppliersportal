@@ -47,7 +47,7 @@
                         <td class="align-center" colspan="4"><strong>x-x-x-x-x-x-x Nothing Follows x-x-x-x-x-x-x</strong></td>
                     </tr>
                 </table>
-                <table class="printable-form__body__table">
+                <table class="printable-form__body__table"  style="page-break-inside: avoid;">
                     <tr>
                         <td class="align-center no-border-top" colspan="3" width="50%"><strong>INSPECTION</strong></td>
                         <td class="align-center no-border-top" colspan="3" width="50%"><strong>ACCEPTANCE</strong></td>

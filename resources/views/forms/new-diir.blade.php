@@ -71,8 +71,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="has-child" colspan="4">
-                                <table class="printable-form__body__table classic">
+                            <td class="has-child" colspan="4" >
+                                <table class="printable-form__body__table classic" >
                                     <tr>
                                         <td class="align-center" width="10%">Qty</td>
                                         <td class="align-center" width="10%">U/I</td>
