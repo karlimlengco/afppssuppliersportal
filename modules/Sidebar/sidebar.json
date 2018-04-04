@@ -104,7 +104,7 @@
                 {
                     "route" :   "procurements.ispq.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "ISPQ"
+                    "name"  :   "ITSPQ"
                 },
                 {
                     "route" :   "procurements.philgeps-posting.index",
