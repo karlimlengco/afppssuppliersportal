@@ -50,7 +50,7 @@
                             <tr>
                                 <td class="align-center"  style="text-align:center">{{$key+1}}</td>
                                 <td class="align-center" >{{$quotation->upr->upr_number}}</td>
-                                <td class="align-center" >{{ "RFQ-".str_replace('AMP', 'RFQ', $quotation->rfq_number) }}</td>
+                                <td class="align-center" >{{ "RFQ-".str_replace('AMP', 'RFQ', $quotation->upr->ref_number) }}</td>
                                 <td class="align-center" >@if($quotation->upr) @if($quotation->upr->modes) {{$quotation->upr->modes->name}} @endif @endif</td>
                                 <td class="align-left" >{{$quotation->description}}</td>
                                 <td class="align-right" >{{formatPrice($quotation->total_amount)}}</td>
