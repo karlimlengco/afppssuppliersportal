@@ -345,7 +345,7 @@ class RFQProponentController extends Controller
         $data['header']             =  $rfq->upr->centers;
         $data['place']              =  $rfq->upr->place_of_delivery;
         $data['transaction_date']   =  $result->date_processed;
-        $data['rfq_number']         =  $rfq->rfq_number;
+        $data['rfq_number']         =  $rfq->upr_number;
         $data['items']              =  $rfq->upr->items;
         $data['supplier']           =  $supplier;
         $data['chief']              =  explode('/', $rfq->signatory_chief);;
