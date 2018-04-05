@@ -102,7 +102,7 @@ Invitation to Submit Price Quotation
                     @foreach($data->quotations as $quotation)
                     <tr>
                         <td><a href="{{route('procurements.unit-purchase-requests.show',$quotation->upr_id)}}">{{$quotation->upr_number}}</a></td>
-                        <td>{{str_replace('AMP', 'RFQ', $quotation->rfq_number) }}</td>
+                        <td>{{str_replace('AMP', 'RFQ', $quotation->upr->ref_number) }}</td>
                         <td>{{$quotation->description}}</td>
                         <td>{{$quotation->total_amount}}</td>
                         <td>{{$quotation->canvassing_date}}</td>
