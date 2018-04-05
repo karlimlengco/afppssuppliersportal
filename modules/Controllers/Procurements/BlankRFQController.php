@@ -503,7 +503,7 @@ class BlankRFQController extends Controller
         $rfqFormsContent            =   $rfqForms->findByPCCO($result->upr->centers->id);
         $data['content']            =  ($rfqFormsContent) ? $rfqFormsContent->content : "";
         $data['transaction_date']   =  $result->transaction_date;
-        $data['rfq_number']         =  $result->rfq_number;
+        $data['rfq_number']         =  $result->upr_number;
         if($result->upr->philgeps)
         {
 
