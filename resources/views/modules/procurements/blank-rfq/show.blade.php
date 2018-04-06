@@ -223,13 +223,13 @@ Request For Quotation
           url: '/api/suppliers/info/'+id,
           success: function(result) {
             console.log(result)
-            if(result = 'eligible'){
-              // $('#proponent-submit').hide();
-              $('#proponent-remarks').text('not eligible');
-            }else{
-              // $('#proponent-submit').show();
-              $('#proponent-remarks').text();
-            }
+            // if(result = 'eligible'){
+            //   // $('#proponent-submit').hide();
+            //   $('#proponent-remarks').text('not eligible');
+            // }else{
+            //   // $('#proponent-submit').show();
+            //   $('#proponent-remarks').text();
+            // }
           }
       });
     });
