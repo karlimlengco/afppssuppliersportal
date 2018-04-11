@@ -129,7 +129,11 @@ class BaseComposer
         $delayCount     =   count($delays);
         $notiCount     =   count($notifications);
         $messagesCount     =   count($messagesCount);
-        $myMessages     =   count($myMessages);
+        if($myMessages) {
+            $myMessages     =   count($myMessages);
+        } else {
+            $myMessages     =   0;
+        };
         $logCounts     =   count($logs);
 
         if(count($delays) > 9)
