@@ -32,20 +32,20 @@ Unit Purchase Request
     </div>
 </div>
 
-<div class="data-panel" style="padding:10px; margin-bottom:10px">
+<div class="data-panel" style="padding:10px; margin-bottom:10px; background: rgb(34, 34, 34);color:white; z-index:99999">
     <div class="data-panel__section">
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label" style="font-weight:800; text-transform:capitalize">UPR No :</strong> {{$data->upr_number}} </li>
+            <li class="data-panel__list__item" style="color:white;"> <strong class="data-panel__list__item__label" style="color:white;font-weight:800; text-transform:capitalize">UPR No :</strong> {{$data->upr_number}} </li>
         </ul>
     </div>
     <div class="data-panel__section">
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label" style="font-weight:800; text-transform:capitalize">Project Name / Activity:</strong> {{$data->project_name}} </li>
+            <li class="data-panel__list__item" style="color:white;"> <strong class="data-panel__list__item__label" style="color:white;font-weight:800; text-transform:capitalize">Project Name / Activity:</strong> {{$data->project_name}} </li>
         </ul>
     </div>
     <div class="data-panel__section">
         <ul class="data-panel__list">
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label" style="font-weight:800; text-transform:capitalize">ABC:</strong>Php {{number_format($data->total_amount,2)}} </li>
+            <li class="data-panel__list__item" style="color:white;"> <strong class="data-panel__list__item__label" style="color:white;font-weight:800; text-transform:capitalize">ABC:</strong>Php {{number_format($data->total_amount,2)}} </li>
         </ul>
     </div>
 </div>
@@ -65,20 +65,21 @@ Unit Purchase Request
         <table class="table">
             <thead>
                 <tr>
-                    <th>Stage</th>
-                    <th>Date</th>
-                    <th>Allowable Time</th>
-                    <th>W Day/s </th>
-                    <th>Total Days </th>
-                    <th>Justification/Remarks</th>
-                    <th>Action Taken</th>
-                    <th>Print</th>
+                    <th style="background: rgb(34, 34, 34);color:white; z-index:99999">Stage</th>
+                    <th style="background: rgb(34, 34, 34);color:white; z-index:99999">Date</th>
+                    <th style="background: rgb(34, 34, 34);color:white; z-index:99999">Allowable Time</th>
+                    <th style="background: rgb(34, 34, 34);color:white; z-index:99999">W Day/s </th>
+                    <th style="background: rgb(34, 34, 34);color:white; z-index:99999">Total Days </th>
+                    <th style="background: rgb(34, 34, 34);color:white; z-index:99999">Justification/Remarks</th>
+                    <th style="background: rgb(34, 34, 34);color:white; z-index:99999">Action Taken</th>
+                    <th style="background: rgb(34, 34, 34);color:white; z-index:99999">Print</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>1. UPR Receipt</td>
                     <td>{{ $data->date_processed->format('d F Y')}}</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -2093,5 +2094,35 @@ e.preventDefault();
 var id = "{{$data->id}}";
 window.open("/timelines/print/"+id);
 });
+var datapanel = $('.data-panel').width()
+$(window).scroll(function(e) {
+    var $tableBodyCell = $('tbody tr:first td');
+    var $headerCell = $('thead tr th');
+
+    $tableBodyCell.each(function(index){
+         $headerCell.eq(index).width($(this).width());
+         console.log($(this).width())
+    });
+
+    // width1 = $( "tbody tr td:first-child" ).width()
+    // var rowHeight = $('thead tr').height();
+    var offset = $('.table').offset().left;
+    var offsetTop = $('.table').offset().top;
+    $('.data-panel').css('position','fixed');
+    $('.data-panel').css('top', '100px');
+    $('.data-panel').css('width', datapanel);
+    $('thead').css('position','fixed');
+    $('thead').css('top','150px');
+    $('thead').css('height','100px');
+    // $('tbody').css('margin-top', '200px');
+
+    if($(window).scrollTop() == 0)
+    {
+      $('thead').css('position','inherit');
+      $('thead').css('height','auto');
+      $('tbody').css('top', 'auto');
+      $('.data-panel').css('position','inherit');
+    }
+})
 </script>
 @stop
