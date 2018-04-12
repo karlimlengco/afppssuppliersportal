@@ -33,7 +33,7 @@ class UserLogRepository extends BaseRepository
 
         $model  =   $model->whereNull('is_viewed');
 
-        return $model->get();
+        return $model->limit(20);
     }
 
 
