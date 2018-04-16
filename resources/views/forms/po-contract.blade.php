@@ -39,8 +39,8 @@
                     <p class="indent-first-line"><strong>AFPPS</strong> at Camp General Emilio Aguinaldo, Quezon City represented by CO, GHQ Procurement Center in behalf of End-user and its duty authorized representative, herein after referred to as the "Second Party:.</p>
                     <p class="align-center">WITNESSETH</p>
                     <p class="align-center">That the parties hereto, agree and stipulate:</p>
-                    <p class="indent-first-line">That for and in consideration of the payment to be made by <strong>{{$data['accounting'][1]}}{{$data['accounting'][0]}}{{$data['accounting'][2]}}</strong> the First Party willfully and faithfully agrees to perform the following services:</p>
-                    <p class="indent-first-line">To provide catering service used by {{$data['unit']}} (see attached training/event schedule), 2017:</p>
+                    <p class="indent-first-line">That for and in consideration of the payment to be made by <strong>{{$data['requestor'][1]}}{{$data['requestor'][0]}}{{$data['requestor'][2]}}</strong> the First Party willfully and faithfully agrees to perform the following services:</p>
+                    <p class="indent-first-line">To provide catering service used by {{$data['unit']}} (see attached training/event schedule), 2018:</p>
                     <table class="printable-form__body__table">
                         <tr>
                             <td class="align-center" width="5%"><strong>L/I</strong></td>
@@ -86,6 +86,8 @@
                         </tr>
                     </table>
                     <p class="indent-first-line">That the Second Party, after fulfillment of all the terms and conditions of this contract will pay the First Party sum of <strong style="text-transform:uppercase">{{translateToWords($total)}} PESOS ONLY.</strong>.</p>
+                    <div style="page-break-inside: avoid">
+
                     <p class="indent-first-line">IN WITNESS HEREOF, the Parties aforementioned have hereunto placed their hands on the date herein above.</p>
                     <table class="printable-form__body__table no-border no-padding">
                         <tr>
@@ -225,6 +227,30 @@
                             <td width="10%"></td>
                         </tr>
                     </table>
+
+                    </div>
+
+                    <div style="page-break-before: always">
+                      <p>REPUBLIC OF THE PHILIPPINES)</p>
+                      <p>QUEZON CITY                ) S.S</p>
+                      <br>
+                      <p class="indent-first-line">BEFORE ME, a notary public for in Quezon City, Philippines on __________ day of __________</p>
+                      <p class="indent-first-line"> All known to me known to be the same person who executed the foregoing instrument and they acknowledged before me their aforesaid acts their own free and voluntarily act and deed, as well as the instrumentalities they respectively represents, for the uses and purpose therein stated.
+                      </p>
+                      <p class="indent-first-line"> This instrument refers to the catering services uses in connection with their various activities consisting of the three (3) pages including this page in their instrument withnesses at each every page. </p>
+
+                      <p><strong>WITNESS MY HAND SEAL at the place and on the first herein above written.</strong></p>
+
+                      <br>
+
+                      <p style="line-height: 5px">Doc No. &nbsp;&nbsp;&nbsp;&nbsp;_________________</p>
+                      <p style="line-height: 5px">Page No.&nbsp;&nbsp;&nbsp;_________________</p>
+                      <p style="line-height: 5px">Book No.&nbsp;&nbsp;&nbsp;_________________</p>
+                      <p style="line-height: 5px">Series of.&nbsp;&nbsp;&nbsp;_________________</p>
+
+                    </div>
+
+
 
                 </div>
             </div>
