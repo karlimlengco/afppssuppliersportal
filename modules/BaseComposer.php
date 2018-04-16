@@ -134,7 +134,11 @@ class BaseComposer
         } else {
             $myMessages     =   0;
         };
-        $logCounts     =   count($logs);
+        if($logs){
+            $logCounts     =   0;
+        } else{
+            $logCounts     =   count($logs);
+        }
 
         if(count($delays) > 9)
         {

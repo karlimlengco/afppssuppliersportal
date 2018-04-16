@@ -71,7 +71,14 @@
                             <td>PHP {{formatPrice($data['proponents'][0]->bid_amount)}}</td>
                             <td>@if(isset($data['proponents'][1])) PHP {{formatPrice($data['proponents'][1]->bid_amount)}} @endif</td>
                             <td> @if(isset($data['proponents'][2])) PHP {{formatPrice($data['proponents'][2]->bid_amount)}} @endif </td>
-                            <td rowspan="4" class="v-align-middle align-center"><strong>{{$data['proponents'][0]->supplier->name}}</strong></td>
+                            <td rowspan="4" class="v-align-middle align-center">
+                            <strong>
+                              {{-- {{$data['proponents'][0]->supplier->name}} --}}
+                              @if($data['minProp'])
+                              {{$data['minProp']->supplier->name}}
+                              @endif
+
+                            </strong></td>
                         </tr>
                         <tr>
                             <td><strong>DTI Registration</strong></td>
@@ -305,7 +312,15 @@
                                 @endif
                                 @endif
                             </td>
-                            <td rowspan="2" class="v-align-middle align-center"><strong>PHP {{formatPrice($data['proponents'][0]->bid_amount)}}</strong></td>
+                            <td rowspan="2" class="v-align-middle align-center">
+                            <strong>
+                            {{-- PHP {{formatPrice($data['proponents'][0]->bid_amount)}} --}}
+                            @if($data['minProp'])
+                            PHP {{formatPrice($data['minProp']->bid_amount)}}
+                            @endif
+
+                            </strong>
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Remarks</strong></td>

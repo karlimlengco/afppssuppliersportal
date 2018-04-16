@@ -581,7 +581,22 @@ class CanvassingController extends Controller
     public function viewPrint($id, CanvassingRepository $model, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
     {
         $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
-        $min = min(array_column($result->rfq->proponents->toArray(), 'bid_amount'));
+        $array      = $result->rfq->proponents->toArray();
+        $min = min(array_column(array_filter($array,function($v) {
+        return $v["status"] == 'passed'; }), 'bid_amount'));
+
+        $minProp = null;
+
+        foreach($result->rfq->proponents as $propo)
+        {
+            if($propo->status == 'passed')
+            {
+                if($min == $propo->bid_amount){
+                    $minProp = $propo;
+                }
+            }
+        }
+
         if($result->canvass_time != null)
         {
           $data['date']               =  $result->canvass_date." ". $result->canvass_time;
@@ -615,6 +630,7 @@ class CanvassingController extends Controller
         $data['legal']              =  explode('/', $result->legal_signatory);
         $data['sec']                =  explode('/', $result->secretary_signatory);
         $data['min_bid']            =  $min;
+        $data['minProp']            =  $minProp;
         $data['today']              =  $result->canvass_date;
         $pdf = PDF::loadView('forms.canvass', ['data' => $data])
         ->setOption('margin-bottom', 30)
