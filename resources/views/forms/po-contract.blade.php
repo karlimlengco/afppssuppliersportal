@@ -39,7 +39,7 @@
                     <p class="indent-first-line"><strong>AFPPS</strong> at Camp General Emilio Aguinaldo, Quezon City represented by CO, GHQ Procurement Center in behalf of End-user and its duty authorized representative, herein after referred to as the "Second Party:.</p>
                     <p class="align-center">WITNESSETH</p>
                     <p class="align-center">That the parties hereto, agree and stipulate:</p>
-                    <p class="indent-first-line">That for and in consideration of the payment to be made by <strong>{{$data['requestor'][1]}}{{$data['requestor'][0]}}{{$data['requestor'][2]}}</strong> the First Party willfully and faithfully agrees to perform the following services:</p>
+                    <p class="indent-first-line">That for and in consideration of the payment to be made by <strong>{{$data['requestor'][1]}} {{$data['requestor'][0]}} {{$data['requestor'][2]}}</strong> the First Party willfully and faithfully agrees to perform the following services:</p>
                     <p class="indent-first-line">To provide catering service used by {{$data['unit']}} (see attached training/event schedule), 2018:</p>
                     <table class="printable-form__body__table">
                         <tr>
