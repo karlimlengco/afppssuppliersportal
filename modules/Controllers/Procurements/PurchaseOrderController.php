@@ -679,6 +679,13 @@ class PurchaseOrderController extends Controller
 
                 if($noa_model->upr->mode_of_procurement != 'public_bidding')
                 {
+                    if(isset($items['item_type'][$i])){
+                        $itemType = $items['item_type'][$i];
+                    }else
+                    {
+                        $itemType = $request->type;
+                    }
+
                     $item_datas[]  =   [
                         'id'                    =>  (string) \Uuid::generate(),
                         'description'           =>  $items['item_description'][$i],
@@ -686,7 +693,7 @@ class PurchaseOrderController extends Controller
                         'unit'                  =>  $items['unit_measurement'][$i],
                         'price_unit'            =>  $items['unit_price'][$i],
                         'total_amount'          =>  $items['total_amount'][$i],
-                        'type'                  =>  $items['item_type'][$i],
+                        'type'                  =>  $itemType,
                         'order_id'              =>  $result->id,
                         'created_at'            =>  Carbon::now()
                     ];
@@ -1107,7 +1114,7 @@ class PurchaseOrderController extends Controller
         $data['items']              =  $result->items;
         $data['supplier']           =  $noa_model;
         $data['header']             =  $result->upr->centers;
-        $data['ref_number']         =  $result->upr->ref_number;
+        $data['ref_number']         =  $result->po_number;
         $data['unit']               =  $result->upr->unit->short_code;
 
         $data['requestor']          =  explode('/', $result->requestor_signatory);
