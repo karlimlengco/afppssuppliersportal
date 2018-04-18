@@ -1122,11 +1122,21 @@ class PurchaseOrderController extends Controller
         $data['approver']           =  explode('/', $result->approver_signatory);
         $data['coa_signatories']    =  explode('/', $result->coa_name_signatory);
 
-        $pdf = PDF::loadView('forms.po-contract', ['data' => $data])
+
+        $totalPages =  0 ;
+        foreach($result->items as $page)
+        {
+            if($page->type == 'contract'){
+                $totalPages = $totalPages + 1;
+            }
+        }
+       $totalPages = ceil($totalPages/17) +2;
+
+        $pdf = PDF::loadView('forms.po-contract', ['data' => $data, 'totalPages' => $totalPages])
             ->setOption('margin-bottom', 30)
             ->setOption('footer-html', route('pdf.footer'));
 
-        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po-contract.pdf');
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->stream('po-contract.pdf');
     }
 
 
