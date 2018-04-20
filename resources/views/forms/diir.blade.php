@@ -108,13 +108,13 @@
                         <td class="no-border-top no-border-bottom">Name</td>
                         <td class="align-center no-border-top no-border-bottom" colspan="2">
                             @if($data['issuer'] != null)
-                            <strong>{{$data['issuer'][1]}} {{$data['issuer'][0]}}{{$data['issuer'][2]}}</strong>
+                            <strong>{{$data['issuer'][1]}} {{$data['issuer'][0]}} {{$data['issuer'][2]}}</strong>
                             @endif
                         </td>
                         <td class="align-center no-border-top no-border-bottom" colspan="3">
                             @if($data['receiver'] != null)
                             <strong>
-                            {{$data['receiver'][1]}} {{$data['receiver'][0]}}{{$data['receiver'][2]}}
+                            {{$data['receiver'][1]}} {{$data['receiver'][0]}} {{$data['receiver'][2]}}
                             </strong>
                             @endif
                         </td>
