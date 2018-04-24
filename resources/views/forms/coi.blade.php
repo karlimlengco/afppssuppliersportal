@@ -96,17 +96,17 @@
                         </tr>
                         <tr><td height="80px"></td></tr>
                         <tr>
-                            <td width="30%"><strong>{{$data['one'][1]}} {{$data['one'][0]}} {{$data['one'][2]}}</strong><br>
+                            <td width="40%"><strong>{{$data['one'][1]}} {{$data['one'][0]}} {{$data['one'][2]}}</strong><br>
                                 {{$data['one'][3]}}</td>
                             <td class="align-bottom align-left" width="40%" height="80px">
 
                             </td>
-                            <td width="30%"><strong>{{$data['two'][1]}} {{$data['two'][0]}} {{$data['two'][2]}}</strong><br>
+                            <td width="40%"><strong>{{$data['two'][1]}} {{$data['two'][0]}} {{$data['two'][2]}}</strong><br>
                                 {{$data['two'][3]}}</td>
                         </tr>
                         <tr><td height="80px"></td></tr>
                         <tr>
-                            <td width="30%"><strong>
+                            <td width="40%"><strong>
                               @if(count($data['three']) != 1)
                             {{$data['three'][1]}} {{$data['three'][0]}} {{$data['three'][2]}}</strong><br>
                                 {{$data['three'][3]}}</td>
@@ -114,7 +114,7 @@
                             <td class="align-bottom align-left" width="40%" height="80px">
 
                             </td>
-                            <td width="30%"><strong>
+                            <td width="40%"><strong>
 
                               @if(count($data['four']) != 1)
                                  {{$data['four'][1]}} {{$data['four'][0]}} {{$data['four'][2]}}</strong><br>
@@ -125,7 +125,7 @@
                         <tr><td height="80px"></td></tr>
                         @if(count($data['five']) != 1)
                         <tr>
-                            <td width="30%"><strong>{{$data['five'][1]}} {{$data['five'][0]}} {{$data['five'][2]}}</strong><br>
+                            <td width="40%"><strong>{{$data['five'][1]}} {{$data['five'][0]}} {{$data['five'][2]}}</strong><br>
                                 {{$data['five'][3]}}</td>
                             <td class="align-bottom align-left" width="40%" height="80px">
 

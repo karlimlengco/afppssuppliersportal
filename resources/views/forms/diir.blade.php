@@ -63,80 +63,82 @@
                     <tr>
                         <td colspan="6">PURPOSE: <strong>{{$data['purpose']}}.</strong></td>
                     </tr>
-                    <tr>
-                        <td class="align-bottom no-border-bottom" height="60px">Signature</td>
-                        <td class="align-left no-border-bottom" colspan="2">REQUESTED BY:</td>
-                        <td class="align-left no-border-bottom" colspan="3">APPROVED BY:</td>
-                    </tr>
-                    <tr>
-                        <td class="no-border-top no-border-bottom">Name</td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="2">
-                            @if($data['requestor'] != null)
-                            <strong>{{$data['requestor'][1]}} {{$data['requestor'][0]}}{{$data['requestor'][2]}}</strong>
-                            @endif
-                        </td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="3">
-                            @if($data['approver'] != null)
-                            <strong>{{$data['approver'][1]}} {{$data['approver'][0]}}{{$data['approver'][2]}}</strong>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="no-border-top no-border-bottom">Designation</td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="2">
-                            @if($data['requestor'] != null)
-                                {{$data['requestor'][3]}}
-                            @endif
-                        </td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="3">
-                            @if($data['approver'] != null)
-                            {{$data['approver'][3]}}
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="no-border-top">Date</td>
-                        <td class="align-center" colspan="2"></td>
-                        <td class="align-center" colspan="3"></td>
-                    </tr>
-                    <tr>
-                        <td class="align-bottom no-border-top no-border-bottom" height="60px">Signature</td>
-                        <td class="align-left no-border-top no-border-bottom" colspan="2">ISSUED BY:</td>
-                        <td class="align-left no-border-top no-border-bottom" colspan="3">RECEIVED BY:</td>
-                    </tr>
-                    <tr>
-                        <td class="no-border-top no-border-bottom">Name</td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="2">
-                            @if($data['issuer'] != null)
-                            <strong>{{$data['issuer'][1]}} {{$data['issuer'][0]}} {{$data['issuer'][2]}}</strong>
-                            @endif
-                        </td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="3">
-                            @if($data['receiver'] != null)
-                            <strong>
-                            {{$data['receiver'][1]}} {{$data['receiver'][0]}} {{$data['receiver'][2]}}
-                            </strong>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="no-border-top no-border-bottom">Designation</td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="2">
-                            @if($data['issuer'] != null)
-                            {{$data['issuer'][3]}}
-                            @endif
-                        </td>
-                        <td class="align-center no-border-top no-border-bottom" colspan="3">
-                            @if($data['receiver'] != null)
-                                {{$data['receiver'][3]}}
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="no-border-top">Date</td>
-                        <td class="align-center" colspan="2"></td>
-                        <td class="align-center" colspan="3"></td>
-                    </tr>
+                    <div style="page-break-inside: avoid;">
+                      <tr>
+                          <td class="align-bottom no-border-bottom" height="60px">Signature</td>
+                          <td class="align-left no-border-bottom" colspan="2">REQUESTED BY:</td>
+                          <td class="align-left no-border-bottom" colspan="3">APPROVED BY:</td>
+                      </tr>
+                      <tr>
+                          <td class="no-border-top no-border-bottom">Name</td>
+                          <td class="align-center no-border-top no-border-bottom" colspan="2">
+                              @if($data['requestor'] != null)
+                              <strong>{{$data['requestor'][1]}} {{$data['requestor'][0]}}{{$data['requestor'][2]}}</strong>
+                              @endif
+                          </td>
+                          <td class="align-center no-border-top no-border-bottom" colspan="3">
+                              @if($data['approver'] != null)
+                              <strong>{{$data['approver'][1]}} {{$data['approver'][0]}}{{$data['approver'][2]}}</strong>
+                              @endif
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="no-border-top no-border-bottom">Designation</td>
+                          <td class="align-center no-border-top no-border-bottom" colspan="2">
+                              @if($data['requestor'] != null)
+                                  {{$data['requestor'][3]}}
+                              @endif
+                          </td>
+                          <td class="align-center no-border-top no-border-bottom" colspan="3">
+                              @if($data['approver'] != null)
+                              {{$data['approver'][3]}}
+                              @endif
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="no-border-top">Date</td>
+                          <td class="align-center" colspan="2"></td>
+                          <td class="align-center" colspan="3"></td>
+                      </tr>
+                      <tr>
+                          <td class="align-bottom no-border-top no-border-bottom" height="60px">Signature</td>
+                          <td class="align-left no-border-top no-border-bottom" colspan="2">ISSUED BY:</td>
+                          <td class="align-left no-border-top no-border-bottom" colspan="3">RECEIVED BY:</td>
+                      </tr>
+                      <tr>
+                          <td class="no-border-top no-border-bottom">Name</td>
+                          <td class="align-center no-border-top no-border-bottom" colspan="2">
+                              @if($data['issuer'] != null)
+                              <strong>{{$data['issuer'][1]}} {{$data['issuer'][0]}} {{$data['issuer'][2]}}</strong>
+                              @endif
+                          </td>
+                          <td class="align-center no-border-top no-border-bottom" colspan="3">
+                              @if($data['receiver'] != null)
+                              <strong>
+                              {{$data['receiver'][1]}} {{$data['receiver'][0]}} {{$data['receiver'][2]}}
+                              </strong>
+                              @endif
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="no-border-top no-border-bottom">Designation</td>
+                          <td class="align-center no-border-top no-border-bottom" colspan="2">
+                              @if($data['issuer'] != null)
+                              {{$data['issuer'][3]}}
+                              @endif
+                          </td>
+                          <td class="align-center no-border-top no-border-bottom" colspan="3">
+                              @if($data['receiver'] != null)
+                                  {{$data['receiver'][3]}}
+                              @endif
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="no-border-top">Date</td>
+                          <td class="align-center" colspan="2"></td>
+                          <td class="align-center" colspan="3"></td>
+                      </tr>
+                    </div>
 
                 </table>
             </div>
