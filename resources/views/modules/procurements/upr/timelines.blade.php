@@ -1444,7 +1444,7 @@ Unit Purchase Request
                     22.
                     @endif Delivery of items</td>
                     <td>
-                        @if($data->dr_date != null)
+                        @if($data->dr_date != null && $data->delivery_date != null)
                         <?php $delivery_date = createCarbon('Y-m-d',$data->delivery_date); ?>
                         <a target="_blank" href="{{route('procurements.delivery-orders.show', $data->dr_id)}}">
                             {{$delivery_date->format('d F Y')}}
