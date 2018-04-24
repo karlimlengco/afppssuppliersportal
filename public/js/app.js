@@ -71168,47 +71168,49 @@ var app = new Vue({
         }
     },
     created: function created() {
-        var _this2 = this;
+        // this.$on('getmessage', (item) =>{
+        //     this.chatId = item.message.id
+        //     this.receiverId = item.message.receiver_id
+        //     this.uprId = item.message.upr_id
+        //     if(item.message.receiver_id != null){
+        //         axios.get('/messages/'+item.message.sender_id+'/'+item.message.receiver_id).then(response => {
+        //             this.messages = response.data;
+        //         });
+        //     }
+        //     else if(item.message.upr_id != null){
+        //         axios.get('/upr-messages/'+item.message.upr_id).then(response => {
+        //             this.messages = response.data;
+        //         });
+        //     }
+        //     else{
+        //         axios.get('/messages/'+item.message.sender_id).then(response => {
+        //             this.messages = response.data;
+        //         });
+        //     }
+        // })
 
-        this.$on('getmessage', function (item) {
-            _this2.chatId = item.message.id;
-            _this2.receiverId = item.message.receiver_id;
-            _this2.uprId = item.message.upr_id;
-            if (item.message.receiver_id != null) {
-                axios.get('/messages/' + item.message.sender_id + '/' + item.message.receiver_id).then(function (response) {
-                    _this2.messages = response.data;
-                });
-            } else if (item.message.upr_id != null) {
-                axios.get('/upr-messages/' + item.message.upr_id).then(function (response) {
-                    _this2.messages = response.data;
-                });
-            } else {
-                axios.get('/messages/' + item.message.sender_id).then(function (response) {
-                    _this2.messages = response.data;
-                });
-            }
-        });
+        // this.getMessage();
 
-        this.getMessage();
-
-        Echo.join('chatroom').here(function (users) {
-            _this2.usersInRoom = users;
-            console.log('user here');
-        }).joining(function (user) {
-            _this2.usersInRoom.push(user);
-            console.log('user join');
-        }).leaving(function (user) {
-            _this2.usersInRoom = _this2.usersInRoom.filter(function (u) {
-                return u != user;
-            });
-            console.log('user leave');
-        }).listen('MessagePosted', function (e) {
-            console.log('messagePosted');
-            _this2.messages.push({
-                message: e.message.message,
-                user: e.user
-            });
-        });
+        // Echo.join('chatroom')
+        //     .here((users) => {
+        //         this.usersInRoom = users;
+        //         console.log('user here')
+        //     })
+        //     .joining((user) => {
+        //         this.usersInRoom.push(user);
+        //         console.log('user join')
+        //     })
+        //     .leaving((user) => {
+        //         this.usersInRoom = this.usersInRoom.filter(u => u != user)
+        //         console.log('user leave')
+        //     })
+        //     .listen('MessagePosted', (e) => {
+        //         console.log('messagePosted')
+        //         this.messages.push({
+        //             message: e.message.message,
+        //             user: e.user
+        //         });
+        //     });
     }
 });
 

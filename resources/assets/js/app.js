@@ -89,48 +89,48 @@ const app = new Vue({
         }
     },
     created() {
-        this.$on('getmessage', (item) =>{
-            this.chatId = item.message.id
-            this.receiverId = item.message.receiver_id
-            this.uprId = item.message.upr_id
-            if(item.message.receiver_id != null){
-                axios.get('/messages/'+item.message.sender_id+'/'+item.message.receiver_id).then(response => {
-                    this.messages = response.data;
-                });
-            }
-            else if(item.message.upr_id != null){
-                axios.get('/upr-messages/'+item.message.upr_id).then(response => {
-                    this.messages = response.data;
-                });
-            }
-            else{
-                axios.get('/messages/'+item.message.sender_id).then(response => {
-                    this.messages = response.data;
-                });
-            }
-        })
+        // this.$on('getmessage', (item) =>{
+        //     this.chatId = item.message.id
+        //     this.receiverId = item.message.receiver_id
+        //     this.uprId = item.message.upr_id
+        //     if(item.message.receiver_id != null){
+        //         axios.get('/messages/'+item.message.sender_id+'/'+item.message.receiver_id).then(response => {
+        //             this.messages = response.data;
+        //         });
+        //     }
+        //     else if(item.message.upr_id != null){
+        //         axios.get('/upr-messages/'+item.message.upr_id).then(response => {
+        //             this.messages = response.data;
+        //         });
+        //     }
+        //     else{
+        //         axios.get('/messages/'+item.message.sender_id).then(response => {
+        //             this.messages = response.data;
+        //         });
+        //     }
+        // })
 
-        this.getMessage();
+        // this.getMessage();
 
-        Echo.join('chatroom')
-            .here((users) => {
-                this.usersInRoom = users;
-                console.log('user here')
-            })
-            .joining((user) => {
-                this.usersInRoom.push(user);
-                console.log('user join')
-            })
-            .leaving((user) => {
-                this.usersInRoom = this.usersInRoom.filter(u => u != user)
-                console.log('user leave')
-            })
-            .listen('MessagePosted', (e) => {
-                console.log('messagePosted')
-                this.messages.push({
-                    message: e.message.message,
-                    user: e.user
-                });
-            });
+        // Echo.join('chatroom')
+        //     .here((users) => {
+        //         this.usersInRoom = users;
+        //         console.log('user here')
+        //     })
+        //     .joining((user) => {
+        //         this.usersInRoom.push(user);
+        //         console.log('user join')
+        //     })
+        //     .leaving((user) => {
+        //         this.usersInRoom = this.usersInRoom.filter(u => u != user)
+        //         console.log('user leave')
+        //     })
+        //     .listen('MessagePosted', (e) => {
+        //         console.log('messagePosted')
+        //         this.messages.push({
+        //             message: e.message.message,
+        //             user: e.user
+        //         });
+        //     });
     }
 });
