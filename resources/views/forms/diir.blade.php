@@ -63,7 +63,9 @@
                     <tr>
                         <td colspan="6">PURPOSE: <strong>{{$data['purpose']}}.</strong></td>
                     </tr>
+                    </table>
                     <div style="page-break-inside: avoid;">
+                      <table class="printable-form__body__table" width="100%">
                       <tr>
                           <td class="align-bottom no-border-bottom" height="60px">Signature</td>
                           <td class="align-left no-border-bottom" colspan="2">REQUESTED BY:</td>
@@ -120,24 +122,26 @@
                               @endif
                           </td>
                       </tr>
-                      <tr>
-                          <td class="no-border-top no-border-bottom">Designation</td>
-                          <td class="align-center no-border-top no-border-bottom" colspan="2">
-                              @if($data['issuer'] != null)
-                              {{$data['issuer'][3]}}
-                              @endif
-                          </td>
-                          <td class="align-center no-border-top no-border-bottom" colspan="3">
-                              @if($data['receiver'] != null)
-                                  {{$data['receiver'][3]}}
-                              @endif
-                          </td>
-                      </tr>
-                      <tr>
-                          <td class="no-border-top">Date</td>
-                          <td class="align-center" colspan="2"></td>
-                          <td class="align-center" colspan="3"></td>
-                      </tr>
+                      <div style="page-break-inside: avoid">
+                        <tr>
+                            <td class="no-border-top no-border-bottom">Designation</td>
+                            <td class="align-center no-border-top no-border-bottom" colspan="2">
+                                @if($data['issuer'] != null)
+                                {{$data['issuer'][3]}}
+                                @endif
+                            </td>
+                            <td class="align-center no-border-top no-border-bottom" colspan="3">
+                                @if($data['receiver'] != null)
+                                    {{$data['receiver'][3]}}
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="no-border-top">Date</td>
+                            <td class="align-center" colspan="2"></td>
+                            <td class="align-center" colspan="3"></td>
+                        </tr>
+                      </div>
                     </div>
 
                 </table>
