@@ -217,7 +217,11 @@
                                       <td></td>
                                   </tr>
                                   <tr>
+                                      @if($data['accounting'][3] == 'Chief Accountant, AFP Accounting Center')
+                                        <td nowrap>Chief Accountant, <br> AFP Accounting Center</td>
+                                      @else
                                       <td nowrap>{{$data['accounting'][3]}}</td>
+                                      @endif
                                       <td></td>
                                   </tr>
                               </table>
