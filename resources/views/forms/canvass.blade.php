@@ -329,7 +329,11 @@
                             <td> @if(isset($data['proponents'][2])) {{$data['proponents'][2]->status}} @endif</td>
                         </tr>
                     </table>
-                    <p><strong>WE HEREBY CERTIFY</strong> that the Above Abstract of Canvass is correct and complying and therefore recommend the award to <strong>{{$data['proponents'][0]->supplier->name}}</strong> having the lowest and most responsive calculated price offer.</p>
+                    <p><strong>WE HEREBY CERTIFY</strong> that the Above Abstract of Canvass is correct and complying and therefore recommend the award to <strong>
+                    @if($data['minProp'])
+                      {{$data['minProp']->supplier->name}}
+                    @endif
+                    </strong> having the lowest and most responsive calculated price offer.</p>
 
                     <table class="printable-form__body__table no-border no-padding">
                       <tr>
