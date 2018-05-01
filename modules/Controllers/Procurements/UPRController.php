@@ -227,8 +227,28 @@ class UPRController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {        return $this->view('modules.procurements.upr.index',[
+    public function index(Request $request, UnitPurchaseRequestRepository $model)
+    {
+
+        $user   =   \Sentinel::getUser();
+
+        if($user->hasRole('Admin'))
+        {
+            $resource = $model->paginateByRequest(10, $request);
+        }
+
+        $center =   0;
+        if($user->units)
+        {
+            if($user->units->centers)
+            {
+                $center =   $user->units->centers->id;
+            }
+        }
+        $resource = $model->paginateByRequest(10, $request, $center);
+
+        return $this->view('modules.procurements.upr.index',[
+            'resources'     =>  $resource,
             'createRoute'   =>  $this->baseUrl."create",
             'importRoute'   =>  $this->baseUrl."imports",
             'importRoute2'   =>  $this->baseUrl."imports2",

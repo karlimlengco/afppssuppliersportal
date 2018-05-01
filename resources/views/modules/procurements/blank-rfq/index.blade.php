@@ -18,26 +18,14 @@ Request For Quotation
 
 @stop
 
+@section('search')
+{!! Form::open(['route'  => 'procurements.blank-rfq.index', 'method'=>'get', 'style' =>'width:100%']) !!}
+<input type="text"  name="search" class="sidebar__search__input" id="newForm"  placeholder="Looking for something?">
+<button style="float:right" class="sidebar__search__button"><i class="nc-icon-mini ui-1_zoom"></i></button>
+{!! Form::close() !!}
+@stop
+
 @section('contents')
-
-<div class="row">
-    <div class="six columns align-left">
-        <h3> </h3>
-    </div>
-        {{-- <a class="button" href="{{route($createRoute)}}" tooltip="Add"><i class="nc-icon-mini ui-1_circle-add"></i></a> --}}
-        {!! Form::open(['route'  => 'procurements.blank-rfq.index', 'method'=>'get']) !!}
-    <div class="five columns " >
-          <input type="text" name="search" class="input">
-    </div>
-    <div class="one columns " >
-          <button class="button">Search</button>
-    </div>
-        {!! Form::close() !!}
-</div>
-        <br>
-        <br>
-        <br>
-
 <div class="row">
     <div class="twelve columns">
 
@@ -76,38 +64,38 @@ Request For Quotation
 @section('scripts')
 <script type="text/javascript">
 
-    table = $('#datatable-responsive').DataTable({
-        "bLengthChange": false,
-        processing: true,
-        serverSide: true,
-        ajax: {
-                url: "{{route('datatables.procurements.blank-rfq')}}",
-                // data: function (d) {
-                    // d.search.value = $('#search-table').val();
-                // }
-            },
-        columns: [
-            {data: 'rfq_number', name: 'rfq_number'},
-            {data: 'upr_number', name: 'upr_number'},
-            {data: 'deadline', name: 'deadline'},
-            {data: 'opening_time', name: 'opening_time'},
-            {data: 'transaction_date', name: 'transaction_date'},
-            {data: 'status', name: 'status'}
-        ],
-        "fnInitComplete": function (oSettings, json) {
-            $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
-            $("#datatable-responsive_next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
-        },
-        "drawCallback": function(oSettings, json) {
-            $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
-            $(".next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
-        }
+    // table = $('#datatable-responsive').DataTable({
+    //     "bLengthChange": false,
+    //     processing: true,
+    //     serverSide: true,
+    //     ajax: {
+    //             url: "{{route('datatables.procurements.blank-rfq')}}",
+    //             // data: function (d) {
+    //                 // d.search.value = $('#search-table').val();
+    //             // }
+    //         },
+    //     columns: [
+    //         {data: 'rfq_number', name: 'rfq_number'},
+    //         {data: 'upr_number', name: 'upr_number'},
+    //         {data: 'deadline', name: 'deadline'},
+    //         {data: 'opening_time', name: 'opening_time'},
+    //         {data: 'transaction_date', name: 'transaction_date'},
+    //         {data: 'status', name: 'status'}
+    //     ],
+    //     "fnInitComplete": function (oSettings, json) {
+    //         $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
+    //         $("#datatable-responsive_next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+    //     },
+    //     "drawCallback": function(oSettings, json) {
+    //         $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
+    //         $(".next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+    //     }
 
-    });
+    // });
 
-    // overide datatable filter for custom css
-    $('#newForm').keyup(function(){
-          table.search($(this).val()).draw() ;
-    })
+    // // overide datatable filter for custom css
+    // $('#newForm').keyup(function(){
+    //       table.search($(this).val()).draw() ;
+    // })
 </script>
 @stop

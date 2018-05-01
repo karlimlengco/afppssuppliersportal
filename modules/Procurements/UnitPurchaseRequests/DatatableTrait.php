@@ -104,6 +104,96 @@ trait DatatableTrait
         return $this->dataTable($model->get());
     }
 
+    public function paginateByRequest($limit = 10, $request, $id = null, $mode = null, $status = null)
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->select([
+            'unit_purchase_requests.id',
+            'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.ref_number',
+            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
+            'unit_purchase_requests.created_at',
+            'unit_purchase_requests.total_amount',
+            'unit_purchase_requests.status',
+            'unit_purchase_requests.prepared_by',
+            'unit_purchase_requests.project_name',
+            'unit_purchase_requests.state',
+            // 'mode_of_procurements.name as type',
+            DB::raw("CONCAT(users.first_name,' ', users.surname) AS full_name"),
+            DB::raw("CASE WHEN mode_of_procurements.name IS NULL THEN 'Public Bidding' ELSE mode_of_procurements.name END as type"),
+            DB::raw("COUNT(unit_purchase_request_items.id) as item_count"),
+            // DB::raw("datediff(NOW(), unit_purchase_requests.date_prepared ) as calendar_days")
+        ]);
+
+        $model  =   $model->leftJoin('users', 'users.id', '=', 'unit_purchase_requests.prepared_by');
+        $model  =   $model->leftJoin('mode_of_procurements', 'mode_of_procurements.id', '=', 'unit_purchase_requests.mode_of_procurement');
+        $model  =   $model->leftJoin('unit_purchase_request_items', 'unit_purchase_request_items.upr_id', '=', 'unit_purchase_requests.id');
+
+        $model  =   $model->groupBy([
+            'unit_purchase_requests.id',
+            'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.date_prepared',
+            'unit_purchase_requests.date_processed',
+            'unit_purchase_requests.ref_number',
+            'unit_purchase_requests.total_amount',
+            'unit_purchase_requests.project_name',
+            'unit_purchase_requests.prepared_by',
+            'unit_purchase_requests.status',
+            'unit_purchase_requests.state',
+            'unit_purchase_requests.created_at',
+            'users.first_name',
+            'users.surname',
+            'mode_of_procurements.name',
+        ]);
+
+        $model  =   $model->orderBy('created_at', 'desc');
+
+        if($status != 'draft')
+        {
+          $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
+        }
+
+        if($id != null)
+        {
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $id);
+        }
+
+        if($mode != null)
+        {
+            $model  =   $model->whereNull('mode_of_procurements.name');
+        }
+        else
+        {
+            $model  =   $model->whereNotNull('mode_of_procurements.name');
+        }
+
+        if($status == null)
+        {
+            $model  =   $model->where('unit_purchase_requests.status', '!=', 'Cancelled');
+        }
+        else
+        {
+            $model  =   $model->where('unit_purchase_requests.status', '=', "$status");
+        }
+
+        if($request != null)
+        {
+            $search = $request->search;
+            $model  = $model->where(function($query) use ($search){
+                 $query->where('unit_purchase_requests.upr_number', 'like', "%$search%");
+                 $query->orWhere('unit_purchase_requests.project_name', 'like', "%$search%");
+                 $query->orWhere('unit_purchase_requests.status', 'like', "%$search%");
+                 $query->orWhere('unit_purchase_requests.date_processed', 'like', "%$search%");
+                 $query->orWhere('mode_of_procurements.name', 'like', "%$search%");
+             });
+        }
+        $model->orderBy('created_at', 'desc');
+        return $model->paginate($limit);
+
+    }
+
 
     /**
      * [getDatatable description]

@@ -16,8 +16,12 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
 
     <!-- search -->
     <div class="sidebar__search">
-        <input type="text" class="sidebar__search__input" id="newForm" v-model="searchText" @keyup.enter="searching"  placeholder="Looking for something?">
-        <button class="sidebar__search__button"><i class="nc-icon-mini ui-1_zoom"></i></button>
+        @if(View::hasSection('search'))
+           @yield('search')
+        @else
+          <input type="text" class="sidebar__search__input" id="newForm" v-model="searchText" @keyup.enter="searching"  placeholder="Looking for something?">
+          <button class="sidebar__search__button"><i class="nc-icon-mini ui-1_zoom"></i></button>
+        @endif
     </div>
 
     <!-- menu -->

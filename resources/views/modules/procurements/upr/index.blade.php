@@ -18,11 +18,17 @@ Unit Purchase Request
 
 @stop
 
+@section('search')
+{!! Form::open(['route'  => 'procurements.unit-purchase-requests.index', 'method'=>'get', 'style' =>'width:100%']) !!}
+<input type="text"  name="search" class="sidebar__search__input" id="newForm"  placeholder="Looking for something?">
+<button style="float:right" class="sidebar__search__button"><i class="nc-icon-mini ui-1_zoom"></i></button>
+{!! Form::close() !!}
+@stop
+
 @section('contents')
 
 <div class="row">
     <div class="six columns ">
-        {{-- <a class="button" href="{{route('procurements.unit-purchase-requests.view-cancel')}}" tooltip="View All Cancelled"><i class="nc-icon-mini ui-1_circle-remove"></i></a> --}}
         <a  class="button" href="{{route('procurements.unit-purchase-requests.view-cancel')}}"> View All Cancelled UPR</a>
     </div>
     <div class="six columns align-right" >
@@ -37,33 +43,35 @@ Unit Purchase Request
     <br>
     <h3><span style="border-bottom:2px solid black">List of Unit Purchase Requests(UPRs)</span></h3>
     <div class="twelve columns">
- {{--        <div class="form-group">
-            <div class="input-group input-group--has-icon input-group--solid-icon input-group--right-icon">
-                <span class="input-group__icon"><i class="nc-icon-outline ui-1_zoom"></i></span>
-                <input type="text" class="input" placeholder="Search" id="newForm">
-            </div>
-        </div> --}}
+        <table id="datatable-responsive" class="table ">
+          <thead>
+              <tr>
+                  <th>UPR No.</th>
+                  <th>Project Name/ Activity</th>
+                  <th>ABC</th>
+                  <th>Mode</th>
+                  <th>Status</th>
+                  <th>Created</th>
+                  <th>Date Prepared</th>
+              </tr>
+          </thead>
+          <tbody>
 
-        {{-- <div class="table-scroll"> --}}
-            <table id="datatable-responsive" class="table ">
-            <thead>
-                <tr>
-                    <th>UPR No.</th>
-                    {{-- <th>Ref No.</th> --}}
-                    <th>Project Name/ Activity</th>
-                    <th>ABC</th>
-                    <th>Mode</th>
-                    <th>Status</th>
-                    <th>Created</th>
-                    <th>Date Prepared</th>
-                    {{-- <th>State</th> --}}
-                    {{-- <th>Calendar Days</th> --}}
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
+            @foreach($resources as $data)
+              <tr>
+                <td> <a href="{{route( 'procurements.unit-purchase-requests.show',[$data->id] )}}">  {{$data->upr_number}} </a></td>
+                <td>{{$data->project_name}}</td>
+                <td>{{$data->total_amount}}</td>
+                <td>{{$data->type}}</td>
+                <td>{{$data->status}}</td>
+                <td>{{$data->created_at->format('d-m-Y')}}</td>
+                <td>{{$data->date_processed->format('d-m-Y')}}</td>
+              </tr>
+            @endforeach
+          </tbody>
         </table>
-        {{-- </div> --}}
+
+        <?php echo $resources->render(); ?>
     </div>
 </div>
 
@@ -72,47 +80,47 @@ Unit Purchase Request
 @section('scripts')
 <script type="text/javascript">
 
-    table = $('#datatable-responsive').DataTable({
-        "bLengthChange": false,
-        processing: true,
-        serverSide: true,
-        "order": [[ 6, "desc" ]],
-        ajax: {
-                url: "{{route('datatables.procurements.unit-purchase-request')}}",
-                // data: function (d) {
-                    // d.search.value = $('#search-table').val();
-                // }
-            },
+    // table = $('#datatable-responsive').DataTable({
+    //     "bLengthChange": false,
+    //     processing: true,
+    //     serverSide: true,
+    //     "order": [[ 6, "desc" ]],
+    //     ajax: {
+    //             url: "{{route('datatables.procurements.unit-purchase-request')}}",
+    //             // data: function (d) {
+    //                 // d.search.value = $('#search-table').val();
+    //             // }
+    //         },
 
-        createdRow: function( row, data, dataIndex ) {
-            $( row ).find('td:eq(3)').attr('style', 'text-align:right!important');
-        },
-        columns: [
-            {data: 'upr_number', name: 'upr_number'},
-            // {data: 'ref_number', name: 'ref_number'},
-            {data: 'project_name', name: 'project_name'},
-            {data: 'total_amount', name: 'total_amount'},
-            {data: 'type', name: 'type'},
-            {data: 'status', name: 'status'},
-            {data: 'created_at', name: 'created_at'},
-            {data: 'date_prepared', name: 'date_prepared'},
-            // {data: 'state', name: 'state'},
-            // {data: 'calendar_days', name: 'calendar_days'},
-        ],
-        "fnInitComplete": function (oSettings, json) {
-            $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
-            $("#datatable-responsive_next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
-        },
-        "drawCallback": function(oSettings, json) {
-            $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
-            $(".next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
-        }
+    //     createdRow: function( row, data, dataIndex ) {
+    //         $( row ).find('td:eq(3)').attr('style', 'text-align:right!important');
+    //     },
+    //     columns: [
+    //         {data: 'upr_number', name: 'upr_number'},
+    //         // {data: 'ref_number', name: 'ref_number'},
+    //         {data: 'project_name', name: 'project_name'},
+    //         {data: 'total_amount', name: 'total_amount'},
+    //         {data: 'type', name: 'type'},
+    //         {data: 'status', name: 'status'},
+    //         {data: 'created_at', name: 'created_at'},
+    //         {data: 'date_prepared', name: 'date_prepared'},
+    //         // {data: 'state', name: 'state'},
+    //         // {data: 'calendar_days', name: 'calendar_days'},
+    //     ],
+    //     "fnInitComplete": function (oSettings, json) {
+    //         $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
+    //         $("#datatable-responsive_next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+    //     },
+    //     "drawCallback": function(oSettings, json) {
+    //         $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
+    //         $(".next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+    //     }
 
-    });
+    // });
 
-    // overide datatable filter for custom css
-    $('#newForm').keyup(function(){
-          table.search($(this).val()).draw() ;
-    })
+    // // overide datatable filter for custom css
+    // $('#newForm').keyup(function(){
+    //       table.search($(this).val()).draw() ;
+    // })
 </script>
 @stop
