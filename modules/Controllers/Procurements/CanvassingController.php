@@ -82,9 +82,10 @@ class CanvassingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, CanvassingRepository $model)
     {
         return $this->view('modules.procurements.canvassing.index',[
+            'resources'     =>  $model->paginateByRequest(10, $request),
             'createRoute'   =>  $this->baseUrl."create",
             'breadcrumbs' => [
                 new Breadcrumb('Alternative'),

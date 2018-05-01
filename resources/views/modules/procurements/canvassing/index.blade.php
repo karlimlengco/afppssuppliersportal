@@ -2,6 +2,13 @@
 Canvassing
 @stop
 
+@section('search')
+{!! Form::open(['route'  => 'procurements.canvassing.index', 'method'=>'get', 'style' =>'width:100%']) !!}
+<input type="text"  name="search" class="sidebar__search__input" id="newForm"  placeholder="Looking for something?">
+<button style="float:right" class="sidebar__search__button"><i class="nc-icon-mini ui-1_zoom"></i></button>
+{!! Form::close() !!}
+@stop
+
 @section('breadcrumbs')
 
     @if(isset($breadcrumbs))
@@ -43,8 +50,17 @@ Canvassing
                 </tr>
             </thead>
             <tbody>
+                @foreach($resources as $data)
+                  <tr>
+                    <td> <a href="{{route( 'procurements.canvassing.show',[$data->id] )}}">  {{$data->rfq_number}} </a></td>
+                    <td>{{$data->upr_number}}</td>
+                    <td>{{$data->canvass_date}}</td>
+                    <td>{{($data->is_failed == 1) ? "Failed" : "Passed"}}</td>
+                  </tr>
+                @endforeach
             </tbody>
         </table>
+        <?php echo $resources->render(); ?>
     </div>
 </div>
 
@@ -53,34 +69,34 @@ Canvassing
 @section('scripts')
 <script type="text/javascript">
 
-    table = $('#datatable-responsive').DataTable({
-        "bLengthChange": false,
-        processing: true,
-        "order": [[ 2, "desc" ]],
-        serverSide: true,
-        ajax: {
-                url: "{{route('datatables.procurements.canvassing')}}",
-            },
-        columns: [
-            {data: 'rfq_number', name: 'rfq_number'},
-            {data: 'upr_number', name: 'upr_number'},
-            {data: 'canvass_date', name: 'canvass_date'},
-            {data: 'is_failed', name: 'is_failed'},
-        ],
-        "fnInitComplete": function (oSettings, json) {
-            $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
-            $("#datatable-responsive_next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
-        },
-        "drawCallback": function(oSettings, json) {
-            $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
-            $(".next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
-        }
+    // table = $('#datatable-responsive').DataTable({
+    //     "bLengthChange": false,
+    //     processing: true,
+    //     "order": [[ 2, "desc" ]],
+    //     serverSide: true,
+    //     ajax: {
+    //             url: "{{route('datatables.procurements.canvassing')}}",
+    //         },
+    //     columns: [
+    //         {data: 'rfq_number', name: 'rfq_number'},
+    //         {data: 'upr_number', name: 'upr_number'},
+    //         {data: 'canvass_date', name: 'canvass_date'},
+    //         {data: 'is_failed', name: 'is_failed'},
+    //     ],
+    //     "fnInitComplete": function (oSettings, json) {
+    //         $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
+    //         $("#datatable-responsive_next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+    //     },
+    //     "drawCallback": function(oSettings, json) {
+    //         $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
+    //         $(".next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+    //     }
 
-    });
+    // });
 
-    // overide datatable filter for custom css
-    $('#newForm').keyup(function(){
-          table.search($(this).val()).draw() ;
-    })
+    // // overide datatable filter for custom css
+    // $('#newForm').keyup(function(){
+    //       table.search($(this).val()).draw() ;
+    // })
 </script>
 @stop
