@@ -19,7 +19,7 @@ trait DatatableTrait
     public function paginateByRequest($limit = 10, $request)
     {
         $model  =   $this->model;
-        $model  =   $model->select(['invitation_for_quotation.*', 'p.upr_id' ]);
+        // $model  =   $model->select(['invitation_for_quotation.*', 'p.upr_id' ]);
         // $model  = $model->leftJoin('ispq_quotations as p', function ($q) {
         //    $q->on('ispq_id', '=', 'invitation_for_quotation.id')
         //      ->on('p.created_at', '=',
