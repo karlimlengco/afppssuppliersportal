@@ -83,9 +83,10 @@ class VoucherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, VoucherRepository $model)
     {
         return $this->view('modules.procurements.vouchers.index',[
+            'resources'     =>  $model->paginateByRequest(10, $request, 'alternative'),
             'createRoute'   =>  $this->baseUrl."create",
             'breadcrumbs' => [
                 new Breadcrumb('Alternative'),

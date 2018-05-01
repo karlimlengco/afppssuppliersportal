@@ -98,10 +98,11 @@ class DeliveryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, DeliveryOrderRepository $model)
     {
         return $this->view('modules.procurements.delivery.index',[
             'createRoute'   =>  $this->baseUrl."create",
+            'resources'     =>  $model->paginateByRequest(10, $request, 'alternative'),
             'breadcrumbs' => [
                 new Breadcrumb('Alternative'),
                 new Breadcrumb('Delivery', 'procurements.delivery-orders.index')

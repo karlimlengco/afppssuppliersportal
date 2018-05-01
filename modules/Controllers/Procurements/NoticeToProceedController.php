@@ -86,9 +86,10 @@ class NoticeToProceedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, NTPRepository $model)
     {
         return $this->view('modules.procurements.ntp.index',[
+            'resources'     =>  $model->paginateByRequest(10, $request, 'alternative'),
             'breadcrumbs' => [
                 new Breadcrumb('Alternative'),
                 new Breadcrumb('Notice to Proceed', 'procurements.purchase-orders.index')

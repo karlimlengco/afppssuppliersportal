@@ -2,6 +2,12 @@
 Vouchers
 @stop
 
+@section('search')
+{!! Form::open(['route'  => 'procurements.vouchers.index', 'method'=>'get', 'style' =>'width:100%']) !!}
+<input type="text"  name="search" class="sidebar__search__input" id="newForm"  placeholder="Looking for something?">
+<button style="float:right" class="sidebar__search__button"><i class="nc-icon-mini ui-1_zoom"></i></button>
+{!! Form::close() !!}
+@stop
 
 @section('breadcrumbs')
 
@@ -40,12 +46,18 @@ Vouchers
                 <tr>
                     <th>UPR Number</th>
                     <th>Transaction Date</th>
-                    <th>RFQ Number</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach($resources as $data)
+                  <tr>
+                    <td> <a href="{{route( 'procurements.vouchers.show',[$data->id] )}}">  {{$data->upr_number}} </a></td>
+                    <td>{{$data->transaction_date}}</td>
+                  </tr>
+                @endforeach
             </tbody>
         </table>
+        <?php echo $resources->render(); ?>
     </div>
 </div>
 
@@ -54,33 +66,33 @@ Vouchers
 @section('scripts')
 <script type="text/javascript">
 
-    table = $('#datatable-responsive').DataTable({
-        "bLengthChange": false,
-        "order": [[ 1, "desc" ]],
-        processing: true,
-        serverSide: true,
-        ajax: {
-                url: "{{route('datatables.procurements.vouchers')}}",
-            },
-        columns: [
-            {data: 'upr_number', name: 'upr_number'},
-            {data: 'transaction_date', name: 'transaction_date'},
-            {data: 'rfq_number', name: 'rfq_number'},
-        ],
-        "fnInitComplete": function (oSettings, json) {
-            $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
-            $("#datatable-responsive_next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
-        },
-        "drawCallback": function(oSettings, json) {
-            $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
-            $(".next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
-        }
+    // table = $('#datatable-responsive').DataTable({
+    //     "bLengthChange": false,
+    //     "order": [[ 1, "desc" ]],
+    //     processing: true,
+    //     serverSide: true,
+    //     ajax: {
+    //             url: "{{route('datatables.procurements.vouchers')}}",
+    //         },
+    //     columns: [
+    //         {data: 'upr_number', name: 'upr_number'},
+    //         {data: 'transaction_date', name: 'transaction_date'},
+    //         {data: 'rfq_number', name: 'rfq_number'},
+    //     ],
+    //     "fnInitComplete": function (oSettings, json) {
+    //         $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
+    //         $("#datatable-responsive_next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+    //     },
+    //     "drawCallback": function(oSettings, json) {
+    //         $(".previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');
+    //         $(".next").html('<i class="nc-icon-outline arrows-1_tail-right"></i>');
+    //     }
 
-    });
+    // });
 
-    // overide datatable filter for custom css
-    $('#newForm').keyup(function(){
-          table.search($(this).val()).draw() ;
-    })
+    // // overide datatable filter for custom css
+    // $('#newForm').keyup(function(){
+    //       table.search($(this).val()).draw() ;
+    // })
 </script>
 @stop

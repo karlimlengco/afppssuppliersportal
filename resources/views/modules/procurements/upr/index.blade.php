@@ -61,7 +61,7 @@ Unit Purchase Request
               <tr>
                 <td> <a href="{{route( 'procurements.unit-purchase-requests.show',[$data->id] )}}">  {{$data->upr_number}} </a></td>
                 <td>{{$data->project_name}}</td>
-                <td>{{$data->total_amount}}</td>
+                <td>{{formatPrice($data->total_amount)}}</td>
                 <td>{{$data->type}}</td>
                 <td>{{$data->status}}</td>
                 <td>{{$data->created_at->format('d-m-Y')}}</td>

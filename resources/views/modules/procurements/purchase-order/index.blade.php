@@ -59,7 +59,7 @@ Purchase Order
                   <td> <a href="{{route( 'procurements.purchase-orders.show',[$data->id] )}}">  {{$data->rfq_number}} </a></td>
                   <td>{{$data->upr_number}}</td>
                   <td>{{$data->purchase_date}}</td>
-                  <td>{{$data->bid_amount}}</td>
+                  <td>{{formatPrice($data->bid_amount)}}</td>
                   <td>{{$data->mfo_released_date}}</td>
                   <td>{{$data->funding_released_date}}</td>
                 </tr>

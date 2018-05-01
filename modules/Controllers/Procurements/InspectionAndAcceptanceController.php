@@ -160,10 +160,11 @@ class InspectionAndAcceptanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, InspectionAndAcceptanceRepository $model)
     {
         return $this->view('modules.procurements.inspection-acceptance.index',[
             'createRoute'   =>  $this->baseUrl."create",
+            'resources'     =>  $model->paginateByRequest(10, $request, 'alternative'),
             'breadcrumbs' => [
                 new Breadcrumb('Alternative'),
                 new Breadcrumb('TIAC', 'procurements.inspection-and-acceptance.index')

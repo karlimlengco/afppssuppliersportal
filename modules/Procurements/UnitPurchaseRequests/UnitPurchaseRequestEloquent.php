@@ -439,7 +439,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     public function diir()
     {
-        return $this->hasOne('\Revlv\Procurements\DeliveryInspection\DeliveryInspectionEloquent',  'upr_id');
+        return $this->hasOne('\Revlv\Procurements\DeliveryInspection\DeliveryInspectionEloquent',  'upr_id')->orderBy('created_at', 'desc');
     }
 
     /**
