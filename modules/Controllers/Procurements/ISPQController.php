@@ -82,10 +82,11 @@ class ISPQController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, ISPQRepository $model)
     {
         return $this->view('modules.procurements.ispq.index',[
             'createRoute'   =>  $this->baseUrl."create",
+            'resources'     =>  $model->paginateByRequest(10, $request),
             'breadcrumbs' => [
                 new Breadcrumb('Alternative'),
                 new Breadcrumb('Invitation to Submit Price Quotation'),

@@ -83,7 +83,8 @@ class NotificationRepository extends BaseRepository
         $model  =   $model->where('user_id','=', $id);
         $model  =   $model->whereNULL('is_seen');
 
-        $model  =   $model->limit(10);
+        $model  =   $model->limit(10)->get();
+
         return $model;
     }
 

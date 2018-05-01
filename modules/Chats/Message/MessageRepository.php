@@ -168,7 +168,7 @@ class MessageRepository extends BaseRepository
             'chats.receiver_id',
         ]);
 
-        return $model->limit(10);
+        return $model->limit(10)->get();
     }
 
     /**
