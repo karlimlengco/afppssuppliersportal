@@ -92,9 +92,10 @@ class PurchaseOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, PORepository $model)
     {
         return $this->view('modules.procurements.purchase-order.index',[
+            'resources'     =>  $model->paginateByRequest(10, $request, 'alternative'),
             'createRoute'   =>  $this->baseUrl."create",
             'breadcrumbs' => [
                 new Breadcrumb('Alternative'),

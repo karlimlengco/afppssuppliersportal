@@ -195,9 +195,10 @@ class NoticeOfAwardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, NOARepository $model)
     {
         return $this->view('modules.procurements.noa.index',[
+            'resources'     =>  $model->paginateByRequest(10, $request, 'alternative'),
             'breadcrumbs' => [
                 new Breadcrumb('Alternative'),
                 new Breadcrumb('Notice Of Award'),
