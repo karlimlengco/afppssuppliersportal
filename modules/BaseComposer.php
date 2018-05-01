@@ -123,8 +123,8 @@ class BaseComposer
         $delays         =   $this->getDelays();
         $logs           =   $this->logs->findUnSeedByAdmin($userId);
 
-        $notifications  =   $this->nofications->getUnseenByUser($userId);
-        $messagesCount  =   $this->messages->getUnseenByUser($userId);
+        $notifications  =   $this->nofications->countUnseenByUser($userId);
+        $messagesCount  =   $this->messages->countUnseenByUser($userId);
         $myMessages     =   $this->chats->findByReceiver($userId);
         $delayCount     =   count($delays);
         $notiCount     =   count($notifications);

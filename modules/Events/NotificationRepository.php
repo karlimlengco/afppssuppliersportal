@@ -71,4 +71,20 @@ class NotificationRepository extends BaseRepository
         return $model;
     }
 
+    /**
+     * [getById description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function countUnseenByUser($id)
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->where('user_id','=', $id);
+        $model  =   $model->whereNULL('is_seen');
+
+        $model  =   $model->limit(10);
+        return $model;
+    }
+
 }
