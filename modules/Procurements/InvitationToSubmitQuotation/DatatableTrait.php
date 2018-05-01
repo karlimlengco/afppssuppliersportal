@@ -72,7 +72,7 @@ trait DatatableTrait
            $q->on('ispq_id', '=', 'invitation_for_quotation.id')
              ->on('p.created_at', '=',
                DB::raw('(select min(created_at) from ispq_quotations where ispq_id = p.ispq_id)'));
-         });
+        });
         $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id', '=', 'p.upr_id');
 
         if(!\Sentinel::getUser()->hasRole('Admin') )

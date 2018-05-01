@@ -59,6 +59,7 @@ Invitation to Submit Price Quotation
                 @endforeach
             </tbody>
         </table>
+        <?php echo $resources->render(); ?>
     </div>
 </div>
 
