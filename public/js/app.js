@@ -71129,25 +71129,25 @@ var app = new Vue({
     },
     methods: {
         addMessage: function addMessage(message) {
-            newMessage = {
-                message: message.message,
-                user: {
-                    first_name: "You",
-                    id: currentUser.id,
-                    avatar: currentUser.avatar,
-                    surname: ""
-                },
-                chatId: this.chatId,
-                receiverId: this.receiverId,
-                uprId: this.uprId
+            // newMessage = {
+            //     message: message.message,
+            //     user: {
+            //         first_name: "You",
+            //         id: currentUser.id,
+            //         avatar: currentUser.avatar,
+            //         surname: ""
+            //     },
+            //     chatId : this.chatId,
+            //     receiverId : this.receiverId,
+            //     uprId : this.uprId,
 
-            };
-            // Add to existing messages
-            this.messages.push(newMessage);
-            // Persist to the database etc
-            axios.post('/messages', newMessage).then(function (response) {
-                // Do whatever;
-            });
+            // };
+            // // Add to existing messages
+            // this.messages.push(newMessage);
+            // // Persist to the database etc
+            // axios.post('/messages', newMessage).then(response => {
+            //     // Do whatever;
+            // })
         },
         searching: function searching() {
             this.$emit('searchingText', {
@@ -71155,16 +71155,15 @@ var app = new Vue({
             });
         },
         getMessage: function getMessage() {
-            var _this = this;
-
-            axios.get('/messages').then(function (response) {
-                if (is_admin == false) {
-                    if (Object.keys(response.data).length > 1) {
-                        _this.chatId = response.data[0].chat_id;
-                    }
-                }
-                _this.messages = response.data;
-            });
+            // axios.get('/messages').then(response => {
+            //     if(is_admin == false){
+            //         if( Object.keys(response.data).length > 1)
+            //         {
+            //             this.chatId = response.data[0].chat_id;
+            //         }
+            //     }
+            //     this.messages = response.data;
+            // });
         }
     },
     created: function created() {
@@ -72171,7 +72170,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     mounted: function mounted() {
-        this.fetchItems(this.pagination.current_page);
+        // this.fetchItems(this.pagination.current_page);
     },
 
 
@@ -75777,13 +75776,13 @@ window.Pusher = __webpack_require__(14);
 
 
 
-window.Echo = new __WEBPACK_IMPORTED_MODULE_3_laravel_echo___default.a({
-  broadcaster: 'pusher',
-  key: '4945b6167841aa57a7ab',
-  cluster: 'ap1',
-  encrypted: true,
-  authEndpoint: '/guard/auth/broadcasting'
-});
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: '4945b6167841aa57a7ab',
+//     cluster : 'ap1',
+//     encrypted: true,
+//     authEndpoint: '/guard/auth/broadcasting'
+// });
 
 /***/ }),
 /* 55 */

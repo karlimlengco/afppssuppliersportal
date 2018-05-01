@@ -53,10 +53,10 @@ window.Pusher = require('pusher-js');
 
 import Echo from "laravel-echo"
 
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: '4945b6167841aa57a7ab',
-    cluster : 'ap1',
-    encrypted: true,
-    authEndpoint: '/guard/auth/broadcasting'
-});
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: '4945b6167841aa57a7ab',
+//     cluster : 'ap1',
+//     encrypted: true,
+//     authEndpoint: '/guard/auth/broadcasting'
+// });

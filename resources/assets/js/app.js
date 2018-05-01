@@ -51,25 +51,25 @@ const app = new Vue({
     },
     methods: {
         addMessage(message) {
-            newMessage = {
-                message: message.message,
-                user: {
-                    first_name: "You",
-                    id: currentUser.id,
-                    avatar: currentUser.avatar,
-                    surname: ""
-                },
-                chatId : this.chatId,
-                receiverId : this.receiverId,
-                uprId : this.uprId,
+            // newMessage = {
+            //     message: message.message,
+            //     user: {
+            //         first_name: "You",
+            //         id: currentUser.id,
+            //         avatar: currentUser.avatar,
+            //         surname: ""
+            //     },
+            //     chatId : this.chatId,
+            //     receiverId : this.receiverId,
+            //     uprId : this.uprId,
 
-            };
-            // Add to existing messages
-            this.messages.push(newMessage);
-            // Persist to the database etc
-            axios.post('/messages', newMessage).then(response => {
-                // Do whatever;
-            })
+            // };
+            // // Add to existing messages
+            // this.messages.push(newMessage);
+            // // Persist to the database etc
+            // axios.post('/messages', newMessage).then(response => {
+            //     // Do whatever;
+            // })
         },
         searching(){
             this.$emit('searchingText', {
@@ -77,15 +77,15 @@ const app = new Vue({
             });
         },
         getMessage(){
-            axios.get('/messages').then(response => {
-                if(is_admin == false){
-                    if( Object.keys(response.data).length > 1)
-                    {
-                        this.chatId = response.data[0].chat_id;
-                    }
-                }
-                this.messages = response.data;
-            });
+            // axios.get('/messages').then(response => {
+            //     if(is_admin == false){
+            //         if( Object.keys(response.data).length > 1)
+            //         {
+            //             this.chatId = response.data[0].chat_id;
+            //         }
+            //     }
+            //     this.messages = response.data;
+            // });
         }
     },
     created() {

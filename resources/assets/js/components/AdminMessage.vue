@@ -101,7 +101,7 @@
         },
 
         mounted() {
-            this.fetchItems(this.pagination.current_page);
+            // this.fetchItems(this.pagination.current_page);
         },
 
         methods: {
