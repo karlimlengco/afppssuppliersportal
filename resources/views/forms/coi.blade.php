@@ -88,11 +88,11 @@
                     <table class="printable-form__body__table no-border no-padding">
                         <tr>
                             <td width="30%"></td>
-                            <td class="align-bottom align-left" width="40%" height="80px">
+                            <td class="align-bottom align-left" width="50%" height="80px">
                                 <strong>{{$data['chairman'][1]}} {{$data['chairman'][0]}} {{$data['chairman'][2]}}</strong><br>
                                 {{$data['chairman'][3]}}
                             </td>
-                            <td width="30%"></td>
+                            <td width="20%"></td>
                         </tr>
                     </table>
                     <table class="printable-form__body__table no-border no-padding">
