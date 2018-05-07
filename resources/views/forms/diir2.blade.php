@@ -75,7 +75,7 @@
                       <tr>
                           <td class="no-border-top no-border-bottom">Name</td>
                           <td class="align-center no-border-top no-border-bottom" colspan="5">
-                              <strong>{{$data['approver'][1]}} {{$data['approver'][0]}}{{$data['approver'][2]}}</strong>
+                              <strong>{{$data['approver'][1]}} {{$data['approver'][0]}} {{$data['approver'][2]}}</strong>
                           </td>
                       </tr>
                       <tr>

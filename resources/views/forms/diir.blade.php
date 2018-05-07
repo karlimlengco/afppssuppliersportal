@@ -55,7 +55,7 @@
                         <td class="align-center" colspan="6"><strong>*************************************</strong></td>
                     </tr>
                     <tr>
-                        <td class="align-center" colspan="6">DEBIT PROPERTY ACCOUNTABILITY OF {{$data['receiver'][1]}} {{$data['receiver'][0]}}{{$data['receiver'][2]}}</td>
+                        <td class="align-center" colspan="6">DEBIT PROPERTY ACCOUNTABILITY OF {{$data['receiver'][1]}} {{$data['receiver'][0]}} {{$data['receiver'][2]}}</td>
                     </tr>
                     <tr>
                         <td class="align-center" colspan="6">{{$data['receiver'][3]}}</td>
@@ -75,12 +75,12 @@
                           <td class="no-border-top no-border-bottom">Name</td>
                           <td class="align-center no-border-top no-border-bottom" colspan="2">
                               @if($data['requestor'] != null)
-                              <strong>{{$data['requestor'][1]}} {{$data['requestor'][0]}}{{$data['requestor'][2]}}</strong>
+                              <strong>{{$data['requestor'][1]}} {{$data['requestor'][0]}} {{$data['requestor'][2]}}</strong>
                               @endif
                           </td>
                           <td class="align-center no-border-top no-border-bottom" colspan="3">
                               @if($data['approver'] != null)
-                              <strong>{{$data['approver'][1]}} {{$data['approver'][0]}}{{$data['approver'][2]}}</strong>
+                              <strong>{{$data['approver'][1]}} {{$data['approver'][0]}} {{$data['approver'][2]}}</strong>
                               @endif
                           </td>
                       </tr>
