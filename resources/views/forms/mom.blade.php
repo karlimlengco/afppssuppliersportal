@@ -114,7 +114,7 @@
                         @foreach($data['canvass']->rfq->proponents as $proponent)
                             <tr>
                                 <td>{{$data['canvass']->rfq_number}}</td>
-                                <td>{{$proponent->supplier->name}}</td>
+                                <td>{{($proponent->supplier) ? $proponent->supplier->name : ""}}</td>
                                 <td class="align-center">{{ucfirst($proponent->status)}}</td>
                                 <td class="align-right">{{formatPrice($proponent->bid_amount)}}</td>
                             </tr>
