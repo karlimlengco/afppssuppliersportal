@@ -155,15 +155,15 @@
                 </table>
                 <table class="printable-form__body__table">
                     <tr>
-                        <td class="border-left-only" width="9%" height="30px"></td>
+                        <td class="border-left-only" width="9%" height="80px"></td>
                         <td class="no-border" width="1%" height="40px">Conforme:</td>
-                        <td class="border-bottom-only" width="40%" height="30px"></td>
-                        <td class="border-right-only" width="50%" height="30px"></td>
+                        <td class="border-bottom-only" width="40%" height="80px"></td>
+                        <td class="border-right-only" width="50%" height="80px"></td>
                     </tr>
                     <tr>
-                        <td class="border-left-only" colspan="2" height="30px"></td>
-                        <td class="align-center no-padding border-bottom-only" height="30px">Signature over printed name of Supplier</td>
-                        <td class="border-right-only" height="30px"></td>
+                        <td class="border-left-only" colspan="2" height="80px"></td>
+                        <td class="align-center no-padding border-bottom-only" height="80px">Signature over printed name of Supplier</td>
+                        <td class="border-right-only" height="80px"></td>
                     </tr>
                     <tr>
                         <td class="border-left-only" colspan="2"></td>

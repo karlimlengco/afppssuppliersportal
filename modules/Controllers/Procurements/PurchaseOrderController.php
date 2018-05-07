@@ -1200,6 +1200,7 @@ class PurchaseOrderController extends Controller
 
         $pdf = PDF::loadView('forms.po', ['data' => $data])
             ->setOption('margin-bottom', 30)
+            ->setOption('margin-top', 30)
             ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po.pdf');
