@@ -1076,7 +1076,6 @@ class PurchaseOrderController extends Controller
         if($result->upr->unit){
             $data['unit'] = $result->upr->unit->description;
         }
-        dd('s');
         $pdf = PDF::loadView('forms.po-terms', ['data' => $data])
             ->setOption('margin-bottom', 30)
             ->setOption('load-error-handling', 'ignore')
