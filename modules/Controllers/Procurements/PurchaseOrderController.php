@@ -1076,11 +1076,11 @@ class PurchaseOrderController extends Controller
         if($result->upr->unit){
             $data['unit'] = $result->upr->unit->description;
         }
+        dd('s');
         $pdf = PDF::loadView('forms.po-terms', ['data' => $data])
             ->setOption('margin-bottom', 30)
             ->setOption('load-error-handling', 'ignore')
             ->setOption('footer-html', route('pdf.footer'));
-            dd($pdf);
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po-terms.pdf');
         return $pdf->download('po-terms.pdf');
     }
