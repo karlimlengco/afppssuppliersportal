@@ -1078,9 +1078,10 @@ class PurchaseOrderController extends Controller
         }
         $pdf = PDF::loadView('forms.po-terms', ['data' => $data])
             ->setOption('margin-bottom', 30)
+            ->setOption('load-error-handling', 'ignore')
             ->setOption('footer-html', route('pdf.footer'));
-
-        return $pdf->setOption('load-error-handling', 'ignore')->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po-terms.pdf');
+            dd($pdf);
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po-terms.pdf');
         return $pdf->download('po-terms.pdf');
     }
 
