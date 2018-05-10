@@ -1179,8 +1179,8 @@ class VoucherController extends Controller
 
         $data['penalty']                =   $penalty_amount;
         $pdf = PDF::loadView('forms.voucher', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('voucher.pdf');
     }
@@ -1334,13 +1334,13 @@ class VoucherController extends Controller
         $contents);
 
         $pdf = PDF::loadView('forms.voucher-form-2', ['content' => $output, 'data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('voucher.pdf');
 
         $pdf = PDF::loadView('forms.voucher-form-2', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('voucher.pdf');
     }
@@ -1396,8 +1396,8 @@ class VoucherController extends Controller
         $delivery_date                  =   Carbon::createFromFormat('!Y-m-d',$data['delivery_date']);
 
         $pdf = PDF::loadView('forms.voucher-no-tax', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('voucher.pdf');
     }

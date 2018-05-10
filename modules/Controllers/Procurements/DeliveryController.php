@@ -749,8 +749,8 @@ class DeliveryController extends Controller
         $data['header']             =  $result->upr->centers;
 
         $pdf = PDF::loadView('forms.nod', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('nod.pdf');
     }

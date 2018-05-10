@@ -1136,8 +1136,8 @@ class PurchaseOrderController extends Controller
        $totalPages = ceil($totalPages/17) + 1;
 
         $pdf = PDF::loadView('forms.po-contract', ['data' => $data, 'totalPages' => $totalPages])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->stream('po-contract.pdf');
     }
@@ -1202,8 +1202,8 @@ class PurchaseOrderController extends Controller
 
         $pdf = PDF::loadView('forms.po', ['data' => $data])
             ->setOption('margin-bottom', 30)
-            ->setOption('margin-top', 20)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-top', 20);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po.pdf');
     }
@@ -1266,8 +1266,8 @@ class PurchaseOrderController extends Controller
 
 
         $pdf = PDF::loadView('forms.po3', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po.pdf');
     }
@@ -1444,13 +1444,13 @@ class PurchaseOrderController extends Controller
         $contents);
 
         $pdf = PDF::loadView('forms.po-form2', ['content' => $output, 'data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('voucher.pdf');
 
         $pdf = PDF::loadView('forms.po', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po.pdf');
     }
@@ -1494,8 +1494,8 @@ class PurchaseOrderController extends Controller
         $data['header']             =  $result->upr->centers;
 
         $pdf = PDF::loadView('forms.po-coa', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('po-coa.pdf');
         return $pdf->download('po-coa.pdf');

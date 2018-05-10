@@ -792,8 +792,8 @@ class DeliveredInspectionReportController extends Controller
         $data['requestor']          =   explode('/',$result->requested_signatory);
         // dd($data);
         $pdf = PDF::loadView('forms.new-diir', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('diir.pdf');
     }
@@ -852,8 +852,8 @@ class DeliveredInspectionReportController extends Controller
         $data['bid_amount']         =   $result->delivery->po->bid_amount;
         // dd($data);
         $pdf = PDF::loadView('forms.diir', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('ris.pdf');
     }
@@ -983,8 +983,8 @@ class DeliveredInspectionReportController extends Controller
         $contents);
 
         $pdf = PDF::loadView('forms.ris-form2', ['content' => $output])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('rsi2.pdf');
     }
@@ -1114,8 +1114,8 @@ class DeliveredInspectionReportController extends Controller
         $contents);
 
         $pdf = PDF::loadView('forms.ris2-form2', ['content' => $output])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('rsi2.pdf');
     }
@@ -1260,8 +1260,8 @@ class DeliveredInspectionReportController extends Controller
         $contents);
 
         $pdf = PDF::loadView('forms.rsmi-form2', ['content' => $output])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('rsi2.pdf');
     }
@@ -1406,8 +1406,8 @@ class DeliveredInspectionReportController extends Controller
         $contents);
 
         $pdf = PDF::loadView('forms.rar-form2', ['content' => $output])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('rsi2.pdf');
     }
@@ -1563,8 +1563,8 @@ class DeliveredInspectionReportController extends Controller
         $contents);
 
         $pdf = PDF::loadView('forms.coi-form2', ['content' => $output])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('rsi2.pdf');
     }
@@ -1623,8 +1623,8 @@ class DeliveredInspectionReportController extends Controller
         $data['requestor']          =   explode('/',$result->requested_signatory);
         // dd($data);
         $pdf = PDF::loadView('forms.diir2', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('rsi2.pdf');
     }
@@ -1685,8 +1685,8 @@ class DeliveredInspectionReportController extends Controller
         $data['bid_amount']         =   $result->delivery->po->bid_amount;
         // dd($data);
         $pdf = PDF::loadView('forms.rar', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('rar.pdf');
     }
@@ -1751,8 +1751,8 @@ class DeliveredInspectionReportController extends Controller
         $data['five']          =   explode('/',$result->signatory_five_name);
         // dd($data);
         $pdf = PDF::loadView('forms.coi', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('coi.pdf');
     }
@@ -1814,8 +1814,8 @@ class DeliveredInspectionReportController extends Controller
         $data['bid_amount']         =   $win->bid_amount;
         // dd($data);
         $pdf = PDF::loadView('forms.rsmi', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('rsmi.pdf');
     }

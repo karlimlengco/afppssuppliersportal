@@ -332,8 +332,8 @@ class ISPQController extends Controller
         }
         $data['quotations']         =  $result->quotations;
         $pdf = PDF::loadView('forms.ispq', ['data' => $data, 'center' => $center])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('ispq.pdf');
     }

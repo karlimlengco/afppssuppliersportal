@@ -834,8 +834,8 @@ class NoticeOfAwardController extends Controller
         $data['project_name']       =   $upr_model->project_name;
 
         $pdf = PDF::loadView('forms.noa', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('noa.pdf');
     }
@@ -905,8 +905,8 @@ class NoticeOfAwardController extends Controller
         $data['project_name']       =   $upr_model->project_name;
 
         $pdf = PDF::loadView('forms.noa2', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('noa.pdf');
     }

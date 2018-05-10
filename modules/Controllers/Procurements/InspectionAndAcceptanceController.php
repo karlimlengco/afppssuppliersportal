@@ -627,8 +627,8 @@ class InspectionAndAcceptanceController extends Controller
         $data['sao']                =  explode('/',$model->sao_name_signatory);
 
         $pdf = PDF::loadView('forms.iar', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('iar.pdf');
     }
@@ -686,8 +686,8 @@ class InspectionAndAcceptanceController extends Controller
         $data['invoices']          =  $model->invoices;
 
         $pdf = PDF::loadView('forms.mfo', ['data' => $data])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('iar.pdf');
     }
@@ -783,8 +783,8 @@ class InspectionAndAcceptanceController extends Controller
         $contents);
         // dd($contents);
         $pdf = PDF::loadView('forms.mfo-form-2', ['content' => $output])
-            ->setOption('margin-bottom', 30)
-            ->setOption('footer-html', route('pdf.footer'));
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
 
         return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('iar.pdf');
     }
