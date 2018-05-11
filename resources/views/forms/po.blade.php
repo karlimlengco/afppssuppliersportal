@@ -145,7 +145,7 @@
                     <tr>
                         <td class="border-left-only" width="45%"></td>
                         <td class="no-border" width="10%"></td>
-                        <td class="border-right-only" width="45%" height="120px">
+                        <td class="border-right-only" width="45%">
                             @if($data['requestor'] != null)
                             Very truly yours,
                             <br>
