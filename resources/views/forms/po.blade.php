@@ -140,9 +140,9 @@
                         <td class="align-top no-border-bottom" colspan="6" height="40px">In case of failure to make the full delivery within the time specified above, a penalty of one-tenth (1/10) of one percent (1%) for every day of delay shall be imposed.</td>
                     </tr>
                     <tr>
-                        <td class="border-left-only" width="45%"></td>
+                        <td class="border-left-only" width="45%"  height="200px"></td>
                         <td class="no-border" width="10%"></td>
-                        <td class="border-right-only" width="45%" height="100px">
+                        <td class="border-right-only" width="45%" height="200px">
                             @if($data['requestor'] != null)
                             Very truly yours,
                             <br>
