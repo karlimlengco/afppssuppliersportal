@@ -473,8 +473,8 @@ class UPRController extends Controller
     {
         $account_codes      =   $accounts->lists('id', 'new_account_code');
         $result             =   $model->with(['attachments'])->findById($id);
-        // $signatory_lists    =   $signatories->lists('id', 'name');
-        $signatory_lists    =   [];
+        $signatory_lists    =   $signatories->lists('id', 'name');
+        // $signatory_lists    =   [];
         $bid_issuance       =   $suppliers->lists('id', 'name');
         // $bid_issuance       =   $suppliers->lists('id', 'name');
 
