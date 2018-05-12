@@ -471,18 +471,18 @@ class UPRController extends Controller
         SupplierRepository $suppliers,
         SignatoryRepository $signatories)
     {
-        $account_codes      =    $accounts->lists('id', 'new_account_code');
+        $account_codes      =   $accounts->lists('id', 'new_account_code');
         $result             =   $model->with(['attachments'])->findById($id);
         $signatory_lists    =   $signatories->lists('id', 'name');
         $bid_issuance       =   $suppliers->lists('id', 'name');
 
-        if($result->bid_issuances != null)
-        {
-            foreach($result->bid_issuances as $list)
-            {
-                unset($bid_issuance[$list->proponent_id]);
-            }
-        }
+        // if($result->bid_issuances != null)
+        // {
+        //     foreach($result->bid_issuances as $list)
+        //     {
+        //         unset($bid_issuance[$list->proponent_id]);
+        //     }
+        // }
 
         $bid_amount = 0;
         $address    = '';
