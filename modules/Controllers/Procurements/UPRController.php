@@ -517,7 +517,7 @@ class UPRController extends Controller
             'bid_amount'        =>  $bid_amount,
             'address'           =>  $address,
             'bid_issuance'      =>  $bid_issuance,
-            'proponent_lists'   =>  $suppliers->lists('id', 'name'),
+            'proponent_lists'   =>  [],
             'bacsec_list'       =>  $bacsec->lists('id', 'name'),
             'indexRoute'        =>  $this->baseUrl.'index',
             'signatory_list'    =>  $signatory_lists,
