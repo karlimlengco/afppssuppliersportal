@@ -474,7 +474,7 @@ class UPRController extends Controller
         $account_codes      =   $accounts->lists('id', 'new_account_code');
         $result             =   $model->with(['attachments'])->findById($id);
         $signatory_lists    =   $signatories->lists('id', 'name');
-        $bid_issuance       =   [];
+        $bid_issuance       =   $suppliers->lists('id', 'name');
         // $bid_issuance       =   $suppliers->lists('id', 'name');
 
         // if($result->bid_issuances != null)
@@ -519,7 +519,7 @@ class UPRController extends Controller
             'address'           =>  $address,
             'bid_issuance'      =>  $bid_issuance,
             // 'proponent_lists'   =>  $suppliers->lists('id', 'name'),
-            'proponent_lists'   =>  [],
+            'proponent_lists'   =>  $bid_issuance,
             'bacsec_list'       =>  $bacsec->lists('id', 'name'),
             'indexRoute'        =>  $this->baseUrl.'index',
             'signatory_list'    =>  $signatory_lists,
