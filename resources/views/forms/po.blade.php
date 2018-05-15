@@ -189,7 +189,7 @@
                     </tr>
                     <tr>
                         <td class="no-padding border-left-only"></td>
-                        <td class="no-padding no-border" colspan="2"><strong>{{$data['accounting'][1]}} {{$data['accounting'][0]}}, {{$data['accounting'][2]}}</strong></td>
+                        <td class="no-padding no-border" colspan="2"><strong>{{$data['accounting'][1]}} {{$data['accounting'][0]}} {{$data['accounting'][2]}}</strong></td>
                         <td class="no-padding no-border"></td>
                         <td class="no-padding no-border" nowrap>OBR/BUR No</td>
                         <td class="no-padding border-bottom-only"></td>
@@ -227,7 +227,7 @@
                     </tr>
                     <tr>
                         <td class="no-padding border-left-only"></td>
-                        <td class="no-padding no-border"><strong>{{$data['approver'][1]}} {{$data['approver'][0]}}, {{$data['approver'][2]}}</strong></td>
+                        <td class="no-padding no-border"><strong>{{$data['approver'][1]}} {{$data['approver'][0]}} {{$data['approver'][2]}}</strong></td>
                         <td class="no-padding no-border"></td>
                         <td class="no-padding no-border" nowrap>Date</td>
                         <td class="no-padding border-bottom-only"></td>
