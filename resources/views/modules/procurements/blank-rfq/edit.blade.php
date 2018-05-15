@@ -47,13 +47,13 @@ Request For Quotation
 
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::textField('rfq_number', "RFQ Number", null, ['disabled' => 'disabled']) !!}
+                    {!! Form::textField('rfq_number', "RFQ Number") !!}
                 </div>
             </div>
 
             <div class="row">
                 <div class="six columns">
-                    {!! Form::selectField('upr_id', 'UPR Number', $upr_list) !!}
+                    {!! Form::selectField('upr_id', 'UPR Number', $upr_list, null, ['disabled' => 'disabled']) !!}
                 </div>
                 <div class="six columns">
                     {!! Form::textField('transaction_date', 'Transaction Date') !!}
