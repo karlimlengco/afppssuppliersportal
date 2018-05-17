@@ -924,6 +924,7 @@ class PurchaseOrderController extends Controller
             'accounting_id' =>  $request->accounting_id,
             'approver_id'   =>  $request->approver_id,
             'coa_signatory' =>  $request->coa_signatory,
+            'type'          =>  $request->type,
         ];
 
         $model->update($input, $id);
@@ -975,6 +976,7 @@ class PurchaseOrderController extends Controller
             'mfo_released_date'     =>  $request->mfo_released_date,
             'mfo_received_date'     =>  $request->mfo_received_date,
             'coa_approved_date'     =>  $request->coa_approved_date,
+            'type'                  =>  $request->type,
             'requestor_id'  =>  $request->requestor_id,
             'accounting_id' =>  $request->accounting_id,
             'approver_id'   =>  $request->approver_id,

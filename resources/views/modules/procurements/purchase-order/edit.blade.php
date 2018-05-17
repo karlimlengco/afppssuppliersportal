@@ -40,6 +40,17 @@ Purchase Order
 <div class="row">
     <div class="twelve columns">
 
+            <div class="row">
+                <div class="four columns">
+                    {!! Form::selectField('type', 'Type',[
+                      'purchase_order'    =>  'Purchase Order',
+                      'job_order'         =>  'Job Order',
+                      'work_order'        =>  'Work Order',
+                      'contract'          =>  'Contract',
+                      'contract_and_po'   =>  'Contract And Purchase Order',
+                  ]) !!}
+                </div>
+            </div>
 
             <div class="row">
                 <div class="four columns">
