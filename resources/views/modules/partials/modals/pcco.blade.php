@@ -12,10 +12,10 @@
             <div class="modal__dialogue__body">
                 <div class="row">
                     <div class="six columns">
-                        {!! Form::textField('funding_released_date', 'Date Released') !!}
+                        {!! Form::textField('funding_released_date', 'Date Received') !!}
                     </div>
                     <div class="six columns">
-                        {!! Form::textField('funding_received_date', 'Date Received') !!}
+                        {!! Form::textField('funding_received_date', 'Date Released') !!}
                     </div>
                 </div>
 
