@@ -80,7 +80,7 @@
                     </tr>
                     <tr>
                         <td class="border-left-only" nowrap>Delivery Term</td>
-                        <td class="no-border"><strong>{{$data['delivery_term']}} Calendar Days upon conformed of this PURCHASE ORDER</strong></td>
+                        <td class="no-border"><strong>{{$data['delivery_term']}} Calendar Days upon conformed of this Notice to Proceed</strong></td>
                         <td class="no-border" nowrap>Payment Term</td>
                         <td class="border-right-only"><strong>{{$data['term']}}</strong></td>
                     </tr>
