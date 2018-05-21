@@ -721,7 +721,7 @@ function translateToWords($number)
             case $number < pow(10,3):
                 // floor return a float not an integer
                 $prefix = translateToWords(intval(floor($number/pow(10,2)))) . " hundred";
-                if ($number%pow(10,2)) $suffix = " and " . translateToWords($number%pow(10,2));
+                if ($number%pow(10,2)) $suffix = translateToWords($number%pow(10,2));
                 $string = $prefix . $suffix;
                 break;
             case $number < pow(10,6):
