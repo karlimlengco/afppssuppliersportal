@@ -356,7 +356,7 @@ function obfuscateFileName($ext)
 function formatPrice($number)
 {
     $number =   str_replace(',', '', $number);
-    return number_format((float)$number, 3);
+    return number_format((float)$number, 2);
 }
 
 function convertNumber($number)
@@ -401,7 +401,8 @@ function convertNumber($number)
                         && !array_search('', array_slice($groups2, $z + 1, -1))
                         && $groups2[11] != ''
                         && $groups[11]{0} == '0'
-                            ? " and "
+                            ? " "
+                            // and
                             : ", "
                     );
             }
@@ -467,7 +468,8 @@ function convertThreeDigit($digit1, $digit2, $digit3)
         $buffer .= convertDigit($digit1) . " hundred";
         if ($digit2 != "0" || $digit3 != "0")
         {
-            $buffer .= " and ";
+            $buffer .= " ";
+            // and
         }
     }
 
