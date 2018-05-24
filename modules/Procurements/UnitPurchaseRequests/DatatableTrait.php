@@ -182,7 +182,7 @@ trait DatatableTrait
         {
             $search = $request->search;
             $model  = $model->where(function($query) use ($search){
-                 $query->orWhere('unit_purchase_requests.ref_number', 'like', "%$search%");
+                 $query->where('unit_purchase_requests.ref_number', 'like', "%$search%");
                  $query->orWhere('unit_purchase_requests.upr_number', 'like', "%$search%");
                  $query->orWhere('unit_purchase_requests.project_name', 'like', "%$search%");
                  $query->orWhere('unit_purchase_requests.status', 'like', "%$search%");
