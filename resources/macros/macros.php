@@ -779,7 +779,7 @@ function translateToWordsPoints($number)
   $cents = '';
   $whole = convertNumber($split[0].".0");
   if(count($split) > 1 && $split[1] != 00){
-    $cents .= " and ";
+    $cents .= " point ";
     $cents .= convertNumber($split[1].".0");
     $cents .=" ";
   }
