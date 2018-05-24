@@ -403,12 +403,14 @@ function convertNumber($number)
                         && $groups[11]{0} == '0'
                             ? " "
                             // and
-                            : ", "
+                            : " "
+                            // ,
                     );
             }
         }
 
-        $output = rtrim($output, ", ");
+        $output = rtrim($output, " ");
+        // ,
     }
 
     if ($fraction > 0)
