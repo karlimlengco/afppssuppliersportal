@@ -781,7 +781,7 @@ function translateToWordsPoints($number)
   if(count($split) > 1 && $split[1] != 00){
     $cents .= " and ";
     $cents .= convertNumber($split[1].".0");
-    $cents .=" points";
+    $cents .=" ";
   }
 
   return  strtoupper($whole.$cents);
