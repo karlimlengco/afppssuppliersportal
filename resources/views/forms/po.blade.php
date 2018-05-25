@@ -149,6 +149,8 @@
                             @if($data['requestor'] != null)
                             Very truly yours,
                             <br>
+                            <br>
+                            <br>
                             <strong class="margin-top">{{$data['requestor'][1]}} {{$data['requestor'][0]}} {{$data['requestor'][2]}}</strong>
                             <br>
                             {{$data['requestor'][3]}}

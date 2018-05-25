@@ -107,6 +107,8 @@
             <td class="border-right-only" width="45%">
                 Very truly yours,
                 <br>
+                <br>
+                <br>
                 <strong class="margin-top">{{approver_ranks}} {{approver_name}} {{approver_branch}}</strong>
                 <br>
                 {{approver_designation}}
