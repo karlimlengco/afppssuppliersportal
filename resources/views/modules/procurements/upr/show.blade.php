@@ -625,14 +625,14 @@ Unit Purchase Request
     $(document).on('change', '#id-field-final_tax', function(e){
         var final_tax  = $("#id-field-final_tax").val();
         var total_amount  = "{{$bid_amount}}";
-        var ft_amount   = total_amount * (1.12 * (final_tax / 100));
+        var ft_amount   = (total_amount * (final_tax / 100))/ 1.12;
         $("#id-field-final_tax_amount").val(ft_amount.toFixed(2));
     });
 
     $(document).on('change', '#id-field-expanded_witholding_tax', function(e){
         var expanded_witholding_tax  = $("#id-field-expanded_witholding_tax").val();
         var total_amount  = "{{$bid_amount}}";
-        var ewt_amount   = total_amount * (1.12 * (expanded_witholding_tax / 100));
+        var ewt_amount   = (total_amount * (expanded_witholding_tax / 100)) / 1.12;
         $("#id-field-ewt_amount").val(ewt_amount.toFixed(2));
     });
 
