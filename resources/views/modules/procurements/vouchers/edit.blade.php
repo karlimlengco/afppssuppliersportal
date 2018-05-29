@@ -156,7 +156,7 @@ Vouchers
         var final_tax  = $("#id-field-final_tax").val();
         var total_amount  = $("#id-field-amount").val();
         var total_amount = total_amount.replace(",", "");
-        var ft_amount   = total_amount * (final_tax / 100);
+        var ft_amount   = total_amount * (1.12 * (final_tax / 100));
         $("#id-field-final_tax_amount").val(ft_amount.toFixed(2));
     });
 
@@ -164,7 +164,7 @@ Vouchers
         var expanded_witholding_tax  = $("#id-field-expanded_witholding_tax").val();
         var total_amount  = $("#id-field-amount").val();
         var total_amount = total_amount.replace(",", "");
-        var ewt_amount   = total_amount * (expanded_witholding_tax / 100);
+        var ewt_amount   = total_amount * (1.12 * (expanded_witholding_tax / 100));
         $("#id-field-ewt_amount").val(ewt_amount.toFixed(2));
     });
 
