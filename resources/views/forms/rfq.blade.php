@@ -66,7 +66,7 @@
                         <table class="printable-form__body__table">
                             <tr>
                                 <td class="align-center" width="10%"><strong>Item No.</strong></td>
-                                <td class="align-center" width="10%"><strong>Qunatity</strong></td>
+                                <td class="align-center" width="10%"><strong>Quantity</strong></td>
                                 <td class="align-center" width="10%"><strong>UOM</strong></td>
                                 <td class="align-center" width="30%"><strong>Description</strong></td>
                                 <td class="align-center" width="10%"><strong>Unit Price</strong></td>
