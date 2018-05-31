@@ -80,7 +80,7 @@ trait DatatableTrait
             $search = $request->search;
             $model  = $model->where(function($query) use ($search){
                  $query->where('purchase_orders.upr_number', 'like', "%$search%");
-                 $query->orWhere('purchase_orders.rfq_number', 'like', "%$search%");
+                 $query->orWhere('request_for_quotations.rfq_number', 'like', "%$search%");
                  $query->orWhere('purchase_orders.bid_amount', 'like', "%$search%");
                  $query->orWhere('purchase_orders.purchase_date', 'like', "%$search%");
              });
