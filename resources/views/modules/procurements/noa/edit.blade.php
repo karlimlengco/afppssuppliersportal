@@ -6,6 +6,7 @@ Notice Of Award
     @include('modules.partials.create_signatory')
     {!! Form::model($data, $modelConfig['update']) !!}
     @include('modules.partials.modals.edit-remarks')
+    @include('modules.partials.modals.delete')
 @stop
 
 
@@ -33,6 +34,10 @@ Notice Of Award
 
             <a href="{{route($indexRoute, $data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
             <button type="button" class="button" id="edit-button" ><i class="nc-icon-mini ui-2_disk"></i></button>
+
+            @if(\Sentinel::getUser()->hasRole('Admin'))
+            <a href="#" id="delete-button" class="button" ><i class="nc-icon-mini ui-1_trash"></i></a>
+            @endif
     </div>
 </div>
 
@@ -118,6 +123,11 @@ Notice Of Award
     $('#edit-button').click(function(e){
         e.preventDefault();
         $('#edit-modal').addClass('is-visible');
+    })
+
+    $('#delete-button').click(function(e){
+        e.preventDefault();
+        $('#delete-modal').addClass('is-visible');
     })
 
     // datepicker

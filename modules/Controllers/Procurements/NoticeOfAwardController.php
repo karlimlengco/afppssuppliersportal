@@ -526,6 +526,10 @@ class NoticeOfAwardController extends Controller
                     'route'     =>  [$this->baseUrl.'update-dates', $id],
                     'method'    =>  'PUT',
                     'novalidate'=>  'novalidate'
+                ],
+                'destroy'   => [
+                    'route' => [$this->baseUrl.'destroy',$id],
+                    'method'=> 'DELETE'
                 ]
             ],
             'breadcrumbs' => [

@@ -185,7 +185,7 @@ Unit Purchase Request
     <hr>
     <br>
 
-    @if(count($data->items) > 0)
+    @if($data->items && count($data->items) > 0)
       @include('modules.procurements.upr.buttons')
     @endif
 

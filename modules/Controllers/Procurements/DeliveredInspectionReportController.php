@@ -521,6 +521,11 @@ class DeliveredInspectionReportController extends Controller
                     'route'     =>  [$this->baseUrl.'update', $id],
                     'method'    =>  'PUT',
                     'novalidate'=>  'novalidate'
+                ],
+                'destroy'   => [
+                    'route' => [$this->baseUrl.'destroy',$id],
+                    'method'=> 'DELETE',
+                    'novalidate'=>  'novalidate'
                 ]
             ],
             'breadcrumbs' => [
@@ -528,6 +533,21 @@ class DeliveredInspectionReportController extends Controller
                 new Breadcrumb('DIIR', 'procurements.delivered-inspections.show',$result->id),
                 new Breadcrumb('Update'),
             ]
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id, DeliveryOrderRepository $model)
+    {
+        $model->delete($id);
+
+        return redirect()->route($this->baseUrl.'index')->with([
+            'success'  => "Record has been successfully deleted."
         ]);
     }
 

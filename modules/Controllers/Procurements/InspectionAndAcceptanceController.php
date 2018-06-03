@@ -447,6 +447,11 @@ class InspectionAndAcceptanceController extends Controller
                     'route'     =>  [$this->baseUrl.'update', $id],
                     'method'    =>  'PUT',
                     'novalidate'=>  'novalidate'
+                ],
+                'destroy'   => [
+                    'route' => [$this->baseUrl.'destroy',$id],
+                    'method'=> 'DELETE',
+                    'novalidate'=>  'novalidate'
                 ]
             ],
             'breadcrumbs' => [

@@ -24,6 +24,7 @@ Inspection And Acceptance Report
     @include('modules.partials.create_signatory')
     {!! Form::model($data, $modelConfig['update']) !!}
     @include('modules.partials.modals.edit-remarks')
+    @include('modules.partials.modals.delete')
 @stop
 
 
@@ -35,6 +36,10 @@ Inspection And Acceptance Report
         <button type="button" class="button"  id="edit-button"  tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
 
         <a href="{{route($indexRoute, $data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
+
+            @if(\Sentinel::getUser()->hasRole('Admin'))
+            <a href="#" id="delete-button" class="button" ><i class="nc-icon-mini ui-1_trash"></i></a>
+            @endif
     </div>
 </div>
 
@@ -160,6 +165,11 @@ Inspection And Acceptance Report
     $('#edit-button').click(function(e){
         e.preventDefault();
         $('#edit-modal').addClass('is-visible');
+    })
+
+    $('#delete-button').click(function(e){
+        e.preventDefault();
+        $('#delete-modal').addClass('is-visible');
     })
     // datepicker
 

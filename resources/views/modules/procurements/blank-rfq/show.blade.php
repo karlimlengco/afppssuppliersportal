@@ -152,11 +152,11 @@ Request For Quotation
                     <td>
                         <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="Attachments"> <span class="nc-icon-glyph ui-1_attach-87"></span> </a>
 
-                        {{-- @if($data->status != 'closed') --}}
+                        @if($data->status != 'closed')
                         <a href="{{route('procurements.rfq-proponents.delete',$proponent->id)}}" tooltip="Remove"> <span class="nc-icon-glyph ui-1_trash-simple"></span> </a>
+                        @endif
 
                         <a target="_blank" href="{{route('procurements.rfq-proponents.print',$proponent->id)}}" tooltip="Print"> <span class="nc-icon-glyph tech_print"></span> </a>
-                        {{-- @endif --}}
                     </td>
                 </tr>
                 @endforeach

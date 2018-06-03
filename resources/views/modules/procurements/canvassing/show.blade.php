@@ -109,7 +109,6 @@ Canvassing
         </ul>
     </div>
 </div>
-
 <div class="row">
     <div class="twelve columns">
         <table class="table">
@@ -135,11 +134,16 @@ Canvassing
                     <td>{{$proponent->status}} </td>
                     <td>{{ $proponent->note }}</td>
                     <td>
-                        <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="edit"> <span class="nc-icon-glyph design_pen-01"></span> </a>
+                        @if($data->adjourned_time == null || \Sentinel::getUser()->hasRole('Admin'))
+                          <a href="{{route('procurements.rfq-proponents.show',$proponent->id)}}" tooltip="edit"> <span class="nc-icon-glyph design_pen-01"></span> </a>
+                        @endif
                         @if($proponent->bid_amount != null)
                             @if($data->adjourned_time == null)
                             <a href="#" class="award-button award" data-id="{{$proponent->id}}" data-name="{{$proponent->supplier->name}}" tooltip="Award"> mark as winner </a>
                             @endif
+                        @endif
+                        @if($data->upr && $data->upr->noa && $data->upr->noa->proponent_id == $proponent->id)
+                          <span>Winner</span>
                         @endif
                     </td>
                 </tr>

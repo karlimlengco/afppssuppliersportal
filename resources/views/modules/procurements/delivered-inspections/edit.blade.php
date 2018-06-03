@@ -23,6 +23,7 @@ Delivered Items Inspection
     @include('modules.partials.create_signatory')
     {!! Form::model($data, $modelConfig['update']) !!}
     @include('modules.partials.modals.edit-remarks')
+    @include('modules.partials.modals.delete')
 @stop
 
 @section('contents')
@@ -34,6 +35,9 @@ Delivered Items Inspection
 
             <a href="{{route($showRoute, $data->id)}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
 
+            @if(\Sentinel::getUser()->hasRole('Admin'))
+            <a href="#" id="delete-button" class="button" ><i class="nc-icon-mini ui-1_trash"></i></a>
+            @endif
         </div>
     </div>
     <div class="row">
@@ -278,6 +282,10 @@ Delivered Items Inspection
     $('#edit-button').click(function(e){
         e.preventDefault();
         $('#edit-modal').addClass('is-visible');
+    })
+    $('#delete-button').click(function(e){
+        e.preventDefault();
+        $('#delete-modal').addClass('is-visible');
     })
     // datepicker
 
