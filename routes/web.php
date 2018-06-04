@@ -244,8 +244,8 @@ Route::group(['as' => 'biddings.', 'prefix' => 'biddings'], function () {
     */
 
 
-   Route::put('noa/philgeps/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@philgepsPosting')->name('noa.philgeps');
     Route::put('noa/update-dates/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@updateDates')->name('noa.update-dates');
+   Route::put('noa/philgeps/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@philgepsPosting')->name('noa.philgeps');
     Route::put('noa/update-signatory/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@updateSignatory')->name('noa.update-signatory');
     Route::put('noa/update-signatory/{id}', '\Revlv\Controllers\Biddings\NOAController@updateSignatory')->name('noa.update-signatory');
 
@@ -501,10 +501,10 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     |
     */
 
+    Route::put('noa/update-dates/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@updateDates')->name('noa.update-dates');
     Route::put('noa/philgeps/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@philgepsPosting')->name('noa.philgeps');
     Route::get('noa/logs/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@viewLogs')->name('noa.logs');
     Route::post('noa/accepted', '\Revlv\Controllers\Procurements\NoticeOfAwardController@acceptNOA')->name('noa.accepted');
-    Route::put('noa/update-dates/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@updateDates')->name('noa.update-dates');
     Route::put('noa/update-signatory/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@updateSignatory')->name('noa.update-signatory');
     Route::get('noa/print/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@viewPrint')->name('noa.print');
     Route::get('noa/print2/{id}', '\Revlv\Controllers\Procurements\NoticeOfAwardController@viewPrint2')->name('noa.print2');

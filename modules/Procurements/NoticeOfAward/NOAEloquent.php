@@ -25,6 +25,7 @@ class NOAEloquent extends Model implements  AuditableContract
         'signatory',
         'perfomance_bond',
         'amount',
+        'proponent_id',
         'notes',
     ];
 

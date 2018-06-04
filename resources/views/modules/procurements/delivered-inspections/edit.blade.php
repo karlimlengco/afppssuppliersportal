@@ -21,9 +21,9 @@ Delivered Items Inspection
 
 @section('modal')
     @include('modules.partials.create_signatory')
+    @include('modules.partials.modals.delete')
     {!! Form::model($data, $modelConfig['update']) !!}
     @include('modules.partials.modals.edit-remarks')
-    @include('modules.partials.modals.delete')
 @stop
 
 @section('contents')

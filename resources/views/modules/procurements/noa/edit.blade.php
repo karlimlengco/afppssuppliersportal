@@ -4,9 +4,9 @@ Notice Of Award
 
 @section('modal')
     @include('modules.partials.create_signatory')
+    @include('modules.partials.modals.delete')
     {!! Form::model($data, $modelConfig['update']) !!}
     @include('modules.partials.modals.edit-remarks')
-    @include('modules.partials.modals.delete')
 @stop
 
 
@@ -43,6 +43,13 @@ Notice Of Award
 
 <div class="row">
     <div class="twelve columns">
+            @if(\Sentinel::getUser()->hasRole('Admin'))
+              <div class="row">
+                <div class="six columns">
+                    {!! Form::selectField('proponent_id', 'Proponent', $proponent_list) !!}
+                </div>
+              </div>
+            @endif
 
             <div class="row">
               <div class="six columns">

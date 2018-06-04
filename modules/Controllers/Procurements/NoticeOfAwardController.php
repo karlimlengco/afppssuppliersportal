@@ -511,15 +511,23 @@ class NoticeOfAwardController extends Controller
     public function edit(
         $id,
         SignatoryRepository $signatories,
+        RFQProponentRepository $proponents,
         NOARepository $model)
     {
         $result             =   $model->findById($id);
 
-        $signatory_list     =   $signatories->lists('id','name');
+        $plists             =   [];
+        $proponent_list     =   $proponents->findByRFQId($result->rfq_id);
 
+        foreach($proponent_list as $list){
+            $plists[$list->id] = $list->supplier->name;
+        }
+
+        $signatory_list     =   $signatories->lists('id','name');
         return $this->view('modules.procurements.noa.edit',[
             'data'              =>  $result,
             'signatory_lists'   =>  $signatory_list,
+            'proponent_list'    =>  $plists,
             'indexRoute'        =>  $this->baseUrl.'show',
             'modelConfig'       =>  [
                 'update' =>  [
@@ -736,7 +744,8 @@ class NoticeOfAwardController extends Controller
 
 
         $input  =   [
-            'received_by'           =>  $request->received_by,
+            'received_by'               =>  $request->received_by,
+            'proponent_id'              =>  $request->proponent_id,
             'signatory'                 =>  $signatory,
             'signatory_id'              =>  $request->signatory_id,
             'awarded_date'              =>  $request->awarded_date,
