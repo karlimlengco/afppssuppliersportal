@@ -2498,7 +2498,6 @@ trait PSRTrait
      */
     public function getPSRUnits($request = null, $search = null)
     {
-
         $model  =   $this->model;
 
         $model  =   $model->select([
@@ -2576,7 +2575,6 @@ trait PSRTrait
         }
 
 
-
         if(!\Sentinel::getUser()->hasRole('Admin') )
         {
 
@@ -2628,7 +2626,7 @@ trait PSRTrait
     public function getUnitPSRDatatable($request)
     {
         $model      =   $this->getPSRUnits($request);
-        // dd($model);
+
         return $this->dataTable($model);
     }
 
@@ -2749,6 +2747,21 @@ trait PSRTrait
         else
         {
             $model      =   $model->where('mode_of_procurement','!=', 'public_bidding');
+        }
+
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                if($user->units->centers)
+                {
+                    $center =   $user->units->centers->id;
+                }
+            }
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+
         }
 
         $model  = $model->whereNotNull('procurement_centers.short_code');
