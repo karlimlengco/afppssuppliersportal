@@ -128,7 +128,6 @@
                         <td colspan="2" class="align-right"><strong>{{formatPrice($total)}}</strong></td>
                     </tr>
                 </table>
-                <div style="page-break-inside: avoid;">
                 <table class="printable-form__body__table">
                     <tr>
                         <td colspan="6">
@@ -158,6 +157,7 @@
                         </td>
                     </tr>
                 </table>
+                <div style="page-break-inside: avoid;">
                 <table class="printable-form__body__table">
                     <tr>
                         <td class="border-left-only" width="9%" height="80px"></td>
