@@ -190,6 +190,15 @@
                         <td class="border-right-only" width="10%"></td>
                     </tr>
                     <tr>
+                        <td class="border-left-only" width="13%" height="60px"></td>
+                        <td class="no-border" width="1%"></td>
+                        <td class="no-border" width="40%"></td>
+                        <td class="no-border" width="15%"></td>
+                        <td class="no-border" width="1%"></td>
+                        <td class="no-border" width="20%"></td>
+                        <td class="border-right-only" width="10%"></td>
+                    </tr>
+                    <tr>
                         <td class="no-padding border-left-only"></td>
                         <td class="no-padding no-border" colspan="2"><strong>{{$data['accounting'][1]}} {{$data['accounting'][0]}} {{$data['accounting'][2]}}</strong></td>
                         <td class="no-padding no-border"></td>
@@ -221,6 +230,14 @@
                 <table class="printable-form__body__table">
                     <tr>
                         <td class="border-left-only" width="12%" height="30px">Approved By:</td>
+                        <td class="no-border" width="40%"></td>
+                        <td class="no-border" width="19%"></td>
+                        <td class="no-border" width="1%"></td>
+                        <td class="no-border" width="20%"></td>
+                        <td class="border-right-only" width="8%"></td>
+                    </tr>
+                    <tr>
+                        <td class="border-left-only" width="12%" height="60px"></td>
                         <td class="no-border" width="40%"></td>
                         <td class="no-border" width="19%"></td>
                         <td class="no-border" width="1%"></td>
