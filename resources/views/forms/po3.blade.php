@@ -143,7 +143,6 @@
                         </td>
                     </tr>
                 </table> --}}
-                <div style="page-break-inside: avoid;">
                 <table class="printable-form__body__table">
 
                     <tr>
@@ -214,9 +213,19 @@
                         <td class="no-border-top" colspan="5"></td>
                     </tr>
                 </table>
+                <div style="page-break-inside: avoid;">
                 <table class="printable-form__body__table">
                     <tr>
-                        <td class="border-left-only" width="15%" height="30px">Funds Cluster:</td>
+                        <td class="border-left-only" width="15%" height="60px">Funds Cluster:</td>
+                        <td class="no-border" width="1%"></td>
+                        <td class="no-border" width="30%"></td>
+                        <td class="border-right-only" width="10%"></td>
+                        <td class="no-border" width="15%"></td>
+                        <td class="no-border" width="9%"></td>
+                        <td class="border-right-only" width="10%"></td>
+                    </tr>
+                    <tr>
+                        <td class="border-left-only" width="15%" height="30px"></td>
                         <td class="no-border" width="1%"></td>
                         <td class="no-border" width="30%"></td>
                         <td class="border-right-only" width="10%"></td>
