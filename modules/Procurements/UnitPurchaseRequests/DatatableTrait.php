@@ -155,9 +155,12 @@ trait DatatableTrait
           $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
         }
 
-        if($id != null)
-        {
-            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $id);
+        if(!\Sentinel::getUser()->hasRole('Admin')){
+
+            if($id != null)
+            {
+                $model  =   $model->where('unit_purchase_requests.procurement_office','=', $id);
+            }
         }
 
         if($mode != null)
