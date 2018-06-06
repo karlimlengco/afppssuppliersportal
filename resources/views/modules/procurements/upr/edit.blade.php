@@ -226,7 +226,7 @@ Unit Purchase Request
                         <td>{{formatPrice($item->total_amount)}}</td>
                         <td>
 
-                        @if($data->status == 'upr_processing')
+                        @if($data->status == 'upr_processing' ||  \Sentinel::getUser()->hasRole('Admin'))
 
                           <a  tooltip="edit" href="#" data-id="{{$item->id}}" data-quantity="{{$item->quantity}}" data-account_code="{{$item->new_account_code}}" data-unit_measurement="{{$item->unit_measurement}}" data-price="{{$item->unit_price}}" data-description="{{$item->item_description}}" class="edit-price-button" tooltip="Edit">
                               <i class="nc-icon-mini design_pen-01"></i>
