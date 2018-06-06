@@ -21,6 +21,75 @@ Unit Purchase Request
 @section('modal')
     @include('modules.partials.modals.delete')
     @include('modules.partials.create_signatory')
+    @include('modules.partials.edit_line_item_modal')
+    <div class="modal" id="import-item-modal">
+        <div class="modal__dialogue modal__dialogue--round-corner">
+             <form method="POST" enctype="multipart/form-data" action="{{ route('procurements.upr-items.import', $data->id) }}" accept-charset="UTF-8">
+                <button type="button" class="modal__close-button">
+                    <i class="nc-icon-outline ui-1_simple-remove"></i>
+                </button>
+
+                <div class="moda__dialogue__head">
+                    <h1 class="modal__title">Import New Item</h1>
+                </div>
+
+                <div class="modal__dialogue__body">
+                    {!! Form::selectField('code', 'Account Code', $accounts) !!}
+                    <input type="file" name="file" class="custom-file-input" >
+                    <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                    <input name="_method" type="hidden" value="POST">
+                </div>
+
+                <div class="modal__dialogue__foot">
+                    <button class="button">Proceed</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="add-item-modal">
+        <div class="modal__dialogue modal__dialogue--round-corner">
+             <form method="POST" action="{{route('procurements.upr-items.store', $data->id)}}" accept-charset="UTF-8">
+                <button type="button" class="modal__close-button">
+                    <i class="nc-icon-outline ui-1_simple-remove"></i>
+                </button>
+
+                <div class="moda__dialogue__head">
+                    <h1 class="modal__title">Add New Item</h1>
+                </div>
+
+                <div class="modal__dialogue__body">
+                    {!! Form::selectField('new_account_code', 'Account Code', $accounts) !!}
+                    {!! Form::textField('item_description', 'Item Description', null, ['required']) !!}
+                    <div class="row">
+                      <div class="six columns">
+                        {!! Form::textField('quantity', 'Quantity', null, ['required']) !!}
+                      </div>
+                      <div class="six columns">
+                        {!! Form::textField('unit_measurement', 'Unit of Measurement', null, ['required']) !!}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="six columns">
+                        {!! Form::textField('unit_price', 'Unit Price', null, ['required']) !!}
+                      </div>
+                    </div>
+
+
+                    <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                    <input name="_method" type="hidden" value="POST">
+                </div>
+
+                <div class="modal__dialogue__foot">
+                    <button class="button">Proceed</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
 {!! Form::model($data, $modelConfig['update']) !!}
     @include('modules.partials.modals.edit-remarks')
 @stop
@@ -124,6 +193,51 @@ Unit Purchase Request
             </div>
         </div>
 
+        @if($data->status == 'upr_processing')
+        <button id="add-item-button" class="button">ADD ITEM</button>
+
+        <button type="button" id="import-item" class="button pull-right" tooltip="Import"><i class="nc-icon-mini arrows-1_cloud-upload-96"></i></button>
+
+        @endif
+        <table class='table' id="item_table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>AccountCode</th>
+                    <th>Qty</th>
+                    <th>Unit</th>
+                    <th>Unit Price</th>
+                    <th>Amount</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($data->items as $item)
+                    <tr>
+                        <td>{{$item->item_description}}</td>
+                        <td>{{($item->accounts) ? "[". $item->accounts->old_account_code ."]".$item->accounts->new_account_code ." - ". $item->accounts->name : ""}}</td>
+                        <td>{{$item->quantity}}</td>
+                        <td>{{$item->unit_measurement}}</td>
+                        <td>{{$item->unit_price}}</td>
+                        <td>{{formatPrice($item->total_amount)}}</td>
+                        <td>
+
+                        @if($data->status == 'upr_processing')
+
+                          <a  tooltip="edit" href="#" data-id="{{$item->id}}" data-quantity="{{$item->quantity}}" data-account_code="{{$item->new_account_code}}" data-unit_measurement="{{$item->unit_measurement}}" data-price="{{$item->unit_price}}" data-description="{{$item->item_description}}" class="edit-price-button" tooltip="Edit">
+                              <i class="nc-icon-mini design_pen-01"></i>
+                          </a>
+
+                          <a tooltip="remove" href="{{route('procurements.upr-items.destroy', $item->id)}}"><i class="nc-icon-mini ui-1_trash"></i></a>
+
+                        @endif
+
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
     </div>
 </div>
 
@@ -139,9 +253,42 @@ Unit Purchase Request
         $('#edit-modal').addClass('is-visible');
     })
 
+    $('#import-item').click(function(e){
+        e.preventDefault();
+        $('#import-item-modal').addClass('is-visible');
+    })
+
     $('#delete-button').click(function(e){
         e.preventDefault();
         $('#delete-modal').addClass('is-visible');
+    })
+
+    $('#add-item-button').click(function(e){
+        e.preventDefault();
+        $('#add-item-modal').addClass('is-visible');
+    })
+
+     $('#close-line-item-button').click(function(e){
+        $('#edit-line-item-modal').removeClass('is-visible');
+    })
+
+     $('.edit-price-button').click(function(e){
+        e.preventDefault();
+        var id = $(this).data('id')
+        var description = $(this).data('description')
+        var price_unit = $(this).data('price')
+        var quantity = $(this).data('quantity')
+        var unit_measurement = $(this).data('unit_measurement')
+        $('#update-line-item-form').attr('action', '/line-item/update/'+id);
+        $(".id-field-quantity").val(quantity)
+        $(".id-field-unit_price").val(price_unit)
+        // $(".id-field-new_account_code").val($(this).data('account_code'))
+        var $select = $('select').selectize();  // This initializes the selectize control
+        var selectize = $select[0].selectize;
+        selectize.setValue($(this).data('account_code'), false);
+        $(".id-field-unit_measurement").val(unit_measurement)
+        $("#title_description").text(description)
+        $('#edit-line-item-modal').addClass('is-visible');
     })
 
     $requestor = $('#id-field-requestor_id').selectize({
