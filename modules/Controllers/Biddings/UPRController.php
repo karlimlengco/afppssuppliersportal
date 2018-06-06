@@ -474,6 +474,7 @@ class UPRController extends Controller
             'data'              =>  $result,
             'indexRoute'        =>  $this->baseUrl.'show',
             'account_codes'     =>  $account_codes,
+            'accounts'          =>  $account_codes,
             'payment_terms'     =>  $payment_terms,
             'signatory_list'    =>  $signatory_lists,
             'procurement_types' =>  $procurement_types,
