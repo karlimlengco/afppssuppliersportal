@@ -745,7 +745,6 @@ class NoticeOfAwardController extends Controller
 
         $input  =   [
             'received_by'               =>  $request->received_by,
-            'proponent_id'              =>  $request->proponent_id,
             'signatory'                 =>  $signatory,
             'signatory_id'              =>  $request->signatory_id,
             'awarded_date'              =>  $request->awarded_date,
@@ -755,6 +754,9 @@ class NoticeOfAwardController extends Controller
             'update_remarks'            =>  $request->update_remarks,
             'days' => $day_delayed
         ];
+        if($request->proponent_id != null){
+            $input['proponent_id'] = $request->proponent_id;
+        }
 
 
 
