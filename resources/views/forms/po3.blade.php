@@ -243,6 +243,15 @@
                         <td class="border-right-only" width="10%"></td>
                     </tr>
                     <tr>
+                        <td class="border-left-only" width="15%" height="60px"></td>
+                        <td class="no-border" width="1%"></td>
+                        <td class="no-border" width="40%"></td>
+                        <td class="border-right-only" width="5%"></td>
+                        <td class="no-border" width="23%"></td>
+                        <td class="no-border" width="1%"></td>
+                        <td class="border-right-only" width="10%"></td>
+                    </tr>
+                    <tr>
                         <td class="no-padding border-left-only"></td>
                         <td class="no-padding no-border" colspan="2"  style="text-align:center" ><u>{{$data['accounting'][1]}} {{$data['accounting'][0]}}, {{$data['accounting'][2]}}</u></td>
                         <td class="no-padding border-right-only"></td>
