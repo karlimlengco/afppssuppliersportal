@@ -225,7 +225,7 @@
                         <td class="border-right-only" width="10%"></td>
                     </tr>
                     <tr>
-                        <td class="border-left-only" width="15%" height="30px"></td>
+                        <td class="border-left-only" width="25%" height="30px">Funds Available:</td>
                         <td class="no-border" width="1%"></td>
                         <td class="no-border" width="30%"></td>
                         <td class="border-right-only" width="10%"></td>
@@ -234,9 +234,9 @@
                         <td class="border-right-only" width="10%"></td>
                     </tr>
                     <tr>
-                        <td class="border-left-only" width="15%" height="30px">Funds Available:</td>
+                        <td class="border-left-only" width="15%" height="30px"></td>
                         <td class="no-border" width="1%"></td>
-                        <td class="no-border" width="40%"></td>
+                        <td class="no-border" width="30%"></td>
                         <td class="border-right-only" width="5%"></td>
                         <td class="no-border" width="23%">DATE of the OBR/BURS</td>
                         <td class="no-border" width="1%"></td>
