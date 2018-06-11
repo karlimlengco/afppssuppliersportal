@@ -376,12 +376,12 @@ function convertNumber($number)
         $integer    = ltrim($integer, "+");
     }
 
-    if ($integer{0} == "0")
-    {
-        $output .= "zero";
-    }
-    else
-    {
+    // if ($integer{0} == "0")
+    // {
+    //     $output .= "zero";
+    // }
+    // else
+    // {
         $integer = str_pad($integer, 36, "0", STR_PAD_LEFT);
         $group   = rtrim(chunk_split($integer, 3, " "), " ");
         $groups  = explode(" ", $group);
@@ -411,7 +411,7 @@ function convertNumber($number)
 
         $output = rtrim($output, " ");
         // ,
-    }
+    // }
 
     if ($fraction > 0)
     {
@@ -597,6 +597,7 @@ function translateToWords($number)
   $split = explode('.',$num);
   $cents = '';
   $whole = convertNumber($split[0].".0");
+
   if(count($split) > 1 && $split[1] != 00){
     $cents .= " and ";
     $cents .= convertNumber($split[1].".0");
