@@ -175,7 +175,7 @@
                     </tr>
                     <tr>
                         <td class="border-left-only" colspan="2" height="30px"></td>
-                        <td class="align-center no-padding" height="30px">Signature over printed name of Supplier</td>
+                        <td class="align-center no-padding no-border" height="30px">Signature over printed name of Supplier</td>
                         <td class="no-border"></td>
                         <td class="align-center border-right-only no-padding" height="30px">
                           @if($data['requestor'] != null)
