@@ -197,8 +197,7 @@
                         <tr>
                             <td width="10%"></td>
                             <td width="35%">
-                              {{dd($data['accounting'][1])}}
-                              @if(strpos($data['accounting'][1], 'ABAIGAR')  !== false)
+                              @if(strpos($data['accounting'][0], 'ABAIGAR')  !== false)
                               <table class="signatory">
                                   <tr>
                                       <td>
