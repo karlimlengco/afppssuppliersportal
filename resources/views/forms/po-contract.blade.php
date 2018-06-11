@@ -197,6 +197,7 @@
                         <tr>
                             <td width="10%"></td>
                             <td width="35%">
+                              {{dd(strpos($data['accounting'][1], 'ABAIGAR')  !== false)}}
                               @if(strpos($data['accounting'][1], 'ABAIGAR')  !== false)
                               <table class="signatory">
                                   <tr>
