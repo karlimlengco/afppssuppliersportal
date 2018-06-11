@@ -200,7 +200,7 @@
                               @if(strpos($data['accounting'][0], 'ABAIGAR')  !== false)
                               <table class="signatory">
                                   <tr>
-                                      <td>
+                                      <td nowrap>
                                           <div class="">
                                               <strong>{{$data['accounting'][1]}} {{$data['accounting'][0]}}</strong>
                                               <span></span>
