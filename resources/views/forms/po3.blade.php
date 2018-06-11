@@ -143,6 +143,14 @@
                         <td class="align-top no-border-bottom" colspan="6" height="40px">In case of failure to make the full delivery within the time specified above, a penalty of one-tenth (1/10) of one percent (1%) for every day of delay shall be imposed.</td>
                     </tr>
                     <tr>
+                        <td class="border-left-only"  height="30px"></td>
+                        <td class="no-border"  height="40px"></td>
+                        <td class="no-border" height="30px"></td>
+                        <td class="no-border" ></td>
+                        <td class="border-right-only" height="30px">
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="border-left-only" width="9%" height="30px"></td>
                         <td class="no-border" width="1%" height="40px">Conforme:</td>
                         <td class="no-border" width="35%" height="30px"></td>
@@ -155,7 +163,7 @@
                     </tr>
                     <tr>
                         <td class="border-left-only"  height="30px"></td>
-                        <td class="no-border"  height="40px"></td>
+                        <td class="no-border"  height="30px"></td>
                         <td class="no-border" height="30px"></td>
                         <td class="no-border" ></td>
                         <td class="border-right-only" height="30px">
