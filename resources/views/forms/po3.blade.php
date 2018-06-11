@@ -175,7 +175,7 @@
                     </tr>
                     <tr>
                         <td class="border-left-only" colspan="2" height="30px"></td>
-                        <td class="align-center no-padding border-bottom-only" height="30px">Signature over printed name of Supplier</td>
+                        <td class="align-center no-padding" height="30px">Signature over printed name of Supplier</td>
                         <td class="no-border"></td>
                         <td class="align-center border-right-only no-padding" height="30px">
                           @if($data['requestor'] != null)
@@ -184,7 +184,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="no-border" height="30px" colspan="5"></td>
+                        <td class="border-bottom-only" height="30px" colspan="5"></td>
                     </tr>
                     <tr>
                         <td class="border-left-only" colspan="2"></td>
