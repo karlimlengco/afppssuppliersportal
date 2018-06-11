@@ -1123,7 +1123,7 @@ class PurchaseOrderController extends Controller
         $data['unit']               =  $result->upr->unit->short_code;
 
         if($result->accounting){
-            $accounting  =   $result->name."/".$result->ranks."/".$result->branch."/".$result->designation;
+            $accounting  =   $result->accounting->name."/".$result->accounting->ranks."/".$result->accounting->branch."/".$result->accounting->designation;
         }else{
             $accounting = $result->accounting_signatory;
         }
@@ -1132,7 +1132,6 @@ class PurchaseOrderController extends Controller
         $data['accounting']         =  explode('/', $accounting);
         $data['approver']           =  explode('/', $result->approver_signatory);
         $data['coa_signatories']    =  explode('/', $result->coa_name_signatory);
-        dd($accounting);
 
         $totalPages =  0 ;
         foreach($result->items as $page)
