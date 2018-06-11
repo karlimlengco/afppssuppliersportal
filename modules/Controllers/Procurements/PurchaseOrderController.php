@@ -1122,8 +1122,14 @@ class PurchaseOrderController extends Controller
         $data['ref_number']         =  $result->po_number;
         $data['unit']               =  $result->upr->unit->short_code;
 
+        if($result->accounting){
+            $accounting  =   $result->name."/".$result->ranks."/".$result->branch."/".$result->designation;
+        }else{
+            $accounting = $result->accounting_signatory;
+        }
+
         $data['requestor']          =  explode('/', $result->requestor_signatory);
-        $data['accounting']         =  explode('/', $result->accounting_signatory);
+        $data['accounting']         =  explode('/', $accounting);
         $data['approver']           =  explode('/', $result->approver_signatory);
         $data['coa_signatories']    =  explode('/', $result->coa_name_signatory);
 
