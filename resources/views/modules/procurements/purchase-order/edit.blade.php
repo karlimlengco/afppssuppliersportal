@@ -50,6 +50,14 @@ Purchase Order
                       'contract_and_po'   =>  'Contract And Purchase Order',
                   ]) !!}
                 </div>
+                <div class="four columns">
+                    {!! Form::selectField('service_type', 'Service Type',[
+                      'subscription'    =>  'Subscription',
+                      'printing'    =>  'Printing',
+                      'text book'    =>  'Text Book',
+                      'news paper'    =>  'News Paper',
+                  ]) !!}
+                </div>
             </div>
 
             <div class="row">

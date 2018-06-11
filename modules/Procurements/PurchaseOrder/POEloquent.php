@@ -21,6 +21,7 @@ class POEloquent extends Model implements  AuditableContract
 
         'funding_released_date',
         'funding_received_date',
+        'service_type',
 
         'mfo_received_date',
         'mfo_released_date',
@@ -76,6 +77,7 @@ class POEloquent extends Model implements  AuditableContract
         'upr_number',
         'purchase_date',
         'bid_amount',
+        'service_type',
         'payment_term',
         'delivery_terms',
         'delivery_date',

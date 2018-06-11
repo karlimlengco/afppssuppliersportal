@@ -981,6 +981,7 @@ class PurchaseOrderController extends Controller
             'accounting_id' =>  $request->accounting_id,
             'approver_id'   =>  $request->approver_id,
             'coa_signatory' =>  $request->coa_signatory,
+            'service_type' =>  $request->service_type,
         ];
 
         if($po_model->requestor_id != $request->requestor_id)
@@ -1115,6 +1116,7 @@ class PurchaseOrderController extends Controller
             $noa_model                  =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
         } ;
 
+        $data['service_type']       =  $result->service_type;
         $data['type']               =  $result->type;
         $data['items']              =  $result->items;
         $data['supplier']           =  $noa_model;
