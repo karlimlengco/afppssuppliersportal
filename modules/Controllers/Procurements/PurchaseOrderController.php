@@ -1132,7 +1132,7 @@ class PurchaseOrderController extends Controller
         $data['accounting']         =  explode('/', $accounting);
         $data['approver']           =  explode('/', $result->approver_signatory);
         $data['coa_signatories']    =  explode('/', $result->coa_name_signatory);
-
+        dd($accounting);
 
         $totalPages =  0 ;
         foreach($result->items as $page)
