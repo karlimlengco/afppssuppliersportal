@@ -184,7 +184,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="no-border" colspan="5"></td>
+                        <td class="no-border" height="30px" colspan="5"></td>
                     </tr>
                     <tr>
                         <td class="border-left-only" colspan="2"></td>
