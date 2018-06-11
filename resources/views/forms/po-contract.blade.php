@@ -201,7 +201,7 @@
                               <table class="signatory">
                                   <tr>
                                       <td>
-                                          <div class="signatory-name-justify">
+                                          <div class="">
                                               <strong>{{$data['accounting'][1]}} {{$data['accounting'][0]}}</strong>
                                               <span></span>
                                           </div>
@@ -210,7 +210,7 @@
                                   </tr>
                                   <tr>
                                       <td>
-                                          <div class="signatory-rank-justify">
+                                          <div class="">
                                               <strong>{{$data['accounting'][2]}}</strong>
                                               <span></span>
                                           </div>
