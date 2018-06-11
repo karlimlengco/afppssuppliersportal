@@ -164,16 +164,24 @@
                   </table>
                   <table class="printable-form__body__table">
                     <tr>
+                        <td class="border-left-only"  height="30px"></td>
+                        <td class="no-border"  height="40px"></td>
+                        <td class="no-border" height="30px"></td>
+                        <td class="no-border" ></td>
+                        <td class="border-right-only" height="30px">
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="border-left-only" height="30px"></td>
                         <td class="no-border" height="40px"></td>
                         <td class="border-bottom-only"  height="30px"></td>
+                        <td class="no-border" ></td>
                         <td class="align-center border-right-only " style="border-bottom: solid 1px #adadad" height="30px" >
                         @if($data['requestor'] != null)
 
                           {{$data['requestor'][1]}} {{$data['requestor'][0]}} {{$data['requestor'][2]}}
                         @endif
                         </td>
-                        <td class="no-border" ></td>
                     </tr>
                     <tr>
                         <td class="border-left-only" colspan="2" height="30px"></td>
