@@ -151,6 +151,9 @@
                             REFERENCES: UPR No. {{$data['upr_number']}}
                         </td>
                     </tr>
+                </table>
+                <div style="page-break-inside: avoid;">
+                  <table class="printable-form__body__table">
                     <tr>
                         <td class="align-top no-border-bottom" colspan="6" height="40px">In case of failure to make the full delivery within the time specified above, a penalty of one-tenth (1/10) of one percent (1%) for every day of delay shall be imposed.</td>
                     </tr>
@@ -213,6 +216,7 @@
                         <td class="no-border-top" colspan="5"></td>
                     </tr>
                 </table>
+                </div>
                 <div style="page-break-inside: avoid;">
                 <table class="printable-form__body__table">
                     <tr>
