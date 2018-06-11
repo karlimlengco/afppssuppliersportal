@@ -184,7 +184,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="border-bottom-only" height="30px" colspan="5"></td>
+                        <td class="border-left-only" colspan="2"></td>
+                        <td class="border-bottom-only"></td>
+                        <td class="no-border"></td>
+                        <td class="border-right-only"></td>
                     </tr>
                     <tr>
                         <td class="border-left-only" colspan="2"></td>
