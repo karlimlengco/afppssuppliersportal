@@ -197,6 +197,32 @@
                         <tr>
                             <td width="10%"></td>
                             <td width="35%">
+                              @if(strpos($data['accounting'][1], 'ABAIGAR')  !== false)
+                              <table class="signatory">
+                                  <tr>
+                                      <td>
+                                          <div class="signatory-name-justify">
+                                              <strong>{{$data['accounting'][1]}} {{$data['accounting'][0]}}</strong>
+                                              <span></span>
+                                          </div>
+                                      </td>
+                                      <td></td>
+                                  </tr>
+                                  <tr>
+                                      <td>
+                                          <div class="signatory-rank-justify">
+                                              <strong>{{$data['accounting'][2]}}</strong>
+                                              <span></span>
+                                          </div>
+                                      </td>
+                                      <td></td>
+                                  </tr>
+                                  <tr>
+                                    <td nowrap>Chief Accountant, <br> AFP Accounting Center</td>
+                                    <td></td>
+                                  </tr>
+                              </table>
+                              @else
                               <table class="signatory">
                                   <tr>
                                       <td>
@@ -217,14 +243,11 @@
                                       <td></td>
                                   </tr>
                                   <tr>
-                                      @if($data['accounting'][3] == 'Chief Accountant, AFP Accounting Center')
-                                        <td nowrap>Chief Accountant, <br> AFP Accounting Center</td>
-                                      @else
-                                      <td nowrap>{{$data['accounting'][3]}}</td>
-                                      @endif
-                                      <td></td>
+                                    <td nowrap>{{$data['accounting'][3]}}</td>
+                                    <td></td>
                                   </tr>
                               </table>
+                              @endif
                             </td>
                             <td width="10%"></td>
                             <td width="35%"></td>
