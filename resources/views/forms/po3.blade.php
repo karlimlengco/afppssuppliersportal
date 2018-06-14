@@ -154,11 +154,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="border-left-only"  height="30px"></td>
-                        <td class="no-border"  height="30px"></td>
-                        <td class="no-border" height="30px"></td>
+                        <td class="border-left-only"  height="20px"></td>
+                        <td class="no-border"  height="20px"></td>
+                        <td class="no-border" height="20px"></td>
                         <td class="no-border" ></td>
-                        <td class="border-right-only" height="30px">
+                        <td class="border-right-only" height="20px">
                         </td>
                     </tr>
                     <tr>
