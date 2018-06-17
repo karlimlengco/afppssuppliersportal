@@ -962,9 +962,10 @@ class UPRController extends Controller
         $fields         =   $reader->limitColumns(5)->get();
         $itemArray      =    [];
         $total          =    0;
+
         foreach($fields as $key => $vals)
         {
-            if($key != 0){
+            if($key != 0 && $vals[1] != "QTY"){
                 $itemArray[]    =   [
                     'upr_id'                =>  $id,
                     'new_account_code'      =>  $request->code,
