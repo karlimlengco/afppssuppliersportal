@@ -603,7 +603,7 @@ function translateToWords($number)
   }
 
   if($cents == ''){
-    $cents = ' pesos only'
+    $cents = ' pesos only';
   }
 
   return  strtoupper($whole.$cents);
