@@ -21,7 +21,7 @@
       <td>{{itemContent}}</td>
     </tr>
     <tr>
-        <td class="align-center"  colspan="5" style="text-transform:uppercase">{{bid_amount_word}} Pesos Only</td>
+        <td class="align-center"  colspan="5" style="text-transform:uppercase">{{bid_amount_word}} </td>
         <td  class="align-right" >Php {{bid_amount}}</td>
     </tr>
     <tr>

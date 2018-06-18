@@ -51,7 +51,7 @@
         <td class="v-align-middle no-border-top align-center" width="15%"><strong>Amount</strong></td>
     </tr>
     <tr>
-        <td class="no-border-top no-border-bottom" style="text-indent: justify" colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To payment for the ten ({{itemCount}}) Line Items(s) spicified and delivered under {{poType}} {{po_number}} in the amount of <strong style="text-transform: uppercase">{{bid_amount_word}} PESOS ONLY (Php {{bid_amount}})</strong></td>
+        <td class="no-border-top no-border-bottom" style="text-indent: justify" colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To payment for the ten ({{itemCount}}) Line Items(s) spicified and delivered under {{poType}} {{po_number}} in the amount of <strong style="text-transform: uppercase">{{bid_amount_word}} (Php {{bid_amount}})</strong></td>
         <td class="no-border-top no-border-bottom"></td>
         <td class="no-border-top no-border-bottom"></td>
         <td class="no-border-top no-border-bottom align-right"><strong>Php {{bid_amount}}</strong></td>

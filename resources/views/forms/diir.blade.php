@@ -48,7 +48,7 @@
                     </tr>
                     @endforeach
                     <tr>
-                        <td class="align-center"  colspan="5" style="text-transform:uppercase">{{translateToWords($data['bid_amount'])}} Pesos Only</td>
+                        <td class="align-center"  colspan="5" style="text-transform:uppercase">{{translateToWords($data['bid_amount'])}}</td>
                         <td  class="align-right" >Php {{formatPrice($data['bid_amount'])}}</td>
                     </tr>
                     <tr>

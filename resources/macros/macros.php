@@ -587,8 +587,6 @@ function convertDigit($digit)
     }
 }
 
-
-
 function translateToWords($number)
 {
   $num = str_replace(',', '', $number);
@@ -599,9 +597,13 @@ function translateToWords($number)
   $whole = convertNumber($split[0].".0");
 
   if(count($split) > 1 && $split[1] != 00){
-    $cents .= " and ";
+    $cents .= " pesos and ";
     $cents .= convertNumber($split[1].".0");
-    $cents .=" cents";
+    $cents .=" cents Only";
+  }
+
+  if($cents == ''){
+    $cents = ' pesos only'
   }
 
   return  strtoupper($whole.$cents);

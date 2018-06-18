@@ -85,7 +85,7 @@
                             <td class="align-right"><strong>{{formatPrice($total)}}</strong></td>
                         </tr>
                     </table>
-                    <p class="indent-first-line">That the Second Party, after fulfillment of all the terms and conditions of this contract will pay the First Party sum of <strong style="text-transform:uppercase">{{translateToWords($total)}} PESOS ONLY.</strong>.</p>
+                    <p class="indent-first-line">That the Second Party, after fulfillment of all the terms and conditions of this contract will pay the First Party sum of <strong style="text-transform:uppercase">{{translateToWords($total)}}.</strong>.</p>
                     <div style="page-break-inside: avoid">
 
                     <p class="indent-first-line">IN WITNESS HEREOF, the Parties aforementioned have hereunto placed their hands on the date herein above.</p>

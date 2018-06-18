@@ -51,7 +51,7 @@
     </tr>
       {{items}}
     <tr>
-        <td class="align-center"  colspan="7" style="text-transform:uppercase">{{bid_amount_word}} Pesos Only</td>
+        <td class="align-center"  colspan="7" style="text-transform:uppercase">{{bid_amount_word}}</td>
         <td  class="align-right" >Php {{bid_amount}}</td>
     </tr>
     <tr>

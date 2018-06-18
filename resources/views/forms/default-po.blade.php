@@ -83,7 +83,7 @@
     </tr>
 
     <tr>
-        <td class="align-center" colspan="4"><strong style="text-transform:uppercase">{{total_word}} PESOS ONLY.</strong></td>
+        <td class="align-center" colspan="4"><strong style="text-transform:uppercase">{{total_word}}.</strong></td>
         <td colspan="2" class="align-right"><strong>{{total}}</strong></td>
     </tr>
 </table>
