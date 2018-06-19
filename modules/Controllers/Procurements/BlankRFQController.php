@@ -515,7 +515,7 @@ class BlankRFQController extends Controller
         }
         $data['items']              =  $result->upr->items;
         $pdf = PDF::loadView('forms.rfq', ['data' => $data])
-            ->setOption('margin-bottom', 30);
+            ->setOption('margin-bottom', 30)
             ->setOption('margin-top', 30);
             // ->setOption('footer-html', route('pdf.footer'));
 

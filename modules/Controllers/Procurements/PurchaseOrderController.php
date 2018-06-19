@@ -1503,7 +1503,7 @@ class PurchaseOrderController extends Controller
         $data['header']             =  $result->upr->centers;
 
         $pdf = PDF::loadView('forms.po-coa', ['data' => $data])
-            ->setOption('margin-bottom', 30);
+            ->setOption('margin-bottom', 30)
             ->setOption('margin-top', 30);
             // ->setOption('footer-html', route('pdf.footer'));
 
