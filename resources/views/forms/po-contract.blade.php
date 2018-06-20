@@ -264,7 +264,7 @@
                       <p class="indent-first-line">BEFORE ME, a notary public for in Quezon City, Philippines on __________ day of __________</p>
                       <p class="indent-first-line"> All known to me known to be the same person who executed the foregoing instrument and they acknowledged before me their aforesaid acts their own free and voluntarily act and deed, as well as the instrumentalities they respectively represents, for the uses and purpose therein stated.
                       </p>
-                      <p class="indent-first-line"> This instrument refers to the catering services uses in connection with their various activities consisting of the {{translateToWords($totalPages)}} ({{$totalPages}}) pages including this page in their instrument withnesses at each every page. </p>
+                      <p class="indent-first-line"> This instrument refers to the catering services uses in connection with their various activities consisting of the {{translateToWordsPoints($totalPages)}} ({{$totalPages}}) pages including this page in their instrument withnesses at each every page. </p>
 
                       <p><strong>WITNESS MY HAND SEAL at the place and on the first herein above written.</strong></p>
 
