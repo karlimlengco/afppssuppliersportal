@@ -94,8 +94,7 @@
                             <td colspan="3" height="60px"></td>
                         </tr>
                         <tr>
-                            <td width="10%"></td>
-                            <td width="45%">
+                            <td width="55%">
                               <table class="signatory">
                                   <tr>
                                       <td>
