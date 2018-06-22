@@ -90,7 +90,65 @@
 
                     <p class="indent-first-line">IN WITNESS HEREOF, the Parties aforementioned have hereunto placed their hands on the date herein above.</p>
                     <table class="printable-form__body__table no-border no-padding">
-                        <tr>
+
+                      <tr>
+                          <td width="10%"></td>
+                          <td width="45%">
+                            <table class="signatory">
+                                <tr>
+                                    <td>
+                                        <div class="signatory-name-justify">
+                                            <strong>{{$data['requestor'][0]}}</strong>
+                                            <span></span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="signatory-rank-justify">
+                                            <strong>{{$data['requestor'][1]}} {{$data['requestor'][2]}}</strong>
+                                            <span></span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                  <td nowrap>{{$data['requestor'][3]}}</td>
+                                  <td></td>
+                                </tr>
+                            </table>
+                          </td>
+                          <td></td>
+                          <td width="35%">
+                            <table class="signatory">
+                                <tr>
+                                    <td>
+                                        <div class="signatory-name-justify">
+                                            <strong>{{$data['supplier']->owner}}</strong>
+                                            <span></span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="signatory-rank-justify">
+                                            <strong>Proprietor</strong>
+                                            <span></span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td nowrap>{{$data['supplier']->name}}</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                          </td>
+                          <td width="10%"></td>
+                      </tr>
+                       {{--  <tr>
                             <td colspan="3" height="60px"></td>
                         </tr>
                         <tr>
@@ -150,8 +208,9 @@
                                   </tr>
                               </table>
                             </td>
-                        </tr>
+                        </tr> --}}
                     </table>
+
                     <table class="printable-form__body__table no-border no-padding">
                         <tr>
                             <td colspan="3" height="60px"></td>
