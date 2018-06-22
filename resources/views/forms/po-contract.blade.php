@@ -88,72 +88,13 @@
                     <p class="indent-first-line">That the Second Party, after fulfillment of all the terms and conditions of this contract will pay the First Party sum of <strong style="text-transform:uppercase">{{translateToWords($total)}}.</strong>.</p>
                     <div style="page-break-inside: avoid">
 
-                    <p class="indent-first-line">IN WITNESS HEREOF, the Parties aforementioned have hereunto placed their hands on the date herein above.</p>
-                    <table class="printable-form__body__table no-border no-padding">
+                      <p class="indent-first-line">IN WITNESS HEREOF, the Parties aforementioned have hereunto placed their hands on the date herein above.</p>
+                      <br style="clear: both;">
+                      <table class="printable-form__body__table no-border no-padding">
 
-                      <tr>
-                          <td width="10%"></td>
-                          <td width="45%">
-                            <table class="signatory">
-                                <tr>
-                                    <td>
-                                        <div class="signatory-name-justify">
-                                            <strong>{{$data['requestor'][0]}}</strong>
-                                            <span></span>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="signatory-rank-justify">
-                                            <strong>{{$data['requestor'][1]}} {{$data['requestor'][2]}}</strong>
-                                            <span></span>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                  <td nowrap>{{$data['requestor'][3]}}</td>
-                                  <td></td>
-                                </tr>
-                            </table>
-                          </td>
-                          <td></td>
-                          <td width="35%">
-                            <table class="signatory">
-                                <tr>
-                                    <td>
-                                        <div class="signatory-name-justify">
-                                            <strong>{{$data['supplier']->owner}}</strong>
-                                            <span></span>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="signatory-rank-justify">
-                                            <strong>Proprietor</strong>
-                                            <span></span>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td nowrap>{{$data['supplier']->name}}</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-                          </td>
-                          <td width="10%"></td>
-                      </tr>
-                       {{--  <tr>
-                            <td colspan="3" height="60px"></td>
-                        </tr>
                         <tr>
                             <td width="10%"></td>
-                            <td width="55%">
+                            <td width="45%">
                               <table class="signatory">
                                   <tr>
                                       <td>
@@ -174,15 +115,13 @@
                                       <td></td>
                                   </tr>
                                   <tr>
-                                      <td nowrap>{{$data['requestor'][3]}}</td>
-                                      <td></td>
+                                    <td nowrap>{{$data['requestor'][3]}}</td>
+                                    <td></td>
                                   </tr>
                               </table>
                             </td>
-                            <td width="10%"></td>
-                            <td width="10%"></td>
-                            <td width="15%">
-
+                            <td></td>
+                            <td width="35%">
                               <table class="signatory">
                                   <tr>
                                       <td>
@@ -208,111 +147,173 @@
                                   </tr>
                               </table>
                             </td>
-                        </tr> --}}
-                    </table>
-
-                    <table class="printable-form__body__table no-border no-padding">
-                        <tr>
-                            <td colspan="3" height="60px"></td>
-                        </tr>
-                        <tr>
-                            <td width="35%"></td>
-                            <td width="35%">
-                              <table class="signatory">
-                                  <tr>
-                                      <td>
-                                          <div class="signatory-name-justify">
-                                              <strong>{{$data['approver'][0]}}</strong>
-                                              <span></span>
-                                          </div>
-                                      </td>
-                                      <td></td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          <div class="signatory-rank-justify">
-                                              <strong>{{$data['approver'][1]}} {{$data['approver'][2]}}</strong>
-                                              <span></span>
-                                          </div>
-                                      </td>
-                                      <td></td>
-                                  </tr>
-                                  <tr>
-                                      <td nowrap>{{$data['approver'][3]}}</td>
-                                      <td></td>
-                                  </tr>
-                              </table>
-                            </td>
-                            <td width="30%"></td>
-                        </tr>
-                    </table>
-
-
-                    <table class="printable-form__body__table no-border no-padding">
-                        <tr>
-                            <td colspan="1" height="60px"></td>
-                            <td colspan="1">Funds Available:</td>
-                        </tr>
-                        <tr>
-                            <td width="10%"></td>
-                            <td width="45%">
-                              @if(strpos($data['accounting'][0], 'ABAIGAR')  !== false)
-                              <table class="signatory">
-                                  <tr>
-                                      <td nowrap>
-                                          <div class="">
-                                              <strong>{{$data['accounting'][1]}} {{$data['accounting'][0]}}</strong>
-                                              <span></span>
-                                          </div>
-                                      </td>
-                                      <td></td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          <div class="">
-                                              <strong>{{$data['accounting'][2]}}</strong>
-                                              <span></span>
-                                          </div>
-                                      </td>
-                                      <td></td>
-                                  </tr>
-                                  <tr>
-                                    <td nowrap>Chief Accountant, <br> AFP Accounting Center</td>
-                                    <td></td>
-                                  </tr>
-                              </table>
-                              @else
-                              <table class="signatory">
-                                  <tr>
-                                      <td>
-                                          <div class="signatory-name-justify">
-                                              <strong>{{$data['accounting'][0]}}</strong>
-                                              <span></span>
-                                          </div>
-                                      </td>
-                                      <td></td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          <div class="signatory-rank-justify">
-                                              <strong>{{$data['accounting'][1]}} {{$data['accounting'][2]}}</strong>
-                                              <span></span>
-                                          </div>
-                                      </td>
-                                      <td></td>
-                                  </tr>
-                                  <tr>
-                                    <td nowrap>{{$data['accounting'][3]}}</td>
-                                    <td></td>
-                                  </tr>
-                              </table>
-                              @endif
-                            </td>
-                            <td></td>
-                            <td width="35%"></td>
                             <td width="10%"></td>
                         </tr>
-                    </table>
+                         {{--  <tr>
+                              <td colspan="3" height="60px"></td>
+                          </tr>
+                          <tr>
+                              <td width="10%"></td>
+                              <td width="55%">
+                                <table class="signatory">
+                                    <tr>
+                                        <td>
+                                            <div class="signatory-name-justify">
+                                                <strong>{{$data['requestor'][0]}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="signatory-rank-justify">
+                                                <strong>{{$data['requestor'][1]}} {{$data['requestor'][2]}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td nowrap>{{$data['requestor'][3]}}</td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                              </td>
+                              <td width="10%"></td>
+                              <td width="10%"></td>
+                              <td width="15%">
+
+                                <table class="signatory">
+                                    <tr>
+                                        <td>
+                                            <div class="signatory-name-justify">
+                                                <strong>{{$data['supplier']->owner}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="signatory-rank-justify">
+                                                <strong>Proprietor</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td nowrap>{{$data['supplier']->name}}</td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                              </td>
+                          </tr> --}}
+                      </table>
+
+                      <table class="printable-form__body__table no-border no-padding">
+                          <tr>
+                              <td colspan="3" height="60px"></td>
+                          </tr>
+                          <tr>
+                              <td width="35%"></td>
+                              <td width="35%">
+                                <table class="signatory">
+                                    <tr>
+                                        <td>
+                                            <div class="signatory-name-justify">
+                                                <strong>{{$data['approver'][0]}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="signatory-rank-justify">
+                                                <strong>{{$data['approver'][1]}} {{$data['approver'][2]}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td nowrap>{{$data['approver'][3]}}</td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                              </td>
+                              <td width="30%"></td>
+                          </tr>
+                      </table>
+
+
+                      <table class="printable-form__body__table no-border no-padding">
+                          <tr>
+                              <td colspan="1" height="60px"></td>
+                              <td colspan="1">Funds Available:</td>
+                          </tr>
+                          <tr>
+                              <td width="10%"></td>
+                              <td width="45%">
+                                @if(strpos($data['accounting'][0], 'ABAIGAR')  !== false)
+                                <table class="signatory">
+                                    <tr>
+                                        <td nowrap>
+                                            <div class="">
+                                                <strong>{{$data['accounting'][1]}} {{$data['accounting'][0]}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="">
+                                                <strong>{{$data['accounting'][2]}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                      <td nowrap>Chief Accountant, <br> AFP Accounting Center</td>
+                                      <td></td>
+                                    </tr>
+                                </table>
+                                @else
+                                <table class="signatory">
+                                    <tr>
+                                        <td>
+                                            <div class="signatory-name-justify">
+                                                <strong>{{$data['accounting'][0]}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="signatory-rank-justify">
+                                                <strong>{{$data['accounting'][1]}} {{$data['accounting'][2]}}</strong>
+                                                <span></span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                      <td nowrap>{{$data['accounting'][3]}}</td>
+                                      <td></td>
+                                    </tr>
+                                </table>
+                                @endif
+                              </td>
+                              <td></td>
+                              <td width="35%"></td>
+                              <td width="10%"></td>
+                          </tr>
+                      </table>
 
                     </div>
 
