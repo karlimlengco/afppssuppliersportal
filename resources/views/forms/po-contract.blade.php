@@ -95,7 +95,7 @@
                         </tr>
                         <tr>
                             <td width="10%"></td>
-                            <td width="45%">
+                            <td width="35%">
                               <table class="signatory">
                                   <tr>
                                       <td>
@@ -121,8 +121,9 @@
                                   </tr>
                               </table>
                             </td>
-                            <td width="20%">&nbsp;</td>
-                            <td width="25%">
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="35%">
 
                               <table class="signatory">
                                   <tr>
@@ -151,7 +152,6 @@
                             </td>
                         </tr>
                     </table>
-
                     <table class="printable-form__body__table no-border no-padding">
                         <tr>
                             <td colspan="3" height="60px"></td>
