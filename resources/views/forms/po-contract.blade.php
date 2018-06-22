@@ -121,8 +121,8 @@
                                   </tr>
                               </table>
                             </td>
-                            <td width="10%"></td>
-                            <td width="35%">
+                            <td width="20%"></td>
+                            <td width="25%">
 
                               <table class="signatory">
                                   <tr>
