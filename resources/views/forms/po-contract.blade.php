@@ -94,7 +94,8 @@
                             <td colspan="3" height="60px"></td>
                         </tr>
                         <tr>
-                            <td width="55%">
+                            <td width="10%"></td>
+                            <td width="45%">
                               <table class="signatory">
                                   <tr>
                                       <td>
@@ -120,7 +121,7 @@
                                   </tr>
                               </table>
                             </td>
-                            <td width="20%"></td>
+                            <td width="20%">&nbsp;</td>
                             <td width="25%">
 
                               <table class="signatory">
