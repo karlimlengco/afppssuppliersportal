@@ -95,7 +95,7 @@
                         </tr>
                         <tr>
                             <td width="10%"></td>
-                            <td width="45%">
+                            <td width="55%">
                               <table class="signatory">
                                   <tr>
                                       <td>
@@ -123,7 +123,7 @@
                             </td>
                             <td width="10%"></td>
                             <td width="10%"></td>
-                            <td width="25%">
+                            <td width="15%">
 
                               <table class="signatory">
                                   <tr>
