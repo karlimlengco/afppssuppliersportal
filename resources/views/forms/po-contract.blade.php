@@ -122,7 +122,6 @@
                               </table>
                             </td>
                             <td width="10%"></td>
-                            <td width="10%"></td>
                             <td width="35%">
 
                               <table class="signatory">
@@ -150,6 +149,7 @@
                                   </tr>
                               </table>
                             </td>
+                            <td width="10%"></td>
                         </tr>
                     </table>
                     <table class="printable-form__body__table no-border no-padding">
