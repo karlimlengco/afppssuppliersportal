@@ -142,7 +142,7 @@
                                       <td></td>
                                   </tr>
                                   <tr>
-                                      <td nowrap>{{$data['supplier']->name}}</td>
+                                      <td >{{$data['supplier']->name}}</td>
                                       <td></td>
                                   </tr>
                               </table>
