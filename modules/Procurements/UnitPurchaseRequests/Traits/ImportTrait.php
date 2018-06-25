@@ -839,13 +839,19 @@ trait ImportTrait
         if($result)
         {
             for ($i=0; $i < count($items['item_description']); $i++) {
+                if(isset($items['total_amount'][$i]))
+                {
+                    $amount = $items['total_amount'][$i];
+                }else{
+                    $amount = 0;
+                }
                 $item_datas[]  =   [
                     'item_description'      =>  $items['item_description'][$i],
                     'new_account_code'      =>  $items['new_account_code'][$i],
                     'quantity'              =>  $items['quantity'][$i],
                     'unit_measurement'      =>  $items['unit_measurement'][$i],
                     'unit_price'            =>  $items['unit_price'][$i],
-                    'total_amount'          =>  $items['total_amount'][$i],
+                    'total_amount'          =>  $amount,
                     'upr_number'            =>  $request->get('upr_number'),
                     'ref_number'            =>  $request->get('ref_number'),
                     'prepared_by'           =>  $prepared_by,
