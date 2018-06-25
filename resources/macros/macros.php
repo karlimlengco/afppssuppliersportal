@@ -776,7 +776,7 @@ function translateToWords($number)
 function translateToWordsPoints($number)
 {
   $num = str_replace(',', '', $number);
-  $num = number_format($num,2);
+  $num = number_format((float)$num,2);
   $num = str_replace(',', '', $num);
   $split = explode('.',$num);
   $cents = '';
