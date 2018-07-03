@@ -228,7 +228,11 @@
                             <td class="align-center v-align-middle" rowspan="2">Position</td>
                             <td class="align-center">
                               @if(count($data['receiver']) > 1)
+                                @if(strpos($data['receiver'][0], 'ABAIGAR')  !== false)
+                                Chief Accountant <br> Chief, AFP Accounting Center
+                                @else
                                  {{$data['receiver'][3]}}
+                                @endif
                               @endif
                             </td>
                             <td class="align-center v-align-middle" rowspan="2">Position</td>
