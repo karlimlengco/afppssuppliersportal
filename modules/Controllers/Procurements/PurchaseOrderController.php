@@ -1142,8 +1142,8 @@ class PurchaseOrderController extends Controller
             }
         }
 
-        $totalPages = ceil($totalPages/10) + 2;
         dd($totalPages);
+        $totalPages = ceil($totalPages/10) + 2;
         $pdf = PDF::loadView('forms.po-contract', ['data' => $data, 'totalPages' => $totalPages])
             ->setOption('margin-bottom', 30);
             // ->setOption('footer-html', route('pdf.footer'));
