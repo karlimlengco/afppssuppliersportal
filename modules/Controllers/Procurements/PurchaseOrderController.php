@@ -1144,11 +1144,10 @@ class PurchaseOrderController extends Controller
 
         $totalPages = floor($totalPages/18);
         if($totalPages == 0 ){
-            dd(floor($totalPages/11));
-            if(floor($totalPages/11) != 0){
+            if(floor($totalPages/11) != 0.0){
                 $totalPages += 1;
             }
-            $totalPages = 2;
+            $totalPages += 2;
         }else{
             $totalPages += 1;
         }
