@@ -1142,7 +1142,7 @@ class PurchaseOrderController extends Controller
             // }
         }
 
-        $totalPages = ceil($totalPages/18);
+        $totalPages = floor($totalPages/18);
         if($totalPages == 0 ){
             $totalPages = 2;
         }else{
