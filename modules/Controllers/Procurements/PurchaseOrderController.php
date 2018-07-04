@@ -1137,6 +1137,9 @@ class PurchaseOrderController extends Controller
         $totalPages =  0 ;
         foreach($result->items as $page)
         {
+            if( $chars  = ceil(strlen($result->items->description)/68 != 0) ){
+                $totalPages = $totalPages +  $chars;
+            }
             // if($page->type == 'contract'){
                 $totalPages = $totalPages + 1;
             // }
