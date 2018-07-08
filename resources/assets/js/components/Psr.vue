@@ -877,7 +877,7 @@
                   //clearHeader, not clearheader - caps H
                   $("#table-header").addClass("sticky-head");
               }else{
-                  $("#table-header").removeCelass("sticky-head");
+                  $("#table-header").removeClass("sticky-head");
               }
           });
         },

@@ -74824,7 +74824,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 //clearHeader, not clearheader - caps H
                 $("#table-header").addClass("sticky-head");
             } else {
-                $("#table-header").removeCelass("sticky-head");
+                $("#table-header").removeClass("sticky-head");
             }
         });
     },
