@@ -107,14 +107,14 @@
                     "name"  :   "ITSPQ"
                 },
                 {
-                    "route" :   "procurements.philgeps-posting.index",
-                    "icon"      :"nc-icon-glyph lg users_badge-15",
-                    "name"  :   "PhilGeps Posting"
-                },
-                {
                     "route" :   "procurements.blank-rfq.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "Request For Quotation"
+                },
+                {
+                    "route" :   "procurements.philgeps-posting.index",
+                    "icon"      :"nc-icon-glyph lg users_badge-15",
+                    "name"  :   "PhilGeps Posting"
                 },
                 {
                     "route" :   "procurements.canvassing.index",

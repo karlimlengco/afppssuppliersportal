@@ -332,27 +332,27 @@ Unit Purchase Request
 <script type="text/javascript">
 
     $(document).on("click", "#ispq-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $("#ispq-submit").prop('disabled',true); }, 0);
     });
 
     $(document).on("click", "#rfq-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $("#rfq-submit").prop('disabled',true); }, 0);
     });
 
     $(document).on("click", "#canvass-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $("#canvass-submit").prop('disabled',true); }, 0);
     });
 
     $(document).on("click", "#ntp-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $("#ntp-submit").prop('disabled',true); }, 0);
     });
 
     $(document).on("click", "#nod-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $("#nod-submit").prop('disabled',true); }, 0);
     });
 
     $(document).on("click", "#voucher-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $("#voucher-submit").prop('disabled',true); }, 0);
     });
 
     $('#philgeps-posting-button').click(function(e){

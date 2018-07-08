@@ -76,7 +76,7 @@ Invitation to Submit Price Quotation
 <script type="text/javascript">
 
     $(document).on("click", "#save-button",function() {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $("#save-button").prop('disabled',true); }, 0);
     });
 
     var timepicker1 = new TimePicker(['id-field-canvassing_time'], {

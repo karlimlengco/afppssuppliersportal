@@ -61,6 +61,10 @@ Route::group(['as' => 'api.', 'prefix' => 'api'], function () {
 // });
 
 Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
+
+    Route::get('supplier-eligibilities', '\Revlv\Controllers\Reports\SupplierController@index')->name('supplier-eligibilities.index');
+
+
     Route::get('unit-psr/{type}', '\Revlv\Controllers\Reports\UnitPSRController@getUnitPsr')->name('reports.unit-psr');
     // Route::get('pcco-psr/{type}', '\Revlv\Controllers\Reports\UnitPSRController@getPccoPsr')->name('reports.pcco-psr');
     Route::get('pcco-psr', '\Revlv\Controllers\Reports\PSRController@PccoPSR')->name('reports.pcco-psr');

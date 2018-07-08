@@ -160,8 +160,7 @@ Unit Purchase Request
 
                 <a href="{{route('procurements.unit-purchase-requests.logs', $data->id)}}" class="button__options__item" id="view-attachments-button" href="#">View Logs</a>
                 <a class="button__options__item" id="view-attachments-button" href="{{route('procurements.unit-purchase-requests.download-items', $data->id)}}">Download Items</a>
-
-                @if($data->delivery_order != null && count($data->delivery_order)  >= 1)
+                @if($data->delivery_order != null && $data->delivery_order->count()  >= 1)
                     <a class="button__options__item" href="{{route('procurements.delivery-orders.lists', $data->id)}}">View Deliveries</a>
                 @endif
 
@@ -185,7 +184,7 @@ Unit Purchase Request
     <hr>
     <br>
 
-    @if($data->items && count($data->items) > 0)
+    @if($data->items && $data->items != null &&  count($data->items) > 0)
       @include('modules.procurements.upr.buttons')
     @endif
 
@@ -376,27 +375,27 @@ Unit Purchase Request
 
 
     $(document).on("click", "#ispq-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $("#ispq-submit").prop('disabled', true); }, 0);
     });
 
     $(document).on("click", "#rfq-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $('#rfq-submit').prop('disable',true); }, 0);
     });
 
     $(document).on("click", "#canvass-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $('#canvass-submit').prop('disabled',true); }, 0);
     });
 
     $(document).on("click", "#ntp-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $('#ntp-submit').prop('disabled',true); }, 0);
     });
 
     $(document).on("click", "#nod-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $('#nod-submit').prop('disabled',true); }, 0);
     });
 
     $(document).on("click", "#voucher-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $('#voucher-submit').prop('disabled',true); }, 0);
     });
 
     $approver = $('#id-field-signatory_id').selectize({

@@ -20,9 +20,16 @@ trait DatatableTrait
     {
         $model  =   $this->model;
 
-        $model  =   $model->whereStatus($status);
+        $model  =   $model->select([
+            'suppliers.*',
+            \DB::raw(" (select supplier_attachments.validity_date from supplier_attachments where supplier_attachments.supplier_id = suppliers.id AND type = 'dti' order by supplier_attachments.created_at desc limit 1) as dti_validity_date "),
+            \DB::raw(" (select supplier_attachments.validity_date from supplier_attachments where supplier_attachments.supplier_id = suppliers.id AND type = 'mayors_permit' order by supplier_attachments.created_at desc limit 1) as mayors_validity_date "),
+            \DB::raw(" (select supplier_attachments.validity_date from supplier_attachments where supplier_attachments.supplier_id = suppliers.id AND type = 'tax_clearance' order by supplier_attachments.created_at desc limit 1) as tax_validity_date "),
+            \DB::raw(" (select supplier_attachments.validity_date from supplier_attachments where supplier_attachments.supplier_id = suppliers.id AND type = 'philgeps_registraion' order by supplier_attachments.created_at desc limit 1) as philgeps_validity_date ")
 
-        $model->orderBy('created_at', 'desc');
+        ]);
+
+        $model  =   $model->whereStatus($status);
 
         return $this->dataTable($model->get());
     }
@@ -43,12 +50,11 @@ trait DatatableTrait
             'supplier_attachments.id',
             'supplier_attachments.type',
             'supplier_attachments.validity_date',
-            'supplier_attachments.created_at',
+            'supplier_attachments.created_at'
         ]);
         $model  =   $model->leftJoin('supplier_attachments', 'supplier_attachments.supplier_id', 'suppliers.id');
         $model  = $model->whereNotNull('supplier_attachments.id');
         $model->orderBy('suppliers.created_at', 'desc');
-
         return $this->dataTable($model->get());
     }
 

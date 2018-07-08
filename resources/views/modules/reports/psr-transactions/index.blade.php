@@ -17,7 +17,6 @@ PC/CO Transaction Summary
 
 @section('contents')
   <psr-all></psr-all>
-
 @stop
 
 @section('scripts')

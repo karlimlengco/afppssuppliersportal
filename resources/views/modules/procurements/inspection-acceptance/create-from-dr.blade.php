@@ -98,7 +98,7 @@ Inspection And Acceptance Report
 <script type="text/javascript">
 
     $(document).on("click", "#tiac-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $("#tiac-submit").prop('disabled',true); }, 0);
     });
     // datepicker
     var inspection_date = new Pikaday(

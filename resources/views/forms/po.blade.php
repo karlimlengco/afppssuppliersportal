@@ -8,6 +8,7 @@
             body{
                 margin:0;
             }
+            @page{margin:0;padding:0;}
         </style>
     </head>
 

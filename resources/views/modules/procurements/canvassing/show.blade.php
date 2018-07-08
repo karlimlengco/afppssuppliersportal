@@ -159,7 +159,7 @@ Canvassing
 
 
     $(document).on("click", "#noa-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $("#noa-submit").prop('disabled',true); }, 0);
     });
 $('#signatory-button').click(function(e){
     e.preventDefault();

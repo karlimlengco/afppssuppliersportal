@@ -44,7 +44,7 @@ Invitation to Submit Price Quotation
         <a href="{{route('procurements.ispq.logs', $data->id)}}" class="button" tooltip="Logs">
             <i class="nc-icon-mini files_archive-content"></i>
         </a>
-        <a href="#" class="button topbar__utility__button--modal" ><i class="nc-icon-mini ui-1_trash"></i></a>
+        <a href="#" id="delete-button" class="button" ><i class="nc-icon-mini ui-1_trash"></i></a>
     </div>
 </div>
 <div class="row">
@@ -128,6 +128,11 @@ Invitation to Submit Price Quotation
         e.preventDefault();
         $('#edit-modal').addClass('is-visible');
     })
+    $('#delete-button').click(function(e){
+        e.preventDefault();
+        $('#delete-modal').addClass('is-visible');
+    })
+
     // datepicker
 
      var picker = new Pikaday(

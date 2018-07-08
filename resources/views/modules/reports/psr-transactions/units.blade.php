@@ -12,11 +12,18 @@ Procurement Status Report
         display: none!important;
         visibility: hidden;
     }
+    .sticky-head{
+      position: fixed;
+      top: 100px;
+      z-index: 1;
+    }
+    .stick-body{
+      margin-top: 10px;
+    }
 </style>
 @stop
 
 @section('contents')
-
     <psr></psr>
 
 @stop

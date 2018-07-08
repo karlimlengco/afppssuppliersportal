@@ -31,7 +31,10 @@ Suppliers
                     <th>Company Name</th>
                     <th>Owner</th>
                     <th>Address</th>
-                    <th>Status</th>
+                    <th>DTI</th>
+                    <th>Mayors Permit</th>
+                    <th>Tax Clearance</th>
+                    <th>Philgeps Posting</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,6 +52,8 @@ Suppliers
         "bLengthChange": false,
         processing: true,
         serverSide: true,
+        ordering: true,
+        "order": [[ 0 , "asc" ]],
         ajax: {
                 url: "{{route('datatables.settings.suppliers')}}",
                 // data: function (d) {
@@ -59,7 +64,10 @@ Suppliers
             {data: 'name', name: 'name'},
             {data: 'owner', name: 'owner'},
             {data: 'address', name: 'address'},
-            {data: 'is_blocked', name: 'is_blocked'},
+            {data: 'dti_validity_date', name: 'dti_validity_date'},
+            {data: 'mayors_validity_date', name: 'mayors_validity_date'},
+            {data: 'tax_validity_date', name: 'tax_validity_date'},
+            {data: 'philgeps_validity_date', name: 'philgeps_validity_date'}
         ],
         "fnInitComplete": function (oSettings, json) {
             $("#datatable-responsive_previous").html('<i class="nc-icon-outline arrows-1_tail-left"></i>');

@@ -87,8 +87,8 @@ if (typeof Object.assign != 'function') {
                 scrollbarPosition:"inside",
                 scrollInertia:250,
                 autoDraggerLength:true,
-                autoHideScrollbar:true,
-                alwaysShowScrollbar:0,
+                // autoHideScrollbar:true,
+                alwaysShowScrollbar:1,
                 contentTouchScroll:25,
                 theme:"minimal-dark"
             });

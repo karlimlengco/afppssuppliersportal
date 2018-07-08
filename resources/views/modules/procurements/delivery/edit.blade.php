@@ -115,7 +115,7 @@ Notice Of Delivery
 <script type="text/javascript">
 
     $(document).on("click", "#delivery-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $("#delivery-submit").prop('disabled',true); }, 0);
     });
     // datepicker
 

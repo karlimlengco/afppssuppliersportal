@@ -38,7 +38,7 @@ Request For Quotation
 
         <button type="button" id="edit-button" class="button" tooltip="Save"><i class="nc-icon-mini ui-2_disk"></i></button>
 
-        <a href="#" class="button topbar__utility__button--modal" ><i class="nc-icon-mini ui-1_trash"></i></a>
+        <a href="#" id="delete-button" class="button" ><i class="nc-icon-mini ui-1_trash"></i></a>
     </div>
 </div>
 
@@ -95,6 +95,12 @@ Request For Quotation
     $('#edit-button').click(function(e){
         e.preventDefault();
         $('#edit-modal').addClass('is-visible');
+    })
+
+
+    $('#delete-button').click(function(e){
+        e.preventDefault();
+        $('#delete-modal').addClass('is-visible');
     })
 
     // datepicker

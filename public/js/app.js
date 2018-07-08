@@ -74801,6 +74801,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -74815,6 +74816,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.fetchUnitPsr(this.types);
+        $(window).scroll(function () {
+            var scroll = $(window).scrollTop();
+            console.log(scroll);
+            //>=, not <=
+            if (scroll >= 80) {
+                //clearHeader, not clearheader - caps H
+                $("#table-header").addClass("sticky-head");
+            } else {
+                $("#table-header").removCelass("sticky-head");
+            }
+        });
     },
 
     methods: {
@@ -84042,7 +84054,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/AdminMessage.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/AdminMessage.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AdminMessage.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84076,7 +84088,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/Analytics.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/Analytics.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Analytics.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84110,7 +84122,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/ChatComposer.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/ChatComposer.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ChatComposer.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84144,7 +84156,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/ChatHead.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/ChatHead.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ChatHead.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84178,7 +84190,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/ChatLog.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/ChatLog.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ChatLog.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84212,7 +84224,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/ChatMessage.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/ChatMessage.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ChatMessage.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84250,7 +84262,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/Delays.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/Delays.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Delays.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84284,7 +84296,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/DeliveryOrder.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/DeliveryOrder.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DeliveryOrder.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84318,7 +84330,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/Example.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/Example.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84352,7 +84364,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/LineItems.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/LineItems.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] LineItems.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84386,7 +84398,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/Psr.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/Psr.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Psr.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84420,7 +84432,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/PsrAll.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/PsrAll.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] PsrAll.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84454,7 +84466,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/TransactionDays.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/TransactionDays.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] TransactionDays.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84492,7 +84504,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/storage/Sites/epmis/resources/assets/js/components/UserLists.vue"
+Component.options.__file = "/home/karl/Sites/epmis/resources/assets/js/components/UserLists.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] UserLists.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -86102,7 +86114,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "table-scroll"
   }, [_c('table', {
-    staticClass: "table table--with-border table-name"
+    staticClass: "table table--with-border table-name",
+    attrs: {
+      "id": "table-header"
+    }
   }, [_c('thead', {
     staticStyle: {
       "background-color": "#222222"
@@ -86171,8 +86186,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "background": "#2222"
     }
-  }, [_vm._v("\n                              TOTAL NUMBER OF DAYS\n                            ")])])]), _vm._v(" "), _c('tbody', [_vm._l((_vm.units), function(unit) {
+  }, [_vm._v("\n                              TOTAL NUMBER OF DAYS\n                            ")])])])]), _vm._v(" "), _c('table', {
+    staticClass: "table table--with-border table-name"
+  }, [_c('tbody', [_vm._l((_vm.units), function(unit) {
     return [_c('tr', [_c('td', {
+      staticClass: "fixed-td",
       staticStyle: {
         "font-weight": "bolder"
       }
@@ -86345,6 +86363,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('tbody', [_vm._l((_vm.items), function(item) {
       return [(item.unit == unit.short_code) ? [_vm._l((item.data), function(itemData) {
         return [_c('tr', [_c('td', {
+          staticClass: "fixed-td",
           staticStyle: {
             "font-weight": "bolder"
           }

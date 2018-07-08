@@ -2,7 +2,6 @@
 <div class=" ">
 
     <div  id="programs">
-
         <div class="row">
             <div class="six columns align-left">
                 <button :id="[ isActived == 'bidding' ? 'button-focus' : '']" @click="changeType('bidding')" class='button button-tab' id='bidding'>Bidding</button>
@@ -21,11 +20,10 @@
             </div>
         </div>
 
-
         <div class="row">
           <div class="twelve columns">
             <div class="table-scroll">
-                <table class="table table--with-border table-name">
+                <table class="table table--with-border table-name" id="table-header">
                     <thead style="background-color:#222222">
                         <tr>
                             <th style="background:#2222">PC/CO (UPR NUMBER)</th>
@@ -288,10 +286,13 @@
                             <th style="background:#2222">Total Days</th> -->
                         </tr>
                     </thead>
+                </table>
+                <table class="table table--with-border table-name">
+
                     <tbody>
                         <template v-for="unit in units">
                           <tr>
-                              <td style="font-weight:bolder">
+                              <td style="font-weight:bolder" class="fixed-td">
                                   {{unit.short_code}} <span tooltip="Total" >({{unit.upr_count}})</span> <span class="blue" tooltip="Completed" >({{unit.completed_count}})</span>  <span class="green" tooltip="Ongoing" >({{unit.ongoing_count}})</span>  <span style="color:#7a7a7a" tooltip="Cancelled" >({{unit.cancelled_count}})</span><span  class="red" tooltip="Delay" >({{unit.delay_count}})</span>
                                   <button @click="fetchUnitItems(unit)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
                               </td>
@@ -346,7 +347,7 @@
                                       <template v-if='item.unit == unit.short_code'>
                                         <template v-for="itemData in item.data">
                                         <tr>
-                                            <td style="font-weight:bolder">{{itemData.upr_number}} </td>
+                                            <td style="font-weight:bolder" class="fixed-td">{{itemData.upr_number}} </td>
                                             <td style="font-weight:bolder">{{itemData.project_name}}</td>
                                             <td style="font-weight:bolder">{{itemData.end_user}}</td>
                                             <td style="font-weight:bolder">{{formatPrice(itemData.total_amount)}}</td>
@@ -868,6 +869,17 @@
         },
         mounted() {
           this.fetchUnitPsr(this.types);
+          $(window).scroll(function() {
+              var scroll = $(window).scrollTop();
+              console.log(scroll)
+               //>=, not <=
+              if (scroll >= 80) {
+                  //clearHeader, not clearheader - caps H
+                  $("#table-header").addClass("sticky-head");
+              }else{
+                  $("#table-header").removCelass("sticky-head");
+              }
+          });
         },
         methods:{
           formatDate: function(value){

@@ -189,7 +189,7 @@ Purchase Order
     });
 
     $(document).on("click", "#po-submit",function(e) {
-        setTimeout(function () { $(this).prop('disabled',true); }, 0);
+        setTimeout(function () { $("#po-submit").prop('disabled',true); }, 0);
     });
 
 
