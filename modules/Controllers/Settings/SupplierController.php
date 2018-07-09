@@ -168,7 +168,7 @@ class SupplierController extends Controller
      */
     public function store(SupplierRequest $request, SupplierRepository $model)
     {
-        $result = $model->save($request->getData());
+        $result = $model->save($request->getData()+['status' => 'accepted']);
 
         return redirect()->route($this->baseUrl.'edit', $result->id)->with([
             'success'  => "New record has been successfully added."

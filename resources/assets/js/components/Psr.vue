@@ -871,7 +871,6 @@
           this.fetchUnitPsr(this.types);
           $(window).scroll(function() {
               var scroll = $(window).scrollTop();
-              console.log(scroll)
                //>=, not <=
               if (scroll >= 80) {
                   //clearHeader, not clearheader - caps H

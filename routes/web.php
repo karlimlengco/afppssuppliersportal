@@ -610,6 +610,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::put('delivered-inspections/update-signatory/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@updateSignatory')->name('delivered-inspections.update-signatory');
     Route::get('delivered-inspections/print/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrint')->name('delivered-inspections.print');
     Route::get('delivered-inspections/print-ris/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRIS')->name('delivered-inspections.print-ris');
+    Route::get('delivered-inspections/print-ris-new/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRISNew')->name('delivered-inspections.print-ris-new');
     Route::get('delivered-inspections/print-ris-form-2/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRISForm2')->name('delivered-inspections.print-ris-form2');
     Route::get('delivered-inspections/print-ris2/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRIS2')->name('delivered-inspections.print-ris2');
     Route::get('delivered-inspections/print-ris2-form2/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintRIS2Form2')->name('delivered-inspections.print-ris2-form2');

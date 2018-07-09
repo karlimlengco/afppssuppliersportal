@@ -50,10 +50,16 @@ Delivered Items Inspection
 
 
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-ris', $data->id)}}" class="button__options__item" > PRINT  RIS</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-ris-form2', $data->id)}}" class="button__options__item" > PRINT  RIS (FORM 2)</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-ris-new', $data->id)}}" class="button__options__item" > PRINT  RIS (FORM 3)</a>
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-ris2', $data->id)}}" class="button__options__item" > PRINT  RIS2</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-ris2-form2', $data->id)}}" class="button__options__item" > PRINT  RIS2 (FORM 2)</a>
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-rsmi', $data->id)}}" class="button__options__item" > PRINT  RSMI</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-rsmi2', $data->id)}}" class="button__options__item" > PRINT  RSMI (FORM 2)</a>
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-rar', $data->id)}}" class="button__options__item" > PRINT  RAR</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-rar2', $data->id)}}" class="button__options__item" > PRINT  RAR (FORM 2)</a>
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-coi', $data->id)}}" class="button__options__item" > PRINT  COI</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-coi2', $data->id)}}" class="button__options__item" > PRINT  COI (FORM 2)</a>
 
 
 
