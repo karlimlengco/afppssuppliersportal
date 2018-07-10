@@ -164,7 +164,9 @@ Purchase Order
 
 
     $(document).on("click", "#po-submit",function(e) {
-        setTimeout(function () { $("#po-submit").prop('disabled',true); }, 0);
+        if($("input:empty").length == 0){
+          setTimeout(function () { $("#po-submit").prop('disabled',true); }, 0);
+        }
     });
 
 
