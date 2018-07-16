@@ -108,6 +108,14 @@ Suppliers
             </li>
         </ul>
     </div>
+    <div class="data-panel__section">
+        <ul class="data-panel__list">
+            <li class="data-panel__list__item">
+              <strong class="data-panel__list__item__label">Line of Business :</strong>
+              {{$data->line_of_business}}
+            </li>
+        </ul>
+    </div>
 </div>
 <div class="data-panel">
     <div class="data-panel__section">

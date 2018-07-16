@@ -83,6 +83,12 @@ Suppliers
 
             <div class="row">
                 <div class="twelve columns">
+                    {!! Form::textField('line_of_business', 'Line of Business') !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
                     {!! Form::textareaField('address', 'Address', null,['rows'=>2]) !!}
                 </div>
             </div>

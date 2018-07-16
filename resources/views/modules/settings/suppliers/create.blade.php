@@ -27,11 +27,14 @@ Suppliers
             </div>
 
             <div class="row">
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('address', 'Address') !!}
                 </div>
-                <div class="six columns">
+                <div class="four columns">
                     {!! Form::textField('tin', 'Tin') !!}
+                </div>
+                <div class="four columns">
+                    {!! Form::textField('line_of_business', 'Line of Business') !!}
                 </div>
             </div>
 

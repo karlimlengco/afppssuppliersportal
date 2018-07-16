@@ -34,6 +34,7 @@ class SupplierEloquent extends Model
         'phone_1',
         'phone_2',
         'fax_1',
+        'line_of_business',
         'fax_2',
         'email_1',
         'email_2',

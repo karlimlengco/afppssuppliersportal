@@ -31,6 +31,7 @@ Suppliers
                     <th>Company Name</th>
                     <th>Owner</th>
                     <th>Address</th>
+                    <th>Line of Business</th>
                     <th>DTI</th>
                     <th>Mayors Permit</th>
                     <th>Tax Clearance</th>
@@ -64,6 +65,7 @@ Suppliers
             {data: 'name', name: 'name'},
             {data: 'owner', name: 'owner'},
             {data: 'address', name: 'address'},
+            {data: 'line_of_business', name: 'line_of_business'},
             {data: 'dti_validity_date', name: 'dti_validity_date'},
             {data: 'mayors_validity_date', name: 'mayors_validity_date'},
             {data: 'tax_validity_date', name: 'tax_validity_date'},
