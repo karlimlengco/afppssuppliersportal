@@ -262,7 +262,7 @@
                                     <tr>
                                         <td nowrap>
                                             <div class="">
-                                                <strong>{{$data['accounting'][1]}} {{$data['accounting'][0]}}</strong>
+                                                <strong>{{$data['accounting'][1]}} {{$data['accounting'][0]}} {{$data['accounting'][2]}}</strong>
                                                 <span></span>
                                             </div>
                                         </td>
@@ -271,7 +271,7 @@
                                     <tr>
                                         <td>
                                             <div class="">
-                                                <strong>{{$data['accounting'][2]}}</strong>
+                                                <strong></strong>
                                                 <span></span>
                                             </div>
                                         </td>
