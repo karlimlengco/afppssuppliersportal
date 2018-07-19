@@ -54,6 +54,7 @@ Purchase Order
                     {!! Form::selectField('service_type', 'Service Type',[
                       'subscription'    =>  'Subscription',
                       'printing'    =>  'Printing',
+                      'catering'    =>  'Catering',
                       'text book'    =>  'Text Book',
                       'news paper'    =>  'News Paper',
                   ]) !!}
