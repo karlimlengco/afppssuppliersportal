@@ -256,7 +256,7 @@
                           </tr>
                           <tr>
                               <td width="10%"></td>
-                              <td width="55%">
+                              <td width="65%">
                                 @if(strpos($data['accounting'][0], 'ABAIGAR')  !== false)
                                 <table class="signatory">
                                     <tr>
@@ -310,7 +310,7 @@
                                 @endif
                               </td>
                               <td></td>
-                              <td width="35%"></td>
+                              <td width="15%"></td>
                               <td width="10%"></td>
                           </tr>
                       </table>
