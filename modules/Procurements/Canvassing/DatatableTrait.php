@@ -52,7 +52,6 @@ trait DatatableTrait
                  $query->orWhere('canvassing.canvass_date', 'like', "%$search%");
              });
         }
-
         $model->orderBy('created_at', 'desc');
 
         return $model->paginate($limit);

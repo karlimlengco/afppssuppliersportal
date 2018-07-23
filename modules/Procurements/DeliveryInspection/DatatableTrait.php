@@ -79,7 +79,7 @@ trait DatatableTrait
         {
             $search = $request->search;
             $model  = $model->where(function($query) use ($search){
-                 $query->where('delivery_inspection.rfq_number', 'like', "%$search%");
+                 $query->where('request_for_quotations.rfq_number', 'like', "%$search%");
                  $query->orWhere('delivery_inspection.upr_number', 'like', "%$search%");
                  $query->orWhere('delivery_inspection.delivery_number', 'like', "%$search%");
              });

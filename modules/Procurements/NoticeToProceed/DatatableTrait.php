@@ -115,14 +115,14 @@ trait DatatableTrait
         {
             $search = $request->search;
             $model  = $model->where(function($query) use ($search){
-                 $query->where('notice_to_proceed.rfq_number', 'like', "%$search%");
+                 $query->where('request_for_quotations.rfq_number', 'like', "%$search%");
+                 $query->orwhere('notice_to_proceed.rfq_number', 'like', "%$search%");
                  $query->orWhere('purchase_orders.upr_number', 'like', "%$search%");
                  $query->orWhere('purchase_orders.bid_amount', 'like', "%$search%");
                  $query->orWhere('suppliers.name', 'like', "%$search%");
                  $query->orWhere('purchase_orders.purchase_date', 'like', "%$search%");
              });
         }
-
         $model->orderBy('notice_to_proceed.created_at', 'desc');
 
         return $model->paginate($limit);

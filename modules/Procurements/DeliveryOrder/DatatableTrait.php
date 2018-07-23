@@ -80,13 +80,12 @@ trait DatatableTrait
         {
             $search = $request->search;
             $model  = $model->where(function($query) use ($search){
-                 $query->where('delivery_orders.rfq_number', 'like', "%$search%");
+                 $query->where('request_for_quotations.rfq_number', 'like', "%$search%");
                  $query->orWhere('delivery_orders.upr_number', 'like', "%$search%");
                  $query->orWhere('delivery_orders.expected_date', 'like', "%$search%");
                  $query->orWhere('delivery_orders.delivery_number', 'like', "%$search%");
              });
         }
-
         $model->orderBy('created_at', 'desc');
 
         return $model->paginate($limit);
