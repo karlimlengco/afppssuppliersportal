@@ -511,7 +511,7 @@ class BlankRFQController extends Controller
         }
         else
         {
-            $data['deadline'] = $result->deadline;
+            $data['deadline'] = $result->transaction_date;
             // $data['deadline']           = \Carbon\Carbon::createFromFormat( 'Y-m-d H:i:s', $result->upr->invitations->canvassing_date ." ". $result->upr->invitations->canvassing_time);
         }
         $data['items']              =  $result->upr->items;

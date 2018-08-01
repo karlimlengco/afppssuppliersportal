@@ -337,7 +337,7 @@ class RFQProponentController extends Controller
         }
         else
         {
-            $data['deadline']           = $rfq->deadline;
+            $data['deadline']           = $rfq->transaction_date;
             // $data['deadline']           = \Carbon\Carbon::createFromFormat( 'Y-m-d H:i:s', $rfq->upr->invitations->canvassing_date ." ". $rfq->upr->invitations->canvassing_time);
         }
 
