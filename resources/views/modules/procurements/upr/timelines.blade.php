@@ -138,46 +138,10 @@ Unit Purchase Request
                     </td>
                 </tr>
 
-                <tr>
-                    <td>3. Philgeps posting</td>
-                    <td>
-                        @if($data->pp_completed_at != null)
-                            <?php $pp_completed_at = createCarbon('Y-m-d',$data->pp_completed_at); ?>
-                        <a target="_blank" href="{{route('procurements.philgeps-posting.show', $data->pp_id)}}">
-                            {{$pp_completed_at->format('d F Y')}}
-                        </a>
-                        @endif
-                    </td>
-                    <td>3</td>
-                    <td>
-                        @if($data->total_amount > 50000)
-                          @if($data->pp_completed_at != null)
-                              {{ $data->pp_days }}
 
-                              @if($data->pp_days > 3)
-                                  <strong class="red" tooltip="Delay">({{$data->pp_days - 3}})</strong>
-                              @endif
-
-                          @else
-                              <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
-                              {{-- {{ ($d >= 3) ?  $d - 3 : $d }} --}}
-                              {{$d}}
-
-                              @if($d > 3)
-                                  <strong class="red" tooltip="Delay">({{$d - 3}})</strong>
-                              @endif
-
-                          @endif
-                        @endif
-                    </td>
-                    <td>{{ $data->pp_days }}</td>
-                    <td>{{$data->pp_remarks}}</td>
-                    <td>{{$data->pp_action}}</td>
-                    <td></td>
-                </tr>
 
                 <tr>
-                    <td>4. RFQ</td>
+                    <td>3. RFQ</td>
                     <td>
                         @if($data->rfq_completed_at != null)
                             <?php $rfq_completed_at = createCarbon('Y-m-d H:i:s',$data->rfq_completed_at)->format('d F Y'); ?>
@@ -222,6 +186,43 @@ Unit Purchase Request
                         </a>
                         @endif
                     </td>
+                </tr>
+                <tr>
+                    <td>4. Philgeps posting</td>
+                    <td>
+                        @if($data->pp_completed_at != null)
+                            <?php $pp_completed_at = createCarbon('Y-m-d',$data->pp_completed_at); ?>
+                        <a target="_blank" href="{{route('procurements.philgeps-posting.show', $data->pp_id)}}">
+                            {{$pp_completed_at->format('d F Y')}}
+                        </a>
+                        @endif
+                    </td>
+                    <td>3</td>
+                    <td>
+                        @if($data->total_amount > 50000)
+                          @if($data->pp_completed_at != null)
+                              {{ $data->pp_days }}
+
+                              @if($data->pp_days > 3)
+                                  <strong class="red" tooltip="Delay">({{$data->pp_days - 3}})</strong>
+                              @endif
+
+                          @else
+                              <?php  $d =  $today->diffInDaysFiltered(function (\Carbon\Carbon $date) use ($h_lists) {return $date->isWeekday() && !in_array($date->format('Y-m-d'), $h_lists); }, $next_date ); ?>
+                              {{-- {{ ($d >= 3) ?  $d - 3 : $d }} --}}
+                              {{$d}}
+
+                              @if($d > 3)
+                                  <strong class="red" tooltip="Delay">({{$d - 3}})</strong>
+                              @endif
+
+                          @endif
+                        @endif
+                    </td>
+                    <td>{{ $data->pp_days }}</td>
+                    <td>{{$data->pp_remarks}}</td>
+                    <td>{{$data->pp_action}}</td>
+                    <td></td>
                 </tr>
 
                 <tr>
