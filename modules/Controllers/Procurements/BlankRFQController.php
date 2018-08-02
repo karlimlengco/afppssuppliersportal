@@ -513,6 +513,8 @@ class BlankRFQController extends Controller
         {
             if($result->upr->invitations){
                 $data['deadline']           = \Carbon\Carbon::createFromFormat( 'Y-m-d H:i:s', $result->upr->invitations->canvassing_date ." ". $result->upr->invitations->canvassing_time);
+            }else{
+                $data['deadline']           = \Carbon\Carbon::createFromFormat( 'Y-m-d H:i:s', $result->upr->invitations->canvassing_date ." ". $result->upr->invitations->canvassing_time);
             }
         }
         $data['items']              =  $result->upr->items;
