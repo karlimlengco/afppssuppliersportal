@@ -23,7 +23,7 @@ trait DatatableTrait
             'invitation_for_quotation.*',
         ]);
 
-        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id', '=', 'select ispq_quotations.upr_id'));
+        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id', '=', 'ispq_quotations.upr_id'));
         // $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id', '=', DB::raw(" (select ispq_quotations.upr_id from ispq_quotations left join invitation_for_quotation as iq on iq.id  = ispq_quotations.ispq_id where invitation_for_quotation.id = iq.id  order by ispq_quotations.created_at desc limit 1)"));
 
         if(!\Sentinel::getUser()->hasRole('Admin') )
