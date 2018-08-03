@@ -21,41 +21,35 @@ trait DatatableTrait
         $model  =   $this->model;
         $model  =   $model->select([
             'invitation_for_quotation.*',
-            // DB::raw(" (select ispq_quotations.upr_id from ispq_quotations left join invitation_for_quotation as iq on iq.id  = ispq_quotations.ispq_id where invitation_for_quotation.id = iq.id  order by ispq_quotations.created_at desc limit 1) as p_upr_id "),
         ]);
-        // dd($model->get());
-        // $model  = $model->leftJoin('ispq_quotations as p', function ($q) {
-        //    $q->on('ispq_id', '=', 'invitation_for_quotation.id')
-        //      ->on('p.created_at', '=',
-        //        DB::raw('(select min(created_at) from ispq_quotations where ispq_id = p.ispq_id)'));
-        //  });
-        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id', '=', DB::raw(" (select ispq_quotations.upr_id from ispq_quotations left join invitation_for_quotation as iq on iq.id  = ispq_quotations.ispq_id where invitation_for_quotation.id = iq.id  order by ispq_quotations.created_at desc limit 1)"));
 
-        if(!\Sentinel::getUser()->hasRole('Admin') )
-        {
+        // $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id', '=', DB::raw(" (select ispq_quotations.upr_id from ispq_quotations left join invitation_for_quotation as iq on iq.id  = ispq_quotations.ispq_id where invitation_for_quotation.id = iq.id  order by ispq_quotations.created_at desc limit 1)"));
 
-            $center =   0;
-            $user = \Sentinel::getUser();
-            if($user->units)
-            {
-                if($user->units->centers)
-                {
-                    $center =   $user->units->centers->id;
-                }
-            }
+        // if(!\Sentinel::getUser()->hasRole('Admin') )
+        // {
 
-            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+        //     $center =   0;
+        //     $user = \Sentinel::getUser();
+        //     if($user->units)
+        //     {
+        //         if($user->units->centers)
+        //         {
+        //             $center =   $user->units->centers->id;
+        //         }
+        //     }
 
-        }
+        //     $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
 
-        if($request != null)
-        {
-            $search = $request->search;
-            $model  = $model->where(function($query) use ($search){
-                 $query->where('invitation_for_quotation.venue', 'like', "%$search%");
-                 $query->orWhere('invitation_for_quotation.transaction_date', 'like', "%$search%");
-             });
-        }
+        // }
+
+        // if($request != null)
+        // {
+        //     $search = $request->search;
+        //     $model  = $model->where(function($query) use ($search){
+        //          $query->where('invitation_for_quotation.venue', 'like', "%$search%");
+        //          $query->orWhere('invitation_for_quotation.transaction_date', 'like', "%$search%");
+        //      });
+        // }
 
         $model->orderBy('transaction_date', 'desc');
 
