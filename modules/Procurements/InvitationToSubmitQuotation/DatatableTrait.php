@@ -18,38 +18,39 @@ trait DatatableTrait
      */
     public function paginateByRequest($limit = 10, $request)
     {
-        $model  =   $this->model;
+        $model  =   \DB::table('unit_purchase_requests');
         $model  =   $model->select([
             'invitation_for_quotation.*',
         ]);
 
+        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id', '=', 'select ispq_quotations.upr_id'));
         // $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id', '=', DB::raw(" (select ispq_quotations.upr_id from ispq_quotations left join invitation_for_quotation as iq on iq.id  = ispq_quotations.ispq_id where invitation_for_quotation.id = iq.id  order by ispq_quotations.created_at desc limit 1)"));
 
-        // if(!\Sentinel::getUser()->hasRole('Admin') )
-        // {
+        if(!\Sentinel::getUser()->hasRole('Admin') )
+        {
 
-        //     $center =   0;
-        //     $user = \Sentinel::getUser();
-        //     if($user->units)
-        //     {
-        //         if($user->units->centers)
-        //         {
-        //             $center =   $user->units->centers->id;
-        //         }
-        //     }
+            $center =   0;
+            $user = \Sentinel::getUser();
+            if($user->units)
+            {
+                if($user->units->centers)
+                {
+                    $center =   $user->units->centers->id;
+                }
+            }
 
-        //     $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
 
-        // }
+        }
 
-        // if($request != null)
-        // {
-        //     $search = $request->search;
-        //     $model  = $model->where(function($query) use ($search){
-        //          $query->where('invitation_for_quotation.venue', 'like', "%$search%");
-        //          $query->orWhere('invitation_for_quotation.transaction_date', 'like', "%$search%");
-        //      });
-        // }
+        if($request != null)
+        {
+            $search = $request->search;
+            $model  = $model->where(function($query) use ($search){
+                 $query->where('invitation_for_quotation.venue', 'like', "%$search%");
+                 $query->orWhere('invitation_for_quotation.transaction_date', 'like', "%$search%");
+             });
+        }
 
         $model->orderBy('transaction_date', 'desc');
 
