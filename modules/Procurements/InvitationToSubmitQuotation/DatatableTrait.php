@@ -20,11 +20,11 @@ trait DatatableTrait
     {
         $model  =   \DB::table('unit_purchase_requests');
         $model  =   $model->select([
-            'invitation_for_quotation.*',
+            'invitation_for_quotation.*'
         ]);
 
-        $model  =   $model->leftJoin('ispq_quotations', 'ispq_quotations.upr_id', '=', 'unit_purchase_requests.id'));
-        $model  =   $model->leftJoin('invitation_for_quotation', 'invitation_for_quotation.id', '=', 'ispq_quotations.ispq_id'));
+        $model  =   $model->leftJoin('ispq_quotations', 'ispq_quotations.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('invitation_for_quotation', 'invitation_for_quotation.id', '=', 'ispq_quotations.ispq_id');
         // $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id', '=', DB::raw(" (select ispq_quotations.upr_id from ispq_quotations left join invitation_for_quotation as iq on iq.id  = ispq_quotations.ispq_id where invitation_for_quotation.id = iq.id  order by ispq_quotations.created_at desc limit 1)"));
 
         if(!\Sentinel::getUser()->hasRole('Admin') )
