@@ -16,7 +16,7 @@
                         {!! Form::dateField('canvassing_date', 'Canvass Date') !!}
                     </div>
                     <div class="four columns">
-                        {!! Form::textField('canvassing_time', 'Canvass Time', ($data->rfq) ? $data->rfq->opening_time : "") !!}
+                        {!! Form::textField('canvassing_time', 'Canvass Time', ($data->rfq) ? $data->rfq->opening_time : "", ['readonly']) !!}
                     </div>
                     <div class="four columns">
                         {!! Form::dateField('transaction_dates', 'Transaction Date') !!}
