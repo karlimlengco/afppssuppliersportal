@@ -84,9 +84,9 @@ Notice To Proceed
         <h3>Details</h3>
         <ul class="data-panel__list">
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR Number :</strong> {{$data->upr_number}} </li>
-            {{-- <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PO Number :</strong> {{$po_model->po_number}} </li> --}}
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared Date :</strong>   @if($data->prepared_date) {{CreateCarbon('Y-m-d H:i:s', $data->prepared_date)->format('d F Y')}}@endif</li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared By :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname : ""}} </li>
+            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PO Number :</strong> {{$po_model->po_number}} </li>
+            {{-- <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared Date :</strong>   @if($data->prepared_date) {{CreateCarbon('Y-m-d H:i:s', $data->prepared_date)->format('d F Y')}}@endif</li> --}}
+            {{-- <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared By :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname : ""}} </li> --}}
 
             @if($data->received_by)
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Received Date :</strong>  @if($data->award_accepted_date) {{CreateCarbon('Y-m-d', $data->award_accepted_date)->format('d F Y')}}@endif </li>
