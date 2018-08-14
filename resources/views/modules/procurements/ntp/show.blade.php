@@ -83,9 +83,8 @@ Notice To Proceed
     <div class="data-panel__section">
         <h3>Details</h3>
         <ul class="data-panel__list">
-          {{dd($po_model)}}
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">UPR Number :</strong> {{$data->upr_number}} </li>
-            <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PO Number :</strong> {{$po_model->po_number}} </li>
+            {{-- <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">PO Number :</strong> {{$po_model->po_number}} </li> --}}
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared Date :</strong>   @if($data->prepared_date) {{CreateCarbon('Y-m-d H:i:s', $data->prepared_date)->format('d F Y')}}@endif</li>
             <li class="data-panel__list__item"> <strong class="data-panel__list__item__label">Prepared By :</strong> {{($data->users) ? $data->users->first_name ." ". $data->users->surname : ""}} </li>
 
@@ -139,7 +138,7 @@ Notice To Proceed
                 </tr>
             </thead>
             <tbody>
-                @foreach($po_model->items as $item)
+              {{--   @foreach($po_model->items as $item)
                     <tr>
                         <td>{{$item->description}}</td>
                         <td>{{$item->quantity}}</td>
@@ -147,7 +146,7 @@ Notice To Proceed
                         <td>{{formatPrice($item->price_unit)}}</td>
                         <td>{{formatPrice($item->total_amount)}}</td>
                     </tr>
-                @endforeach
+                @endforeach --}}
             </tbody>
         </table>
     </div>
