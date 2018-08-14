@@ -112,7 +112,8 @@ class NoticeToProceedController extends Controller
         UnitPurchaseRequestRepository $upr)
     {
         $result             =   $model->with(['winner'])->findById($id);
-        $po_model           =   $po->with(['items'])->findById($result->po_id);
+        $po_model           =   $result->upr->purchase_order;
+        // $po_model           =   $po->with(['items'])->findById($result->po_id);
 
         if($result->upr->mode_of_procurement == 'public_bidding')
         {
