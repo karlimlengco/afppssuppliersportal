@@ -223,7 +223,6 @@ class NoticeOfAwardController extends Controller
         HolidayRepository $holidays
         )
     {
-
         $noaModel       =   $model->findById($id);
         $holiday_lists  =   $holidays->lists('id','holiday_date');
 
@@ -271,6 +270,8 @@ class NoticeOfAwardController extends Controller
             'received_remarks'      =>  $request->received_remarks,
             'account_type'          =>  $request->account_type,
             'received_action'       =>  $request->received_action,
+            'action'                =>  $request->action,
+            'remarks'               =>  $request->remarks,
         ];
         $result             =   $model->findById($id);
 
@@ -752,7 +753,13 @@ class NoticeOfAwardController extends Controller
             'accepted_date'             =>  $request->accepted_date,
             'account_type'              =>  $request->account_type,
             'update_remarks'            =>  $request->update_remarks,
-            'days' => $day_delayed
+            'days' => $day_delayed,
+            'action'                =>  $request->action,
+            'remarks'               =>  $request->remarks,
+            'approved_action'                =>  $request->approved_action,
+            'approved_remarks'               =>  $request->approved_remarks,
+            'received_action'                =>  $request->received_action,
+            'received_remarks'               =>  $request->received_remarks,
         ];
         if($request->proponent_id != null){
             $input['proponent_id'] = $request->proponent_id;

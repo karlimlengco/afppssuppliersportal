@@ -500,6 +500,10 @@ class InspectionAndAcceptanceController extends Controller
             "acceptance_signatory"  => $request->acceptance_signatory,
             "inspection_signatory"  => $request->inspection_signatory,
             "sao_signatory"         => $request->sao_signatory,
+            "remarks"         => $request->remarks,
+            "action"         => $request->action,
+            "accept_action"         => $request->accept_action,
+            "accept_remarks"         => $request->accept_remarks,
         ];
 
         if($iar_model->acceptance_signatory != $request->acceptance_signatory)

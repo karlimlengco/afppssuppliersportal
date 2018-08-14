@@ -381,6 +381,12 @@ class DeliveryController extends Controller
             "delivery_date"         =>  $request->delivery_date,
             "transaction_date"      =>  $request->transaction_date,
             "signatory_id"          =>  $request->signatory_id,
+            "remarks"          =>  $request->remarks,
+            "action"          =>  $request->action,
+            "delivery_remarks"          =>  $request->delivery_remarks,
+            "delivery_action"          =>  $request->delivery_action,
+            "dr_coa_remarks"          =>  $request->dr_coa_remarks,
+            "dr_coa_action"          =>  $request->dr_coa_action,
             // "date_delivered_to_coa" =>  $request->date_delivered_to_coa,
         ];
 

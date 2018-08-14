@@ -925,6 +925,8 @@ class PurchaseOrderController extends Controller
             'approver_id'   =>  $request->approver_id,
             'coa_signatory' =>  $request->coa_signatory,
             'type'          =>  $request->type,
+            'action'        =>  $request->action,
+            'remarks'        =>  $request->remarks,
         ];
 
         $model->update($input, $id);
@@ -982,6 +984,14 @@ class PurchaseOrderController extends Controller
             'approver_id'   =>  $request->approver_id,
             'coa_signatory' =>  $request->coa_signatory,
             'service_type' =>  $request->service_type,
+            'action'        =>  $request->action,
+            'remarks'        =>  $request->remarks,
+            'mfo_action'        =>  $request->mfo_action,
+            'mfo_remarks'        =>  $request->mfo_remarks,
+            'coa_action'        =>  $request->coa_action,
+            'coa_remarks'        =>  $request->coa_remarks,
+            'funding_action'        =>  $request->funding_action,
+            'funding_remarks'        =>  $request->funding_remarks,
         ];
 
         if($po_model->requestor_id != $request->requestor_id)

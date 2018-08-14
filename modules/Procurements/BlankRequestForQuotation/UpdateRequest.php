@@ -20,6 +20,8 @@ class UpdateRequest extends BaseRequest
         'completed_at',
         'transaction_date',
         'update_remarks',
+        'close_remarks',
+        'close_action',
 
         'status',
         'remarks',
@@ -30,6 +32,7 @@ class UpdateRequest extends BaseRequest
         'is_award_accepted',
         'chief',
         'signatory_chief',
+        'action',
         'award_accepted_date',
     ];
 

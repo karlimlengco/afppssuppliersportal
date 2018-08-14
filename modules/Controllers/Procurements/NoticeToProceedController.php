@@ -346,6 +346,10 @@ class NoticeToProceedController extends Controller
             'update_remarks'        =>  $request->update_remarks,
             'award_accepted_date'   =>  $request->award_accepted_date,
             'signatory_id'   =>  $request->signatory_id,
+            'accepted_remarks'      =>  $request->accepted_remarks,
+            'accepted_action'       =>  $request->accepted_action,
+            'remarks'      =>  $request->remarks,
+            'action'       =>  $request->action,
         ];
 
         if($ntp_model->signatory_id != $request->signatory_id)
@@ -541,7 +545,9 @@ class NoticeToProceedController extends Controller
             'status'                =>  "Accepted",
             'accepted_remarks'      =>  $request->accepted_remarks,
             'accepted_action'       =>  $request->accepted_action,
-            'accepted_days'         =>  $wd
+            'remarks'      =>  $request->remarks,
+            'action'       =>  $request->action,
+            'accepted_days'         =>  $wd,
         ];
 
         $result             =   $model->update($input, $id);

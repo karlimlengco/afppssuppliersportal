@@ -58,6 +58,28 @@ Delivered Items Inspection
 
             <div class="row">
                 <div class="twelve columns">
+                    {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('action', 'Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('close_remarks', 'Closing Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('close_action', 'Closing Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
                     {{-- {!! Form::selectField('requested_by', 'Requested By', $signatory_list) !!} --}}
                     <label class="label">Requested By</label>
                     {!! Form::select('requested_by',  $signatory_list, null, ['class' => 'selectize', 'id' => 'id-field-requested_by']) !!}

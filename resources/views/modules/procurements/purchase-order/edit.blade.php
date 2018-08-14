@@ -139,6 +139,50 @@ Purchase Order
                 </div>
             </div>
 
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('action', 'Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('coa_remarks', 'COA Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('coa_action', 'COA Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('funding_remarks', 'Funding Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('funding_action', 'Funding Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('mfo_remarks', 'Issuance CAF Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('mfo_action', 'Issuance CAF Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
         {!! Form::close() !!}
     </div>
 </div>

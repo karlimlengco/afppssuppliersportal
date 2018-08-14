@@ -99,6 +99,28 @@ Inspection And Acceptance Report
                     {!! Form::select('sao_signatory',  $signatory_list,null, ['class' => 'selectize', 'id' => 'id-field-sao_signatory']) !!}
                 </div>
             </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('action', 'Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('accept_remarks', 'Acceptance Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('accept_action', 'Acceptance Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
         {!! Form::close() !!}
     </div>
 </div>

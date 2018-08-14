@@ -89,6 +89,39 @@ Notice Of Award
                 </div>
             </div>
 
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('action', 'Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('approved_remarks', 'Issuance Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('approved_action', 'Issuance Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('received_remarks', 'Conforme Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('received_action', 'Conforme Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
         {!! Form::close() !!}
     </div>
 </div>

@@ -593,6 +593,10 @@ class DeliveredInspectionReportController extends Controller
             'chairman_signatory'=>  $request->chairman_signatory,
             'signatory_two'     =>  $request->signatory_two,
             'signatory_one'     =>  $request->signatory_one,
+            'remarks'     =>  $request->remarks,
+            'action'     =>  $request->action,
+            'close_remarks'     =>  $request->close_remarks,
+            'close_action'     =>  $request->close_action,
         ];
 
         if($diir_model->received_by != $request->received_by)

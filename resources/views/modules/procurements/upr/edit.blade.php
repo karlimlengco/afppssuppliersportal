@@ -172,6 +172,12 @@ Unit Purchase Request
             </div>
         </div>
 
+        <div class="row">
+            <div class="twelve columns">
+                {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => 3]) !!}
+            </div>
+        </div>
+
         <h3><strong style="border-bottom:2px solid black">Signatories</strong></h3>
 
 

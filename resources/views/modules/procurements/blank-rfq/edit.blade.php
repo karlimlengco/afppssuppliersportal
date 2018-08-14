@@ -76,7 +76,12 @@ Request For Quotation
 
             <div class="row">
                 <div class="twelve columns">
-                    {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => '3']) !!}
+                    {!! Form::textareaField('close_remarks', 'Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('close_action', 'Action', null, ['rows' => 3]) !!}
                 </div>
             </div>
     </div>

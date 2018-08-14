@@ -62,6 +62,28 @@ Notice To Proceed
                 </div>
             </div>
 
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('action', 'Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('accepted_remarks', 'Accepted Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('accepted_action', 'Accepted Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
         {!! Form::close() !!}
     </div>
 </div>

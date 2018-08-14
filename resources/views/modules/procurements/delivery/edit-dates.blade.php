@@ -89,6 +89,41 @@ Notice Of Delivery
                 </div>
             </div>
 
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('remarks', 'Remarks', null, ['rows' => '3']) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('action', 'Action', null, ['rows' => 3]) !!}
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('delivery_remarks', 'Delivery Remarks', null, ['rows'=>3]) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('delivery_action', 'Delivery Action', null, ['rows'=>3]) !!}
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('dr_coa_remarks', 'COA Remarks', null, ['rows'=>3]) !!}
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    {!! Form::textareaField('dr_coa_action', 'COA Action', null, ['rows'=>3]) !!}
+                </div>
+            </div>
+
 
         </div>
     </div>
