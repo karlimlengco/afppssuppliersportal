@@ -543,12 +543,12 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.next_due',
             'unit_purchase_requests.last_remarks',
             'unit_purchase_requests.next_step',
-            'catered_units.short_code',
+            // 'catered_units.short_code',
             DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) as delay")
         ]);
         $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
-        $model  =   $model->leftJoin('catered_units', 'catered_units.id', '=', 'unit_purchase_requests.units');
+        // $model  =   $model->leftJoin('catered_units', 'catered_units.id', '=', 'unit_purchase_requests.units');
         $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
 
         // $model  =   $model->where('procurement_centers.name', '=', $name);
@@ -588,7 +588,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         if($unit != null)
         {
-            $model  =   $model->where('catered_units.short_code', '=', $unit);
+            // $model  =   $model->where('catered_units.short_code', '=', $unit);
         }
 
         if($type != 'alternative')
