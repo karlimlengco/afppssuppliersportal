@@ -626,7 +626,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.next_due',
             'unit_purchase_requests.delay_count',
             'unit_purchase_requests.status',
-            'catered_units.short_code',
+            // 'catered_units.short_code',
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.last_remarks',
             'unit_purchase_requests.last_action',
