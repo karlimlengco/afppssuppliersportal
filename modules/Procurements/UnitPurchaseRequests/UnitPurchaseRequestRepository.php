@@ -588,7 +588,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         if($unit != null)
         {
-            $model  =   $model->where('catered_units.short_code', '=', $unit);
+            // $model  =   $model->where('catered_units.short_code', '=', $unit);
         }
 
         if($type != 'alternative')
