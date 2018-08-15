@@ -580,7 +580,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
             $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
             $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");
         }
-
+        dd($pcco);
         if($pcco != null)
         {
             $model  =   $model->where('procurement_centers.name', '=', $pcco);
