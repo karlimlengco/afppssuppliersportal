@@ -579,10 +579,10 @@ class UnitPurchaseRequestRepository extends BaseRepository
         //     $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");
         // }
 
-        // if($pcco != null)
-        // {
-        //     $model  =   $model->where('procurement_centers.name', '=', $pcco);
-        // }
+        if($pcco != null)
+        {
+            $model  =   $model->where('procurement_centers.name', '=', $pcco);
+        }
 
         // if($unit != null)
         // {
