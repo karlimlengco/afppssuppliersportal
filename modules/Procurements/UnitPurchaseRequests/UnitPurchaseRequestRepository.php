@@ -605,7 +605,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         if(!\Sentinel::getUser()->hasRole('Admin') )
         {
-            $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
+            // $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
         }
 
         if($dateFrom != null){
