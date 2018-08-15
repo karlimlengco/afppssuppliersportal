@@ -584,10 +584,10 @@ class UnitPurchaseRequestRepository extends BaseRepository
             $model  =   $model->where('procurement_centers.name', '=', $pcco);
         }
 
-        // if($unit != null)
-        // {
-        //     $model  =   $model->where('catered_units.short_code', '=', $unit);
-        // }
+        if($unit != null)
+        {
+            $model  =   $model->where('catered_units.short_code', '=', $unit);
+        }
 
         // if($type != 'alternative')
         // {
