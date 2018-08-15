@@ -580,7 +580,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
             $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
             $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");
         }
-        dd($status);
+
         if($pcco != null)
         {
             $model  =   $model->where('procurement_centers.name', '=', $pcco);
@@ -600,7 +600,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
             $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
         }
 
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
+        // $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
 
         if(!\Sentinel::getUser()->hasRole('Admin') )
