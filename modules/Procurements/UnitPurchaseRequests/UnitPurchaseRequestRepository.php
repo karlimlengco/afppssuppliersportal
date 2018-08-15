@@ -555,7 +555,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
         // $model  =   $model->where('catered_units.short_code', '=', $programs);
         // $model  =   $model->where('procurement_centers.programs', '=', $programs);
 
-        $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
+        // $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
         if($status == 'completed')
         {
@@ -568,8 +568,8 @@ class UnitPurchaseRequestRepository extends BaseRepository
         }
         elseif($status == 'ongoing')
         {
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
+            // $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
+            // $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
         }
         else
         {
@@ -583,12 +583,12 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         if($pcco != null)
         {
-            $model  =   $model->where('procurement_centers.name', '=', $pcco);
+            // $model  =   $model->where('procurement_centers.name', '=', $pcco);
         }
 
         if($unit != null)
         {
-            $model  =   $model->where('catered_units.short_code', '=', $unit);
+            // $model  =   $model->where('catered_units.short_code', '=', $unit);
         }
 
         if($type != 'alternative')
@@ -600,12 +600,12 @@ class UnitPurchaseRequestRepository extends BaseRepository
             $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
         }
 
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
+        // $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
 
         if(!\Sentinel::getUser()->hasRole('Admin') )
         {
-            $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
+            // $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
         }
 
         if($dateFrom != null){
