@@ -525,8 +525,8 @@ class UnitPurchaseRequestRepository extends BaseRepository
                 ( count(unit_purchase_requests.completed_at) )
                 as ongoing_count"),
             DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
-            DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
-            DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
+            // DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
+            // DB::raw("(sum(unit_purchase_requests.total_amount) - sum(purchase_orders.bid_amount)) as total_residual"),
             DB::raw("5 * (DATEDIFF(vouchers.preaudit_date, unit_purchase_requests.date_processed) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.date_processed) + WEEKDAY(vouchers.preaudit_date) + 1, 1) as avg_days"),
             DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
             'procurement_centers.name',
@@ -543,16 +543,14 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.next_due',
             'unit_purchase_requests.last_remarks',
             'unit_purchase_requests.next_step',
-            // 'catered_units.short_code',
+            'catered_units.short_code',
             DB::raw("5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) as delay")
         ]);
         $model  =   $model->leftJoin('vouchers', 'vouchers.upr_id', '=', 'unit_purchase_requests.id');
-        $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
-        // $model  =   $model->leftJoin('catered_units', 'catered_units.id', '=', 'unit_purchase_requests.units');
+        // $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('catered_units', 'catered_units.id', '=', 'unit_purchase_requests.units');
         $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
 
-        // $model  =   $model->where('procurement_centers.name', '=', $name);
-        // $model  =   $model->where('catered_units.short_code', '=', $programs);
         $model  =   $model->where('procurement_centers.programs', '=', $programs);
 
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
@@ -588,7 +586,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         if($unit != null)
         {
-            // $model  =   $model->where('catered_units.short_code', '=', $unit);
+            $model  =   $model->where('catered_units.short_code', '=', $unit);
         }
 
         if($type != 'alternative')
@@ -626,7 +624,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
             'unit_purchase_requests.next_due',
             'unit_purchase_requests.delay_count',
             'unit_purchase_requests.status',
-            // 'catered_units.short_code',
+            'catered_units.short_code',
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.last_remarks',
             'unit_purchase_requests.last_action',
