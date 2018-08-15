@@ -568,8 +568,8 @@ class UnitPurchaseRequestRepository extends BaseRepository
         }
         elseif($status == 'ongoing')
         {
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
+            // $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
+            // $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
         }
         else
         {
@@ -600,7 +600,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
             $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
         }
 
-        // $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
+        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
 
         if(!\Sentinel::getUser()->hasRole('Admin') )
