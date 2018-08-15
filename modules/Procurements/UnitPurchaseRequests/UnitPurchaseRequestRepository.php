@@ -589,14 +589,14 @@ class UnitPurchaseRequestRepository extends BaseRepository
             $model  =   $model->where('catered_units.short_code', '=', $unit);
         }
 
-        // if($type != 'alternative')
-        // {
-        //     $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
-        // }
-        // else
-        // {
-        //     $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
-        // }
+        if($type != 'alternative')
+        {
+            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
+        }
+        else
+        {
+            $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
+        }
 
         // $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
