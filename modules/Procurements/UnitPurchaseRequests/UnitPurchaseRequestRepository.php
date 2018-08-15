@@ -580,15 +580,15 @@ class UnitPurchaseRequestRepository extends BaseRepository
             $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
             $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");
         }
-
+        dd($status);
         if($pcco != null)
         {
-            // $model  =   $model->where('procurement_centers.name', '=', $pcco);
+            $model  =   $model->where('procurement_centers.name', '=', $pcco);
         }
 
         if($unit != null)
         {
-            // $model  =   $model->where('catered_units.short_code', '=', $unit);
+            $model  =   $model->where('catered_units.short_code', '=', $unit);
         }
 
         if($type != 'alternative')
