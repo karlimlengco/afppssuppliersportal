@@ -551,6 +551,8 @@ class UnitPurchaseRequestRepository extends BaseRepository
         $model  =   $model->leftJoin('catered_units', 'catered_units.id', '=', 'unit_purchase_requests.units');
         $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
 
+        // $model  =   $model->where('procurement_centers.name', '=', $name);
+        // $model  =   $model->where('catered_units.short_code', '=', $programs);
         $model  =   $model->where('procurement_centers.programs', '=', $programs);
 
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
