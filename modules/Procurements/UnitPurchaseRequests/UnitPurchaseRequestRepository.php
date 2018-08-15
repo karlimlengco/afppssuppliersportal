@@ -553,7 +553,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         // $model  =   $model->where('procurement_centers.name', '=', $name);
         // $model  =   $model->where('catered_units.short_code', '=', $programs);
-        $model  =   $model->where('procurement_centers.programs', '=', $programs);
+        // $model  =   $model->where('procurement_centers.programs', '=', $programs);
 
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
@@ -568,7 +568,6 @@ class UnitPurchaseRequestRepository extends BaseRepository
         }
         elseif($status == 'ongoing')
         {
-            // dd($model->get());
             $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
             $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
         }
