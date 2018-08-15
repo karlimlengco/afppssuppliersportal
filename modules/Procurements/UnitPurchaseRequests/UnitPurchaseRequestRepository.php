@@ -553,67 +553,67 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         $model  =   $model->where('procurement_centers.programs', '=', $programs);
 
-        $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
+        // $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
-        if($status == 'completed')
-        {
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
-            $model  =   $model->where('unit_purchase_requests.status', '=', "completed");
-        }
-        elseif($status == 'cancelled')
-        {
-            $model  =   $model->where('unit_purchase_requests.status', '=', "cancelled");
-        }
-        elseif($status == 'ongoing')
-        {
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
-        }
-        else
-        {
+        // if($status == 'completed')
+        // {
+        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
+        //     $model  =   $model->where('unit_purchase_requests.status', '=', "completed");
+        // }
+        // elseif($status == 'cancelled')
+        // {
+        //     $model  =   $model->where('unit_purchase_requests.status', '=', "cancelled");
+        // }
+        // elseif($status == 'ongoing')
+        // {
+        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
+        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
+        // }
+        // else
+        // {
 
-            $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_processed and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) > 0");
+        //     $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_processed and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) > 0");
 
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
-            $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");
-        }
+        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
+        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
+        //     $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");
+        // }
 
-        if($pcco != null)
-        {
-            $model  =   $model->where('procurement_centers.name', '=', $pcco);
-        }
+        // if($pcco != null)
+        // {
+        //     $model  =   $model->where('procurement_centers.name', '=', $pcco);
+        // }
 
-        if($unit != null)
-        {
-            $model  =   $model->where('catered_units.short_code', '=', $unit);
-        }
+        // if($unit != null)
+        // {
+        //     $model  =   $model->where('catered_units.short_code', '=', $unit);
+        // }
 
-        if($type != 'alternative')
-        {
-            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
-        }
-        else
-        {
-            $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
-        }
+        // if($type != 'alternative')
+        // {
+        //     $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
+        // }
+        // else
+        // {
+        //     $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
+        // }
 
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
+        // $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
 
-        if(!\Sentinel::getUser()->hasRole('Admin') )
-        {
-            $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
-        }
+        // if(!\Sentinel::getUser()->hasRole('Admin') )
+        // {
+        //     $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
+        // }
 
-        if($dateFrom != null){
-          $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $dateFrom);
-        }
-        if($dateTo != null){
-          $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $dateTo);
-        }
+        // if($dateFrom != null){
+        //   $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $dateFrom);
+        // }
+        // if($dateTo != null){
+        //   $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $dateTo);
+        // }
 
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
+        // $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
         $model  =   $model->groupBy([
             'procurement_centers.name',
