@@ -552,7 +552,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
         $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
         // $model  =   $model->where('procurement_centers.name', '=', $name);
         // $model  =   $model->where('catered_units.short_code', '=', $programs);
-        // $model  =   $model->where('procurement_centers.programs', '=', $programs);
+        $model  =   $model->where('procurement_centers.programs', '=', $programs);
 
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
@@ -601,9 +601,12 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
-        if(!\Sentinel::getUser()->hasRole('Admin') )
+        if(!\Sentinel::getUser()->hasRole('Admin')  )
         {
-            // $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
+            if(!\Sentinel::getUser()->hasRole('Pcco Admin')  )
+            {
+                // $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
+            }
         }
 
         if($dateFrom != null){
