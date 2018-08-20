@@ -62,10 +62,7 @@ Overview of Cancelled Projects
                 <td style="text-align:right">{{formatPrice($data->total_abc)}}</td>
                 <td  style='text-align:left!important'>{{$data->cancel_reason}}</td>
             </tr>
-{{--
-            <?php $totalAbc =  $totalAbc + $data->total_abc; ?>
-            <?php $totalBid =  $totalBid + $data->total_bid; ?>
-            <?php $totalResidual =  $totalResidual + $data->total_residual; ?> --}}
+
         @endforeach
         <tr>
           <td colspan='3'><strong>Total</strong></td>
