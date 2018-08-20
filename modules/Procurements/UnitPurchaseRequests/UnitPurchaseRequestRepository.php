@@ -557,29 +557,29 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
-        if($status == 'completed')
-        {
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
-            $model  =   $model->where('unit_purchase_requests.status', '=', "completed");
-        }
-        elseif($status == 'cancelled')
-        {
-            $model  =   $model->where('unit_purchase_requests.status', '=', "cancelled");
-        }
-        elseif($status == 'ongoing')
-        {
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
-        }
-        else
-        {
+        // if($status == 'completed')
+        // {
+        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
+        //     $model  =   $model->where('unit_purchase_requests.status', '=', "completed");
+        // }
+        // elseif($status == 'cancelled')
+        // {
+        //     $model  =   $model->where('unit_purchase_requests.status', '=', "cancelled");
+        // }
+        // elseif($status == 'ongoing')
+        // {
+        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
+        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
+        // }
+        // else
+        // {
 
-            $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_processed and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) > 0");
+        //     $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_processed and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) > 0");
 
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
-            $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
-            $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");
-        }
+        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
+        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
+        //     $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");
+        // }
 
         if($pcco != null)
         {
@@ -593,7 +593,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         if($type != 'alternative')
         {
-            $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
+            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
         }
         else
         {
