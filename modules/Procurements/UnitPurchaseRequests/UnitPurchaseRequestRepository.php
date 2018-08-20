@@ -601,7 +601,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
-
+        dd(\Sentinel::getUser()->unit_id);
         if(!\Sentinel::getUser()->hasRole('Admin') )
         {
             // $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
