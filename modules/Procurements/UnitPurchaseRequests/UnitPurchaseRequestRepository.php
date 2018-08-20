@@ -593,11 +593,11 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         if($type != 'alternative')
         {
-            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
+            $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
         }
         else
         {
-            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
+            $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
         }
 
         $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
@@ -605,7 +605,7 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         if(!\Sentinel::getUser()->hasRole('Admin') )
         {
-            // $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
+            $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
         }
 
         if($dateFrom != null){
