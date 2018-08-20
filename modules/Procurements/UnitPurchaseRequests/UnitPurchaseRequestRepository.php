@@ -603,10 +603,13 @@ class UnitPurchaseRequestRepository extends BaseRepository
 
         if(!\Sentinel::getUser()->hasRole('Admin')  )
         {
-            if(!\Sentinel::getUser()->hasRole('Pcco Admin')  )
-            {
-                // $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
+            // if(!\Sentinel::getUser()->hasRole('Pcco Admin')  )
+            // {
+            if(\Sentinel::getUser()->units && \Sentinel::getUser()->units->centers){
+                $model  =   $model->where('procurement_centers.name', '=', \Sentinel::getUser()->units->centers->name);
             }
+                // $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
+            // }
         }
 
         if($dateFrom != null){
