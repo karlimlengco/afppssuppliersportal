@@ -550,36 +550,36 @@ class UnitPurchaseRequestRepository extends BaseRepository
         $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('catered_units', 'catered_units.id', '=', 'unit_purchase_requests.units');
         $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
-
+        dd($pcco);
         // $model  =   $model->where('procurement_centers.name', '=', $name);
         // $model  =   $model->where('catered_units.short_code', '=', $programs);
         $model  =   $model->where('procurement_centers.programs', '=', $programs);
 
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
-        // if($status == 'completed')
-        // {
-        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
-        //     $model  =   $model->where('unit_purchase_requests.status', '=', "completed");
-        // }
-        // elseif($status == 'cancelled')
-        // {
-        //     $model  =   $model->where('unit_purchase_requests.status', '=', "cancelled");
-        // }
-        // elseif($status == 'ongoing')
-        // {
-        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
-        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
-        // }
-        // else
-        // {
+        if($status == 'completed')
+        {
+            $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
+            $model  =   $model->where('unit_purchase_requests.status', '=', "completed");
+        }
+        elseif($status == 'cancelled')
+        {
+            $model  =   $model->where('unit_purchase_requests.status', '=', "cancelled");
+        }
+        elseif($status == 'ongoing')
+        {
+            $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
+            $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
+        }
+        else
+        {
 
-        //     $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_processed and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) > 0");
+            $model  =   $model->havingRaw("(5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) - (SELECT COUNT(*) FROM holidays WHERE holiday_date >= unit_purchase_requests.date_processed and holiday_date <= NOW() AND DAYOFWEEK(holiday_date) < 6 ) ) > 0");
 
-        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
-        //     $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
-        //     $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");
-        // }
+            $model  =   $model->where('unit_purchase_requests.status', '<>', "completed");
+            $model  =   $model->where('unit_purchase_requests.status', '<>', "cancelled");
+            $model  =   $model->whereRaw("unit_purchase_requests.next_due <  NOW() ");
+        }
 
         if($pcco != null)
         {
