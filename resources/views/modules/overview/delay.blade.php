@@ -100,9 +100,9 @@ Overview of Delayed Projects
                   {{$data->last_remarks}}
                 </td>
             </tr>
-            <?php $totalAbc =  $totalAbc + $data->total_abc; ?>
+            {{-- <?php $totalAbc =  $totalAbc + $data->total_abc; ?>
             <?php $totalBid =  $totalBid + $data->total_bid; ?>
-            <?php $totalResidual =  $totalResidual + $data->total_residual; ?>
+            <?php $totalResidual =  $totalResidual + $data->total_residual; ?> --}}
         @endforeach
         <tr>
           <td colspan='3'><strong>Total</strong></td>
