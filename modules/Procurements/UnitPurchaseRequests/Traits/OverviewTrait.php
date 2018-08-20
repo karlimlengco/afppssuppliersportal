@@ -50,6 +50,7 @@ trait OverviewTrait
 
         return $this->view('modules.overview.completed',[
             'result'    =>  $result,
+            'type'  =>  $request->type,
             'breadcrumbs' => [
                 new Breadcrumb('Program '.$programs),
             ]
@@ -69,6 +70,7 @@ trait OverviewTrait
 
         return $this->view('modules.overview.cancelled',[
             'result'    =>  $result,
+            'type'  =>  $request->type,
             'breadcrumbs' => [
                 new Breadcrumb('Program '.$programs),
             ]
@@ -88,6 +90,7 @@ trait OverviewTrait
         $result     =   $upr->findByPrograms($request->type, 'ongoing', $programs, $pcco, $unit, $request);
         return $this->view('modules.overview.ongoing',[
             'result'    =>  $result,
+            'type'  =>  $request->type,
             'breadcrumbs' => [
                 new Breadcrumb('Program '.$programs),
             ]
@@ -107,6 +110,7 @@ trait OverviewTrait
         $result     =   $upr->findByPrograms($request->type, 'delay', $programs, $pcco, $unit, $request);
         return $this->view('modules.overview.delay',[
             'result'    =>  $result,
+            'type'  =>  $request->type,
             'breadcrumbs' => [
                 new Breadcrumb('Program '.$programs),
             ]

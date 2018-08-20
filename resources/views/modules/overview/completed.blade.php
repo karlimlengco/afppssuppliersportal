@@ -13,6 +13,7 @@ Overview of Completed Projects
         <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
         @endif
       @endforeach
+      <a href="#" class="topbar__breadcrumbs__item">{{$type}}</a>
     @else
     <li><a href="#">Application</a></li>
     @endif

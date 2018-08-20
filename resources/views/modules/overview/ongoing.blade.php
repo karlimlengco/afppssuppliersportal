@@ -13,6 +13,7 @@ Overview of Ongoing Projects
         <a href="#" class="topbar__breadcrumbs__item">{{ $crumb->title() }}</a>
         @endif
       @endforeach
+      <a href="#" class="topbar__breadcrumbs__item">{{$type}}</a>
     @else
     <li><a href="#">Application</a></li>
     @endif
@@ -20,6 +21,11 @@ Overview of Ongoing Projects
 @stop
 
 @section('contents')
+<div class="row">
+    <div class="six columns utility"  style="margin-bottom:0px; text-align: left" >
+        {{-- <div class="eleven columns">{!! Form::selectField('upr_number', '', ['alternative' => 'Alternative', 'public' => 'Public Bidding'], ['id'=>'upr_id'])!!}</div> --}}
+    </div>
+</div>
 
 <table class="table table--with-border ">
     <?php $totalAbc = 0; ?>
