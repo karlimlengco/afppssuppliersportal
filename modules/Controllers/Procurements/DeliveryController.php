@@ -387,7 +387,7 @@ class DeliveryController extends Controller
             "delivery_action"          =>  $request->delivery_action,
             "dr_coa_remarks"          =>  $request->dr_coa_remarks,
             "dr_coa_action"          =>  $request->dr_coa_action,
-            // "date_delivered_to_coa" =>  $request->date_delivered_to_coa,
+            "date_delivered_to_coa" =>  $request->date_delivered_to_coa,
         ];
 
         if($dr_model->signatory_id != $request->signatory_id)
