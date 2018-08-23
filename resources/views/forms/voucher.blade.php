@@ -86,7 +86,7 @@
                             <td class="v-align-middle no-border-top align-center" width="15%"><strong>Amount</strong></td>
                         </tr>
                         <tr>
-                            <td class="no-border-top no-border-bottom" style="text-indent: justify" colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To payment for the ten ({{count($data['items'])}}) Line Items(s) spicified and delivered under @if($data['po_type'] == 'purchase_order')PURCHASE ORDER No.@elseif($data['po_type'] == 'work_order')WORK ORDER No.@elseif($data['po_type'] == 'job_order')JOB ORDER No.@else CONTRACT ORDER No.@endif {{$data['po_number']}} in the amount of <strong style="text-transform: uppercase">{{translateToWords($data['bid_amount'])}} (Php {{ formatPrice($data['bid_amount'])}})</strong></td>
+                            <td class="no-border-top no-border-bottom" style="text-indent: justify" colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To payment for the {{translateToWords(count($data['items']))}} ({{count($data['items'])}}) Line Items(s) spicified and delivered under @if($data['po_type'] == 'purchase_order')PURCHASE ORDER No.@elseif($data['po_type'] == 'work_order')WORK ORDER No.@elseif($data['po_type'] == 'job_order')JOB ORDER No.@else CONTRACT ORDER No.@endif {{$data['po_number']}} in the amount of <strong style="text-transform: uppercase">{{translateToWords($data['bid_amount'])}} (Php {{ formatPrice($data['bid_amount'])}})</strong></td>
                             <td class="no-border-top no-border-bottom"></td>
                             <td class="no-border-top no-border-bottom"></td>
                             <td class="no-border-top no-border-bottom align-right"><strong>Php {{ formatPrice($data['bid_amount'])}}</strong></td>
