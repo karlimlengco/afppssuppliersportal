@@ -203,12 +203,12 @@ Unit Purchase Request
 
         <h3><strong style="border-bottom:2px solid black">Items</strong></h3>
 
-        @if($data->status == 'upr_processing')
+        {{-- @if($data->status == 'upr_processing') --}}
         <button id="add-item-button" class="button">ADD ITEM</button>
 
         <button type="button" id="import-item" class="button pull-right" tooltip="Import"><i class="nc-icon-mini arrows-1_cloud-upload-96"></i></button>
 
-        @endif
+        {{-- @endif --}}
         <table class='table' id="item_table">
             <thead>
                 <tr>
