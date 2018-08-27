@@ -61,6 +61,14 @@ Purchase Order
                 </div>
             </div>
 
+            @if(\Sentinel::getUser()->hasRole('Admin'))
+            <div class="row">
+                <div class="four columns">
+                    {!! Form::numberField('bid_amount', 'Bid Amount') !!}
+                </div>
+            </div>
+            @endif
+
             <div class="row">
                 <div class="four columns">
                     {!! Form::selectField('payment_term', 'Payment Terms', $term_lists) !!}

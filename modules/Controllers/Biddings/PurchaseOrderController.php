@@ -717,15 +717,29 @@ class PurchaseOrderController extends Controller
             'purchase_date'         =>  $request->purchase_date,
             'funding_released_date' =>  $request->funding_released_date,
             'funding_received_date' =>  $request->funding_received_date,
+            'po_number'             =>  $request->po_number,
             'mfo_released_date'     =>  $request->mfo_released_date,
             'mfo_received_date'     =>  $request->mfo_received_date,
             'coa_approved_date'     =>  $request->coa_approved_date,
-            'type'          =>  $request->type,
+            'type'                  =>  $request->type,
             'requestor_id'  =>  $request->requestor_id,
             'accounting_id' =>  $request->accounting_id,
             'approver_id'   =>  $request->approver_id,
             'coa_signatory' =>  $request->coa_signatory,
+            'service_type' =>  $request->service_type,
+            'action'        =>  $request->action,
+            'remarks'        =>  $request->remarks,
+            'mfo_action'        =>  $request->mfo_action,
+            'mfo_remarks'        =>  $request->mfo_remarks,
+            'coa_action'        =>  $request->coa_action,
+            'coa_remarks'        =>  $request->coa_remarks,
+            'funding_action'        =>  $request->funding_action,
+            'funding_remarks'        =>  $request->funding_remarks,
         ];
+
+        if($request->has('bid_amount')){
+            $input['bid_amount'] = $request->bid_amount;
+        }
 
         if($po_model->requestor_id != $request->requestor_id)
         {

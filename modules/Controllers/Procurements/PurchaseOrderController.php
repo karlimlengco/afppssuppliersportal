@@ -994,6 +994,10 @@ class PurchaseOrderController extends Controller
             'funding_remarks'        =>  $request->funding_remarks,
         ];
 
+        if($request->has('bid_amount')){
+            $input['bid_amount'] = $request->bid_amount;
+        }
+
         if($po_model->requestor_id != $request->requestor_id)
         {
             $requestor  =   $signatories->findById($request->requestor_id);
