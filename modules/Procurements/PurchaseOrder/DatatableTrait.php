@@ -20,6 +20,8 @@ trait DatatableTrait
     {
         $model  =   $this->model;
 
+        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'purchase_orders.upr_id');
+
         if($type == 'alternative')
         {
             $model  =   $model->select([
@@ -28,14 +30,16 @@ trait DatatableTrait
             ]);
 
             $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.id', '=', 'purchase_orders.rfq_id');
-            $model  =   $model->whereNotNull('rfq_id');
+            $model  =   $model->where('unit_purchase_requests.mode_of_procurement', '<>', 'public_bidding');
+            // $model  =   $model->whereNotNull('rfq_id');
         }
         else
         {
             $model  =   $model->select([
                 'purchase_orders.*',
             ]);
-            $model  =   $model->whereNull('rfq_id');
+            $model  =   $model->where('unit_purchase_requests.mode_of_procurement', '==', 'public_bidding');
+            // $model  =   $model->whereNull('rfq_id');
 
             $user = \Sentinel::getUser();
             if($user->hasRole('BAC Operation') || $user->hasRole('BAC Admin'))
@@ -55,7 +59,6 @@ trait DatatableTrait
             }
         }
 
-        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'purchase_orders.upr_id');
 
 
         if(!\Sentinel::getUser()->hasRole('Admin') )

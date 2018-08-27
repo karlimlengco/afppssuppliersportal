@@ -19,6 +19,10 @@ trait DatatableTrait
     public function paginateByRequest($limit = 10, $request, $type = 'alternative')
     {
         $model  =   $this->model;
+
+
+        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'notice_of_awards.upr_id');
+
         if($type == 'alternative')
         {
             $model  =   $model->select([
@@ -35,7 +39,8 @@ trait DatatableTrait
 
             $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'rfq_proponents.proponents');
 
-            $model  =   $model->whereNotNull('request_for_quotations.rfq_number');
+            // $model  =   $model->whereNotNull('request_for_quotations.rfq_number');
+            $model  =   $model->where('unit_purchase_requests.mode_of_procurement', '<>', 'public_bidding');
         }
         else
         {
@@ -50,7 +55,8 @@ trait DatatableTrait
 
             $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'bid_docs_issuance.proponent_id');
 
-            $model  =   $model->whereNull('rfq_number');
+            $model  =   $model->where('unit_purchase_requests.mode_of_procurement', '==', 'public_bidding');
+            // $model  =   $model->whereNull('rfq_number');
 
             $user = \Sentinel::getUser();
             if($user->hasRole('BAC Operation') || $user->hasRole('BAC Admin'))
@@ -69,8 +75,6 @@ trait DatatableTrait
               $model  =   $model->Where('bacsec.pcco_id','=', $center);
             }
         }
-
-        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.id','=', 'notice_of_awards.upr_id');
 
 
         if(!\Sentinel::getUser()->hasRole('Admin') )
