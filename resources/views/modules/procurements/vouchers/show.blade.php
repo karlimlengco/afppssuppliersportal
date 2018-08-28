@@ -33,13 +33,13 @@ Vouchers
 
 @section('contents')
 @if($data->preaudit_date)
-{{--     <div class="message-box message-box--large message-box--success" role="alert">
+    <div class="message-box message-box--large message-box--success" role="alert">
         <span class="message-box__icon"><i class="nc-icon-outline ui-1_check-circle-08"></i></span>
         <span class="message-box__message">
             UPR is marked Completed, if you want to continue process click options.
             <br>
         </span>
-    </div> --}}
+    </div>
 @endif
 
 <div class="row">
