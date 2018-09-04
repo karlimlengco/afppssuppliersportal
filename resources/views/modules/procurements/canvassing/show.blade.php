@@ -51,6 +51,7 @@ Canvassing
                 @endif
  --}}
                 <a target="_blank" href="{{route('procurements.canvassing.print',$data->id)}}" class=" button__options__item">Print Abstract</a>
+                <a target="_blank" href="{{route('procurements.canvassing.print-landscape',$data->id)}}" class=" button__options__item">Print Abstract (landscape)</a>
                 <a target="_blank" href="{{route('procurements.canvassing.cop',$data->id)}}" class=" button__options__item">Print COP</a>
                 <a target="_blank" href="{{route('procurements.canvassing.rop',$data->id)}}" class=" button__options__item">Print ROP</a>
                 <a target="_blank" href="{{route('procurements.canvassing.mom',$data->id)}}" class=" button__options__item">Print MOM</a>

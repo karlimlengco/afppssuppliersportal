@@ -466,6 +466,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     */
     Route::get('canvassing/logs/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewLogs')->name('canvassing.logs');
     Route::get('canvassing/print/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewPrint')->name('canvassing.print');
+    Route::get('canvassing/print-landscape/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewPrintLandscape')->name('canvassing.print-landscape');
     Route::get('canvassing/cop/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewCOP')->name('canvassing.cop');
     Route::get('canvassing/rop/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewROP')->name('canvassing.rop');
     Route::get('canvassing/mom/{id}', '\Revlv\Controllers\Procurements\CanvassingController@viewMOM')->name('canvassing.mom');

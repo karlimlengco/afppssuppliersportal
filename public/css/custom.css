@@ -235,3 +235,10 @@
 .pointer{
     cursor: pointer;
 }
+
+.printable-form--landscape {
+  height: 8.3in;
+  width: 11in;
+  max-height: 8.3in;
+  min-height: 8.3in;
+}

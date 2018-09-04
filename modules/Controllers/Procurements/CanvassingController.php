@@ -579,6 +579,73 @@ class CanvassingController extends Controller
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
+    public function viewPrintLandscape($id, CanvassingRepository $model, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
+    {
+        $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
+        $array      = $result->rfq->proponents->toArray();
+        $min = min(array_column(array_filter($array,function($v) {
+        return $v["status"] == 'passed'; }), 'bid_amount'));
+
+        $minProp = null;
+
+        foreach($result->rfq->proponents as $propo)
+        {
+            if($propo->status == 'passed')
+            {
+                if($min == $propo->bid_amount){
+                    $minProp = $propo;
+                }
+            }
+        }
+
+        if($result->canvass_time != null)
+        {
+          $data['date']               =  $result->canvass_date." ". $result->canvass_time;
+        } else{
+
+          $data['date']               =  $result->canvass_date." 00:00:00 ";
+        }
+
+        $header                     =  $pccoHeaders->findByPCCO($result->upr->procurement_office);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
+
+        $data['chief_attendance']   =  $result->chief_attendance;
+        $data['unit_head_attendance']   =  $result->unit_head_attendance;
+        $data['mfo_attendance']     =  $result->mfo_attendance;
+        $data['legal_attendance']   =  $result->legal_attendance;
+        $data['secretary_attendance']   =  $result->secretary_attendance;
+
+        $data['rfq_number']         =  $result->rfq->rfq_number;
+        $data['header']             =  $result->upr->centers;
+        $data['place_of_delivery']  =  $result->upr->place_of_delivery;
+        $data['total_amount']       =  $result->upr->total_amount;
+        $data['unit']               =  $result->upr->unit->short_code;
+        $data['center']             =  $result->upr->centers->name;
+        $data['venue']              =  $result->upr->invitations->ispq->venue;
+        $data['signatories']        =  $result->signatories;
+        $data['proponents']         =  $result->rfq->proponents;
+        $data['chief_signatory']    =  explode('/',$result->chief_signatory);
+        $data['presiding']          =  explode('/', $result->presiding_signatory);
+        $data['unit_head_signatory']=  explode('/', $result->unit_head_signatory);
+        $data['mfo']                =  explode('/', $result->mfo_signatory);
+        $data['legal']              =  explode('/', $result->legal_signatory);
+        $data['sec']                =  explode('/', $result->secretary_signatory);
+        $data['min_bid']            =  $min;
+        $data['minProp']            =  $minProp;
+        $data['today']              =  $result->canvass_date;
+        $pdf = PDF::loadView('forms.landscape', ['data' => $data]);
+        // ->setOption('margin-bottom', 30);
+        // ->setOption('footer-html', route('pdf.footer'));
+
+        return $pdf->setOption('page-width', '11in')->setOption('page-height', '8.5in')->inline('canvass.pdf');
+    }
+
+    /**
+     * [viewPrint description]
+     *
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
     public function viewPrint($id, CanvassingRepository $model, HeaderRepository $headers, PCCOHeaderRepository $pccoHeaders)
     {
         $result     =   $model->with(['rfq', 'upr', 'signatories'])->findById($id);
