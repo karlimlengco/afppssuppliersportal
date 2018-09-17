@@ -302,6 +302,7 @@ class ProcurementCenterRepository extends BaseRepository
                 ]);
             }else
             {
+            dd('opps');
 
                 $model  =   $model->select([
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
@@ -322,6 +323,7 @@ class ProcurementCenterRepository extends BaseRepository
         }
         else
         {
+            dd('dito');
             if($type != 'alternative')
             {
                 $model  =   $model->select([
