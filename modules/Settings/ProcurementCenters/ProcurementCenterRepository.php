@@ -629,7 +629,7 @@ class ProcurementCenterRepository extends BaseRepository
         //     $model  =   $model->having('catered_units.id','=', \Sentinel::getUser()->unit_id);
         // }
         $model  = $model->whereNotNull('procurement_centers.id');
-        // $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
+        $model  = $model->whereRaw(" unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'");
 
         $model  =   $model->groupBy([
             'procurement_centers.programs',
