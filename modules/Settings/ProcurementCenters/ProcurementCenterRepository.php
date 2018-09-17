@@ -460,7 +460,7 @@ class ProcurementCenterRepository extends BaseRepository
 //                     DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
 //                     'procurement_centers.programs',
 //                     // 'catered_units.id',
-//                 ]);
+                ]);
             }
         }
         else
