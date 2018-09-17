@@ -733,14 +733,14 @@ class ProcurementCenterRepository extends BaseRepository
 
         // $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
 
-        // if($type != 'alternative')
-        // {
-        //     $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
-        // }
-        // else
-        // {
-        //     $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
-        // }
+        if($type != 'alternative')
+        {
+            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
+        }
+        else
+        {
+            $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
+        }
 
         // if(!\Sentinel::getUser()->hasRole('Admin') )
         // {
