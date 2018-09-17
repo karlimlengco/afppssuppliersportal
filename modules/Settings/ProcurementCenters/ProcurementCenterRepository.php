@@ -580,7 +580,14 @@ class ProcurementCenterRepository extends BaseRepository
             }else
             {
                 $model  =   $model->select([
-                    DB::raw("count(unit_purchase_requests.id) as upr_count"),
+                    // DB::raw("count(unit_purchase_requests.id) as upr_count"),
+                    DB::raw("
+                        (select count(upr.id)
+                        from upr as upr
+                        left join procurement_centers as pc
+                        on upr.procurement_office  = pc.id
+                        where programs = procurement_centers.programs )
+                        as upr_count"),
                     // DB::raw("
                     //     (select count(unit_purchase_requests.id)
                     //     from unit_purchase_requests
@@ -733,21 +740,21 @@ class ProcurementCenterRepository extends BaseRepository
 
         // $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
 
-        // if($type != 'alternative')
-        // {
-        //     $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
-        // }
-        // else
-        // {
-        //     $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
-        // }
+        if($type != 'alternative')
+        {
+            $model  =   $model->where('mode_of_procurement', '=', 'public_bidding');
+        }
+        else
+        {
+            $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
+        }
 
         // if(!\Sentinel::getUser()->hasRole('Admin') )
         // {
         //     $model  =   $model->having('catered_units.id','=', \Sentinel::getUser()->unit_id);
         // }
         $model  = $model->whereNotNull('procurement_centers.id');
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
+        $model  = $model->whereRaw("unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
         $model  =   $model->groupBy([
             'procurement_centers.programs',
