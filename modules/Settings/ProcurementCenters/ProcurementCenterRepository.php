@@ -302,7 +302,6 @@ class ProcurementCenterRepository extends BaseRepository
                 ]);
             }else
             {
-            dd('opps');
 
                 $model  =   $model->select([
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
@@ -323,9 +322,9 @@ class ProcurementCenterRepository extends BaseRepository
         }
         else
         {
-            dd('dito');
             if($type != 'alternative')
             {
+                dd('dito');
                 $model  =   $model->select([
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
                     DB::raw(" (select count(unit_purchase_requests.id) from unit_purchase_requests left join procurement_centers as pc on unit_purchase_requests.procurement_office  = pc.id where mode_of_procurement  = 'public_bidding' and unit_purchase_requests.status != 'draft' and programs = procurement_centers.programs and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ) as upr_count "),
@@ -438,6 +437,7 @@ class ProcurementCenterRepository extends BaseRepository
                 ]);
             }else
             {
+                dd('dito ese');
                 $model  =   $model->select([
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
                     DB::raw("
