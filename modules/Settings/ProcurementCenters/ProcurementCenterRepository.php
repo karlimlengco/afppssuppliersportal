@@ -583,7 +583,7 @@ class ProcurementCenterRepository extends BaseRepository
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
                     DB::raw("
                         (select count(unit_purchase_requests.id)
-                        from unit_purchase_requests as upr
+                        from unit_purchase_requests
                         left join procurement_centers as pc
                         on unit_purchase_requests.procurement_office  = pc.id
                         where mode_of_procurement  != 'public_bidding'
