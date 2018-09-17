@@ -168,7 +168,7 @@ class ProcurementCenterRepository extends BaseRepository
             $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_to)->format('Y');
         }
         $model  =   $this->model;
-
+        dd(\Sentinel::getUser()->hasRole('Admin') );
         if(!\Sentinel::getUser()->hasRole('Admin') )
         {
 
