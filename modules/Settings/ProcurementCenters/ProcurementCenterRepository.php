@@ -583,7 +583,7 @@ class ProcurementCenterRepository extends BaseRepository
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
                     DB::raw("
                         (select count(upr.id)
-                        from upr as upr
+                        from unit_purchase_requests as upr
                         left join procurement_centers as pc
                         on upr.procurement_office  = pc.id
                         where programs = procurement_centers.programs )
