@@ -437,11 +437,15 @@ class ProcurementCenterRepository extends BaseRepository
             }else
             {
                 $model  =   $model->select([
-                    // DB::raw("count(unit_purchase_requests.id) as upr_count"),
-                    DB::raw("
-                        (select count(unit_purchase_requests.id)
-                        from unit_purchase_requests )
-                        as upr_count"),
+                    DB::raw("count(unit_purchase_requests.id) as upr_count"),
+                    // DB::raw("
+                    //     (select count(unit_purchase_requests.id)
+                    //     from unit_purchase_requests
+                    //     left join procurement_centers as pc
+                    //     on unit_purchase_requests.procurement_office  = pc.id
+                    //     where mode_of_procurement  != 'public_bidding'
+                    //     and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' )
+                    //     as upr_count"),
 
                     // 'catered_units.id',
                 ]);
