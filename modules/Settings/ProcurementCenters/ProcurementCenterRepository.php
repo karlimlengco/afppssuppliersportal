@@ -301,7 +301,6 @@ class ProcurementCenterRepository extends BaseRepository
                 ]);
             }else
             {
-                dd('s');
                 $model  =   $model->select([
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
                     DB::raw("
@@ -581,6 +580,7 @@ class ProcurementCenterRepository extends BaseRepository
                 ]);
             }else
             {
+                dd('ss');
                 $model  =   $model->select([
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
                     DB::raw("
