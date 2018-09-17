@@ -181,7 +181,7 @@ class POEloquent extends Model implements  AuditableContract
      */
     public function items()
     {
-        return $this->hasMany('\Revlv\Procurements\PurchaseOrder\Items\ItemEloquent', 'order_id');
+        return $this->hasMany('\Revlv\Procurements\PurchaseOrder\Items\ItemEloquent', 'order_id')->orderBy('created_at');
     }
 
     /**
