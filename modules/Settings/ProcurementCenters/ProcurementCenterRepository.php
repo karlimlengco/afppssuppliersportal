@@ -748,7 +748,7 @@ class ProcurementCenterRepository extends BaseRepository
         // }
         // $model  = $model->whereNotNull('procurement_centers.id');
         $model  = $model->whereNotNull('pcco');
-        $model  = $model->whereRaw("YEAR(date_processed) <= '$yearto' AND YEAR(date_processed) >= '$yearfrom' ");
+        // $model  = $model->whereRaw("YEAR(date_processed) <= '$yearto' AND YEAR(date_processed) >= '$yearfrom' ");
 
         $model  =   $model->groupBy([
             'programs',
