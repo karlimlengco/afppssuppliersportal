@@ -611,7 +611,7 @@ class ProcurementCenterRepository extends BaseRepository
             }
         }
 
-        $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.procurement_office', '=', 'procurement_centers.id');
+        // $model  =   $model->leftJoin('unit_purchase_requests', 'unit_purchase_requests.procurement_office', '=', 'procurement_centers.id');
 
         // $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id');
 
@@ -629,7 +629,7 @@ class ProcurementCenterRepository extends BaseRepository
         //     $model  =   $model->having('catered_units.id','=', \Sentinel::getUser()->unit_id);
         // }
         $model  = $model->whereNotNull('procurement_centers.id');
-        $model  = $model->whereRaw(" YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'");
+        // $model  = $model->whereRaw(" YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'");
 
         $model  =   $model->groupBy([
             'procurement_centers.programs',
