@@ -580,7 +580,6 @@ class ProcurementCenterRepository extends BaseRepository
                 ]);
             }else
             {
-                dd('ss');
                 $model  =   $model->select([
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
                     DB::raw("
@@ -605,128 +604,7 @@ class ProcurementCenterRepository extends BaseRepository
                     //     as apb_total"),
 
 
-                    DB::raw("
-                        (select count(unit_purchase_requests.id)
-                        from unit_purchase_requests
-                        left join procurement_centers as pc
-                        on unit_purchase_requests.procurement_office  = pc.id
-                        where mode_of_procurement  != 'public_bidding'
-                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'  and unit_purchase_requests.state = 'cancelled')
-                        as cancelled_count"),
 
-
-                    DB::raw("IFNULL( (select SUM(CASE
-                                 WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' and unit_purchase_requests.status != 'draft' AND unit_purchase_requests.state != 'cancelled' THEN 1
-                                 ELSE 0
-                       END)
-                        from unit_purchase_requests
-                        left join procurement_centers as pc
-                        on unit_purchase_requests.procurement_office  = pc.id
-                        where mode_of_procurement  != 'public_bidding'
-                        and unit_purchase_requests.next_due <  NOW()
-                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ), 0)
-                        as delay_count"),
-
-                    // IFNULL( SUM(CASE
-                    //              WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' AND unit_purchase_requests.state != 'cancelled' THEN 1
-                    //              ELSE 0
-                    //            END),0) as delay_count
-
-                    // DB::raw("count(unit_purchase_requests.delay_count) -
-                    //     count(unit_purchase_requests.completed_at)
-                    //     as delay_count"),
-
-                    // DB::raw("count(unit_purchase_requests.completed_at) as completed_count"),
-                    DB::raw("(select count(unit_purchase_requests.completed_at)
-                        from unit_purchase_requests
-                        left join procurement_centers as pc
-                        on unit_purchase_requests.procurement_office  = pc.id
-                        where mode_of_procurement  != 'public_bidding'
-                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'cancelled' and  unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ) as completed_count"),
-
-
-                    DB::raw("
-                        (select count(unit_purchase_requests.id)
-                        from unit_purchase_requests
-                        left join procurement_centers as pc
-                        on unit_purchase_requests.procurement_office  = pc.id
-                        where mode_of_procurement  != 'public_bidding'
-                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'   AND unit_purchase_requests.state != 'cancelled') -
-                        (select count(unit_purchase_requests.completed_at)
-                        from unit_purchase_requests
-                        left join procurement_centers as pc
-                        on unit_purchase_requests.procurement_office  = pc.id
-                        where mode_of_procurement  != 'public_bidding' and unit_purchase_requests.status != 'cancelled'
-                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'   AND unit_purchase_requests.state != 'cancelled')
-                        as ongoing_count"),
-
-                    DB::raw("(select sum(unit_purchase_requests.total_amount)
-                        from unit_purchase_requests
-                        left join procurement_centers as pc
-                        on unit_purchase_requests.procurement_office  = pc.id
-                        where mode_of_procurement  != 'public_bidding'
-                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ) as total_abc"),
-                    DB::raw("(select sum(unit_purchase_requests.total_amount)
-                        from unit_purchase_requests
-                        left join procurement_centers as pc
-                        on unit_purchase_requests.procurement_office  = pc.id
-                        left join purchase_orders as po
-                        on unit_purchase_requests.id  = po.upr_id
-                        where unit_purchase_requests.status != 'cancelled' and unit_purchase_requests.status = 'completed' AND  mode_of_procurement  != 'public_bidding'
-                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ) as total_approved_abc"),
-                    // DB::raw("sum(unit_purchase_requests.total_amount) as total_abc"),
-
-                    DB::raw("(select sum(po.bid_amount)
-                        from unit_purchase_requests
-                        left join procurement_centers as pc
-                        on unit_purchase_requests.procurement_office  = pc.id
-                        left join purchase_orders as po
-                        on unit_purchase_requests.id  = po.upr_id
-                        where unit_purchase_requests.status != 'cancelled' and unit_purchase_requests.status = 'completed' AND  mode_of_procurement  != 'public_bidding'
-                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'  ) as total_bid"),
-                    // DB::raw("sum(purchase_orders.bid_amount) as total_bid"),
-                    //
-                    DB::raw("( (select sum(unit_purchase_requests.total_amount)
-                        from unit_purchase_requests
-                        left join procurement_centers as pc
-                        on unit_purchase_requests.procurement_office  = pc.id
-                        left join purchase_orders as po
-                        on unit_purchase_requests.id  = po.upr_id
-                        where unit_purchase_requests.status != 'cancelled' and unit_purchase_requests.status = 'completed' AND mode_of_procurement  != 'public_bidding'
-                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'  )
-                        -
-                        (select sum(po.bid_amount)
-                                            from unit_purchase_requests
-                                            left join procurement_centers as pc
-                                            on unit_purchase_requests.procurement_office  = pc.id
-                                            left join purchase_orders as po
-                                            on unit_purchase_requests.id  = po.upr_id
-                                            where mode_of_procurement  != 'public_bidding' and
-                                            unit_purchase_requests.status != 'cancelled' and unit_purchase_requests.status = 'completed'
-                                             and unit_purchase_requests.status != 'draft' and programs = procurement_centers.programs and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' )
-                        ) as total_complete_residual"),
-
-
-                    DB::raw("( (select sum(unit_purchase_requests.total_amount)
-                        from unit_purchase_requests
-                        left join procurement_centers as pc
-                        on unit_purchase_requests.procurement_office  = pc.id
-                        where mode_of_procurement  != 'public_bidding'
-                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'  )
-                        -
-                        (select sum(po.bid_amount)
-                                            from unit_purchase_requests
-                                            left join procurement_centers as pc
-                                            on unit_purchase_requests.procurement_office  = pc.id
-                                            left join purchase_orders as po
-                                            on unit_purchase_requests.id  = po.upr_id
-                                            where mode_of_procurement  != 'public_bidding'
-                                             and unit_purchase_requests.status != 'draft' and programs = procurement_centers.programs and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' )
-                        ) as total_residual"),
-
-                    // DB::raw(" avg(unit_purchase_requests.days) as avg_days"),
-                    // DB::raw(" avg( unit_purchase_requests.days - 43 ) as avg_delays"),
-                    'procurement_centers.programs',
                     // 'catered_units.id',
                 ]);
             }
