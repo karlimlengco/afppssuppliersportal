@@ -26,7 +26,6 @@ trait DatatableTrait
                 'notice_to_proceed.prepared_date',
                 'notice_to_proceed.id',
                 'notice_to_proceed.rfq_id',
-                'request_for_quotations.rfq_number',
                 'notice_to_proceed.upr_number',
                 'purchase_orders.po_number',
                 'purchase_orders.purchase_date',
@@ -37,14 +36,11 @@ trait DatatableTrait
                 'suppliers.name'
             ]);
 
-            $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.id', '=', 'notice_to_proceed.rfq_id');
-
             $model  =   $model->leftJoin('rfq_proponents', 'rfq_proponents.id', '=', 'notice_to_proceed.proponent_id');
             $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.id', '=', 'notice_to_proceed.po_id');
 
             $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'rfq_proponents.proponents');
-
-            $model  =   $model->whereNotNull('request_for_quotations.id');
+            $model  =   $model->whereNotNull('rfq_proponents.id');
         }
         else{
 
