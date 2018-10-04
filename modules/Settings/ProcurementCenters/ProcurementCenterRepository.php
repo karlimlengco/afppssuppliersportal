@@ -644,20 +644,20 @@ class ProcurementCenterRepository extends BaseRepository
                         and programs = procurement_centers.programs and unit_purchase_requests.status != 'cancelled' and  unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ) as completed_count"),
 
 
-                    // DB::raw("
-                    //     (select count(unit_purchase_requests.id)
-                    //     from unit_purchase_requests
-                    //     left join procurement_centers as pc
-                    //     on unit_purchase_requests.procurement_office  = pc.id
-                    //     where mode_of_procurement  != 'public_bidding'
-                    //     and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'   AND unit_purchase_requests.state != 'cancelled') -
-                    //     (select count(unit_purchase_requests.completed_at)
-                    //     from unit_purchase_requests
-                    //     left join procurement_centers as pc
-                    //     on unit_purchase_requests.procurement_office  = pc.id
-                    //     where mode_of_procurement  != 'public_bidding' and unit_purchase_requests.status != 'cancelled'
-                    //     and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'   AND unit_purchase_requests.state != 'cancelled')
-                    //     as ongoing_count"),
+                    DB::raw("
+                        (select count(unit_purchase_requests.id)
+                        from unit_purchase_requests
+                        left join procurement_centers as pc
+                        on unit_purchase_requests.procurement_office  = pc.id
+                        where mode_of_procurement  != 'public_bidding'
+                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'   AND unit_purchase_requests.state != 'cancelled') -
+                        (select count(unit_purchase_requests.completed_at)
+                        from unit_purchase_requests
+                        left join procurement_centers as pc
+                        on unit_purchase_requests.procurement_office  = pc.id
+                        where mode_of_procurement  != 'public_bidding' and unit_purchase_requests.status != 'cancelled'
+                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'   AND unit_purchase_requests.state != 'cancelled')
+                        as ongoing_count"),
 
                     // DB::raw("(select sum(unit_purchase_requests.total_amount)
                     //     from unit_purchase_requests
