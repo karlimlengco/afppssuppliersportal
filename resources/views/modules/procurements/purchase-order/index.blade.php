@@ -45,7 +45,7 @@ Purchase Order
 
             <thead>
                 <tr>
-                    <th>RFQ No.</th>
+                    <th>PO No.</th>
                     <th>UPR No.</th>
                     <th>PO Date</th>
                     <th>Bid Amount</th>
@@ -56,7 +56,7 @@ Purchase Order
             <tbody>
               @foreach($resources as $data)
                 <tr>
-                  <td> <a href="{{route( 'procurements.purchase-orders.show',[$data->id] )}}">  {{$data->rfq_number}} </a></td>
+                  <td> <a href="{{route( 'procurements.purchase-orders.show',[$data->id] )}}">  {{$data->po_number}} </a></td>
                   <td>{{$data->upr_number}}</td>
                   <td>{{$data->purchase_date}}</td>
                   <td>{{formatPrice($data->bid_amount)}}</td>
