@@ -15,7 +15,7 @@
         @include('layouts.styles')
         @yield('styles')
         <style>
-            .preloader{position:fixed;left:0;top:0;z-index:102;width:100%;height:100vh;overflow:hidden;background:#fff}
+            .preloader{position:fixed;left:0;top:0;z-index:102;width:100%;height:100vh;overflow:hidden;background:#fff; opacity: .7}
             .preloader img{position:absolute;top:50%;left:50%;margin-top:-32px;margin-left:-32px}
         </style>
 
