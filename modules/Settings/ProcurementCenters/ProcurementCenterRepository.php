@@ -168,8 +168,8 @@ class ProcurementCenterRepository extends BaseRepository
             $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_to)->format('Y');
         }
         $model  =   $this->model;
-
-        if(!\Sentinel::getUser()->hasRole('Admin') )
+        if(\Sentinel::getUser()->hasRole('Admin') )
+        // if(!\Sentinel::getUser()->hasRole('Admin') )
         {
 
             $unit_id    =   \Sentinel::getUser()->unit_id;
@@ -582,17 +582,17 @@ class ProcurementCenterRepository extends BaseRepository
             {
                 $model  =   $model->select([
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
-                    // DB::raw("
-                    //     (select count(unit_purchase_requests.id)
-                    //     from unit_purchase_requests
-                    //     left join procurement_centers as pc
-                    //     on unit_purchase_requests.procurement_office  = pc.id
-                    //     where mode_of_procurement  != 'public_bidding'
-                    //     and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' )
-                    //     as upr_count"),
                     DB::raw("
-                     ( select count(unit_purchase_requests.id) FROM unit_purchase_requests WHERE unit_purchase_requests.procurement_office = procurement_centers.id and unit_purchase_requests.status != 'draft' AND mode_of_procurement  != 'public_bidding' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ) as upr_count;
-                    "),
+                        (select count(unit_purchase_requests.id)
+                        from unit_purchase_requests
+                        left join procurement_centers as pc
+                        on unit_purchase_requests.procurement_office  = pc.id
+                        where mode_of_procurement  != 'public_bidding'
+                        and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' )
+                        as upr_count"),
+                    // DB::raw("
+                    //  ( select count(unit_purchase_requests.id) FROM unit_purchase_requests WHERE unit_purchase_requests.procurement_office = procurement_centers.id and unit_purchase_requests.status != 'draft' AND mode_of_procurement  != 'public_bidding' and unit_purchase_requests.date_processed >= '$date_from' and unit_purchase_requests.date_processed <= '$date_to' AND YEAR(unit_purchase_requests.date_processed) <= '$yearto'AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ) as upr_count
+                    // "),
 
                     // DB::raw("
                     //     (select sum(unit_attachments.amount)
