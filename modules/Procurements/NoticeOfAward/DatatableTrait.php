@@ -30,14 +30,14 @@ trait DatatableTrait
                 'notice_of_awards.id',
                 'request_for_quotations.rfq_number',
                 'notice_of_awards.upr_number',
-                'suppliers.name'
+                // 'suppliers.name'
             ]);
 
             $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.id', '=', 'notice_of_awards.rfq_id');
 
-            $model  =   $model->leftJoin('rfq_proponents', 'rfq_proponents.id', '=', 'notice_of_awards.proponent_id');
+            // $model  =   $model->leftJoin('rfq_proponents', 'rfq_proponents.id', '=', 'notice_of_awards.proponent_id');
 
-            $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'rfq_proponents.proponents');
+            // $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'rfq_proponents.proponents');
 
             // $model  =   $model->whereNotNull('request_for_quotations.rfq_number');
             $model  =   $model->where('unit_purchase_requests.mode_of_procurement', '<>', 'public_bidding');
@@ -48,12 +48,12 @@ trait DatatableTrait
                 'notice_of_awards.awarded_date',
                 'notice_of_awards.id',
                 'notice_of_awards.upr_number',
-                'suppliers.name'
+                // 'suppliers.name'
             ]);
 
-            $model  =   $model->leftJoin('bid_docs_issuance', 'bid_docs_issuance.id', '=', 'notice_of_awards.proponent_id');
+            // $model  =   $model->leftJoin('bid_docs_issuance', 'bid_docs_issuance.id', '=', 'notice_of_awards.proponent_id');
 
-            $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'bid_docs_issuance.proponent_id');
+            // $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'bid_docs_issuance.proponent_id');
 
             $model  =   $model->where('unit_purchase_requests.mode_of_procurement', '==', 'public_bidding');
             // $model  =   $model->whereNull('rfq_number');
