@@ -36,11 +36,11 @@ trait DatatableTrait
                 // 'suppliers.name'
             ]);
 
-            $model  =   $model->leftJoin('rfq_proponents', 'rfq_proponents.id', '=', 'notice_to_proceed.proponent_id');
+            // $model  =   $model->leftJoin('rfq_proponents', 'rfq_proponents.id', '=', 'notice_to_proceed.proponent_id');
             $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.id', '=', 'notice_to_proceed.po_id');
 
             // $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'rfq_proponents.proponents');
-            $model  =   $model->whereNotNull('rfq_proponents.id');
+            $model  =   $model->whereNotNull('notice_to_proceed.rfq_id');
         }
         else{
 
