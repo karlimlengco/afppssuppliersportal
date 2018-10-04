@@ -14,12 +14,18 @@
 
         @include('layouts.styles')
         @yield('styles')
+        <style>
+            .preloader{position:fixed;left:0;top:0;z-index:102;width:100%;height:100vh;overflow:hidden;background:#fff}
+            .preloader img{position:absolute;top:50%;left:50%;margin-top:-32px;margin-left:-32px}
+        </style>
 
     </head>
 
     <body>
 
     <div class="container"  id="app">
+
+            
         @yield('modal')
         @include('layouts.sidebar')
         <div >
@@ -28,8 +34,15 @@
 
             <!-- content -->
             <div class="content">
+
+
+        <!-- preloader -->
+    
                 <div class="content__wrapper">
                     <div class="row">
+                        <div class="preloader">
+                            <img src="/img/preloader.gif" alt="">
+                        </div>
 
                         @include('layouts.alerts')
                         @yield('contents')
@@ -76,9 +89,10 @@
 
     @include('layouts.footer')
     @include('layouts.scripts')
+    
     @yield('scripts')
     <script type="text/javascript">
-
+    /* preloader */ 
          $.ajaxSetup({
              headers: {
                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
