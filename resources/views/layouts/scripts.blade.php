@@ -68,11 +68,10 @@ if (typeof Object.assign != 'function') {
 <script>
     (function($){
 
-        $(window).on("ready",function() {
-            $('.preloader').fadeOut(1000,function(){
-                $(this).hide();
-            });
+        $('.sidebar__child-menu__item__link').on("click",function() {
+            $('.preloader').show();
         });
+
         $(window).on("load",function(){
 
             $('.preloader').fadeOut(1000,function(){
