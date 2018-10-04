@@ -72,7 +72,7 @@ if (typeof Object.assign != 'function') {
         $(window).on("load",function(){
 
             $('.preloader').fadeOut(1000,function(){
-                $(this).remove();
+                $(this).hide();
             });
 
             $(".sidebar").mCustomScrollbar({

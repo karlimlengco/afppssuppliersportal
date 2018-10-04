@@ -72730,7 +72730,7 @@ var tarray2IDs = [];
     },
     mounted: function mounted() {
         this.fetchUprAnalytics(this.types);
-        this.fetchTimeline(this.psrTypes);
+        // this.fetchTimeline(this.psrTypes);
     },
 
 
@@ -72766,7 +72766,10 @@ var tarray2IDs = [];
 
             axios.get('/reports/programs/' + type + '?date_from=' + this.startDate + '&&date_to=' + this.endDate).then(function (response) {
                 _this2.items = response.data;
+
+                $('.preloader').hide();
             }).catch(function (e) {
+                $('.preloader').hide();
                 console.log(e);
             });
         },
@@ -72836,6 +72839,7 @@ var tarray2IDs = [];
             }
         },
         changeType: function changeType(type) {
+            $('.preloader').show();
             this.types = type;
             this.itemProgram = [];
             this.itemProgramCenters = [];

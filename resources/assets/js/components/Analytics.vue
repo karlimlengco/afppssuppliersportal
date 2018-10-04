@@ -512,7 +512,7 @@ var tarray2IDs           =   [];
 
         mounted() {
             this.fetchUprAnalytics(this.types);
-            this.fetchTimeline(this.psrTypes);
+            // this.fetchTimeline(this.psrTypes);
         },
 
         methods: {
@@ -545,8 +545,11 @@ var tarray2IDs           =   [];
                 axios.get('/reports/programs/'+type+'?date_from='+this.startDate+'&&date_to='+this.endDate)
                     .then(response => {
                         this.items = response.data
+
+                        $('.preloader').hide()
                     })
                     .catch(e => {
+                        $('.preloader').hide()
                         console.log(e)
                     })
             },
@@ -622,6 +625,7 @@ var tarray2IDs           =   [];
                 }
             },
             changeType: function(type){
+                $('.preloader').show()
                 this.types = type
                 this.itemProgram = []
                 this.itemProgramCenters = []
