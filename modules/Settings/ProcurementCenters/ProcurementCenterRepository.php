@@ -543,7 +543,7 @@ class ProcurementCenterRepository extends BaseRepository
                                             on upr_view.procurement_office  = pc.id
                                             
                                             where mode_of_procurement  = 'public_bidding'
-                                            ADN upr_view.bid_amount IS NOT NULL
+                                            AND upr_view.bid_amount IS NOT NULL
                                              and upr_view.status != 'draft' and upr_view.programs = procurement_centers.programs )
                         ) as total_residual"),
 
