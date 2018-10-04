@@ -24,10 +24,8 @@ trait DatatableTrait
         {
             $model  =   $model->select([
                 'delivery_orders.*',
-                'request_for_quotations.rfq_number'
             ]);
 
-            $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.id', '=', 'delivery_orders.rfq_id');
             $model  =   $model->whereNotNull('rfq_id');
         }
         else
@@ -80,7 +78,7 @@ trait DatatableTrait
         {
             $search = $request->search;
             $model  = $model->where(function($query) use ($search){
-                 $query->where('request_for_quotations.rfq_number', 'like', "%$search%");
+                 $query->where('delivery_orders.rfq_number', 'like', "%$search%");
                  $query->orWhere('delivery_orders.upr_number', 'like', "%$search%");
                  $query->orWhere('delivery_orders.expected_date', 'like', "%$search%");
                  $query->orWhere('delivery_orders.delivery_number', 'like', "%$search%");
