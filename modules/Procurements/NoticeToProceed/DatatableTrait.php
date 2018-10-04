@@ -33,13 +33,13 @@ trait DatatableTrait
                 'purchase_orders.funding_released_date',
                 'purchase_orders.bid_amount',
                 'purchase_orders.status',
-                'suppliers.name'
+                // 'suppliers.name'
             ]);
 
             $model  =   $model->leftJoin('rfq_proponents', 'rfq_proponents.id', '=', 'notice_to_proceed.proponent_id');
             $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.id', '=', 'notice_to_proceed.po_id');
 
-            $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'rfq_proponents.proponents');
+            // $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'rfq_proponents.proponents');
             $model  =   $model->whereNotNull('rfq_proponents.id');
         }
         else{
@@ -56,14 +56,14 @@ trait DatatableTrait
                 'purchase_orders.funding_released_date',
                 'purchase_orders.bid_amount',
                 'purchase_orders.status',
-                'suppliers.name'
+                // 'suppliers.name'
             ]);
 
             $model  =   $model->leftJoin('purchase_orders', 'purchase_orders.id', '=', 'notice_to_proceed.po_id');
 
-            $model  =   $model->leftJoin('bid_docs_issuance', 'bid_docs_issuance.id', '=', 'notice_to_proceed.proponent_id');
+            // $model  =   $model->leftJoin('bid_docs_issuance', 'bid_docs_issuance.id', '=', 'notice_to_proceed.proponent_id');
 
-            $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'bid_docs_issuance.proponent_id');
+            // $model  =   $model->leftJoin('suppliers', 'suppliers.id', '=', 'bid_docs_issuance.proponent_id');
 
             $model  =   $model->whereNull('notice_to_proceed.rfq_id');
 
@@ -115,7 +115,7 @@ trait DatatableTrait
                  $query->orWhere('purchase_orders.po_number', 'like', "%$search%");
                  $query->orWhere('purchase_orders.upr_number', 'like', "%$search%");
                  $query->orWhere('purchase_orders.bid_amount', 'like', "%$search%");
-                 $query->orWhere('suppliers.name', 'like', "%$search%");
+                //  $query->orWhere('suppliers.name', 'like', "%$search%");
                  $query->orWhere('purchase_orders.purchase_date', 'like', "%$search%");
              });
         }

@@ -46,17 +46,17 @@ Notice To Proceed
                     <th>PO Date</th>
                     <th>Bid Amount</th>
                     <th>Status</th>
-                    <th>Supplier</th>
+                    {{-- <th>Supplier</th> --}}
                 </tr>
             </thead>
             <tbody>
                 @foreach($resources as $data)
                   <tr>
-                    <td> <a href="{{route( 'procurements.ntp.show',[$data->id] )}}">  {{$data->rfq_number}} </a></td>
+                    <td> <a href="{{route( 'procurements.ntp.show',[$data->id] )}}">  {{$data->upr_number}} </a></td>
                     <td>{{$data->purchase_date}}</td>
                     <td>{{formatPrice($data->bid_amount)}}</td>
                     <td>{{$data->status}}</td>
-                    <td>{{$data->name}}</td>
+                    {{-- <td>{{$data->name}}</td> --}}
                   </tr>
                 @endforeach
             </tbody>
