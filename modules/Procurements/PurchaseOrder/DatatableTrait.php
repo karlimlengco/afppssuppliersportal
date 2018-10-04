@@ -25,7 +25,12 @@ trait DatatableTrait
         if($type == 'alternative')
         {
             $model  =   $model->select([
-                'purchase_orders.*',
+                'purchase_orders.id',
+                'purchase_orders.purchase_date',
+                'purchase_orders.bid_amount',
+                'purchase_orders.upr_number',
+                'purchase_orders.mfo_released_date',
+                'purchase_orders.funding_released_date',
                 'request_for_quotations.rfq_number'
             ]);
 
@@ -36,7 +41,12 @@ trait DatatableTrait
         else
         {
             $model  =   $model->select([
-                'purchase_orders.*',
+                'purchase_orders.id',
+                'purchase_orders.purchase_date',
+                'purchase_orders.bid_amount',
+                'purchase_orders.upr_number',
+                'purchase_orders.mfo_released_date',
+                'purchase_orders.funding_released_date'
             ]);
             $model  =   $model->where('unit_purchase_requests.mode_of_procurement', '==', 'public_bidding');
             // $model  =   $model->whereNull('rfq_id');
