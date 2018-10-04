@@ -31,10 +31,11 @@ trait DatatableTrait
                 'purchase_orders.upr_number',
                 'purchase_orders.mfo_released_date',
                 'purchase_orders.funding_released_date',
-                'request_for_quotations.rfq_number'
+                'purchase_orders.po_number',
+                // 'request_for_quotations.rfq_number'
             ]);
 
-            $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.id', '=', 'purchase_orders.rfq_id');
+            // $model  =   $model->leftJoin('request_for_quotations', 'request_for_quotations.id', '=', 'purchase_orders.rfq_id');
             $model  =   $model->where('unit_purchase_requests.mode_of_procurement', '<>', 'public_bidding');
             // $model  =   $model->whereNotNull('rfq_id');
         }
@@ -46,7 +47,8 @@ trait DatatableTrait
                 'purchase_orders.bid_amount',
                 'purchase_orders.upr_number',
                 'purchase_orders.mfo_released_date',
-                'purchase_orders.funding_released_date'
+                'purchase_orders.funding_released_date',
+                'purchase_orders.po_number'
             ]);
             $model  =   $model->where('unit_purchase_requests.mode_of_procurement', '==', 'public_bidding');
             // $model  =   $model->whereNull('rfq_id');
@@ -93,7 +95,8 @@ trait DatatableTrait
             $search = $request->search;
             $model  = $model->where(function($query) use ($search){
                  $query->where('purchase_orders.upr_number', 'like', "%$search%");
-                 $query->orWhere('request_for_quotations.rfq_number', 'like', "%$search%");
+                 $query->where('purchase_orders.po_number', 'like', "%$search%");
+                //  $query->orWhere('request_for_quotations.rfq_number', 'like', "%$search%");
                  $query->orWhere('purchase_orders.bid_amount', 'like', "%$search%");
                  $query->orWhere('purchase_orders.purchase_date', 'like', "%$search%");
              });
