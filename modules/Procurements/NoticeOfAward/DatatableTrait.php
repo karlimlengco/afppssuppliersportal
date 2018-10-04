@@ -100,7 +100,6 @@ trait DatatableTrait
             $model  = $model->where(function($query) use ($search){
                  $query->where('notice_of_awards.upr_number', 'like', "%$search%");
                  $query->orWhere('notice_of_awards.rfq_number', 'like', "%$search%");
-                 $query->orWhere('suppliers.name', 'like', "%$search%");
                  $query->orWhere('notice_of_awards.awarded_date', 'like', "%$search%");
              });
         }
