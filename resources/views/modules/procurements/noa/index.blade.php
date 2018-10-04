@@ -42,7 +42,7 @@ Notice Of Award
                 <tr>
                     <th>RFQ No.</th>
                     <th>UPR No.</th>
-                    <th>Proponent</th>
+                    {{-- <th>Proponent</th> --}}
                     <th>Date Awarded</th>
                 </tr>
             </thead>
@@ -51,7 +51,7 @@ Notice Of Award
                   <tr>
                     <td> <a href="{{route( 'procurements.noa.show',[$data->id] )}}">  {{$data->rfq_number}} </a></td>
                     <td>{{$data->upr_number}}</td>
-                    <td>{{$data->name}}</td>
+                    {{-- <td>{{$data->name}}</td> --}}
                     <td>{{$data->awarded_date}}</td>
                   </tr>
                 @endforeach
