@@ -99,7 +99,7 @@ trait DatatableTrait
              });
         }
 
-        $model->orderBy('created_at', 'desc');
+        $model->orderBy('purchase_orders.created_at', 'desc');
 
         return $model->paginate($limit);
     }
