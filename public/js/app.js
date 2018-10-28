@@ -72697,6 +72697,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 var arrayIDs = [];
@@ -72944,6 +72951,19 @@ var tarray2IDs = [];
 
             this.itemProgram = [], this.itemProgramCenters = [], this.itemUnits = [], this.fetchUPRCenters(this.types);
             this.fetchUprAnalytics(this.types);
+        },
+        print: function print() {
+            window.open("/overview/print/" + this.types + '?start=' + this.startDate + '&end=' + this.endDate);
+        },
+        printItemProgram: function printItemProgram(item) {
+
+            window.open("/overview/program/print/" + item.programs + '/' + this.types + '?start=' + this.startDate + '&end=' + this.endDate);
+        },
+        printItemProgramCenter: function printItemProgramCenter(item) {
+            window.open("/overview/program-center/print/" + item.programs + '/' + item.name + '/' + this.types + '?start=' + this.startDate + '&end=' + this.endDate);
+        },
+        printItemUnit: function printItemUnit(item) {
+            window.open("/overview/uprs/print/" + item.short_code + '/' + item.name + '/' + this.types + '?start=' + this.startDate + '&end=' + this.endDate);
         },
         changeOverview: function changeOverview() {
             $("#programs").toggle();
@@ -84718,7 +84738,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "nc-icon-mini ui-1_zoom"
-  })])])]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "button",
+    attrs: {
+      "id": "dateSearch"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.print()
+      }
+    }
+  }, [_vm._v("Print")])])]), _vm._v(" "), _c('div', {
     attrs: {
       "id": "programs"
     }
@@ -84783,6 +84814,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "nc-icon-mini ui-1_circle-add"
+    })]) : _vm._e(), _vm._v(" "), (item.upr_count > 0) ? _c('button', {
+      staticClass: "show-child-table",
+      staticStyle: {
+        "padding-right": "20px"
+      },
+      on: {
+        "click": function($event) {
+          _vm.printItemProgram(item)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "nc-icon-mini files_archive-paper"
     })]) : _vm._e()]), _vm._v(" "), _c('td', {
       staticStyle: {
         "font-weight": "bolder"
@@ -84871,7 +84914,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }, [_c('i', {
           staticClass: "nc-icon-mini ui-1_circle-add"
-        })]), _vm._v("\n                                                            " + _vm._s(itemProgData.name) + "\n                                                        ")]), _vm._v(" "), _c('td', {
+        })]), _vm._v(" "), (item.upr_count > 0) ? _c('button', {
+          staticClass: "show-child-table",
+          staticStyle: {
+            "padding-right": "20px"
+          },
+          on: {
+            "click": function($event) {
+              _vm.printItemProgramCenter(itemProgData)
+            }
+          }
+        }, [_c('i', {
+          staticClass: "nc-icon-mini files_archive-paper"
+        })]) : _vm._e(), _vm._v("\n                                                            " + _vm._s(itemProgData.name) + "\n                                                        ")]), _vm._v(" "), _c('td', {
           staticStyle: {
             "font-weight": "bolder"
           }
@@ -84955,7 +85010,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               }
             }, [_c('i', {
               staticClass: "nc-icon-mini ui-1_circle-add"
-            })])]), _vm._v(" "), _c('td', {
+            })]), _vm._v(" "), (item.upr_count > 0) ? _c('button', {
+              staticClass: "show-child-table",
+              staticStyle: {
+                "padding-right": "20px"
+              },
+              on: {
+                "click": function($event) {
+                  _vm.printItemUnit(itemUnitData)
+                }
+              }
+            }, [_c('i', {
+              staticClass: "nc-icon-mini files_archive-paper"
+            })]) : _vm._e(), _vm._v("\n                                                                                        " + _vm._s(itemProgData.name) + "\n                                                                                    ")]), _vm._v(" "), _c('td', {
               staticStyle: {
                 "font-weight": "bolder"
               }
