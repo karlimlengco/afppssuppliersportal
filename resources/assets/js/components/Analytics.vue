@@ -14,6 +14,7 @@
                 <input style="width:160px" placeholder="End Date" v-model="endDate" type="text" format="yyyy-MM-dd" id="end" name="date_to" class="input" onfocus="(this.type='date')" onfocusout="(this.type='text')">
             </div>
             <button class="button" @click.prevent="search()" id="dateSearch"><span class="nc-icon-mini ui-1_zoom"></span></button>
+            <button class="button" @click.prevent="print()" id="dateSearch">Print</button>
             <!-- <button tooltip="change overview" class="button" @click.prevent="changeOverview()" id="dateSearch"><span class="nc-icon-mini arrows-1_refresh-69"></span></button> -->
         </div>
     </div>
@@ -46,6 +47,7 @@
                             <td style="font-weight:bolder">
                                 Program {{item.programs}}
                                 <button v-if="item.upr_count > 0" v-on:click="clickItemProgram(item)" class="show-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
+                                <button style="padding-right:20px;" v-if="item.upr_count > 0" v-on:click="printItemProgram(item)" class="show-child-table"><i class="nc-icon-mini files_archive-paper"></i></button>
                             </td>
                             <td style="font-weight:bolder">
                                 <span tooltip="Total" style="font-weight:bolder; color:#222222" >{{item.upr_count}}</span>
@@ -80,6 +82,8 @@
                                                     <tr>
                                                         <td  style="font-weight:bolder" >
                                                             <button  v-on:click="clickItemProgramCenter(itemProgData)" class="show-grand-child-table" ><i class="nc-icon-mini ui-1_circle-add"></i></button>
+
+                                                            <button style="padding-right:20px;" v-if="item.upr_count > 0" v-on:click="printItemProgramCenter(itemProgData)" class="show-child-table"><i class="nc-icon-mini files_archive-paper"></i></button>
                                                             {{itemProgData.name}}
                                                         </td>
                                                         <td style="font-weight:bolder">
@@ -142,6 +146,9 @@
                                                                                         {{itemUnitData.short_code}}
 
                                                                                         <button  v-on:click="clickItemUnit(itemUnitData)" class="show-great-grand-child-table"><i class="nc-icon-mini ui-1_circle-add"></i></button>
+
+                                                                                        <button style="padding-right:20px;" v-if="item.upr_count > 0" v-on:click="printItemUnit(itemUnitData)" class="show-child-table"><i class="nc-icon-mini files_archive-paper"></i></button>
+                                                                                        {{itemProgData.name}}
                                                                                     </td>
                                                                                     <td style="font-weight:bolder">
 
@@ -744,6 +751,20 @@ var tarray2IDs           =   [];
 
                 this.fetchUPRCenters(this.types)
                 this.fetchUprAnalytics(this.types)
+            },
+            print: function(){
+                window.open("/overview/print/"+this.types+'?start='+this.startDate+'&end='+this.endDate); 
+            },
+            printItemProgram: function(item){
+
+                window.open("/overview/program/print/"+item.programs+'/'+this.types+'?start='+this.startDate+'&end='+this.endDate); 
+            },
+            printItemProgramCenter:function(item){
+                window.open("/overview/program-center/print/"+item.programs+'/'+ item.name +'/'+this.types+'?start='+this.startDate+'&end='+this.endDate);
+            },
+            printItemUnit: function(item)
+            {
+                window.open("/overview/uprs/print/"+item.short_code+'/'+ item.name +'/'+this.types+'?start='+this.startDate+'&end='+this.endDate);
             },
             changeOverview: function()
             {

@@ -10,6 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('overview/print/{type}', '\Revlv\Controllers\DashboardController@viewPrint')->name('overview.print');
+Route::get('overview/program/print/{program}/{type}', '\Revlv\Controllers\DashboardController@viewPrintProgram')->name('overview.program');
+Route::get('overview/program-center/print/{program}/{center}/{type}', '\Revlv\Controllers\DashboardController@viewPrintProgramCenter')->name('overview.program-center');
+Route::get('overview/uprs/print/{program}/{center}/{type}', '\Revlv\Controllers\DashboardController@viewPrintUpr')->name('overview.upr');
+
 Route::post('/', '\Revlv\Controllers\DashboardController@store')->name('dashboard.store');
 Route::post('/guard/auth/broadcasting', '\Revlv\Controllers\ChatController@authenticate')->name('messages.auth');
 Route::get('/', '\Revlv\Controllers\DashboardController@index')->name('dashboard.index');
@@ -75,6 +80,7 @@ Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
     Route::get('psr/download/{search_at?}', '\Revlv\Controllers\Reports\PSRController@download')->name('reports.psr-transactions.download');
     Route::get('unit-psr/download/{search_at?}', '\Revlv\Controllers\Reports\UnitPSRController@download')->name('reports.unit-psr-transactions.download');
 
+    Route::resource('level-of-compliance', '\Revlv\Controllers\Reports\ComplianceController');
     Route::resource('psr-transactions', '\Revlv\Controllers\Reports\PSRController');
     Route::resource('unit-psr-transactions', '\Revlv\Controllers\Reports\UnitPSRController');
 
