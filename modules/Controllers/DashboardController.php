@@ -105,10 +105,10 @@ class DashboardController extends Controller
                         $data->ongoing_count,
                         $data->cancelled_count,
                         $data->delay_count,
-                        $data->total_abc,
-                        $data->total_approved_abc,
-                        $data->total_bid,
-                        $data->total_complete_residual,
+                        number_format($data->total_abc,2),
+                        number_format($data->total_approved_abc,2),
+                        number_format($data->total_bid,2),
+                        number_format($data->total_complete_residual,2),
                     ];
                     $sheet->row($count, $newdata);
 
@@ -181,10 +181,10 @@ class DashboardController extends Controller
                     $newdata    =   [
                         $data->project_name ."(". $data->upr_number .")"   ,
                         $data->status,
-                        $data->total_abc,
-                        $data->total_approved_abc,
-                        $data->total_bid,
-                        $data->total_complete_residual,
+                        number_format($data->total_abc,2),
+                        number_format($data->total_approved_abc,2),
+                        number_format($data->total_bid,2),
+                        number_format($data->total_complete_residual,2),
                     ];
                     $sheet->row($count, $newdata);
 
@@ -264,10 +264,10 @@ class DashboardController extends Controller
                         $data->ongoing_count,
                         $data->cancelled_count,
                         $data->delay_count,
-                        $data->total_abc,
-                        $data->total_approved_abc,
-                        $data->total_bid,
-                        $data->total_complete_residual,
+                        number_format($data->total_abc,2),
+                        number_format($data->total_approved_abc,2),
+                        number_format($data->total_bid,2),
+                        number_format($data->total_complete_residual,2),
                     ];
                     $sheet->row($count, $newdata);
 
@@ -348,10 +348,10 @@ class DashboardController extends Controller
                         $data->ongoing_count,
                         $data->cancelled_count,
                         $data->delay_count,
-                        $data->total_abc,
-                        $data->total_approved_abc,
-                        $data->total_bid,
-                        $data->total_complete_residual,
+                        number_format($data->total_abc,2),
+                        number_format($data->total_approved_abc,2),
+                        number_format($data->total_bid,2),
+                        number_format($data->total_complete_residual,2),
                     ];
                     $sheet->row($count, $newdata);
 
