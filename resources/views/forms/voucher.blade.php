@@ -121,7 +121,7 @@
                             <td class="no-padding no-border">{{formatPrice($data['penalty'])}}</td>
                             <td class="no-border-top no-border-bottom"></td>
                             <td class="no-border-top no-border-bottom"></td>
-                            <td class="no-border-top no-border-bottom" style="text-align:right">Php {{ ($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty']) }}</td>
+                            <td class="no-border-top no-border-bottom" style="text-align:right">Php {{$data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty'] }}</td>
                         </tr>
                         <tr>
                             <td class="align-center" colspan="5"><strong>Amount Due</strong></td>
