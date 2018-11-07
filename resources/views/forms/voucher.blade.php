@@ -125,7 +125,7 @@
                         </tr>
                         <tr>
                             <td class="align-center" colspan="5"><strong>Amount Due</strong></td>
-                            <td class="v-align-middle align-right"><strong> {{ formatPrice($data['bid_amount'] - ($data['final_tax_amount'] +  $data['ewt_amount'] + $data['penalty'])) }} </strong></td>
+                            <td class="v-align-middle align-right"><strong> {{ formatPrice($data['bid_amount'] - ( str_replace(',', '', $data['final_tax_amount']) +  str_replace(',', '', $data['ewt_amount']) + $data['penalty'])) }} </strong></td>
                         </tr>
                     </table>
                     <table class="printable-form__body__table classic">
