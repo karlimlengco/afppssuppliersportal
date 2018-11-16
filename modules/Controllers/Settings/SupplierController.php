@@ -5,11 +5,13 @@ namespace Revlv\Controllers\Settings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Excel;
 
 use \Revlv\Settings\Suppliers\SupplierRepository;
 use \Revlv\Settings\Suppliers\AttachmentTrait;
 use \Revlv\Settings\Banks\BankRepository;
 use \Revlv\Settings\Suppliers\SupplierRequest;
+use \Revlv\Settings\Suppliers\SupplierEloquent;
 use \Revlv\Settings\Suppliers\Attachments\AttachmentEloquent;
 
 class SupplierController extends Controller
@@ -327,5 +329,81 @@ class SupplierController extends Controller
         return redirect()->route($this->baseUrl.'index')->with([
             'success'  => "Record has been successfully deleted."
         ]);
+    }
+
+    public function printView( SupplierEloquent $model)
+    {
+        $result = $model->select([
+            'suppliers.*',
+            \DB::raw(" (select supplier_attachments.validity_date from supplier_attachments where supplier_attachments.supplier_id = suppliers.id AND type = 'dti' order by supplier_attachments.created_at desc limit 1) as dti_validity_date "),
+            \DB::raw(" (select supplier_attachments.validity_date from supplier_attachments where supplier_attachments.supplier_id = suppliers.id AND type = 'mayors_permit' order by supplier_attachments.created_at desc limit 1) as mayors_validity_date "),
+            \DB::raw(" (select supplier_attachments.validity_date from supplier_attachments where supplier_attachments.supplier_id = suppliers.id AND type = 'tax_clearance' order by supplier_attachments.created_at desc limit 1) as tax_validity_date "),
+            \DB::raw(" (select supplier_attachments.validity_date from supplier_attachments where supplier_attachments.supplier_id = suppliers.id AND type = 'philgeps_registraion' order by supplier_attachments.created_at desc limit 1) as philgeps_validity_date ")
+
+        ])->get();
+        
+        Excel::create("Suppliers", function($excel)use ($result) {
+            $excel->sheet('Page1', function($sheet)use ($result) {
+                $count = 6;
+                $sheet->row(1, ['SUPPLPIERS']);
+                $sheet->row(2, [""]);
+
+                $sheet->cells('A3:AA3', function($cells) {
+                    $cells->setAlignment('center');
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
+
+                $sheet->cells('A2:AA2', function($cells) {
+                    $cells->setAlignment('center');
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
+
+                $sheet->cells('A1:AA1', function($cells) {
+                    $cells->setAlignment('center');
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
+
+                $sheet->mergeCells('A1:AA1');
+                $sheet->mergeCells('A2:AA2');
+                $sheet->mergeCells('A3:AA3');
+                if($result->last() != null)
+                {
+                    $sheet->row(6, [
+                        'Company Name',
+                        'Owner',
+                        'Address',
+                        'Line of Business',
+                        'TIN',
+                        'Address',
+                        'DTI',
+                        'MAYORS PERMIT',
+                        'TAX CLEARANCE',
+                        'PHILGEPS POSTING',
+                    ]);
+                }
+
+                foreach($result as $data)
+                {
+
+                    $count ++;
+                    $newdata    =   [
+                        $data->name,
+                        $data->owner,
+                        $data->address,
+                        $data->line_of_business,
+                        $data->tin,
+                        $data->address,
+                        $data->dti_validity_date,
+                        $data->mayors_validity_date,
+                        $data->tax_validity_date,
+                        $data->philgeps_validity_date,
+                    ];
+                    $sheet->row($count, $newdata);
+
+                }
+
+            });
+
+        })->export('xlsx');
     }
 }

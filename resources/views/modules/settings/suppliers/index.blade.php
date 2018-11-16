@@ -10,6 +10,9 @@ Suppliers
     </div>
     <div class="six columns utility utility--align-right" >
 
+        <a target="_blank" href="{{route('settings.suppliers.print')}}" class="button" tooltip="Print">
+            <i class="nc-icon-mini tech_print"></i>
+        </a>
         <span class="button button--options-trigger" tooltip="Options">
             <i class="nc-icon-mini ui-2_menu-dots"></i>
             <div class="button__options">
