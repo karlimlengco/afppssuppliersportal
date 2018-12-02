@@ -3081,12 +3081,12 @@ trait PSRTrait
           $dateFrom  =   $date_to;
           $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $dateFrom)->format('Y');
       }
-
       $model    = $this->model;
       $model    = $model->select([
           'unit_purchase_requests.project_name',
           'unit_purchase_requests.upr_number',
           'unit_purchase_requests.total_amount',
+          'unit_purchase_requests.units',
           'unit_purchase_requests.date_processed',
           DB::raw("5 * (DATEDIFF(vouchers.preaudit_date, unit_purchase_requests.date_processed) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.date_processed) + WEEKDAY(vouchers.preaudit_date) + 1, 1) as calendar_days"),
           'unit_purchase_requests.date_processed as upr_created_at',
@@ -3210,6 +3210,7 @@ trait PSRTrait
           'unit_purchase_requests.date_processed',
           'unit_purchase_requests.state',
           'unit_purchase_requests.total_amount',
+          'unit_purchase_requests.units',
           'unit_purchase_requests.date_processed',
           // 'unit_purchase_requests.calendar_days',
           'document_acceptance.days',

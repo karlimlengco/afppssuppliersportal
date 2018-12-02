@@ -229,6 +229,7 @@ class ProcurementCenterRepository extends BaseRepository
                         on unit_purchase_requests.procurement_office  = pc.id
                         LEFT JOIN catered_units ON catered_units.pcco_id = pc.id
                         where mode_of_procurement  = 'public_bidding'
+                        and unit_purchase_requests.status != 'cancelled'
                         and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and catered_units.id = '$unit_id'  ) as total_abc"),
 
 
@@ -293,7 +294,6 @@ class ProcurementCenterRepository extends BaseRepository
                 ]);
             }else
             {
-
                 $model  =   $model->select([
                     // DB::raw("count(unit_purchase_requests.id) as upr_count"),
                     DB::raw("
@@ -425,6 +425,7 @@ class ProcurementCenterRepository extends BaseRepository
                         on unit_purchase_requests.procurement_office  = pc.id
                         LEFT JOIN catered_units ON catered_units.pcco_id = pc.id
                         where mode_of_procurement  != 'public_bidding'
+                        and unit_purchase_requests.status != 'cancelled'
                         and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and catered_units.id = '$unit_id'  ) as total_abc"),
 
                     DB::raw("(select sum(unit_purchase_requests.total_amount)
@@ -506,6 +507,7 @@ class ProcurementCenterRepository extends BaseRepository
                         left join procurement_centers as pc
                         on unit_purchase_requests.procurement_office  = pc.id
                         where mode_of_procurement  = 'public_bidding'
+                        and unit_purchase_requests.status != 'cancelled'
                         and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft'  ) as total_abc"),
 
                     DB::raw("(select sum(upr_view.total_amount)
@@ -649,6 +651,7 @@ class ProcurementCenterRepository extends BaseRepository
                         left join procurement_centers as pc
                         on unit_purchase_requests.procurement_office  = pc.id
                         where mode_of_procurement  != 'public_bidding'
+                        and unit_purchase_requests.status != 'cancelled'
                         and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft'  ) as total_abc"),
 
                     DB::raw("(select sum(upr_view.total_amount)

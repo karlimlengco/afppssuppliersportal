@@ -1,5 +1,5 @@
 @section('title')
-Transaction Days Report
+Procurement Monitoring Report
 @stop
 @section('styles')
 <style type="text/css">

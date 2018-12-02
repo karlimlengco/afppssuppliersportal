@@ -290,6 +290,11 @@
                     "route" :   "reports.psr-transactions.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "PRS Transaction Summary"
+                },
+                {
+                    "route" :   "reports.transaction-days.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Procurement Monitoring Report"
                 }
             ]
         }
