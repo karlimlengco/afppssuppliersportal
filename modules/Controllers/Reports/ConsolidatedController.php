@@ -210,14 +210,22 @@ class ConsolidatedController extends Controller
                     $totalCount = 0;
                     $name = 0;
                 
+                    $newdata    =   [
+                        $key,
+                    ];
+
+                    $count ++;
+                    $sheet->row($count, $newdata);
+
                     foreach($data as $dat){
-                    
+                        $amount = 0;
                         $totalAmount = $totalAmount + $dat['abc'];
                         $totalApproved = $totalApproved + $dat['abc'];
                         $totalCount = $totalCount + $dat['abc_count'];
                         $awardedCount = $awardedCount + $dat['award_count'];
                         if($dat['award_count'] != 0){
                             $awardedAmount = $awardedAmount + $dat['abc'];
+                            $amount = $dat['abc'];
                         }
                         if($dat['name'] == null){
 
@@ -227,14 +235,19 @@ class ConsolidatedController extends Controller
 
                             $name = $dat['name'];
                         }
+
+                        $newdata    =   [
+                            $name,
+                            formatPrice($dat['abc']),
+                            $dat['abc_count'],
+                            $dat['award_count'],
+                            formatPrice($amount)
+
+                        ];
+    
+                        $count ++;
+                        $sheet->row($count, $newdata);
                     }
-
-                    $newdata    =   [
-                        $key,
-                    ];
-
-                    $count ++;
-                    $sheet->row($count, $newdata);
 
                     $newdata    =   [
                         $name,
