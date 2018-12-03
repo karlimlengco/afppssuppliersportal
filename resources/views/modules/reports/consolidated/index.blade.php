@@ -51,9 +51,10 @@ Consolidated PMR
                 <?php $totalAmount = 0; ?> 
                 <?php $totalApproved = 0; ?> 
                 <?php $awardedCount = 0; ?> 
-                <?php $awardedAmount = 0; ?> 
                 <?php $totalCount = 0; ?> 
+                <?php $awardedAmount = 0; ?> 
                 @foreach($data as $dat)
+                    <?php $amount = 0; ?> 
                     
                     <?php $totalAmount = $totalAmount + $dat['abc']; ?> 
                     <?php $totalApproved = $totalApproved + $dat['abc']; ?> 
@@ -61,6 +62,7 @@ Consolidated PMR
                     <?php $awardedCount = $awardedCount + $dat['award_count']; ?> 
                     @if($dat['award_count'] != 0)
                         <?php $awardedAmount = $awardedAmount + $dat['abc']; ?> 
+                        <?php $$amount =$dat['abc']; ?> 
                     @endif
                     <tr>
                         <td>
@@ -71,11 +73,11 @@ Consolidated PMR
                             @endif
                         </td>
                         <td>
-                            {{formatPrice($totalApproved)}}
+                            {{formatPrice($dat['abc'])}}
                         </td>
                         <td>{{$totalCount}}</td>
                         <td>{{$awardedCount}}</td>
-                        <td>{{formatPrice($awardedAmount)}}</td>
+                        <td>{{formatPrice($amount)}}</td>
                     </tr>
                 @endforeach
                 <tr>
