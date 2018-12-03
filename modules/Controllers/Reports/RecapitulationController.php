@@ -71,7 +71,7 @@ class RecapitulationController extends Controller
         ->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office')
         ->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id')
         
-        // ->where('unit_purchase_requests.status', 'completed')
+        ->where('unit_purchase_requests.status', 'completed')
         ->groupBy([
             'unit_purchase_requests.procurement_office',
             'unit_purchase_requests.mode_of_procurement',
@@ -175,7 +175,7 @@ class RecapitulationController extends Controller
         ->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office')
         ->leftJoin('purchase_orders', 'purchase_orders.upr_id', '=', 'unit_purchase_requests.id')
         
-        // ->where('unit_purchase_requests.status', 'completed')
+        ->where('unit_purchase_requests.status', 'completed')
         ->groupBy([
             'unit_purchase_requests.procurement_office',
             'unit_purchase_requests.mode_of_procurement',
