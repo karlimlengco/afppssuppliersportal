@@ -293,10 +293,10 @@ class RecapitulationController extends Controller
                     }
                     $newdata    =   [
                         $key,
-                        $shopping,
-                        $negoabc,
-                        $pubabc,
-                        $drabc,
+                        formatPrice($shopping),
+                        formatPrice($negoabc),
+                        formatPrice($pubabc),
+                        formatPrice($drabc),
                         '',
                         '',
                         formatPrice($totalabc - $totalbid),
@@ -307,10 +307,10 @@ class RecapitulationController extends Controller
                     $sheet->row($count, $newdata);
                     $newdata    =   [
                         '',
-                        $shoppingbid,
-                        $negobid,
-                        $pubbid,
-                        $drbid,
+                        formatPrice($shoppingbid),
+                        formatPrice($negobid),
+                        formatPrice($pubbid),
+                        formatPrice($drbid),
                     ];
                     $count ++;
                     $sheet->row($count, $newdata);
