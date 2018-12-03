@@ -50,32 +50,41 @@ Recapitulation of Monthly PMR
                 <td rowspan = 2>{{$key}}</td>
                 <td>ABC</td>
                 <td>
+                    <?php $totalshop = 0; ?>
                     @foreach($data as $dat) 
                         @if(strpos($dat['name'], 'Shopping') !== false )
-                        {{formatPrice($dat['abc'])}}
+                        <?php $totalshop = $totalshop + $dat['abc']; ?>
                         @endif
                     @endforeach
+                    {{formatPrice($totalshop)}}
                 </td>
                 <td>
-                    @foreach($data as $dat)
+
+                    <?php $totalnego = 0; ?>
+                    @foreach($data as $dat) 
                         @if(strpos($dat['name'], 'Negotiated') !== false )
-                        {{formatPrice($dat['abc'])}}
+                        <?php $totalnego = $totalnego + $dat['abc']; ?>
                         @endif
                     @endforeach
+                    {{formatPrice($totalnego)}}
                 </td>
                 <td>
-                    @foreach($data as $dat)
+                    <?php $totalpub = 0; ?>
+                    @foreach($data as $dat) 
                         @if($dat['name'] == null)
-                        {{formatPrice($dat['abc'])}}
+                        <?php $totalpub = $totalpub + $dat['abc']; ?>
                         @endif
                     @endforeach
+                    {{formatPrice($totalpub)}}
                 </td>
                 <td>
-                    @foreach($data as $dat)
+                    <?php $totaldr = 0; ?>
+                    @foreach($data as $dat) 
                         @if(strpos($dat['name'], 'Direct') !== false )
-                        {{formatPrice($dat['abc'])}}
+                        <?php $totaldr = $totaldr + $dat['abc']; ?>
                         @endif
                     @endforeach
+                    {{formatPrice($totaldr)}}
                 </td>
                 <td></td>
                 <td></td>
@@ -97,32 +106,40 @@ Recapitulation of Monthly PMR
             <tr>
                 <td>BID PRICE</td>
                 <td>
-                        @foreach($data as $dat)
-                            @if($dat['name'] == 'Shopping')
-                            {{formatPrice($dat['bid_amount'])}}
+                        <?php $totalshopbid = 0; ?>
+                        @foreach($data as $dat) 
+                            @if(strpos($dat['name'], 'Shopping') !== false )
+                            <?php $totalshopbid = $totalshopbid + $dat['bid_amount']; ?>
                             @endif
                         @endforeach
+                        {{formatPrice($totalshopbid)}}
                     </td>
                     <td>
-                        @foreach($data as $dat)
-                            @if($dat['name'] == 'Negotiated')
-                            {{formatPrice($dat['bid_amount'])}}
+                        <?php $totalnegobid = 0; ?>
+                        @foreach($data as $dat) 
+                            @if(strpos($dat['name'], 'Negotiated') !== false )
+                            <?php $totalnegobid = $totalnegobid + $dat['bid_amount']; ?>
                             @endif
                         @endforeach
+                        {{formatPrice($totalnegobid)}}
                     </td>
                     <td>
-                        @foreach($data as $dat)
+                        <?php $totalpubbid = 0; ?>
+                        @foreach($data as $dat) 
                             @if($dat['name'] == null)
-                            {{formatPrice($dat['bid_amount'])}}
+                            <?php $totalpubbid = $totalpubbid + $dat['abc']; ?>
                             @endif
                         @endforeach
+                        {{formatPrice($totalpubbid)}}
                     </td>
                     <td>
-                        @foreach($data as $dat)
-                            @if($dat['name'] == 'Direct Contracting')
-                            {{formatPrice($dat['bid_amount'])}}
+                        <?php $totaldrbid = 0; ?>
+                        @foreach($data as $dat) 
+                            @if(strpos($dat['name'], 'Direct') !== false )
+                            <?php $totaldrbid = $totaldrbid + $dat['bid_amount']; ?>
                             @endif
                         @endforeach
+                        {{formatPrice($totaldrbid)}}
                     </td>
                     <td></td>
                     <td></td>
