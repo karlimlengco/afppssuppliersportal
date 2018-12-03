@@ -93,10 +93,12 @@ Route::group(['as' => 'reports.', 'prefix' => 'reports'], function () {
     Route::get('transaction-psr/download/{search_at?}', '\Revlv\Controllers\Reports\TransactionDayController@downloadPSR')->name('reports.transaction-psr.download');
     Route::get('recapitulations/download', '\Revlv\Controllers\Reports\RecapitulationController@downloadPSR')->name('reports.recapitulations.download');
     Route::get('aggregates/download', '\Revlv\Controllers\Reports\AggregateController@downloadPSR')->name('reports.aggregates.download');
+    Route::get('consolidated/download', '\Revlv\Controllers\Reports\ConsolidatedController@downloadPSR')->name('reports.consolidated.download');
 
     Route::resource('transaction-days', '\Revlv\Controllers\Reports\TransactionDayController');
     Route::resource('recapitulations', '\Revlv\Controllers\Reports\RecapitulationController');
     Route::resource('aggregates', '\Revlv\Controllers\Reports\AggregateController');
+    Route::resource('consolidated', '\Revlv\Controllers\Reports\ConsolidatedController');
 
     Route::resource('suppliers', '\Revlv\Controllers\Reports\TransactionDayController');
     Route::get('uprs/{programs}/{centers}/{type}', '\Revlv\Controllers\Reports\UPRController@getUprs')->name('reports.uprs');
