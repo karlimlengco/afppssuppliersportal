@@ -106,8 +106,6 @@ class ConsolidatedController extends Controller
             \DB::raw('SUM(unit_purchase_requests.total_amount) as abc'),
             \DB::raw('COUNT(unit_purchase_requests.total_amount) as countAbc'),
             \DB::raw('SUM(purchase_orders.bid_amount) as bid_amount'),
-            'unit_purchase_requests.procurement_office',
-            'unit_purchase_requests.mode_of_procurement',
             'mode_of_procurements.name',
             \DB::raw('COUNT(notice_of_awards.awarded_date) as award_count'),
         ])
@@ -117,8 +115,6 @@ class ConsolidatedController extends Controller
         
         ->where('unit_purchase_requests.status', '<>', 'cancelled')
         ->groupBy([
-            'unit_purchase_requests.procurement_office',
-            'unit_purchase_requests.mode_of_procurement',
             'mode_of_procurements.name'
         ])
         ->get();
