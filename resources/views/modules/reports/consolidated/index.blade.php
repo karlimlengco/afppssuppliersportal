@@ -62,7 +62,7 @@ Consolidated PMR
                     <?php $awardedCount = $awardedCount + $dat['award_count']; ?> 
                     @if($dat['award_count'] != 0)
                         <?php $awardedAmount = $awardedAmount + $dat['abc']; ?> 
-                        <?php $$amount =$dat['abc']; ?> 
+                        <?php $amount =$dat['abc']; ?> 
                     @endif
                     <tr>
                         <td>
@@ -75,8 +75,8 @@ Consolidated PMR
                         <td>
                             {{formatPrice($dat['abc'])}}
                         </td>
-                        <td>{{$totalCount}}</td>
-                        <td>{{$awardedCount}}</td>
+                        <td>{{$dat['abc_count']}}</td>
+                        <td>{{$dat['award_count']}}</td>
                         <td>{{formatPrice($amount)}}</td>
                     </tr>
                 @endforeach
