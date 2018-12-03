@@ -246,7 +246,7 @@ class ConsolidatedController extends Controller
                     }
 
                     $newdata    =   [
-                        $name,
+                        'Sub Total',
                         formatPrice($totalApproved),
                         $totalCount,
                         $awardedCount,
