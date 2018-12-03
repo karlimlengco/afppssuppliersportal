@@ -385,7 +385,7 @@ class TransactionDayController extends Controller
                     //     $days       = $dt->diffInDays($upr_create);
                     // }
 
-                    $count ++;
+                    // $count ++;
 
                     if($data->mode_of_procurement != 'public_bidding')
                     { 
