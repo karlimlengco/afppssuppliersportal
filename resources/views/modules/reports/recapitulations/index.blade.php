@@ -50,15 +50,15 @@ Recapitulation of Monthly PMR
                 <td rowspan = 2>{{$key}}</td>
                 <td>ABC</td>
                 <td>
-                    @foreach($data as $dat)
-                        @if($dat['name'] == 'Shopping')
+                    @foreach($data as $dat) 
+                        @if(strpos($dat['name'], 'Shopping') !== false )
                         {{formatPrice($dat['abc'])}}
                         @endif
                     @endforeach
                 </td>
                 <td>
                     @foreach($data as $dat)
-                        @if($dat['name'] == 'Negotiated')
+                        @if(strpos($dat['name'], 'Negotiated') !== false )
                         {{formatPrice($dat['abc'])}}
                         @endif
                     @endforeach
@@ -72,7 +72,7 @@ Recapitulation of Monthly PMR
                 </td>
                 <td>
                     @foreach($data as $dat)
-                        @if($dat['name'] == 'Direct Contracting')
+                        @if(strpos($dat['name'], 'Direct') !== false )
                         {{formatPrice($dat['abc'])}}
                         @endif
                     @endforeach
