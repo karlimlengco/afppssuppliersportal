@@ -127,7 +127,7 @@ Recapitulation of Monthly PMR
                         <?php $totalpubbid = 0; ?>
                         @foreach($data as $dat) 
                             @if($dat['name'] == null)
-                            <?php $totalpubbid = $totalpubbid + $dat['abc']; ?>
+                            <?php $totalpubbid = $totalpubbid + $dat['bid_amount']; ?>
                             @endif
                         @endforeach
                         {{formatPrice($totalpubbid)}}

@@ -272,20 +272,20 @@ class RecapitulationController extends Controller
                     $totalpo = 0;
                     foreach($data as $dat){
                         if($dat['name'] == 'Shopping'){
-                            $shopping = $dat['abc'];
-                            $shoppingbid = $dat['bid_amount'];
+                            $shopping =  $shopping + $dat['abc'];
+                            $shoppingbid = $shoppingbid +  $dat['bid_amount'];
                         }
                         if($dat['name'] == 'Negotiated'){
-                            $negoabc = $dat['abc'];
-                            $negobid = $dat['bid_amount'];
+                            $negoabc = $negoabc + $dat['abc'];
+                            $negobid = $negobid + $dat['bid_amount'];
                         }
                         if($dat['name'] == null){
-                            $pubabc = $dat['abc'];
-                            $pubbid = $dat['bid_amount'];
+                            $pubabc = $pubabc + $dat['abc'];
+                            $pubbid = $pubbid + $dat['bid_amount'];
                         }
                         if($dat['name'] == 'Direct Contracting'){
-                            $drabc = $dat['abc'];
-                            $drbid = $dat['bid_amount'];
+                            $drabc = $drabc + $dat['abc'];
+                            $drbid = $drbid + $dat['bid_amount'];
                         }
                         $totalabc =  $totalabc + $dat['abc'];
                         $totalbid =  $totalbid + $dat['bid_amount'];
