@@ -295,6 +295,11 @@
                     "route" :   "reports.transaction-days.index",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
                     "name"  :   "Procurement Monitoring Report"
+                },
+                {
+                    "route" :   "reports.recapitulations.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Recapitulation of monthly PMR"
                 }
             ]
         }
