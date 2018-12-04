@@ -569,7 +569,7 @@ class UnitPurchaseRequestEloquent extends Model implements  AuditableContract
      */
     public function items()
     {
-        return $this->hasMany('\Revlv\Procurements\Items\ItemEloquent', 'upr_id');
+        return $this->hasMany('\Revlv\Procurements\Items\ItemEloquent', 'upr_id')->orderBy('id');
     }
 
     /**
