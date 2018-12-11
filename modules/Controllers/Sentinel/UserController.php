@@ -122,7 +122,7 @@ class UserController extends Controller
         $unit_lists     =   $units->lists('id', 'short_code');
         $roles          =   $this->roleRepository->lists('id','name');
         $user           =   $this->userRepository->findByUsername($username);
-
+        
         $this->view('modules.users.show', [
             'user'          =>  $user,
             'unit_lists'    =>  $unit_lists,
@@ -187,7 +187,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update($user, UserRequest $request)
-    {
+    { 
         $user               =   $this->userRepository->findByUsername($user);
         $inputs             =   $request->getData();
 
@@ -211,6 +211,8 @@ class UserController extends Controller
         {
             $inputs['password'] = bcrypt($inputs['password']);
         }
+
+        $inputs['sub_unit_id'] = json_encode($request->sub_unit_id);
 
         $this->userRepository->update($inputs, $user->id);
 

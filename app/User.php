@@ -35,6 +35,7 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
         'contact_number',
         'address',
         'email',
+        'sub_unit_id',
         'username',
         'unit_id',
     ];
@@ -82,6 +83,7 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
 
         'contact_number',
         'address',
+        'sub_unit_id',
 
         'unit_id',
         'designation',

@@ -101,11 +101,17 @@ Users
                         </div>
                     </div>
 
-                    <row class="">
+                    <div class="row">
                         <div class="twelve columns">
                             {!! Form::textareaField('address', 'Address', null, ['rows'=>4]) !!}
                         </div>
-                    </row>
+                    </div>
+
+                    <div class="row">
+                        <div class="twelve columns">
+                            {!! Form::tagField('sub_unit_id', 'Sub Unit', $unit_lists, json_decode($user->sub_unit_id) ) !!}
+                        </div>
+                    </div>
 
                  {{--    <button type="submit" class="button">Update</button>
                     <button class="button topbar__utility__button--modal" >Delete</button> --}}
@@ -118,7 +124,6 @@ Users
                 </div>
                 <hr>
                 <br>
-
                     {!! Form::tagField('role', 'Roles', $roles, (count( $user->roles ) != 0 ) ? $user->roles->pluck('id')->toArray()   : "", ['data-max-items' => 10]) !!}
                 </div>
 

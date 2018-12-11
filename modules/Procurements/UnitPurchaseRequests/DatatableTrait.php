@@ -104,7 +104,7 @@ trait DatatableTrait
         return $this->dataTable($model->get());
     }
 
-    public function paginateByRequest($limit = 10, $request, $id = null, $mode = null, $status = null)
+    public function paginateByRequest($limit = 10, $request, $id = null, $mode = null, $status = null, $subs = null)
     {
         $model  =   $this->model;
 
@@ -120,6 +120,7 @@ trait DatatableTrait
             'unit_purchase_requests.prepared_by',
             'unit_purchase_requests.project_name',
             'unit_purchase_requests.state',
+            'unit_purchase_requests.procurement_office',
             // 'mode_of_procurements.name as type',
             DB::raw("CONCAT(users.first_name,' ', users.surname) AS full_name"),
             DB::raw("CASE WHEN mode_of_procurements.name IS NULL THEN 'Public Bidding' ELSE mode_of_procurements.name END as type"),
@@ -140,12 +141,17 @@ trait DatatableTrait
         }
 
         if(!\Sentinel::getUser()->hasRole('Admin')){
-
-            if($id != null)
-            {
-                $model  =   $model->where('unit_purchase_requests.procurement_office','=', $id);
-            }
+            $model  = $model->where(function($query) use ($id, $subs){
+                if($id != null)
+                {
+                    $query->where('unit_purchase_requests.procurement_office','=', $id);
+                }
+                if($subs != null && $subs != ''){
+                    $query->orWhereIn('unit_purchase_requests.units', $subs);
+                }
+            });
         }
+        
 
         if($mode != null)
         {

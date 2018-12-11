@@ -232,10 +232,6 @@ class UPRController extends Controller
 
         $user   =   \Sentinel::getUser();
 
-        if($user->hasRole('Admin'))
-        {
-            $resource = $model->paginateByRequest(10, $request);
-        }
 
         $center =   0;
         if($user->units)
@@ -245,7 +241,15 @@ class UPRController extends Controller
                 $center =   $user->units->centers->id;
             }
         }
-        $resource = $model->paginateByRequest(10, $request, $center);
+        $subs = json_decode($user->sub_unit_id);
+        // $subs = implode(',', $subs);
+        
+        if($user->hasRole('Admin'))
+        {
+            $resource = $model->paginateByRequest(10, $request);
+        }else{
+            $resource = $model->paginateByRequest(10, $request, $center, null, null, $subs);
+        }
 
         return $this->view('modules.procurements.upr.index',[
             'resources'     =>  $resource,

@@ -76,6 +76,11 @@ trait AnalyticTrait
      */
     public function getUprCenters($program, $type = null, $request = null)
     {
+        $sub        =   \Sentinel::getUser()->sub_unit_id;
+        $sub        =   json_decode($sub);
+        // $subs        =   implode("','", json_decode($sub) );
+        // $subs       = "'". $subs."'";
+
         $date_from = "";
         $date    = \Carbon\Carbon::now();
         $yearto    = $date->format('Y');
@@ -181,8 +186,11 @@ trait AnalyticTrait
                 }
             }
 
-            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
-
+            // $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+            $model  = $model->where(function($query) use ($center, $sub){
+                $query->where('unit_purchase_requests.procurement_office','=', $center);
+                $query->orWhereIn('unit_purchase_requests.units', $sub);
+            });
         }
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
         $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $date_from);
@@ -208,7 +216,9 @@ trait AnalyticTrait
      * @return [type]               [description]
      */
     public function getUnits($name, $programs, $type=null, $request = null)
-    {
+    {  
+        $sub        =   \Sentinel::getUser()->sub_unit_id;
+        $sub        =   json_decode($sub);
 
         $date_from = "";
         $date    = \Carbon\Carbon::now();
@@ -316,7 +326,11 @@ trait AnalyticTrait
                 }
             }
 
-            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+            $model  = $model->where(function($query) use ($center, $sub){
+                $query->where('unit_purchase_requests.procurement_office','=', $center);
+                $query->orWhereIn('unit_purchase_requests.units', $sub);
+            });
+            // $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
         }
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
@@ -344,6 +358,9 @@ trait AnalyticTrait
      */
     public function getUprs($name, $programs, $type=null, $request = null)
     {
+        $sub        =   \Sentinel::getUser()->sub_unit_id;
+        $sub        =   json_decode($sub);
+
         $date_from = "";
         $date    = \Carbon\Carbon::now();
         $yearto    = $date->format('Y');
@@ -456,7 +473,10 @@ trait AnalyticTrait
                 }
             }
 
-            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+            $model  = $model->where(function($query) use ($center, $sub){
+                $query->where('unit_purchase_requests.procurement_office','=', $center);
+                $query->orWhereIn('unit_purchase_requests.units', $sub);
+            });
         }
 
         $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
