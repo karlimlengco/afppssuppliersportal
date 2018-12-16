@@ -77,7 +77,11 @@ trait AnalyticTrait
     public function getUprCenters($program, $type = null, $request = null)
     {
         $sub        =   \Sentinel::getUser()->sub_unit_id;
-        $sub        =   json_decode($sub);
+        if($sub != null){
+            $sub        =   json_decode($sub);
+        }else{
+            $sub        =   [];
+        }
         // $subs        =   implode("','", json_decode($sub) );
         // $subs       = "'". $subs."'";
 
@@ -218,7 +222,12 @@ trait AnalyticTrait
     public function getUnits($name, $programs, $type=null, $request = null)
     {  
         $sub        =   \Sentinel::getUser()->sub_unit_id;
-        $sub        =   json_decode($sub);
+        
+        if($sub != null){
+            $sub        =   json_decode($sub);
+        }else{
+            $sub        =   [];
+        }
 
         $date_from = "";
         $date    = \Carbon\Carbon::now();
@@ -359,7 +368,12 @@ trait AnalyticTrait
     public function getUprs($name, $programs, $type=null, $request = null)
     {
         $sub        =   \Sentinel::getUser()->sub_unit_id;
-        $sub        =   json_decode($sub);
+        
+        if($sub != null){
+            $sub        =   json_decode($sub);
+        }else{
+            $sub        =   [];
+        }
 
         $date_from = "";
         $date    = \Carbon\Carbon::now();
