@@ -129,6 +129,7 @@
                         <td colspan="2" class="align-right"><strong>{{formatPrice($total)}}</strong></td>
                     </tr>
                 </table>
+                <div style="page-break-inside: avoid;">
                 <table class="printable-form__body__table">
                     <tr>
                         <td colspan="6">
@@ -158,8 +159,7 @@
                         </td>
                     </tr>
                 </table>
-                <div >
-                <table class="printable-form__body__table" style="page-break-inside: avoid;">
+                <table class="printable-form__body__table">
                     <tr>
                         <td class="border-left-only" width="9%" height="80px"></td>
                         <td class="no-border" width="1%" height="40px">Conforme:</td>
@@ -180,7 +180,7 @@
                         <td class="no-border-top" colspan="4"></td>
                     </tr>
                 </table>
-                <table class="printable-form__body__table" style="page-break-inside: avoid;">
+                <table class="printable-form__body__table">
                     <tr>
                         <td class="border-left-only" width="13%" height="30px">Funds Available:</td>
                         <td class="no-border" width="1%"></td>
@@ -228,7 +228,7 @@
                         <td class="no-border-top" colspan="7" height="20px"></td>
                     </tr>
                 </table>
-                <table class="printable-form__body__table" style="page-break-inside: avoid;">
+                <table class="printable-form__body__table">
                     <tr>
                         <td class="border-left-only" width="12%" height="30px">Approved By:</td>
                         <td class="no-border" width="40%"></td>
