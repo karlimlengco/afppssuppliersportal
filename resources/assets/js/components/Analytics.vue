@@ -564,8 +564,10 @@ var tarray2IDs           =   [];
                 axios.get('/reports/upr-centers/'+program+'/'+this.types+'?date_from='+this.startDate+'&&date_to='+this.endDate)
                     .then(response => {
                         this.itemProgram.push(response.data)
+                        $('.preloader').hide()
                     })
                     .catch(e => {
+                        $('.preloader').hide()
                         console.log(e)
                     })
             },
@@ -748,7 +750,7 @@ var tarray2IDs           =   [];
                 this. itemProgram =  [],
                 this. itemProgramCenters = [],
                 this. itemUnits = [],
-
+                $('.preloader').show()
                 this.fetchUPRCenters(this.types)
                 this.fetchUprAnalytics(this.types)
             },

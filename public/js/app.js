@@ -72785,7 +72785,9 @@ var tarray2IDs = [];
 
             axios.get('/reports/upr-centers/' + program + '/' + this.types + '?date_from=' + this.startDate + '&&date_to=' + this.endDate).then(function (response) {
                 _this3.itemProgram.push(response.data);
+                $('.preloader').hide();
             }).catch(function (e) {
+                $('.preloader').hide();
                 console.log(e);
             });
         },
@@ -72949,7 +72951,8 @@ var tarray2IDs = [];
             arrayProgramCenter = [];
             array2IDs = [];
 
-            this.itemProgram = [], this.itemProgramCenters = [], this.itemUnits = [], this.fetchUPRCenters(this.types);
+            this.itemProgram = [], this.itemProgramCenters = [], this.itemUnits = [], $('.preloader').show();
+            this.fetchUPRCenters(this.types);
             this.fetchUprAnalytics(this.types);
         },
         print: function print() {
