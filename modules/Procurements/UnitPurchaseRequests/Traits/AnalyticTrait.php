@@ -112,7 +112,7 @@ trait AnalyticTrait
         $model  =   $this->model;
 
         $model  =   $model->select([
-            DB::raw("count(unit_purchase_requests.id) as upr_count"),
+            DB::raw("count(unit_purchase_requests.id)  as upr_count"),
 
             DB::raw("IFNULL( SUM(CASE
              WHEN 5 * (DATEDIFF(NOW(), unit_purchase_requests.next_due) DIV 7) + MID('0123444401233334012222340111123400001234000123440', 7 * WEEKDAY(unit_purchase_requests.next_due) + WEEKDAY(NOW()) + 1, 1) > 0 and unit_purchase_requests.state != 'completed' and unit_purchase_requests.next_due <  NOW()  AND unit_purchase_requests.state != 'cancelled'  THEN 1
@@ -196,15 +196,15 @@ trait AnalyticTrait
                 $query->orWhereIn('unit_purchase_requests.units', $sub);
             });
         }
+        
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
-        $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $date_from);
         $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $date_to);
+        $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $date_from);
 
         $model  =   $model->groupBy([
             'procurement_centers.programs',
             'procurement_centers.name',
         ]);
-
         $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
         $model  =   $model->orderBy('name','asc');
