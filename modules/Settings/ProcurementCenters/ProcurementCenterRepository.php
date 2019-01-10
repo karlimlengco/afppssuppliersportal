@@ -146,8 +146,10 @@ class ProcurementCenterRepository extends BaseRepository
     {
         $date_from = "";
         $date    = \Carbon\Carbon::now();
-        $yearto    = $date->format('Y');
-        $yearfrom    = $date->format('Y');
+        $yearto    = '2018';
+        $yearfrom    = '2018';
+        // $yearto    = $date->format('Y');
+        // $yearfrom    = $date->format('Y');
         $date_to = $date->format('Y-m-d');
 
         if($request->has('date_from') != null)
