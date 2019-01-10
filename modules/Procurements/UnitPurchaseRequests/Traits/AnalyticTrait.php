@@ -407,6 +407,8 @@ trait AnalyticTrait
             $date_from  =   $date_to;
             $yearfrom  =   \Carbon\Carbon::createFromFormat('Y-m-d', $date_from)->format('Y');
         }
+        $yearto    = '2019';
+        $yearfrom    = '2018';
         $model  =   $this->model;
 
         $model  =   $model->select([
