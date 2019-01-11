@@ -172,7 +172,6 @@ class ProcurementCenterRepository extends BaseRepository
         $model  =   $this->model;
         if(!\Sentinel::getUser()->hasRole('Admin') )
         {
-
             $unit_id    =   \Sentinel::getUser()->unit_id;
             $sub        =   \Sentinel::getUser()->sub_unit_id;
             if($sub != null && $sub != 'null'){

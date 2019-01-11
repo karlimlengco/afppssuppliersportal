@@ -53,6 +53,7 @@ class CreateUnitPurchaseRequests extends Migration
             $table->string('terminated_by')->nullable();
 
             $table->string('requestor_id')->nullable();
+            $table->string('count_id')->nullable();
             $table->text('requestor_text')->nullable();
             $table->string('fund_signatory_id')->nullable();
             $table->text('fund_signatory_text')->nullable();

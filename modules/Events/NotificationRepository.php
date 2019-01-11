@@ -84,7 +84,6 @@ class NotificationRepository extends BaseRepository
         $model  =   $model->whereNULL('is_seen');
 
         $model  =   $model->limit(10)->get();
-
         return $model;
     }
 
