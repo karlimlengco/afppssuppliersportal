@@ -40,7 +40,7 @@ Notice Of Delivery
 
             <thead>
                 <tr>
-                    <th>RFQ Number</th>
+                    {{-- <th>RFQ Numbe..r</th> --}}
                     <th>UPR Number</th>
                     <th>DR Number</th>
                     <th>Expected Delivery Date.</th>
@@ -50,8 +50,8 @@ Notice Of Delivery
             <tbody>
                 @foreach($resources as $data)
                   <tr>
-                    <td> <a href="{{route( 'procurements.delivery-orders.show',[$data->id] )}}">  {{$data->rfq_number}} </a></td>
-                    <td>{{$data->upr_number}}</td>
+                    <td> <a href="{{route( 'procurements.delivery-orders.show',[$data->id] )}}">  {{$data->upr_number}} </a></td>
+                    {{-- <td>{{$data->upr_number}}</td> --}}
                     <td>{{$data->delivery_number}}</td>
                     <td>{{$data->expected_date}}</td>
                     <td>{{$data->status}}</td>

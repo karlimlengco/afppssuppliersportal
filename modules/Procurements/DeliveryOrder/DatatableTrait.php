@@ -187,7 +187,7 @@ trait DatatableTrait
         return Datatables::of($model)
             ->addColumn('rfq_number', function ($data) {
                 $route  =  route( 'procurements.delivery-orders.show',[$data->id] );
-                return ' <a  href="'.$route.'" > '. $data->rfq_number .'</a>';
+                return ' <a  href="'.$route.'" > '. $data->upr_number .'</a>';
             })
             ->editColumn('upr_number', function ($data) {
                 $route  =  route( 'biddings.delivery-orders.show',[$data->id] );
