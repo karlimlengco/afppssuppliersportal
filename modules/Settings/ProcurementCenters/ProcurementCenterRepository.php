@@ -235,7 +235,7 @@ class ProcurementCenterRepository extends BaseRepository
                         LEFT JOIN catered_units ON catered_units.pcco_id = pc.id
                         where mode_of_procurement  = 'public_bidding'
                         and unit_purchase_requests.status != 'cancelled'
-                        s
+                        
                         and programs = procurement_centers.programs and unit_purchase_requests.status != 'draft' and ( catered_units.id = '$unit_id'
                         or unit_purchase_requests.units IN ($subs) )    AND unit_purchase_requests.state != 'cancelled')
                         as ongoing_count"),
