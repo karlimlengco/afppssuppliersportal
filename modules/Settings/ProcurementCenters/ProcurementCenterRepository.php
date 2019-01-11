@@ -175,7 +175,7 @@ class ProcurementCenterRepository extends BaseRepository
 
             $unit_id    =   \Sentinel::getUser()->unit_id;
             $sub        =   \Sentinel::getUser()->sub_unit_id;
-            if($sub != null){
+            if($sub != null && $sub != 'null'){
                 $subs       =   implode("','", json_decode($sub) );
             }else{
                 $subs = '';                
