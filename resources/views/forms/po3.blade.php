@@ -27,7 +27,7 @@
                     </span>
                 </div>
                 <!-- title -->
-                <span class="printable-form__body__title">PURCHASE ORDER/WORK ORDER/JOB ORDER</span>
+                <span class="printable-form__body__title">{{str_replace('_', ' ', $data['type'])}}</span>
                 <!-- content -->
                 <table class="printable-form__body__table">
                     <tr>
