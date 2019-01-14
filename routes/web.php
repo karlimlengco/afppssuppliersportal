@@ -634,6 +634,7 @@ Route::group(['as' => 'procurements.', 'prefix' => 'procurements'], function () 
     Route::get('delivered-inspections/print-coi/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintCOI')->name('delivered-inspections.print-coi');
     Route::get('delivered-inspections/print-coi2/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintCOI2')->name('delivered-inspections.print-coi2');
     Route::get('delivered-inspections/print-diir2/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintDIIR2')->name('delivered-inspections.print-diir2');
+    Route::get('delivered-inspections/print-pre-repair/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@viewPrintPreRepair')->name('delivered-inspections.print-pre-repair');
     Route::post('delivered-inspections/add-issue/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@addIssue')->name('delivered-inspections.add-issue');
     Route::post('delivered-inspections/start-inspection/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@startInspection')->name('delivered-inspections.start-inspection');
     Route::post('delivered-inspections/close-inspection/{id}', '\Revlv\Controllers\Procurements\DeliveredInspectionReportController@closeInspection')->name('delivered-inspections.close-inspection');

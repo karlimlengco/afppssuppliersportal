@@ -870,6 +870,54 @@ class DeliveredInspectionReportController extends Controller
     
     }
 
+    public function viewPrintPreRepair(
+        $id,
+        DeliveryInspectionRepository $model,
+        NOARepository $noa, HeaderRepository $headers
+        )
+    {
+        $result                     =   $model->with(['receiver', 'approver','inspector','issuer','requestor','upr' ,'delivery'])->findById($id);
+        if($result->upr->mode_of_procurement == 'public_bidding')
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->biddingWinner->supplier;
+        }
+        else
+        {
+            $supplier           =   $noa->with('winner')->findByUPR($result->upr_id)->winner->supplier;
+        }
+
+        $header                     =  $headers->findByUnit($result->upr->units);
+        $data['unitHeader']         =  ($header) ? $header->content : "" ;
+        $data['items']              =   $result->delivery->po->items;
+        $data['delivery_number']              =   $result->delivery->delivery_number;
+        $data['delivery_date']              =   $result->delivery->delivery_date;
+        $data['purpose']            =   $result->upr->purpose;
+        $data['place']             =   $result->upr->place_of_delivery;
+        $data['centers']            =   $result->upr->centers->name;
+        $data['units']              =   $result->upr->unit->short_code;
+        $data['ref_number']         =   $result->upr->ref_number;
+        $data['supplier']           =   $supplier;
+        $data['date']               =   $result->delivery->delivery_date;
+        $data['po_number']          =   $result->delivery->po->po_number;
+        $data['po_date']            =   $result->delivery->po->coa_approved_date;
+        $data['invoice']            =   $result->delivery->inspections->invoices;
+        $data['issues']             =   $result->delivery->diir->issues;
+        $data['header']             =   $result->upr->centers;
+
+        $data['receiver']           =   explode('/',$result->received_signatory);
+        $data['inspector']          =   explode('/',$result->inspected_signatory);
+        $data['approver']           =   explode('/',$result->approved_signatory);
+        $data['issuer']             =   explode('/',$result->issued_signatory);
+        $data['requestor']          =   explode('/',$result->requested_signatory);
+        // dd($data);
+        $pdf = PDF::loadView('forms.pre-repair', ['data' => $data])
+            ->setOption('margin-bottom', 30);
+            // ->setOption('footer-html', route('pdf.footer'));
+
+        return $pdf->setOption('page-width', '8.5in')->setOption('page-height', '14in')->inline('diir.pdf');
+    
+    }
+
 
 
     /**

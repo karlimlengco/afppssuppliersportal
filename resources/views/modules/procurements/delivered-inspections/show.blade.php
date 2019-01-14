@@ -63,6 +63,7 @@ Delivered Items Inspection
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-coi', $data->id)}}" class="button__options__item" > PRINT  COI</a>
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-coi2', $data->id)}}" class="button__options__item" > PRINT  COI (FORM 2)</a>
                 <a target="_blank" href="{{route('procurements.delivered-inspections.print-diir2', $data->id)}}" class="button__options__item" > PRINT  DIIR (FORM 2)</a>
+                <a target="_blank" href="{{route('procurements.delivered-inspections.print-pre-repair', $data->id)}}" class="button__options__item" > PRINT  Pre-repair</a>
 
 
                 <a href="{{route('procurements.delivered-inspections.logs', $data->id)}}" class="button__options__item" tooltip="Logs">
