@@ -201,14 +201,14 @@ trait AnalyticTrait
         }
         
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
-        $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $date_to);
-        $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $date_from);
+        // $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $date_to);
+        // $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $date_from);
 
         $model  =   $model->groupBy([
             'procurement_centers.programs',
             'procurement_centers.name',
         ]);
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
+        // $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
         $model  =   $model->orderBy('name','asc');
         $model  =   $model->orderBy('delay_count','desc');
@@ -316,8 +316,8 @@ trait AnalyticTrait
 
         $model  =   $model->where('procurement_centers.name', '=', $name);
         $model  =   $model->where('procurement_centers.programs', '=', $programs);
-        $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $date_from);
-        $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $date_to);
+        // $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $date_from);
+        // $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $date_to);
 
         if($type != 'alternative')
         {
@@ -349,7 +349,7 @@ trait AnalyticTrait
         }
         $model  =   $model->where('unit_purchase_requests.status', '!=', 'draft');
 
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
+        // $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
         $model  =   $model->orderBy('short_code','asc');
         $model  =   $model->orderBy('ongoing_count','asc');
@@ -470,8 +470,8 @@ trait AnalyticTrait
 
         $model  =   $model->where('procurement_centers.name', '=', $name);
         $model  =   $model->where('catered_units.short_code', '=', $programs);
-        $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $date_from);
-        $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $date_to);
+        // $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $date_from);
+        // $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $date_to);
         // $model  =   $model->where('procurement_centers.programs', '=', $programs);
 
         if($type != 'alternative')
@@ -504,7 +504,7 @@ trait AnalyticTrait
             });
         }
 
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
+        // $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
         $model  =   $model->orderBy('delay_count','desc');
         $model  =   $model->orderBy('ongoing_count','desc');
         $model  =   $model->orderBy('completed_count','desc');
