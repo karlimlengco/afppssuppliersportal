@@ -197,7 +197,10 @@ trait AnalyticTrait
             // $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
             $model  = $model->where(function($query) use ($center, $sub){
                 $query->where('unit_purchase_requests.procurement_office','=', $center);
-                $query->orWhereIn('unit_purchase_requests.units', $sub);
+                if($sub != null){
+
+                    $query->orWhereIn('unit_purchase_requests.units', $sub);
+                }
             });
         }
         
