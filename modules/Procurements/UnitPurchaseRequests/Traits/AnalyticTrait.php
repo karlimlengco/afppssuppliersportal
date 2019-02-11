@@ -77,7 +77,8 @@ trait AnalyticTrait
     public function getUprCenters($program, $type = null, $request = null)
     {
         $sub        =   \Sentinel::getUser()->sub_unit_id;
-        if($sub != null){
+
+        if($sub != null && $sub != ''){
             $sub        =   json_decode($sub);
         }else{
             $sub        =   [];
