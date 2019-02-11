@@ -75,7 +75,7 @@
                     </tr>
                     <tr>
                         <td class="border-left-only" nowrap>Place of Delivery</td>
-                        <td class="no-border"><strong>{{$data['unit']}}</strong></td>
+                        <td class="no-border"><strong>{{$data['place_of_delivery']}}</strong></td>
                         <td class="no-border" nowrap>Delivery Schedule</td>
                         <td class="border-right-only"><strong>{{($data['delivery']) ? $data['delivery']->expected_date : ""}}</strong></td>
                     </tr>

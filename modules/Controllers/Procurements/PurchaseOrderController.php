@@ -1206,6 +1206,7 @@ class PurchaseOrderController extends Controller
         $data['type']               =  $result->type;
         $data['po_number']          =  $result->po_number;
         $data['upr_number']         =  $upr_model->upr_number;
+        $data['place_of_delivery']  =  $upr_model->place_of_delivery;
         $data['remarks']            =  $result->remarks;
         $data['purchase_date']      =  $result->purchase_date;
         // $data['transaction_date']   =  $result->rfq->transaction_date;
@@ -1273,6 +1274,7 @@ class PurchaseOrderController extends Controller
         $data['upr_number']         =  $upr_model->upr_number;
         $data['remarks']            =  $result->remarks;
         $data['purchase_date']      =  $result->purchase_date;
+        $data['place_of_delivery']  =  $upr_model->place_of_delivery;
         // $data['transaction_date']   =  $result->rfq->transaction_date;
         $data['winner']             =  $noa_model;
         $data['rfq_number']         =  $result->rfq_number;
@@ -1336,6 +1338,7 @@ class PurchaseOrderController extends Controller
         }
         $data['type']               =  $result->type;
         $data['upr_number']         =  $upr_model->upr_number;
+        $data['place_of_delivery']  =  $upr_model->place_of_delivery;
         $data['remarks']            =  $result->remarks;
         $data['rfq_number']         =  $result->rfq_number;
         $data['mode']               =  ($upr_model->modes != null) ?$upr_model->modes->name : "Public Bidding";
