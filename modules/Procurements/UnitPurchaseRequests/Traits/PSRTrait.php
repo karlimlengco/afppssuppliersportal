@@ -2560,6 +2560,7 @@ trait PSRTrait
         $model  =   $model->leftJoin('pre_bid_conferences', 'pre_bid_conferences.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('bid_opening', 'bid_opening.upr_id', '=', 'unit_purchase_requests.id');
         $model  =   $model->leftJoin('post_qualification', 'post_qualification.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =   $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
 
         if($request != null)
         {
@@ -2584,11 +2585,14 @@ trait PSRTrait
             {
                 if($user->units->centers)
                 {
-                    $center =   $user->units->centers->id;
+                    // $center =   $user->units->centers->id;
+                    $model  =   $model->where('procurement_centers.name', '=', \Sentinel::getUser()->units->centers->name);
                 }
             }
 
-            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+               
+
+            // $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
 
         }
 
