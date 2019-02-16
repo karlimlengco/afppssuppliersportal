@@ -18,8 +18,10 @@ trait PSRTrait
     public function getPcooItemPSRDatatable($request = null, $search = null)
     {
           $model  =   $this->model;
-          $dateTo = $request->get('date_to');
-          $dateFrom = $request->get('date_from');
+          $dateTo = '2019-12-30';
+          $dateFrom = '2018-01-01';
+        //   $dateTo = $request->get('date_to');
+        //   $dateFrom = $request->get('date_from');
 
           $date    = \Carbon\Carbon::now();
           $yearto   =  '2019';
