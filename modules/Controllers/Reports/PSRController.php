@@ -149,6 +149,7 @@ class PSRController extends Controller
     {
 
         $result     =   $model->getPcooPSRDatatable($request, $search);
+        dd($result);
         $this->downloadExcel($result, $request->date_from, $request->date_to, $request->type);
 
     }
