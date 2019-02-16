@@ -22,8 +22,10 @@ trait PSRTrait
           $dateFrom = $request->get('date_from');
 
           $date    = \Carbon\Carbon::now();
-          $yearto    = $date->format('Y');
-          $yearfrom    = $date->format('Y');
+          $yearto   =  '2019';
+          $yearto   =  '2018';
+        //   $yearto    = $date->format('Y');
+        //   $yearfrom    = $date->format('Y');
           // dd($request->all());
 
           $selected = [
