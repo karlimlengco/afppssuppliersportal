@@ -612,14 +612,14 @@ class UnitPurchaseRequestRepository extends BaseRepository
             // }
         }
 
-        if($dateFrom != null){
-          $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $dateFrom);
-        }
-        if($dateTo != null){
-          $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $dateTo);
-        }
+        // if($dateFrom != null){
+        //   $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $dateFrom);
+        // }
+        // if($dateTo != null){
+        //   $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $dateTo);
+        // }
 
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
+        // $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
         $model  =   $model->groupBy([
             'procurement_centers.name',
