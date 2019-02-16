@@ -3344,7 +3344,6 @@ trait PSRTrait
 
 
       $model    = $model->orderBy('catered_units.short_code','asc');
-      dd($model->get());
       return $model->get();
     }
 
