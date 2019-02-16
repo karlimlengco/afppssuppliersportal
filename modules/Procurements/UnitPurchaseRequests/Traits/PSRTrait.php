@@ -386,7 +386,7 @@ trait PSRTrait
             }
         }
 
-        $model  =   $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'");
+        // $model  =   $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'");
 
         if($search != null)
         {
