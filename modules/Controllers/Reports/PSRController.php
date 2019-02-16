@@ -148,8 +148,7 @@ class PSRController extends Controller
     public function download($search = null, UnitPurchaseRequestRepository $model, Request $request)
     {
 
-        $result     =   $model->getPcooPSRDatatable($request, $search);
-        dd($result);
+        $result     =   $model->getPcooPSRDatatable($request, $search); 
         $this->downloadExcel($result, $request->date_from, $request->date_to, $request->type);
 
     }

@@ -13,7 +13,6 @@ use Revlv\Procurements\UnitPurchaseRequests\Traits\AnalyticTrait;
 class UnitPurchaseRequestRepository extends BaseRepository
 {
     use  DatatableTrait, PSRTrait, TransactionDaysTrait, AnalyticTrait;
-
     /**
      * Specify Model class name
      *

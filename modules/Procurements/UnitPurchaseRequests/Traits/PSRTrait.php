@@ -1335,8 +1335,7 @@ trait PSRTrait
             // 'unit_purchase_requests.id',
             // 'unit_purchase_requests.date_processed',
             'procurement_centers.id'
-        ]);
-        dd($model->get());
+        ]); 
         return $model->get();
     }
 
@@ -3302,17 +3301,17 @@ trait PSRTrait
           // 'vouchers.payment_received_date',
       ]);
 
-      $model  =   $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'");
+    //   $model  =   $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom'");
 
-      if($request->has('date_from') != null)
-      {
-          $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $request->get('date_from'));
-      }
+    //   if($request->has('date_from') != null)
+    //   {
+    //       $model  =   $model->where('unit_purchase_requests.date_processed', '>=', $request->get('date_from'));
+    //   }
 
-      if($request->has('date_to') != null)
-      {
-          $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $request->get('date_to'));
-      }
+    //   if($request->has('date_to') != null)
+    //   {
+    //       $model  =   $model->where('unit_purchase_requests.date_processed', '<=', $request->get('date_to'));
+    //   }
 
       $model    = $model->leftJoin('procurement_centers', 'procurement_centers.id', '=', 'unit_purchase_requests.procurement_office');
       $model    = $model->leftJoin('catered_units', 'catered_units.id', '=', 'unit_purchase_requests.units');
