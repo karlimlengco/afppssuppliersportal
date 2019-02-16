@@ -599,15 +599,14 @@ class UnitPurchaseRequestRepository extends BaseRepository
             $model  =   $model->where('mode_of_procurement', '!=', 'public_bidding');
         }
 
-        $model  = $model->whereRaw("YEAR(unit_purchase_requests.date_processed) <= '$yearto' AND YEAR(unit_purchase_requests.date_processed) >= '$yearfrom' ");
 
         if(!\Sentinel::getUser()->hasRole('Admin')  )
         {
             // if(!\Sentinel::getUser()->hasRole('Pcco Admin')  )
             // {
-            // if(\Sentinel::getUser()->units && \Sentinel::getUser()->units->centers){
-            //     $model  =   $model->where('procurement_centers.name', '=', \Sentinel::getUser()->units->centers->name);
-            // }
+            if(\Sentinel::getUser()->units && \Sentinel::getUser()->units->centers){
+                $model  =   $model->where('procurement_centers.name', '=', \Sentinel::getUser()->units->centers->name);
+            }
                 // $model  =   $model->where('unit_purchase_requests.units','=', \Sentinel::getUser()->unit_id);
             // }
         }
