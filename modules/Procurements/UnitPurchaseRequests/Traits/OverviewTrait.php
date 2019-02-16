@@ -88,7 +88,6 @@ trait OverviewTrait
     public function overviewOngoing(Request $request, $programs, $pcco =null, $unit = null, UnitPurchaseRequestRepository $upr)
     {
         $result     =   $upr->findByPrograms($request->type, 'ongoing', $programs, $pcco, $unit, $request);
-        dd($result);
         return $this->view('modules.overview.ongoing',[
             'result'    =>  $result,
             'type'  =>  $request->type,
