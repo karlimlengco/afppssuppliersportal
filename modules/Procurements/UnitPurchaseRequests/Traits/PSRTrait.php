@@ -3325,8 +3325,26 @@ trait PSRTrait
           $model      =   $model->where('mode_of_procurement','!=', 'public_bidding');
       }
 
+      if(!\Sentinel::getUser()->hasRole('Admin') )
+      {
+
+          $center =   0;
+          $user = \Sentinel::getUser();
+          if($user->units)
+          {
+              if($user->units->centers)
+              {
+                  $center =   $user->units->centers->name;
+                  $model  =   $model->where('procurement_centers.name','=', $center);
+              }
+          }
+
+
+      }
+
+
       $model    = $model->orderBy('catered_units.short_code','asc');
-      dd($model->get());
+      dd($model->get())
       return $model->get();
     }
 
