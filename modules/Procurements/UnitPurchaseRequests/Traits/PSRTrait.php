@@ -1317,11 +1317,12 @@ trait PSRTrait
             {
                 if($user->units->centers)
                 {
-                    $center =   $user->units->centers->id;
+                    // $center =   $user->units->centers->id;
+                    $model->where('procurement_centers.name', '=', $user->units->centers->name);
                 }
             }
 
-            $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
+            // $model  =   $model->where('unit_purchase_requests.procurement_office','=', $center);
 
         }
 
@@ -1335,6 +1336,7 @@ trait PSRTrait
             // 'unit_purchase_requests.date_processed',
             'procurement_centers.id'
         ]);
+        dd($model->get());
         return $model->get();
     }
 
