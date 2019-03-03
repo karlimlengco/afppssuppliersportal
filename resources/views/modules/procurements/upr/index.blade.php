@@ -49,6 +49,7 @@ Unit Purchase Request
                   <th>UPR No.</th>
                   <th>Project Name/ Activity</th>
                   <th>ABC</th>
+                  <th>Fund</th>
                   <th>Mode</th>
                   <th>Status</th>
                   <th>Created</th>
@@ -62,6 +63,7 @@ Unit Purchase Request
                 <td> <a href="{{route( 'procurements.unit-purchase-requests.show',[$data->id] )}}">  {{$data->upr_number}} </a></td>
                 <td>{{$data->project_name}}</td>
                 <td>{{formatPrice($data->total_amount)}}</td>
+                <td>{{$data->chargeability}}</td>
                 <td>{{$data->type}}</td>
                 <td>{{$data->status}}</td>
                 <td>{{$data->created_at->format('d-m-Y')}}</td>
