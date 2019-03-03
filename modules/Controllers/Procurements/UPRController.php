@@ -204,6 +204,33 @@ class UPRController extends Controller
         }
 
         return $model->getDatatable($center, null, 'Cancelled');
+    } 
+
+    /**
+     * [getCancelledDatatable description]
+     *
+     * @return [type]            [description]
+     */
+    public function getCompletedDatatable(UnitPurchaseRequestRepository $model)
+    {
+        $user   =   \Sentinel::getUser();
+
+        if($user->hasRole('Admin'))
+        {
+            return $model->getDatatable(null, null, 'Completed');
+        }
+
+
+        $center =   null;
+        if($user->units)
+        {
+            if($user->units->centers)
+            {
+                $center =   $user->units->centers->id;
+            }
+        }
+
+        return $model->getDatatable($center, null, 'Completed');
     }
 
     /**
@@ -221,6 +248,20 @@ class UPRController extends Controller
         ]);
     }
 
+    /**
+     * [viewCancelled description]
+     *
+     * @return [type] [description]
+     */
+    public function viewCompleted()
+    {
+        return $this->view('modules.procurements.upr.completed',[
+            'backRoute'   =>  $this->baseUrl."index",
+            'breadcrumbs' => [
+                new Breadcrumb('Unit Purchase Request Completed')
+            ]
+        ]);
+    }
 
     /**
      * Display a listing of the resource.

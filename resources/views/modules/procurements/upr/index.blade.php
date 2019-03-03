@@ -30,9 +30,9 @@ Unit Purchase Request
 <div class="row">
     <div class="six columns ">
         <a  class="button" href="{{route('procurements.unit-purchase-requests.view-cancel')}}"> View All Cancelled UPR</a>
+        <a  class="button" href="{{route('procurements.unit-purchase-requests.view-completed')}}"> View All Completed UPR</a>
     </div>
     <div class="six columns align-right" >
-
         <a class="button" href="{{route($createRoute)}}" tooltip="Add UPR">Add UPR</a>
         <a class="button" href="{{route($importRoute)}}" tooltip="Import UPR">Import UPR Form 1</a>
         <a class="button" href="{{route($importRoute2)}}" tooltip="Import UPR2">Import UPR Form 2</a>

@@ -111,6 +111,7 @@ trait DatatableTrait
         $model  =   $model->select([
             'unit_purchase_requests.id',
             'unit_purchase_requests.upr_number',
+            'unit_purchase_requests.chargeability',
             'unit_purchase_requests.ref_number',
             'unit_purchase_requests.date_prepared',
             'unit_purchase_requests.date_processed',
@@ -171,6 +172,7 @@ trait DatatableTrait
             $model  =   $model->where('unit_purchase_requests.status', '=', "$status");
         }
 
+        $model  =   $model->where('unit_purchase_requests.status', '!=', "completed");
         if($request != null)
         {
             $search = $request->search;
