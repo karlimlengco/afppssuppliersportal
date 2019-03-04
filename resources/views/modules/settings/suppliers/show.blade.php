@@ -43,6 +43,10 @@ Suppliers
           <i class="nc-icon-mini design_pen-01"></i>
         </a>
 
+        <a   href="{{route( 'settings.suppliers.transactions',[$data->id])}}"  class="button "  tooltip="Transactions">
+          <i class="nc-icon-mini ui-2_menu-dots"></i>
+        </a>
+
     </div>
 </div>
 

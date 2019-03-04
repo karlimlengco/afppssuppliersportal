@@ -13,6 +13,7 @@ use \Revlv\Settings\Banks\BankRepository;
 use \Revlv\Settings\Suppliers\SupplierRequest;
 use \Revlv\Settings\Suppliers\SupplierEloquent;
 use \Revlv\Settings\Suppliers\Attachments\AttachmentEloquent;
+use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
 
 class SupplierController extends Controller
 {
@@ -43,9 +44,10 @@ class SupplierController extends Controller
     /**
      * @param model $model
      */
-    public function __construct()
+    public function __construct(UnitPurchaseRequestRepository $model)
     {
         parent::__construct();
+        $this->model = $model;
     }
 
     /**
@@ -56,6 +58,20 @@ class SupplierController extends Controller
     public function getDatatable(SupplierRepository $model)
     {
         return $model->getDatatable();
+    }
+
+    /**
+     * 
+     */
+    public function viewTransactions($id)
+    {
+       
+        $resource = $this->model->paginateBySupplier(10, $id);
+        
+        return $this->view('modules.settings.suppliers.transactions',[
+            'resources'    =>  $resource,
+            'id'=>$id
+        ]);
     }
 
     /**

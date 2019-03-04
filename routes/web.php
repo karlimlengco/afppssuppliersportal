@@ -738,6 +738,7 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
     Route::resource('user/groups', '\Revlv\Controllers\Sentinel\UserGroupController');
 
 
+    Route::get('suppliers/transactions/{id}', '\Revlv\Controllers\Settings\SupplierController@viewTransactions')->name('suppliers.transactions');
     Route::get('suppliers/print', '\Revlv\Controllers\Settings\SupplierController@printView')->name('suppliers.print');
 
     Route::get('suppliers/attachments/delete/{id}', '\Revlv\Controllers\Settings\SupplierController@deteleAttachment')->name('suppliers.attachments.destroy');

@@ -82,6 +82,24 @@ class UnitPurchaseRequestRepository extends BaseRepository
     }
 
     /**
+     * 
+     */
+    public function paginateBySupplier($limit , $id)
+    {
+
+        $model  =    $this->model;
+        // $model  =    $model->select(['notice_of_awards.proponent_id', 'rfq_proponents.proponents']);
+        $model  =    $model->select(['unit_purchase_requests.*']);
+
+        $model  =    $model->leftJoin('notice_of_awards', 'notice_of_awards.upr_id', '=', 'unit_purchase_requests.id');
+        $model  =    $model->leftJoin('rfq_proponents', 'rfq_proponents.id', '=', 'notice_of_awards.proponent_id');
+        
+        $model  =   $model->where('rfq_proponents.proponents', '=', $id);
+
+        return $model->paginate($limit);
+    }
+
+    /**
      * [findTimelineById description]
      *
      * @param  [type] $id [description]
