@@ -253,9 +253,31 @@ class UPRController extends Controller
      *
      * @return [type] [description]
      */
-    public function viewCompleted()
+    public function viewCompleted(Request $request, UnitPurchaseRequestRepository $model)
     {
+        $user   =   \Sentinel::getUser();
+
+
+        $center =   0;
+        if($user->units)
+        {
+            if($user->units->centers)
+            {
+                $center =   $user->units->centers->id;
+            }
+        }
+        $subs = json_decode($user->sub_unit_id);
+        // $subs = implode(',', $subs);
+        
+        if($user->hasRole('Admin'))
+        {
+            $resource = $model->paginateCompletedByRequest(10, $request);
+        }else{
+            $resource = $model->paginateCompletedByRequest(10, $request, $center, null, null, $subs);
+        }
+
         return $this->view('modules.procurements.upr.completed',[
+            'resources'    => $resource,
             'backRoute'   =>  $this->baseUrl."index",
             'breadcrumbs' => [
                 new Breadcrumb('Unit Purchase Request Completed')
