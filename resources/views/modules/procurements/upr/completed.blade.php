@@ -60,6 +60,7 @@ Unit Purchase Request
               @endforeach
             </tbody>
         </table>
+        <?php echo $resources->render(); ?>
     </div>
 </div>
 
