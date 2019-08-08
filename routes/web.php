@@ -732,6 +732,7 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
     |
     */
     Route::get('users/archives', '\Revlv\Controllers\Sentinel\UserController@archives')->name('users.archives');
+    Route::resource('user-suppliers', '\Revlv\Controllers\Sentinel\UserSupplierController');
     Route::resource('users', '\Revlv\Controllers\Sentinel\UserController');
     Route::resource('roles', '\Revlv\Controllers\Sentinel\RoleController');
     Route::resource('permissions', '\Revlv\Controllers\Sentinel\PermissionController');

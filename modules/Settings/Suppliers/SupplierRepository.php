@@ -123,4 +123,27 @@ class SupplierRepository extends BaseRepository
         return $model->first();
 
     }
+
+    public function getSuppliers($search = null ,$status = 'accepted')
+    {
+        $model  =   $this->model;
+
+        $model  =   $model->select([
+            'suppliers.*',
+            \DB::raw(" (select supplier_attachments.validity_date from supplier_attachments where supplier_attachments.supplier_id = suppliers.id AND type = 'dti' order by supplier_attachments.created_at desc limit 1) as dti_validity_date "),
+            \DB::raw(" (select supplier_attachments.validity_date from supplier_attachments where supplier_attachments.supplier_id = suppliers.id AND type = 'mayors_permit' order by supplier_attachments.created_at desc limit 1) as mayors_validity_date "),
+            \DB::raw(" (select supplier_attachments.validity_date from supplier_attachments where supplier_attachments.supplier_id = suppliers.id AND type = 'tax_clearance' order by supplier_attachments.created_at desc limit 1) as tax_validity_date "),
+            \DB::raw(" (select supplier_attachments.validity_date from supplier_attachments where supplier_attachments.supplier_id = suppliers.id AND type = 'philgeps_registraion' order by supplier_attachments.created_at desc limit 1) as philgeps_validity_date ")
+
+        ]);
+
+        if($search != null){
+            $model =    $model->where('name', 'LIKE', "%$search%");
+            $model =    $model->orWhere('owner', 'LIKE', "%$search%");
+        }
+
+        $model  =   $model->whereStatus($status);
+
+        return $model->paginate(30);
+    }
 }

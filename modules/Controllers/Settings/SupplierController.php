@@ -150,9 +150,12 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, SupplierRepository $supplier)
     {
+
+        $resource = $supplier->getSuppliers($request->search);
         return $this->view('modules.settings.suppliers.index',[
+            'resources'   =>  $resource,
             'createRoute'   =>  $this->baseUrl."create",
             'draftRoute'    =>  $this->baseUrl."drafts"
         ]);

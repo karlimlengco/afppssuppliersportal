@@ -372,6 +372,11 @@
                     "name"  :   "Users"
                 },
                 {
+                    "route" :   "settings.user-suppliers.index",
+                    "icon"      :"nc-icon-glyph lg users_multiple-11",
+                    "name"  :   "Users (Supplier)"
+                },
+                {
                     "route" :   "settings.roles.index",
                     "icon"      :"nc-icon-glyph lg users_badge-15",
                     "name"  :   "Roles"

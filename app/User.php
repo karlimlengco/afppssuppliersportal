@@ -75,6 +75,7 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
         'email',
         'username',
         'password',
+        'suppliers',
 
         'permissions',
         'avatar',
@@ -101,6 +102,7 @@ class User extends EloquentUser implements AuthenticatableContract, CanResetPass
         'email',
         'uuid',
         'id',
+        'user_type',
 
     ];
 

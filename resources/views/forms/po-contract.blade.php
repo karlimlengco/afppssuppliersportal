@@ -40,7 +40,7 @@
                     <p class="align-center">WITNESSETH</p>
                     <p class="align-center">That the parties hereto, agree and stipulate:</p>
                     <p class="indent-first-line">That for and in consideration of the payment to be made by <strong>{{$data['requestor'][1]}} {{$data['requestor'][0]}} {{$data['requestor'][2]}}</strong> the First Party willfully and faithfully agrees to perform the following services:</p>
-                    <p class="indent-first-line">To provide {{$data['service_type']}} services use by {{$data['unit']}} for the period of ____ Quarter CY 2018:</p>
+                    <p class="indent-first-line">To provide {{$data['service_type']}} services use by {{$data['unit']}} for the period of ____ Quarter CY 2019:</p>
                     <table class="printable-form__body__table">
                         <tr>
                             <td class="align-center" width="5%"><strong>L/I</strong></td>

@@ -256,6 +256,7 @@ class UserRepository extends BaseRepository
         {
             $model  =   $model->onlyTrashed();
         }
+        $model  =   $model->where('user_type', 'supplier');
 
         return $this->dataTable($model->get());
     }
@@ -344,7 +345,7 @@ class UserRepository extends BaseRepository
      *
      * @return [type]            [description]
      */
-    public function getLists($request, $paginate = 20)
+    public function getLists($request, $paginate = 20, $type =null)
     {
         $model  =   $this->model;
 
@@ -365,6 +366,13 @@ class UserRepository extends BaseRepository
         if($request->has('trash') && $request->trash == 'trash')
         {
             $model  =   $model->onlyTrashed();
+        }
+
+        if($type != null)
+        {
+            $model  =   $model->where('user_type', 'supplier');
+        }else{
+            $model  =   $model->whereNull('user_type');
         }
 
         if($request->has('search') && $request->search != null)
