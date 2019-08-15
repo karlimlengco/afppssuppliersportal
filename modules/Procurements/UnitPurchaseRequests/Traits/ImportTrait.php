@@ -164,14 +164,13 @@ trait ImportTrait
         {
             $accountsModel    =   $accounts->findByOld(trim($fields[9][3]) );
         }
-
         if($accountsModel != null)
         {
             $code = $accountsModel->id;
         }else
         {
             $c = trim($fields[9][3]);
-            if(count($c) == 10){
+            if(strlen($c) == 10){
               $n = $c[0].'-'.$c[1].''.$c[2].'-'.$c[3].''.$c[4].'-'.$c[5].''.$c[6].'-'.$c[7].'-'.$c[8].''.$c[9];
 
               $accountsModel    =   $accounts->findByName($n );

@@ -6,69 +6,44 @@ $currentRoute = Route::currentRouteName();
 $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
 ?>
 
-<div class="sidebar">
-    <a href="" class="sidebar__toggle-button"></a>
 
-    <!-- logo -->
-    <div class="sidebar__logo">
-        <span class="sidebar__logo__icon"><img src="/img/logo.png" alt=""></span>
+<div class="p-sidebar">
+  <div class="c-branding">
+    <div class="c-branding__logo">
+      <button class="c-button c-button--circle js-hide-sidebar-button">
+        <i class="nc-icon-mini ui-1_simple-remove"></i>
+      </button>
+      <img src="/img/logo.png" alt="">
     </div>
+  </div>
+  <div class="c-navlinks c-navlinks--vertical">
+    @foreach($sidebar->getSidebar() as $group => $route)
+        @if(explode('.', $currentRoute)[0] == $route->subname)
+            <div class="c-navlinks__item c-navlinks__item--active">
+              <a href="{{route($route->route)}}" class="c-navlinks__link">
+                <span class="c-navlinks__icon"><i class="{{$route->icon}}"></i></span>
+                <span class="c-navlinks__label">{{$route->name}}</span>
+              </a>
+                @if(explode('.', $currentRoute)[0] == $route->subname)
 
-    <!-- search -->
-    <div class="sidebar__search">
-        @if(View::hasSection('search'))
-           @yield('search')
+                    @foreach($route->navigation as $nav)
+                        <div class="c-navlinks__child">
+                          <div class="c-navlinks__item">
+                            <a href="{{route($nav->route)}}" class="c-navlinks__link">{{$nav->name}}</a>
+                          </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
         @else
-          <input type="text" class="sidebar__search__input" id="newForm" v-model="searchText" @keyup.enter="searching"  placeholder="Looking for something?">
-          <button class="sidebar__search__button"><i class="nc-icon-mini ui-1_zoom"></i></button>
+            <div class="c-navlinks__item ">
+              <a href="{{route($route->route)}}" class="c-navlinks__link">
+                <span class="c-navlinks__icon"><i class="{{$route->icon}}"></i></span>
+                <span class="c-navlinks__label">{{$route->name}}</span>
+              </a>
+            </div>
         @endif
-    </div>
-
-    <!-- menu -->
-    <ul class="sidebar__menu">
-        <li class="sidebar__menu__item">
-            <a href="{{route('dashboard.index')}}" class="sidebar__menu__item__link">
-                <i class="nc-icon-mini business_chart-bar-32"></i>Overview
-            </a>
-        </li>
-      {{--   <li class="sidebar__menu__item">
-            <a href="{{route('upr-drafts.index')}}" class="sidebar__menu__item__link">
-                <i class="nc-icon-mini design_window-paragraph"></i>Draft UPRS
-            </a>
-        </li> --}}
-        @foreach($sidebar->getSidebar() as $group => $route)
-        <li class="sidebar__menu__item has-child">
-
-            @if(explode('.', $currentRoute)[0] == $route->subname)
-                <a href="#" class="sidebar__menu__item__link is-active">
-                    <i class="{{$route->icon}}"></i>{{$route->name}}
-                </a>
-            @else
-                <a href="#" class="sidebar__menu__item__link ">
-                    <i class="{{$route->icon}}"></i>{{$route->name}}
-                </a>
-            @endif
-            @if(explode('.', $currentRoute)[0] == $route->subname)
-                <ul class="sidebar__child-menu is-visible">
-                    @foreach($route->navigation as $nav)
-                        <li class="sidebar__child-menu__item">
-                            <a href="{{route($nav->route)}}" class="sidebar__child-menu__item__link">{{$nav->name}}</a>
-                        </li>
-                    @endforeach
-                </ul>
-            @else
-                <ul class="sidebar__child-menu">
-                    @foreach($route->navigation as $nav)
-                        <li class="sidebar__child-menu__item">
-                            <a href="{{route($nav->route)}}" class="sidebar__child-menu__item__link">{{$nav->name}}</a>
-                        </li>
-                    @endforeach
-                </ul>
-            @endif
-
-        </li>
-        @endforeach
-    </ul>
-
-
+    @endforeach
+  </div>
 </div>
+ 

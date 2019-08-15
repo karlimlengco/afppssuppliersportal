@@ -35,7 +35,7 @@ Form::macro('fileField', function($name, $label = null, $value = null, $attribut
 {
     $element = Form::file($name, fieldAttributes($name, $attributes));
 
-    $out = '<div class="form-group';
+    $out = '<div class="c-form-group';
     $out .= fieldError($name) . '">';
     $out .= fieldLabel($name, $label);
     $out .= '<div class="col-md-12 col-sm-12 col-xs-12">';
@@ -81,7 +81,7 @@ Form::macro('dateRangeField', function($name, $label = null, $value = null, $att
     $attributes = ['class'=>'daterangepicker input has-feedback-left active'];
     $element = Form::text($name, $value, fieldAttributes($name, $attributes));
 
-    $out = '<div class="form-group has-feedback';
+    $out = '<div class="c-form-group has-feedback';
     $out .= fieldError($name) . '">';
     $out .= fieldLabel($name, $label);
     $out .= '<div class="col-md-12 col-sm-12 col-xs-12">';
@@ -99,7 +99,7 @@ Form::macro('dateRangeNoIconField', function($name, $label = null, $value = null
     $attributes = ['class'=>'daterangepicker input '];
     $element = Form::text($name, $value, fieldAttributes($name, $attributes));
 
-    $out = '<div class="form-group';
+    $out = '<div class="c-form-group';
     $out .= fieldError($name) . '">';
     $out .= fieldLabel($name, $label);
     $out .= '<div class="col-md-8 col-sm-8 col-xs-8">';
@@ -127,7 +127,7 @@ Form::macro('yearField', function($name, $label = null, $value = null, $attribut
     $attributes = ['data' => 'year-picker', 'data-date-format' => "YYYY-MM-DD HH:mm:ss"];
     $element = Form::text($name, $value, fieldAttributes($name, $attributes));
 
-    $out = '<div class="form-group';
+    $out = '<div class="c-form-group';
     $out .= fieldError($name) . '">';
     $out .= fieldLabel($name, $label);
     $out .= '<div class="input-group">';
@@ -145,7 +145,7 @@ Form::macro('dateMonthField', function($name, $label = null, $value = null)
     $attributes = ['data' => 'date-month-picker', 'data-date-format' => "YYYY-MM"];
     $element = Form::text($name, $value, fieldAttributes($name, $attributes));
 
-    $out = '<div class="form-group';
+    $out = '<div class="c-form-group';
     $out .= fieldError($name) . '">';
     $out .= fieldLabel($name, $label);
     $out .= '<div class="input-group">';
@@ -234,7 +234,7 @@ Form::macro('checkboxField', function($name, $label = null, $value = 1, $checked
 
 function fieldWrapperNoLabel($name,  $element)
 {
-    $out = '<div class="form-group';
+    $out = '<div class="c-form-group';
     $out .= fieldError($name) . '">';
     $out .= $element;
     $out .= fieldMsg($name);
@@ -245,7 +245,7 @@ function fieldWrapperNoLabel($name,  $element)
 
 function fieldRegisterWrapper($name, $label, $element)
 {
-    $out = '<div class="form-group';
+    $out = '<div class="c-form-group';
     $out .= fieldError($name) . '">';
     $out .= $element;
     $out .= fieldMsg($name);
@@ -256,7 +256,7 @@ function fieldRegisterWrapper($name, $label, $element)
 
 function fieldWrapper($name, $label, $element)
 {
-    $out = '<div class="form-group';
+    $out = '<div class="c-form-group';
     $out .= fieldError($name) . '">';
     $out .= fieldLabel($name, $label);
     $out .= $element;
@@ -301,7 +301,7 @@ function fieldLabel($name, $label)
 
     $name = str_replace('[]', '', $name);
 
-    $out = '<label for="id-field-' . $name . '" class="label">';
+    $out = '<label for="id-field-' . $name . '" class="c-label">';
     $out .= $label . '</label>';
 
     return $out;
@@ -311,14 +311,14 @@ function fieldAttributes($name, $attributes = array())
 {
     $name = str_replace('[]', '', $name);
 
-    return array_merge(['class' => 'input', 'id' => 'id-field-' . $name], $attributes);
+    return array_merge(['class' => 'c-input u-border-radius', 'id' => 'id-field-' . $name], $attributes);
 }
 
 function fieldAttributesNoId($name, $attributes = array())
 {
     $name = str_replace('[]', '', $name);
 
-    return array_merge(['class' => 'input', 'id' =>  $name], $attributes);
+    return array_merge(['class' => 'c-input u-border-radius', 'id' =>  $name], $attributes);
 }
 
 

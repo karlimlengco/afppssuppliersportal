@@ -22,71 +22,31 @@
 
     </head>
 
-    <body>
+    <body class="o-body o-body--outline">>
 
-    <div class="container"  id="app">
-
+    <div class="o-container"  id="app">
             
-        @yield('modal')
-        @include('layouts.sidebar')
-        <div >
-            @include('layouts.topbar')
-            {{-- sidebar --}}
+      @yield('modal')
+      <div class="o-container__wrapper">
+          @include('layouts.topbar')
+          @include('layouts.sidebar')
 
-            <!-- content -->
-            <div class="content">
-
-
-        <!-- preloader -->
-    
-                <div class="content__wrapper">
-                    <div class="row">
-                        <div class="preloader">
-                            <img src="/img/preloader.gif" alt="">
-                            <p>Loading...</p>
-                        </div>
-
-                        @include('layouts.alerts')
-                        @yield('contents')
+          <div class="o-content">
+            <div class="o-content__wrapper">
+                
+                <div class="row">
+                    <div class="preloader">
+                        <img src="/img/preloader.gif" alt="">
+                        <p>Loading...</p>
                     </div>
+
+                    @include('layouts.alerts')
+                    @yield('contents')
                 </div>
             </div>
-            <!-- content -->
-            {{-- Chat --}}
-            <div class="chat">
-                <div class="chat__head">
-                    <div class="chat__head__title" id="chatHead">Admin</div>
-                    <div class="chat__head__utility">
-                        <!-- <button class="chat__head__utility__button minimize-chat">
-                            <i class="nc-icon-mini ui-1_simple-delete"></i>
-                        </button> -->
-                        <button class="chat__head__utility__button close-chat">
-                            <i class="nc-icon-mini ui-1_simple-remove"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="chat__thread">
-                    <chat-log :messages="messages" ></chat-log>
-                </div>
-                <chat-composer v-on:messagesent="addMessage"></chat-composer>
-
-            </div>
-            {{-- Chat --}}
-
-            <!-- chat inbox -->
-            {{--  is-visible --}}
-            <div class="inbox">
-                <div class="inbox__data">
-                    <button class="inbox__close">
-                        <i class="nc-icon-outline ui-1_simple-remove"></i>
-                    </button>
-                    <admin-messages ></admin-messages>
-                </div>
-            </div>
-            <!-- chat inbox -->
-
         </div>
+      </div>
+            
     </div>
 
     @include('layouts.footer')

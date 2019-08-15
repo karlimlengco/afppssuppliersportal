@@ -85,11 +85,11 @@ class SidebarGenerator
                         }
                         else
                         {
-                            if ($this->checkPermissions($nav->route))
-                            {
+                            // if ($this->checkPermissions($nav->route))
+                            // {
                                 $r->navigation[]        = $nav;
                                 $accessibleRoute[$group]  = $r;
-                            }
+                            // }
                         }
                     }
                 }

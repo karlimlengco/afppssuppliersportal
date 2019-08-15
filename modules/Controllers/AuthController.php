@@ -62,12 +62,25 @@ class AuthController extends Controller
         // If the response is successful redirect the user\
         if ($response ===true)
         {
+            if(\Sentinel::getUser()->user_type != 'supplier'){
+
+                \Sentinel::logout();
+
+                return redirect()
+                    ->route($this->loginRoute)
+                    ->withInput($request->only($this->getLoginKey($request)))
+                    ->withErrors([
+                        'auth' => 'Invalid username or password.'
+                    ]);
+            }
+
+
             if ($request->has('_redirect'))
             {
                 return redirect($request->get('_redirect'));
             }
 
-            return redirect()->route('dashboard.index');
+            return redirect()->route('procurements.ongoing');
         }
 
         // If the authentication process fails, redirect the user back to the login form

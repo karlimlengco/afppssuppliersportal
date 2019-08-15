@@ -43,7 +43,7 @@ if (typeof Object.assign != 'function') {
 <!-- Bootstrap -->
 {{-- <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script> --}}
 
-<script src="/js/app.js"></script>
+{{-- <script src="/js/app.js"></script> --}}
 
 <!-- bootstrap-daterangepicker -->
 <script src="/js/moment/moment.min.js"></script>
@@ -188,5 +188,117 @@ if (typeof Object.assign != 'function') {
         defaultDate: new Date(),
         setDefaultDate: new Date()
     });
+
+    
+    $(window).on("load", function(){
+      var content = $('.o-content');
+      var topbarHeight = $(".p-topbar").outerHeight(true);
+      var bottombarHeight = $('.p-bottombar').outerHeight(true);
+      var sidebarWidth = $('.p-sidebar').outerWidth(true);
+      var toolbar = $('.p-toolbar');
+      var toolbarWidth = $('.p-toolbar').outerWidth(true);
+      var sidebarToggleButton = $('.js-toggle-sidebar-button');
+      var sidebarShowButton  = $('.js-show-sidebar-button');
+      var sidebarHideButton  = $('.js-hide-sidebar-button');
+      var modal = $('.p-modal');
+      var openModal = $('.js-open-modal');
+      var closeModal = $('.js-close-modal');
+
+      content.css({
+        'padding-top': topbarHeight,
+        'padding-bottom': bottombarHeight,
+        'padding-right': toolbarWidth
+      })
+
+      toolbar.css({
+        'padding-top': topbarHeight,
+        'padding-bottom': bottombarHeight
+      })
+
+      $('.p-drawer').css({
+        'padding-top': topbarHeight,
+        'padding-bottom': bottombarHeight
+      })
+
+      sidebarToggleButton.on("click", function(){
+        $(this).find('i').toggleClass('arrows-1_tail-left arrows-1_tail-right');
+        $('.o-container').toggleClass('js-toggle-sidebar');
+      })
+
+      sidebarShowButton.on("click", function(){
+        $(this).toggleClass('js-show-sidebar-button--float');
+        $('o-body').addClass('u-no-scroll-y');
+        $('.p-sidebar').addClass('p-sidebar--active');
+      })
+
+      sidebarHideButton.on("click", function(){
+        $('o-body').removeClass('u-no-scroll-y');
+        $('.p-sidebar').removeClass('p-sidebar--active');
+      })
+
+      /*
+       modal
+       */
+      openModal.on("click", function(){
+        modal.addClass('p-modal--active');
+      })
+
+      closeModal.on("click", function(){
+        modal.removeClass('p-modal--active');
+      })
+
+      /*
+       toggle status
+       */
+      $('.js-toggle-status').on('click', function(){
+        $(this).parents('.c-dropdown').toggleClass('c-dropdown--active');
+      })
+
+      /*
+       toggle action menu
+       */
+      $('.js-toggle-settings').on('click', function(){
+        $(this).parents('.c-dropdown').toggleClass('c-dropdown--active');
+      })
+
+      /*
+       toggle post menu
+       */
+      $('.js-toggle-post-menu').on('click', function(){
+        $(this).parents('.c-dropdown').toggleClass('c-dropdown--active');
+      })
+
+      /*
+      show comments drawer
+       */
+      $('.js-show-comments-drawer').on('click', function(){
+        $('.js-comments-drawer').addClass('p-drawer--active');
+      })
+
+      $('.js-hide-comments-drawer').on('click', function(){
+        $('.js-comments-drawer').removeClass('p-drawer--active');
+      })
+
+      /*
+       show user settings menu
+       */
+      $('.js-show-user-settings').on('click', function(){
+        $(this).parents('.c-dropdown').toggleClass('c-dropdown--active');
+      })
+
+      /*
+       show notifications
+       */
+      $('.js-show-notifications').on('click', function(){
+        $(this).parents('.c-dropdown').toggleClass('c-dropdown--active');
+      })
+
+      /*
+       settings dropdown
+       */
+      $('.js-dropdown-trigger').on('click', function(){
+        $(this).parents('.c-dropdown').toggleClass('c-dropdown--active');
+      })
+    })
 
 </script>

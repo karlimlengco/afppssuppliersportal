@@ -1,107 +1,116 @@
-@section('title')
-My Profile
+@section('breadcrumbs')
+  <div class="c-breadcrumbs">
+    <a href="#" class="c-breadcrumbs__item c-breadcrumb__item--active">Profile</a>
+  </div> 
+  <div class="c-button-group u-pos-right">
+    <button class="c-button c-button--icon c-button--disabled js-help-button" data-tippy-content="Help Button" data-tippy-arrow="true">
+      <i class="nc-icon-mini ui-e_round-e-help"></i>
+    </button>
+  </div>
 @stop
+
 
 @section('contents')
 
 {!! Form::model($user, $modelConfig['update']) !!}
 
-<div class="row">
-    <div class="twelve columns align-left utility utility--align-right">
-        <a href="{{route('settings.users.index')}}" class="button button--pull-left" tooltip="Back"><i class="nc-icon-mini arrows-1_tail-left"></i></a>
-
-        <button type="submit" class="button topbar__utility__button--modal"  tooltip="Save">
-        <i class="nc-icon-mini ui-2_disk"></i>
-        </button>
-
-        {{-- <a href="" class="button topbar__utility__button--modal" tooltip="Delete"><i class="nc-icon-mini ui-1_trash"></i></a> --}}
+<div class="p-bottombar">
+  <div class="p-bottombar__wrapper">
+    <div class="c-button-group">
+      {{-- <button class="c-button c-button--small u-border-radius">Btn A</button> --}}
+      {{-- <button class="c-button c-button--small c-button--disabled u-border-radius">Btn B</button> --}}
     </div>
+    <button class="c-button c-button--small u-border-radius u-pos-right">
+      <span class="c-button__icon"><i class="nc-icon-mini ui-2_disk"></i></span>
+      <span class="c-button__text">Update</span>
+    </button>
+  </div>
+</div> 
+
+
+
+<div class="p-profile-header u-margin-m-bottom u-valign-center">
+  <div class="c-avatar c-avatar--circle c-avatar--x-large u-margin-s-right">
+    @if($user->avatar)
+    <img src="{{route('user.avatar.show', $user->id)}}" alt="">
+    @else
+    {{$user->first_name[0]}}
+    {{$user->first_name[1]}}
+    @endif
+  </div>
+  <div class="p-profile__preview">
+    <div class="c-data-group">
+      <h4>{{$user->first_name}} </h4>
+      <span class="c-data">{{$user->surname}}</span>
+      <span class="c-data">{{$user->address}}</span>
+      <span class="c-data">{{$user->contact_number}}</span>
+      <span class="c-data">{{$user->email}}</span>
+      <span class="c-data"></span>
+    </div>
+  </div>
+  <div class="p-profile-header__misc">
+    <div class="p-profile-header__misc__panel u-valign-center">
+      <div class="c-data-group">
+        <span class="c-data c-data--muted">Last login {{$user->last_login}}</span>
+      </div> 
+    </div>
+  </div>
 </div>
 
 
-<div class="row">
-    <div class="four columns">
-        <div class="profile_img">
-
-        <!-- end of image cropping -->
-            <div id="crop-avatar">
-                              <!-- Current avatar -->
-                <img class="img-responsive avatar-view" src="{{route('user.avatar.show', $user->id)}}" alt="Avatar" title="Change the avatar">
-            </div>
-            <h3>{{$user->first_name}} {{$user->middle_name}} {{$user->surname}}</h3>
-
-            <ul>
-                <li></i> {{$user->address}}</li>
-                <li></i> {{$user->contact_number  }}</li>
-                <li></i> {{$user->username  }}</li>
-
-                <li><a href="#" >{{$user->email}}</a></li>
-                <li></i> {{$user->last_login  }}</li>
-            </ul>
-{{--
-                <a class="button" href="{{route('reminder.reset', 'email='.$user->email)}}" >Reset Password</a>
-            @if($user->last_login == null)
-                <a class="button" href="{{route('reminder.reset', 'email='.$user->email)}}">Resend Code</a>
-            @endif --}}
-            <br>
-        </div>
+<div class="o-row-group">
+  <div class="o-division">
+    <div class="o-division__cell o-division__cell--lock u-width-250 u-padding-m-right">
+      <div class="c-data-group">
+        <span class="c-data c-data--highlight u-margin-xs-bottom">Basic Information</span>
+        <span class="c-data c-data--muted"></span>
+      </div>
     </div>
-
-    <div class="one columns"></div>
-
-
-    <div class="eight columns">
-
-        <div class="row">
-
-                <div class="row">
-                    <div class="six columns">
-                        {!! Form::fileField('avatar', 'Avatar') !!}
-                    </div>
-                    <div class="six columns">
-                        {!! Form::textField('username', 'Username') !!}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="four columns">
-                        {!! Form::textField('first_name', 'First Name') !!}
-                    </div>
-                    <div class="four columns">
-                        {!! Form::textField('middle_name', 'Middle Name') !!}
-                    </div>
-                    <div class="four columns">
-                        {!! Form::textField('surname', 'Surname') !!}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="four columns">
-                        {!! Form::textField('contact_number', 'Contact Number') !!}
-                    </div>
-                    <div class="four columns">
-                        {!! Form::selectField('gender', 'Gender', $genders) !!}
-                    </div>
-                    <div class="four columns">
-                        {!! Form::textField('email', 'Email Address') !!}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="twelve columns">
-                        {!! Form::textareaField('address', 'Address', null, ['rows'=> 3 ]) !!}
-                    </div>
-                </div>
-
-            </div>
-            Change Password
-            <hr>
-            <div class="row">
-                <div class="twelve columns">{!! Form::passwordField('password', 'New Password') !!}</div>
-                <div class="twelve columns">{!! Form::passwordField('password_confirmation', 'Confirm Password') !!}</div>
-            </div>
+    <div class="o-division__cell">
+      <div class="o-row">
+        <div class="o-col o-col--6">
+            {!! Form::fileField('avatar', 'Avatar') !!}
         </div>
-
+        <div class="o-col o-col--6">
+            {!! Form::textField('username', 'Username', null, ['readonly']) !!}
+        </div>
+      </div>
+      <div class="o-row">
+        <div class="o-col o-col--6">
+            {!! Form::textField('first_name', 'Company Name', null, ['readonly']) !!}
+        </div>
+        <div class="o-col o-col--6">
+            {!! Form::textField('surname', 'Owner', null, ['readonly']) !!}
+        </div>
+      </div>
+      <div class="o-row">
+        <div class="o-col o-col--6">
+            {!! Form::textField('contact_number', 'Contact Number') !!}
+        </div>
+        <div class="o-col o-col--6">
+            {!! Form::textField('email', 'Email Address') !!}
+        </div>
+      </div>
+      <div class="o-row">
+        <div class="o-col o-col--12">
+            {!! Form::textareaField('address', 'Address', null, ['rows'=> 3 ]) !!}
+        </div>
+      </div>
+    <div class="o-row-group">
+      <h5>Change Password</h5>
+      <div class="o-row">
+        <div class="o-col o-col--6">
+            {!! Form::passwordField('password', 'New Password') !!}
+        </div>
+        <div class="o-col o-col--6">
+            {!! Form::passwordField('password_confirmation', 'Confirm Password') !!} 
+        </div>
+      </div> 
     </div>
-
+    </div>
+  </div>
 </div>
+ 
 {!! Form::close() !!}
 
 @stop

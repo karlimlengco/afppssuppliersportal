@@ -8,8 +8,6 @@ use Revlv\Users\UserRepository;
 use \Revlv\Settings\Holidays\HolidayRepository;
 use \Revlv\Procurements\BlankRequestForQuotation\BlankRFQRepository;
 use \Revlv\Procurements\UnitPurchaseRequests\UnitPurchaseRequestRepository;
-use Revlv\Chats\Message\MessageRepository;
-use Revlv\Chats\ChatRepository;
 use \Revlv\Users\Logs\UserLogRepository;
 use Carbon\Carbon;
 use Revlv\Events\NotificationRepository;
@@ -37,17 +35,13 @@ class BaseComposer
         UserRepository $user,
         UnitPurchaseRequestRepository $upr,
         UserLogRepository $logs,
-        ChatRepository $chats,
-        MessageRepository $messages,
         NotificationRepository $nofications,
         HolidayRepository $holidays)
     {
         $this->user     =   $user;
-        $this->chats    =   $chats;
         $this->logs     =   $logs;
         $this->upr      =   $upr;
         $this->holidays =   $holidays;
-        $this->messages =   $messages;
         $this->nofications =   $nofications;
     }
 
@@ -124,16 +118,8 @@ class BaseComposer
         $logs           =   $this->logs->findUnSeedByAdmin($userId);
 
         $notifications  =   $this->nofications->countUnseenByUser($userId);
-        $messagesCount  =   $this->messages->countUnseenByUser($userId);
-        $myMessages     =   $this->chats->findByReceiver($userId);
         $delayCount     =   count($delays);
         $notiCount     =   count($notifications);
-        $messagesCount     =   count($messagesCount);
-        if($myMessages) {
-            $myMessages     =   count($myMessages);
-        } else {
-            $myMessages     =   0;
-        };
         if($logs){
             $logCounts     =   0;
         } else{
@@ -150,17 +136,6 @@ class BaseComposer
             $notiCount = '9+';
         }
 
-        if($messagesCount > 9)
-        {
-            $messagesCount = '9+';
-        }
-
-        if($myMessages > 9)
-        {
-            $myMessages = '9+';
-        }
-
-
         if($logCounts > 9)
         {
             $logCounts = '9+';
@@ -169,8 +144,6 @@ class BaseComposer
         $view->with('logCounts', $logCounts );
         $view->with('delayCounts', $delayCount );
         $view->with('notifCount',  $notiCount);
-        $view->with('messageCount', $messagesCount );
         $view->with('currentUser', $userModel);
-        $view->with('myMessages',  $myMessages);
     }
 }
