@@ -13,9 +13,18 @@
 
 @section('contents')
 
+{!! Form::open(['route' => 'procurements.ongoing', 'method' => 'GET']) !!}
+  <div class="c-searchbar u-pos-right">
+    <div class="c-input-group">
+      <input type="text" name="search" class="c-input u-border-radius" placeholder="Looking for something?">
+      <span class="c-input-group__icon"><i class="nc-icon-mini ui-1_zoom"></i></span>
+    </div>
+  </div>
+{!!Form::close()!!}
 <div class="row">
     <h3 class="u-margin-l-top">List of Ongoing Unit Purchase Requests</h3>
     <div class="twelve columns">
+      @if(count($resources )) 
       <table class="c-table c-table--stripe c-table--hover">
         <thead>
             <tr>
@@ -52,6 +61,8 @@
       </table>
       
       {{ $resources->links() }}
+      @else
+      @endif
     </div>
 </div>
 

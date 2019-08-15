@@ -62,7 +62,7 @@ class AuthController extends Controller
         // If the response is successful redirect the user\
         if ($response ===true)
         {
-            if(\Sentinel::getUser()->user_type != 'supplier'){
+            if(\Sentinel::getUser()->user_type == null){
 
                 \Sentinel::logout();
 

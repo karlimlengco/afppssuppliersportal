@@ -44,6 +44,14 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
             </div>
         @endif
     @endforeach
+    @if(\Sentinel::getUser()->user_type == 'supplier')
+        <div class="c-navlinks__item ">
+          <a href="{{route('eligibilities.index')}}" class="c-navlinks__link">
+            <span class="c-navlinks__icon"><i class="nc-icon-mini files_drawer"></i></span>
+            <span class="c-navlinks__label">Eligibilities</span>
+          </a>
+        </div>
+    @endif
   </div>
 </div>
  

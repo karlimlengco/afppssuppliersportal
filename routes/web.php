@@ -30,6 +30,9 @@ Route::get('procurements/awarded', '\Revlv\Controllers\ProcurementController@awa
 Route::get('procurements/failed', '\Revlv\Controllers\ProcurementController@failed')->name('procurements.failed');
 Route::get('procurements/paid', '\Revlv\Controllers\ProcurementController@paid')->name('procurements.paid');
 Route::get('procurements/all', '\Revlv\Controllers\ProcurementController@all')->name('procurements.all');
+
+Route::resource('eligibilities', '\Revlv\Controllers\EligibilityController');
+
 /*
 |--------------------------------------------------------------------------
 | User Routes

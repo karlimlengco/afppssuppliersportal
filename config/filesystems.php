@@ -54,7 +54,11 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-
+        'custom' => [
+            'driver' => 'local',
+            'root'   => '/var/www/epmis/storage/app',
+            // 'root'   => '/storage/Sites/epmis/storage/app',
+        ], 
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_KEY'),
