@@ -8,7 +8,7 @@ Overview
 <div class="p-modal">
   <div class="p-modal__dialog">
   	<form method="POST" id="my-awesome-dropzone" enctype="multipart/form-data"  action="{{ route('eligibilities.store') }}"   accept-charset="UTF-8" >
-  		
+
   		<input name="_token" type="hidden" value="{{ csrf_token() }}">
   		<input name="_method" type="hidden" value="POST">
 	    <div class="p-modal__header">
@@ -59,10 +59,21 @@ Overview
 		      </div>
 	    </div>
 	    <div class="p-modal__footer">
+	    	<div class="c-alert u-border-radius">
+	    		Are you sure you are ready to save this to your record? You might not be able to undo this action later.
+					Please review all your data before saving your record.
+					<br>
+					<br>
+					<br>
+					<div class="checkbox">
+						<input id="agreement" type="checkbox" name="agreement" class="checkbox" aria-required="true" aria-invalid="true"> 
+						<label for="agreement">I agree and wish to continue</label>
+					</div>
+	    	</div>
 	      <div class="p-actions">
 	        <div class="c-button-group u-pos-right">
 	          <button class="c-button u-border-radius js-close-modal">Cancel</button>
-	          <button class="c-button u-border-radius">Okay</button>
+	          <button class="c-button u-border-radius" id="save" style="visibility: hidden;">Okay</button>
 	        </div>
 	      </div>
 	    </div>
@@ -207,6 +218,14 @@ Overview
 
 	  closeModal.on("click", function(){
 	    modal.removeClass('p-modal--active');
+  	})
+
+	  $('#agreement').on("click", function(){
+	  	if($(this).is(":checked")) {
+		    $('#save').css('visibility', 'visible');
+	  	}else{
+		    $('#save').css('visibility', 'hidden');
+	  	}
   	})
   })
 	

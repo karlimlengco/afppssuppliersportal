@@ -45,10 +45,38 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
         @endif
     @endforeach
     @if(\Sentinel::getUser()->user_type == 'supplier')
-        <div class="c-navlinks__item ">
+    <?php 
+      $user       =   \Sentinel::getUser();
+          $suppliers  =   json_decode($user->suppliers);
+
+          $resource   =   Revlv\Settings\Suppliers\SupplierEloquent::select([
+              'supplier_attachments.name',
+              'supplier_attachments.type',
+              'supplier_attachments.issued_date',
+              'supplier_attachments.validity_date',
+              'supplier_attachments.ref_number',
+              'supplier_attachments.place',
+          ]);
+          $resource   =   $resource->leftJoin('supplier_attachments', 'supplier_attachments.supplier_id', 'suppliers.id');
+          $resource   =   $resource->whereIn('suppliers.id', $suppliers);
+          $resource   =   $resource->orderBy('supplier_attachments.issued_date', 'asc');
+          $resource   =   $resource->groupBy([
+              'supplier_attachments.name',
+              'supplier_attachments.type',
+              'supplier_attachments.issued_date',
+              'supplier_attachments.validity_date',
+              'supplier_attachments.ref_number',
+              'supplier_attachments.place',
+          ]);
+          $resource   =   $resource->get();
+    ?>
+        <div class="c-navlinks__item {{ (request()->route()->getName() == 'eligibilities.index') ? 'c-navlinks__item--active' : ''}}">
           <a href="{{route('eligibilities.index')}}" class="c-navlinks__link">
             <span class="c-navlinks__icon"><i class="nc-icon-mini files_drawer"></i></span>
-            <span class="c-navlinks__label">Eligibilities</span>
+            <span class="c-navlinks__label">
+              Eligibilities 
+            </span>
+            <span class="c-badge u-pos-right">{{4-count($resource)}}</span>
           </a>
         </div>
     @endif

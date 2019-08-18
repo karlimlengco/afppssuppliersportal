@@ -40,7 +40,7 @@
                         <p>Loading...</p>
                     </div>
 
-                    @include('layouts.alerts')
+                    {{-- @include('layouts.alerts') --}}
                     @yield('contents')
                 </div>
             </div>
