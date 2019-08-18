@@ -20,13 +20,14 @@
         <thead>
             <tr>
                 <th>UPR No.</th>
-                <th>Project Name/ Activity</th>
+                <th width="150px">Project Name/ Activity</th>
                 <th>Unit</th>
                 <th>ABC</th>
                 <th>Bid Amount</th>
-                <th>Status</th> 
-                <th># Due Days</th>
-                <th>Date Prepared</th>
+                <th width="150px">Status</th> 
+                <th width="120px"># Due Days</th>
+                <th width="120px">Remarks</th>
+                <th width="80px">Date Prepared</th>
             </tr>
         </thead>
         <tbody>
@@ -45,7 +46,8 @@
                 0
               @endif
             </td>
-            <td>{{$data->date_prepared->format('F d Y')}}</td>
+            <td>{{$data->last_remarks}}</td>
+            <td>{{$data->date_prepared->format('M-d-y')}}</td>
    				</tr>
    			@endforeach()
         </tbody>
