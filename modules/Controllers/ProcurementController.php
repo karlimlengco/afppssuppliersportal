@@ -76,7 +76,7 @@ class ProcurementController extends Controller
         // $resources  =    $resources->leftJoin('notice_of_awards', 'notice_of_awards.proponent_id', '=', 'rfq_proponents.id');
 
             $resources  =   $resources->leftJoin('notice_of_awards', 'notice_of_awards.upr_id', '=', 'unit_purchase_requests.id');
-            
+
         $resources =    $resources->whereNotNull('request_for_quotations.id');
         $resources =    $resources->whereNull('notice_of_awards.id');
         if($user->user_type == 'supplier'){
@@ -150,6 +150,7 @@ class ProcurementController extends Controller
         $resources =    $resources->where('unit_purchase_requests.status', '<>','completed');
         $resources =    $resources->where('unit_purchase_requests.status', '<>','cancelled');
         $resources =    $resources->where('unit_purchase_requests.status', '<>','cancel');
+        $resources =    $resources->where('unit_purchase_requests.status', '<>','completed');
         $resources =    $resources->whereNotNull('notice_of_awards.id');
         if($request->has('search')){
             $search = $request->get('search');
