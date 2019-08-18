@@ -41,6 +41,7 @@
         </thead>
         <tbody>
         	@foreach($resources as $data) 
+          @if($data->proponent_id == null || $data->rfq == $data->proponent_id)
      				<tr>
      					<td>{{$data->upr_number}}</td>
      					<td>{{$data->project_name}}</td>
@@ -58,6 +59,7 @@
             <td>{{$data->last_remarks}}</td>
             <td>{{$data->date_prepared->format('M-d-y')}}</td>
      				</tr>
+            @endif
      			@endforeach()
         </tbody>
       </table>

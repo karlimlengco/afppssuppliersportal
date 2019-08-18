@@ -65,22 +65,26 @@ class ProcurementController extends Controller
             'unit_purchase_requests.*',
             'unit_purchase_requests.next_step',
             'rfq_proponents.bid_amount',
+            'rfq_proponents.id as rfq', 
+            'notice_of_awards.proponent_id'
         ]);
 
         $resources =    $resources->leftJoin('request_for_quotations', 'request_for_quotations.upr_id', 'unit_purchase_requests.id');
 
         $resources =    $resources->leftJoin('rfq_proponents', 'rfq_proponents.rfq_id', 'request_for_quotations.id');
 
-        $resources  =    $resources->leftJoin('notice_of_awards', 'notice_of_awards.proponent_id', '=', 'rfq_proponents.id');
+        // $resources  =    $resources->leftJoin('notice_of_awards', 'notice_of_awards.proponent_id', '=', 'rfq_proponents.id');
 
+            $resources  =   $resources->leftJoin('notice_of_awards', 'notice_of_awards.upr_id', '=', 'unit_purchase_requests.id');
+            
         $resources =    $resources->whereNotNull('request_for_quotations.id');
-        $resources =    $resources->whereNotNull('notice_of_awards.id');
+        $resources =    $resources->whereNull('notice_of_awards.id');
         if($user->user_type == 'supplier'){
             $resources =    $resources->whereIn('rfq_proponents.proponents', $suppliers);
         }else{
             $resources =    $resources->where('unit_purchase_requests.units', $user->unit_id);
         }
-        
+
         $resources =    $resources->where('unit_purchase_requests.status', '<>','completed');
         $resources =    $resources->where('unit_purchase_requests.status', '<>','cancelled');
         $resources =    $resources->where('unit_purchase_requests.status', '<>','cancel');
