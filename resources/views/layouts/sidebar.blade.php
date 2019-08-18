@@ -76,7 +76,7 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
             <span class="c-navlinks__label">
               Eligibilities 
             </span>
-            <span class="c-badge u-pos-right">{{4-count($resource)}}</span>
+            {{-- <span class="c-badge u-pos-right">{{count($resource)}}</span> --}}
           </a>
         </div>
     @endif
