@@ -59,6 +59,7 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
           ]);
           $resource   =   $resource->leftJoin('supplier_attachments', 'supplier_attachments.supplier_id', 'suppliers.id');
           $resource   =   $resource->whereIn('suppliers.id', $suppliers);
+          $resource   =   $resource->where('validity_date', '>=', \Carbon\Carbon::now());
           $resource   =   $resource->orderBy('supplier_attachments.issued_date', 'asc');
           $resource   =   $resource->groupBy([
               'supplier_attachments.name',
@@ -69,6 +70,12 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
               'supplier_attachments.place',
           ]);
           $resource   =   $resource->get();
+
+          $arr = [];
+          foreach ($resource as  $value) {
+            $arr[$value->type] = $value;
+            # code...
+          }
     ?>
         <div class="c-navlinks__item {{ (request()->route()->getName() == 'eligibilities.index') ? 'c-navlinks__item--active' : ''}}">
           <a href="{{route('eligibilities.index')}}" class="c-navlinks__link">
@@ -76,7 +83,7 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
             <span class="c-navlinks__label">
               Eligibilities 
             </span>
-            {{-- <span class="c-badge u-pos-right">{{count($resource)}}</span> --}}
+            <span class="c-badge u-pos-right">{{4- count($arr)}}</span>
           </a>
         </div>
     @endif

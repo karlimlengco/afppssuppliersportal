@@ -90,6 +90,7 @@ Overview
 	] --}}
   <br>
   <h3 class="u-margin-l-top">Eligibilities</h3>
+  <?php $today = \Carbon\Carbon::now(); ?>
   <div class="twelve columns">
 		<table class="c-table c-table--stripe c-table--hover">
 			<thead>
@@ -111,7 +112,7 @@ Overview
 					<td>{{$resource['dti']->ref_number}}</td>
 					<td>{{$resource['dti']->place}}</td>
 					<td>{{$resource['dti']->issued_date}}</td>
-					<td>{{$resource['dti']->validity_date}}</td>
+					<td>{{$resource['dti']->validity_date}} {{($resource['dti']->validity_date < $today) ? '- EXPIRED' :''}} </td>
 					@else
 					<td></td>
 					<td></td>
@@ -134,7 +135,7 @@ Overview
 					<td>{{$resource['mayors_permit']->ref_number}}</td>
 					<td>{{$resource['mayors_permit']->place}}</td>
 					<td>{{$resource['mayors_permit']->issued_date}}</td>
-					<td>{{$resource['mayors_permit']->validity_date}}</td>
+					<td>{{$resource['mayors_permit']->validity_date}} {{($resource['mayors_permit']->validity_date < $today) ? '- EXPIRED' :''}} </td>
 					@else
 					<td></td>
 					<td></td>
@@ -157,7 +158,7 @@ Overview
 					<td>{{$resource['tax_clearance']->ref_number}}</td>
 					<td>{{$resource['tax_clearance']->place}}</td>
 					<td>{{$resource['tax_clearance']->issued_date}}</td>
-					<td>{{$resource['tax_clearance']->validity_date}}</td>
+					<td>{{$resource['tax_clearance']->validity_date}} {{($resource['tax_clearance']->validity_date < $today) ? '- EXPIRED' :''}} </td>
 					@else
 					<td></td>
 					<td></td>
@@ -180,7 +181,7 @@ Overview
 					<td>{{$resource['philgeps_registraion']->ref_number}}</td>
 					<td>{{$resource['philgeps_registraion']->place}}</td>
 					<td>{{$resource['philgeps_registraion']->issued_date}}</td>
-					<td>{{$resource['philgeps_registraion']->validity_date}}</td>
+					<td>{{$resource['philgeps_registraion']->validity_date}} {{($resource['philgeps_registraion']->validity_date < $today) ? '- EXPIRED' :''}} </td>
 					@else
 					<td></td>
 					<td></td>
