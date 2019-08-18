@@ -9,7 +9,7 @@
                 {
                     "route" :   "procurements.ongoing",
                     "icon"      :"nc-icon-glyph lg users_multiple-11",
-                    "name"  :   "Ongoing"
+                    "name"  :   "Ongoing (not yet awarded)"
                 },
                 {
                     "route" :   "procurements.awarded",
