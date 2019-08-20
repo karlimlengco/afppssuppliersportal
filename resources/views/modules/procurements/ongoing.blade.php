@@ -35,6 +35,7 @@
                 <th>Bid Amount</th>
                 <th width="150px">Status</th>
                 <th width="120px"># Due Days</th>
+                <th width="80px">Concerned Office</th>
                 <th width="120px" >Remarks</th>
                 <th width="80px" >Date Prepared</th>
             </tr>
@@ -56,6 +57,13 @@
                   0
                 @endif
               </td>
+            <td>
+              @if(in_array($data->status, $accounting))
+                Accounting
+              @else
+                PCCO
+              @endif
+            </td>
             <td>{{$data->last_remarks}}</td>
             <td>{{$data->date_prepared->format('M-d-y')}}</td>
      				</tr>

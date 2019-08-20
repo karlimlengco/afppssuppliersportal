@@ -20,6 +20,21 @@ use \Revlv\Settings\ProcurementCenters\ProcurementCenterRepository;
 class ProcurementController extends Controller
 {
 
+    protected $accounting = [
+        'Prepare LDDAP-ADA',
+        'Pre-Audit',
+        'Journal Entry Voucher',
+        'Sign Box A of DV',
+        'Counter Sign Cheque',
+        'Receive Payment',
+        'Sign LDDAP-ADA or Prepare Cheque',
+        'Counter Sign Cheque',
+        'Release LDDAP-ADA',
+        'Prepare LDDAP-ADA',
+        'Sign Box D of DV',
+        'Sign Box C of DV',
+    ];
+
     /**
      * [$blankRfq description]
      *
@@ -103,6 +118,7 @@ class ProcurementController extends Controller
 
         return $this->view('modules.procurements.ongoing',[
             'resources' => $resources,
+            'accounting' => $this->accounting,
             'today' => Carbon::now()->format('Y-m-d')
         ]);
     }
@@ -167,6 +183,7 @@ class ProcurementController extends Controller
 
         return $this->view('modules.procurements.awarded',[
             'resources' => $resources,
+            'accounting' => $this->accounting,
             'today' => Carbon::now()->format('Y-m-d')
         ]);
     }
@@ -313,6 +330,7 @@ class ProcurementController extends Controller
 
         return $this->view('modules.procurements.all',[
             'resources' => $resources,
+            'accounting' => $this->accounting,
             'today' => Carbon::now()->format('Y-m-d')
         ]);
     }
