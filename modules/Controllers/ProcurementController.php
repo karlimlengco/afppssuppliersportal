@@ -21,6 +21,7 @@ class ProcurementController extends Controller
 {
 
     protected $accounting = [
+        'Preparation of DV',
         'Prepare LDDAP-ADA',
         'Pre-Audit',
         'Journal Entry Voucher',
