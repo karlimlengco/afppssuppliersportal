@@ -113,7 +113,7 @@ class ProcurementController extends Controller
                  $query->orWhere('unit_purchase_requests.status', 'like', "%$search%");
              });
         }
-        $resources =    $resources->orderBy('date_prepared');
+        $resources =    $resources->orderBy('date_prepared', 'desc');
         // dd($resources->get());
         $resources =    $resources->paginate(20);
 
@@ -177,7 +177,7 @@ class ProcurementController extends Controller
                  $query->orWhere('unit_purchase_requests.status', 'like', "%$search%");
              });
         }
-        $resources =    $resources->orderBy('date_prepared');
+        $resources =    $resources->orderBy('date_prepared', 'desc');
         // dd($resources->get());
         $resources =    $resources->paginate(20);
 
@@ -244,7 +244,7 @@ class ProcurementController extends Controller
                  $query->orWhere('unit_purchase_requests.status', 'like', "%$search%");
              });
         }
-        $resources =    $resources->orderBy('date_prepared');
+        $resources =    $resources->orderBy('date_prepared', 'desc');
         // dd($resources->get());
         $resources =    $resources->paginate(20);
 
@@ -326,7 +326,7 @@ class ProcurementController extends Controller
              });
         }
 
-        $resources =    $resources->orderBy('date_prepared');
+        $resources =    $resources->orderBy('date_prepared', 'desc');
         $resources =    $resources->paginate(20);
 
         return $this->view('modules.procurements.all',[
