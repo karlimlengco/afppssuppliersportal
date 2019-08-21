@@ -86,6 +86,16 @@ $sidebar      = new \Revlv\Sidebar\SidebarGenerator($currentRoute);
             <span class="c-badge u-pos-right">{{4- count($arr)}}</span>
           </a>
         </div>
+    @else
+
+    <div class="c-navlinks__item {{ (request()->route()->getName() == 'app.index') ? 'c-navlinks__item--active' : ''}}">
+      <a href="{{route('app.index')}}" class="c-navlinks__link">
+        <span class="c-navlinks__icon"><i class="nc-icon-mini files_drawer"></i></span>
+        <span class="c-navlinks__label">
+          APP 
+        </span>
+      </a>
+    </div>
     @endif
   </div>
 </div>

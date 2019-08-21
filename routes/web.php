@@ -31,7 +31,11 @@ Route::get('procurements/failed', '\Revlv\Controllers\ProcurementController@fail
 Route::get('procurements/paid', '\Revlv\Controllers\ProcurementController@paid')->name('procurements.paid');
 Route::get('procurements/all', '\Revlv\Controllers\ProcurementController@all')->name('procurements.all');
 
+Route::post('app/upload/{id}', '\Revlv\Controllers\AppController@upload')->name('app.upload');
+Route::get('app/download/{id}', '\Revlv\Controllers\AppController@download')->name('app.download');
+
 Route::resource('eligibilities', '\Revlv\Controllers\EligibilityController');
+Route::resource('app', '\Revlv\Controllers\AppController');
 
 /*
 |--------------------------------------------------------------------------
