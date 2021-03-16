@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>AFP Procurement Service</title>
+        <title>AFPPS END-USER KIOSK</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -25,7 +25,7 @@
     <body class="o-body o-body--outline">>
 
     <div class="o-container"  id="app">
-            
+
       @yield('modal')
       <div class="o-container__wrapper">
           @include('layouts.topbar')
@@ -33,7 +33,7 @@
 
           <div class="o-content">
             <div class="o-content__wrapper">
-                
+
                 <div class="row">
                     <div class="preloader">
                         <img src="/img/preloader.gif" alt="">
@@ -46,15 +46,15 @@
             </div>
         </div>
       </div>
-            
+
     </div>
 
     @include('layouts.footer')
     @include('layouts.scripts')
-    
+
     @yield('scripts')
     <script type="text/javascript">
-    /* preloader */ 
+    /* preloader */
          $.ajaxSetup({
              headers: {
                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
