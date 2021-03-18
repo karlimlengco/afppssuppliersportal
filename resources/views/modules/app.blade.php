@@ -2,7 +2,7 @@
   <div class="c-breadcrumbs">
     <a href="" class="c-breadcrumbs__item">APP</a>
     <a href="" class="c-breadcrumbs__item c-breadcrumbs__item--active">All</a>
-  </div> 
+  </div>
   <div class="c-button-group u-pos-right">
 
     <a id="attachment-button"  href="#" class="c-button c-button--icon js-help-button" data-tippy-content="Help Button" data-tippy-arrow="true">
@@ -20,7 +20,7 @@
   		Add APP with attachment
   	</div>
   	<div class="p-modal__body">
-  		
+
   		<div class="row">
   		    <div class="four columns">
   		        {!! Form::textField('name', 'Name') !!}
@@ -53,7 +53,7 @@
       <div class="p-actions">
         <div class="c-button-group u-pos-right">
           <button id="attachment-button-close" class="c-button u-border-radius">Cancel</button>
-          <button type="submit" class="c-button u-border-radius">Okay</button>
+          <button type="submit" class="c-button u-border-radius">Save</button>
         </div>
       </div>
     </div>
@@ -89,7 +89,7 @@
         </tbody>
       </table>
       {{ $resources->links() }}
- 
+
     </div>
 </div>
 

@@ -64,7 +64,7 @@ class ProcurementController extends Controller
     {
         $user      = \Sentinel::getUser();
         $suppliers = $user->suppliers;
-
+        $year      = '2021';
         $suppliers = json_decode($suppliers);
 
         // $resources  =    $resources->leftJoin('notice_of_awards', 'notice_of_awards.proponent_id', '=', 'rfq_proponents.id');
@@ -141,6 +141,13 @@ class ProcurementController extends Controller
                  $query->orWhere('unit_purchase_requests.status', 'like', "%$search%");
              });
         }
+
+        $resources =    $resources->where(function($query) use ($year){
+            $query->whereYear('unit_purchase_requests.date_processed', $year);
+            $query->orWhere(function($nest) use($year) {
+                $nest->whereYear('unit_purchase_requests.date_processed', '2020');
+            });
+         });
         $resources =    $resources->orderBy('date_prepared', 'desc');
         // dd($resources->get());
         $resources =    $resources->paginate(20);
@@ -163,6 +170,7 @@ class ProcurementController extends Controller
         $suppliers = $user->suppliers;
 
         $suppliers = json_decode($suppliers);
+        $year = '2021';
 
         $resources =    $model->select([
             'unit_purchase_requests.id',
@@ -201,6 +209,12 @@ class ProcurementController extends Controller
                  $query->orWhere('unit_purchase_requests.status', 'like', "%$search%");
              });
         }
+        $resources =    $resources->where(function($query) use ($year){
+            $query->whereYear('unit_purchase_requests.date_processed', $year);
+            $query->orWhere(function($nest) use($year) {
+                $nest->whereYear('unit_purchase_requests.date_processed', '2020');
+            });
+         });
         $resources =    $resources->orderBy('date_prepared', 'desc');
         // dd($resources->get());
         $resources =    $resources->paginate(20);
@@ -222,6 +236,7 @@ class ProcurementController extends Controller
     {
         $user      = \Sentinel::getUser();
         $suppliers = $user->suppliers;
+        $year = '2021';
 
         $suppliers = json_decode($suppliers);
 
@@ -265,6 +280,12 @@ class ProcurementController extends Controller
                  $query->orWhere('unit_purchase_requests.status', 'like', "%$search%");
              });
         }
+        $resources =    $resources->where(function($query) use ($year){
+            $query->whereYear('unit_purchase_requests.date_processed', $year);
+            $query->orWhere(function($nest) use($year) {
+                $nest->whereYear('unit_purchase_requests.date_processed', '2020');
+            });
+        });
         $resources =    $resources->orderBy('date_prepared', 'desc');
         // dd($resources->get());
         $resources =    $resources->paginate(20);
@@ -285,6 +306,7 @@ class ProcurementController extends Controller
     {
         $user      = \Sentinel::getUser();
         $suppliers = $user->suppliers;
+        $year      = '2021';
 
         $suppliers = json_decode($suppliers);
 
@@ -344,6 +366,13 @@ class ProcurementController extends Controller
                  $query->orWhere('unit_purchase_requests.status', 'like', "%$search%");
              });
         }
+
+        $resources =    $resources->where(function($query) use ($year){
+            $query->whereYear('unit_purchase_requests.date_processed', $year);
+            $query->orWhere(function($nest) use($year) {
+                $nest->whereYear('unit_purchase_requests.date_processed', '2020');
+            });
+        });
 
         $resources =    $resources->orderBy('date_prepared', 'desc');
         $resources =    $resources->paginate(20);
