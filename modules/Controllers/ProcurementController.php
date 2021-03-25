@@ -351,7 +351,7 @@ class ProcurementController extends Controller
 
             $resources  =   $resources->leftJoin('notice_of_awards', 'notice_of_awards.upr_id', '=', 'unit_purchase_requests.id');
             $resources =    $resources->leftJoin('rfq_proponents', 'rfq_proponents.id', 'notice_of_awards.proponent_id');
-            $resources =    $resources->whereNotNull('request_for_quotations.id');
+            // $resources =    $resources->whereNotNull('request_for_quotations.id');
 
         if($user->user_type == 'supplier'){
             $resources =    $resources->whereIn('rfq_proponents.proponents', $suppliers);
