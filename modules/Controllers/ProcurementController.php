@@ -144,9 +144,9 @@ class ProcurementController extends Controller
 
         $resources =    $resources->where(function($query) use ($year){
             $query->whereYear('unit_purchase_requests.date_processed', $year);
-            $query->orWhere(function($nest) use($year) {
-                $nest->whereYear('unit_purchase_requests.date_processed', '2020');
-            });
+            // $query->orWhere(function($nest) use($year) {
+            //     $nest->whereYear('unit_purchase_requests.date_processed', '2020');
+            // });
          });
         $resources =    $resources->orderBy('date_prepared', 'desc');
         // dd($resources->get());
@@ -211,9 +211,9 @@ class ProcurementController extends Controller
         }
         $resources =    $resources->where(function($query) use ($year){
             $query->whereYear('unit_purchase_requests.date_processed', $year);
-            $query->orWhere(function($nest) use($year) {
-                $nest->whereYear('unit_purchase_requests.date_processed', '2020');
-            });
+            // $query->orWhere(function($nest) use($year) {
+            //     $nest->whereYear('unit_purchase_requests.date_processed', '2020');
+            // });
          });
         $resources =    $resources->orderBy('date_prepared', 'desc');
         // dd($resources->get());
@@ -282,9 +282,9 @@ class ProcurementController extends Controller
         }
         $resources =    $resources->where(function($query) use ($year){
             $query->whereYear('unit_purchase_requests.date_processed', $year);
-            $query->orWhere(function($nest) use($year) {
-                $nest->whereYear('unit_purchase_requests.date_processed', '2020');
-            });
+            // $query->orWhere(function($nest) use($year) {
+            //     $nest->whereYear('unit_purchase_requests.date_processed', '2020');
+            // });
         });
         $resources =    $resources->orderBy('date_prepared', 'desc');
         // dd($resources->get());
@@ -340,6 +340,8 @@ class ProcurementController extends Controller
                 'unit_purchase_requests.units',
                 'unit_purchase_requests.delay_count',
                 'unit_purchase_requests.next_due',
+                'rfq_proponents.bid_amount',
+                'rfq_proponents.proponents',
                 'unit_purchase_requests.next_allowable',
                 'unit_purchase_requests.next_step'
             ]);
@@ -369,9 +371,9 @@ class ProcurementController extends Controller
 
         $resources =    $resources->where(function($query) use ($year){
             $query->whereYear('unit_purchase_requests.date_processed', $year);
-            $query->orWhere(function($nest) use($year) {
-                $nest->whereYear('unit_purchase_requests.date_processed', '2020');
-            });
+            // $query->orWhere(function($nest) use($year) {
+            //     $nest->whereYear('unit_purchase_requests.date_processed', '2020');
+            // });
         });
 
         $resources =    $resources->orderBy('date_prepared', 'desc');
