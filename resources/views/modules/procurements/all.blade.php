@@ -52,7 +52,7 @@
               @if(in_array($data->status, $accounting))
                 Accounting
               @else
-                PCCO
+                PC/CO
               @endif
             </td>
             <td>{{$data->last_remarks}}</td>

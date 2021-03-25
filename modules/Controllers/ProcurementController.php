@@ -26,6 +26,7 @@ class ProcurementController extends Controller
         'Pre-Audit',
         'Journal Entry Voucher',
         'Sign Box A of DV',
+        'MFO Obligation',
         'Counter Sign Cheque',
         'Receive Payment',
         'Sign LDDAP-ADA or Prepare Cheque',

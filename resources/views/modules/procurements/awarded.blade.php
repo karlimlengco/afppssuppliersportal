@@ -2,7 +2,7 @@
   <div class="c-breadcrumbs">
     <a href="" class="c-breadcrumbs__item">Procurements</a>
     <a href="" class="c-breadcrumbs__item c-breadcrumbs__item--active">Awarded</a>
-  </div> 
+  </div>
   <div class="c-button-group u-pos-right">
     <button class="c-button c-button--icon c-button--disabled js-help-button" data-tippy-content="Help Button" data-tippy-arrow="true">
       <i class="nc-icon-mini ui-e_round-e-help"></i>
@@ -24,7 +24,7 @@
                 <th>Unit</th>
                 <th>ABC</th>
                 <th>Bid Amount</th>
-                <th width="150px">Status</th> 
+                <th width="150px">Status</th>
                 <th width="120px"># Due Days</th>
                 <th width="80px">Concerned Office</th>
                 <th width="120px">Remarks</th>
@@ -39,7 +39,7 @@
               <td>{{($data->unit) ? $data->unit->short_code: ''}}</td>
    					<td>{{number_format($data->total_amount,2)}}</td>
    					<td>{{number_format($data->bid_amount,2)}}</td>
-   					<td>{{$data->status}}</td> 
+   					<td>{{$data->status}}</td>
             <td>
               @if($data->next_due != null && $data->next_due < $today)
                 {{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::createFromFormat('Y-m-d',$data->next_due))}} days due for {{$data->next_step}}
@@ -51,7 +51,7 @@
               @if(in_array($data->status, $accounting))
                 Accounting
               @else
-                PCCO
+                PC/CO
               @endif
             </td>
             <td>{{$data->last_remarks}}</td>

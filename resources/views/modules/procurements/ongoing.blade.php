@@ -2,7 +2,7 @@
   <div class="c-breadcrumbs">
     <a href="" class="c-breadcrumbs__item">Procurements</a>
     <a href="" class="c-breadcrumbs__item c-breadcrumbs__item--active">Ongoing</a>
-  </div> 
+  </div>
   <div class="c-button-group u-pos-right">
     <button class="c-button c-button--icon c-button--disabled js-help-button" data-tippy-content="Help Button" data-tippy-arrow="true">
       <i class="nc-icon-mini ui-e_round-e-help"></i>
@@ -24,7 +24,7 @@
 <div class="row">
     <h3 class="u-margin-l-top">List of Ongoing Unit Purchase Requests</h3>
     <div class="twelve columns">
-      @if(count($resources )) 
+      @if(count($resources ))
       <table class="c-table c-table--stripe c-table--hover">
         <thead>
             <tr>
@@ -41,7 +41,7 @@
             </tr>
         </thead>
         <tbody>
-        	@foreach($resources as $data) 
+        	@foreach($resources as $data)
           @if($data->proponent_id == null || $data->rfq == $data->proponent_id)
      				<tr>
      					<td>{{$data->upr_number}}</td>
@@ -61,7 +61,7 @@
               @if(in_array($data->status, $accounting))
                 Accounting
               @else
-                PCCO
+                PC/CO
               @endif
             </td>
             <td>{{$data->last_remarks}}</td>
@@ -71,7 +71,7 @@
      			@endforeach()
         </tbody>
       </table>
-      
+
       {{ $resources->links() }}
       @else
       @endif
