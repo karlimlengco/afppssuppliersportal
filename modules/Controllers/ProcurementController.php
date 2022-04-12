@@ -144,7 +144,7 @@ class ProcurementController extends Controller
         }
 
         $resources =    $resources->where(function($query) use ($year){
-            $query->whereYear('unit_purchase_requests.date_processed', $year);
+            // $query->whereYear('unit_purchase_requests.date_processed', $year);
             // $query->orWhere(function($nest) use($year) {
             //     $nest->whereYear('unit_purchase_requests.date_processed', '2020');
             // });
@@ -211,7 +211,7 @@ class ProcurementController extends Controller
              });
         }
         $resources =    $resources->where(function($query) use ($year){
-            $query->whereYear('unit_purchase_requests.date_processed', $year);
+            // $query->whereYear('unit_purchase_requests.date_processed', $year);
             // $query->orWhere(function($nest) use($year) {
             //     $nest->whereYear('unit_purchase_requests.date_processed', '2020');
             // });
@@ -282,7 +282,7 @@ class ProcurementController extends Controller
              });
         }
         $resources =    $resources->where(function($query) use ($year){
-            $query->whereYear('unit_purchase_requests.date_processed', $year);
+            // $query->whereYear('unit_purchase_requests.date_processed', $year);
             // $query->orWhere(function($nest) use($year) {
             //     $nest->whereYear('unit_purchase_requests.date_processed', '2020');
             // });
@@ -369,7 +369,7 @@ class ProcurementController extends Controller
         }
 
         $resources =    $resources->where(function($query) use ($year){
-            $query->whereYear('unit_purchase_requests.date_processed', $year);
+            // $query->whereYear('unit_purchase_requests.date_processed', $year);
             // $query->orWhere(function($nest) use($year) {
             //     $nest->whereYear('unit_purchase_requests.date_processed', '2020');
             // });
